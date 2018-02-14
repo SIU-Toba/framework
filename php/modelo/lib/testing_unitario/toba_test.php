@@ -88,7 +88,7 @@ class EqualArrayExpectation extends SimpleExpectation
     var $_value;
 
 
-    function EqualArrayExpectation($value, $message = '%s') {
+    function __construct($value, $message = '%s') {
         $this->SimpleExpectation($message);
         $this->_value = $value;
     }

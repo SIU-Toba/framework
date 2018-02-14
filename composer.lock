@@ -4,8 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d8b0de9ad3addc554c0a4b2888dfa228",
-    "content-hash": "7026a372e93eda056ba3a45bb920bf17",
+    "content-hash": "892736ba95e5c9873ee558dd61d94aee",
     "packages": [
         {
             "name": "dapphp/securimage",
@@ -52,7 +51,7 @@
                 "captcha",
                 "security"
             ],
-            "time": "2017-11-21 02:29:19"
+            "time": "2017-11-21T02:29:19+00:00"
         },
         {
             "name": "doctrine/cache",
@@ -231,48 +230,6 @@
             "time": "2017-02-03 22:48:59"
         },
         {
-            "name": "element-34/php-webdriver",
-            "version": "v1.12.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Element-34/php-webdriver.git",
-                "reference": "78245f11984bb75a1c3eed8df169d6b5e2445095"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Element-34/php-webdriver/zipball/78245f11984bb75a1c3eed8df169d6b5e2445095",
-                "reference": "78245f11984bb75a1c3eed8df169d6b5e2445095",
-                "shasum": ""
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "PHPWebDriver",
-                    "test",
-                    "www"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "Adam Goucher",
-                    "email": "adam@element34.ca",
-                    "role": "lead"
-                }
-            ],
-            "description": "Thin php client for webdriver",
-            "homepage": "https://github.com/Element-34/php-webdriver",
-            "keywords": [
-                "php",
-                "selenium",
-                "webdriver"
-            ],
-            "time": "2013-08-22 01:01:34"
-        },
-        {
             "name": "ezyang/htmlpurifier",
             "version": "v4.9.3",
             "source": {
@@ -318,6 +275,61 @@
                 "html"
             ],
             "time": "2017-06-03 02:28:16"
+        },
+        {
+            "name": "facebook/webdriver",
+            "version": "1.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/facebook/php-webdriver.git",
+                "reference": "86b5ca2f67173c9d34340845dd690149c886a605"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/facebook/php-webdriver/zipball/86b5ca2f67173c9d34340845dd690149c886a605",
+                "reference": "86b5ca2f67173c9d34340845dd690149c886a605",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-zip": "*",
+                "php": "^5.6 || ~7.0",
+                "symfony/process": "^2.8 || ^3.1 || ^4.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.0",
+                "guzzle/guzzle": "^3.4.1",
+                "php-coveralls/php-coveralls": "^1.0.2",
+                "php-mock/php-mock-phpunit": "^1.1",
+                "phpunit/phpunit": "^5.7",
+                "sebastian/environment": "^1.3.4 || ^2.0 || ^3.0",
+                "squizlabs/php_codesniffer": "^2.6",
+                "symfony/var-dumper": "^3.3 || ^4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-community": "1.5-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Facebook\\WebDriver\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "description": "A PHP client for Selenium WebDriver",
+            "homepage": "https://github.com/facebook/php-webdriver",
+            "keywords": [
+                "facebook",
+                "php",
+                "selenium",
+                "webdriver"
+            ],
+            "time": "2017-11-15T11:08:09+00:00"
         },
         {
             "name": "firebase/php-jwt",
@@ -482,6 +494,127 @@
                 "unicode"
             ],
             "time": "2017-03-23 17:02:28"
+        },
+        {
+            "name": "gettext/gettext",
+            "version": "v3.6.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/oscarotero/Gettext.git",
+                "reference": "cd3be64443551e3a693117c4bccbe53e36282456"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/oscarotero/Gettext/zipball/cd3be64443551e3a693117c4bccbe53e36282456",
+                "reference": "cd3be64443551e3a693117c4bccbe53e36282456",
+                "shasum": ""
+            },
+            "require": {
+                "gettext/languages": "2.*",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "illuminate/view": "*",
+                "symfony/yaml": "~2",
+                "twig/extensions": "*",
+                "twig/twig": "*"
+            },
+            "suggest": {
+                "illuminate/view": "Is necessary if you want to use the Blade extractor",
+                "symfony/yaml": "Is necessary if you want to use the Yaml extractor/generator",
+                "twig/extensions": "Is necessary if you want to use the Twig extractor",
+                "twig/twig": "Is necessary if you want to use the Twig extractor"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Gettext\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Oscar Otero",
+                    "email": "oom@oscarotero.com",
+                    "homepage": "http://oscarotero.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PHP gettext manager",
+            "homepage": "https://github.com/oscarotero/Gettext",
+            "keywords": [
+                "JS",
+                "gettext",
+                "i18n",
+                "mo",
+                "po",
+                "translation"
+            ],
+            "time": "2016-08-01T18:09:57+00:00"
+        },
+        {
+            "name": "gettext/languages",
+            "version": "2.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mlocati/cldr-to-gettext-plural-rules.git",
+                "reference": "49c39e51569963cc917a924b489e7025bfb9d8c7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mlocati/cldr-to-gettext-plural-rules/zipball/49c39e51569963cc917a924b489e7025bfb9d8c7",
+                "reference": "49c39e51569963cc917a924b489e7025bfb9d8c7",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4"
+            },
+            "bin": [
+                "bin/export-plural-rules",
+                "bin/export-plural-rules.php"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Gettext\\Languages\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michele Locati",
+                    "email": "mlocati@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "gettext languages with plural rules",
+            "homepage": "https://github.com/mlocati/cldr-to-gettext-plural-rules",
+            "keywords": [
+                "cldr",
+                "i18n",
+                "internationalization",
+                "l10n",
+                "language",
+                "languages",
+                "localization",
+                "php",
+                "plural",
+                "plural rules",
+                "plurals",
+                "translate",
+                "translations",
+                "unicode"
+            ],
+            "time": "2017-03-23T17:02:28+00:00"
         },
         {
             "name": "guiguiboy/php-cli-progress-bar",
@@ -877,6 +1010,50 @@
             "time": "2016-10-03 12:34:15"
         },
         {
+            "name": "jaimeperez/twig-configurable-i18n",
+            "version": "v1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jaimeperez/twig-configurable-i18n.git",
+                "reference": "75d4926fd102c9e62219ad7f94a6136d2f2ccd93"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jaimeperez/twig-configurable-i18n/zipball/75d4926fd102c9e62219ad7f94a6136d2f2ccd93",
+                "reference": "75d4926fd102c9e62219ad7f94a6136d2f2ccd93",
+                "shasum": ""
+            },
+            "require": {
+                "twig/extensions": "^1.3"
+            },
+            "type": "project",
+            "autoload": {
+                "psr-4": {
+                    "JaimePerez\\TwigConfigurableI18n\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-2.1"
+            ],
+            "authors": [
+                {
+                    "name": "Jaime Perez",
+                    "email": "jaime.perez@uninett.no"
+                }
+            ],
+            "description": "This is an extension on top of Twig's i18n extension, allowing you to customize which functions to use for translations.",
+            "keywords": [
+                "extension",
+                "gettext",
+                "i18n",
+                "internationalization",
+                "translation",
+                "twig"
+            ],
+            "time": "2016-10-03T12:34:15+00:00"
+        },
+        {
             "name": "justinrainbow/json-schema",
             "version": "1.6.1",
             "source": {
@@ -986,7 +1163,7 @@
             "keywords": [
                 "markdown"
             ],
-            "time": "2018-01-15 00:49:33"
+            "time": "2018-01-15T00:49:33+00:00"
         },
         {
             "name": "mjohnson/decoda",
@@ -1040,7 +1217,7 @@
                 "markup",
                 "parser"
             ],
-            "time": "2018-02-02 03:17:13"
+            "time": "2018-02-02T03:17:13+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -1171,7 +1348,7 @@
                 "onelogin",
                 "saml"
             ],
-            "time": "2017-11-06 17:44:03"
+            "time": "2017-11-06T17:44:03+00:00"
         },
         {
             "name": "pear/console_getopt",
@@ -1443,7 +1620,7 @@
                 }
             ],
             "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
-            "time": "2017-11-04 09:26:05"
+            "time": "2017-11-04T09:26:05+00:00"
         },
         {
             "name": "phpoffice/phpexcel",
@@ -1501,7 +1678,7 @@
                 "xlsx"
             ],
             "abandoned": "phpoffice/phpspreadsheet",
-            "time": "2015-05-01 07:00:55"
+            "time": "2015-05-01T07:00:55+00:00"
         },
         {
             "name": "pimple/pimple",
@@ -1551,7 +1728,7 @@
                 "container",
                 "dependency injection"
             ],
-            "time": "2018-01-21 07:42:36"
+            "time": "2018-01-21T07:42:36+00:00"
         },
         {
             "name": "psr/container",
@@ -1737,7 +1914,7 @@
                 "xml",
                 "xmldsig"
             ],
-            "time": "2017-08-31 09:27:07"
+            "time": "2017-08-31T09:27:07+00:00"
         },
         {
             "name": "rospdf/pdf-php",
@@ -1805,7 +1982,7 @@
             ],
             "description": "The R&OS Pdf class supports the creation of PDF documents without any adiditional modules or extensions.",
             "homepage": "https://github.com/rospdf/pdf-php",
-            "time": "2018-01-03 14:34:17"
+            "time": "2018-01-03T14:34:17+00:00"
         },
         {
             "name": "seld/cli-prompt",
@@ -1902,7 +2079,7 @@
                 "parser",
                 "validator"
             ],
-            "time": "2018-01-24 12:46:19"
+            "time": "2018-01-24T12:46:19+00:00"
         },
         {
             "name": "simplesamlphp/saml2",
@@ -1959,7 +2136,7 @@
                 }
             ],
             "description": "SAML2 PHP library from SimpleSAMLphp",
-            "time": "2018-01-26 07:55:28"
+            "time": "2018-01-26T07:55:28+00:00"
         },
         {
             "name": "simplesamlphp/simplesamlphp",
@@ -2035,7 +2212,7 @@
                 "sp",
                 "ws-federation"
             ],
-            "time": "2018-01-31 10:45:27"
+            "time": "2018-01-31T10:45:27+00:00"
         },
         {
             "name": "simpletest/simpletest",
@@ -2250,7 +2427,7 @@
             ],
             "description": "Libreria para servicios REST",
             "homepage": "http://toba.siu.edu.ar",
-            "time": "2017-10-06 20:37:32"
+            "time": "2017-10-06T20:37:32+00:00"
         },
         {
             "name": "siu-toba/services_json",
@@ -2441,7 +2618,7 @@
                 }
             },
             "description": "Librería cliente de los componentes ARAI",
-            "time": "2018-01-29 16:35:31"
+            "time": "2018-01-29T16:35:31+00:00"
         },
         {
             "name": "siu/arai-json-migrator",
@@ -2498,7 +2675,30 @@
                 }
             ],
             "description": "Utilidades para parsear el json de Araí",
-            "time": "2018-01-29 16:27:36"
+            "time": "2018-01-29T16:27:36+00:00"
+        },
+        {
+            "name": "siu/interfaces-manejador-salida-toba",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://gitlab.siu.edu.ar/siu/interfaces-manejador-salida-toba.git",
+                "reference": "7b87b951973162f3ec79b83b3877021937891ae7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "": "src"
+                }
+            },
+            "authors": [
+                {
+                    "name": "Paulo Toledo",
+                    "email": "ptoledo@siu.edu.ar"
+                }
+            ],
+            "description": "Implementación de las interfaces del patrón Abstract Factory para la salida de Toba",
+            "time": "2017-09-01T19:20:48+00:00"
         },
         {
             "name": "siu/json-util",
@@ -2527,6 +2727,32 @@
             ],
             "description": "Utilidades para el parseo y chequeo de schemas de archivos Json",
             "time": "2016-04-19 14:36:23"
+        },
+        {
+            "name": "siu/manejador-salida-toba",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://gitlab.siu.edu.ar/siu/manejador-salida-toba.git",
+                "reference": "764bdd6ccfe21c411f6a2b9b7986893a4c5bd030"
+            },
+            "require": {
+                "siu/interfaces-manejador-salida-toba": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "": "src"
+                }
+            },
+            "authors": [
+                {
+                    "name": "Paulo Toledo",
+                    "email": "ptoledo@siu.edu.ar"
+                }
+            ],
+            "description": "Implementación del patrón 'Abstract Factory' para la salida de Toba",
+            "time": "2017-12-06T19:13:37+00:00"
         },
         {
             "name": "siu/rdi",
@@ -2678,7 +2904,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2018-01-29 09:03:43"
+            "time": "2018-01-29T09:03:43+00:00"
         },
         {
             "name": "symfony/debug",
@@ -2734,7 +2960,7 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
-            "time": "2018-01-18 22:16:57"
+            "time": "2018-01-18T22:16:57+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -2793,7 +3019,56 @@
                 "portable",
                 "shim"
             ],
-            "time": "2018-01-30 19:27:44"
+            "time": "2018-01-30T19:27:44+00:00"
+        },
+        {
+            "name": "symfony/process",
+            "version": "v4.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/process.git",
+                "reference": "e1712002d81de6f39f854bc5bbd9e9f4bb6345b4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/process/zipball/e1712002d81de6f39f854bc5bbd9e9f4bb6345b4",
+                "reference": "e1712002d81de6f39f854bc5bbd9e9f4bb6345b4",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Process\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Process Component",
+            "homepage": "https://symfony.com",
+            "time": "2018-01-29T09:06:29+00:00"
         },
         {
             "name": "symfony/yaml",
@@ -2851,7 +3126,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2018-01-21 19:05:02"
+            "time": "2018-01-21T19:05:02+00:00"
         },
         {
             "name": "twig/extensions",
@@ -2907,7 +3182,7 @@
                 "i18n",
                 "text"
             ],
-            "time": "2017-06-08 18:19:53"
+            "time": "2017-06-08T18:19:53+00:00"
         },
         {
             "name": "twig/twig",
@@ -2972,7 +3247,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2017-09-27 18:06:46"
+            "time": "2017-09-27T18:06:46+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -3395,6 +3670,7 @@
         "siu-toba/ssl-cert-utils": 20,
         "guiguiboy/php-cli-progress-bar": 20,
         "ioncube/php-openssl-cryptor": 20,
+        "siu/manejador-salida-toba": 20,
         "greenlion/php-sql-parser": 20
     },
     "prefer-stable": true,

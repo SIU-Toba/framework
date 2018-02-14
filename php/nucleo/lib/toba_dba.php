@@ -34,8 +34,8 @@ class toba_dba
 	*/
 	static function cargar_bases_definidas()
 	{
-		$bases_definidas = array();
-		self::$bases_definidas = parse_ini_file( self::get_path_archivo_bases(), true );
+		$bases_definidas = array();	
+		self::$bases_definidas = toba::config()->get_subseccion('fuentes', 'bases');
 		$pendientes = array();
 		foreach (self::$bases_definidas as $id_base => $parametros) {
 			if (empty($parametros)) {

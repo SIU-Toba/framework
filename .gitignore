@@ -1,5 +1,8 @@
 instalacion/
 vendor/
+.buildpath
+.settings/*
+
 .log.git
 .files.git
 *.iml
@@ -8,11 +11,15 @@ vendor/
 nbproject/
 www/js/packages/
 bin/jsonlint
+bin/phpdoc
+bin/phpdoc.php
 bin/validate-json
 .files.svn
 .log.svn
 .svn/*
 .project
 .directory
+metadatos_compilados/
 temp/
 xlib
+composer.lock

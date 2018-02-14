@@ -1,21 +1,19 @@
 {
-    "name": "siu-toba/framework",
-    "description": "Framework de desarrollo web",
-    "authors": [
-        {
-            "name": "SIU",
-            "email": "toba@siu.edu.ar"
-        }
-    ],
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://satis.siu.edu.ar"
-        }
-    ],
-    "minimum-stability": "dev",
-    "prefer-stable" : true,
-    "require": {
+	"name" : "siu-toba/framework",
+	"description" : "Framework de desarrollo web",
+	"authors" : [{
+			"name" : "SIU",
+			"email" : "toba@siu.edu.ar"
+		}
+	],
+	"repositories" : [{
+			"type" : "composer",
+			"url" : "https://satis.siu.edu.ar"
+		}],
+	"minimum-stability" : "dev",
+	"prefer-stable" : true,
+	"require" : {
+
         "symfony/yaml": "~3.1",
         "siu/security-multitool": "1.0",
         "ircmaxell/random-lib" : "dev-master",
@@ -31,7 +29,7 @@
         "siu-toba/Structures_Graph": "^1.1.1.1",
         "phpmailer/phpmailer": "~5.2",
         "simpletest/simpletest": "~1.1", 
-        "element-34/php-webdriver": "~1.12",
+        "facebook/webdriver" : "~1.4",
         "siu-toba/text_highlighter": "~0.7",
         "simplesamlphp/simplesamlphp": "~1.14",
         "siu-toba/services_json": "^1.0.3.3", 
@@ -39,7 +37,8 @@
         "siu/arai-json-migrator" : "~1.0",
         "siu/arai-cli" : "~2.2",
         "vlucas/phpdotenv": "~2.0",
-        "ioncube/php-openssl-cryptor": "dev-master"
+        "ioncube/php-openssl-cryptor": "dev-master",
+        "siu/manejador-salida-toba" : "dev-master"		
     },
     "require-dev": {
         "greenlion/PHP-SQL-Parser": "@dev"
@@ -56,10 +55,10 @@
     },
     "scripts": {
         "post-install-cmd": [
-            "bower install --allow-root"
+            "yarn install --non-interactive --modules-folder www/js/packages/"
         ],
         "post-update-cmd": [
-            "bower update --allow-root"
+            "yarn install --non-interactive --modules-folder www/js/packages/"
         ]
     }
 }

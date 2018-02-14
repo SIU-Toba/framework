@@ -12,7 +12,7 @@ class toba_autenticacion_saml  extends toba_autenticacion implements  toba_auten
 	{
 		$archivo_ini_instalacion = toba::nucleo()->toba_instalacion_dir().'/saml.ini';
 		if (is_file( $archivo_ini_instalacion)) {
-			$parametros = parse_ini_file($archivo_ini_instalacion, true);
+			$parametros = toba::config()->get_seccion('saml');
 			if (isset($parametros['basicos']['auth_source'])) {
 				$this->auth_source = $parametros['basicos']['auth_source'];
 			}			

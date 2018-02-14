@@ -348,17 +348,17 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 
 	function get_parametro($seccion, $parametro=null, $obligatorio=true)
 	{
-		if (! isset($this->ini_proyecto)) {
+		if (! toba::config()->existe_valor('proyecto', null, 'id')) {
 			$nombre_ini = 'proyecto.ini';
 			$path_ini = $this->get_dir().'/'.$nombre_ini;
 			if (! file_exists($path_ini)) {
 				throw new toba_error("No existe el archivo '$nombre_ini' en la raiz del proyecto");
 			}
-			$this->ini_proyecto = new toba_ini($path_ini);			
+			toba::config()->add_config_file('proyecto', $path_ini);
 		}
 		
-		if ($this->ini_proyecto->existe_entrada($seccion, $parametro)) {
-			return $this->ini_proyecto->get($seccion, $parametro);
+		if (toba::config()->existe_valor('proyecto', $seccion, $parametro)) {
+			return toba::config()->get_parametro('proyecto', $seccion, $parametro);
 		} elseif ($obligatorio) {
 			throw new toba_error("INFO_PROYECTO: El parametro '$id' no se encuentra definido.");
 		}	
