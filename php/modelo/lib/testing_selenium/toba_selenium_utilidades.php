@@ -13,7 +13,11 @@ class toba_selenium_utilidades
 		$instalacion = new toba_modelo_instalacion();
 		$proyecto = $instalacion->get_instancia('desarrollo')->get_proyecto($id_proy);
 		$url = $proyecto->get_url();
-		return toba_http::get_url_actual() .$url;
+		if (PHP_SAPI != 'cli') {
+			return toba_http::get_url_actual() .$url;
+		} else {
+			return toba_http::get_protocolo() . 'localhost' . $url;
+		}
 	}
 	
 	static function get_path_proyecto()
