@@ -3,6 +3,7 @@
 ## CHANGELOG
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
+- Se agrega siu/manejador-salida-bootstrap como paquete sugerido
 - Nuevas clases para darle un marco a los test via Selenium
   * toba_selenium_basics_proyecto (se encarga de cuestiones basicas del testeo)
   * toba_selenium_conector_base (conecta bd via parametros en constantes)
@@ -12,6 +13,8 @@
 - Modificacion de librerias:
   * Elimina element-34/php-webdriver 
   * Agrega facebook/webdriver: v1.5.0
+- Se traslada parte de la generación del marcado HTML al paquete siu/manejador-salida-toba
+- Se cambia Bower por Yarn como manejador de assets JS
 
 
 [3.0.18](https://github.com/SIU-Toba/framework/releases/tag/v3.0.18) (2018-02-09):
