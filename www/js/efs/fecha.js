@@ -648,15 +648,16 @@ function PopupWindow_showPopup(anchorname) {
 function PopupWindow_hidePopup() {
 	if (this.divName != null) {
 		if (this.use_gebi) {
-			document.getElementById(this.divName).style.visibility = "hidden";
-			}
+			var item = document.getElementById(this.divName);
+				if (item.firstChild) {	   item.firstChild.remove();  }
+		}
 		else if (this.use_css) {
 			document.all[this.divName].style.visibility = "hidden";
-			}
+		}
 		else if (this.use_layers) {
 			document.layers[this.divName].visibility = "hidden";
-			}
 		}
+	}
 	else {
 		if (this.popupWindow && !this.popupWindow.closed) {
 			this.popupWindow.close();
