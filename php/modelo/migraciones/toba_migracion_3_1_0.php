@@ -12,6 +12,7 @@ class toba_migracion_3_1_0 extends toba_migracion
 		$sql = array();		
 
 		$sql[] = 'ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN editor_config_file TEXT NULL;';
+		$this->elemento->get_db()->ejecutar($sql);
 		
 		$sql = 'SET CONSTRAINTS ALL DEFERRED;';
 		$this->elemento->get_db()->ejecutar($sql);
