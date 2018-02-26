@@ -48,7 +48,7 @@ abstract class toba_solicitud
 			$this->cronometrar = true;
 		}		
 		//-- Identifico si la solicitd se deber registrar
-		if (toba::proyecto()->get_parametro('registrar_solicitud') || $this->info['basica']['item_solic_registrar']) {
+		if (toba::proyecto()->get_parametro('registrar_solicitud') || (isset($this->info['basica']['item_solic_registrar']) && $this->info['basica']['item_solic_registrar'])) {
 			$this->registrar_db	= true;
 		}
 		
