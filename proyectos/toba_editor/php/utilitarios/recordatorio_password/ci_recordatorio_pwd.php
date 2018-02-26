@@ -279,7 +279,7 @@ class ci_recordatorio_pwd extends toba_ci
 			$dias = toba_parametros::get_clave_validez_maxima(toba::proyecto()->get_id());
 			
 			//Seteo la clave para el usuario
-			toba_usuario::reemplazar_clave_vencida($clave_tmp, $datos_orig['id_usuario'], $dias);
+			toba_usuario::reemplazar_clave_vencida($clave_tmp, $datos_orig['id_usuario'], $dias, false);
 			toba_usuario::forzar_cambio_clave($datos_orig['id_usuario']);
 			
 			//Enviar nuevo mail con la clave temporaria
