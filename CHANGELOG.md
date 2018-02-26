@@ -4,6 +4,10 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.0.19](https://github.com/SIU-Toba/framework/releases/tag/v3.0.18) (2018-02-26):
+- Se corrige notice en toba_solicitud para pedidos rest
+- Se corrige problema de transacciones anidadas al usar la utilidad de recordatorio de password
+
 [3.0.18](https://github.com/SIU-Toba/framework/releases/tag/v3.0.18) (2018-02-09):
 - Se modifica la configuración por defecto del toolbar en CKEditor
 - Se agrega nuevo mecanismo de sincronizacion de credenciales via arai-cli
