@@ -100,7 +100,7 @@ class toba_usuario implements toba_interface_usuario
 		toba::instancia()->get_db()->sentencia_ejecutar($id, array('clave' => $clave_enc,  'autenticacion' => apex_pa_algoritmo_hash, 'usuario'=>$usuario));
 	}
 	
-	static function reemplazar_clave_vencida($clave_plana, $usuario, $dias_validez = null)
+	static function reemplazar_clave_vencida($clave_plana, $usuario, $dias_validez = null, $con_transaccion=true)
 	{
 		if (is_null($dias_validez)) {		//Anulo el vencimiento
 			$accion = 'vencimiento = NULL';
@@ -109,14 +109,14 @@ class toba_usuario implements toba_interface_usuario
 		}
 		
 		$sql = "UPDATE apex_usuario SET forzar_cambio_pwd = 0, $accion  WHERE usuario =  :usuario ;";
-		toba::instancia()->get_db()->abrir_transaccion();
+		if ($con_transaccion) { toba::instancia()->get_db()->abrir_transaccion(); }
 		try {
 			self::set_clave_usuario($clave_plana, $usuario);
 			$id = toba::instancia()->get_db()->sentencia_preparar($sql);
 			toba::instancia()->get_db()->sentencia_ejecutar($id, array( 'usuario'=> $usuario));			
-			toba::instancia()->get_db()->cerrar_transaccion();			
+			if ($con_transaccion) { toba::instancia()->get_db()->cerrar_transaccion(); }
 		} catch (toba_error_db $e) {
-			toba::instancia()->get_db()->abortar_transaccion();
+			if ($con_transaccion) { toba::instancia()->get_db()->abortar_transaccion(); }
 			throw new toba_error_usuario('No se pudo modificar la clave, contacte a un administrador del sistema');
 		}
 	}
