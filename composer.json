@@ -27,7 +27,7 @@
         "dapphp/securimage": "~3.6", 
         "rospdf/pdf-php": "~0.12",
         "siu-toba/Structures_Graph": "^1.1.1.1",
-        "phpmailer/phpmailer": "~5.2",
+        "phpmailer/phpmailer": "^6.0",
         "simpletest/simpletest": "~1.1", 
         "facebook/webdriver" : "~1.4",
         "siu-toba/text_highlighter": "~0.7",
