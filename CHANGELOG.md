@@ -16,7 +16,11 @@
 - Se traslada parte de la generación del marcado HTML al paquete siu/manejador-salida-toba
 - Se cambia Bower por Yarn como manejador de assets JS
 
-[3.0.19](https://github.com/SIU-Toba/framework/releases/tag/v3.0.18) (2018-02-26):
+[3.0.20](https://github.com/SIU-Toba/framework/releases/tag/v3.0.20) (2018-03-07):
+- Se corrige un bug en ef_upload que afectaba su uso en formularios_ml
+- Se desactiva el log de WS durante el testing via phpunit
+
+[3.0.19](https://github.com/SIU-Toba/framework/releases/tag/v3.0.19) (2018-02-26):
 - Se corrige notice en toba_solicitud para pedidos rest
 - Se corrige problema de transacciones anidadas al usar la utilidad de recordatorio de password
 
