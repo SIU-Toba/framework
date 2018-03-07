@@ -11,8 +11,8 @@
  */
 class toba_ef_upload extends toba_ef
 {
-	protected $archivo_cargado = false;		//Se cargo un archivo en la etapa anterior?
-	protected $archivo_subido = false;		//Se subio un archivo en esta etapa
+	protected $archivo_cargado = array();		//Se cargo un archivo en la etapa anterior?
+	protected $archivo_subido = array();		//Se subio un archivo en esta etapa
 	protected $extensiones_validas = null;
 	protected $clase_css = 'ef-upload';
 	
@@ -85,11 +85,11 @@ class toba_ef_upload extends toba_ef
 	
 	function cargar_estado_post()
 	{
-		$this->archivo_cargado = toba::memoria()->get_dato_sincronizado($this->id_form."_cargado");
-		$this->archivo_subido = false;
+		$this->archivo_cargado[$this->id_form] = toba::memoria()->get_dato_sincronizado($this->id_form."_cargado");
+		$this->archivo_subido[$this->id_form] = false;
 		if (isset($_FILES[$this->id_form])) {
 			if (isset($_POST[$this->id_form."_check"])) {
-				$this->archivo_subido = true;
+				$this->archivo_subido[$this->id_form] = true;
 				$this->estado = $_FILES[$this->id_form]; 
 			}
 		}
@@ -102,8 +102,8 @@ class toba_ef_upload extends toba_ef
 	
 	function tiene_estado()
 	{
-		return $this->archivo_cargado || 
-				($this->archivo_subido && !$this->es_archivo_vacio());
+		return (isset($this->archivo_cargado[$this->id_form]) && $this->archivo_cargado[$this->id_form])  || 
+			  (isset($this->archivo_subido[$this->id_form]) && $this->archivo_subido[$this->id_form] && !$this->es_archivo_vacio());
 	}
 	
 	/**
@@ -117,7 +117,7 @@ class toba_ef_upload extends toba_ef
 		if ($padre !== true) {
 			return $padre;	
 		}
-		if ($this->archivo_subido) {
+		if (isset($this->archivo_subido[$this->id_form]) && $this->archivo_subido[$this->id_form]) {
 			$id = $this->estado['error'];
 			switch($id){
 				case UPLOAD_ERR_OK:
@@ -128,7 +128,7 @@ class toba_ef_upload extends toba_ef
 					return "Se supero el limite expresado en el FORM";
 				case UPLOAD_ERR_NO_FILE:
 					//Este caso lo maneja el obligatorio
-					$this->archivo_subido = false;
+					$this->archivo_subido[$this->id_form] = false;
 					break;
 				case UPLOAD_ERR_CANT_WRITE:
 					return "No tiene permisos sobre la carpeta de upload";
@@ -136,12 +136,12 @@ class toba_ef_upload extends toba_ef
 					return "Ha ocurrido un error cargando el archivo ($id)";
 			}
                         
-			if (!$this->solo_lectura_modificacion && isset($this->extensiones_validas) && $this->archivo_subido && !$this->es_archivo_vacio()) {
+			if (!$this->solo_lectura_modificacion && isset($this->extensiones_validas) && $this->archivo_subido[$this->id_form] && !$this->es_archivo_vacio()) {
 				$rep = $_FILES[$this->id_form]['name'];
 				$ext = substr($rep, strrpos($rep, '.') + 1);
 				if (! in_array(strtolower($ext), $this->extensiones_validas)) {
 					$extensiones = implode(', ', $this->extensiones_validas);
-					$this->archivo_subido = false;
+					$this->archivo_subido[$this->id_form] = false;
 					$this->estado = null;
 					return "No esta permitido subir este tipo de archivo. Solo se permiten extensiones $extensiones";
 				}
