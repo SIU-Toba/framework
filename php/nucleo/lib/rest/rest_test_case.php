@@ -34,8 +34,9 @@ class rest_test_case extends \PHPUnit_Framework_TestCase
 		if(!isset($this->app)){
 			$tr = new \toba_rest();
 			$app = $tr->instanciar_libreria_rest();
-			$tr->configurar_libreria_rest($app);
+			$tr->configurar_libreria_rest($app);			
 			$this->app = $app;
+			$this->app->logger->desactivar();
 		}
 		return $this->app;
 	}
