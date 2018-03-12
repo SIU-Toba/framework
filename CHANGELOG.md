@@ -3,6 +3,15 @@
 ## CHANGELOG
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
+- Actualización de librerias:
+  * phpmailer/phpmailer: v6.0.3
+  * onelogin/php-saml: v2.13
+- Se elimina el calendario del DOM al seleccionar una fecha (mejora problema visual en manejador-salida-bootstrap)
+- Se deja de usar toba_notificacion para informar un error en un servicio ajax, se hace echo del msg.
+- Se desactiva el uso del manejador-salida-bootstrap en toba_usuarios para no forzar a su instalación por defecto
+- Bugfix a la ejecucion de test desde consola
+- Se modifican clases del runtime para hacer uso de toba_config
+- Se agrega toba_config como concentrador de configuraciones, se instancia via el lanzador toba::config()
 - Se agrega siu/manejador-salida-bootstrap como paquete sugerido
 - Nuevas clases para darle un marco a los test via Selenium
   * toba_selenium_basics_proyecto (se encarga de cuestiones basicas del testeo)
