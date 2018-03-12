@@ -4,25 +4,25 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4d2c46a5557e668a1e7160e7bd6e7a2c",
+    "content-hash": "6474ea5a93b0beaf52ea5fa2273ad49b",
     "packages": [
         {
             "name": "dapphp/securimage",
-            "version": "3.6.6",
+            "version": "3.6.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dapphp/securimage.git",
-                "reference": "6eea2798f56540fa88356c98f282d6391a72be15"
+                "reference": "1ecb884797c66e01a875c058def46c85aecea45b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dapphp/securimage/zipball/6eea2798f56540fa88356c98f282d6391a72be15",
-                "reference": "6eea2798f56540fa88356c98f282d6391a72be15",
+                "url": "https://api.github.com/repos/dapphp/securimage/zipball/1ecb884797c66e01a875c058def46c85aecea45b",
+                "reference": "1ecb884797c66e01a875c058def46c85aecea45b",
                 "shasum": ""
             },
             "require": {
                 "ext-gd": "*",
-                "php": ">=5.2.0"
+                "php": ">=5.4"
             },
             "suggest": {
                 "ext-pdo": "For database storage support",
@@ -37,7 +37,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "BSD"
+                "BSD-3-Clause"
             ],
             "authors": [
                 {
@@ -48,10 +48,12 @@
             "description": "PHP CAPTCHA Library",
             "homepage": "https://www.phpcaptcha.org",
             "keywords": [
+                "Forms",
+                "anti-spam",
                 "captcha",
                 "security"
             ],
-            "time": "2017-11-21T02:29:19+00:00"
+            "time": "2018-03-09T06:07:41+00:00"
         },
         {
             "name": "doctrine/cache",
@@ -235,16 +237,16 @@
         },
         {
             "name": "ezyang/htmlpurifier",
-            "version": "v4.9.3",
+            "version": "v4.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ezyang/htmlpurifier.git",
-                "reference": "95e1bae3182efc0f3422896a3236e991049dac69"
+                "reference": "d85d39da4576a6934b72480be6978fb10c860021"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/95e1bae3182efc0f3422896a3236e991049dac69",
-                "reference": "95e1bae3182efc0f3422896a3236e991049dac69",
+                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/d85d39da4576a6934b72480be6978fb10c860021",
+                "reference": "d85d39da4576a6934b72480be6978fb10c860021",
                 "shasum": ""
             },
             "require": {
@@ -278,7 +280,7 @@
             "keywords": [
                 "html"
             ],
-            "time": "2017-06-03T02:28:16+00:00"
+            "time": "2018-02-23T01:58:20+00:00"
         },
         {
             "name": "facebook/webdriver",
@@ -1138,16 +1140,16 @@
         },
         {
             "name": "onelogin/php-saml",
-            "version": "v2.12.0",
+            "version": "v2.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/onelogin/php-saml.git",
-                "reference": "9416fa739cff88ffcc472967cec048a774b97e0f"
+                "reference": "28e7ccc949592e78f7f4648dcfb492893aecc360"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/onelogin/php-saml/zipball/9416fa739cff88ffcc472967cec048a774b97e0f",
-                "reference": "9416fa739cff88ffcc472967cec048a774b97e0f",
+                "url": "https://api.github.com/repos/onelogin/php-saml/zipball/28e7ccc949592e78f7f4648dcfb492893aecc360",
+                "reference": "28e7ccc949592e78f7f4648dcfb492893aecc360",
                 "shasum": ""
             },
             "require": {
@@ -1187,7 +1189,7 @@
                 "onelogin",
                 "saml"
             ],
-            "time": "2017-11-06T17:44:03+00:00"
+            "time": "2018-03-05T15:43:24+00:00"
         },
         {
             "name": "pear/console_getopt",
@@ -1386,56 +1388,45 @@
         },
         {
             "name": "phpmailer/phpmailer",
-            "version": "v5.2.26",
+            "version": "v6.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPMailer/PHPMailer.git",
-                "reference": "70362997bda4376378be7d92d81e2200550923f7"
+                "reference": "44d49bab5ab1fef721d3ee07e75dc0865ddf4cc6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/70362997bda4376378be7d92d81e2200550923f7",
-                "reference": "70362997bda4376378be7d92d81e2200550923f7",
+                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/44d49bab5ab1fef721d3ee07e75dc0865ddf4cc6",
+                "reference": "44d49bab5ab1fef721d3ee07e75dc0865ddf4cc6",
                 "shasum": ""
             },
             "require": {
                 "ext-ctype": "*",
-                "php": ">=5.0.0"
+                "ext-filter": "*",
+                "php": ">=5.5.0"
             },
             "require-dev": {
                 "doctrine/annotations": "1.2.*",
-                "jms/serializer": "0.16.*",
+                "friendsofphp/php-cs-fixer": "^2.2",
                 "phpdocumentor/phpdocumentor": "2.*",
-                "phpunit/phpunit": "4.8.*",
-                "symfony/debug": "2.8.*",
-                "symfony/filesystem": "2.8.*",
-                "symfony/translation": "2.8.*",
-                "symfony/yaml": "2.8.*",
-                "zendframework/zend-cache": "2.5.1",
-                "zendframework/zend-config": "2.5.1",
-                "zendframework/zend-eventmanager": "2.5.1",
-                "zendframework/zend-filter": "2.5.1",
-                "zendframework/zend-i18n": "2.5.1",
-                "zendframework/zend-json": "2.5.1",
-                "zendframework/zend-math": "2.5.1",
-                "zendframework/zend-serializer": "2.5.*",
-                "zendframework/zend-servicemanager": "2.5.*",
-                "zendframework/zend-stdlib": "2.5.1"
+                "phpunit/phpunit": "^4.8 || ^5.7",
+                "zendframework/zend-eventmanager": "3.0.*",
+                "zendframework/zend-i18n": "2.7.3",
+                "zendframework/zend-serializer": "2.7.*"
             },
             "suggest": {
-                "league/oauth2-google": "Needed for Google XOAUTH2 authentication"
+                "ext-mbstring": "Needed to send email in multibyte encoding charset",
+                "hayageek/oauth2-yahoo": "Needed for Yahoo XOAUTH2 authentication",
+                "league/oauth2-google": "Needed for Google XOAUTH2 authentication",
+                "psr/log": "For optional PSR-3 debug logging",
+                "stevenmaguire/oauth2-microsoft": "Needed for Microsoft XOAUTH2 authentication",
+                "symfony/polyfill-mbstring": "To support UTF-8 if the Mbstring PHP extension is not enabled (^1.2)"
             },
             "type": "library",
             "autoload": {
-                "classmap": [
-                    "class.phpmailer.php",
-                    "class.phpmaileroauth.php",
-                    "class.phpmaileroauthgoogle.php",
-                    "class.smtp.php",
-                    "class.pop3.php",
-                    "extras/EasyPeasyICS.php",
-                    "extras/ntlm_sasl_client.php"
-                ]
+                "psr-4": {
+                    "PHPMailer\\PHPMailer\\": "src/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -1459,7 +1450,7 @@
                 }
             ],
             "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
-            "time": "2017-11-04T09:26:05+00:00"
+            "time": "2018-01-05T13:19:58+00:00"
         },
         {
             "name": "phpoffice/phpexcel",
@@ -1922,16 +1913,16 @@
         },
         {
             "name": "simplesamlphp/saml2",
-            "version": "v3.1.2",
+            "version": "v3.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/simplesamlphp/saml2.git",
-                "reference": "e9786e2e47971b9e3684391778d2c489e4725f26"
+                "reference": "4f6af7f69f29df8555a18b9bb7b646906b45924d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/simplesamlphp/saml2/zipball/e9786e2e47971b9e3684391778d2c489e4725f26",
-                "reference": "e9786e2e47971b9e3684391778d2c489e4725f26",
+                "url": "https://api.github.com/repos/simplesamlphp/saml2/zipball/4f6af7f69f29df8555a18b9bb7b646906b45924d",
+                "reference": "4f6af7f69f29df8555a18b9bb7b646906b45924d",
                 "shasum": ""
             },
             "require": {
@@ -1975,20 +1966,20 @@
                 }
             ],
             "description": "SAML2 PHP library from SimpleSAMLphp",
-            "time": "2018-01-26T07:55:28+00:00"
+            "time": "2018-03-02T14:30:38+00:00"
         },
         {
             "name": "simplesamlphp/simplesamlphp",
-            "version": "v1.15.2",
+            "version": "v1.15.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/simplesamlphp/simplesamlphp.git",
-                "reference": "d6d8df7297778317fbf07edc8d882ceb283715f0"
+                "reference": "c770d0cd392ba8d8b12ac6214dcabd818d7cca32"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/simplesamlphp/simplesamlphp/zipball/d6d8df7297778317fbf07edc8d882ceb283715f0",
-                "reference": "d6d8df7297778317fbf07edc8d882ceb283715f0",
+                "url": "https://api.github.com/repos/simplesamlphp/simplesamlphp/zipball/c770d0cd392ba8d8b12ac6214dcabd818d7cca32",
+                "reference": "c770d0cd392ba8d8b12ac6214dcabd818d7cca32",
                 "shasum": ""
             },
             "require": {
@@ -2005,7 +1996,7 @@
                 "jaimeperez/twig-configurable-i18n": "^1.2",
                 "php": ">=5.4",
                 "robrichards/xmlseclibs": "~3.0",
-                "simplesamlphp/saml2": "~3.1.1",
+                "simplesamlphp/saml2": "~3.1.4",
                 "twig/twig": "~1.0",
                 "whitehat101/apr1-md5": "~1.0"
             },
@@ -2025,7 +2016,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "LGPL-2.1"
+                "LGPL-2.1-or-later"
             ],
             "authors": [
                 {
@@ -2051,7 +2042,7 @@
                 "sp",
                 "ws-federation"
             ],
-            "time": "2018-01-31T10:45:27+00:00"
+            "time": "2018-03-02T15:02:24+00:00"
         },
         {
             "name": "simpletest/simpletest",
@@ -2678,16 +2669,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v3.4.4",
+            "version": "v3.4.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "26b6f419edda16c19775211987651cb27baea7f1"
+                "reference": "067339e9b8ec30d5f19f5950208893ff026b94f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/26b6f419edda16c19775211987651cb27baea7f1",
-                "reference": "26b6f419edda16c19775211987651cb27baea7f1",
+                "url": "https://api.github.com/repos/symfony/console/zipball/067339e9b8ec30d5f19f5950208893ff026b94f7",
+                "reference": "067339e9b8ec30d5f19f5950208893ff026b94f7",
                 "shasum": ""
             },
             "require": {
@@ -2743,20 +2734,20 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2018-01-29T09:03:43+00:00"
+            "time": "2018-02-26T15:46:28+00:00"
         },
         {
             "name": "symfony/debug",
-            "version": "v3.4.4",
+            "version": "v3.4.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/debug.git",
-                "reference": "53f6af2805daf52a43b393b93d2f24925d35c937"
+                "reference": "9b1071f86e79e1999b3d3675d2e0e7684268b9bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/debug/zipball/53f6af2805daf52a43b393b93d2f24925d35c937",
-                "reference": "53f6af2805daf52a43b393b93d2f24925d35c937",
+                "url": "https://api.github.com/repos/symfony/debug/zipball/9b1071f86e79e1999b3d3675d2e0e7684268b9bc",
+                "reference": "9b1071f86e79e1999b3d3675d2e0e7684268b9bc",
                 "shasum": ""
             },
             "require": {
@@ -2799,7 +2790,7 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
-            "time": "2018-01-18T22:16:57+00:00"
+            "time": "2018-02-28T21:49:22+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -2862,16 +2853,16 @@
         },
         {
             "name": "symfony/process",
-            "version": "v4.0.4",
+            "version": "v4.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "e1712002d81de6f39f854bc5bbd9e9f4bb6345b4"
+                "reference": "6ed08502a7c9559da8e60ea343bdbd19c3350b3e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/e1712002d81de6f39f854bc5bbd9e9f4bb6345b4",
-                "reference": "e1712002d81de6f39f854bc5bbd9e9f4bb6345b4",
+                "url": "https://api.github.com/repos/symfony/process/zipball/6ed08502a7c9559da8e60ea343bdbd19c3350b3e",
+                "reference": "6ed08502a7c9559da8e60ea343bdbd19c3350b3e",
                 "shasum": ""
             },
             "require": {
@@ -2907,20 +2898,20 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-            "time": "2018-01-29T09:06:29+00:00"
+            "time": "2018-02-19T12:18:43+00:00"
         },
         {
             "name": "symfony/yaml",
-            "version": "v3.4.4",
+            "version": "v3.4.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "eab73b6c21d27ae4cd037c417618dfd4befb0bfe"
+                "reference": "6af42631dcf89e9c616242c900d6c52bd53bd1bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/eab73b6c21d27ae4cd037c417618dfd4befb0bfe",
-                "reference": "eab73b6c21d27ae4cd037c417618dfd4befb0bfe",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/6af42631dcf89e9c616242c900d6c52bd53bd1bb",
+                "reference": "6af42631dcf89e9c616242c900d6c52bd53bd1bb",
                 "shasum": ""
             },
             "require": {
@@ -2965,7 +2956,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2018-01-21T19:05:02+00:00"
+            "time": "2018-02-16T09:50:28+00:00"
         },
         {
             "name": "twig/extensions",
@@ -3025,16 +3016,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v1.35.0",
+            "version": "v1.35.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "daa657073e55b0a78cce8fdd22682fddecc6385f"
+                "reference": "9c24f2cd39dc1906b76879e099970b7e53724601"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/daa657073e55b0a78cce8fdd22682fddecc6385f",
-                "reference": "daa657073e55b0a78cce8fdd22682fddecc6385f",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/9c24f2cd39dc1906b76879e099970b7e53724601",
+                "reference": "9c24f2cd39dc1906b76879e099970b7e53724601",
                 "shasum": ""
             },
             "require": {
@@ -3086,7 +3077,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2017-09-27T18:06:46+00:00"
+            "time": "2018-03-03T16:21:29+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
