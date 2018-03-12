@@ -1,5 +1,7 @@
 <?php
 
+use PHPMailer\PHPMailer\PHPMailer;
+
 /**
  * Clase para crear un mail en texto plano o html. Encapsula a la librería phpmailer
  * @package Centrales  
