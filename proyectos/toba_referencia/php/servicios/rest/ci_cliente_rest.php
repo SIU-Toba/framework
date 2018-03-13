@@ -1,5 +1,6 @@
 <?php
-
+	
+use GuzzleHttp\Psr7;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 
@@ -213,15 +214,12 @@ class ci_cliente_rest extends toba_ci
 
 
 	protected function manejar_excepcion_request(RequestException $e)
-	{
-		/*$msg = $e->getRequest() . "\n";
-
+	{		
+		//$msg = $e->getMessage(). "\n";
+		$msg = Psr7\str($e->getRequest());
 		if ($e->hasResponse()) {
-			$msg .= $e->getResponse() . "\n";
-		}*/
-		
-		$msg = $e->getMessage(). "\n";
-		$msg .= $e->getRequest()->getMethod();
+			$msg .= Psr7\str($e->getResponse()) . "\n";
+		}
 		throw new toba_error($msg);
 	}
 
