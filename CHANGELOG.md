@@ -4,6 +4,10 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.0.21](https://github.com/SIU-Toba/framework/releases/tag/v3.0.21) (2018-03-13):
+- Se agrega conversion via Psr7\str al mensaje proveniente de un error rest
+- Se agrega el metodo toba_auditoria_tablas_postgres::get_tablas_triggers_desactivados (credits FMartinez)
+
 [3.0.20](https://github.com/SIU-Toba/framework/releases/tag/v3.0.20) (2018-03-07):
 - Se corrige un bug en ef_upload que afectaba su uso en formularios_ml
 - Se desactiva el log de WS durante el testing via phpunit
