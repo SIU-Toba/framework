@@ -186,6 +186,15 @@ class toba_auditoria_tablas_postgres
 		return $triguers;
 	}
 	
+	function get_tablas_triggers_desactivados($schema=null)
+        {
+            if (is_null($schema)) {
+                $schema = $this->schema_origen;
+            }
+            $triggers = $this->conexion->get_triggers_schema($schema, 'tauditoria_', 'D');
+            return aplanar_matriz($triggers, 'tabla');
+        }
+	
 	protected function get_triggers_schema($schema)
 	{		
 		$resultado = array();
@@ -426,7 +435,7 @@ class toba_auditoria_tablas_postgres
 		}		
 	}
 	
-	protected function set_estado_activacion_triggers($tablas, $schema, $estado)
+	function set_estado_activacion_triggers($tablas, $schema, $estado)
 	{
 		$sql = array();
 		$estado_final = ($estado) ? 'ENABLE' : 'DISABLE';
