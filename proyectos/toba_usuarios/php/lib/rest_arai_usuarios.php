@@ -1,5 +1,6 @@
 <?php
 
+use GuzzleHttp\Psr7;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 
@@ -63,10 +64,10 @@ class rest_arai_usuarios
 	
 	private function manejar_excepcion_request(RequestException $e)
 	{
-		$msg = $e->getMessage() . "\n" . $e->getRequest() . "\n";
+		$msg = /*$e->getMessage() . "\n" .*/ Psr7\str($e->getRequest()) . "\n";
 
 		if ($e->hasResponse()) {
-			$msg .= $e->getResponse() . "\n";
+			$msg .= Psr7\str($e->getResponse()) . "\n";
 		}
 		throw new toba_error($msg);
 	}
