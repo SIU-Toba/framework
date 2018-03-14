@@ -23,7 +23,7 @@
         "onelogin/php-saml": "^2.13",
         "siu-toba/Numbers_Words": "0.18.0.1",        
         "guiguiboy/PHP-CLI-Progress-Bar": "dev-master", 
-        "phpoffice/phpexcel": "~1.8", 
+        "phpoffice/phpspreadsheet": "^1.0", 
         "dapphp/securimage": "~3.6", 
         "rospdf/pdf-php": "~0.12",
         "siu-toba/Structures_Graph": "^1.1.1.1",
