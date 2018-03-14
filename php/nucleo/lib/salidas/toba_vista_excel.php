@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 /**
  * Genera un pdf a través de una api básica
  * @package SalidaGrafica
@@ -8,7 +10,7 @@
  * coordenadas para una correcta visualización de la numeración de páginas.
  * @todo El método insertar_imagen esta implementado con un método en estado beta de la api ezpdf. Usar
  * con discreción.
- */
+ */	
 class toba_vista_excel
 {
 	/**
@@ -18,9 +20,9 @@ class toba_vista_excel
 	protected $objetos = array();	
 	protected $nombre_archivo = 'salida.xls';
 	protected $tipo_descarga = 'attachment';
-	protected $writer = 'Excel5';
-	protected $cursor_base = array(0,1);
-	protected $cursor = array(0,1);
+	protected $writer = 'Xls';
+	protected $cursor_base = array(1,1);
+	protected $cursor = array(1,1);
 	protected $temp_salida;
 	
 	const FORMAT_CURRENCY_USD_CUSTOM	= '#,##0.00_- [$USD]'; 
@@ -28,7 +30,7 @@ class toba_vista_excel
 	
 	function __construct()
 	{
-		$this->excel = new PHPExcel();
+		$this->excel = new Spreadsheet();
 		$this->inicializar();
 	}
 	
@@ -104,8 +106,8 @@ class toba_vista_excel
 
 	protected function crear_excel()
 	{
-		$writer = 'PHPExcel_Writer_'.$this->writer;
-		$writer = new $writer($this->excel);
+		$clase = '\PhpOffice\PhpSpreadsheet\Writer' . '\\'. $this->writer; 
+		$writer = new $clase($this->excel);
 		$this->temp_salida = toba::proyecto()->get_path_temp().'/'.uniqid();
 		$writer->save($this->temp_salida);
 	}
@@ -166,10 +168,10 @@ class toba_vista_excel
 	 * 'columna' => 
 	 * 	 'ancho' => (auto|numero)
 	 * 	 'estilo' => array( 
-	 *		'font' => array('name' => 'Arial', 'bold' => true, 'italic' => false, 'underline' => PHPExcel_Style_Font::UNDERLINE_DOUBLE, 'strike' => false, 'color' => array('rgb' => '808080')),
+	 *		'font' => array('name' => 'Arial', 'bold' => true, 'italic' => false, 'underline' => Font::UNDERLINE_DOUBLE, 'strike' => false, 'color' => array('argb' => 'FF808080')),
 	 *		'borders' => array(
-	 *			'bottom' => array('style' => PHPExcel_Style_Border::BORDER_DASHDOT,'color' => array('rgb' => '808080')), 
-	 *			'top' => array( 'style' => PHPExcel_Style_Border::BORDER_DASHDOT, 'color' => array('rgb' => '808080'))
+	 *			'bottom' => array('style' => Border::BORDER_DASHDOT,'color' => array('argb' => 'FF808080')), 
+	 *			'top' => array( 'style' =>Border::BORDER_DASHDOT, 'color' => array('argb' => 'FF808080'))
 	 *			)
 	 *		)
 	 * 	)		
@@ -202,15 +204,15 @@ class toba_vista_excel
  		if (! empty($agrupacion)) {
  			$origen[1]++;	//Tiene que entrar una fila más
  		}
- 		$borde = array('style' => PHPExcel_Style_Border::BORDER_THIN  );
+ 		$borde = array('borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN  );
  		$estilo_titulos = array(
  			'font' => array('bold' => true),
  			'borders' => array('bottom' => $borde, 'top' => $borde, 'left' => $borde, 'right' => $borde),
  			'fill' => array(
-             		'type' => PHPExcel_Style_Fill::FILL_SOLID ,
-		            'rotation'   => 0,
-		            'startcolor' => array('rgb' => 'E6E6E6'),
-             	),
+					'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID ,
+					'rotation'   => 0,
+					'startColor' => array('argb' => 'FFE6E6E6'),
+					),
  		);
 		$hoja = $this->excel->getActiveSheet();
 		//--- Titulos
@@ -258,7 +260,7 @@ class toba_vista_excel
 		foreach($datos as $filas) {
 			$x = 0;
 			foreach($filas as $clave => $valor) {
-				$columnas[$clave] = $x;
+				$columnas[$clave] = $x +1;				//El indice arranca en base 1..no puedo mapear mal la columna
 				$hoja->setCellValueByColumnAndRow($origen[0] + $x, $origen[1] + $y, utf8_encode(strval($valor)));
 				if (! isset($opciones[$clave]['estilo']['borders'])) {
 					$opciones[$clave]['estilo']['borders']= array('bottom' => $borde, 'top' => $borde, 'left' => $borde, 'right' => $borde);
@@ -275,26 +277,25 @@ class toba_vista_excel
 						$hoja->getColumnDimensionByColumn($origen[0] + $x)->setWidth($opciones[$clave]['ancho']);
 					}
 				}
-
 				$x++;
 			}
 			$y++;
 		}
 		//--- Totales
 		foreach($totales as $clave) {
-			$col = PHPExcel_Cell::stringFromColumnIndex($columnas[$clave]);
+			$col = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($columnas[$clave]);
 			$desde = $col.(($origen[1]));
 			$hasta = $col.(($origen[1]+$y)-1);
 			$total = "=SUM($desde:$hasta)";
-			$destino_x = $origen[0]+$columnas[$clave];
+			$destino_x = $origen[0]+$columnas[$clave] -1;			//Quito lo que agregue antes a $columnas[$clave] el origen ya tiene base 1
 			$destino_y =  $origen[1] + $y;
 			$hoja->setCellValueByColumnAndRow($destino_x, $destino_y, utf8_encode(strval($total)) );
 			$estilo = $hoja->getStyleByColumnAndRow($destino_x, $destino_y);
 			unset($opciones[$clave]['estilo']['borders']);
 			$estilo->applyFromArray($opciones[$clave]['estilo']);			
 			$estilo->getFont()->setBold(true);
-			$estilo->getBorders()->getBottom()->setBorderStyle(PHPExcel_Style_Border::BORDER_THICK );
-			$estilo->getBorders()->getTop()->setBorderStyle(PHPExcel_Style_Border::BORDER_THICK );
+			$estilo->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK );
+			$estilo->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK );
 		}
 		return array($origen, array($origen[0]+($x-1), $origen[1]+($y-1)));
 	}
@@ -306,29 +307,26 @@ class toba_vista_excel
 	}
 	
 	function titulo($titulo, $celdas_ancho=1, $origen=null)
-	{
+	{		
 		$estilos = array(
 			'font' => array('
 				bold' => true, 
 				'size' => 14, 
-				'color' => array('argb' => PHPExcel_Style_Color::COLOR_WHITE)),
+				'color' => array('argb' => \PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE)
+			),
 			'alignment' => array(
-				'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER
+				'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER
 			),
 			'fill' => array(
-				'type' => PHPExcel_Style_Fill::FILL_SOLID, 
-				'startcolor' => array('argb' => 'FF808080')
+				'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID, 
+				'startColor' => array('argb' => 'FF808080')
 			),
 			'borders' => array(
-				'top' => array('style' => PHPExcel_Style_Border::BORDER_MEDIUM),
-				'bottom' => array('style' => PHPExcel_Style_Border::BORDER_MEDIUM),
-				'left' => array('style' => PHPExcel_Style_Border::BORDER_MEDIUM),
-				'right' => array('style' => PHPExcel_Style_Border::BORDER_MEDIUM),
+				'allBorders' => array('borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM)
 			)
 		);
 		$altura = 20;
-		$this->texto($titulo, $estilos, $celdas_ancho, $altura, $origen);
-
+		$this->texto($titulo, $estilos, $celdas_ancho, $altura, $origen);		
 	}
 	
 	function texto($texto, $estilos=array(), $celdas_ancho=1, $altura=null, $origen=null)
@@ -336,19 +334,19 @@ class toba_vista_excel
 		if (! isset($origen)) {
 			$origen = $this->cursor;
 			$this->cursor[1]++;
- 		}
-		$hoja = $this->excel->getActiveSheet();		
+ 		}		
+		$hoja = $this->excel->getActiveSheet();				
  		$hoja->setCellValueByColumnAndRow($origen[0], $origen[1],utf8_encode(strval($texto)) );
- 		$hoja->setBreak('A1', PHPExcel_Worksheet::BREAK_COLUMN   );
+ 		$hoja->setBreak('A1',  Worksheet::BREAK_COLUMN );		
  		$estilo = $hoja->getStyleByColumnAndRow($origen[0], $origen[1]);
- 		$estilo->applyFromArray($estilos);
+ 		$estilo->applyFromArray($estilos);		
  		if (isset($altura)) {
  			$hoja->getRowDimension($origen[1])->setRowHeight($altura);
- 		}
+ 		}								
 		if ($celdas_ancho > 1) {
 			$fin = ($origen[0] + $celdas_ancho) -1;
 			$hoja->mergeCellsByColumnAndRow($origen[0], $origen[1], $fin, $origen[1]);
-	 		for($i=$origen[0]+1; $i<=$fin; $i++) {
+	 		for($i=$origen[0]+1; $i<=$fin; $i++) {									
 	 			$estilo = $hoja->getStyleByColumnAndRow($i, $origen[1]);
 	 			$estilo->applyFromArray($estilos);		
 	 		}
