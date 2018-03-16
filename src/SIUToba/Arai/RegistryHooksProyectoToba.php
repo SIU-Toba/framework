@@ -509,7 +509,8 @@ class RegistryHooksProyectoToba implements HooksInterface
 
         $dirIni = \toba_modelo_rest::get_dir_consumidor($modeloProyecto->get_dir_instalacion_proyecto(), $apiId);
         if (! \toba_modelo_rest::existe_ini_cliente($modeloProyecto, $apiId)) {
-            throw new \Exception("No se puden enviar las credenciales de la api porque no estÃ¡n definidas en el archivo '$dirIni'");
+            echo "No se puden enviar las credenciales de la api porque no estÃ¡n definidas en el archivo '$dirIni' \n";
+            return;
         }
 
         return \toba_modelo_rest::get_ini_cliente($modeloProyecto, $apiId);
@@ -532,7 +533,8 @@ class RegistryHooksProyectoToba implements HooksInterface
     {
         $sslUtils = new SSLCertUtils();
         if (!isset($auth['credentials']['cert'])) {
-            throw new \Exception("Se intenta configurar auth de tipo ssl pero no se provee certificado\n");
+            echo "Se intenta configurar auth de tipo ssl pero no se provee certificado\n";
+            return null;
         }
 
         $sslUtils->loadCert($auth['credentials']['cert']);
@@ -551,7 +553,7 @@ class RegistryHooksProyectoToba implements HooksInterface
     protected function getCredencialesClienteSimple($auth)
     {
         if (!isset($auth['credentials']['cert'])) {
-            throw new \Exception("Se intenta configurar el cliente '{$auth['credentials']['user']}' pero no provee el certificado\n");
+            return;
         }
 
         $privateKey = $this->getAraiSyncKeyPrivate();
@@ -576,6 +578,10 @@ class RegistryHooksProyectoToba implements HooksInterface
     {
         $iniCliente = $this->getIniClienteRest($acceso['rest-id'], $acceso);
 
+        if (!$iniCliente){
+            return;
+        }
+
         $datos = $iniCliente->get_datos_entrada('conexion');
 
         $datos['to'] = $provider->getEndpoint();
@@ -589,6 +595,9 @@ class RegistryHooksProyectoToba implements HooksInterface
     protected function configurarCliente($feature, $opciones)
     {
         $iniCliente = $this->getIniClienteRest($opciones['rest-id'], $opciones);
+        if (!$iniCliente){
+            return;
+        }
 
         $provider = current($feature->getProviders());
         if (!empty($provider)){
@@ -611,12 +620,14 @@ class RegistryHooksProyectoToba implements HooksInterface
     protected function configurarClienteSSL($feature, $authServer, $authCliente)
     {
         if (!isset($authCliente['cert_file'])) {
-            throw new \Exception("Se intenta enviar los datos de conexion para {$feature->getName()} pero no se seteó la propiedad 'cert_file'");
+            echo "Se intenta enviar los datos de conexion a una api pero no se seteó la propiedad 'cert_file'\n";
+            return null;
         }
 
         $pathCert = $authCliente['cert_file'];
         if (!file_exists($pathCert)) {
-            throw new \Exception("El certificado para {$feature->getName()} no se encuentra en el path '$pathCert'");
+            echo "El certificado para {$feature->getName()} no se encuentra en el path '$pathCert'\n";
+            return null;
         }
 
         $credentials = [
@@ -629,7 +640,8 @@ class RegistryHooksProyectoToba implements HooksInterface
     protected function configurarClienteSimple($feature, $authServer, $authCliente)
     {
         if (empty($authServer['credentials']['cert'])){
-            throw new \Exception("Se intenta enviar los datos de conexion para '{$feature->getName()}' pero no se seteó el certificado del servidor");
+            echo "Se intenta enviar los datos de conexion a una api pero no se seteó la propiedad 'cert' del servidor\n";
+            return null;
         }
 
         $credentials = [
