@@ -302,7 +302,7 @@ class RegistryHooksProyectoToba implements HooksInterface
             $options['auth']['type'] = $iniServer->get_datos_entrada("autenticacion");
         }
 
-	    $publicKey = $this->getAraiSyncKeyPublic();
+	$publicKey = $this->getAraiSyncKeyPublic();
         $options['auth']['credentials']['cert'] = $publicKey;
 
         $endpoint = $this->getProyectoUrl();
@@ -509,7 +509,7 @@ class RegistryHooksProyectoToba implements HooksInterface
 
         $dirIni = \toba_modelo_rest::get_dir_consumidor($modeloProyecto->get_dir_instalacion_proyecto(), $apiId);
         if (! \toba_modelo_rest::existe_ini_cliente($modeloProyecto, $apiId)) {
-            echo "No se puden enviar las credenciales de la api porque no estÃ¡n definidas en el archivo '$dirIni' \n";
+            echo "No se puede enviar las credenciales de la api '$apiId' porque no estÃ¡n definidas en el archivo '$dirIni' \n";
             return;
         }
 
@@ -600,9 +600,11 @@ class RegistryHooksProyectoToba implements HooksInterface
         }
 
         $provider = current($feature->getProviders());
-        if (!empty($provider)){
-            $authServer = $provider->getOptions()['auth'];
+        if (empty($provider)){
+            return;
         }
+
+        $authServer = $provider->getOptions()['auth'];
 
         $authCliente = $iniCliente->get_datos_entrada('conexion');
 
@@ -620,7 +622,7 @@ class RegistryHooksProyectoToba implements HooksInterface
     protected function configurarClienteSSL($feature, $authServer, $authCliente)
     {
         if (!isset($authCliente['cert_file'])) {
-            echo "Se intenta enviar los datos de conexion a una api pero no se seteó la propiedad 'cert_file'\n";
+            echo "Se intenta enviar los datos de conexion a la api '{$feature->getName()}' pero no se seteó la propiedad 'cert_file'\n";
             return null;
         }
 
@@ -640,7 +642,7 @@ class RegistryHooksProyectoToba implements HooksInterface
     protected function configurarClienteSimple($feature, $authServer, $authCliente)
     {
         if (empty($authServer['credentials']['cert'])){
-            echo "Se intenta enviar los datos de conexion a una api pero no se seteó la propiedad 'cert' del servidor\n";
+            echo "Se intenta enviar los datos de conexion a la api '{$feature->getName()}' pero no se seteó la propiedad 'cert' del servidor\n";
             return null;
         }
 
