@@ -374,6 +374,9 @@ class RegistryHooksProyectoToba implements HooksInterface
             $archivo = $this->instalacion->get_instancia($this->getInstanciaId())->get_dir()."/instancia.ini";
             throw new \Exception("Es necesario especificar la URL completa del sistema en el atributo 'full_url' de la seccion [$proyecto] del archivo $archivo");
         }
+	if (substr($fullUrl, -1) == '/') {
+		$fullUrl = substr($fullUrl, 0, -1);
+	}
         return $fullUrl;
     }
 
