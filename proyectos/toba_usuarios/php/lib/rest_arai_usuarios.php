@@ -1,7 +1,7 @@
 <?php
 
 use GuzzleHttp\Psr7;
-use GuzzleHttp\Client;
+//use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 
 /**
@@ -64,65 +64,58 @@ class rest_arai_usuarios
 	
 	private function manejar_excepcion_request(RequestException $e)
 	{
-		$msg = /*$e->getMessage() . "\n" .*/ Psr7\str($e->getRequest()) . "\n";
-
+		$msg = $e->getMessage() . PHP_EOL . Psr7\str($e->getRequest()) . PHP_EOL;
 		if ($e->hasResponse()) {
-			$msg .= Psr7\str($e->getResponse()) . "\n";
+			$msg .= Psr7\str($e->getResponse()) . PHP_EOL;
 		}
 		throw new toba_error($msg);
 	}
 	
 	public function get_usuarios($filtro=array(), $excluir_aplicacion = null)
 	{
+		$query = $datos = array();
+		$url = 'usuarios';		
+		if (! is_null($excluir_aplicacion)) {
+			$query['excluir_aplicacion'] = $excluir_aplicacion;
+		}
+		
+		if (isset($filtro) && is_array($filtro)) {
+			foreach ($filtro as $id => $campo) {
+				$valor = (is_array($campo['valor'])) ? $campo['valor']['desde'] . ';' . $campo['valor']['hasta'] : $campo['valor'];
+				$query[$id] = $campo['condicion'] . ';' . $valor;
+			}
+		}		
 		try {
-			$query = array();
-			$url = "usuarios";
-
-			if (isset($filtro)) {
-				foreach ($filtro as $id => $campo) {
-					if (is_array($campo['valor'])) {
-						$valor = $campo['valor']['desde'] . ';' . $campo['valor']['hasta'];
-					} else {
-						$valor = $campo['valor'];
-					}
-					$query[$id] = $campo['condicion'] . ';' . $valor;
-				}
-			}
-			if (isset($excluir_aplicacion)) {
-				$query['excluir_aplicacion'] = $excluir_aplicacion;
-			}
 			// obtengo la respuesta
 			$response = $this->cliente->get($url, array('query' => $query));
-			$datos = rest_decode($response->getBody()->__toString());
-			
+			$datos = rest_decode($response->getBody()->__toString());			
 			foreach($datos as $clave => $dato) {
 				$datos[$clave]['nombre_apellido'] = $dato['nombre'] . ' ' . $dato['apellido'];
-			}
-			return $datos;
+			}			
 		} catch (RequestException $e) {
 			$this->manejar_excepcion_request($e);
 		} catch (Exception $e) {
 			throw new toba_error($e);
 		}
+		return $datos;		
 	}
 	
 	public function get_usuario($identificador)
 	{
 		try {
 			$url = "usuarios/$identificador";
-
 			// obtengo la respuesta
 			$response = $this->cliente->get($url);
 			$datos = rest_decode($response->getBody()->__toString());			
-			if (!empty($datos)) {
+			if (! empty($datos)) {
 				$datos['nombre_apellido'] = $datos['nombre'] . ' ' . $datos['apellido'];
 			}
-			return $datos;
 		} catch (RequestException $e) {
 			$this->manejar_excepcion_request($e);
 		} catch (Exception $e) {
 			throw new toba_error($e);
 		}
+		return $datos;		
 	}
 	
 	public function get_cuenta($identificador_aplicacion, $cuenta)
@@ -132,16 +125,14 @@ class rest_arai_usuarios
 
 			// obtengo la respuesta
 			$response = $this->cliente->get($url);
-			$datos = rest_decode($response->getBody()->__toString());			
-			return $datos;
+			$datos = rest_decode($response->getBody()->__toString());	
 		} catch (RequestException $e) {
-			if ($e->getCode() == 404) {
-				return array();
-			}
+			if ($e->getCode() == 404) { return array();	}
 			$this->manejar_excepcion_request($e);
 		} catch (Exception $e) {
 			throw new toba_error($e);
 		}
+		return $datos;	
 	}
 	
 	public function agregar_cuenta($identificador_aplicacion, $datos_cuenta)
@@ -152,12 +143,12 @@ class rest_arai_usuarios
 			// obtengo la respuesta
 			$response = $this->cliente->post($url, array('body' => rest_encode($datos_cuenta)));
 			$datos = rest_decode($response->getBody()->__toString());			
-			return $datos;
 		} catch (RequestException $e) {
 			$this->manejar_excepcion_request($e);
 		} catch (Exception $e) {
 			throw new toba_error($e);
 		}
+		return $datos;		
 	}
 	
 	public function eliminar_cuenta($identificador_aplicacion, $cuenta)
@@ -166,7 +157,7 @@ class rest_arai_usuarios
 			$url = "aplicaciones/$identificador_aplicacion/cuentas/$cuenta";
 			
 			// obtengo la respuesta
-			$response = $this->cliente->delete($url);
+			$this->cliente->delete($url);
 		} catch (RequestException $e) {
 			$this->manejar_excepcion_request($e);
 		} catch (Exception $e) {
@@ -184,7 +175,8 @@ class rest_arai_usuarios
 		}
 	}
 	
-	public function get_identificador_x_aplicacion_cuenta($identificador_aplicacion, $cuenta) {
+	public function get_identificador_x_aplicacion_cuenta($identificador_aplicacion, $cuenta) 
+	{
 		$datos = $this->get_cuenta($identificador_aplicacion, $cuenta);
 		if (isset($datos) && !empty($datos)) {
 			return $datos['identificador_usuario'];
