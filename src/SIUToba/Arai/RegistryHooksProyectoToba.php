@@ -188,24 +188,30 @@ class RegistryHooksProyectoToba implements HooksInterface
 
 	protected function postConsumeApi(Consumption $feature)
 	{
+		$cant = count($feature->getProviders());
+		echo "Detectando proveedores de api '{$feature->getName()}': {$cant}\n";
+		
 		$providers = $feature->getProviders();
 		if (empty($providers)) return;    //Nada para configurar
 
 		/** @var Provision */
 		$optionsFijas = $feature->getOptions();
 		$provider = current($providers);  //Asume primer IDP que encuentra!
+		
+		echo "Procesando proveedor '{$provider->getName()}': ";
+		
 		if ($provider->getEndpoint() == '') {
-			//No configura APIs sin URL
+			echo "no posee configurado 'endpoint'\n";
 			return;
 		}
 
 		if (! isset($optionsFijas['toba-rest'])) {
-			echo "No se pudo configurar la feature '".$provider->getName()."', falta setearle los identificadores de los accesos REST en el campo 'toba-rest'\n";
+			echo "falta setearle los identificadores de los accesos REST en el campo 'toba-rest'\n";
 			return;
 		}
 		foreach ($optionsFijas['toba-rest'] as $acceso) {
 			if (! isset($acceso['rest-id'])) {
-				echo "No se pudo configurar la feature '".$provider->getName()."', falta setearle el identificador del acceso REST en el campo 'toba-rest.rest-id'\n";
+				echo "falta setearle el identificador del acceso REST en el campo 'toba-rest.rest-id'\n";
 				break;
 			}
 
@@ -218,13 +224,18 @@ class RegistryHooksProyectoToba implements HooksInterface
 			$iniInstalacion = new \toba_ini($this->instalacion->archivo_info_basica());
 			$iniInstalacion->agregar_entrada("vincula_arai_usuarios", "1");
 			$iniInstalacion->guardar();
-		}
+			
+			echo "Activando vínculo entre 'toba_usuarios' y 'Araí' para la gestión de cuentas\n";
+		}		
 	}
 
 
 
 	protected function postConsumeService(Consumption $feature)
 	{
+		$cant = count($feature->getProviders());
+		echo "Detectando proveedores de servicio '{$feature->getName()}': {$cant}\n";
+		
 		if ($feature->getName() == "service:siu/sso-saml-idp") {
 			$this->postConsumeSamlIdp($feature);
 		}
@@ -238,9 +249,13 @@ class RegistryHooksProyectoToba implements HooksInterface
 		$provider = current($providers);  //Asume primer IDP que encuentra!
 		$options = $provider->getOptions();
 
+		echo "Procesando proveedor '{$provider->getName()}': ";
+		
 		$endpoint = $provider->getEndpoint();
-
-		if ($endpoint == '') return; //Nada para configurar
+		if ($endpoint == '') {
+			echo "no posee configurado 'endpoint'\n";
+			return;
+		}
 		$iniInstalacion = new \toba_ini($this->instalacion->archivo_info_basica());
 
 		$iniInstalacion->agregar_entrada("autenticacion", "saml_onelogin");
@@ -272,6 +287,8 @@ class RegistryHooksProyectoToba implements HooksInterface
 		}
 		$iniSaml->agregar_entrada("idp:".$endpoint, $idp);
 		$iniSaml->guardar();
+		
+		echo "configurado con '{$provider->getEndpoint()}'\n";
 	}
 
 	//---------------------------------------------------------------
@@ -347,6 +364,9 @@ class RegistryHooksProyectoToba implements HooksInterface
 		$iniServidorUsuarios = \toba_modelo_rest::get_ini_usuarios($modeloProyecto);
 		$iniServidorUsuarios->vaciar();
 
+		$cant = count($feature->getConsumers());
+		echo "Detectando clientes de api '{$feature->getName()}': {$cant}\n";
+		
 		foreach ($feature->getConsumers() as $consumer) {
 			$authInfo = $consumer->getAuth();
 			if (empty($authInfo)) continue;
@@ -512,7 +532,6 @@ class RegistryHooksProyectoToba implements HooksInterface
 
 		$dirIni = \toba_modelo_rest::get_dir_consumidor($modeloProyecto->get_dir_instalacion_proyecto(), $apiId);
 		if (! \toba_modelo_rest::existe_ini_cliente($modeloProyecto, $apiId)) {
-			echo "No se puede enviar las credenciales de la api '$apiId' porque no estÃ¡n definidas en el archivo '$dirIni' \n";
 			return;
 		}
 
@@ -555,6 +574,7 @@ class RegistryHooksProyectoToba implements HooksInterface
 
 	protected function getCredencialesClienteSimple($auth)
 	{
+		echo "Procesando cliente con usuario '{$auth['credentials']['user']}':";
 		if (!isset($auth['credentials']['cert'])) {
 			return;
 		}
@@ -566,9 +586,18 @@ class RegistryHooksProyectoToba implements HooksInterface
 
 		$encryptedAuth = AbstractAuth::getInstance($auth['type'], $auth['credentials'], true, $privateKey, $certPublic);
 
-		// se desencripta la clave del cliente con el certificado privado del server y el publico del cliente
-		$decryptedCredentials = $encryptedAuth->getDecryptedCredentials();
+		$decryptedCredentials = false;
+		try {
+			// se desencripta la clave del cliente con el certificado privado del server y el publico del cliente
+			$decryptedCredentials = $encryptedAuth->getDecryptedCredentials();
+		} catch (\Exception $e) {
+			echo " {$e->getMessage()}\n";
+		}
 
+		if (!$decryptedCredentials){
+			return;
+		}		
+		echo " Desencriptado correcto de la clave\n";
 		$credentials = [
 			'user' => $auth['credentials']['user'],
 			'data' => array('password' => $decryptedCredentials['password'])
@@ -579,9 +608,11 @@ class RegistryHooksProyectoToba implements HooksInterface
 
 	protected function actualizarClienteIni($provider, $acceso)
 	{
-		$iniCliente = $this->getIniClienteRest($acceso['rest-id'], $acceso);
+		$apiId = $acceso['rest-id'];
+		$iniCliente = $this->getIniClienteRest($apiId, $acceso);
 
-		if (!$iniCliente){
+		if (!$iniCliente) {
+			echo "el cliente de la api '$apiId' no esta correctamente configurado\n";
 			return;
 		}
 
@@ -593,6 +624,8 @@ class RegistryHooksProyectoToba implements HooksInterface
 
 		$iniCliente->agregar_entrada("conexion", $datos);
 		$iniCliente->guardar();
+		
+		echo "configurado con '{$provider->getEndpoint()}'\n";
 	}
 
 	protected function configurarCliente($feature, $opciones)
