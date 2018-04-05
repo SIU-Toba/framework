@@ -35,7 +35,7 @@
         "siu-toba/services_json": "^1.0.3.3", 
         "siu/rdi": "~0.9", 
         "siu/arai-json-migrator" : "~1.0",
-        "siu/arai-cli" : "~2.2",
+        "siu/arai-cli" : "^2.3",
         "vlucas/phpdotenv": "~2.0",
         "ioncube/php-openssl-cryptor": "dev-master",
         "siu/manejador-salida-toba" : "dev-master"
