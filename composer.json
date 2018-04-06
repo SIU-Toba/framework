@@ -38,7 +38,8 @@
         "siu/arai-cli" : "^2.3",
         "vlucas/phpdotenv": "~2.0",
         "ioncube/php-openssl-cryptor": "dev-master",
-        "siu/manejador-salida-toba" : "dev-master"
+        "siu/manejador-salida-toba" : "dev-master",
+	"jaspersoft/rest-client": "^2.0"
     },
     "require-dev": {
         "greenlion/PHP-SQL-Parser": "@dev"
