@@ -4,6 +4,12 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.0.22](https://github.com/SIU-Toba/framework/releases/tag/v3.0.22) (2018-04-05):
+- Se actualiza el paquete siu/arai-cli a v2.3.1
+- Se corrigen bugs en los hooks de Toba para conectar a Araí
+- Se corrige XSS via toba_notificacion (IMPORTANTE!!)
+- Se agrega recuperación de exportación de personalización incompleta
+
 [3.0.21](https://github.com/SIU-Toba/framework/releases/tag/v3.0.21) (2018-03-13):
 - Se agrega conversion via Psr7\str al mensaje proveniente de un error rest
 - Se agrega el metodo toba_auditoria_tablas_postgres::get_tablas_triggers_desactivados (credits FMartinez)

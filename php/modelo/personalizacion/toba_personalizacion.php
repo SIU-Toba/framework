@@ -180,7 +180,11 @@ class toba_personalizacion {
 	{
 		if (!$this->iniciada()) {
 			throw  new  toba_error("PERSONALIZACION: Debe iniciar la personalización antes de exportarla");
-		}		
+		}
+		
+		if ($this->existe_exportacion_incompleta() &&	$this->consola->dialogo_simple('La exportación anterior fue incompleta?', 's')  == 's' ) {
+			$this->restaurar_schema_trabajo();
+		}
 		$this->crear_directorios();
 		$this->consola->mensaje('Generando esquema alterno..');
 		$this->generar_schema_diff();		//Genero el schema con los metadatos originales para hacer el diff		
@@ -530,6 +534,13 @@ class toba_personalizacion {
 			toba_logger::instancia()->error($e->getMessage());
 			throw new toba_error_usuario('Hubo un inconveniente al intentar restaurar la instancia de trabajo, revise el log');
 		}	
+	}
+	
+	protected function existe_exportacion_incompleta()
+	{
+		$schema_o = $this->get_schema_original();
+		$schema_t = $this->get_schema_personalizacion();		
+		return ($this->get_db()->existe_schema($schema_o) && $this->get_db()->existe_schema($schema_t));
 	}
 }
 ?>
