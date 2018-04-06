@@ -25,6 +25,16 @@
 - Se traslada parte de la generación del marcado HTML al paquete siu/manejador-salida-toba
 - Se cambia Bower por Yarn como manejador de assets JS
 
+[3.0.22](https://github.com/SIU-Toba/framework/releases/tag/v3.0.22) (2018-04-06):
+- Se actualiza el paquete siu/arai-cli a v2.3.1
+- Se corrigen bugs en los hooks de Toba para conectar a Araí
+- Se corrige XSS via toba_notificacion (IMPORTANTE!!)
+- Se agrega recuperación de exportación de personalización incompleta
+
+[3.0.21](https://github.com/SIU-Toba/framework/releases/tag/v3.0.21) (2018-03-13):
+- Se agrega conversion via Psr7\str al mensaje proveniente de un error rest
+- Se agrega el metodo toba_auditoria_tablas_postgres::get_tablas_triggers_desactivados (credits FMartinez)
+ 
 [3.0.20](https://github.com/SIU-Toba/framework/releases/tag/v3.0.20) (2018-03-07):
 - Se corrige un bug en ef_upload que afectaba su uso en formularios_ml
 - Se desactiva el log de WS durante el testing via phpunit
