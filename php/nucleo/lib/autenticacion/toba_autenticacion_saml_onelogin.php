@@ -86,6 +86,19 @@ class toba_autenticacion_saml_onelogin extends toba_autenticacion implements tob
 			}
 			return $id_usuario;
 			
+		} elseif (! is_null(toba::memoria()->get_parametro('metadata'))) {					//Se devuelve los metadatos del SP
+
+			$settings = $auth->getSettings();
+			$metadata = $settings->getSPMetadata();
+			$errors = $settings->validateMetadata($metadata);
+			if (empty($errors)) {
+				header('Content-Type: text/xml');
+				echo $metadata;
+			} else {
+				echo "Invalid SP metadata";
+			}
+			die;
+
 		} else {
 			$this->procesar_logout($auth);
 			
