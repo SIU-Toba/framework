@@ -64,14 +64,14 @@ class pant_visualizacion extends toba_ei_pantalla
 			<TABLE width='100%' class='tabla-0'>\n";
 		echo"   <TR>\n";
 		echo"     <td  class='ei-cuadro-col-tit'>#</td>\n";
-		echo"     <td  class='ei-cuadro-col-tit'  width='90%'>Lapso</td>\n";
+		echo"     <td  class='ei-cuadro-col-tit'  width='80%'>Lapso</td>\n";
 		echo"     <td  class='ei-cuadro-col-tit'>Tiempo</td>\n";
 		echo"     <td  class='ei-cuadro-col-tit'>%</td>\n";
 		echo"     <td  class='ei-cuadro-col-tit'>&nbsp;</td>\n";
 		echo"  </TR>\n";
 		for ($a = 1; $a < count($datos); $a++) {
 			$porcentaje = number_format($datos[$a]['porcentaje'], 2, ',', '.');
-			if (!(($datos[$a]['texto'] == 'basura')&&($porcentaje < 1))) {
+			if (!(($datos[$a]['texto'] == 'basura')&&($datos[$a]['porcentaje'] < 1))) {
 				if ($datos[$a]['texto'] == 'basura') {
 					$texto = 'NO ETIQUETADO';
 				} else {
@@ -80,19 +80,20 @@ class pant_visualizacion extends toba_ei_pantalla
 				echo"   <TR>\n";
 				if (!($datos[$a]['porcentaje'] > $barra_mayor)) {
 					echo"     <td  class='lista-e'>". $escapador->escapeHtml($datos[$a]['marca'])."</td>\n";
-					echo"     <td  class='lista-t' width='90%'>". $escapador->escapeHtml($texto)."</td>\n";
+					echo"     <td  class='lista-t' width='80%'>". $escapador->escapeHtml($texto)."</td>\n";
 					echo"     <td  class='lista-n'>".$this->formato_numero($datos[$a]['lapso'])."&nbsp;s</td>\n";
 					echo"     <td  class='lista-n'>". $escapador->escapeHtml($porcentaje)."&nbsp;%</td>\n";
 				} else {
 					echo"     <td  class='lista-e2'>". $escapador->escapeHtml($datos[$a]['marca'])."</b></td>\n";
-					echo"     <td  class='lista-t' width='90%'><b>". $escapador->escapeHtml($texto)."</b></td>\n";
+					echo"     <td  class='lista-t' width='80%'><b>". $escapador->escapeHtml($texto)."</b></td>\n";
 					echo"     <td  class='lista-n'><b>".$this->formato_numero($datos[$a]['lapso'])."&nbsp;s</b></td>\n";
 					echo"     <td  class='lista-n'><b>". $escapador->escapeHtml($porcentaje)."&nbsp;%</b></td>\n";
-					$barra_mayor = $porcentaje;
+					$barra_mayor = $datos[$a]['porcentaje'];
 				}
-				$ancho_barra = ($porcentaje / 100 ) * $ancho_grafico;
+				
+				$ancho_barra = floor(($datos[$a]['porcentaje'] / 100 ) * $ancho_grafico) ;
 				echo "     <td  class='cron-base'>\n";
-				if ($porcentaje >= 1.00) {
+				if ($datos[$a]['porcentaje'] >= 1.00) {
 					echo"  <TABLE class='tabla-0'>\n";
 					echo"  <TR>\n";
 					if ($datos[$a]['texto'] == 'basura') {
