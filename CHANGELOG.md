@@ -35,6 +35,12 @@
 - Se traslada parte de la generación del marcado HTML al paquete siu/manejador-salida-toba
 - Se cambia Bower por Yarn como manejador de assets JS
 
+[3.0.23](https://github.com/SIU-Toba/framework/releases/tag/v3.0.23) (2018-04-27):
+- Agrega csrf token al form que cambia el perfil funcional en runtime
+- Bugfix en el seteo del perfil funcional activo, existian diferencias cuando pertenecia a una membresia.
+- Actualiza el paquete siu/text_Highlighter: v0.8
+- Se corrigen notices en toba_editor
+
 [3.0.22](https://github.com/SIU-Toba/framework/releases/tag/v3.0.22) (2018-04-06):
 - Se actualiza el paquete siu/arai-cli a v2.3.1
 - Se corrigen bugs en los hooks de Toba para conectar a Araí
