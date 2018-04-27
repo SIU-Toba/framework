@@ -367,16 +367,21 @@ class toba_manejador_sesiones
 	 */
 	function set_perfiles_funcionales_activos($activos)
 	{
+		$finales = array();		
 		$perfiles = $this->get_perfiles_funcionales();		
 		//Validacion
 		foreach ($activos as $perfil) {
 			if (! in_array($perfil, $perfiles)) {
 				throw new toba_error_seguridad("Se esta intentando activar el perfil '$perfil' y el mismo no pertenece al usuario actual");
 			}
+			$finales[] = $perfil;
+			$membresias = toba::proyecto()->get_perfiles_funcionales_asociados($perfil);			
+			if (! empty($membresias)) {				
+				$finales = array_merge($finales, $membresias);
+			}
 		}
-		return $this->perfiles_funcionales_activos = $activos;
+		return $this->perfiles_funcionales_activos = array_unique($finales);
 	}	
-	
 
 	/**
 	* @deprecated Desde 1.5 usar get_perfiles_funcionales
