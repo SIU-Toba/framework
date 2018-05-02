@@ -655,12 +655,7 @@ class toba_ef_editable_fecha extends toba_ef_editable
 		$tab = ' tabindex="'.$this->padre->get_tab_index().'"';
 		$html = "<span class='ef-fecha'>";
 		$html .= toba_form::text($this->id_form,$this->estado, $this->es_solo_lectura(),$this->tamano,
-								$this->tamano, $this->clase_css, $this->input_extra.$tab);
-		if (! $this->es_solo_lectura()) {
-			$html .= "<a id='link_". $this->id_form . "' ";
-			$html .= " onclick='calendario.select(document.getElementById(\"{$this->id_form}\"),\"link_".$this->id_form."\",\"dd/MM/yyyy\");return false;' ";
-			$html .= " href='#' name='link_". $this->id_form . "'>".toba_recurso::imagen_toba('calendario.gif',true,16,16,"Seleccione la fecha")."</a>\n";
-		}
+							$this->tamano, $this->clase_css, $this->input_extra.$tab);
 		$html .= $this->get_html_iconos_utilerias();
 		$html .= "</span>\n";
 		return $html;
@@ -827,19 +822,14 @@ class toba_ef_editable_fecha_hora extends toba_ef_editable
 		$estado_fecha = (! is_null($this->estado)) ? $this->estado['fecha']: '';
 		$estado_hora = (! is_null($this->estado))? $this->estado['hora'] : '';
 		
+		//Primero envio la fecha
 		$tab = ' tabindex="'.$this->padre->get_tab_index().'"';
 		$id_form_fecha = $this->id_form . '_fecha';
 		$id_form_hora = $this->id_form . '_hora';
 		$html = "<span class='ef-fecha-hora'>";
 		$html .= toba_form::text($id_form_fecha ,$estado_fecha, $this->es_solo_lectura(),$this->tamano, $this->tamano, $this->clase_css, $this->input_extra.$tab);
-		$visibilidad = "style= 'visibility:hidden;'";
-		if (! $this->es_solo_lectura()) {	//Hay que ver si es solo lectura por la cascada o que?
-			$visibilidad = "style= 'visibility:visible;'";
-		}
-		$html .= "<a id='link_". $this->id_form . "' ";
-		$html .= " onclick='calendario.select(document.getElementById(\"$id_form_fecha\"),\"link_".$this->id_form."\",\"dd/MM/yyyy\");return false;' ";
-		$html .= " href='#' name='link_". $this->id_form . "' $visibilidad>".toba_recurso::imagen_toba('calendario.gif',true,16,16,"Seleccione la fecha")."</a>\n";
 
+		//Ahora saco la hora
 		$html .= toba_form::text($id_form_hora, $estado_hora, $this->es_solo_lectura(), 5,  5, $this->clase_css . '  ef-numero ', $this->input_extra. $tab);
 		$html .= $this->get_html_iconos_utilerias();
 		$html .= "</span>\n";

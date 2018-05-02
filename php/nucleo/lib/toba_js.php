@@ -114,7 +114,9 @@ class toba_js
 	{
 		if (! self::$basicos_cargados) {
 			$escapador = toba::escaper();
-			self::$consumos_basicos[] = 'basicos/jquery-1.9.1.min';			
+			self::$consumos_basicos[] = 'packages/jquery/dist/jquery.min';
+			self::$consumos_basicos[] = 'packages/jquery-migrate/dist/jquery-migrate.min';
+			self::$consumos_basicos[] = 'utilidades/jquery-ui/jquery-ui.min';			
 			if (toba::proyecto()->get_parametro('es_css3')) {
 				self::$consumos_basicos[] = 'formalize/javascripts/jquery.formalize.min';
 			}
@@ -186,9 +188,7 @@ class toba_js
 			//-----------------------------------------------------------------------------------------------------
 			echo toba_js::cerrar();		
 			//Incluyo el javascript STANDART	
-			
-			self::cargar_consumos_globales(self::$consumos_basicos);
-			
+			self::cargar_consumos_globales(self::$consumos_basicos);					
 			if (toba::instalacion()->arreglo_png_ie()) {
 				///---Arreglo PNGs IE
 				$url = toba_recurso::js("utilidades/pngbehavior.htc");
@@ -200,10 +200,11 @@ class toba_js
 					</style>
 					<![endif]-->\n";
 			}
-			$url = toba_recurso::js('basicos/html5shiv.js');
+			$url = toba_recurso::js('basicos/html5shiv.js');			
 			echo "	<!--[if lt IE 9]>
 						<script src='$url'></script>
 					<![endif]-->\n";
+			echo '<link rel="stylesheet" href="'. toba_recurso::url_toba().'/js/utilidades/jquery-ui/jquery-ui.min.css"> ';			
 			self::$basicos_cargados = true;
 		}
 	}
