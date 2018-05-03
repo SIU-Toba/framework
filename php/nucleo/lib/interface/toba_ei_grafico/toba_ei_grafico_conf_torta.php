@@ -5,6 +5,9 @@
  *
  * @author andres
  */
+use JpGraph\PieGraph;
+use JpGraph\PiePlot;
+
 class toba_ei_grafico_conf_torta extends toba_ei_grafico_conf_especifico
 {
 	/************************************************************************/

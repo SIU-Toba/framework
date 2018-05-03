@@ -86,7 +86,7 @@ class toba_ei_grafico extends toba_ei
 		$this->s__path = toba_dir().'/temp/'.uniqid().'.png';
 		try {
 			$this->_conf->imagen__generar($this->s__path);
-		} catch (JpGraphException $e) {
+		} catch (JpGraph\JpGraphException $e) {
 
 			throw new toba_error("TOBA EI GRAFICO: Error en la librería jpgraph. 
 				El error reportado fue el siguiente: '".$e->getMessage()."'. Si este

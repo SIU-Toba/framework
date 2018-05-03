@@ -1,11 +1,14 @@
 <?php
+namespace JpGraph;
+
+use JpGraph\Graph;
 //=======================================================================
 // File:        JPGRAPH_PLOTMARK.PHP
 // Description: Class file. Handles plotmarks
 // Created:     2003-03-21
 // Ver:         $Id: jpgraph_plotmark.inc.php 1106 2009-02-22 20:16:35Z ljp $
 //
-// Copyright (c) Aditus Consulting. All rights reserved.
+// Copyright (c) Asial Corporation. All rights reserved.
 //========================================================================
 
 

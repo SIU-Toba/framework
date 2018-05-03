@@ -1,5 +1,7 @@
 <?php
 
+use JpGraph\LinePlot;
+
 class toba_ei_grafico_conf_lineas extends toba_ei_grafico_conf_especifico
 {
 	/************************************************************************/

@@ -1,11 +1,13 @@
 <?php
+namespace JpGraph;
+
 //=======================================================================
 // File:        IMGDATA_ROUNDBALLS.INC
 // Description: Base64 encoded images for small round markers
 // Created:     2003-03-20
 // Ver:         $Id: imgdata_balls.inc.php 1106 2009-02-22 20:16:35Z ljp $
 //
-// Copyright (c) Aditus Consulting. All rights reserved.
+// Copyright (c) Asial Corporation. All rights reserved.
 //========================================================================
 
 class ImgData_Balls extends ImgData {

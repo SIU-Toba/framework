@@ -10,14 +10,7 @@ class pant_armado extends toba_ei_pantalla
 		$this->dep('arbol_origen')->generar_html();		
 		echo '</div></td></tr></table>';
 	}
-	
-	function get_consumo_javascript()
-	{
-		$consumo_js = parent::get_consumo_javascript();
-		$consumo_js[] = 'utilidades/jquery-ui.min';
-		return $consumo_js;
-	}
-	
+		
 	function extender_objeto_js()
 	{			
 		echo '$(function() {';

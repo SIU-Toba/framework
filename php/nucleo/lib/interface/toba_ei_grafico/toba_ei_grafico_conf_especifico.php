@@ -5,6 +5,8 @@
  * @author andres
  */
 
+use JpGraph\Graph;
+
 abstract class toba_ei_grafico_conf_especifico extends toba_ei_grafico_conf
 {
 	/**
@@ -44,12 +46,11 @@ abstract class toba_ei_grafico_conf_especifico extends toba_ei_grafico_conf
 	protected function set_up_jpgraph()
 	{
 		if (!defined("TTF_DIR")) {
-            $path = toba::instalacion()->get_fonts_path();
-            if ($path !== false) {
-                define("TTF_DIR", $path);
-            }
-		}
-		
+			$path = toba::instalacion()->get_fonts_path();
+			if ($path !== false) {
+				define("TTF_DIR", $path);
+			}
+		}		
 		require_once (toba_dir() . '/php/3ros/jpgraph/jpgraph.php');
 	}
 

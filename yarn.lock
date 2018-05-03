@@ -6,6 +6,14 @@ ckeditor@^4:
   version "4.7.3"
   resolved "https://registry.yarnpkg.com/ckeditor/-/ckeditor-4.7.3.tgz#b486fb9eb91af9532a0acfaea4a55374970254d5"
 
+jquery-migrate@^3.0:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/jquery-migrate/-/jquery-migrate-3.0.1.tgz#141de3abfe6d301baaa4130b0ec7b9a839845e72"
+
+jquery@^3.3:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
+
 siu-js-app-launcher@^1.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/siu-js-app-launcher/-/siu-js-app-launcher-1.0.2.tgz#7e57fbe849cd492950bf295c7cab7f4a10479f8d"

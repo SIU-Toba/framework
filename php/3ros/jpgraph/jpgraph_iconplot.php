@@ -1,11 +1,14 @@
 <?php
+namespace JpGraph;
+
+use JpGraph\Graph;
 //=======================================================================
 // File:        JPGRAPH_ICONPLOT.PHP
 // Description: Extension module to add icons to plots
 // Created:     2004-02-18
 // Ver:         $Id: jpgraph_iconplot.php 1404 2009-06-28 15:25:41Z ljp $
 //
-// Copyright (c) Aditus Consulting. All rights reserved.
+// Copyright (c) Asial Corporation. All rights reserved.
 //========================================================================
 
 
