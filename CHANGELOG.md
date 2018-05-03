@@ -3,6 +3,16 @@
 ## CHANGELOG
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
+- Se modifican los componenetes toba_ei_esquema y toba_ei_grafico para incluir los namespaces de JpGraph
+- Se actualiza JpGraph v4.2.0 y se le agrega namespaces de manera propia.
+- Se actualiza operacion de armado de menues en toba_usuarios
+- Se eliminan viejas versiones de JQuery, JQuery-ui dentro de la carpeta JS de Toba (requiere re-escritura en caso de URL hardcoded)
+- Actualizacion librerias JS e inclusion como recurso basico:
+  * JQuery: v3.3.1
+  * JQuery-ui: v1.12.1 (en directorio /js/utilidades/jquery-ui)
+  * Agrega JQuery-migrate: v.3.0
+- Se modifica ef_editable_fecha y ef_editable_fecha_hora para compatibilizar el funcionamiento
+- Se reemplaza el calendario anterior en JS por jquery-ui::datepicker (ojo con las redefiniciones JS!!)
 - Actualización de librerias:
   * phpmailer/phpmailer: v6.0.3
   * onelogin/php-saml: v2.13
