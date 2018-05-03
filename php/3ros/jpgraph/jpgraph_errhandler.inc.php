@@ -1,4 +1,6 @@
 <?php
+namespace JpGraph;
+
 //=======================================================================
 // File:        JPGRAPH_ERRHANDLER.PHP
 // Description: Error handler class together with handling of localized
@@ -132,7 +134,7 @@ class JpGraphError {
     }    
 }
 
-class JpGraphException extends Exception {
+class JpGraphException extends \Exception {
     // Redefine the exception so message isn't optional
     public function __construct($message, $code = 0) {
         // make sure everything is assigned properly
@@ -155,7 +157,7 @@ class JpGraphException extends Exception {
     	}
         $errobj->Raise($this->getMessage());
     }
-    static public function defaultHandler(Exception $exception) {
+    static public function defaultHandler(\Exception $exception) {
         global $__jpg_OldHandler;
         if( $exception instanceof JpGraphException ) {
             $exception->Stroke();
@@ -182,7 +184,7 @@ class JpGraphExceptionL extends JpGraphException {
 
 // Setup the default handler
 global $__jpg_OldHandler;
-$__jpg_OldHandler = set_exception_handler(array('JpGraphException','defaultHandler'));
+$__jpg_OldHandler = set_exception_handler(array('JpGraph\JpGraphException','defaultHandler'));
 
 //
 // First of all set up a default error handler
@@ -347,6 +349,7 @@ class JpGraphErrObjectImg extends JpGraphErrObject {
         $img->SetColor("black");
         $img->SetFont(FF_FONT1,FS_NORMAL);
         $txt = new Text($aMsg,52,25);
+        $txt->SetFont(FF_FONT1);
         $txt->Align("left","top");
         $txt->Stroke($img);
         if ($this->iDest) {
