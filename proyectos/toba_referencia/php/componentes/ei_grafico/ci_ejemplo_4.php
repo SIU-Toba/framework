@@ -1,4 +1,8 @@
 <?php
+	
+use JpGraph\Graph;
+use JpGraph\ContourPlot;
+
 class ci_ejemplo_4 extends toba_ci
 {
 		/**

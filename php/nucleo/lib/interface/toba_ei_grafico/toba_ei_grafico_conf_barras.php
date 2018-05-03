@@ -1,5 +1,7 @@
 <?php
 
+	use JpGraph\BarPlot;
+
 class toba_ei_grafico_conf_barras extends toba_ei_grafico_conf_especifico
 {
 	/************************************************************************/

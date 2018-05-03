@@ -167,8 +167,6 @@ class toba_ei_esquema extends toba_ei
 			} else {
 				$tam_mapa = $incluir_mapa;
 			}
-			echo toba_js::incluir(toba_recurso::js('basicos/jquery-1.9.1.min.js'));
-			echo toba_js::incluir(toba_recurso::js('utilidades/jquery-ui-1.10.1.custom.min.js'));
 			echo toba_js::abrir();
 			echo "
 			document.readyFunc = function(e) {
