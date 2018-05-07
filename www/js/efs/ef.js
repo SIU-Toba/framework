@@ -566,6 +566,10 @@ ef_html.prototype.constructor = ef_html;
 
 	ef_html.prototype.iniciar = function(id, contenedor) {
 		ef.prototype.iniciar.call(this, id, contenedor);
+		this.crear_editor();
+	};
+		
+	ef_html.prototype.crear_editor = function() {		
 		var html_object = document.getElementById(this._id_form);
 		if (html_object) {
 			var elemento = new CKEDITOR.dom.element(document.getElementById(this._id_form));
@@ -576,7 +580,7 @@ ef_html.prototype.constructor = ef_html;
 			}
 		}
 	};
-
+	
 	ef_html.prototype.get_estado = function() {
 		var editor = this.get_editor();
 		if (editor) {
@@ -615,7 +619,7 @@ ef_html.prototype.constructor = ef_html;
 	ef_html.prototype.set_estado = function(nuevo) {
 		var editor = this.get_editor();
 		if (editor) {
-			editor.setData(nuevo);
+			editor.setData(nuevo, {});
 		} else {			
 			var input = this.input();
 			if (input !== null && input.onchange) {
