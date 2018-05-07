@@ -612,10 +612,14 @@ class RegistryHooksProyectoToba implements HooksInterface
 		$iniCliente = $this->getIniClienteRest($apiId, $acceso);
 
 		if (!$iniCliente) {
-			echo "el cliente de la api '$apiId' no esta correctamente configurado\n";
+			echo "el cliente de la api '$apiId' no esta correctamente configurado (no posee el cliente.ini)\n";
 			return;
 		}
 
+		if (!$iniCliente->existe_entrada("conexion")) {
+			echo "el cliente de la api '$apiId' no esta correctamente configurado (no posee la entrada conexion)\n";
+			return;
+		}
 		$datos = $iniCliente->get_datos_entrada('conexion');
 
 		$datos['to'] = $provider->getEndpoint();
@@ -630,20 +634,25 @@ class RegistryHooksProyectoToba implements HooksInterface
 
 	protected function configurarCliente($feature, $opciones)
 	{
-		$iniCliente = $this->getIniClienteRest($opciones['rest-id'], $opciones);
-		if (!$iniCliente){
+		$apiId = $opciones['rest-id'];
+		$iniCliente = $this->getIniClienteRest($apiId, $opciones);
+		if (!$iniCliente) {
+			echo "el cliente de la api '$apiId' no esta correctamente configurado (no posee el cliente.ini)\n";
 			return;
 		}
 
+		 if (!$iniCliente->existe_entrada("conexion")) {
+			echo "el cliente de la api '$apiId' no esta correctamente configurado (no posee la entrada conexion)\n";
+			return;
+		}
+		
 		$provider = current($feature->getProviders());
 		if (empty($provider)){
 			return;
 		}
 
 		$authServer = $provider->getOptions()['auth'];
-
 		$authCliente = $iniCliente->get_datos_entrada('conexion');
-
 		if ($authCliente['auth_tipo'] == 'ssl'){
 			$credentials = $this->configurarClienteSSL($feature, $authServer, $authCliente);
 		} elseif (in_array($authCliente['auth_tipo'], array('basic', 'digest'))){
