@@ -159,19 +159,6 @@ class toba_mc_comp__2188
   array (
     0 => 
     array (
-      'identificador' => 'form_pregunta_secreta',
-      'proyecto' => 'toba_usuarios',
-      'objeto' => 33000065,
-      'clase' => 'toba_ei_formulario_ml',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
-      'subclase' => 'form_ml_resp_secreta',
-      'subclase_archivo' => '/usuarios/form_ml_resp_secreta.php',
-      'fuente' => 'toba_usuarios',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    1 => 
-    array (
       'identificador' => 'basica',
       'proyecto' => 'toba_usuarios',
       'objeto' => 2185,
@@ -183,20 +170,7 @@ class toba_mc_comp__2188
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
-    2 => 
-    array (
-      'identificador' => 'form_proyectos',
-      'proyecto' => 'toba_usuarios',
-      'objeto' => 2187,
-      'clase' => 'toba_ei_formulario',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
-      'fuente' => 'toba_usuarios',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    3 => 
+    1 => 
     array (
       'identificador' => 'cuadro_proyectos',
       'proyecto' => 'toba_usuarios',
@@ -206,6 +180,32 @@ class toba_mc_comp__2188
       'subclase' => NULL,
       'subclase_archivo' => NULL,
       'fuente' => NULL,
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    2 => 
+    array (
+      'identificador' => 'form_pregunta_secreta',
+      'proyecto' => 'toba_usuarios',
+      'objeto' => 33000065,
+      'clase' => 'toba_ei_formulario_ml',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
+      'subclase' => 'form_ml_resp_secreta',
+      'subclase_archivo' => '/usuarios/form_ml_resp_secreta.php',
+      'fuente' => 'toba_usuarios',
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    3 => 
+    array (
+      'identificador' => 'form_proyectos',
+      'proyecto' => 'toba_usuarios',
+      'objeto' => 2187,
+      'clase' => 'toba_ei_formulario',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
+      'fuente' => 'toba_usuarios',
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),

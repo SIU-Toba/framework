@@ -227,6 +227,19 @@ class toba_mc_comp__2223
   array (
     0 => 
     array (
+      'identificador' => 'dimensiones',
+      'proyecto' => 'toba_usuarios',
+      'objeto' => 2226,
+      'clase' => 'toba_ei_cuadro',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_cuadro.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
+      'fuente' => NULL,
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    1 => 
+    array (
       'identificador' => 'elementos',
       'proyecto' => 'toba_usuarios',
       'objeto' => 2225,
@@ -238,7 +251,7 @@ class toba_mc_comp__2223
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
-    1 => 
+    2 => 
     array (
       'identificador' => 'perfil',
       'proyecto' => 'toba_usuarios',
@@ -248,19 +261,6 @@ class toba_mc_comp__2223
       'subclase' => NULL,
       'subclase_archivo' => NULL,
       'fuente' => 'toba_usuarios',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    2 => 
-    array (
-      'identificador' => 'dimensiones',
-      'proyecto' => 'toba_usuarios',
-      'objeto' => 2226,
-      'clase' => 'toba_ei_cuadro',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_cuadro.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
-      'fuente' => NULL,
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),

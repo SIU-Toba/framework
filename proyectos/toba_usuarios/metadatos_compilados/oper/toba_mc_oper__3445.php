@@ -285,19 +285,6 @@ class toba_mc_comp__2240
     ),
     1 => 
     array (
-      'identificador' => 'solicitudes',
-      'proyecto' => 'toba_usuarios',
-      'objeto' => 2239,
-      'clase' => 'toba_ei_cuadro',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_cuadro.php',
-      'subclase' => 'cuadro_solicitudes',
-      'subclase_archivo' => 'auditoria/sesiones/cuadro_solicitudes.php',
-      'fuente' => NULL,
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    2 => 
-    array (
       'identificador' => 'sesiones',
       'proyecto' => 'toba_usuarios',
       'objeto' => 2238,
@@ -305,6 +292,19 @@ class toba_mc_comp__2240
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_cuadro.php',
       'subclase' => 'cuadro_sesiones',
       'subclase_archivo' => 'auditoria/sesiones/cuadro_sesiones.php',
+      'fuente' => NULL,
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    2 => 
+    array (
+      'identificador' => 'solicitudes',
+      'proyecto' => 'toba_usuarios',
+      'objeto' => 2239,
+      'clase' => 'toba_ei_cuadro',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_cuadro.php',
+      'subclase' => 'cuadro_solicitudes',
+      'subclase_archivo' => 'auditoria/sesiones/cuadro_solicitudes.php',
       'fuente' => NULL,
       'parametros_a' => NULL,
       'parametros_b' => NULL,
