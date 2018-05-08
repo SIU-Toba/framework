@@ -193,19 +193,6 @@ class toba_mc_comp__2274
   array (
     0 => 
     array (
-      'identificador' => 'filtro',
-      'proyecto' => 'toba_usuarios',
-      'objeto' => 2273,
-      'clase' => 'toba_ei_formulario',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
-      'subclase' => 'filtro_auditoria',
-      'subclase_archivo' => 'auditoria/log_datos/filtro_auditoria.php',
-      'fuente' => 'toba_usuarios',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    1 => 
-    array (
       'identificador' => 'cuadro',
       'proyecto' => 'toba_usuarios',
       'objeto' => 2272,
@@ -214,6 +201,19 @@ class toba_mc_comp__2274
       'subclase' => NULL,
       'subclase_archivo' => NULL,
       'fuente' => NULL,
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    1 => 
+    array (
+      'identificador' => 'filtro',
+      'proyecto' => 'toba_usuarios',
+      'objeto' => 2273,
+      'clase' => 'toba_ei_formulario',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
+      'subclase' => 'filtro_auditoria',
+      'subclase_archivo' => 'auditoria/log_datos/filtro_auditoria.php',
+      'fuente' => 'toba_usuarios',
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),

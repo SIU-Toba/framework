@@ -227,6 +227,19 @@ class toba_mc_comp__33000190
   array (
     0 => 
     array (
+      'identificador' => 'cuadro',
+      'proyecto' => 'toba_usuarios',
+      'objeto' => 33000186,
+      'clase' => 'toba_ei_cuadro',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_cuadro.php',
+      'subclase' => 'cuadro_servicios_consumidos',
+      'subclase_archivo' => 'servicios_web/rest/servicios_consumidos/cuadro_servicios_consumidos.php',
+      'fuente' => NULL,
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    1 => 
+    array (
       'identificador' => 'filtro',
       'proyecto' => 'toba_usuarios',
       'objeto' => 33000187,
@@ -238,7 +251,7 @@ class toba_mc_comp__33000190
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
-    1 => 
+    2 => 
     array (
       'identificador' => 'form_basico_ws',
       'proyecto' => 'toba_usuarios',
@@ -248,19 +261,6 @@ class toba_mc_comp__33000190
       'subclase' => 'form_basicos',
       'subclase_archivo' => 'servicios_web/rest/servicios_consumidos/form_basicos.php',
       'fuente' => 'toba_usuarios',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    2 => 
-    array (
-      'identificador' => 'cuadro',
-      'proyecto' => 'toba_usuarios',
-      'objeto' => 33000186,
-      'clase' => 'toba_ei_cuadro',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_cuadro.php',
-      'subclase' => 'cuadro_servicios_consumidos',
-      'subclase_archivo' => 'servicios_web/rest/servicios_consumidos/cuadro_servicios_consumidos.php',
-      'fuente' => NULL,
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),

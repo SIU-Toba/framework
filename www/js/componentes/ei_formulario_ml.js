@@ -463,12 +463,10 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 	 */
 	ei_formulario_ml.prototype.intercambiar_filas = function (pos_a, pos_b) {
 		var id_ef;
-		var valores_intercambio = [];
 		for (id_ef in this._efs) {			
-			if (this._efs[id_ef] instanceof  ef_html ) {			//Para los ef_html resguardo el estado, que se pierde al hacer el swapNode
-				valores_intercambio[id_ef] = [];
-				valores_intercambio[id_ef][pos_a] = this._efs[id_ef].ir_a_fila(this._filas[pos_a]).get_estado();
-				valores_intercambio[id_ef][pos_b] = this._efs[id_ef].ir_a_fila(this._filas[pos_b]).get_estado();			
+			if (this._efs[id_ef] instanceof  ef_html ) {			//Para los ef_html tengo que destruir la instancia del CKEditor resguardando asi el estado
+				this._efs[id_ef].ir_a_fila(this._filas[pos_a]).get_editor().destroy();
+				this._efs[id_ef].ir_a_fila(this._filas[pos_b]).get_editor().destroy();
 			}
 		}
 		
@@ -483,9 +481,9 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 			var tab_b = this._efs[id_ef].ir_a_fila(this._filas[pos_b]).get_tab_index();
 			this._efs[id_ef].ir_a_fila(this._filas[pos_a]).set_tab_index(tab_b);
 			this._efs[id_ef].ir_a_fila(this._filas[pos_b]).set_tab_index(tab_a);			
-			if (this._efs[id_ef] instanceof  ef_html ) {						//Restauro el estado de los ef_html
-				this._efs[id_ef].ir_a_fila(this._filas[pos_a]).set_estado(valores_intercambio[id_ef][pos_a]);			
-				this._efs[id_ef].ir_a_fila(this._filas[pos_b]).set_estado(valores_intercambio[id_ef][pos_b]);			
+			if (this._efs[id_ef] instanceof  ef_html ) {						//Recreo la instancia del CKEditor  y restauro el estado de los ef_html
+				this._efs[id_ef].ir_a_fila(this._filas[pos_a]).crear_editor();
+				this._efs[id_ef].ir_a_fila(this._filas[pos_b]).crear_editor();				
 			}			
 		}
 		

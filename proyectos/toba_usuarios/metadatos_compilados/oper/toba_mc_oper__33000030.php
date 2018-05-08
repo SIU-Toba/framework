@@ -299,19 +299,6 @@ class toba_mc_comp__33000094
   array (
     0 => 
     array (
-      'identificador' => 'form',
-      'proyecto' => 'toba_usuarios',
-      'objeto' => 33000095,
-      'clase' => 'toba_ei_formulario',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
-      'subclase' => 'form_conf_log',
-      'subclase_archivo' => '/auditoria/configuracion/form_conf_log.php',
-      'fuente' => 'toba_usuarios',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    1 => 
-    array (
       'identificador' => 'cuadro',
       'proyecto' => 'toba_usuarios',
       'objeto' => 33000076,
@@ -323,7 +310,7 @@ class toba_mc_comp__33000094
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
-    2 => 
+    1 => 
     array (
       'identificador' => 'datos',
       'proyecto' => 'toba_usuarios',
@@ -332,6 +319,19 @@ class toba_mc_comp__33000094
       'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_tabla.php',
       'subclase' => NULL,
       'subclase_archivo' => NULL,
+      'fuente' => 'toba_usuarios',
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    2 => 
+    array (
+      'identificador' => 'form',
+      'proyecto' => 'toba_usuarios',
+      'objeto' => 33000095,
+      'clase' => 'toba_ei_formulario',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
+      'subclase' => 'form_conf_log',
+      'subclase_archivo' => '/auditoria/configuracion/form_conf_log.php',
       'fuente' => 'toba_usuarios',
       'parametros_a' => NULL,
       'parametros_b' => NULL,
