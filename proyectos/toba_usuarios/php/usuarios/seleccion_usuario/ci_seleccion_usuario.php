@@ -9,7 +9,7 @@ class ci_seleccion_usuario extends toba_ci
 
 	function conf__cuadro(toba_ei_cuadro $cuadro)
 	{
-		if (! isset($this->s__filtro)) {
+		if (isset($this->s__filtro)) {
 			$cuadro->set_datos(gestion_arai_usuarios::get_usuarios_disponibles_aplicacion($this->s__filtro));
 		}
 	}
