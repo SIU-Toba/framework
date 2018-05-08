@@ -35,6 +35,13 @@
 - Se traslada parte de la generación del marcado HTML al paquete siu/manejador-salida-toba
 - Se cambia Bower por Yarn como manejador de assets JS
 
+[3.0.24](https://github.com/SIU-Toba/framework/releases/tag/v3.0.24) (2018-05-08):
+- Se fixea error en commit anterior y agrega scroll a la operacion de seleccion de usuarios
+- Se agrega paginado y se solicita al menos un filtro para la seleccion de usuarios via arai en toba_usuarios
+- Se mejora la validacion al agregar o sincronizar proyectos con arai-registry
+- Se implementa un metodo para acceder a la metadata del SP en toba_autenticacion_saml_onelogin
+- Se corrige bug al usar un ef_html en un formulario_ml e intercambiar filas
+
 [3.0.23](https://github.com/SIU-Toba/framework/releases/tag/v3.0.23) (2018-04-27):
 - Agrega csrf token al form que cambia el perfil funcional en runtime
 - Bugfix en el seteo del perfil funcional activo, existian diferencias cuando pertenecia a una membresia.
