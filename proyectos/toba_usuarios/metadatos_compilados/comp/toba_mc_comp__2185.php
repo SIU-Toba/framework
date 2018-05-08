@@ -156,7 +156,7 @@ class toba_mc_comp__2185
       'popup_item' => '31000001',
       'popup_proyecto' => 'toba_usuarios',
       'popup_editable' => 0,
-      'popup_ventana' => NULL,
+      'popup_ventana' => 'width: 600,height: 500,scrollbars: yes',
       'popup_carga_desc_metodo' => 'get_nombre_usuario_arai',
       'popup_carga_desc_clase' => 'gestion_arai_usuarios',
       'popup_carga_desc_include' => 'usuarios/gestion_arai_usuarios.php',

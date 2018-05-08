@@ -908,7 +908,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'31000001', --popup_item
 	'toba_usuarios', --popup_proyecto
 	'0', --popup_editable
-	NULL, --popup_ventana
+	'width: 600,height: 500,scrollbars: yes', --popup_ventana
 	'get_nombre_usuario_arai', --popup_carga_desc_metodo
 	'gestion_arai_usuarios', --popup_carga_desc_clase
 	'usuarios/gestion_arai_usuarios.php', --popup_carga_desc_include

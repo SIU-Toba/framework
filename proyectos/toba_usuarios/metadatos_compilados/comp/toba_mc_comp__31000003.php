@@ -69,7 +69,7 @@ class toba_mc_comp__31000003
       'ayuda' => NULL,
       'ci_predep' => NULL,
       'implicito' => 0,
-      'defecto' => 0,
+      'defecto' => 1,
       'grupo' => 'cargado,no_cargado',
       'accion' => NULL,
       'accion_imphtml_debug' => NULL,
