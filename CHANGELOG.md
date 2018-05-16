@@ -35,6 +35,10 @@
 - Se traslada parte de la generación del marcado HTML al paquete siu/manejador-salida-toba
 - Se cambia Bower por Yarn como manejador de assets JS
 
+[3.0.25](https://github.com/SIU-Toba/framework/releases/tag/v3.0.25) (2018-05-16):
+- Bugfix a ef_multi_check al ser utilizado en un ei_filtro como campo obligatorio
+- Ordena la lista de metodos recuperados de una clase registrada como consulta_php
+
 [3.0.24](https://github.com/SIU-Toba/framework/releases/tag/v3.0.24) (2018-05-08):
 - Se fixea error en commit anterior y agrega scroll a la operacion de seleccion de usuarios
 - Se agrega paginado y se solicita al menos un filtro para la seleccion de usuarios via arai en toba_usuarios
