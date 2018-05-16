@@ -350,7 +350,7 @@ abstract class toba_componente
 	{
 		//--- Compat. hacia atras
 		$props = $this->mantener_estado_sesion();
-		if (! empty($props)) {
+		if (! empty($props) && is_array($props)) {
 			$this->set_propiedades_sesion($props);
 		}
 		//--- Metodo de descubrir propiedades que empiezen con s__
@@ -366,6 +366,9 @@ abstract class toba_componente
 	 */
 	protected function set_propiedades_sesion($props)
 	{
+		if (! is_array($props)) {
+			throw new toba_error('El formato para guardar propiedades en sesion no es correcto');
+		}
 		$this->_propiedades_sesion = array_merge($this->_propiedades_sesion, $props);
 	}
 
