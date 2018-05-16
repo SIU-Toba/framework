@@ -74,6 +74,18 @@ ef_multi_seleccion.prototype.constructor = ef_multi_seleccion;
 		return this.get_estado().length;	
 	};
 	
+	ef_multi_seleccion.prototype.get_contenedor = function() {
+		var cont = document.getElementById('cont_' + this._id_form);	
+		if (! cont) {
+			return this.get_contenedor_opciones();
+		}
+		return cont;
+	};
+	
+	ef_multi_seleccion.prototype.get_contenedor_opciones = function() {
+		return null;	
+	};
+	
 	
 // ########################################################################################################
 // ########################################################################################################
@@ -305,6 +317,11 @@ ef_multi_seleccion_check.constructor = ef_multi_seleccion_check;
 		}	
 		return (nodo.style.display == 'none' );	//Evalua unicamente la visibilidad del contenedor
 	};
+	
+	ef_multi_seleccion_check.prototype.get_contenedor_opciones = function() {
+		return document.getElementById(this._id_form + '_opciones');	
+	};
+	
 	
 // ########################################################################################################
 // ########################################################################################################
