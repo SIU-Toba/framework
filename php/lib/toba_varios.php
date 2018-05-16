@@ -687,6 +687,7 @@
 				$props[] = $nombre;
 			}
 		}
+		sort($props);
 		return $props;		
 	}
 	
@@ -700,6 +701,7 @@
 				$props[] = $nombre;
 			}
 		}
+		sort($props);
 		return $props;		
 	}	
 	
