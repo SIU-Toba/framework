@@ -89,8 +89,7 @@ class toba_nucleo
 		try {
 			$this->iniciar_contexto_ejecucion();
 			toba::manejador_sesiones()->verificar_cambio_perfil_activo();				//Miro si se quiere cambiar el perfil funcional activo
-			$this->verificar_pedido_post();			
-			toba_http::headers_standart();
+			$this->verificar_pedido_post();	
 			try {
 				$this->solicitud = $this->cargar_solicitud_web();
 				$this->solicitud_en_proceso = true;
@@ -129,8 +128,7 @@ class toba_nucleo
 	function acceso_servicio()
 	{
 		try {
-			$this->iniciar_contexto_ejecucion();
-			//toba_http::headers_standart();
+			$this->iniciar_contexto_soap();
 			$item = toba::memoria()->get_item_solicitado();
 			if (! isset($item)) {
 				//Si no tiene ID (porque axis lo elimina del GET) usar el extra la URL
@@ -324,6 +322,7 @@ class toba_nucleo
 			set_time_limit(0);
 		}
 		$this->controlar_requisitos_basicos();
+		toba_http::headers_standart();
 		$this->agregar_paths();
 		$this->recuperar_revision_recursos();
 		$this->registrar_autoloaders_proyecto();		
@@ -332,6 +331,20 @@ class toba_nucleo
 		toba::contexto_ejecucion()->conf__inicial();
 	}
         
+	protected function iniciar_contexto_soap()
+	{
+		if (!ini_get('safe_mode') && strpos(ini_get('disable_functions'), 'set_time_limit') === FALSE) {		
+			set_time_limit(0);
+		}
+		$this->controlar_requisitos_basicos();
+		$this->agregar_paths();
+		$this->recuperar_revision_recursos();
+		$this->registrar_autoloaders_proyecto();		
+		toba::manejador_sesiones()->iniciar();
+		toba::config();
+		toba::contexto_ejecucion()->conf__inicial();
+	}
+	
 	protected function iniciar_contexto_rest()
 	{
 		if (!ini_get('safe_mode') && strpos(ini_get('disable_functions'), 'set_time_limit') === FALSE) {		
