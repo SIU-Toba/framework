@@ -119,7 +119,7 @@ class toba_editor
 	*/
 	static function activado()
 	{
-		if (count(self::$memoria)>0) {
+		if (is_array(self::$memoria) && count(self::$memoria)>0) {
 			return true;	
 		}
 		return false;
