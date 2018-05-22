@@ -4,6 +4,9 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.0.26](https://github.com/SIU-Toba/framework/releases/tag/v3.0.26) (2018-05-22):
+- Fix en toba_editor al verificar si se encuentra activo
+
 [3.0.25](https://github.com/SIU-Toba/framework/releases/tag/v3.0.25) (2018-05-16):
 - Bugfix a ef_multi_check al ser utilizado en un ei_filtro como campo obligatorio
 - Ordena la lista de metodos recuperados de una clase registrada como consulta_php
