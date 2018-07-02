@@ -38,7 +38,7 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 	protected $_baja_logica_columna;				// Columna de la baja logica
 	protected $_baja_logica_valor;				// Valor de la baja logica
 	protected $_flag_modificacion_clave = false;	// Es posible modificar la clave en el UPDATE? Por defecto
-	protected $_proceso_carga_externa = null;	// Declaracion del proceso utilizado para cargar columnas externas
+	protected $_proceso_carga_externa = array();	// Declaracion del proceso utilizado para cargar columnas externas
 	//-------------------------------
 	protected $_control_sincro_db;				// Se activa el control de sincronizacion con la DB?
 	protected $_utilizar_transaccion=true;		// La sincronizacion con la DB se ejecuta dentro de una transaccion
@@ -1149,7 +1149,7 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 	{
 		//Itero planes de carga externa
 		$valores_recuperados = array();
-		if (isset($this->_proceso_carga_externa)) {
+		if (is_array($this->_proceso_carga_externa) && ! empty($this->_proceso_carga_externa)) {
 			foreach(array_keys($this->_proceso_carga_externa) as $carga)
 			{
 				$parametros = $this->_proceso_carga_externa[$carga];
@@ -1168,7 +1168,7 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 	function carga_inicial_campos_externos($datos)
 	{
 			$this->log('Inicio carga de campos externos');
-			if (isset($this->_proceso_carga_externa)) {
+			if (is_array($this->_proceso_carga_externa) && ! empty($this->_proceso_carga_externa)) {
 				foreach(array_keys($this->_proceso_carga_externa) as $carga) {
 					$parametros = $this->_proceso_carga_externa[$carga];
 					if (isset($parametros['permite_carga_masiva']) && $parametros['permite_carga_masiva'] == '1') {
