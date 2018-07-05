@@ -17,6 +17,10 @@
           { "proyecto": "toba_usuarios", "rest-id": "rest_arai_usuarios" }
         ]
       }
+    }, 
+    {
+       "name": "api:siu/arai_reportes",
+      "version": ">=1.0.0"		
     }
   ], 
   "provide" : [

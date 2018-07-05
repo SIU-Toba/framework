@@ -291,6 +291,16 @@ class toba_mc_comp__1517
   array (
     0 => 
     array (
+      'pantalla' => 462,
+      'proyecto' => 'toba_editor',
+      'objeto_ci' => 1517,
+      'dep_id' => 92,
+      'orden' => 0,
+      'identificador_pantalla' => 'pant_permisos_tablas',
+      'identificador_dep' => 'permisos',
+    ),
+    1 => 
+    array (
       'pantalla' => 466,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1517,
@@ -299,7 +309,7 @@ class toba_mc_comp__1517
       'identificador_pantalla' => 'pant_dependencias',
       'identificador_dep' => 'objetos',
     ),
-    1 => 
+    2 => 
     array (
       'pantalla' => 33000049,
       'proyecto' => 'toba_editor',
@@ -309,27 +319,7 @@ class toba_mc_comp__1517
       'identificador_pantalla' => 'pant_permisos',
       'identificador_dep' => 'form_acl',
     ),
-    2 => 
-    array (
-      'pantalla' => 462,
-      'proyecto' => 'toba_editor',
-      'objeto_ci' => 1517,
-      'dep_id' => 92,
-      'orden' => 0,
-      'identificador_pantalla' => 'pant_permisos_tablas',
-      'identificador_dep' => 'permisos',
-    ),
     3 => 
-    array (
-      'pantalla' => 462,
-      'proyecto' => 'toba_editor',
-      'objeto_ci' => 1517,
-      'dep_id' => 30000049,
-      'orden' => 1,
-      'identificador_pantalla' => 'pant_permisos_tablas',
-      'identificador_dep' => 'form_tablas',
-    ),
-    4 => 
     array (
       'pantalla' => 460,
       'proyecto' => 'toba_editor',
@@ -338,6 +328,16 @@ class toba_mc_comp__1517
       'orden' => 1,
       'identificador_pantalla' => 'pant_prop_basicas',
       'identificador_dep' => 'prop_basicas',
+    ),
+    4 => 
+    array (
+      'pantalla' => 462,
+      'proyecto' => 'toba_editor',
+      'objeto_ci' => 1517,
+      'dep_id' => 30000049,
+      'orden' => 1,
+      'identificador_pantalla' => 'pant_permisos_tablas',
+      'identificador_dep' => 'form_tablas',
     ),
   ),
   '_info_evt_pantalla' => 
@@ -365,18 +365,18 @@ class toba_mc_comp__1517
       'pantalla' => 462,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1517,
-      'evento_id' => 91,
+      'evento_id' => 92,
       'identificador_pantalla' => 'pant_permisos_tablas',
-      'identificador_evento' => 'eliminar',
+      'identificador_evento' => 'procesar',
     ),
     3 => 
     array (
       'pantalla' => 462,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1517,
-      'evento_id' => 92,
+      'evento_id' => 91,
       'identificador_pantalla' => 'pant_permisos_tablas',
-      'identificador_evento' => 'procesar',
+      'identificador_evento' => 'eliminar',
     ),
     4 => 
     array (

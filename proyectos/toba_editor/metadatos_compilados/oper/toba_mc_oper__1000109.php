@@ -351,13 +351,13 @@ class toba_mc_comp__1000288
   array (
     0 => 
     array (
-      'pantalla' => 1000177,
+      'pantalla' => 1000162,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1000288,
-      'dep_id' => 1000181,
+      'dep_id' => 930,
       'orden' => 1,
-      'identificador_pantalla' => 'pant_basicos',
-      'identificador_dep' => 'form_molde',
+      'identificador_pantalla' => 'pant_generar',
+      'identificador_dep' => 'form_generaciones',
     ),
     1 => 
     array (
@@ -371,13 +371,13 @@ class toba_mc_comp__1000288
     ),
     2 => 
     array (
-      'pantalla' => 1000162,
+      'pantalla' => 1000177,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1000288,
-      'dep_id' => 930,
+      'dep_id' => 1000181,
       'orden' => 1,
-      'identificador_pantalla' => 'pant_generar',
-      'identificador_dep' => 'form_generaciones',
+      'identificador_pantalla' => 'pant_basicos',
+      'identificador_dep' => 'form_molde',
     ),
     3 => 
     array (

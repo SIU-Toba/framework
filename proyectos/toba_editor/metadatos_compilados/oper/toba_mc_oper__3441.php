@@ -291,6 +291,16 @@ class toba_mc_comp__2206
   array (
     0 => 
     array (
+      'pantalla' => 1143,
+      'proyecto' => 'toba_editor',
+      'objeto_ci' => 2206,
+      'dep_id' => 1113,
+      'orden' => 1,
+      'identificador_pantalla' => 'propiedades',
+      'identificador_dep' => 'formulario',
+    ),
+    1 => 
+    array (
       'pantalla' => 1144,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 2206,
@@ -299,7 +309,7 @@ class toba_mc_comp__2206
       'identificador_pantalla' => 'pant_elementos',
       'identificador_dep' => 'elementos',
     ),
-    1 => 
+    2 => 
     array (
       'pantalla' => 1150,
       'proyecto' => 'toba_editor',
@@ -309,7 +319,7 @@ class toba_mc_comp__2206
       'identificador_pantalla' => 'pant_gatillos_d',
       'identificador_dep' => 'form_gatillos_dir',
     ),
-    2 => 
+    3 => 
     array (
       'pantalla' => 1151,
       'proyecto' => 'toba_editor',
@@ -319,16 +329,6 @@ class toba_mc_comp__2206
       'identificador_pantalla' => 'pant_gatillos_i',
       'identificador_dep' => 'form_gatillos_indir',
     ),
-    3 => 
-    array (
-      'pantalla' => 1143,
-      'proyecto' => 'toba_editor',
-      'objeto_ci' => 2206,
-      'dep_id' => 1113,
-      'orden' => 1,
-      'identificador_pantalla' => 'propiedades',
-      'identificador_dep' => 'formulario',
-    ),
   ),
   '_info_evt_pantalla' => 
   array (
@@ -337,38 +337,47 @@ class toba_mc_comp__2206
       'pantalla' => 1143,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 2206,
-      'evento_id' => 983,
+      'evento_id' => 984,
       'identificador_pantalla' => 'propiedades',
-      'identificador_evento' => 'guardar',
+      'identificador_evento' => 'eliminar',
     ),
     1 => 
     array (
       'pantalla' => 1143,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 2206,
-      'evento_id' => 984,
+      'evento_id' => 983,
       'identificador_pantalla' => 'propiedades',
-      'identificador_evento' => 'eliminar',
+      'identificador_evento' => 'guardar',
     ),
     2 => 
     array (
       'pantalla' => 1150,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 2206,
-      'evento_id' => 983,
+      'evento_id' => 984,
       'identificador_pantalla' => 'pant_gatillos_d',
-      'identificador_evento' => 'guardar',
+      'identificador_evento' => 'eliminar',
     ),
     3 => 
     array (
       'pantalla' => 1150,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 2206,
-      'evento_id' => 984,
+      'evento_id' => 983,
       'identificador_pantalla' => 'pant_gatillos_d',
-      'identificador_evento' => 'eliminar',
+      'identificador_evento' => 'guardar',
     ),
     4 => 
+    array (
+      'pantalla' => 1151,
+      'proyecto' => 'toba_editor',
+      'objeto_ci' => 2206,
+      'evento_id' => 984,
+      'identificador_pantalla' => 'pant_gatillos_i',
+      'identificador_evento' => 'eliminar',
+    ),
+    5 => 
     array (
       'pantalla' => 1151,
       'proyecto' => 'toba_editor',
@@ -376,15 +385,6 @@ class toba_mc_comp__2206
       'evento_id' => 983,
       'identificador_pantalla' => 'pant_gatillos_i',
       'identificador_evento' => 'guardar',
-    ),
-    5 => 
-    array (
-      'pantalla' => 1151,
-      'proyecto' => 'toba_editor',
-      'objeto_ci' => 2206,
-      'evento_id' => 984,
-      'identificador_pantalla' => 'pant_gatillos_i',
-      'identificador_evento' => 'eliminar',
     ),
     6 => 
     array (

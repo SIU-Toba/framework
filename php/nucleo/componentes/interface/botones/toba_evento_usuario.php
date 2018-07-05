@@ -144,6 +144,10 @@ class toba_evento_usuario extends toba_boton
 		return $this->posee_accion_asociada() && ($this->datos['accion'] == 'xml');
 	}		
 	
+	function posee_accion_vista_araireportes()
+	{
+		return $this->posee_accion_asociada() && ($this->datos['accion'] == 'araireportes');
+	}
 	
 	function posee_grupo_asociado()
 	{
@@ -247,6 +251,11 @@ class toba_evento_usuario extends toba_boton
 	function set_accion_jasperreports()
 	{
 		$this->datos['accion'] = 'jasperreports';
+	}
+	
+	function set_accion_araireportes()
+	{
+		$this->datos['accion'] = 'araireportes';
 	}
 	
 	function set_check_activo($activo)
@@ -384,6 +393,12 @@ class toba_evento_usuario extends toba_boton
 		} elseif ( $this->posee_accion_vista_jasperreports()) {
 			// ---*** VISTA JASPERREPORTS ***---
 			$opciones['servicio'] = 'vista_jasperreports';
+			$opciones['objetos_destino'] = array( $id_componente );
+			$url = toba::vinculador()->get_url( null, null, array(), $opciones );
+			$js = "document.location.href='$url';";			
+		} elseif ( $this->posee_accion_vista_araireportes()) {
+			// ---*** VISTA JASPERREPORTS ***---
+			$opciones['servicio'] = 'vista_araireportes';
 			$opciones['objetos_destino'] = array( $id_componente );
 			$url = toba::vinculador()->get_url( null, null, array(), $opciones );
 			$js = "document.location.href='$url';";			
