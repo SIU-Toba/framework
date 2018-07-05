@@ -340,7 +340,14 @@ class toba_solicitud_web extends toba_solicitud
 		$salida->enviar_archivo();
 	}
 	
-
+	protected function servicio__vista_araireportes( $objetos )
+	{
+		$salida = new toba_vista_araireportes();		
+		$salida->asignar_objetos($objetos);
+		$salida->generar_salida();
+		$salida->enviar_archivo();
+	}
+	
 	/**
 	 * Genera una salida html pensada para impresión
 	 */

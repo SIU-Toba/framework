@@ -380,6 +380,7 @@ class toba_autoload
 		'toba_impresion' => 'nucleo/lib/salidas/toba_impresion.php',
 		'toba_vista_excel' => 'nucleo/lib/salidas/toba_vista_excel.php',
 		'toba_vista_jasperreports' => 'nucleo/lib/salidas/toba_vista_jasperreports.php',
+		'toba_vista_araireportes' => 'nucleo/lib/salidas/toba_vista_araireportes.php',
 		'toba_vista_pdf' => 'nucleo/lib/salidas/toba_vista_pdf.php',
 		'toba_vista_xml' => 'nucleo/lib/salidas/toba_vista_xml.php',
 		'toba_vista_xslfo' => 'nucleo/lib/salidas/toba_vista_xslfo.php',

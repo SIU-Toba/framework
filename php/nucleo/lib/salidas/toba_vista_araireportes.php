@@ -1,21 +1,15 @@
 <?php
 	
-//use GuzzleHttp\Psr7;
 use GuzzleHttp\Exception\RequestException;
 
 /**
  * Genera un pdf a través de una api básica
  * @package SalidaGrafica
  */
-class toba_vista_jasperreports
+class toba_vista_araireportes
 {
-	//protected $path_reporte;
-	protected $conexion;
-//	protected $path_plantilla = '';
-	
 	protected $nombre_archivo = 'archivo.pdf';
 	protected $tipo_descarga = 'attachment';
-	//protected $jasper;
 	protected $temp_salida;
 
 	// Parametros para el reporte
@@ -56,12 +50,10 @@ class toba_vista_jasperreports
 	
 	protected function read_ini_config()
 	{
-		//$this->url_base = 'http://localhost:8180/jasperserver';
-		$this->usr = 'jasperadmin';
-		$this->pwd = 'jasperadmin';
-
+		$this->usr = 'usuario1';
+		$this->pwd = '1234';
 		$this->url_base = 'http://localhost';
-		$this->url =  '/report/rest/reportes/'. toba::proyecto()->get_id();;		
+		$this->url =  '/reporting/rest/reportes/?proyecto='. toba::proyecto()->get_id();		
 	}
 	
 	protected function crear_cliente()
@@ -109,11 +101,9 @@ class toba_vista_jasperreports
 		return $this->temp_salida;
 	}
 
-
 	/**
 	 * @param string $nombre Nombre del archivo pdf + la extension del mismo (pdf)
-	 */
-	
+	 */	
 	function set_nombre_archivo( $nombre )
 	{
 		$this->nombre_archivo = $nombre;
@@ -160,7 +150,7 @@ class toba_vista_jasperreports
 	
 	function compilar_reporte($path_plantilla, $path_reporte=null)
 	{
-		throw new toba_error('Compilacion no soportada por la  API'); //But maybe.. just maybe podamos crear el reporte dinamicamente en el server ;)
+		throw new toba_error('Compilacion no soportada por la  API'); 
 	}
 	
 	//------------------------------------------------------------------------	
@@ -217,15 +207,12 @@ class toba_vista_jasperreports
 	function generar_salida()
 	{
 		foreach( $this->objetos as $objeto ) {
-			if(method_exists($objeto, 'vista_jasperreports')) {
-				$objeto->vista_jasperreports($this);	
+			if(method_exists($objeto, 'vista_araireportes')) {
+				$objeto->vista_araireportes($this);	
 			}
-		}	
-		
-		// Pego los datos al jasper y creo el jprint	
-		$this->crear_recursos_temporales();
-	
-		$this->crear_pdf();		//Aca uno todos los jprint en uno solito
+		}		
+		$this->crear_recursos_temporales();	
+		$this->crear_pdf();		
 		
 		// Borrar XML si fue pasado por modo_archivo
 		if (($this->modo_archivo) &&  ($this->limpiar_modo_archivo)) {
@@ -251,8 +238,8 @@ class toba_vista_jasperreports
 		try {
 			$resp = $this->cliente->guzzle()->request('GET', $this->url, array('query' =>$data));
 		} catch(RequestException $e) {
-                        var_dump($e->getMessage());
-			die;
+			toba::logger()->debug($e->getMessage());
+			throw new toba_error_usuario('Se produjo un error al generar el reporte');
 		}
 		
 		if ($resp->getStatusCode() == 200) {			
@@ -277,8 +264,8 @@ class toba_vista_jasperreports
 		try {			
 			$resp = $this->cliente->guzzle()->request('POST', $url, array('json' => $data));
 		} catch (RequestException $e) {
-                        var_dump($e->getMessage());
-			die;
+			toba::logger()->debug($e->getMessage());
+			throw new toba_error_usuario('Se produjo un error al generar el reporte');
 		}
 		
 		if ($resp->getStatusCode() == 201) {
@@ -293,18 +280,14 @@ class toba_vista_jasperreports
 	 * Elimina los archivos creados antes.. una especie de Garbage Collector...
 	 */
 	function eliminar_recursos_temporales()
-	{
-		
-	}
+	{}
 	
 	/**
 	 * Permite unir todos los jrprint en un solo archivo, a futuro quizas se devuelva directamente el arreglo
 	 * @return jrprint $master_print
 	 */
 	protected function unir_metareportes()
-	{
-		
-	}
+	{}
 	
 	//------------------------------------------------------------------------
 	//-- Definicion de fuente de datos
@@ -315,8 +298,7 @@ class toba_vista_jasperreports
 	 * @return mixed
 	 */
 	protected function instanciar_conexion_default()
-	{
-	}
+	{}
 	
 	/**
 	 * Configura el schema para la conexion toba_db que se le provee
@@ -324,26 +306,7 @@ class toba_vista_jasperreports
 	 * @return JDBC 
 	 */
 	protected function configurar_bd(&$conexion)
-	{
-		/*$params = $conexion->get_parametros();
-		//Creamos la conexión JDBC
-		$con = new Java("org.altic.jasperReports.JdbcConnection");
-		//Seteamos el driver jdbc
-		$con->setDriver("org.postgresql.Driver");
-		$port = (isset($params['puerto'])) ? ":".$params['puerto'] : '';
-		$con->setConnectString("jdbc:postgresql://".$params['profile'].$port.'/'.$params['base']);
-		//Especificamos los datos de la conexión, cabe aclarar que esta conexion es la del servidor de producción
-		$con->setUser($params['usuario']);
-		$con->setPassword($params['clave']);
-		$con1 = $con->getConnection();
-		if (isset($params['schema'])) {
-			$sql = "SET search_path = \"{$params['schema']}\", \"public\";";			
-			$stmt = $con1->createStatement();
-			$stmt->executeUpdate($sql);
-			toba::logger()->debug("Seteo el esquema por defecto para el reporte: $sql");			
-		}
-		return $con1;*/
-	}
+	{}
 	
 	//------------------------------------------------------------------------
 	//-- Envio del archivo al cliente
