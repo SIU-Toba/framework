@@ -297,7 +297,7 @@ class toba_auditoria_tablas_postgres
 		$sql .= 'auditoria_usuario varchar(60), 
 				 auditoria_fecha timestamp, 
 				 auditoria_operacion char(1),
-				 auditoria_id_solicitud integer,
+				 auditoria_id_solicitud bigint,
 		 '; 		   
 		foreach ($campos as $def) {
 			if ($def['tipo_sql'] != 'bytea') {
@@ -324,7 +324,7 @@ class toba_auditoria_tablas_postgres
 					rusuario RECORD;
 					vusuario VARCHAR(60);
 					voperacion varchar;
-					vid_solicitud integer;
+					vid_solicitud bigint;
 					vestampilla timestamp;
 				BEGIN
 					vestampilla := clock_timestamp();
@@ -417,7 +417,7 @@ class toba_auditoria_tablas_postgres
 			  );		
 		$negocio[] = array(                                                                
     			'nombre' => 'auditoria_id_solicitud',                                                   
-			    'tipo_sql' => 'integer',                                             
+			    'tipo_sql' => 'bigint',                                             
 			  );			  	  
 		$logs = $this->conexion->get_definicion_columnas($destino, $this->schema_logs);				
 		foreach ($negocio as $campo_negocio) {
