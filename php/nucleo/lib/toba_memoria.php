@@ -154,8 +154,11 @@ class toba_memoria
 			$lista_obj = explode(",", $objetos);
 			$this->objetos_destino = array();
 			foreach ($lista_obj as $obj) {
-				if (trim($obj) != '') {
-					$this->objetos_destino[] = explode(apex_qs_separador, $obj);
+				if (trim($obj) != '' ) {
+					$sts = self::validar_id_item_enviado($obj);
+					if (! is_null($sts)) {
+						$this->objetos_destino[] = $sts;
+					}
 				}
 			}
 			unset($this->parametros[apex_hilo_qs_servicio]);
@@ -315,16 +318,7 @@ class toba_memoria
 	static function get_item_solicitado_original()
 	{
 		if (isset($_GET[apex_hilo_qs_item])) {
-			$item = explode(apex_qs_separador,$_GET[apex_hilo_qs_item]);
-			if(count($item)==0) {
-				return null;
-			} elseif(count($item)==2) {
-				$proy = self::get_valor_verificado($item[0], false);
-				$it = self::get_valor_verificado($item[1], false);				
-				return ($proy !== false  && $it !== false ) ? array($proy, $it) : null;		//Los parametros pueden o no cumplir con las reglas
-			} else {
-				return null;
-			}
+			return self::validar_id_item_enviado($_GET[apex_hilo_qs_item]);
 		} else {
 			return null;//No hay parametro
 		}		
@@ -961,6 +955,20 @@ class toba_memoria
 		$generador = new SecurityMultiTool\Csrf\TokenGenerator();
 		$hashed = $generador->generate();
 		return $hashed;
+	}
+	
+	static protected function validar_id_item_enviado($item)
+	{
+		$rs = explode(apex_qs_separador, $item);
+		if ($rs === false || count($rs) == 0) {
+			return null;
+		} elseif(count($rs) == 2) {
+			$proy = self::get_valor_verificado($rs[0], false);
+			$it = self::get_valor_verificado($rs[1], false);				
+			return ($proy !== false  && $it !== false ) ? array($proy, $it) : null;		//Los parametros pueden o no cumplir con las reglas
+		} else {
+			return null;
+		}
 	}
 }
 ?>
