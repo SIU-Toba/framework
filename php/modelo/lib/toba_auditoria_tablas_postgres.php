@@ -590,5 +590,16 @@ class toba_auditoria_tablas_postgres
 			}			
 		}
 	}
+	
+	function migrar_estructura_campos_toba_3_1()
+	{
+		foreach ($this->tablas as $t) {		
+			$nombre = $this->prefijo.$t;
+			if ($this->conexion->existe_tabla($this->schema_logs, $nombre)) {
+				$sql = "ALTER TABLE {$this->schema_logs}.$nombre ALTER auditoria_id_solicitud TYPE BIGINT;";
+				$this->conexion->ejecutar($sql);				
+			}			
+		}
+	}
 }
 ?>
