@@ -24,3 +24,6 @@ temp/
 xlib
 composer.lock
 www/siu/
+/arai.lock
+/.yarnclean
+/bin/arai-cli
