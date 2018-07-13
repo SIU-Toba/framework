@@ -18,5 +18,18 @@ class toba_migracion_3_1_0 extends toba_migracion
 		$this->elemento->get_db()->ejecutar($sql);
 	}	
 	
+	
+	function proyecto__copiar_imagen_calendario()
+	{
+		$nombre = 'calendario.gif';
+		$dir_destino = $this->elemento->get_dir(). '/www/img/';
+
+		$source = toba_dir(). '/php/modelo/template_proyecto/www/img/'. $nombre;		
+		$destino_final = toba_manejador_archivos::path_a_plataforma($dir_destino.$nombre);
+		if (! toba_manejador_archivos::existe_archivo_en_path($destino_final)) {
+			copy($source, $destino_final);
+		}
+	}
+	
 }
 ?>
