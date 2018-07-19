@@ -419,7 +419,7 @@ abstract class toba_filtro_columna
 		$class = toba::output()->get('FiltroColumnas')->getClassCss();
 		if (count($this->_condiciones) > 1) {
 			//-- Si tiene mas de una condicion se muestran con un combo
-			$onchange = "{$this->get_objeto_js()}.cambio_condicion('{$this->get_nombre()}');";
+			$onchange = $this->get_objeto_js(). '.cambio_condicion("' . $this->get_nombre().'");';
 			$html = '';
 			if ($this->hay_condicion_default() && (!isset($this->_estado['condicion']) || is_null($this->_estado['condicion']))){
 				//Si no tiene estado y hay default seteado, el default es el nuevo estado

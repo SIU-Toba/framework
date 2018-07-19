@@ -398,8 +398,7 @@ class toba_ei_filtro extends toba_ei
 		$estilo_celda = "ei-filtro-fila";
 		foreach ($this->_columnas as $nombre_col => $columna) {
 			$this->analizar_visualizacion_columna ($columna);			
-			
-			echo toba::output()->get('Filtro')->getInicioFiltro("{$this->objeto_js}_fila$nombre_col",$nombre_col, $columna->get_html_etiqueta(),  $columna->es_visible(), "{$this->objeto_js}.seleccionar(\'$nombre_col\')", $estilo_celda, $this->generar_vinculo_editor($nombre_col), $columna);
+			echo toba::output()->get('Filtro')->getInicioFiltro("{$this->objeto_js}_fila$nombre_col", $nombre_col, $columna->get_html_etiqueta(),  $columna->es_visible(), "{$this->objeto_js}.seleccionar('$nombre_col')", $estilo_celda, $this->generar_vinculo_editor($nombre_col), $columna);
 			
 			//-- Condición
 			echo toba::output()->get('Filtro')->getParseCondicion($columna->get_html_condicion(), $estilo_celda);
@@ -411,7 +410,7 @@ class toba_ei_filtro extends toba_ei
 			echo toba::output()->get('Filtro')->getParseValor($html_columna_valor, $estilo_celda);
 			
 			//-- Borrar a nivel de fila
-			echo toba::output()->get('Filtro')->getEliminarFiltro("{$this->objeto_js}_eliminar$nombre_col", "{$this->objeto_js}.seleccionar(\"$nombre_col\");{$this->objeto_js}.eliminar_seleccionada();", $this->_rango_tabs[0]++, $columna->es_solo_lectura(), $columna->es_obligatorio(), $estilo_celda);
+			echo toba::output()->get('Filtro')->getEliminarFiltro("{$this->objeto_js}_eliminar$nombre_col", "{$this->objeto_js}.seleccionar('$nombre_col');{$this->objeto_js}.eliminar_seleccionada();", $this->_rango_tabs[0]++, $columna->es_solo_lectura(), $columna->es_obligatorio(), $estilo_celda);
 
 			echo toba::output()->get('Filtro')->getFinFiltro();
 		}
