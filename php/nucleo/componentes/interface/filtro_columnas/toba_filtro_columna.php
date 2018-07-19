@@ -472,19 +472,19 @@ abstract class toba_filtro_columna
 			$estilo = 'ei-filtro-etiq-oblig';
 			$marca = '(*)';
 		} else {
-			$estilo = 'ei-filtro-etiq';
+			$estilo = 'ei-filtro-etiq opcional';
 		}
 		$desc='';
 		$desc = $this->_datos['descripcion'];
 		if ($desc !=""){
 			$desc = toba_parser_ayuda::parsear($desc);
-			$desc = toba_recurso::imagen_toba("descripcion.gif",true,null,null,$desc);
+			$desc =  toba::output()->get('Filtro')->getIconoAyuda($desc);			
 		}
 		$id_ef = $this->_ef->get_id_form();					
 		$editor = '';		
 		//$editor = $this->generar_vinculo_editor($ef);
 		$etiqueta = $this->get_etiqueta();
-		$html .= "<label for='$id_ef' class='$estilo'>$editor $desc $etiqueta $marca</label>\n";
+		$html .= "<label for='$id_ef' class='col-sm-2 control-label $estilo'>$editor $desc $etiqueta $marca</label>\n";
 		return $html;
 	}
 		
