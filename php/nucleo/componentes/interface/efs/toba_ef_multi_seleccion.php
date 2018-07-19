@@ -449,13 +449,13 @@ class toba_ef_multi_seleccion_check extends toba_ef_multi_seleccion
 					<a href=\"javascript:{$this->objeto_js()}.seleccionar_todo(false)\">Ninguno</a></div>
 			";
 		}
-		$html .= "<div id='{$this->id_form}_opciones' class='{$this->clase_css}'><table>\n";
+		$html .= "<div id='{$this->id_form}_opciones' class='{$this->clase_css}'><table class='ef-multi'>\n";
 		foreach ($this->opciones as $clave => $descripcion) {
 			if ($i % $this->cantidad_columnas == 0) {
 					$html .= "<tr>\n";	
 			}
 			$id = $this->id_form.$i;			
-			$html .= "\t<td><label class='ef-multi-check' for='$id'>";
+			$html .= "\t<td class='ef-multi-opcion'><label class='ef-multi-check' for='$id'>";
 			$ok = in_array($clave, $estado);
 			if (! $this->permitir_html) {
 				$clave = texto_plano($clave);
@@ -571,7 +571,7 @@ class toba_ef_multi_seleccion_doble extends toba_ef_multi_seleccion
 		$boton_izq = "<img src='$img_izq' id='{$this->id_form}_img_der' onclick=\"$ef_js.pasar_a_izquierda()\" class='ef-multi-doble-boton'>";
 		
 		$disabled = ($this->es_solo_lectura()) ? "disabled" : "";
-		$html .= "<table class='{$this->clase_css}'>";
+		$html .= "<table class='{$this->clase_css} ef-multi'>";
 		$html .= "<tr><td>$etiq_izq</td><td></td><td>$etiq_der</td></tr>";
 		$html .= "<tr><td>";
 

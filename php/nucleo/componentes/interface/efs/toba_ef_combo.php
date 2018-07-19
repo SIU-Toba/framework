@@ -320,7 +320,7 @@ class toba_ef_radio extends toba_ef_seleccion
 		$callback = "onchange=\"{$this->get_cuando_cambia_valor()}\"";
 		//--- Se guarda el callback en el <div> asi puede ser recuperada en caso de que se borren las opciones
 		$html .= "<div id='opciones_{$this->id_form}' $callback>\n";
-		$html .= "<table>\n";
+		$html .= "<table class='ef-multi'>\n";
 		if (!is_array($this->opciones)) {
 			$datos = array();	
 		} else {
@@ -333,7 +333,7 @@ class toba_ef_radio extends toba_ef_seleccion
 				$html .= "<tr>\n";	
 			}
 			$id = $this->id_form . $i;    		
-			$html .= "\t<td><label class='{$this->clase_css}' for='$id'>";
+			$html .= "\t<td class='ef-multi-opcion'><label class='{$this->clase_css}' for='$id'>";
 			$es_actual = (strval($estado) == strval($clave));
 			if (! $this->es_solo_lectura()) {
 				$sel = ($es_actual) ? "checked" : "";
