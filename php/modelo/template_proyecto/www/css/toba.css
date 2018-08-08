@@ -1,3 +1,15 @@
 /**
 	Incluir aquí las reglas css propias de este proyecto 
 */
+
+#tipclick_div.tooltip{ /* The styling on the tooltip */
+	background-color: #ffffe0;			 
+	padding: 2px;
+	border: 1px solid black;
+	line-height:18px;
+	z-index:100;
+	color: #000000;
+	font: normal normal normal 11px Verdana, Arial, Helvetica, sans-serif; 
+	position: absolute;
+	opacity: 90;
+}
