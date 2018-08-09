@@ -3,6 +3,19 @@
 ## CHANGELOG
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
+- Se modifica tipclick.js y se agrega una clase css basica al archivo toba.css del template del proyecto
+- Se agrega el metodo toba_recurso::link_css_proyecto para permitir la utilización de archivos css no presentes en el framework
+- Se agregan clases css a las tablas que contienen los efs de seleccion multiple
+- Se agrega la imagen del calendario al proceso de migración ya que cambia su ruta
+- Se agrega control especifico sobre el destino del servicio solicitado, un valor incorrecto significa que le pide el servicio a todos los objetos de la operación.
+- Se cambia el tipo de dato a bigint para el id de solicitud en las tablas de auditoria (ATENCION!! requiere actualizar el schema mediante comando administrativo) 
+- Se agrega la accion predefinida Arai-Reportes para los eventos
+- Se crea la clase toba_vista_arai_reportes
+- Se agrega un cliente rest para JasperReports
+- Fix warnings varios en PHP 7.2
+- Se anticipa el envio de headers para poder fijar cache_limiter y evitar error en php 7.2
+- Se ordenan los nombres de metodos y propiedades de sesion recuperadas via Reflection
+- Se modifica la componente JS del ef_fecha para proveer un datepicker compatible con bootstrap
 - Se modifican los componenetes toba_ei_esquema y toba_ei_grafico para incluir los namespaces de JpGraph
 - Se actualiza JpGraph v4.2.0 y se le agrega namespaces de manera propia.
 - Se actualiza operacion de armado de menues en toba_usuarios
