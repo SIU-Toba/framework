@@ -139,8 +139,8 @@ class toba_proyecto
 	 */
 	function get_version()
 	{
-		if (toba::config()->existe_valor('proyecto', null, 'version')) {
-			return toba::config()->get_parametro('proyecto', null, 'version');
+		if (toba::config()->existe_valor('proyecto', 'proyecto', 'version')) {			
+			return toba::config()->get_parametro('proyecto', 'proyecto', 'version');
 		} else {
 			//Se asume que si el proyecto no da un numero de version, se toma la del nucleo (para no mantener la de toba_referencia, usuarios, etc)
 			return toba::instalacion()->get_version();
