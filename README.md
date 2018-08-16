@@ -5,6 +5,10 @@
 
 Framework para desarrollo rápido de aplicaciones web
 
+## Prerequisitos
+ * Hay que tener instalado [Composer](https://getcomposer.org/)
+ * Hay que tener instalado [Bower](https://bower.io/) (v1.8.4 o superior)
+
 ## Instalando SIU-Toba
 
 La descarga de SIU-Toba a partir de la version 3.0 se lleva a cabo enteramente via composer, para ello se deben agregar al archivo ``composer.json``  las siguientes lineas
