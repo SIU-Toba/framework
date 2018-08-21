@@ -26,7 +26,7 @@
   "provide" : [
     {
       "name": "app:siu/toba_usuarios",
-      "version": ">=3.0.21"
+      "version": ">=3.0.27"
     }
   ]
 } 
