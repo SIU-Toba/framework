@@ -4,6 +4,12 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.0.27](https://github.com/SIU-Toba/framework/releases/tag/v3.0.27) (2018-08-21):
+- Actualiza el archivo .lock
+- Agrega método para iniciar el contexto de ejecución en pedidos SOAP
+- Anticipo del envío de headers para poder fijar el parámetro cache_limiter
+- Fix a warnings para PHP 7.2
+
 [3.0.26](https://github.com/SIU-Toba/framework/releases/tag/v3.0.26) (2018-05-22):
 - Fix en toba_editor al verificar si se encuentra activo
 
