@@ -4,6 +4,9 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.0.287](https://github.com/SIU-Toba/framework/releases/tag/v3.0.28) (2018-08-21):
+- Fix a los metodos toba_varios::acceso_post y toba_varios::acceso_get
+
 [3.0.27](https://github.com/SIU-Toba/framework/releases/tag/v3.0.27) (2018-08-21):
 - Actualiza el archivo .lock
 - Agrega método para iniciar el contexto de ejecución en pedidos SOAP
