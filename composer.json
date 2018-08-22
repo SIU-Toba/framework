@@ -32,8 +32,6 @@
         "siu-toba/text_highlighter": "~0.8",
         "siu-toba/services_json": "^1.0.3.3", 
         "siu/rdi": "~0.9", 
-        "siu/arai-json-migrator" : "~1.0",
-        "siu/arai-cli" : "^2.3",
         "vlucas/phpdotenv": "~2.0",
         "ioncube/php-openssl-cryptor": "dev-master",
         "siu/manejador-salida-toba" : "dev-master",
@@ -43,7 +41,8 @@
         "greenlion/PHP-SQL-Parser": "@dev"
     },
     "suggest": {
-        "siu-toba/jasper": "Permite imprimir reportes via Jasper desde SIU-Toba", 
+        "siu-toba/jasper": "Permite imprimir reportes via Jasper desde SIU-Toba",
+        "siu/arai-cli" : "Librería cliente de los componentes ARAI",        
         "siu/manejador-salida-bootstrap": "Permite generar un marcado HTML responsive",
         "simplesamlphp/simplesamlphp": "Permite conectarse a un IDP centralizado (see onelogin)"
     },
