@@ -8,7 +8,7 @@
 include_once 'toba_manejador_archivos.php';
 class toba_extractor_clases
 {
-	const regexp_eliminar_comentarios = '%(/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+/)|(//.*)%i';
+	const regexp_eliminar_comentarios = '%\/\*[\s\S]*?\*\/|[/]{2}.*%i';
 	const regexp_extractor = '/.*\b(class|interface|trait)[\t\r\n ]+(\w+)[\t\r\n \{]+(?:[\t\r\n ]*extends[\t\r\n ]*(\w*))?/i';
 
 	/**
@@ -18,7 +18,7 @@ class toba_extractor_clases
 	 *		path => array(
 	 *			'archivo_salida' => path del archivo salida. Relativo al punto de montaje, no empieza con barra
 	 *			'dirs_excluidos' => array() <-- opcional. Los directorios a excluir relativos al punto de montaje
-	 *			'extras' => array() <-- opcional. Pares 'nombre_clase' => 'path_relativo_al_punto_de_montaje' se agregan como vienen. Util para agregar un archivo de una carpeta excluída
+	 *			'extras' => array() <-- opcional. Pares 'nombre_clase' => 'path_relativo_al_punto_de_montaje' se agregan como vienen. Util para agregar un archivo de una carpeta excluÃ­da
 	 *		)
 	 * )
 	 */
@@ -30,16 +30,19 @@ class toba_extractor_clases
 
 	protected $pms_no_encontrados;
 
+	private $constantes_errores;						// Guardo las constantes de errores de PCRE para debuggear un poco mejor en caso de fallo 
+
 	function  __construct($puntos_montaje)
 	{
 		$this->pms_no_encontrados = array();
 		$this->puntos_montaje = $puntos_montaje;
 		$this->extends_excluidos = array();
+		$this->constantes_errores = array_flip(get_defined_constants(true)['pcre']);
 	}
 
 	/**
 	 * Devuelve un arreglo de los puntos de montaje que no fueron encontrados
-	 * mientras se construía el archivo de autoload
+	 * mientras se construÃ­a el archivo de autoload
 	 * @return array un arreglo con los paths de los puntos de montaje no
 	 * encontrados
 	 */
@@ -124,19 +127,26 @@ class toba_extractor_clases
 
 	protected function generar_arreglo($path_montaje, &$archivos, $extras = array())
 	{
-		$clases = '';
+		$clases = $msg = '';
 
 		foreach ($archivos as $archivo) {
 			$contenido = file_get_contents($archivo);
 			
 			$contenido = preg_replace(self::regexp_eliminar_comentarios, '', $contenido);	// removemos comentarios
+			if (PREG_NO_ERROR !== preg_last_error()) {
+				$msg =  'Error ' . $this->constantes_errores[preg_last_error()] . ' ignorando archivo: ';
+			}
 
-			// matches[1]: cada elemento acá trae 'class', 'interface', 'trait' o nada
-			// matches[2]: cada elemento acá trae el nombre de la clase, trait o interfaz
-			// matches[3]: cada elemento acá trae de que clase extiende
+			// matches[1]: cada elemento acÃ¡ trae 'class', 'interface', 'trait' o nada
+			// matches[2]: cada elemento acÃ¡ trae el nombre de la clase, trait o interfaz
+			// matches[3]: cada elemento acÃ¡ trae de que clase extiende
 			preg_match_all(self::regexp_extractor, $contenido, $matches);
 			
-			if (empty($matches[1])) continue;	// No es una clase , trait o una interfaz. No hay que incluirla
+			if (empty($matches[1])) {
+				toba::logger()->debug($msg . $archivo);
+				$msg = '';
+				continue;	// No es una clase , trait o una interfaz. No hay que incluirla
+			}
 
 			foreach ($matches[1] as $key => $tipo) {
 				if ($tipo == 'class') {
@@ -174,7 +184,7 @@ class toba_extractor_clases
 	protected function registrar_clase($montaje, $clase, $path)
 	{
 		if (isset($this->registro[$montaje][$clase])) {	// La clase con nombre $clase ya existe
-			if (!isset($this->clases_repetidas[$montaje][$clase])) {	// La clase $nombre no se había registrado como repetida
+			if (!isset($this->clases_repetidas[$montaje][$clase])) {	// La clase $nombre no se habÃ­a registrado como repetida
 				$this->clases_repetidas[$montaje][$clase][] = $this->registro[$montaje][$clase];
 			}
 			$this->clases_repetidas[$montaje][$clase][] = $path;
@@ -186,7 +196,7 @@ class toba_extractor_clases
 	protected function generar_archivo($path, $contenido, $punto_montaje)
 	{
 		$nombre_clase = basename($path, '.php');
-		$comentario = "/**\n * Esta clase fue y será generada automáticamente. NO EDITAR A MANO.\n * @ignore\n */";
+		$comentario = "/**\n * Esta clase fue y serÃ¡ generada automÃ¡ticamente. NO EDITAR A MANO.\n * @ignore\n */";
 		$arreglo = sprintf("\tstatic protected \$clases = array(\n%s\t);", $contenido);
 		$metodo_consultor = "\tstatic function existe_clase(\$nombre)\n\t{\n\t\treturn isset(self::\$clases[\$nombre]);\n\t}\n";
 		$metodo_cargador = "\tstatic function cargar(\$nombre)\n\t{\n\t\tif (self::existe_clase(\$nombre)) { \n\t\t\t require_once(dirname(__FILE__) .'/'. self::\$clases[\$nombre]); \n\t\t}\n\t}\n";
@@ -198,8 +208,8 @@ class toba_extractor_clases
 	protected function mostrar_clases_repetidas()
 	{
 		foreach ($this->clases_repetidas as $montaje => $clase) {
-			$this->mensajes[] = "\n[$montaje] Existen clases repetidas, la única
-					que se cargará en el autoload será la última de cada lista";
+			$this->mensajes[] = "\n[$montaje] Existen clases repetidas, la Ãºnica
+					que se cargarÃ¡ en el autoload serÃ¡ la Ãºltima de cada lista";
 			foreach ($clase as $key => $paths) {
 				$this->consola->mensaje("\n[$key]");
 				foreach ($paths as $path) {
