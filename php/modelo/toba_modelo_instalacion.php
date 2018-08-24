@@ -996,5 +996,17 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 		}
 	}	
 
+	function get_compatibilidad_arai_cli()
+	{
+		$min = 0; $max = 32765;
+		if (toba::config()->existe_valor('instalacion', null, 'araiCli_version_min')) {
+			$min = toba::config()->get_parametro('instalacion', null, 'araiCli_version_min');
+		}
+
+		if (toba::config()->existe_valor('instalacion', null, 'araiCli_version_max')) {
+			$max = toba::config()->get_parametro('instalacion', null, 'araiCli_version_max');
+		}
+		return array($min, $max);       
+	}
 }
 ?>

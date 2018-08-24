@@ -710,4 +710,18 @@ class RegistryHooksProyectoToba implements HooksInterface
 
         return AbstractAuth::getInstance($authServer['type'], $credentials, true, $sendPrivate, $certServer);
     }
+
+    //-----------------------------------------------------------------------------//
+    public static function checkVersionCompatible()
+    {
+        $version = new \toba_version(AraiCli::getVersion());
+
+        //Recupero los topes inferior-superior de la config de toba
+        $limites = $this->instalacion->get_instancia($this->getInstanciaId())->get_compatibilidad_arai_cli();
+        $inferior = new \toba_version($limites[0]);
+        $techo = new \toba_version($limites[1]);
+
+        return ($inferior->es_menor_igual($version) && $techo->es_mayor($version));
+    }
+
 }
