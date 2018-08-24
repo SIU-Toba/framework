@@ -4,6 +4,34 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.1.0](https://github.com/SIU-Toba/framework/releases/tag/v3.1.0) (2018-xx-xx)
+- PHP 7.1 se transforma en requerimiento minimo para la version
+- Se agrega chequeo de topes de versiones compatibles del paquete siu/arai-cli
+- Se corrige bug en toba_proyecto::get_version, ahora devuelve un objeto toba_version nuevamente
+- Se corrige un bug en toba_extractor_clases que tenia incidencia en la generacion del archivo autoload
+- Mueve el paquete siu/arai-cli a sugerido y elimina el paquete siu/arai-json-migrator de las dependencias
+- Se agrega el metodo toba_recurso::link_css_proyecto para permitir la utilización de archivos css no presentes en el framework
+- Se agrega control especifico sobre el destino del servicio solicitado, un valor incorrecto significa que le pide el servicio a todos los objetos de la operación.
+- Se cambia el tipo de dato a bigint para el id de solicitud en las tablas de auditoria (ATENCION!! requiere actualizar el schema mediante comando administrativo) 
+- Fix warnings varios en PHP 7.2
+- Se anticipa el envio de headers para poder fijar cache_limiter y evitar error en php 7.2
+- Se ordenan los nombres de metodos y propiedades de sesion recuperadas via Reflection
+- Actualización de librerias:
+  * phpmailer/phpmailer: v6.0.3
+  * onelogin/php-saml: v2.13
+- Se modifican clases del runtime para hacer uso de toba_config
+- Se agrega toba_config como concentrador de configuraciones, se instancia via el lanzador toba::config()
+- Nuevas clases para darle un marco a los test via Selenium
+  * toba_selenium_basics_proyecto (se encarga de cuestiones basicas del testeo)
+  * toba_selenium_conector_base (conecta bd via parametros en constantes)
+  * toba_selenium_utilidades (permite gestionar parametros del proyecto para facilitar la generacion de urls, paths, etc)
+  * toba_selenium_monje_negro (gestiona la interaccion con webdriver)
+- Se agregan casos de test para login y mantenimiento de usuario en el proyecto toba_usuarios
+- Modificacion de librerias:
+  * Elimina element-34/php-webdriver 
+  * Agrega facebook/webdriver: v1.5.0
+- Se cambia Bower por Yarn como manejador de assets JS
+
 [3.0.27](https://github.com/SIU-Toba/framework/releases/tag/v3.0.27) (2018-08-21):
 - Actualiza el archivo .lock
 - Agrega método para iniciar el contexto de ejecución en pedidos SOAP
