@@ -144,7 +144,7 @@ class gestion_arai_usuarios
 		}
 		//Agregar verificacion puntual de version compatible de arai-cli
 		if (! SIUToba\Framework\Arai\RegistryHooksProyectoToba::checkVersionCompatible()) {
-			throw new toba_error('La versión del paquete siu/arai-cli no es compatible, revise la documentación del sistema.')
+			throw new toba_error('La versión del paquete siu/arai-cli no es compatible, revise la documentación del sistema.');
 		}
 
 		return true;
