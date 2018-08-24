@@ -27,7 +27,7 @@ class gestion_arai_usuarios
 			if (! isset($datos['cuenta']) && isset($datos['usuario'])) {
 				$datos['cuenta'] = $datos['usuario'];	
 			}
-			if (! isset($datos['usuario_arai']) && isset($datos['cuenta'])) {
+			if (! isset($datos['usuario_arai']) && isset($datos['cuenta']) && self::verifica_version_arai_cli()) {
 				$datos['usuario_arai'] = rest_arai_usuarios::instancia()->get_identificador_x_aplicacion_cuenta(SIUToba\Framework\Arai\RegistryHooksProyectoToba::getAppUniqueId(), $datos['cuenta']);
 			}
 		}
@@ -67,7 +67,7 @@ class gestion_arai_usuarios
 	static public function sincronizar_datos($cuenta, $identificador) 
 	{	
 		$resultado = true;
-		if (toba::instalacion()->vincula_arai_usuarios()) {
+		if (toba::instalacion()->vincula_arai_usuarios() && self::verifica_version_arai_cli()) {
 			$appUniqueId = SIUToba\Framework\Arai\RegistryHooksProyectoToba::getAppUniqueId();
 			$identificador_arai_usuarios = rest_arai_usuarios::instancia()->get_identificador_x_aplicacion_cuenta($appUniqueId, $cuenta);
 			if (!isset($identificador_arai_usuarios)) {
@@ -87,7 +87,7 @@ class gestion_arai_usuarios
 	static public function eliminar_datos($cuenta) 
 	{	
 		$resultado = true;
-		if (toba::instalacion()->vincula_arai_usuarios()) {
+		if (toba::instalacion()->vincula_arai_usuarios() && self::verifica_version_arai_cli()) {
 			$resultado = rest_arai_usuarios::instancia()->eliminar_cuenta(SIUToba\Framework\Arai\RegistryHooksProyectoToba::getAppUniqueId(), $cuenta);
 		}
 		return $resultado;
@@ -111,7 +111,7 @@ class gestion_arai_usuarios
 	static public function get_usuarios_disponibles_aplicacion($filtro) 
 	{
 		$datos = array();
-		if (toba::instalacion()->vincula_arai_usuarios()) {
+		if (toba::instalacion()->vincula_arai_usuarios() && self::verifica_version_arai_cli()) {
 			$datos = rest_arai_usuarios::instancia()->get_usuarios($filtro, SIUToba\Framework\Arai\RegistryHooksProyectoToba::getAppUniqueId());
 		}
 		return $datos;
@@ -136,5 +136,18 @@ class gestion_arai_usuarios
 		} while(! $claveok);
 		return $clave_tmp;
 	}	
+	
+	static private function verifica_version_arai_cli()
+	{
+		if (! class_exists('SIU\AraiCli\AraiCli')) {
+			throw new toba_error('No se encuentra instalado el paquete siu/arai-cli, revise los paquetes sugeridos en composer.');
+		}
+		//Agregar verificacion puntual de version compatible de arai-cli
+		if (! SIUToba\Framework\Arai\RegistryHooksProyectoToba::checkVersionCompatible()) {
+			throw new toba_error('La versión del paquete siu/arai-cli no es compatible, revise la documentación del sistema.')
+		}
+
+		return true;
+ 	}
 }
 ?>
