@@ -231,7 +231,7 @@ class toba_nucleo
 		//Seteo el estado del nucleo
 		$_SERVER['TOBA_INSTANCIA'] = $instancia;
 		$_SERVER['TOBA_PROYECTO'] = $proyecto;
-		$this->iniciar_contexto_ejecucion();	
+		$this->iniciar_contexto_consola();	
 	}
 	
 	function solicitud_en_proceso()
@@ -331,7 +331,7 @@ class toba_nucleo
 		toba::contexto_ejecucion()->conf__inicial();
 	}
         
-        protected function iniciar_contexto_soap()
+        protected function iniciar_contexto_consola()
 	{
 		if (!ini_get('safe_mode') && strpos(ini_get('disable_functions'), 'set_time_limit') === FALSE) {		
 			set_time_limit(0);
@@ -345,6 +345,11 @@ class toba_nucleo
 		toba::contexto_ejecucion()->conf__inicial();
 	}
         
+	protected function iniciar_contexto_soap()
+	{
+		$this->iniciar_contexto_consola();				//Reuso porque el codigo es el mismo, lo dejo separado por si llega a necesitar cambios 
+	}
+	
 	protected function iniciar_contexto_rest()
 	{
 		if (!ini_get('safe_mode') && strpos(ini_get('disable_functions'), 'set_time_limit') === FALSE) {		
