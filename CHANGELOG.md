@@ -48,6 +48,15 @@
 - Se traslada parte de la generación del marcado HTML al paquete siu/manejador-salida-toba
 - Se cambia Bower por Yarn como manejador de assets JS
 
+[3.0.28](https://github.com/SIU-Toba/framework/releases/tag/v3.0.28) (2018-08-21):
+- Fix a los metodos toba_varios::acceso_post y toba_varios::acceso_get
+
+[3.0.27](https://github.com/SIU-Toba/framework/releases/tag/v3.0.27) (2018-08-21):
+- Actualiza el archivo .lock
+- Agrega método para iniciar el contexto de ejecución en pedidos SOAP
+- Anticipo del envío de headers para poder fijar el parámetro cache_limiter
+- Fix a warnings para PHP 7.2
+
 [3.0.26](https://github.com/SIU-Toba/framework/releases/tag/v3.0.26) (2018-05-22):
 - Fix en toba_editor al verificar si se encuentra activo
 
