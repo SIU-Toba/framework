@@ -48,6 +48,10 @@
 - Se traslada parte de la generación del marcado HTML al paquete siu/manejador-salida-toba
 - Se cambia Bower por Yarn como manejador de assets JS
 
+[3.0.30](https://github.com/SIU-Toba/framework/releases/tag/v3.0.30) (2018-08-28):
+- Se cambia el scope de los métodos que implementan el selector de ordenamiento múltiple del cuadro a protected
+- Se corrige bug por merge desde develop
+
 [3.0.29](https://github.com/SIU-Toba/framework/releases/tag/v3.0.29) (2018-08-27):
 - Fix a bug introducido al enviar los headers para el contexto de ejecucion de consola
 - Fix a ER que eliminaba los comentarios durante la creacion del archivo autoload 
