@@ -340,7 +340,6 @@ class toba_nucleo
 		$this->recuperar_revision_recursos();
 		$this->registrar_autoloaders_proyecto();		
 		toba::manejador_sesiones()->iniciar();
-		toba::config();
 		toba::contexto_ejecucion()->conf__inicial();
 	}
         
