@@ -222,8 +222,9 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 	/**
 	 *  Envia la botonera del selector
 	 *  @deprecated
+	 *  @see manejador_salida_toba
 	 */
-	private function html_botonera_selector()
+	protected function html_botonera_selector()
 	{
 		$objeto_js = $this->_cuadro->get_id_objeto_js();
 		//Saco la botonera para subir/bajar filas
@@ -238,8 +239,9 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 	/**
 	 * Genera la cabecera con los titulos del selector
 	 * @deprecated
+	 * @see manejador_salida_toba
 	 */
-	private function html_cabecera_selector()
+	protected function html_cabecera_selector()
 	{
 		echo "<thead>
 						<th class='ei-ml-columna'>Activar</th>
@@ -251,8 +253,9 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 	/**
 	 *  Genera el cuerpo del selector
 	 *  @deprecated
+	 *  @see manejador_salida_toba
 	 */
-	private function html_cuerpo_selector()
+	protected function html_cuerpo_selector()
 	{
 		$columnas = $this->_cuadro->get_columnas();
 		$objeto_js = $this->_cuadro->get_id_objeto_js();
