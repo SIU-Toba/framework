@@ -35,7 +35,8 @@
         "vlucas/phpdotenv": "~2.0",
         "ioncube/php-openssl-cryptor": "dev-master",
         "siu/manejador-salida-toba" : "dev-master",
-	"jaspersoft/rest-client": "^2.0"
+	"jaspersoft/rest-client": "^2.0",
+	"psr/log": "^1.0"
     },
     "require-dev": {
         "greenlion/PHP-SQL-Parser": "@dev"
