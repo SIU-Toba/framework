@@ -1,14 +1,10 @@
 <?php
 namespace SIUToba\Framework\Arai;
 
-use ParagonIE\Halite\KeyFactory;
 use SIU\AraiCli\AraiCli;
 use SIU\AraiCli\Services\Registry\HooksInterface;
 use SIU\AraiJsonParser\Feature\Consumption;
 use SIU\AraiJsonParser\Feature\Provision;
-use SIU\AraiJsonParser\Feature\Auth\AbstractAuth;
-use SIUToba\SSLCertUtils\SSLCertUtils;
-
 
 /**
  * Class RegistryHooksProyectoToba
@@ -434,37 +430,26 @@ class RegistryHooksProyectoToba implements HooksInterface
 		$iniInstalacion = new \toba_ini( \toba::nucleo()->toba_instalacion_dir() . '/instalacion.ini');
 
 		if (!$iniInstalacion->existe_entrada("arai_sync_key_file")) {
-			throw new \Exception("Debe configurar en el archivo 'instalacion.ini' la entrada 'arai_sync_key_file' con la ruta al certificado para sincronizar con Arai-Registry");
+			 throw new \Exception("Debe configurar en el archivo 'instalacion.ini' la entrada 'arai_sync_key_file' con la ruta al certificado para sincronizar con SIU-Arai");
 		}
 
 		$araiSyncKeyFile = $iniInstalacion->get_datos_entrada("arai_sync_key_file");
 
 		if (!is_readable($araiSyncKeyFile)) {
-			throw new \Exception("No se puede leer el certificado '$araiSyncKeyFile' para sincronizar con Arai-Registry configurado en el archivo 'instalacion.ini'");
+			throw new \Exception("No se puede leer el certificado '$araiSyncKeyFile' para sincronizar con SIU-Arai configurado en el archivo 'instalacion.ini'");
 		}
-
-		try {
-			$keyPair = KeyFactory::loadEncryptionKeyPair($araiSyncKeyFile);
-
-			return $keyPair;
-		} catch (\Exception $exc) {
-			$msg = $exc->getTraceAsString();
-			throw new \Exception("El certificado para sincronizar con Arai-Registry configurado en el archivo 'instalacion.ini' con la entrada 'arai_sync_key_file' no es una clave de sincronización válida");
-		}
+		
+		return $araiSyncKeyFile;
 	}
 
 	protected function getAraiSyncKeyPublic()
 	{
-		$publicKey = $this->araiSyncKey->getPublicKey();
-
-		return sodium_bin2hex($publicKey->getRawKeyMaterial());
+		return AraiCli::getCryptoService()->getPublicFromSyncKey($this->araiSyncKey);
 	}
 
 	protected function getAraiSyncKeyPrivate()
 	{
-		$secretKey = $this->araiSyncKey->getSecretKey();
-
-		return sodium_bin2hex($secretKey->getRawKeyMaterial());
+		return AraiCli::getCryptoService()->getPrivateFromSyncKey($this->araiSyncKey);
 	}
 
 	/**
@@ -540,36 +525,13 @@ class RegistryHooksProyectoToba implements HooksInterface
 
 	protected function agregarServidorUsuariosIni($authCliente, $iniServidorUsuarios)
 	{
-		if ($authCliente['type'] == 'ssl'){
-			$credentials = $this->getCredencialesClienteSSL($authCliente);
-		} elseif (in_array($authCliente['type'], array('basic', 'digest'))){
+		 if (in_array($authCliente['type'], array('basic', 'digest'))) {
 			$credentials = $this->getCredencialesClienteSimple($authCliente);
 		}
 
 		if ($credentials){
 			$iniServidorUsuarios->agregar_entrada($credentials['user'], $credentials['data']);
 		}
-	}
-
-	protected function getCredencialesClienteSSL($auth)
-	{
-		$sslUtils = new SSLCertUtils();
-		if (!isset($auth['credentials']['cert'])) {
-			echo "Se intenta configurar auth de tipo ssl pero no se provee certificado\n";
-			return null;
-		}
-
-		$sslUtils->loadCert($auth['credentials']['cert']);
-
-		$user = $sslUtils->getCN();
-		$fingerprint = $sslUtils->getFingerprint();
-
-		$credentials = [
-			'user' => $user,
-			'data' => array('fingerprint' => $fingerprint)
-		];
-
-		return $credentials;
 	}
 
 	protected function getCredencialesClienteSimple($auth)
@@ -584,12 +546,12 @@ class RegistryHooksProyectoToba implements HooksInterface
 		// la clave publica es del cliente de la api
 		$certPublic = $auth['credentials']['cert'];
 
-		$encryptedAuth = AbstractAuth::getInstance($auth['type'], $auth['credentials'], true, $privateKey, $certPublic);
+		$encrypted = $auth['credentials']['password'];
 
 		$decryptedCredentials = false;
 		try {
 			// se desencripta la clave del cliente con el certificado privado del server y el publico del cliente
-			$decryptedCredentials = $encryptedAuth->getDecryptedCredentials();
+			$decryptedCredentials = AraiCli::getCryptoService()->decrypt($encrypted, $privateKey, $certPublic);
 		} catch (\Exception $e) {
 			echo " {$e->getMessage()}\n";
 		}
@@ -600,7 +562,7 @@ class RegistryHooksProyectoToba implements HooksInterface
 		echo " Desencriptado correcto de la clave\n";
 		$credentials = [
 			'user' => $auth['credentials']['user'],
-			'data' => array('password' => $decryptedCredentials['password'])
+			'data' => array('password' => $decryptedCredentials)
 		];
 
 		return $credentials;
@@ -653,57 +615,38 @@ class RegistryHooksProyectoToba implements HooksInterface
 
 		$authServer = $provider->getOptions()['auth'];
 		$authCliente = $iniCliente->get_datos_entrada('conexion');
-		if ($authCliente['auth_tipo'] == 'ssl'){
-			$credentials = $this->configurarClienteSSL($feature, $authServer, $authCliente);
-		} elseif (in_array($authCliente['auth_tipo'], array('basic', 'digest'))){
+		
+		$authType = $authCliente['auth_tipo'];
+		
+		if (in_array($authType, array('basic', 'digest'))) {
 			$credentials = $this->configurarClienteSimple($feature, $authServer, $authCliente);
 		}
 
 		if ($credentials){
-			$feature->addAuth($credentials->getType(), $credentials->getEncryptedCredentials());
+			$feature->addAuth($authType, $credentials);
 		}
-	}
-
-	protected function configurarClienteSSL($feature, $authServer, $authCliente)
-	{
-		if (!isset($authCliente['cert_file'])) {
-			echo "Se intenta enviar los datos de conexion a la api '{$feature->getName()}' pero no se seteó la propiedad 'cert_file'\n";
-			return null;
-		}
-
-		$pathCert = $authCliente['cert_file'];
-		if (!file_exists($pathCert)) {
-			echo "El certificado para {$feature->getName()} no se encuentra en el path '$pathCert'\n";
-			return null;
-		}
-
-		$credentials = [
-			'cert' => file_get_contents($pathCert)
-		];
-
-		return AbstractAuth::getInstance('ssl', $credentials, true, null, null);
 	}
 
 	protected function configurarClienteSimple($feature, $authServer, $authCliente)
 	{
 		if (empty($authServer['credentials']['cert'])){
-			echo "Se intenta enviar los datos de conexion a la api '{$feature->getName()}' pero no se seteó la propiedad 'cert' del servidor\n";
+			echo "Se intenta enviar los datos de conexion a la api '{$feature->getName()}' pero no se encuentra definida la propiedad 'cert' del servidor\n";
 			return null;
 		}
 
-		$credentials = [
-			'user' => $authCliente['auth_usuario'],
-			'password' => $authCliente['auth_password'],
-		];
-
-		$certServer = $authServer['credentials']['cert'];
-
-		$sendPrivate = $this->getAraiSyncKeyPrivate();
+		$theirPublic = $authServer['credentials']['cert'];
+		$ourPrivate = $this->getAraiSyncKeyPrivate();
 		$sendPublic = $this->getAraiSyncKeyPublic();
 
-		$credentials['cert'] = $sendPublic;
+		$encrypted = AraiCli::getCryptoService()->encrypt($authCliente['auth_password'], $ourPrivate, $theirPublic);
 
-		return AbstractAuth::getInstance($authServer['type'], $credentials, true, $sendPrivate, $certServer);
+		$credentials = [
+			'user' => $authCliente['auth_usuario'],
+			'password' => $encrypted,
+		         'cert' => $sendPublic,
+		];
+
+		 return $credentials;
 	}
 	
 	//-----------------------------------------------------------------------------//
