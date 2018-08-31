@@ -48,6 +48,9 @@
         "siu-toba/jasper": "Permite imprimir reportes via Jasper desde SIU-Toba",
         "siu/arai-cli" : "Librería cliente de los componentes ARAI"
     },
+    "conflict": {
+        "siu/arai-cli": "<2.5.0"
+    },
     "bin": ["bin/toba",
             "bin/toba_docker"],
     "autoload": {
