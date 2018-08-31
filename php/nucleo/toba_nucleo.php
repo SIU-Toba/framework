@@ -175,6 +175,7 @@ class toba_nucleo
 	 */
 	function acceso_rest()
 	{
+		$app = null;
 		try {
 			$this->acceso_rest = true;			
 			$this->iniciar_contexto_rest();			
