@@ -16,6 +16,7 @@
     "minimum-stability": "dev",
     "prefer-stable" : true,
     "require": {
+        "php" : ">=7.1",
         "symfony/yaml": "~3.1",
         "siu/security-multitool": "1.0",
         "ircmaxell/random-lib" : "dev-master",
