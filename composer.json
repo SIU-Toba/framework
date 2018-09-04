@@ -27,8 +27,6 @@
         "rospdf/pdf-php": "~0.12",
         "siu-toba/Structures_Graph": "^1.1.1.1",
         "phpmailer/phpmailer": "^6.0",
-        "simpletest/simpletest": "~1.1", 
-        "facebook/webdriver" : "~1.4",
         "siu-toba/text_highlighter": "~0.8",
         "siu-toba/services_json": "^1.0.3.3", 
         "siu/rdi": "~0.9", 
@@ -39,7 +37,9 @@
 	"psr/log": "^1.0"
     },
     "require-dev": {
-        "greenlion/PHP-SQL-Parser": "@dev"
+        "simpletest/simpletest": "~1.1", 
+        "facebook/webdriver": "~1.4",
+        "greenlion/PHP-SQL-Parser": "@dev"        
     },
     "suggest": {
         "siu-toba/jasper": "Permite imprimir reportes via Jasper desde SIU-Toba",
