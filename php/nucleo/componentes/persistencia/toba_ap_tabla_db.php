@@ -29,7 +29,7 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 	protected $_alias;							// DATOS_TABLA: Alias
 	protected $_clave;							// DATOS_TABLA: Clave
 	protected $_fuente;							// DATOS_TABLA: Fuente de datos
-	protected $_secuencias;
+	protected $_secuencias = array();
 	protected $_columnas_predeterminadas_db;	// Manejo de datos generados por el motor (autonumericos, predeterninados, etc)
 	protected $_sql_carga;						// Partes de la SQL utilizado en la carga de la tabla
 	protected $_schema;
