@@ -91,11 +91,11 @@ class toba_analizador_logger_fs
 			fseek($fp, $pos, SEEK_END);
 			$hay_mas_para_leer = (abs($pos) < $total);
 			$acumulado = fread($fp, $franja_acum);
-			$ocurrencia = strrpos($acumulado, toba_logger::separador);
+			$ocurrencia = strrpos($acumulado, toba_logger::$separador);
 			if ($ocurrencia !== false) {
 				//Se encontro el separador, una parte del acumulado pertenece a este pedido
 				$encontrado = true;
-				$acumulado = substr($acumulado, $ocurrencia + strlen(toba_logger::separador));
+				$acumulado = substr($acumulado, $ocurrencia + strlen(toba_logger::$separador));
 				$hay_algo_antes =  $hay_mas_para_leer || ($ocurrencia !== 0);
 			}
 			$franja_acum += $franja;
@@ -116,7 +116,7 @@ class toba_analizador_logger_fs
 			return array();	
 		}
 		$texto = trim(file_get_contents($this->archivo));
-		$logs = explode(toba_logger::separador , $texto);
+		$logs = explode(toba_logger::$separador , $texto);
 		if (count($logs) > 0) {
 			//Borra el primer elemento que siempre esta vacio
 			array_splice($logs, 0 ,1);
