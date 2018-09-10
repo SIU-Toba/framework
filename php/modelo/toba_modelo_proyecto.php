@@ -553,7 +553,11 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			if (isset($definicion['columna_grupo_desarrollo'])) {
 				$columna_grupo_desarrollo = $definicion['columna_grupo_desarrollo'];
 			}
-			$contenido .= $this->get_contenido_exportacion_datos($tabla, $datos, $columna_grupo_desarrollo);
+                                                        if (is_array($datos)) {
+                                                            $contenido .= $this->get_contenido_exportacion_datos($tabla, $datos, $columna_grupo_desarrollo);
+                                                        } else {
+                                                            toba_logger::instancia()->debug("COMPONENTE $tipo  --  " . $id['componente'] . ' sin registro en tabla ' . $tabla);
+                                                        }
 		}
 		return $contenido;		
 	}
