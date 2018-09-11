@@ -175,14 +175,12 @@ class toba_autenticacion_saml_onelogin extends toba_autenticacion implements tob
 	protected function get_sp_config()
 	{
 		//Arma el entityID en base a una URL fija de toba
-		$entityID = toba_http::get_protocolo() . toba_http::get_nombre_servidor();
-		$entityID .= toba::instancia()->get_url_proyecto($this->proyecto_login);
-
-		$info =  array (	'entityId' => $entityID.'/' . $this->auth_source,
-					'assertionConsumerService' => array ( 'url' => $entityID.'?acs'),
-					'singleLogoutService' => array ('url' => $entityID.'?sls'	),
-					'NameIDFormat' =>$this->atributo_usuario
-					);
+                                     $entityID = $this->getProyectoUrl();
+		$info =  array ('entityId' => $entityID.'/' . $this->auth_source,
+                                                                'assertionConsumerService' => array ( 'url' => $entityID.'/?acs'),
+                                                                'singleLogoutService' => array ('url' => $entityID.'/?sls'	),
+                                                                'NameIDFormat' =>$this->atributo_usuario
+                                    	);
 		return $info;
 	}
 		
@@ -225,4 +223,18 @@ class toba_autenticacion_saml_onelogin extends toba_autenticacion implements tob
 		}
 		$this->verificar_errores_onelogin($auth);
 	}
+        
+        protected function getProyectoUrl()
+        {
+            $fullUrl = toba::instancia()->get_parametro_seccion_proyecto($this->proyecto_login, "full_url");
+            if (is_null($fullUrl)) {                                    //Fallback al nombre del servidor
+                $fullUrl = toba_http::get_protocolo() . toba_http::get_nombre_servidor();
+                $fullUrl .= toba::instancia()->get_url_proyecto($this->proyecto_login);
+            }
+            
+            if (substr($fullUrl, -1) == '/') {                  //Le quito ultima / para garantizar homogeneidad
+                   $fullUrl = substr($fullUrl, 0, -1);
+            }
+            return $fullUrl;
+        }
 }
