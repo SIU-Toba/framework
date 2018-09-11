@@ -1,0 +1,28 @@
+cache:
+  key: "$CI_COMMIT_REF_SLUG"
+  paths:
+    - ./vendor/
+    - ./composer
+
+stages:
+  - dependencias
+  - qa
+
+composer:php7.1:
+  stage: dependencias
+  image: siutoba/docker-web:develop
+  script:
+    - composer config cache-files-dir ./composer
+    - composer install --prefer-dist > /dev/null
+  artifacts:
+    paths:
+      - ./vendor/
+      - ./bin
+    expire_in: 1 day
+    
+sonar:
+  stage: qa
+  image: zaquestion/sonarqube-scanner
+  script: 
+    - sonar-scanner -Dsonar.projectBaseDir=./ -Dsonar.login=$SONAR_TOKEN
+  allow_failure: true
