@@ -5,6 +5,10 @@
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
 [3.1.0](https://github.com/SIU-Toba/framework/releases/tag/v3.1.0) (2018-xx-xx)
+- Se elimina el uso de Halite del Hook para Arai-Cli y se delega el manejo de claves a ese paquete
+- Se elimina soporte a SSL de los tipos de autenticacion soportados por Arai-Cli en el Hook
+- Fix en toba_ap_tabla_db para evitar notice por variable no inicializada
+- Fix en toba_cargador y toba_modelo_proyecto para componentes que no tienen datos en todas las tablas
 - PHP 7.1 se transforma en requerimiento minimo para la version
 - Se agrega chequeo de topes de versiones compatibles del paquete siu/arai-cli
 - Se corrige bug en toba_proyecto::get_version, ahora devuelve un objeto toba_version nuevamente
