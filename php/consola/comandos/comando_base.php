@@ -279,7 +279,6 @@ class comando_base extends comando_toba
                  $datos = array_merge($datos, $form->procesar());
              }
              
-             var_dump($datos);
              return $datos;
         }                   
 
@@ -359,7 +358,7 @@ class comando_base extends comando_toba
             $nombre_parametro = array('-p', '--base-puerto', 'toba-base-puerto');
             $result = $this->recuperar_dato_y_validez($param, $nombre_parametro);		
             if ($result['invalido']) {			
-
+                return '5432';
             }		
             return $result['resultado'];
         }	
