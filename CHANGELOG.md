@@ -5,6 +5,10 @@
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
 [3.1.0](https://github.com/SIU-Toba/framework/releases/tag/v3.1.0) (2018-xx-xx)
+- Se utiliza el formato datetime provisto por PHPSpreadsheet para la salida excel
+- El comando base registrar recibe sus parametros por stdin via modificadores
+- El comando instalacion cambia_id_desarrollador recibe su parametro por stdin via modificador
+- El mecanismo de autenticacion saml_onelogin comienza a usar el parametro full_url cuando esta disponible
 - Se elimina el uso de Halite del Hook para Arai-Cli y se delega el manejo de claves a ese paquete
 - Se elimina soporte a SSL de los tipos de autenticacion soportados por Arai-Cli en el Hook
 - Fix en toba_ap_tabla_db para evitar notice por variable no inicializada
