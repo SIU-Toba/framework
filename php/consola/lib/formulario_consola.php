@@ -69,6 +69,11 @@ class formulario_consola
 	// Deberia ser una forma mas copada de get_valores
 	function corregir_valores()
 	{
-	}	
+	}
+        
+                    function tiene_campos()
+                    {
+                        return (isset($this->campos) && is_array($this->campos) && !empty($this->campos));
+                    }
 }
 ?>
