@@ -218,7 +218,7 @@ class toba_formateo
 			return $desc;
 		} else {
 			return array($desc, array('numberFormat' => 
-				array('formatCode' => toba_vista_excel::FORMAT_DATE_DATETIMEFULL )
+				array('formatCode' =>\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_DATETIME)
 			));							
 		}
 	}	
