@@ -625,7 +625,7 @@ class toba_ei_arbol extends toba_ei
 			$salida .= '<span style=\'float:right;\'>'. $nodo->get_input($id). '</span>';
 		}
 		$utilerias = $nodo->get_utilerias();
-		if ($this->_mostrar_utilerias && (count($utilerias) > 0)) {
+		if ($this->_mostrar_utilerias && is_array($utilerias) && (count($utilerias) > 0)) {
 			$plegados = '';
 			$despl = '';
 			$salida .= '<span style=\'float:right;\'>';
