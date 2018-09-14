@@ -127,14 +127,17 @@ class comando_base extends comando_toba
         {
                 $i = $this->get_instalacion();
                 $def = $this->get_id_base_actual();
+                $param = $this->get_parametros();
                 if ( $i->existe_base_datos_definida( $def ) ) {
                         $this->consola->enter();
                         $this->consola->subtitulo("DEFINICION: $def");
                         $this->consola->lista_asociativa( $i->get_parametros_base( $def ), array('Parametro','Valor') );
                         $this->consola->enter();
-                        if ( $this->consola->dialogo_simple("Desea eliminar la definicion?") ) {
-                                $i->eliminar_db( $def );
-                        }
+                        if (isset($param['--no-interactivo'])) {
+                            $i->eliminar_db( $def );
+                        } elseif ($this->consola->dialogo_simple("Desea eliminar la definicion?")) {
+                            $i->eliminar_db( $def );
+                        }                                                   
                 } else {
                         throw new toba_error( "NO EXISTE una base definida con el ID '$def'");
                 }
@@ -275,6 +278,10 @@ class comando_base extends comando_toba
              $datos['puerto'] = $this->definir_puerto_motor($param, $form);
              $datos['schema'] = $this->definir_schema_toba($param, $this->id_instancia_actual,  $form);                        
 
+             if (isset($param['--no-interactivo'])) {
+                 $form->desactivar_confirmacion_datos();
+             }
+             
              if (empty($datos) || $form->tiene_campos()) {
                  $datos = array_merge($datos, $form->procesar());
              }

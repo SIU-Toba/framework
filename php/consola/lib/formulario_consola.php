@@ -10,7 +10,8 @@ class formulario_consola
 	private $titulo;
 	private $campos;
 	private $valores;
-	
+                   private $no_confirmar = false;
+                
 	function __construct(  $manejador_interface, $titulo )
 	{
 		$this->interface = $manejador_interface;
@@ -31,7 +32,7 @@ class formulario_consola
 		do {
 			$this->listar_valores();
 			$this->interface->enter();
-			$ok = $this->interface->dialogo_simple('Los valores ingresados son correctos?');
+			$ok = ($this->no_confirmar || $this->interface->dialogo_simple('Los valores ingresados son correctos?'));
 			if ( ! $ok ) {
 				//$this->corregir_valores();			
 				$this->get_valores();
@@ -71,9 +72,14 @@ class formulario_consola
 	{
 	}
         
-                    function tiene_campos()
-                    {
-                        return (isset($this->campos) && is_array($this->campos) && !empty($this->campos));
-                    }
+                function tiene_campos()
+                {
+                    return (isset($this->campos) && is_array($this->campos) && !empty($this->campos));
+                }
+                
+                function desactivar_confirmacion_datos()
+                {
+                    $this->no_confirmar = true;
+                }
 }
 ?>
