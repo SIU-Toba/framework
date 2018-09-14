@@ -404,5 +404,14 @@ class comando_base extends comando_toba
 
                 return array('invalido' => $es_invalido, 'resultado' => $resultado);
         }
+        
+        function recuperar_contenido_archivo($nombre)
+        {
+                $resultado = '';
+                if (file_exists($nombre)) {
+                        $resultado = file_get_contents($nombre);
+                }
+                return $resultado;
+        }
 }
 ?>
