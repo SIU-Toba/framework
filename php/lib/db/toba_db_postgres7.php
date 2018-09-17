@@ -1191,7 +1191,7 @@ class toba_db_postgres7 extends toba_db
 	function pgdump_get_tabla($bd, $schema, $tabla, $host, $usuario, $pass = null)
 	{
 		$exito = 0;
-		$comando = "pg_dump  -a -i -d -t $schema.$tabla -h $host -U $usuario $bd";
+		$comando = "pg_dump  --data-only --ignore-version --inserts  -t $schema.$tabla -h $host -U $usuario $bd";
 		$tabla = array();
 
 		if (!is_null($pass)) {
@@ -1203,7 +1203,7 @@ class toba_db_postgres7 extends toba_db
 			throw new toba_error("Error ejecutando pg_dump. Comando ejecutado: $comando");
 		}
 
-		$this->pgdump_limpiar($tabla);
+		$tabla = $this->pgdump_limpiar($tabla);
 		return $tabla;
 	}
 	
@@ -1214,14 +1214,17 @@ class toba_db_postgres7 extends toba_db
 	 */
 	protected function pgdump_limpiar(&$array)
 	{
-		//$borrando = true;
-		$keys_a = array_keys($array);
-		foreach ($keys_a as $key ) {
-			if (comienza_con($array[$key], 'INSERT')) {
-				continue;
-			}
-			unset($array[$key]);
-		}
+                            $tope = count($array);
+                            $salida = array();
+                            $i = 0;
+                            while ($i < $tope && (! comienza_con($array[$i], 'INSERT'))) {          //Busca la primera linea que posee insert
+                                $i++;
+                             }
+                            while ($i < $tope && ! empty($array[$i])) {         //Solo mete las linas que no estan vacias, el resto las excluye (podria incluir comentarios)
+                                    $salida[] = $array[$i];
+                                    $i++;	
+                            }
+                            return $salida;
 	}
 
 	//-----------------------------------------------------------------------------------
