@@ -42,7 +42,7 @@ class toba_selenium_utilidades
 		
 	static function get_id_item_inicio()
 	{
-		return (defined('TEST_ID_PROYECTO')) ? TEST_ID_ITEM_INICIO: self::$item_inicio;
+		return (defined('TEST_ID_ITEM_INICIO')) ? TEST_ID_ITEM_INICIO: self::$item_inicio;
 	}
 	
 	static function get_proyecto_id()
