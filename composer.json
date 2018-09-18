@@ -41,7 +41,7 @@
     },
     "require-dev": {
         "simpletest/simpletest": "~1.1", 
-        "facebook/webdriver": "~1.4",
+        "facebook/webdriver": "^1",
         "greenlion/PHP-SQL-Parser": "@dev"        
     },
     "suggest": {

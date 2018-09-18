@@ -6,7 +6,7 @@ class test_login extends caso_base
 		$this->session = toba_selenium_basics_proyecto::abrir_browser('chrome');		
 		toba_selenium_basics_proyecto::login($this->session);
 		$titulo = $this->session->getTitle();
-		$this->assertTrue($titulo == 'Toba - Usuarios - Mantenimiento de usuarios',"Login was unsuccessful");		
+		$this->assertTrue($titulo == 'Toba - Usuarios - Inicio',"Login was unsuccessful");		
 	}
 
 	function test_salir()
