@@ -5,6 +5,11 @@
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
 [3.1.0](https://github.com/SIU-Toba/framework/releases/tag/v3.1.0) (2018-xx-xx)
+- Se actualiza facebook/webdriver: v1.6.0
+- Fix a nombre de variable de entorno para indicar el item de inicio en toba_selenium_utilidades
+- Se modifica operatoria del metodo toba_db_postgres7::pgdump_limpiar para que no elimine lineas que son continuacion de string (nota: ahora puede incluir comentarios la salida)
+- Se agrega modo --no-interactivo al comando toba_base::registrar y toba_base::desregistrar
+- Fix en toba_ei_arbol para evitar notice cuando no se envian utilerias
 - Se utiliza el formato datetime provisto por PHPSpreadsheet para la salida excel
 - El comando base registrar recibe sus parametros por stdin via modificadores
 - El comando instalacion cambia_id_desarrollador recibe su parametro por stdin via modificador
