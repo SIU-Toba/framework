@@ -15,7 +15,7 @@ class toba_autenticacion_ldap extends toba_autenticacion implements toba_autenti
 		//--- Levanto la CONFIGURACION de ldap.ini
 		$archivo_ini_instalacion = toba::nucleo()->toba_instalacion_dir().'/ldap.ini';
 		if (is_file( $archivo_ini_instalacion ) ) {
-			$datos = parse_ini_file( $archivo_ini_instalacion,true);
+			$datos = toba::config()->get_subseccion('idp','ldap');
 			if (isset($datos['basicos']['server'])) {
 				$this->server = $datos['basicos']['server']; 
 			}

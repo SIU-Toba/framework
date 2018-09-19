@@ -16,36 +16,40 @@
     "minimum-stability": "dev",
     "prefer-stable" : true,
     "require": {
+        "php" : ">=7.1",
         "symfony/yaml": "~3.1",
         "siu/security-multitool": "1.0",
         "ircmaxell/random-lib" : "dev-master",
         "siu-toba/rest": "~2.0",
         "siu-toba/ssl-cert-utils": "@dev",
         "guzzlehttp/guzzle": "~6.3",
-        "onelogin/php-saml": "~2.10",
+        "onelogin/php-saml": "^2.13",
         "siu-toba/Numbers_Words": "0.18.0.1",        
         "guiguiboy/PHP-CLI-Progress-Bar": "dev-master", 
-        "phpoffice/phpexcel": "~1.8", 
+        "phpoffice/phpspreadsheet": "^1.0", 
         "dapphp/securimage": "~3.6", 
         "rospdf/pdf-php": "~0.12",
         "siu-toba/Structures_Graph": "^1.1.1.1",
-        "phpmailer/phpmailer": "~5.2",
-        "simpletest/simpletest": "~1.1", 
-        "element-34/php-webdriver": "~1.12",
-        "siu-toba/text_highlighter": "~0.7",
+        "phpmailer/phpmailer": "^6.0",
+        "siu-toba/text_highlighter": "~0.8",
         "simplesamlphp/simplesamlphp": "~1.14",
         "siu-toba/services_json": "^1.0.3.3", 
-        "siu/rdi": "~0.9", 
-        "siu/arai-json-migrator" : "~1.0",
-        "siu/arai-cli" : "~2.1",
+        "siu/rdi": "~0.9",
         "vlucas/phpdotenv": "~2.0",
-        "ioncube/php-openssl-cryptor": "dev-master"
+        "ioncube/php-openssl-cryptor": "dev-master",
+        "psr/log": "^1.0"
     },
     "require-dev": {
-        "greenlion/PHP-SQL-Parser": "@dev"
+        "simpletest/simpletest": "~1.1", 
+        "facebook/webdriver": "^1",
+        "greenlion/PHP-SQL-Parser": "@dev"        
     },
     "suggest": {
-        "siu-toba/jasper": "Permite imprimir reportes via Jasper desde SIU-Toba"
+        "siu-toba/jasper": "Permite imprimir reportes via Jasper desde SIU-Toba",
+        "siu/arai-cli" : "Librería cliente de los componentes ARAI"
+    },
+    "conflict": {
+        "siu/arai-cli": "<2.5.0"
     },
     "bin": ["bin/toba",
             "bin/toba_docker"],
@@ -56,10 +60,10 @@
     },
     "scripts": {
         "post-install-cmd": [
-            "bower install --allow-root"
+            "yarn install --non-interactive --modules-folder www/js/packages/"
         ],
         "post-update-cmd": [
-            "bower update --allow-root"
+            "yarn install --non-interactive --modules-folder www/js/packages/"
         ]
     }
 }

@@ -51,8 +51,8 @@ class toba_formateo
 				return number_format($valor,2,',','.');
 			}			
 		} else {
-			return array($valor, array('numberformat' => 
-						array('code' => PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00)
+			return array($valor, array('numberFormat' => 
+						array('formatCode' => \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_NUMBER_00)
 					));	
 		}		
 	}	
@@ -62,8 +62,8 @@ class toba_formateo
 		if ($this->tipo_salida != 'excel') {
 				return number_format($valor,2,',','.');
 		} else {
-			$estilo = array($valor, array('numberformat' => 
-						array('code' => PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00)
+			$estilo = array($valor, array('numberFormat' => 
+						array('formatCode' => \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_NUMBER_00)
 					));	
 			
 			
@@ -78,8 +78,8 @@ class toba_formateo
 		if ($this->tipo_salida != 'excel') {
 			return number_format($valor,2,',','.') . $this->get_separador()."%";
 		} else {
-			return array($valor / 100, array('numberformat' => 
-						array('code' => PHPExcel_Style_NumberFormat::FORMAT_PERCENTAGE_00)
+			return array($valor / 100, array('numberFormat' => 
+						array('formatCode' => \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_PERCENTAGE_00)
 					));			
 		}
 	}	
@@ -91,8 +91,8 @@ class toba_formateo
 		if ($this->tipo_salida != 'excel') {
 			return '$'.$this->get_separador(). number_format($valor,2,',','.');
 		} else {
-			return array($valor, array('numberformat' => 
-						array('code' => PHPExcel_Style_NumberFormat::FORMAT_CURRENCY_USD_SIMPLE)
+			return array($valor, array('numberFormat' => 
+						array('formatCode' => \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE)
 				));
 		}
 	}
@@ -128,8 +128,8 @@ class toba_formateo
 				return $valor;
 			}			
 		} else {
-			return array($valor, array('numberformat' => 
-							array('code' => PHPExcel_Style_NumberFormat::FORMAT_NUMBER)
+			return array($valor, array('numberFormat' => 
+							array('formatCode' => \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_NUMBER)
 					));	
 		}
 
@@ -201,8 +201,8 @@ class toba_formateo
 		if ($this->tipo_salida != 'excel') {
 	    	return $desc;
 		} else {
-			return array($desc, array('numberformat' => 
-					array('code' => PHPExcel_Style_NumberFormat::FORMAT_DATE_DDMMYYYY)
+			return array($desc, array('numberFormat' => 
+					array('formatCode' => \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_DDMMYYYY)
 				));							
 		}
 	}
@@ -217,8 +217,8 @@ class toba_formateo
 		if ($this->tipo_salida != 'excel') {
 			return $desc;
 		} else {
-			return array($desc, array('numberformat' => 
-				array('code' => toba_vista_excel::FORMAT_DATE_DATETIMEFULL )
+			return array($desc, array('numberFormat' => 
+				array('formatCode' =>\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_DATETIME)
 			));							
 		}
 	}	
@@ -234,8 +234,8 @@ class toba_formateo
 			return $desc;
 		} else {
 			$desc = cambiar_hora_formato_12($desc);
-			return array($desc, array('numberformat' =>
-					array('code' => PHPExcel_Style_NumberFormat::FORMAT_DATE_TIME1 )));
+			return array($desc, array('numberFormat' =>
+					array('formatCode' => \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME1 )));
 		}
 	}
 
@@ -281,9 +281,7 @@ class toba_formateo
 		if ($this->tipo_salida != 'excel') {
 			return $salida;
 		} else {
-			return array($valor, array('numberformat' => 
-							array('code' => '0.00 k\m')
-					));	
+			return array($valor, array('numberFormat' => array('formatCode' => '0.00 k\m')));	
 		}
 	}	
 

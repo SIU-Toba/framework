@@ -101,6 +101,16 @@ class toba_aplicacion_comando_base implements toba_aplicacion_comando
 	}
 
 	/**
+	 * Hace compatible la estructura del esquema con los cambios en la version 3.1.0
+ 	 * @consola_separador 1
+	 */
+	function opcion__migrar_auditoria_3_1()
+	{
+		$this->modelo->migrar_auditoria_3_1();				//Modifico la estructura de las tablas
+		$this->modelo->crear_auditoria();					//Regenero los triggers y SPs
+	}
+	
+	/**
 	 * Arma archivo JSON con las personas y cuentas para importar en arai-usuarios
 	 *
 	 * @param array $parametros

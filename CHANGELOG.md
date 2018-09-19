@@ -4,6 +4,102 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.1.0](https://github.com/SIU-Toba/framework/releases/tag/v3.1.0) (2018-09-19)
+- Se actualiza el link de la pantalla inicial del editor para que apunte al changelog
+- Se cambia el tipo del campo estilo en eventos y el proyecto para permitir incluir mas clases css
+- Se actualiza facebook/webdriver: v1.6.0
+- Fix a nombre de variable de entorno para indicar el item de inicio en toba_selenium_utilidades
+- Se modifica operatoria del metodo toba_db_postgres7::pgdump_limpiar para que no elimine lineas que son continuacion de string (nota: ahora puede incluir comentarios la salida)
+- Se agrega modo --no-interactivo al comando toba_base::registrar y toba_base::desregistrar
+- Fix en toba_ei_arbol para evitar notice cuando no se envian utilerias
+- Se utiliza el formato datetime provisto por PHPSpreadsheet para la salida excel
+- El comando base registrar recibe sus parametros por stdin via modificadores
+- El comando instalacion cambia_id_desarrollador recibe su parametro por stdin via modificador
+- El mecanismo de autenticacion saml_onelogin comienza a usar el parametro full_url cuando esta disponible
+- Se elimina el uso de Halite del Hook para Arai-Cli y se delega el manejo de claves a ese paquete
+- Se elimina soporte a SSL de los tipos de autenticacion soportados por Arai-Cli en el Hook
+- Fix en toba_ap_tabla_db para evitar notice por variable no inicializada
+- Fix en toba_cargador y toba_modelo_proyecto para componentes que no tienen datos en todas las tablas
+- PHP 7.1 se transforma en requerimiento minimo para la version
+- Se agrega chequeo de topes de versiones compatibles del paquete siu/arai-cli
+- Se corrige bug en toba_proyecto::get_version, ahora devuelve un objeto toba_version nuevamente
+- Se corrige un bug en toba_extractor_clases que tenia incidencia en la generacion del archivo autoload
+- Mueve el paquete siu/arai-cli a sugerido y elimina el paquete siu/arai-json-migrator de las dependencias
+- Se agrega el metodo toba_recurso::link_css_proyecto para permitir la utilización de archivos css no presentes en el framework
+- Se agrega control especifico sobre el destino del servicio solicitado, un valor incorrecto significa que le pide el servicio a todos los objetos de la operación.
+- Se cambia el tipo de dato a bigint para el id de solicitud en las tablas de auditoria (ATENCION!! requiere actualizar el schema mediante comando administrativo) 
+- Fix warnings varios en PHP 7.2
+- Se anticipa el envio de headers para poder fijar cache_limiter y evitar error en php 7.2
+- Se ordenan los nombres de metodos y propiedades de sesion recuperadas via Reflection
+- Actualización de librerias:
+  * phpmailer/phpmailer: v6.0.3
+  * onelogin/php-saml: v2.13
+- Se modifican clases del runtime para hacer uso de toba_config
+- Se agrega toba_config como concentrador de configuraciones, se instancia via el lanzador toba::config()
+- Nuevas clases para darle un marco a los test via Selenium
+  * toba_selenium_basics_proyecto (se encarga de cuestiones basicas del testeo)
+  * toba_selenium_conector_base (conecta bd via parametros en constantes)
+  * toba_selenium_utilidades (permite gestionar parametros del proyecto para facilitar la generacion de urls, paths, etc)
+  * toba_selenium_monje_negro (gestiona la interaccion con webdriver)
+- Se agregan casos de test para login y mantenimiento de usuario en el proyecto toba_usuarios
+- Modificacion de librerias:
+  * Elimina element-34/php-webdriver 
+  * Agrega facebook/webdriver: v1.5.0
+- Se cambia Bower por Yarn como manejador de assets JS
+
+[3.0.27](https://github.com/SIU-Toba/framework/releases/tag/v3.0.27) (2018-08-21):
+- Actualiza el archivo .lock
+- Agrega método para iniciar el contexto de ejecución en pedidos SOAP
+- Anticipo del envío de headers para poder fijar el parámetro cache_limiter
+- Fix a warnings para PHP 7.2
+
+[3.0.26](https://github.com/SIU-Toba/framework/releases/tag/v3.0.26) (2018-05-22):
+- Fix en toba_editor al verificar si se encuentra activo
+
+[3.0.25](https://github.com/SIU-Toba/framework/releases/tag/v3.0.25) (2018-05-16):
+- Bugfix a ef_multi_check al ser utilizado en un ei_filtro como campo obligatorio
+- Ordena la lista de metodos recuperados de una clase registrada como consulta_php
+
+[3.0.24](https://github.com/SIU-Toba/framework/releases/tag/v3.0.24) (2018-05-08):
+- Se fixea error en commit anterior y agrega scroll a la operacion de seleccion de usuarios
+- Se agrega paginado y se solicita al menos un filtro para la seleccion de usuarios via arai en toba_usuarios
+- Se mejora la validacion al agregar o sincronizar proyectos con arai-registry
+- Se implementa un metodo para acceder a la metadata del SP en toba_autenticacion_saml_onelogin
+- Se corrige bug al usar un ef_html en un formulario_ml e intercambiar filas
+
+[3.0.23](https://github.com/SIU-Toba/framework/releases/tag/v3.0.23) (2018-04-27):
+- Agrega csrf token al form que cambia el perfil funcional en runtime
+- Bugfix en el seteo del perfil funcional activo, existian diferencias cuando pertenecia a una membresia.
+- Actualiza el paquete siu/text_Highlighter: v0.8
+- Se corrigen notices en toba_editor
+
+[3.0.22](https://github.com/SIU-Toba/framework/releases/tag/v3.0.22) (2018-04-05):
+- Se actualiza el paquete siu/arai-cli a v2.3.1
+- Se corrigen bugs en los hooks de Toba para conectar a Araí
+- Se corrige XSS via toba_notificacion (IMPORTANTE!!)
+- Se agrega recuperación de exportación de personalización incompleta
+
+[3.0.21](https://github.com/SIU-Toba/framework/releases/tag/v3.0.21) (2018-03-13):
+- Se agrega conversion via Psr7\str al mensaje proveniente de un error rest
+- Se agrega el metodo toba_auditoria_tablas_postgres::get_tablas_triggers_desactivados (credits FMartinez)
+
+[3.0.20](https://github.com/SIU-Toba/framework/releases/tag/v3.0.20) (2018-03-07):
+- Se corrige un bug en ef_upload que afectaba su uso en formularios_ml
+- Se desactiva el log de WS durante el testing via phpunit
+
+[3.0.19](https://github.com/SIU-Toba/framework/releases/tag/v3.0.19) (2018-02-26):
+- Se corrige notice en toba_solicitud para pedidos rest
+- Se corrige problema de transacciones anidadas al usar la utilidad de recordatorio de password
+
+[3.0.18](https://github.com/SIU-Toba/framework/releases/tag/v3.0.18) (2018-02-09):
+- Se modifica la configuración por defecto del toolbar en CKEditor
+- Se agrega nuevo mecanismo de sincronizacion de credenciales via arai-cli
+
+[3.0.17](https://github.com/SIU-Toba/framework/releases/tag/v3.0.17) (2018-02-05):
+- Se modifica el metodo toba_db_postgres7::insert_masivo para que utilice la conexion de PDO
+
+[3.0.16](https://github.com/SIU-Toba/framework/releases/tag/v3.0.16) (2018-02-02):
+- Se corrige decodificacion respuesta REST en toba_usuarios debido a cambio en API Guzzle
 
 [3.0.15](https://github.com/SIU-Toba/framework/releases/tag/v3.0.15) (2018-01-29):
 - Se agrega carpeta para skin simple

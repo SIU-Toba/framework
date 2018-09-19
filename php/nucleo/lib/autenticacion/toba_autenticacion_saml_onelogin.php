@@ -14,7 +14,7 @@ class toba_autenticacion_saml_onelogin extends toba_autenticacion implements tob
 		$sp_name = 'sp';
 		$archivo_ini_instalacion = toba::nucleo()->toba_instalacion_dir().'/saml_onelogin.ini';
 		if (is_file( $archivo_ini_instalacion)) {
-			$parametros = parse_ini_file($archivo_ini_instalacion, true);
+			$parametros = toba::config()->get_subseccion('idp','onelogin');
 			if (isset($parametros['basicos']['atributo_usuario'])) {
 				$this->atributo_usuario = $parametros['basicos']['atributo_usuario'];
 			}	
@@ -86,6 +86,19 @@ class toba_autenticacion_saml_onelogin extends toba_autenticacion implements tob
 			}
 			return $id_usuario;
 			
+		} elseif (! is_null(toba::memoria()->get_parametro('metadata'))) {					//Se devuelve los metadatos del SP
+
+			$settings = $auth->getSettings();
+			$metadata = $settings->getSPMetadata();
+			$errors = $settings->validateMetadata($metadata);
+			if (empty($errors)) {
+				header('Content-Type: text/xml');
+				echo $metadata;
+			} else {
+				echo "Invalid SP metadata";
+			}
+			die;
+
 		} else {
 			$this->procesar_logout($auth);
 			
@@ -162,14 +175,12 @@ class toba_autenticacion_saml_onelogin extends toba_autenticacion implements tob
 	protected function get_sp_config()
 	{
 		//Arma el entityID en base a una URL fija de toba
-		$entityID = toba_http::get_protocolo() . toba_http::get_nombre_servidor();
-		$entityID .= toba::instancia()->get_url_proyecto($this->proyecto_login);
-
-		$info =  array (	'entityId' => $entityID.'/' . $this->auth_source,
-					'assertionConsumerService' => array ( 'url' => $entityID.'?acs'),
-					'singleLogoutService' => array ('url' => $entityID.'?sls'	),
-					'NameIDFormat' =>$this->atributo_usuario
-					);
+                                     $entityID = $this->getProyectoUrl();
+		$info =  array ('entityId' => $entityID.'/' . $this->auth_source,
+                                                                'assertionConsumerService' => array ( 'url' => $entityID.'/?acs'),
+                                                                'singleLogoutService' => array ('url' => $entityID.'/?sls'	),
+                                                                'NameIDFormat' =>$this->atributo_usuario
+                                    	);
 		return $info;
 	}
 		
@@ -212,4 +223,18 @@ class toba_autenticacion_saml_onelogin extends toba_autenticacion implements tob
 		}
 		$this->verificar_errores_onelogin($auth);
 	}
+        
+        protected function getProyectoUrl()
+        {
+            $fullUrl = toba::instancia()->get_parametro_seccion_proyecto($this->proyecto_login, "full_url");
+            if (is_null($fullUrl)) {                                    //Fallback al nombre del servidor
+                $fullUrl = toba_http::get_protocolo() . toba_http::get_nombre_servidor();
+                $fullUrl .= toba::instancia()->get_url_proyecto($this->proyecto_login);
+            }
+            
+            if (substr($fullUrl, -1) == '/') {                  //Le quito ultima / para garantizar homogeneidad
+                   $fullUrl = substr($fullUrl, 0, -1);
+            }
+            return $fullUrl;
+        }
 }

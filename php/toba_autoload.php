@@ -159,6 +159,10 @@ class toba_autoload
 		'toba_zona_info' => 'modelo/info/transversales/toba_zona_info.php',
 		'toba_selenium_test_runner' => 'modelo/lib/testing_selenium/toba_selenium_test_runner.php',
 		'toba_test_selenium' => 'modelo/lib/testing_selenium/toba_test_selenium.php',
+		'toba_selenium_basics_proyecto' => 'modelo/lib/testing_selenium/toba_selenium_basics_proyecto.php',
+		'toba_selenium_conector_base' => 'modelo/lib/testing_selenium/toba_selenium_conector_base.php',
+		'toba_selenium_monje_negro' => 'modelo/lib/testing_selenium/toba_selenium_monje_negro.php',
+		'toba_selenium_utilidades' => 'modelo/lib/testing_selenium/toba_selenium_utilidades.php',
 		'toba_test' => 'modelo/lib/testing_unitario/toba_test.php',
 		'EqualArrayExpectation' => 'modelo/lib/testing_unitario/toba_test.php',
 		'toba_test_grupo_casos' => 'modelo/lib/testing_unitario/toba_test_grupo_casos.php',
@@ -428,6 +432,7 @@ class toba_autoload
 		'toba_interface_sesion' => 'nucleo/lib/toba_interface_sesion.php',
 		'toba_interface_usuario' => 'nucleo/lib/toba_interface_usuario.php',
 		'toba_js' => 'nucleo/lib/toba_js.php',
+		'toba_basic_logger' => 'nucleo/lib/toba_basic_logger.php',
 		'toba_logger' => 'nucleo/lib/toba_logger.php',
 		'toba_logger_ws' => 'nucleo/lib/toba_logger_ws.php',
 		'toba_mail' => 'nucleo/lib/toba_mail.php',
@@ -494,7 +499,8 @@ class toba_autoload
 		'toba_usuarios_rest_conf' => 'nucleo/lib/rest/toba_usuarios_rest_conf.php',
 		'toba_usuarios_rest_ssl' => 'nucleo/lib/rest/toba_usuarios_rest_ssl.php',
 		'toba_usuarios_rest_jwt' => 'nucleo/lib/rest/toba_usuarios_rest_jwt.php',
-		'toba_escapador' => 'nucleo/lib/toba_escapador.php'
+		'toba_escapador' => 'nucleo/lib/toba_escapador.php',
+		'toba_config' => 'lib/toba_config.php'
 	);
 }
 ?>

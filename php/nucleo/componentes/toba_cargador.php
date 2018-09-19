@@ -63,31 +63,33 @@ class toba_cargador
 		$estructura = call_user_func(array($clase_def,'get_estructura'));
 		if ( isset($this->cache_metadatos_simples) ) {				// Con CACHE!
 			//Saco el componente del CACHE
-			foreach ($estructura as $seccion) {
-				$tabla = $seccion['tabla'];
-				$id = $componente['componente'];
-				$datos = $this->cache_metadatos_simples->get_datos_tabla( $tabla , $id );
-				if ( count( $datos ) > 1 ) { //SI los registros de la tabla son mas de 1, ordeno.
-					$definicion = toba_db_tablas_componente::$tabla();
-					$columnas_orden = array_map('trim', explode(',',$definicion['dump_order_by']) );
-					$datos = rs_ordenar_por_columnas( $datos, $columnas_orden );
-				}
-				$metadatos[$tabla] = $datos;
-			}
+                                                foreach ($estructura as $seccion) {
+                                                        $tabla = $seccion['tabla'];
+                                                        $id = $componente['componente'];
+                                                        $datos = $this->cache_metadatos_simples->get_datos_tabla( $tabla , $id );
+                                                        if ( ! is_array($datos)) {
+                                                                continue;
+                                                        } elseif ( count( $datos ) > 1 ) { //SI los registros de la tabla son mas de 1, ordeno.
+                                                                $definicion = toba_db_tablas_componente::$tabla();
+                                                                $columnas_orden = array_map('trim', explode(',',$definicion['dump_order_by']) );
+                                                                $datos = rs_ordenar_por_columnas( $datos, $columnas_orden );
+                                                        }
+                                                        $metadatos[$tabla] = $datos;
+                                                }
 		} else {													// Sin CACHE!
-			foreach ($estructura as $seccion) {
-				$tabla = $seccion['tabla'];
-				$id = $db->quote($componente['componente']);
-				$proyecto = $db->quote($componente['proyecto']);
-				$definicion = toba_db_tablas_componente::$tabla();
-				//Genero el SQL
-				$sql = 'SELECT ' . implode(', ', $definicion['columnas']) .
-						" FROM $tabla " .
-						" WHERE {$definicion['dump_clave_proyecto']} = $proyecto " .
-						" AND {$definicion['dump_clave_componente']} = $id " .
-						" ORDER BY {$definicion['dump_order_by']} ;\n";
-				$metadatos[$tabla] = $db->consultar( $sql );
-			}
+                                                foreach ($estructura as $seccion) {
+                                                        $tabla = $seccion['tabla'];
+                                                        $id = $db->quote($componente['componente']);
+                                                        $proyecto = $db->quote($componente['proyecto']);
+                                                        $definicion = toba_db_tablas_componente::$tabla();
+                                                        //Genero el SQL
+                                                        $sql = 'SELECT ' . implode(', ', $definicion['columnas']) .
+                                                                        " FROM $tabla " .
+                                                                        " WHERE {$definicion['dump_clave_proyecto']} = $proyecto " .
+                                                                        " AND {$definicion['dump_clave_componente']} = $id " .
+                                                                        " ORDER BY {$definicion['dump_order_by']} ;\n";
+                                                        $metadatos[$tabla] = $db->consultar( $sql );
+                                                }
 		}
 		return $metadatos;
 	}

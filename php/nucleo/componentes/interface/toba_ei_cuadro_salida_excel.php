@@ -3,27 +3,27 @@ class toba_ei_cuadro_salida_excel extends toba_ei_cuadro_salida
 {
 	//Salida Excel
 	protected $_excel_total_generado = false;
-	protected $_excel_cabecera_cc_0_opciones = array('font' => array('bold'=>true, 'size' => '12'), 'alignment'=> array('horizontal' => 'center', 'vertical'=>'bottom'));
+	protected $_excel_cabecera_cc_0_opciones = array('font' => array('bold'=>true, 'size' => '12'), 
+											  'alignment'=> array('horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER, 
+															'vertical'=> \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_BOTTOM));
 	protected $_excel_cabecera_cc_0_altura = 30;
-	protected $_excel_cabecera_cc_1_opciones = array('font' => array('bold'=>true, 'size' => '11'), 'alignment'=> array('horizontal' => 'left', 'vertical'=>'bottom'));
+	protected $_excel_cabecera_cc_1_opciones = array('font' => array('bold'=>true, 'size' => '11'),  
+											  'alignment'=> array('horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT, 
+															'vertical'=> \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_BOTTOM));
 	protected $_excel_cabecera_cc_1_altura = 20;
-	protected $_excel_totales_cc_0_opciones = array('font' => array('bold'=>true), 'borders' => array(
-																				'top' => array('style'=>'thick')));
-	protected $_excel_totales_cc_1_opciones = array('font' => array('bold'=>true), 'borders' => array());
+	protected $_excel_totales_cc_0_opciones = array('font' => array('bold'=>true), 
+										        'borders' => array( 'top' => array( 'borderStyle'=> \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK)));
+	protected $_excel_totales_cc_1_opciones = array('font' => array('bold'=>true), 
+										       'borders' => array());
 	protected $_excel_totales_opciones = array('font' => array('bold'=>true, 'size' => 12),
-									 			'fill' => array(
-								             		'type' => 'solid' ,
-										            'rotation'   => 0,
-										            'startcolor' => array('rgb' => 'E6E6E6')),
-													 'borders' => array(
-														'top' => array('style'=>'thin'),
-														'bottom' => array('style'=>'thin'),
-														'left' => array('style'=>'thin'),
-														'right' => array('style'=>'thin')),
-											);
+									       'fill' => array('fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID ,
+												 'rotation'   => 0,
+												 'startColor' => array('argb' => 'FFE6E6E6')),
+									       'borders' => array( 'allBorders' => array( 'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN)),
+									     );
 	protected $_excel_cabecera_pie_cc_0_op =  array();
 	protected $_excel_cabecera_pie_cc_1_op = array();
-	protected $_excel_contar_filas_op = array('alignment'=> array('horizontal' => 'right'));
+	protected $_excel_contar_filas_op = array('alignment'=> array('horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT));
 	protected $_excel_cortar_hoja_cc_0 = false;										//Crea una hoja (worksheet) por corte
 	protected $_excel_usar_formulas = true;											//Para hacer la sumatoria de los cortes usa formulas excel, sino suma en PHP
 
@@ -350,8 +350,8 @@ class toba_ei_cuadro_salida_excel extends toba_ei_cuadro_salida
 			$cursor = $this->_objeto_toba_salida->get_cursor();
 
 			$this->_objeto_toba_salida->texto($etiqueta, $this->_excel_contar_filas_op, $span-1);
-			$cursor[0] = $cursor[0] + ($span-1);
-			$letra = PHPExcel_Cell::stringFromColumnIndex($cursor[0]);
+			$cursor[0] = $cursor[0] + ($span-1);	
+			$letra = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($cursor[0]);				//Is it used?..WTF?
 			$formula = '=ROWS'.implode(' + ROWS', $rangos);
 			$this->_objeto_toba_salida->texto($formula, $this->_excel_contar_filas_op, 1, null, $cursor);
 		}
@@ -403,8 +403,8 @@ class toba_ei_cuadro_salida_excel extends toba_ei_cuadro_salida
 				$col_ini_ref = $nodo['excel_rango'][0][0] + $columna;
 				$col_fin_ref = $col_ini_ref;
 			}
-			$col_ini = PHPExcel_Cell::stringFromColumnIndex($col_ini_ref);
-			$col_fin = PHPExcel_Cell::stringFromColumnIndex($col_fin_ref);
+			$col_ini = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($col_ini_ref);
+			$col_fin = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($col_fin_ref);
 			$hoja = '';
 			if ($hoja_actual != $nodo['excel_rango_hoja']) {
 				$hoja = "'".$nodo['excel_rango_hoja']."'!";
@@ -416,7 +416,7 @@ class toba_ei_cuadro_salida_excel extends toba_ei_cuadro_salida
 			foreach ($nodo['hijos'] as $nodo_hijo) {
 				$rangos = array_merge($rangos, $this->excel_get_rangos($nodo_hijo, $columna));
 			}
-		}
+		}		
 		return $rangos;
 	}
 
@@ -457,19 +457,19 @@ class toba_ei_cuadro_salida_excel extends toba_ei_cuadro_salida
 			case 'col-num-p2':
 			case 'col-num-p3':
 			case 'col-num-p4':
-				return array('alignment' => array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_RIGHT));
+				return array('alignment' => array('horizontal' =>  \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT));
 				break;
 			case 'col-tex-p1':
 			case 'col-tex-p2':
 			case 'col-tex-p3':
 			case 'col-tex-p4':
-				return array('alignment' => array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_LEFT));
+				return array('alignment' => array('horizontal' =>  \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT));
 				break;
 			case 'col-cen-s1':
 			case 'col-cen-s2':
 			case 'col-cen-s3':
 			case 'col-cen-s4':
-				return array('alignment' => array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER));
+				return array('alignment' => array('horizontal' =>  \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER));
 				break;
 			default:
 				return array();

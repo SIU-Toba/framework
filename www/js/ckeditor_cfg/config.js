@@ -26,8 +26,9 @@ CKEDITOR.editorConfig = function( config ) {
 		{ name: 'paragraph', items: ['Outdent','Indent', '-','NumberedList','BulletedList']},
 		{ name: 'styles',  items : [ 'Font','FontSize' ] },
 		{ name: 'correme', items:['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock']},
-		{ name: 'colors',      items : [ 'TextColor','BGColor' ] },
-		{ name: 'tools',       items : [ 'Maximize' ] }
+		{ name: 'colors', items : [ 'TextColor','BGColor' ] },
+		{ name: 'Links', items : [ 'Link' ] },
+		{ name: 'tools', items : [ 'Maximize' ] }		
 	] ;
 
 	config.toolbar_Layout = [
@@ -37,7 +38,7 @@ CKEDITOR.editorConfig = function( config ) {
 		{name: 'tools', items: ['Source', 'Templates', 'Maximize']}
 	] ;
 
-	config.removeButtons = 'Subscript,Superscript,PasteText,PasteFromWord,Redo,Scayt,Unlink,Maximize,Source,Strike,About';
+	config.removeButtons = 'Subscript,Superscript,PasteText,PasteFromWord,Redo,Scayt,Unlink,Source,Strike,About';
 
 	// Simplify the dialog windows.
 	config.removeDialogTabs = 'image:advanced;link:advanced';	
@@ -46,7 +47,7 @@ CKEDITOR.editorConfig = function( config ) {
 	config.removePlugins = 'elementspath';
 	config.scayt_autoStartup = false;
 	config.scayt_sLang = 'es_ES';
-	config.extraPlugins= 'templates';
+	config.extraPlugins= 'templates,font,justify,colorbutton';
 	config.allowedContent = true;
 	
 	config.sharedSpaces =

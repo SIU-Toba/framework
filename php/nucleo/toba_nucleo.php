@@ -90,7 +90,6 @@ class toba_nucleo
 			$this->iniciar_contexto_ejecucion();
 			toba::manejador_sesiones()->verificar_cambio_perfil_activo();				//Miro si se quiere cambiar el perfil funcional activo
 			$this->verificar_pedido_post();			
-			toba_http::headers_standart();
 			try {
 				$this->solicitud = $this->cargar_solicitud_web();
 				$this->solicitud_en_proceso = true;
@@ -129,8 +128,7 @@ class toba_nucleo
 	function acceso_servicio()
 	{
 		try {
-			$this->iniciar_contexto_ejecucion();
-			//toba_http::headers_standart();
+			$this->iniciar_contexto_soap();
 			$item = toba::memoria()->get_item_solicitado();
 			if (! isset($item)) {
 				//Si no tiene ID (porque axis lo elimina del GET) usar el extra la URL
@@ -177,6 +175,7 @@ class toba_nucleo
 	 */
 	function acceso_rest()
 	{
+		$app = null;
 		try {
 			$this->acceso_rest = true;			
 			$this->iniciar_contexto_rest();			
@@ -233,7 +232,7 @@ class toba_nucleo
 		//Seteo el estado del nucleo
 		$_SERVER['TOBA_INSTANCIA'] = $instancia;
 		$_SERVER['TOBA_PROYECTO'] = $proyecto;
-		$this->iniciar_contexto_ejecucion();	
+		$this->iniciar_contexto_consola();	
 	}
 	
 	function solicitud_en_proceso()
@@ -324,13 +323,34 @@ class toba_nucleo
 			set_time_limit(0);
 		}
 		$this->controlar_requisitos_basicos();
+		toba_http::headers_standart();
 		$this->agregar_paths();
 		$this->recuperar_revision_recursos();
 		toba::manejador_sesiones()->iniciar();
+		toba::config();
 		$this->registrar_autoloaders_proyecto();
 		toba::contexto_ejecucion()->conf__inicial();
 	}
         
+        protected function iniciar_contexto_consola()
+	{
+		if (!ini_get('safe_mode') && strpos(ini_get('disable_functions'), 'set_time_limit') === FALSE) {		
+			set_time_limit(0);
+		}
+		$this->controlar_requisitos_basicos();
+		$this->agregar_paths();
+		$this->recuperar_revision_recursos();
+		$this->registrar_autoloaders_proyecto();		
+		toba::manejador_sesiones()->iniciar();
+		toba::config();
+		toba::contexto_ejecucion()->conf__inicial();
+	}
+        
+	protected function iniciar_contexto_soap()
+	{
+		$this->iniciar_contexto_consola();				//Reuso porque el codigo es el mismo, lo dejo separado por si llega a necesitar cambios 
+	}
+	
 	protected function iniciar_contexto_rest()
 	{
 		if (!ini_get('safe_mode') && strpos(ini_get('disable_functions'), 'set_time_limit') === FALSE) {		
@@ -338,6 +358,7 @@ class toba_nucleo
 		}
 		$this->controlar_requisitos_basicos();
 		$this->agregar_paths();
+		toba::config();		
 		$this->registrar_autoloaders_proyecto();
 		toba::contexto_ejecucion()->conf__inicial();		
 	}		
@@ -348,8 +369,7 @@ class toba_nucleo
 		if (toba::proyecto()->es_personalizable()) {
 			agregar_dir_include_path(toba_proyecto::get_path_pers_php());
 		}
-	}
-        
+	}        
 
 	protected function registrar_autoloaders_proyecto()
 	{

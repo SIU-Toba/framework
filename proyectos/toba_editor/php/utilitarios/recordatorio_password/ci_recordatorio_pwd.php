@@ -171,11 +171,12 @@ class ci_recordatorio_pwd extends toba_ci
 	{
 		try {
 			$aux = null;
+			$cripter = toba_encriptador::instancia();
 			$datos = toba::instancia()->get_pregunta_secreta($usuario);
 			if (! is_null($datos)) {
 				$clave = toba::instalacion()->get_claves_encriptacion();        
-				$aux['pregunta'] = mcrypt_decrypt(MCRYPT_BLOWFISH, $clave['get'], base64_decode($datos['pregunta']), MCRYPT_MODE_CBC, substr($clave['db'], 0, 8));
-				$aux['respuesta'] = mcrypt_decrypt(MCRYPT_BLOWFISH, $clave['get'], base64_decode($datos['respuesta']), MCRYPT_MODE_CBC, substr($clave['db'], 0, 8));
+				$aux['pregunta'] = $cripter->desencriptar($datos['pregunta'], $clave['get']);
++				$aux['respuesta'] =$cripter->desencriptar($datos['respuesta'], $clave['get']);
 			}
 			return $aux;
 		} catch (toba_error $e) {
@@ -279,7 +280,7 @@ class ci_recordatorio_pwd extends toba_ci
 			$dias = toba_parametros::get_clave_validez_maxima(toba::proyecto()->get_id());
 			
 			//Seteo la clave para el usuario
-			toba_usuario::reemplazar_clave_vencida($clave_tmp, $datos_orig['id_usuario'], $dias);
+			toba_usuario::reemplazar_clave_vencida($clave_tmp, $datos_orig['id_usuario'], $dias, false);
 			toba_usuario::forzar_cambio_clave($datos_orig['id_usuario']);
 			
 			//Enviar nuevo mail con la clave temporaria

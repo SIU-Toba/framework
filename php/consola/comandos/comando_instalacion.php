@@ -456,6 +456,7 @@ class comando_instalacion extends comando_toba
 	
 	/**
 	 * Cambia el número de desarrollador y deja las instancias listas
+                    * @consola_parametros Opcionales: [-d 'iddesarrollo'].
 	 */
 	function opcion__cambiar_id_desarrollador()
 	{
@@ -526,28 +527,43 @@ class comando_instalacion extends comando_toba
 	//-------------------------------------------------------------
 
 	/**
-	*	Consulta al usuario el ID del grupo de desarrollo
+	*  Consulta al usuario el ID del grupo de desarrollo
 	*/
 	protected function definir_id_grupo_desarrollo()
 	{
-		do {
-			$es_invalido = false;
-			$id_desarrollo = $this->consola->dialogo_ingresar_texto('Por favor, ingrese su número de desarrollador (ENTER utilizará 0)', false);
-			$mensaje = "Debe ser un entero positivo, mas info en http://repositorio.siu.edu.ar/trac/toba/wiki/Referencia/CelulaDesarrollo";
-			if ($id_desarrollo == '') {
-				$id_desarrollo = 0;
-			}
-			if (! is_numeric($id_desarrollo)) {
-				$es_invalido = true;
-				$this->consola->mensaje($mensaje);
-			}
-			if ($id_desarrollo < 0) {
-				$es_invalido = true;
-				$this->consola->mensaje($mensaje);
-			}				
-		} while ($es_invalido);
-		$id_desarrollo = (int) $id_desarrollo;
-		return $id_desarrollo;		
+                            $param = $this->get_parametros();
+                            $nombre_parametro = array( '-d', '--id-desarrollador', 'toba-id-desarrollador');
+                            $mensaje = "Debe ser un entero positivo, mas info en http://repositorio.siu.edu.ar/trac/toba/wiki/Referencia/CelulaDesarrollo";
+                            
+                            //Busco primeramente los parametros con modificadores
+                            do {			
+                                    $ind = current($nombre_parametro);
+                                    $es_invalido = (! isset($param[$ind]));
+                                    if (! $es_invalido) {
+                                            $id_desarrollo = $param[$ind];
+                                            if (! is_numeric($id_desarrollo) || $id_desarrollo < 0) {
+                                                    $es_invalido = true;
+                                            }				
+                                    }
+                            } while ($es_invalido && next($nombre_parametro) !== false);
+                            
+                            //Termine de recorrer los posibles parametros  y sigue mal
+                            if ( $es_invalido) {
+                                    do {
+                                            $es_invalido = false;
+                                            $id_desarrollo = $this->consola->dialogo_ingresar_texto('Por favor, ingrese su número de desarrollador (ENTER utilizará 0)', false);
+                                            
+                                            if ($id_desarrollo == '') {
+                                                    $id_desarrollo = 0;
+                                            }
+                                            if (! is_numeric($id_desarrollo) || $id_desarrollo < 0) {
+                                                    $es_invalido = true;
+                                                    $this->consola->mensaje($mensaje);
+                                            }
+                                    } while ($es_invalido);                                
+                            }                                                        
+                            $id_desarrollo = (int) $id_desarrollo;
+                            return $id_desarrollo;		
 	}
 
 

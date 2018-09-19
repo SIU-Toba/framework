@@ -473,8 +473,7 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 		}
 	}
 	
-	
-	function migrar_auditoria_2_4($tablas=array(), $prefijo_tablas=null)
+	private function preparar_migracion_estructura($tablas, $prefijo_tablas)
 	{
 		$fuentes = $this->proyecto->get_indice_fuentes();
 		if (empty($fuentes)) {
@@ -493,8 +492,19 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 				$auditoria->agregar_tabla($tabla);
 			}
 		}
-
+		return $auditoria;
+	}
+	
+	function migrar_auditoria_2_4($tablas=array(), $prefijo_tablas=null)
+	{
+		$auditoria = $this->preparar_migracion_estructura($tablas, $prefijo_tablas);
 		$auditoria->migrar_estructura_campos_toba_2_4();
+	}
+	
+	function migrar_auditoria_3_1($tablas=array(), $prefijo_tablas=null)
+	{
+		$auditoria = $this->preparar_migracion_estructura($tablas, $prefijo_tablas);
+		$auditoria->migrar_estructura_campos_toba_3_1();
 	}
 	
 	/**

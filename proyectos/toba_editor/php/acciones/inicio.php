@@ -70,7 +70,7 @@ echo "<style type='text/css'>
 	}
 </style>";
 
-$url_trac = get_url_desarrollos();
+$url_trac = 'https://github.com/SIU-Toba/framework';
 //$url_login = $url_trac.'/trac/toba/login';
 
 if (isset($_GET['phpinfo'])) {
@@ -82,9 +82,8 @@ if (isset($_GET['phpinfo'])) {
 		echo toba_form::submit('chequeo', "Chequear compatibilidad extensiones");
 		echo toba_form::cerrar();*/		
 		
-
 	$version = toba_modelo_instalacion::get_version_actual();
-	$cambios = "$url_trac/trac/toba/wiki/Versiones/".($version->get_release('.').'.0');
+	$cambios = "$url_trac/blob/v".($version->get_release('.').'.0').'/CHANGELOG.md' ;
 	echo "<div class='logo-inicio'>";
 	echo toba_recurso::imagen_proyecto('logo.gif', true);
 	echo '<br><br>Editando proyecto <strong>' . toba_editor::get_proyecto_cargado()	.'</strong> en la instancia <strong>' . toba_editor::get_id_instancia_activa() .'</strong>.<br>';

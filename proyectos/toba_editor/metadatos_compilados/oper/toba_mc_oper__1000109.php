@@ -351,13 +351,13 @@ class toba_mc_comp__1000288
   array (
     0 => 
     array (
-      'pantalla' => 1000177,
+      'pantalla' => 1000162,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1000288,
-      'dep_id' => 1000181,
+      'dep_id' => 930,
       'orden' => 1,
-      'identificador_pantalla' => 'pant_basicos',
-      'identificador_dep' => 'form_molde',
+      'identificador_pantalla' => 'pant_generar',
+      'identificador_dep' => 'form_generaciones',
     ),
     1 => 
     array (
@@ -371,13 +371,13 @@ class toba_mc_comp__1000288
     ),
     2 => 
     array (
-      'pantalla' => 1000162,
+      'pantalla' => 1000177,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1000288,
-      'dep_id' => 930,
+      'dep_id' => 1000181,
       'orden' => 1,
-      'identificador_pantalla' => 'pant_generar',
-      'identificador_dep' => 'form_generaciones',
+      'identificador_pantalla' => 'pant_basicos',
+      'identificador_dep' => 'form_molde',
     ),
     3 => 
     array (
@@ -397,29 +397,20 @@ class toba_mc_comp__1000288
       'pantalla' => 1000163,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1000288,
-      'evento_id' => 1000324,
+      'evento_id' => 1000365,
       'identificador_pantalla' => 'pant_editar',
-      'identificador_evento' => 'procesar',
+      'identificador_evento' => 'editar_basicos',
     ),
     1 => 
     array (
       'pantalla' => 1000163,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1000288,
-      'evento_id' => 1000365,
+      'evento_id' => 1000324,
       'identificador_pantalla' => 'pant_editar',
-      'identificador_evento' => 'editar_basicos',
+      'identificador_evento' => 'procesar',
     ),
     2 => 
-    array (
-      'pantalla' => 1000162,
-      'proyecto' => 'toba_editor',
-      'objeto_ci' => 1000288,
-      'evento_id' => 1000365,
-      'identificador_pantalla' => 'pant_generar',
-      'identificador_evento' => 'editar_basicos',
-    ),
-    3 => 
     array (
       'pantalla' => 1000162,
       'proyecto' => 'toba_editor',
@@ -428,16 +419,16 @@ class toba_mc_comp__1000288
       'identificador_pantalla' => 'pant_generar',
       'identificador_evento' => 'generar',
     ),
-    4 => 
+    3 => 
     array (
-      'pantalla' => 1000168,
+      'pantalla' => 1000162,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1000288,
       'evento_id' => 1000365,
-      'identificador_pantalla' => 'pant_borrar',
+      'identificador_pantalla' => 'pant_generar',
       'identificador_evento' => 'editar_basicos',
     ),
-    5 => 
+    4 => 
     array (
       'pantalla' => 1000168,
       'proyecto' => 'toba_editor',
@@ -445,6 +436,15 @@ class toba_mc_comp__1000288
       'evento_id' => 1000335,
       'identificador_pantalla' => 'pant_borrar',
       'identificador_evento' => 'borrar',
+    ),
+    5 => 
+    array (
+      'pantalla' => 1000168,
+      'proyecto' => 'toba_editor',
+      'objeto_ci' => 1000288,
+      'evento_id' => 1000365,
+      'identificador_pantalla' => 'pant_borrar',
+      'identificador_evento' => 'editar_basicos',
     ),
     6 => 
     array (
@@ -817,6 +817,7 @@ class toba_mc_comp__1000300
       'editor_ancho' => NULL,
       'editor_alto' => NULL,
       'editor_botonera' => NULL,
+      'editor_config_file' => NULL,
       'selec_cant_minima' => NULL,
       'selec_cant_maxima' => NULL,
       'selec_utilidades' => NULL,
@@ -900,6 +901,7 @@ class toba_mc_comp__1000300
       'editor_ancho' => NULL,
       'editor_alto' => NULL,
       'editor_botonera' => NULL,
+      'editor_config_file' => NULL,
       'selec_cant_minima' => NULL,
       'selec_cant_maxima' => NULL,
       'selec_utilidades' => NULL,
@@ -983,6 +985,7 @@ class toba_mc_comp__1000300
       'editor_ancho' => NULL,
       'editor_alto' => NULL,
       'editor_botonera' => NULL,
+      'editor_config_file' => NULL,
       'selec_cant_minima' => NULL,
       'selec_cant_maxima' => NULL,
       'selec_utilidades' => NULL,
@@ -1180,6 +1183,7 @@ class toba_mc_comp__1994
       'editor_ancho' => NULL,
       'editor_alto' => NULL,
       'editor_botonera' => NULL,
+      'editor_config_file' => NULL,
       'selec_cant_minima' => NULL,
       'selec_cant_maxima' => NULL,
       'selec_utilidades' => NULL,
@@ -1264,6 +1268,7 @@ class toba_mc_comp__1994
       'editor_ancho' => NULL,
       'editor_alto' => NULL,
       'editor_botonera' => NULL,
+      'editor_config_file' => NULL,
       'selec_cant_minima' => NULL,
       'selec_cant_maxima' => NULL,
       'selec_utilidades' => NULL,
@@ -1348,6 +1353,7 @@ class toba_mc_comp__1994
       'editor_ancho' => NULL,
       'editor_alto' => NULL,
       'editor_botonera' => NULL,
+      'editor_config_file' => NULL,
       'selec_cant_minima' => NULL,
       'selec_cant_maxima' => NULL,
       'selec_utilidades' => NULL,
@@ -1432,6 +1438,7 @@ class toba_mc_comp__1994
       'editor_ancho' => NULL,
       'editor_alto' => NULL,
       'editor_botonera' => NULL,
+      'editor_config_file' => NULL,
       'selec_cant_minima' => NULL,
       'selec_cant_maxima' => NULL,
       'selec_utilidades' => NULL,
@@ -1623,6 +1630,7 @@ class toba_mc_comp__1000299
       'editor_ancho' => NULL,
       'editor_alto' => NULL,
       'editor_botonera' => NULL,
+      'editor_config_file' => NULL,
       'selec_cant_minima' => NULL,
       'selec_cant_maxima' => NULL,
       'selec_utilidades' => NULL,
@@ -1706,6 +1714,7 @@ class toba_mc_comp__1000299
       'editor_ancho' => NULL,
       'editor_alto' => NULL,
       'editor_botonera' => NULL,
+      'editor_config_file' => NULL,
       'selec_cant_minima' => NULL,
       'selec_cant_maxima' => NULL,
       'selec_utilidades' => NULL,
@@ -1789,6 +1798,7 @@ class toba_mc_comp__1000299
       'editor_ancho' => NULL,
       'editor_alto' => NULL,
       'editor_botonera' => NULL,
+      'editor_config_file' => NULL,
       'selec_cant_minima' => NULL,
       'selec_cant_maxima' => NULL,
       'selec_utilidades' => NULL,

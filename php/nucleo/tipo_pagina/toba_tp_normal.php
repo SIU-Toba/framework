@@ -118,7 +118,8 @@ class toba_tp_normal extends toba_tp_basico_titulo
 				$actual = apex_ef_no_seteado;
 			}			
 			echo toba_form::abrir('chng_profile', toba::vinculador()->get_url());
-			echo toba_form::select(apex_sesion_qs_cambio_pf, $actual, $datos, 'ef-combo', 'onchange="submit();"');	
+			toba_manejador_sesiones::enviar_csrf_hidden();
+			echo toba_form::select(apex_sesion_qs_cambio_pf, $actual, $datos, 'ef-combo', 'onchange="submit();"');			
 			echo toba_form::cerrar();			
 			echo '</div>';
 		}		

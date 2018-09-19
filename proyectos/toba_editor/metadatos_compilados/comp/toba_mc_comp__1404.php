@@ -314,31 +314,18 @@ class toba_mc_comp__1404
     ),
     1 => 
     array (
-      'identificador' => 'datos',
+      'identificador' => 'prop_basicas',
       'proyecto' => 'toba_editor',
-      'objeto' => 1532,
-      'clase' => 'toba_datos_relacion',
-      'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_relacion.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
+      'objeto' => 1511,
+      'clase' => 'toba_ei_formulario',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
+      'subclase' => 'eiform_ap',
+      'subclase_archivo' => 'objetos_toba/db_tablas/eiform_ap.php',
       'fuente' => 'instancia',
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
     2 => 
-    array (
-      'identificador' => 'dependencias',
-      'proyecto' => 'toba_editor',
-      'objeto' => 1508,
-      'clase' => 'toba_ei_formulario_ml',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
-      'fuente' => 'instancia',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    3 => 
     array (
       'identificador' => 'opciones',
       'proyecto' => 'toba_editor',
@@ -351,20 +338,20 @@ class toba_mc_comp__1404
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
-    4 => 
+    3 => 
     array (
-      'identificador' => 'prop_basicas',
+      'identificador' => 'dependencias',
       'proyecto' => 'toba_editor',
-      'objeto' => 1511,
-      'clase' => 'toba_ei_formulario',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
-      'subclase' => 'eiform_ap',
-      'subclase_archivo' => 'objetos_toba/db_tablas/eiform_ap.php',
+      'objeto' => 1508,
+      'clase' => 'toba_ei_formulario_ml',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
       'fuente' => 'instancia',
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
-    5 => 
+    4 => 
     array (
       'identificador' => 'relaciones',
       'proyecto' => 'toba_editor',
@@ -374,6 +361,19 @@ class toba_mc_comp__1404
       'subclase' => 'ci_relaciones',
       'subclase_archivo' => 'objetos_toba/db_tablas/ci_relaciones.php',
       'fuente' => NULL,
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    5 => 
+    array (
+      'identificador' => 'datos',
+      'proyecto' => 'toba_editor',
+      'objeto' => 1532,
+      'clase' => 'toba_datos_relacion',
+      'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_relacion.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
+      'fuente' => 'instancia',
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),

@@ -1,4 +1,7 @@
 <?php
+
+use Facebook\WebDriver\Exception\WebDriverCurlException;
+
 class toba_selenium_test_runner extends SimpleScorer
 {
 	protected $separar_pruebas = false;
@@ -31,7 +34,7 @@ class toba_selenium_test_runner extends SimpleScorer
 						$msg = $this->parsear_extra_resultado($rsp);
 						$invoker->getTestCase()->assertTrue($result, $msg);					
 					}
-				} catch (PHPWebDriver_WebDriverCurlException $e) {
+				} catch (WebDriverCurlException $e) {
 					toba::logger()->debug($e->getMessage());
 					throw new toba_error_usuario('Inicie el servidor Selenium por favor');
 				}

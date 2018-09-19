@@ -186,6 +186,15 @@ class toba_auditoria_tablas_postgres
 		return $triguers;
 	}
 	
+	function get_tablas_triggers_desactivados($schema=null)
+        {
+            if (is_null($schema)) {
+                $schema = $this->schema_origen;
+            }
+            $triggers = $this->conexion->get_triggers_schema($schema, 'tauditoria_', 'D');
+            return aplanar_matriz($triggers, 'tabla');
+        }
+	
 	protected function get_triggers_schema($schema)
 	{		
 		$resultado = array();
@@ -288,7 +297,7 @@ class toba_auditoria_tablas_postgres
 		$sql .= 'auditoria_usuario varchar(60), 
 				 auditoria_fecha timestamp, 
 				 auditoria_operacion char(1),
-				 auditoria_id_solicitud integer,
+				 auditoria_id_solicitud bigint,
 		 '; 		   
 		foreach ($campos as $def) {
 			if ($def['tipo_sql'] != 'bytea') {
@@ -315,7 +324,7 @@ class toba_auditoria_tablas_postgres
 					rusuario RECORD;
 					vusuario VARCHAR(60);
 					voperacion varchar;
-					vid_solicitud integer;
+					vid_solicitud bigint;
 					vestampilla timestamp;
 				BEGIN
 					vestampilla := clock_timestamp();
@@ -408,7 +417,7 @@ class toba_auditoria_tablas_postgres
 			  );		
 		$negocio[] = array(                                                                
     			'nombre' => 'auditoria_id_solicitud',                                                   
-			    'tipo_sql' => 'integer',                                             
+			    'tipo_sql' => 'bigint',                                             
 			  );			  	  
 		$logs = $this->conexion->get_definicion_columnas($destino, $this->schema_logs);				
 		foreach ($negocio as $campo_negocio) {
@@ -426,7 +435,7 @@ class toba_auditoria_tablas_postgres
 		}		
 	}
 	
-	protected function set_estado_activacion_triggers($tablas, $schema, $estado)
+	function set_estado_activacion_triggers($tablas, $schema, $estado)
 	{
 		$sql = array();
 		$estado_final = ($estado) ? 'ENABLE' : 'DISABLE';
@@ -577,6 +586,17 @@ class toba_auditoria_tablas_postgres
 			$nombre = $this->prefijo.$t;
 			if ($this->conexion->existe_tabla($this->schema_logs, $nombre)) {
 				$sql = "ALTER TABLE {$this->schema_logs}.$nombre ALTER auditoria_usuario TYPE character varying(60);";
+				$this->conexion->ejecutar($sql);				
+			}			
+		}
+	}
+	
+	function migrar_estructura_campos_toba_3_1()
+	{
+		foreach ($this->tablas as $t) {		
+			$nombre = $this->prefijo.$t;
+			if ($this->conexion->existe_tabla($this->schema_logs, $nombre)) {
+				$sql = "ALTER TABLE {$this->schema_logs}.$nombre ALTER auditoria_id_solicitud TYPE BIGINT;";
 				$this->conexion->ejecutar($sql);				
 			}			
 		}

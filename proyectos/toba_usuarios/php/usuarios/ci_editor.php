@@ -38,8 +38,7 @@ class ci_editor extends toba_ci
 		}
 		
 		// Elimina la dependencia form_pregunta_secreta cuando esta vinculado a arai-usuarios
-		if (toba::instalacion()->vincula_arai_usuarios() && $this->pantalla('usuario')->existe_dependencia('form_pregunta_secreta')) {
-			
+		if (toba::instalacion()->vincula_arai_usuarios() && $this->pantalla('usuario')->existe_dependencia('form_pregunta_secreta')) {			
 			$this->pantalla('usuario')->eliminar_dep('form_pregunta_secreta');
 		}
 	}
@@ -58,7 +57,7 @@ class ci_editor extends toba_ci
 		$largo_clave =  toba_parametros::get_largo_pwd(null);
 
 		// seteo los datos de arai-usuarios
-		$datos = gestion_arai_usuarios::set_datos($datos, $largo_clave);
+		$datos = gestion_arai_usuarios::completar_datos_usuario($datos, $largo_clave);
 		if (isset($datos['usuario_arai'])) {
 			$this->s__usuario_arai = $datos['usuario_arai'];
 		}
@@ -72,7 +71,6 @@ class ci_editor extends toba_ci
 		if (! isset($datos['autentificacion'])) {
 			$datos['autentificacion']  = apex_pa_algoritmo_hash;
 		}
-
 		$this->datos('basica')->set($datos);
 	}
 
@@ -89,7 +87,7 @@ class ci_editor extends toba_ci
 		
 		// obtengo los datos de arai-usuarios
 		$datos = gestion_arai_usuarios::get_datos($datos);
-		
+
 		// quito los campos que no se utilizan cuando esta vinculado con arai-usuarios
 		if (toba::instalacion()->vincula_arai_usuarios()) {
 			$form->desactivar_efs(array('usuario', 'nombre', 'email', 'clave', 'forzar_cambio_pwd', 'vencimiento'));
@@ -261,14 +259,16 @@ class ci_editor extends toba_ci
 	
 	private function encriptar_datos($dato_original)
 	{	
-		$clave = toba::instalacion()->get_claves_encriptacion();		
-		return base64_encode(mcrypt_encrypt(MCRYPT_BLOWFISH, $clave['get'], $dato_original, MCRYPT_MODE_CBC, substr($clave['db'], 0, 8)));		
+		$clave = toba::instalacion()->get_claves_encriptacion();
+		$cripter = toba_encriptador::instancia();
+		return $cripter->encriptar($dato_original, $clave['get']);
 	}
 	
 	private function desencriptar_datos($dato_encriptado)
 	{
 		$clave = toba::instalacion()->get_claves_encriptacion();		
-		return mcrypt_decrypt(MCRYPT_BLOWFISH, $clave['get'], base64_decode($dato_encriptado), MCRYPT_MODE_CBC, substr($clave['db'], 0, 8));		
+		$cripter = toba_encriptador::instancia();
+		return $cripter->desencriptar($dato_encriptado, $clave['get']);
 	}
 	
 	public function get_usuario_arai() {

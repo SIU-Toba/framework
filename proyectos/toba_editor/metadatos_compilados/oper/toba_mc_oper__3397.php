@@ -269,9 +269,9 @@ class toba_mc_comp__1989
     ),
     2 => 
     array (
-      'identificador' => 'dimensiones',
+      'identificador' => 'fuentes',
       'proyecto' => 'toba_editor',
-      'objeto' => 2204,
+      'objeto' => 1990,
       'clase' => 'toba_ei_cuadro',
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_cuadro.php',
       'subclase' => NULL,
@@ -282,9 +282,9 @@ class toba_mc_comp__1989
     ),
     3 => 
     array (
-      'identificador' => 'fuentes',
+      'identificador' => 'dimensiones',
       'proyecto' => 'toba_editor',
-      'objeto' => 1990,
+      'objeto' => 2204,
       'clase' => 'toba_ei_cuadro',
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_cuadro.php',
       'subclase' => NULL,

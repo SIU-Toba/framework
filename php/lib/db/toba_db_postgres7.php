@@ -275,7 +275,7 @@ class toba_db_postgres7 extends toba_db
 	}
 
 	/**
-	* Insert de datos desde un arreglo hacia una tabla. Requiere la extension original pgsql.
+	* Insert de datos desde un arreglo hacia una tabla. Ahora usa pdo!
 	* @param string $tabla Nombre de la tabla en la que se insertarán los datos
 	* @param array $datos Los datos a insertar: cada elemento del arreglo será un registro en la tabla.
 	* @param string $delimitador Separador de datos de cada fila.
@@ -283,17 +283,25 @@ class toba_db_postgres7 extends toba_db
 	* @return boolean Retorn TRUE en caso de éxito o FALSE en caso de error.
 	*/
 	function insert_masivo($tabla,$datos,$delimitador="\t",$valor_nulo="\\N") {
-		$dbconn = $this->get_pg_connect_nativo();
-		$salida = pg_copy_from($dbconn,$tabla,$datos,$delimitador,$valor_nulo);
-		if (!$salida) {
-			$mensaje = pg_last_error($dbconn);
-			pg_close($dbconn);
-			//toba::logger()->error($mensaje);
-			$this->log($mensaje, 'error');
-			throw new toba_error($mensaje);
-		}
-		pg_close($dbconn);
-		return $salida;
+                $funciono = true;
+                // se genera el sql equivalente para los logs
+                $sql = "-- COPY $tabla FROM stdin de ".count($elementos)." filas.";
+                $sql = $this->pegar_estampilla_log($sql);
+                try {
+                   if ($this->registrar_ejecucion) {
+                     $this->registro_ejecucion[] = $sql;
+                   }
+                   if (! $this->desactivar_ejecucion) {
+                      if ($this->debug) $this->log_debug_inicio($sql);
+                      $funciono = $this->conexion->pgsqlCopyFromArray($tabla,$datos,$delimitador,$valor_nulo);
+                      if ($this->debug) $this->log_debug_fin();
+                   }
+                } catch (PDOException $e) {
+                   $this->log($e->getMessage(), 'error');
+                   $ee = new toba_error_db($e, $sql);
+                   throw $ee;
+                }
+                return $funciono;
 	}
 
 	/**
@@ -1183,7 +1191,7 @@ class toba_db_postgres7 extends toba_db
 	function pgdump_get_tabla($bd, $schema, $tabla, $host, $usuario, $pass = null)
 	{
 		$exito = 0;
-		$comando = "pg_dump  -a -i -d -t $schema.$tabla -h $host -U $usuario $bd";
+		$comando = "pg_dump  --data-only --ignore-version --inserts  -t $schema.$tabla -h $host -U $usuario $bd";
 		$tabla = array();
 
 		if (!is_null($pass)) {
@@ -1195,7 +1203,7 @@ class toba_db_postgres7 extends toba_db
 			throw new toba_error("Error ejecutando pg_dump. Comando ejecutado: $comando");
 		}
 
-		$this->pgdump_limpiar($tabla);
+		$tabla = $this->pgdump_limpiar($tabla);
 		return $tabla;
 	}
 	
@@ -1206,14 +1214,17 @@ class toba_db_postgres7 extends toba_db
 	 */
 	protected function pgdump_limpiar(&$array)
 	{
-		//$borrando = true;
-		$keys_a = array_keys($array);
-		foreach ($keys_a as $key ) {
-			if (comienza_con($array[$key], 'INSERT')) {
-				continue;
-			}
-			unset($array[$key]);
-		}
+                            $tope = count($array);
+                            $salida = array();
+                            $i = 0;
+                            while ($i < $tope && (! comienza_con($array[$i], 'INSERT'))) {          //Busca la primera linea que posee insert
+                                $i++;
+                             }
+                            while ($i < $tope && ! empty($array[$i])) {         //Solo mete las linas que no estan vacias, el resto las excluye (podria incluir comentarios)
+                                    $salida[] = $array[$i];
+                                    $i++;	
+                            }
+                            return $salida;
 	}
 
 	//-----------------------------------------------------------------------------------

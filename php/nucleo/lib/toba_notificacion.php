@@ -105,22 +105,23 @@ class toba_notificacion
 			toba_js::cargar_consumos_globales(array("basicos/notificacion"));
 			echo toba_js::abrir();
 		}
+		$escapador = toba::escaper();
 		foreach($this->mensajes as $mensaje){
 			$texto = toba_parser_ayuda::parsear($mensaje[0]);
 			$texto = str_replace("'", '"', $texto);
-			$texto = toba_js::string($texto);
+			$texto = $escapador ->escapeJs(toba_js::string($texto));
 			//Mensaje para debug
 			if (isset($mensaje[2]) && trim($mensaje[2]) != '') {
 				$texto_debug = toba_parser_ayuda::parsear($mensaje[2]);
 				$texto_debug = str_replace("'", '"', $texto_debug);
-				$texto_debug = toba_js::string($texto_debug);	
-				echo "notificacion.agregar('$texto' + '\\n', '{$mensaje[1]}', undefined, '$texto_debug');\n";
+				$texto_debug = $escapador->escapeJs(toba_js::string($texto_debug));	
+				echo "notificacion.agregar('$texto' + '\\n', '".$escapador->escapeJs($mensaje[1])."', undefined, '$texto_debug');\n";
 			}else{
-				echo "notificacion.agregar('$texto' + '\\n', '{$mensaje[1]}');\n";	
+				echo "notificacion.agregar('$texto' + '\\n', '".$escapador->escapeJs($mensaje[1])."');\n";	
 			}			
 		}
 		if (isset($this->titulo)) {
-			echo "notificacion.set_titulo_ventana('{$this->titulo}');\n";
+			echo "notificacion.set_titulo_ventana('". $escapador->escapeJs($this->titulo)."');\n";
 		}
 		echo "notificacion.mostrar();\n";
 		if ($incluir_comsumos) {

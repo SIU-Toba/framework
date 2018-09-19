@@ -387,19 +387,6 @@ class toba_mc_comp__2219
   array (
     0 => 
     array (
-      'identificador' => 'filtro',
-      'proyecto' => 'toba_usuarios',
-      'objeto' => 2227,
-      'clase' => 'toba_ei_formulario',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
-      'subclase' => 'form_proyecto',
-      'subclase_archivo' => 'perfiles/form_proyecto.php',
-      'fuente' => 'toba_usuarios',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    1 => 
-    array (
       'identificador' => 'cuadro',
       'proyecto' => 'toba_usuarios',
       'objeto' => 2228,
@@ -408,6 +395,19 @@ class toba_mc_comp__2219
       'subclase' => NULL,
       'subclase_archivo' => NULL,
       'fuente' => NULL,
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    1 => 
+    array (
+      'identificador' => 'datos',
+      'proyecto' => 'toba_usuarios',
+      'objeto' => 2220,
+      'clase' => 'toba_datos_relacion',
+      'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_relacion.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
+      'fuente' => 'toba_usuarios',
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
@@ -426,13 +426,13 @@ class toba_mc_comp__2219
     ),
     3 => 
     array (
-      'identificador' => 'datos',
+      'identificador' => 'filtro',
       'proyecto' => 'toba_usuarios',
-      'objeto' => 2220,
-      'clase' => 'toba_datos_relacion',
-      'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_relacion.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
+      'objeto' => 2227,
+      'clase' => 'toba_ei_formulario',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
+      'subclase' => 'form_proyecto',
+      'subclase_archivo' => 'perfiles/form_proyecto.php',
       'fuente' => 'toba_usuarios',
       'parametros_a' => NULL,
       'parametros_b' => NULL,
@@ -1323,6 +1323,19 @@ class toba_mc_comp__2223
   array (
     0 => 
     array (
+      'identificador' => 'dimensiones',
+      'proyecto' => 'toba_usuarios',
+      'objeto' => 2226,
+      'clase' => 'toba_ei_cuadro',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_cuadro.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
+      'fuente' => NULL,
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    1 => 
+    array (
       'identificador' => 'elementos',
       'proyecto' => 'toba_usuarios',
       'objeto' => 2225,
@@ -1334,7 +1347,7 @@ class toba_mc_comp__2223
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
-    1 => 
+    2 => 
     array (
       'identificador' => 'perfil',
       'proyecto' => 'toba_usuarios',
@@ -1344,19 +1357,6 @@ class toba_mc_comp__2223
       'subclase' => NULL,
       'subclase_archivo' => NULL,
       'fuente' => 'toba_usuarios',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    2 => 
-    array (
-      'identificador' => 'dimensiones',
-      'proyecto' => 'toba_usuarios',
-      'objeto' => 2226,
-      'clase' => 'toba_ei_cuadro',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_cuadro.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
-      'fuente' => NULL,
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
@@ -1740,6 +1740,7 @@ class toba_mc_comp__2225
       'editor_ancho' => NULL,
       'editor_alto' => NULL,
       'editor_botonera' => NULL,
+      'editor_config_file' => NULL,
       'selec_cant_minima' => NULL,
       'selec_cant_maxima' => NULL,
       'selec_utilidades' => NULL,
@@ -1824,6 +1825,7 @@ class toba_mc_comp__2225
       'editor_ancho' => NULL,
       'editor_alto' => NULL,
       'editor_botonera' => NULL,
+      'editor_config_file' => NULL,
       'selec_cant_minima' => NULL,
       'selec_cant_maxima' => NULL,
       'selec_utilidades' => NULL,
@@ -1908,6 +1910,7 @@ class toba_mc_comp__2225
       'editor_ancho' => NULL,
       'editor_alto' => NULL,
       'editor_botonera' => NULL,
+      'editor_config_file' => NULL,
       'selec_cant_minima' => NULL,
       'selec_cant_maxima' => NULL,
       'selec_utilidades' => NULL,
@@ -2099,6 +2102,7 @@ class toba_mc_comp__2224
       'editor_ancho' => NULL,
       'editor_alto' => NULL,
       'editor_botonera' => NULL,
+      'editor_config_file' => NULL,
       'selec_cant_minima' => NULL,
       'selec_cant_maxima' => NULL,
       'selec_utilidades' => NULL,
@@ -2182,6 +2186,7 @@ class toba_mc_comp__2224
       'editor_ancho' => NULL,
       'editor_alto' => NULL,
       'editor_botonera' => NULL,
+      'editor_config_file' => NULL,
       'selec_cant_minima' => NULL,
       'selec_cant_maxima' => NULL,
       'selec_utilidades' => NULL,
@@ -2372,6 +2377,7 @@ class toba_mc_comp__2227
       'editor_ancho' => NULL,
       'editor_alto' => NULL,
       'editor_botonera' => NULL,
+      'editor_config_file' => NULL,
       'selec_cant_minima' => NULL,
       'selec_cant_maxima' => NULL,
       'selec_utilidades' => NULL,

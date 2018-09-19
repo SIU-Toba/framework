@@ -43,7 +43,7 @@ class toba_mc_gene__basicos
   'encriptar_qs' => 0,
   'registrar_solicitud' => '0',
   'registrar_cronometro' => NULL,
-  'item_inicio_sesion' => '3432',
+  'item_inicio_sesion' => '1000228',
   'item_pre_sesion' => '33000037',
   'item_pre_sesion_popup' => 0,
   'item_set_sesion' => NULL,
