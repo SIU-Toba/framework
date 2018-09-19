@@ -53,7 +53,7 @@ CREATE TABLE			apex_proyecto
 	proyecto							varchar(15)		NOT NULL,
 	descripcion							TEXT			NOT NULL,
 	descripcion_corta					TEXT			NOT NULL,
-	estilo								varchar(30)		NOT NULL,
+	estilo								TEXT		NOT NULL,
 	con_frames							smallint		DEFAULT 1 NULL,
 	frames_clase						varchar(40)		NULL,
 	frames_archivo						TEXT			NULL,

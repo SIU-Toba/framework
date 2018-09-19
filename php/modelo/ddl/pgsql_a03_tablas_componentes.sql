@@ -409,7 +409,7 @@ CREATE TABLE apex_objeto_eventos
 	maneja_datos						smallint			NULL DEFAULT 1,
 	sobre_fila							smallint			NULL,
 	confirmacion						TEXT		NULL,
-	estilo								varchar(40)			NULL,
+	estilo								TEXT			NULL,
 	imagen_recurso_origen				varchar(10)			NULL,
 	imagen								varchar(60)			NULL,
 	en_botonera							smallint			NULL DEFAULT 1,
