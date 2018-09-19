@@ -5,6 +5,7 @@
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
 [3.1.0](https://github.com/SIU-Toba/framework/releases/tag/v3.1.0) (2018-09-19)
+- Se actualiza el link de la pantalla inicial del editor para que apunte al changelog
 - Se cambia el tipo del campo estilo en eventos y el proyecto para permitir incluir mas clases css
 - Se actualiza facebook/webdriver: v1.6.0
 - Fix a nombre de variable de entorno para indicar el item de inicio en toba_selenium_utilidades
