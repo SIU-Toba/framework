@@ -4,7 +4,8 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
-[3.1.0](https://github.com/SIU-Toba/framework/releases/tag/v3.1.0) (2018-xx-xx)
+[3.1.0](https://github.com/SIU-Toba/framework/releases/tag/v3.1.0) (2018-09-19)
+- Se cambia el tipo del campo estilo en eventos y el proyecto para permitir incluir mas clases css
 - Se actualiza facebook/webdriver: v1.6.0
 - Fix a nombre de variable de entorno para indicar el item de inicio en toba_selenium_utilidades
 - Se modifica operatoria del metodo toba_db_postgres7::pgdump_limpiar para que no elimine lineas que son continuacion de string (nota: ahora puede incluir comentarios la salida)
