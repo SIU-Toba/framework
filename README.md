@@ -7,7 +7,8 @@ Framework para desarrollo rápido de aplicaciones web
 
 ## Prerequisitos
  * Hay que tener instalado [Composer](https://getcomposer.org/)
- * Hay que tener instalado [Bower](https://bower.io/) (v1.8.4 o superior)
+ * Hay que tener instalado [Yarn](https://yarnpkg.com/) (para SIU-Toba v3.1+)
+ * Hay que tener instalado [Bower](https://bower.io/) (v1.8.4 o superior) para la rama 3.0.x
 
 ## Instalando SIU-Toba
 
