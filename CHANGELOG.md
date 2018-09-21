@@ -3,6 +3,8 @@
 ## CHANGELOG
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
+
+[3.1.1](https://github.com/SIU-Toba/framework/releases/tag/v3.1.1) (2018-09-20)
 - Bugfix en toba_modelo_instalacion por merge incorrecto @[376e0370c752050329541c2dc689777187846de4]
 
 [3.1.0](https://github.com/SIU-Toba/framework/releases/tag/v3.1.0) (2018-09-19)
