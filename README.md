@@ -21,7 +21,7 @@ La descarga de SIU-Toba a partir de la version 3.0 se lleva a cabo enteramente v
         }
     ],
     "require": {
-        "siu-toba/framework": "^3.0"
+        "siu-toba/framework": "^3.1"
     },
    "scripts": {
         "post-install-cmd": [
