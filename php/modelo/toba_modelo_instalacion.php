@@ -117,8 +117,8 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 	*/
 	function get_id_grupo_desarrollo()
 	{
-		if (toba::config()->existe_valor('instalacion', null, 'es_produccion')) {
-			return toba::config()->get_parametro('instalacion', null, 'es_produccion');
+		if (toba::config()->existe_valor('instalacion', null, 'id_grupo_desarrollo')) {
+			return toba::config()->get_parametro('instalacion', null, 'id_grupo_desarrollo');
 		} else {
 			return null;
 		}
@@ -138,9 +138,8 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 	*/
 	function es_produccion()
 	{
-		$this->cargar_info_ini();		
-		if (isset($this->ini_instalacion['es_produccion'])) { 
-			return $this->ini_instalacion['es_produccion'];
+		if (toba::config()->existe_valor('instalacion', null, 'es_produccion')) {
+			return toba::config()->get_parametro('instalacion', null, 'es_produccion');
 		} else {
 			return false;
 		}
