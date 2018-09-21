@@ -4,6 +4,9 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.1.1](https://github.com/SIU-Toba/framework/releases/tag/v3.1.1) (2018-09-20)
+- Bugfix en toba_modelo_instalacion por merge incorrecto @[376e0370c752050329541c2dc689777187846de4]
+
 [3.1.0](https://github.com/SIU-Toba/framework/releases/tag/v3.1.0) (2018-09-19)
 - Se actualiza el link de la pantalla inicial del editor para que apunte al changelog
 - Se cambia el tipo del campo estilo en eventos y el proyecto para permitir incluir mas clases css
@@ -46,6 +49,17 @@
   * Elimina element-34/php-webdriver 
   * Agrega facebook/webdriver: v1.5.0
 - Se cambia Bower por Yarn como manejador de assets JS
+
+[3.0.30](https://github.com/SIU-Toba/framework/releases/tag/v3.0.30) (2018-08-28):
+- Se cambia el scope de los métodos que implementan el selector de ordenamiento múltiple del cuadro a protected
+- Se corrige bug por merge desde develop
+
+[3.0.29](https://github.com/SIU-Toba/framework/releases/tag/v3.0.29) (2018-08-27):
+- Fix a bug introducido al enviar los headers para el contexto de ejecucion de consola
+- Fix a ER que eliminaba los comentarios durante la creacion del archivo autoload 
+
+[3.0.28](https://github.com/SIU-Toba/framework/releases/tag/v3.0.28) (2018-08-21):
+- Fix a los metodos toba_varios::acceso_post y toba_varios::acceso_get
 
 [3.0.27](https://github.com/SIU-Toba/framework/releases/tag/v3.0.27) (2018-08-21):
 - Actualiza el archivo .lock
