@@ -4,17 +4,11 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 - Se modifica tipclick.js y se agrega una clase css basica al archivo toba.css del template del proyecto
-- Se agrega el metodo toba_recurso::link_css_proyecto para permitir la utilización de archivos css no presentes en el framework
 - Se agregan clases css a las tablas que contienen los efs de seleccion multiple
 - Se agrega la imagen del calendario al proceso de migración ya que cambia su ruta
-- Se agrega control especifico sobre el destino del servicio solicitado, un valor incorrecto significa que le pide el servicio a todos los objetos de la operación.
-- Se cambia el tipo de dato a bigint para el id de solicitud en las tablas de auditoria (ATENCION!! requiere actualizar el schema mediante comando administrativo) 
 - Se agrega la accion predefinida Arai-Reportes para los eventos
 - Se crea la clase toba_vista_arai_reportes
 - Se agrega un cliente rest para JasperReports
-- Fix warnings varios en PHP 7.2
-- Se anticipa el envio de headers para poder fijar cache_limiter y evitar error en php 7.2
-- Se ordenan los nombres de metodos y propiedades de sesion recuperadas via Reflection
 - Se modifica la componente JS del ef_fecha para proveer un datepicker compatible con bootstrap
 - Se modifican los componenetes toba_ei_esquema y toba_ei_grafico para incluir los namespaces de JpGraph
 - Se actualiza JpGraph v4.2.0 y se le agrega namespaces de manera propia.
@@ -26,16 +20,45 @@
   * Agrega JQuery-migrate: v.3.0
 - Se modifica ef_editable_fecha y ef_editable_fecha_hora para compatibilizar el funcionamiento
 - Se reemplaza el calendario anterior en JS por jquery-ui::datepicker (ojo con las redefiniciones JS!!)
-- Actualización de librerias:
-  * phpmailer/phpmailer: v6.0.3
-  * onelogin/php-saml: v2.13
 - Se elimina el calendario del DOM al seleccionar una fecha (mejora problema visual en manejador-salida-bootstrap)
 - Se deja de usar toba_notificacion para informar un error en un servicio ajax, se hace echo del msg.
 - Se desactiva el uso del manejador-salida-bootstrap en toba_usuarios para no forzar a su instalación por defecto
 - Bugfix a la ejecucion de test desde consola
+- Se agrega siu/manejador-salida-bootstrap como paquete sugerido
+- Se traslada parte de la generación del marcado HTML al paquete siu/manejador-salida-toba
+
+[3.1.0](https://github.com/SIU-Toba/framework/releases/tag/v3.1.0) (2018-09-19)
+- Se actualiza el link de la pantalla inicial del editor para que apunte al changelog
+- Se cambia el tipo del campo estilo en eventos y el proyecto para permitir incluir mas clases css
+- Se actualiza facebook/webdriver: v1.6.0
+- Fix a nombre de variable de entorno para indicar el item de inicio en toba_selenium_utilidades
+- Se modifica operatoria del metodo toba_db_postgres7::pgdump_limpiar para que no elimine lineas que son continuacion de string (nota: ahora puede incluir comentarios la salida)
+- Se agrega modo --no-interactivo al comando toba_base::registrar y toba_base::desregistrar
+- Fix en toba_ei_arbol para evitar notice cuando no se envian utilerias
+- Se utiliza el formato datetime provisto por PHPSpreadsheet para la salida excel
+- El comando base registrar recibe sus parametros por stdin via modificadores
+- El comando instalacion cambia_id_desarrollador recibe su parametro por stdin via modificador
+- El mecanismo de autenticacion saml_onelogin comienza a usar el parametro full_url cuando esta disponible
+- Se elimina el uso de Halite del Hook para Arai-Cli y se delega el manejo de claves a ese paquete
+- Se elimina soporte a SSL de los tipos de autenticacion soportados por Arai-Cli en el Hook
+- Fix en toba_ap_tabla_db para evitar notice por variable no inicializada
+- Fix en toba_cargador y toba_modelo_proyecto para componentes que no tienen datos en todas las tablas
+- PHP 7.1 se transforma en requerimiento minimo para la version
+- Se agrega chequeo de topes de versiones compatibles del paquete siu/arai-cli
+- Se corrige bug en toba_proyecto::get_version, ahora devuelve un objeto toba_version nuevamente
+- Se corrige un bug en toba_extractor_clases que tenia incidencia en la generacion del archivo autoload
+- Mueve el paquete siu/arai-cli a sugerido y elimina el paquete siu/arai-json-migrator de las dependencias
+- Se agrega el metodo toba_recurso::link_css_proyecto para permitir la utilización de archivos css no presentes en el framework
+- Se agrega control especifico sobre el destino del servicio solicitado, un valor incorrecto significa que le pide el servicio a todos los objetos de la operación.
+- Se cambia el tipo de dato a bigint para el id de solicitud en las tablas de auditoria (ATENCION!! requiere actualizar el schema mediante comando administrativo) 
+- Fix warnings varios en PHP 7.2
+- Se anticipa el envio de headers para poder fijar cache_limiter y evitar error en php 7.2
+- Se ordenan los nombres de metodos y propiedades de sesion recuperadas via Reflection
+- Actualización de librerias:
+  * phpmailer/phpmailer: v6.0.3
+  * onelogin/php-saml: v2.13
 - Se modifican clases del runtime para hacer uso de toba_config
 - Se agrega toba_config como concentrador de configuraciones, se instancia via el lanzador toba::config()
-- Se agrega siu/manejador-salida-bootstrap como paquete sugerido
 - Nuevas clases para darle un marco a los test via Selenium
   * toba_selenium_basics_proyecto (se encarga de cuestiones basicas del testeo)
   * toba_selenium_conector_base (conecta bd via parametros en constantes)
@@ -45,7 +68,6 @@
 - Modificacion de librerias:
   * Elimina element-34/php-webdriver 
   * Agrega facebook/webdriver: v1.5.0
-- Se traslada parte de la generación del marcado HTML al paquete siu/manejador-salida-toba
 - Se cambia Bower por Yarn como manejador de assets JS
 
 [3.0.30](https://github.com/SIU-Toba/framework/releases/tag/v3.0.30) (2018-08-28):
@@ -94,7 +116,7 @@
 [3.0.21](https://github.com/SIU-Toba/framework/releases/tag/v3.0.21) (2018-03-13):
 - Se agrega conversion via Psr7\str al mensaje proveniente de un error rest
 - Se agrega el metodo toba_auditoria_tablas_postgres::get_tablas_triggers_desactivados (credits FMartinez)
- 
+
 [3.0.20](https://github.com/SIU-Toba/framework/releases/tag/v3.0.20) (2018-03-07):
 - Se corrige un bug en ef_upload que afectaba su uso en formularios_ml
 - Se desactiva el log de WS durante el testing via phpunit
