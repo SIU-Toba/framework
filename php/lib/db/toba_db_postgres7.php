@@ -1220,7 +1220,7 @@ class toba_db_postgres7 extends toba_db
                             while ($i < $tope && (! comienza_con($array[$i], 'INSERT'))) {          //Busca la primera linea que posee insert
                                 $i++;
                              }
-                            while ($i < $tope && ! empty($array[$i])) {         //Solo mete las linas que no estan vacias, el resto las excluye (podria incluir comentarios)
+                            while ($i < $tope) {         //Agrega todo lo que venga despues
                                     $salida[] = $array[$i];
                                     $i++;	
                             }
