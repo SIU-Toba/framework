@@ -11,6 +11,7 @@ stages:
 composer:php7.1:
   stage: dependencias
   image: siutoba/docker-web:develop
+  service: postgres9.6
   script:
     - composer config cache-files-dir ./composer
     - composer install --prefer-dist > /dev/null
