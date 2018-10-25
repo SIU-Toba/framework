@@ -186,6 +186,13 @@ class toba_ini
 			$ini .= "; $this->titulo \n";
 			$ini .= "\n";
 		}
+		// Config Gral
+		foreach ( $this->entradas as $nombre => $datos ) {
+			if (! is_array( $datos ) ) {
+				$ini .= "$nombre = \"$datos\"\n";
+			}
+		}
+
 		// Secciones
 		foreach ( $this->entradas as $nombre => $datos ) {
 			if ( is_array( $datos ) ) {
@@ -194,9 +201,6 @@ class toba_ini
 				foreach ( $datos as $directiva => $valor ) {
 					$ini .= "$directiva = \"$valor\"\n";
 				}
-
-			} else {
-				$ini .= "$nombre = \"$datos\"\n";
 			}
 		}
 		return $ini;	
