@@ -4,6 +4,11 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.1.2](https://github.com/SIU-Toba/framework/releases/tag/v3.1.2) (2018-10-25)
+- Merge desde 3.0.31 con fix a toba_ini
+- Se agrega metodo para acceder al objeto db que se pasa al modelo durante la instanciacion via toba_modelo_catalogo
+- Se agrega advertencia en pantalla inicia de toba_editor cuando se usa el id desarrolo por defecto
+
 [3.1.1](https://github.com/SIU-Toba/framework/releases/tag/v3.1.1) (2018-09-20)
 - Bugfix en toba_modelo_instalacion por merge incorrecto @[376e0370c752050329541c2dc689777187846de4]
 
