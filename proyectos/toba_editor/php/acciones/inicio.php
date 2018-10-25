@@ -2,56 +2,81 @@
 
 function controlar_usuario()
 {
-	$usuario_actual = toba_manejador_archivos::get_usuario_actual();
-	if (isset($usuario_actual)) {
-		$escapador = toba::escaper();
-		$usuarios_defecto = array('system', 'www-data', 'wwwrun', 'nobody', 'nobody');
-		if (in_array($usuario_actual, $usuarios_defecto)) {
+    $usuario_actual = toba_manejador_archivos::get_usuario_actual();
+    if (isset($usuario_actual)) {
+            $escapador = toba::escaper();
+            $usuarios_defecto = array('system', 'www-data', 'wwwrun', 'nobody', 'nobody');
+            if (in_array($usuario_actual, $usuarios_defecto)) {
 
-			$html = "<div style='margin-top: 100px; background-color:white; padding: 10px;'>
-					<strong>Recomendado cambiar usuario APACHE</strong><br><br>
-					<div style='text-align:left'><p>Actualmente el servidor web (incluyendo a PHP y Toba) se está ejecutando con el usuario <strong>". $escapador->escapeHtml($usuario_actual)."</strong> del sistema.
-							Por seguridad esta configuración es la recomendada para sistemas en <strong>producción</strong>.</p>
-						<p>En cambio para ambientes de <strong>desarrollo</strong>, este toba_editor necesita abrir y guardar archivos, ejecutar comandos svn, etc,
-							necesita correr con el <strong>usuario de escritorio</strong> actualmente logueado al sistema operativo. Por ello recomendamos seguir los siguentes pasos:</p>
-			";
-			if (toba_manejador_archivos::es_windows()) {
-				$html .= "
-						<ol style='background-color: #EEEEEE; border: 1px inset gray;'>
-							<li>Primero es necesario que el usuario actualmente logueado posea una contraseña. Si no la tiene o desconoce:
-								<ol style='background-color: #E9E8E8; border: 1px inset gray; margin: 10px;'>
-									<li>Ir a <em>Inicio > Ejecutar</em>, ingresar
-										<pre>lusrmgr.msc</pre>
-									<li>Hacer click derecho sobre el usuario actual y seleccionar <em>Establecer contraseña</em>
-									<li>Luego de pasar todas las advertencias, ingresar la contraseña y aceptar
-								</ol>
-							<li>Ir a <em>Inicio > Ejecutar</em>, ingresar
-								<pre>services.msc</pre>
-							<li>Seleccionar servicio Apache 2.x, hacer doble click sobre el mismo
-							<li>Ir a solapa <em>Iniciar Sesión</em>
-							<li>Seleccionar <em>Esta cuenta</em> e ingresar el nombre y contraseña de la cuenta de usuario actual.
-				";
-			} else {
-				$html .= "
-						<ol style='background-color: #EEEEEE; border: 1px inset gray;'>
-							<li>Configurar que apache ejecute con el usuario actualmente logueado al sistema de ventanas. Editar el archivo
-								<em>/etc/apache2/apache2.conf</em> o <em>/etc/apache2/uid.conf</em> si está presente y cambiar el usuario de la siguiente directiva
-								por el usuario actual: <pre>User ". $escapador->escapeHtml($usuario_actual)."</pre>
-							<li>Para que apache pueda crear sesiones PHP, hay que cambiar el owner de la carpeta de sesiones (si no encuentra la carpeta de sesiones de php, está en la
-								directiva <em>session.save_path</em> en el php.ini
-								<pre>sudo chown mi_usuario /var/lib/php5 -R</pre>
-							</li>
-				";
-			}
-			$html .= '
-						<li>Luego de aceptar, reiniciar el servicio apache. En caso de que se siga mostrando esta advertencia al inicio del editor, por favor
-							contactarse con el soporte de toba ya que es muy importante para nosotros que estos pasos se sigan y funcionen bien.
-					</ol>
-					</div></div>
-			';
-			echo $html;
-		}
-	}		
+                    $html = "<div style='margin-top: 100px; background-color:white; padding: 10px;'>
+                                    <strong>Recomendado cambiar usuario APACHE</strong><br><br>
+                                    <div style='text-align:left'><p>Actualmente el servidor web (incluyendo a PHP y Toba) se está ejecutando con el usuario <strong>". $escapador->escapeHtml($usuario_actual)."</strong> del sistema.
+                                                    Por seguridad esta configuración es la recomendada para sistemas en <strong>producción</strong>.</p>
+                                            <p>En cambio para ambientes de <strong>desarrollo</strong>, este toba_editor necesita abrir y guardar archivos, ejecutar comandos svn, etc,
+                                                    necesita correr con el <strong>usuario de escritorio</strong> actualmente logueado al sistema operativo. Por ello recomendamos seguir los siguentes pasos:</p>
+                    ";
+                    if (toba_manejador_archivos::es_windows()) {
+                            $html .= "
+                                            <ol style='background-color: #EEEEEE; border: 1px inset gray;'>
+                                                    <li>Primero es necesario que el usuario actualmente logueado posea una contraseña. Si no la tiene o desconoce:
+                                                            <ol style='background-color: #E9E8E8; border: 1px inset gray; margin: 10px;'>
+                                                                    <li>Ir a <em>Inicio > Ejecutar</em>, ingresar
+                                                                            <pre>lusrmgr.msc</pre>
+                                                                    <li>Hacer click derecho sobre el usuario actual y seleccionar <em>Establecer contraseña</em>
+                                                                    <li>Luego de pasar todas las advertencias, ingresar la contraseña y aceptar
+                                                            </ol>
+                                                    <li>Ir a <em>Inicio > Ejecutar</em>, ingresar
+                                                            <pre>services.msc</pre>
+                                                    <li>Seleccionar servicio Apache 2.x, hacer doble click sobre el mismo
+                                                    <li>Ir a solapa <em>Iniciar Sesión</em>
+                                                    <li>Seleccionar <em>Esta cuenta</em> e ingresar el nombre y contraseña de la cuenta de usuario actual.
+                            ";
+                    } else {
+                            $html .= "
+                                            <ol style='background-color: #EEEEEE; border: 1px inset gray;'>
+                                                    <li>Configurar que apache ejecute con el usuario actualmente logueado al sistema de ventanas. Editar el archivo
+                                                            <em>/etc/apache2/apache2.conf</em> o <em>/etc/apache2/uid.conf</em> si está presente y cambiar el usuario de la siguiente directiva
+                                                            por el usuario actual: <pre>User ". $escapador->escapeHtml($usuario_actual)."</pre>
+                                                    <li>Para que apache pueda crear sesiones PHP, hay que cambiar el owner de la carpeta de sesiones (si no encuentra la carpeta de sesiones de php, está en la
+                                                            directiva <em>session.save_path</em> en el php.ini
+                                                            <pre>sudo chown mi_usuario /var/lib/php5 -R</pre>
+                                                    </li>
+                            ";
+                    }
+                    $html .= '
+                                            <li>Luego de aceptar, reiniciar el servicio apache. En caso de que se siga mostrando esta advertencia al inicio del editor, por favor
+                                                    contactarse con el soporte de toba ya que es muy importante para nosotros que estos pasos se sigan y funcionen bien.
+                                    </ol>
+                                    </div></div>
+                    ';
+                    echo $html;
+            }
+    }		
+}
+
+function controlar_id_desarrollador()
+{
+    $instalacion = toba::instalacion();
+    if ($instalacion->get_id_grupo_desarrollo() == 0) {
+        $html = "
+            <div style='margin-top: 100px; background-color:white; padding: 10px;'>
+                <strong>Atencion! Está utilizando el id de desarrollador por defecto</strong><br><br>
+                <div style='text-align:left'>
+                    <p>Si se encuentra trabajando en un grupo de desarrollo, es recomendable que deje este id por defecto para aquellos miembros que no necesitan
+                    modificar metadatos (testing, diseño, funcionales). Si exporta metadatos le recomendamos seguir alguno de los siguentes pasos:
+                    </p><br>
+                    <ul style='background-color: #EEEEEE; border: 1px inset gray;'>
+                    <li> Utilizar el instalador provisto y realizar la reconfiguración de su instalación
+                    <li> Utilizar el comando <em>toba instalacion</em> para modificar el Identificador 
+                    <br>
+                    </ul>
+                    <br>
+                    <p> Recuerde que la creación de metadatos se realiza utilizando como guía este identificador, evite tener conflictos de archivo en su sistema de control de versiones</p>
+                  </div>
+            </div>
+        ";
+        echo $html;
+    }
 }
 
 //ei_arbol($_SESSION, 'SESION', null, true);
@@ -98,6 +123,7 @@ if (isset($_GET['phpinfo'])) {
 	echo '<br>'.phpversion();
 	echo '</a>';
 
+                   controlar_id_desarrollador();
 	if (! toba_manejador_archivos::es_windows()) {
 		//Por ahora este mécanismo sólo funciona en linux
 		controlar_usuario();
