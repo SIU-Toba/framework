@@ -4,6 +4,9 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.0.31](https://github.com/SIU-Toba/framework/releases/tag/v3.0.31) (2018-10-25):
+- Se corrige bug en toba_ini que en ciertas secuencias de uso mezclaba configuraciones generales con secciones al guardar
+
 [3.0.30](https://github.com/SIU-Toba/framework/releases/tag/v3.0.30) (2018-08-28):
 - Se cambia el scope de los métodos que implementan el selector de ordenamiento múltiple del cuadro a protected
 - Se corrige bug por merge desde develop
