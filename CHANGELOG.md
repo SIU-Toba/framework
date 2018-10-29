@@ -27,6 +27,14 @@
 - Se agrega siu/manejador-salida-bootstrap como paquete sugerido
 - Se traslada parte de la generación del marcado HTML al paquete siu/manejador-salida-toba
 
+[3.1.3](https://github.com/SIU-Toba/framework/releases/tag/v3.1.3) (2018-10-29)
+- Bugfix en toba_analizador_logger, se invocaba mal una variable estatica
+
+[3.1.2](https://github.com/SIU-Toba/framework/releases/tag/v3.1.2) (2018-10-25)
+- Merge desde 3.0.31 con fix a toba_ini
+- Se agrega metodo para acceder al objeto db que se pasa al modelo durante la instanciacion via toba_modelo_catalogo
+- Se agrega advertencia en pantalla inicia de toba_editor cuando se usa el id desarrolo por defecto
+
 [3.1.0](https://github.com/SIU-Toba/framework/releases/tag/v3.1.0) (2018-09-19)
 - Se actualiza el link de la pantalla inicial del editor para que apunte al changelog
 - Se cambia el tipo del campo estilo en eventos y el proyecto para permitir incluir mas clases css
