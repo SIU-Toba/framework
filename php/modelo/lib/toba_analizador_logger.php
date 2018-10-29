@@ -21,7 +21,7 @@ class toba_analizador_logger_fs
 	{
 		$cuerpo = array();
 		$niveles = toba::logger()->get_niveles();
-		$texto = trim(substr($log, strpos($log, toba_logger::fin_encabezado) + strlen(toba_logger::fin_encabezado), strlen($log)));
+		$texto = trim(substr($log, strpos($log, toba_logger::$fin_encabezado) + strlen(toba_logger::$fin_encabezado), strlen($log)));
 		$patron = "/\[(";
 		$patron .= implode("|", $niveles);
 		$patron .= ")\]/";
@@ -41,7 +41,7 @@ class toba_analizador_logger_fs
 	
 	function analizar_encabezado($log)
 	{
-		$encabezado = substr($log, 0, strpos($log, toba_logger::fin_encabezado));
+		$encabezado = substr($log, 0, strpos($log, toba_logger::$fin_encabezado));
 		$pares = explode("\r\n", trim($encabezado));
 		$basicos = array();
 		foreach ($pares as $texto) {
