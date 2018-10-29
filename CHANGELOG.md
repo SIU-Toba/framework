@@ -4,6 +4,9 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.1.3](https://github.com/SIU-Toba/framework/releases/tag/v3.1.3) (2018-10-29)
+- Bugfix en toba_analizador_logger, se invocaba mal una variable estatica
+
 [3.1.2](https://github.com/SIU-Toba/framework/releases/tag/v3.1.2) (2018-10-25)
 - Merge desde 3.0.31 con fix a toba_ini
 - Se agrega metodo para acceder al objeto db que se pasa al modelo durante la instanciacion via toba_modelo_catalogo
