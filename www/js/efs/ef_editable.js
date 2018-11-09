@@ -459,7 +459,7 @@ ef_editable_fecha.prototype.constructor = ef_editable_fecha;
 	}
 	
 	ef_editable_fecha.prototype.iniciar = function(id, controlador) {
-		ef.prototype.iniciar.call(this, id, controlador);
+		ef.prototype.iniciar.call(this, id, controlador);		
 		$( '#' + this._id_form).datepicker( {
 			prevText: '&#x3c;Ant',
 			nextText: 'Sig&#x3e;',
@@ -480,7 +480,8 @@ ef_editable_fecha.prototype.constructor = ef_editable_fecha;
 			buttonImage: "img/calendario.gif",
 			buttonImageOnly: true,
 			altField: this._id_form,
-			altFormat: this._forma_mascara
+			altFormat: this._forma_mascara,
+			yearRange: "-100:+20"
 		});
 		var solo_lectura = this.input().readOnly;
 		this.set_solo_lectura(solo_lectura);
