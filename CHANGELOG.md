@@ -4,6 +4,9 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.1.4](https://github.com/SIU-Toba/framework/releases/tag/v3.1.4) (2018-11-16)
+- Quita el paquete simplesamlphp/simplesamlphp del requiere en composer
+
 [3.1.3](https://github.com/SIU-Toba/framework/releases/tag/v3.1.3) (2018-10-29)
 - Bugfix en toba_analizador_logger, se invocaba mal una variable estatica
 

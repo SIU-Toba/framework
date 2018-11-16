@@ -32,7 +32,6 @@
         "siu-toba/Structures_Graph": "^1.1.1.1",
         "phpmailer/phpmailer": "^6.0",
         "siu-toba/text_highlighter": "~0.8",
-        "simplesamlphp/simplesamlphp": "~1.14",
         "siu-toba/services_json": "^1.0.3.3", 
         "siu/rdi": "~0.9",
         "vlucas/phpdotenv": "~2.0",
