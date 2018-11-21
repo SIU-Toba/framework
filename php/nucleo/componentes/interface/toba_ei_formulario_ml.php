@@ -793,7 +793,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 				if ($this->_elemento_formulario[$ef]->get_toggle()) {
 					$this->_hay_toggle = true;
 					$id_form_toggle = 'toggle_'.$id_form;
-					echo toba::output()->get('FormularioMl')->getInputToggle($id_form_toggle,"{$this->objeto_js}.toggle_checkbox(\'$ef\')");
+					echo toba::output()->get('FormularioMl')->getInputToggle($id_form_toggle,"{$this->objeto_js}.toggle_checkbox(\"$ef\")");
 				}
 				$this->generar_etiqueta_columna($ef);
 				echo toba::output()->get('FormularioMl')->getFinColumnaCabecera();
