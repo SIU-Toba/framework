@@ -274,12 +274,13 @@ class toba_ei_calendario extends toba_ei
 		$this->_calendario->enableDayLinks();
 		$this->_calendario->enableWeekLinks();
 		
-		echo "<div class='ei-base ei-calendario-base'>\n";
+		echo toba::output()->get('Calendario')->getInicioHtml();
 		echo $this->get_html_barra_editor();
 		$this->generar_html_barra_sup(null, true,"ei-calendario-barra-sup");
-		echo "<div id='cuerpo_{$this->objeto_js}'>\n";
+		
+		echo toba::output()->get('Calendario')->getInicioCalendario($this->objeto_js);		
 		echo $this->_calendario->showMonth($this->objeto_js, $this->_eventos, $this->get_html_barra_editor() );
-		echo "</div></div>\n";
+		echo toba::output()->get('Calendario')->getFinCalendario() . toba::output()->get('Calendario')->getFinHtml();
 	}
 
 
@@ -953,7 +954,7 @@ class calendario //extends activecalendar
 		$out='';
 		if ($hasContent) {
 			foreach($hasContent as $content) {
-				$out = toba::output()->get('Calendario')->makeEventContent($this->cssEventContent, $content);
+				$out .= toba::output()->get('Calendario')->getEventwithContent($this->cssEventContent, $content);
 			}
 		}
 		return $out;
@@ -1004,7 +1005,7 @@ class calendario //extends activecalendar
 		$pickerSpan = 8;
 		$out = '';
 		if($html) {
-			$out= toba::output()->get('Calendario')->makeBarraEditor($this->cssPicker, $pickerSpan, $html);
+			$out= toba::output()->get('Calendario')->getBarraEditor($this->cssPicker, $pickerSpan, $html);
 		}
 		return $out;
 	}
@@ -1079,7 +1080,7 @@ class calendario //extends activecalendar
 	*/
 	function mkMonthHead()
 	{
-		$out = toba::output()->get('Calendario')->makeMonthHeader($this->cssMonthTable);
+		$out = toba::output()->get('Calendario')->getMonthHeader($this->cssMonthTable);
 		return $out;
 	}
 	/*
@@ -1093,7 +1094,7 @@ class calendario //extends activecalendar
 			/*$out="<tr><td class=\"".$this->cssMonthTitle."\" colspan=\"8\">";
 			$out.=$this->getMonthName().$this->monthYearDivider.$this->actyear;
 			$out.="</td></tr>\n";*/
-			$out = toba::output()->get('Calendario')->makeMonthTitle($this->cssMonthTitle, 8, $this->getMonthName().$this->monthYearDivider.$this->actyear);
+			$out = toba::output()->get('Calendario')->getMonthTitle($this->cssMonthTitle, 8, $this->getMonthName().$this->monthYearDivider.$this->actyear);
 		} else {
 			$contenido1 = '';
 			//$out="<tr><td class=\"".$this->cssMonthNav."\" colspan=\"2\">";
@@ -1109,7 +1110,7 @@ class calendario //extends activecalendar
 			
 			//$out.="<td class=\"".$this->cssMonthTitle."\" colspan=\"3\">";			
 			//$out.=$this->getMonthName().$this->monthYearDivider.$this->actyear.'</td>';
-			$aux = toba::output()->get('Calendario')->makeMonthLine($this->cssMonthTitle, 3, $this->getMonthName().$this->monthYearDivider.$this->actyear);
+			$aux = toba::output()->get('Calendario')->getMonthSquare($this->cssMonthTitle, 3, $this->getMonthName().$this->monthYearDivider.$this->actyear);
 			
 			//$out.="<td class=\"".$this->cssMonthNav."\" colspan=\"2\">";
 			$contenido = '';
@@ -1122,9 +1123,9 @@ class calendario //extends activecalendar
 			}
 			//$out.=$this->monthNavForw."</a></td></tr>\n";
 			$contenido .= $this->monthNavForw.'</a>';			
-			$contenido = toba::output()->get('Calendario')->makeMonthLine($this->cssMonthNav, 2, $contenido);
+			$contenido = toba::output()->get('Calendario')->getMonthSquare($this->cssMonthNav, 2, $contenido);
 			
-			$out = toba::output()->get('Calendario')->makeMonthTitle($this->cssMonthNav, 2 , $contenido1. $aux. $contenido);
+			$out = toba::output()->get('Calendario')->getMonthTitle($this->cssMonthNav, 2 , $contenido1. $aux. $contenido);
 		}
 		return $out;
 	}
@@ -1150,7 +1151,7 @@ class calendario //extends activecalendar
 				$datos[$z] = $z;
 			}
 			$out .= toba_form::select($this->yearID, $this->actyear, $datos, $this->cssPickerYear, 'onchange="'.$js.'"');
-			$out = toba::output()->get('Calendario')->makeMonthTitle($this->cssPicker, $pickerSpan, $out);
+			$out = toba::output()->get('Calendario')->getMonthTitle($this->cssPicker, $pickerSpan, $out);
 		}
 		return $out;
 	}
@@ -1170,11 +1171,11 @@ class calendario //extends activecalendar
 				$monthday++;
 				$out.=$this->mkDay($monthday, $objeto_js, $eventos);
 			}else {
-				$out .= toba::output()->get('Calendario')->makeDaySquare($this->cssNoMonthDay, '');
+				$out .= toba::output()->get('Calendario')->getDaySquare($this->cssNoMonthDay, '');
 			}
 		}
 
-		$out = toba::output()->get('Calendario')->makeLine($out);
+		$out = toba::output()->get('Calendario')->getFila($out);
 		$goon = $monthday + 1;
 		$stop=0; 
 		for ($x=0; $x<=6; $x++) {
@@ -1187,14 +1188,14 @@ class calendario //extends activecalendar
 			}
 			for ($i=$goon; $i<=$goon+6; $i++) {
 				if ($i>$this->maxdays) {
-					$out2 .= toba::output()->get('Calendario')->makeDaySquare($this->cssNoMonthDay, '');
+					$out2 .= toba::output()->get('Calendario')->getDaySquare($this->cssNoMonthDay, '');
 					$stop=1;
 				} else {
 					$out2 .=$this->mkDay($i, $objeto_js, $eventos);
 				}
 			}
 			$goon=$goon+7;
-			$out .= toba::output()->get('Calendario')->makeLine($out2);
+			$out .= toba::output()->get('Calendario')->getFila($out2);
 		}		
 		return $out;
 	}
@@ -1208,11 +1209,11 @@ class calendario //extends activecalendar
 		$contenido = '';
 		if ($this->startOnSun) {			
 			for($i = 0; $i < 7; $i++) {
-				$contenido .= toba::output()->get('Calendario')->makeDaySquare('',$this->getDayName($i));
+				$contenido .= toba::output()->get('Calendario')->getDaySquare('',$this->getDayName($i));
 			}
 		} else {
 			for($i = 1; $i < 8; $i++) {
-				$contenido .= toba::output()->get('Calendario')->makeDaySquare('',$this->getDayName($i % 7));
+				$contenido .= toba::output()->get('Calendario')->getDaySquare('',$this->getDayName($i % 7));
 			}
 			$this->firstday=$this->firstday-1;
 			if ($this->firstday<0) {
@@ -1222,7 +1223,7 @@ class calendario //extends activecalendar
 		
 		$out = $contenido;
 		if ($this->mostrar_semanas) {
-			$out = toba::output()->get('Calendario')->makeWeekLine($this->cssWeekDay, $contenido);
+			$out = toba::output()->get('Calendario')->getWeekLine($this->cssWeekDay, $contenido);
 		}
 		return $out;
 	}
@@ -1262,21 +1263,21 @@ class calendario //extends activecalendar
 		
 		if (!$this->get_weekLinks()) {
 			if ($week == $this->getSelectedWeek() && $year == $this->getSelectedYear()) {
-				$out = toba::output()->get('Calendario')->makeWeekSquare($this->cssSelecDay, $this->weekNumber($date));
+				$out = toba::output()->get('Calendario')->getWeekSquare($this->cssSelecDay, $this->weekNumber($date));
 			} else {
-				$out = toba::output()->get('Calendario')->makeWeekSquare($this->cssWeek, $this->weekNumber($date));
+				$out = toba::output()->get('Calendario')->getWeekSquare($this->cssWeek, $this->weekNumber($date));
 			}
 		} else {
 			if ($this->compare_week($this->weekNumber($date),$this->actyear) == 1) {
-				$out = toba::output()->get('Calendario')->makeWeekSquare($this->cssWeekNoSelec, $this->weekNumber($date));
+				$out = toba::output()->get('Calendario')->getWeekSquare($this->cssWeekNoSelec, $this->weekNumber($date));
 			} else {	
 				$evento_js = toba_js::evento('seleccionar_semana', $eventos['seleccionar_semana'], "{$this->weekNumber($date)}||{$this->mkActiveDate('Y',$date)}");
 				$js = "{$objeto_js}.set_evento($evento_js);";
 				
 				if ($week == $this->getSelectedWeek() && $year == $this->getSelectedYear()) {
-					$out = toba::output()->get('Calendario')->makeWeekSquare($this->cssSelecDay, $this->weekNumber($date), "cursor: pointer;cursor:hand;", $js);
+					$out = toba::output()->get('Calendario')->getWeekSquare($this->cssSelecDay, $this->weekNumber($date), "cursor: pointer;cursor:hand;", $js);
 				} else {
-					$out = toba::output()->get('Calendario')->makeWeekSquare($this->cssWeek, $this->weekNumber($date), "cursor: pointer;cursor:hand;", $js);
+					$out = toba::output()->get('Calendario')->getWeekSquare($this->cssWeek, $this->weekNumber($date), "cursor: pointer;cursor:hand;", $js);
 				}
 			}		
 		}	
@@ -1323,41 +1324,40 @@ class calendario //extends activecalendar
 
 		if ($this->solo_pasados && $this->compare_date($day) == 1) {
 			//Es una fecha futura y no se permite clickearla
-			$out = toba::output()->get('Calendario')->makeDaySquare($this->cssSunday, $var. $content);
+			$out = toba::output()->get('Calendario')->getDaySquare($this->cssSunday, $var. $content);
 		} elseif (($this->get_dayLinks()) && ((!$this->get_enableSatSelection() && ($this->getWeekday($var) == 0)) || ((!$this->get_enableSunSelection() && $this->getWeekday($var) == 6)))) {
-			$out = toba::output()->get('Calendario')->makeDaySquare($this->cssSunday, $var);
+			$out = toba::output()->get('Calendario')->getDaySquare($this->cssSunday, $var);
 		} elseif ($var==$this->getSelectedDay() && $this->actmonth==$this->getSelectedMonth() && $this->actyear==$this->getSelectedYear()) {
 			if (!$this->get_dayLinks()) {
-				$out = toba::output()->get('Calendario')->makeDaySquare($this->cssSelecDay, $var. $content);
+				$out = toba::output()->get('Calendario')->getDaySquare($this->cssSelecDay, $var. $content);
 			} else {
-				$out = toba::output()->get('Calendario')->makeDaySquare($this->cssSelecDay, $var. $content, "cursor: pointer;cursor:hand;", $js);
+				$out = toba::output()->get('Calendario')->getDaySquare($this->cssSelecDay, $var. $content, "cursor: pointer;cursor:hand;", $js);
 			}
 		} elseif ($var==$this->daytoday && $this->actmonth==$this->monthtoday && $this->actyear==$this->yeartoday && $resalta_hoy && $this->getSelectedMonth()==$this->monthtoday && $this->getSelectedWeek()<0) {
 			if (!$this->get_dayLinks()) {
-				$out = toba::output()->get('Calendario')->makeDaySquare($this->cssToday, $var. $content);
+				$out = toba::output()->get('Calendario')->getDaySquare($this->cssToday, $var. $content);
 			} else {
-				$out = toba::output()->get('Calendario')->makeDaySquare($this->cssToday, $var. $content, "cursor: pointer;cursor:hand;", $js);
+				$out = toba::output()->get('Calendario')->getDaySquare($this->cssToday, $var. $content, "cursor: pointer;cursor:hand;", $js);
 			}
 		} elseif ($this->getWeekday($var) == 0 && $this->crSunClass){
 			if (!$this->get_dayLinks()) {
-				$out = toba::output()->get('Calendario')->makeDaySquare($this->cssSunday, $var. $content);
+				$out = toba::output()->get('Calendario')->getDaySquare($this->cssSunday, $var. $content);
 			} else {
-				$out = toba::output()->get('Calendario')->makeDaySquare($this->cssSunday, $var. $content, "cursor: pointer;cursor:hand;", $js);
+				$out = toba::output()->get('Calendario')->getDaySquare($this->cssSunday, $var. $content, "cursor: pointer;cursor:hand;", $js);
 			}
 		} elseif ($this->getWeekday($var) == 6 && $this->crSatClass) {
 			if (!$this->get_dayLinks()) {
-				$out = toba::output()->get('Calendario')->makeDaySquare($this->cssSaturday, $var. $content);
+				$out = toba::output()->get('Calendario')->getDaySquare($this->cssSaturday, $var. $content);
 			} else {
-				$out = toba::output()->get('Calendario')->makeDaySquare($this->cssSaturday, $var. $content, "cursor: pointer;cursor:hand;", $js);
+				$out = toba::output()->get('Calendario')->getDaySquare($this->cssSaturday, $var. $content, "cursor: pointer;cursor:hand;", $js);
 			}
 		} else {
 			if (!$this->get_dayLinks()) {
-				$out = toba::output()->get('Calendario')->makeDaySquare($this->cssMonthDay, $var. $content);
+				$out = toba::output()->get('Calendario')->getDaySquare($this->cssMonthDay, $var. $content);
 			} else {
-				$out = toba::output()->get('Calendario')->makeDaySquare($this->cssMonthDay, $var. $content, "cursor: pointer;cursor:hand;", $js);
+				$out = toba::output()->get('Calendario')->getDaySquare($this->cssMonthDay, $var. $content, "cursor: pointer;cursor:hand;", $js);
 			}
-		}		
-
+		}
 		return $out;
 	}
 	
@@ -1368,7 +1368,7 @@ class calendario //extends activecalendar
 	*/
 	function mkMonthFoot()
 	{
-		return toba::output()->get('Calendario')->getFooter();
+		return toba::output()->get('Calendario')->getMonthFooter();
 	}
 	/*
 	********************************************************************************
@@ -1390,15 +1390,15 @@ class calendario //extends activecalendar
 		
 		if ($year && $month && $day) {
 			$url = $this->url.$glue.$this->yearID."=".$year."&amp;".$this->monthID."=".$month."&amp;".$this->dayID."=".$day;
-			return toba::output()->get('Calendario')->makeUrl($url, $day);			
+			return toba::output()->get('Calendario')->getLinkUrl($url, $day);			
 		}
 		if ($year && !$month && !$day) {
 			$url = $this->urlNav.$glueNav.$this->yearID."=".$year;
-			return toba::output()->get('Calendario')->makeUrl($url);
+			return toba::output()->get('Calendario')->getLinkUrl($url);
 		}
 		if ($year && $month && !$day) {
 			$url = $this->urlNav.$glueNav.$this->yearID."=".$year."&amp;".$this->monthID."=".$month;
-			return toba::output()->get('Calendario')->makeUrl($url);
+			return toba::output()->get('Calendario')->getLinkUrl($url);
 		}
 	}
 	/*
@@ -1419,7 +1419,7 @@ class calendario //extends activecalendar
 			$glueNav='?';
 		}
 		$url = $this->url.$glue.$this->weekID."=".$week."&amp;".$this->yearID."=".$year;
-		return toba::output()->get('Calendario')->makeUrl($url, $week);
+		return toba::output()->get('Calendario')->getLinkUrl($url, $week);
 	}
 	/*
 	********************************************************************************
