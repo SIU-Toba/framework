@@ -1091,41 +1091,28 @@ class calendario //extends activecalendar
 	function mkMonthTitle()
 	{
 		if (!$this->monthNav) {
-			/*$out="<tr><td class=\"".$this->cssMonthTitle."\" colspan=\"8\">";
-			$out.=$this->getMonthName().$this->monthYearDivider.$this->actyear;
-			$out.="</td></tr>\n";*/
 			$out = toba::output()->get('Calendario')->getMonthTitle($this->cssMonthTitle, 8, $this->getMonthName().$this->monthYearDivider.$this->actyear);
 		} else {
 			$contenido1 = '';
-			//$out="<tr><td class=\"".$this->cssMonthNav."\" colspan=\"2\">";
 			if ($this->actmonth==1) {
-				//$out.=$this->mkUrl($this->actyear-1,'12');
 				$contenido1 .= $this->mkUrl($this->actyear-1,'12');
 			} else {
-				//$out.=$this->mkUrl($this->actyear,$this->actmonth-1);
 				$contenido1 .= $this->mkUrl($this->actyear,$this->actmonth-1);
 			}
-			//$out.=$this->monthNavBack.'</a></td>';
 			$contenido1 .= $this->monthNavBack.'</a>';
+			$out = toba::output()->get('Calendario')->getMonthSquare($this->cssMonthNav, 2 , $contenido1);
+			$out .= toba::output()->get('Calendario')->getMonthSquare($this->cssMonthTitle, 3, $this->getMonthName().$this->monthYearDivider.$this->actyear);
 			
-			//$out.="<td class=\"".$this->cssMonthTitle."\" colspan=\"3\">";			
-			//$out.=$this->getMonthName().$this->monthYearDivider.$this->actyear.'</td>';
-			$aux = toba::output()->get('Calendario')->getMonthSquare($this->cssMonthTitle, 3, $this->getMonthName().$this->monthYearDivider.$this->actyear);
-			
-			//$out.="<td class=\"".$this->cssMonthNav."\" colspan=\"2\">";
 			$contenido = '';
 			if ($this->actmonth==12) {
-				//$out.=$this->mkUrl($this->actyear+1,'1');
 				$contenido .= $this->mkUrl($this->actyear+1,'1');
 			} else {
-				//$out.=$this->mkUrl($this->actyear,$this->actmonth+1);
 				$contenido .= $this->mkUrl($this->actyear,$this->actmonth+1);
 			}
-			//$out.=$this->monthNavForw."</a></td></tr>\n";
 			$contenido .= $this->monthNavForw.'</a>';			
-			$contenido = toba::output()->get('Calendario')->getMonthSquare($this->cssMonthNav, 2, $contenido);
+			$out .= toba::output()->get('Calendario')->getMonthSquare($this->cssMonthNav, 2, $contenido);
 			
-			$out = toba::output()->get('Calendario')->getMonthTitle($this->cssMonthNav, 2 , $contenido1. $aux. $contenido);
+			$out = toba::output()->get('Calendario')->getFila($out);
 		}
 		return $out;
 	}
@@ -1151,7 +1138,7 @@ class calendario //extends activecalendar
 				$datos[$z] = $z;
 			}
 			$out .= toba_form::select($this->yearID, $this->actyear, $datos, $this->cssPickerYear, 'onchange="'.$js.'"');
-			$out = toba::output()->get('Calendario')->getMonthTitle($this->cssPicker, $pickerSpan, $out);
+			$out = toba::output()->get('Calendario')->getMonthNav($this->cssPicker, $pickerSpan, $out);
 		}
 		return $out;
 	}
