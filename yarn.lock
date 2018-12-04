@@ -2,18 +2,22 @@
 # yarn lockfile v1
 
 
-ckeditor@^4:
+ckeditor@4.7:
   version "4.7.3"
   resolved "https://registry.yarnpkg.com/ckeditor/-/ckeditor-4.7.3.tgz#b486fb9eb91af9532a0acfaea4a55374970254d5"
+  integrity sha1-tIb7nrka+VMqCs+upKVTdJcCVNU=
 
-jquery-migrate@^3.0:
+jquery-migrate@3.0:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/jquery-migrate/-/jquery-migrate-3.0.1.tgz#141de3abfe6d301baaa4130b0ec7b9a839845e72"
+  integrity sha512-NYlhcFnRh4Bv9jvadPlcAKQdVGRE0+TSgFYxQ+ZnCxUUHbwd+SjbOg+Xvu1Oea9mpQJ+2VB1eCfcBORWNQsHaA==
 
-jquery@^3.3:
+jquery@3.3:
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
+  integrity sha512-Ubldcmxp5np52/ENotGxlLe6aGMvmF4R8S6tZjsP6Knsaxd/xp3Zrh50cG93lR6nPXyUFwzN3ZSOQI0wRJNdGg==
 
-siu-js-app-launcher@^1.0:
+siu-js-app-launcher@1.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/siu-js-app-launcher/-/siu-js-app-launcher-1.0.2.tgz#7e57fbe849cd492950bf295c7cab7f4a10479f8d"
+  integrity sha512-FD8LfJEfQqTfs3BNVPod2+pJXpUSAn45Y+uvUe8PPdC3jFV8tpwusKkhLvmsTDscefXiyj+1KI4VAU8EDfx0ew==

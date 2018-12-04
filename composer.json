@@ -60,10 +60,13 @@
     },
     "scripts": {
         "post-install-cmd": [
-            "yarn install --non-interactive --modules-folder www/js/packages/"
+            "yarn add ckeditor@4.7 --modules-folder www/js/packages/",
+            "yarn add jquery@3.3 --modules-folder www/js/packages/",
+            "yarn add jquery-migrate@3.0 --modules-folder www/js/packages/",
+            "yarn add siu-js-app-launcher@1.0 --modules-folder www/js/packages/"
         ],
         "post-update-cmd": [
-            "yarn install --non-interactive --modules-folder www/js/packages/"
+            "yarn upgrade --non-interactive --modules-folder www/js/packages/"
         ]
     }
 }
