@@ -1,5 +1,8 @@
 <?php
 
+use OneLogin\Saml2\Auth;
+use OneLogin\Saml2\Utils;
+
 class toba_autenticacion_saml_onelogin extends toba_autenticacion implements toba_autenticable
 {
 	protected $auth_source = "default-sp";	
@@ -38,7 +41,7 @@ class toba_autenticacion_saml_onelogin extends toba_autenticacion implements tob
 			$this->proyecto_login = trim($parametros[$sp_name]['proyecto_login']);
 
 			//Creo configuracion del SP
-			$this->settingsInfo= array ('sp' => $this->get_sp_config());			
+			$this->settingsInfo= array ('strict' => true,  'sp' => $this->get_sp_config());			
 			//Agrego configuracion del IdP
 			if (isset($parametros[$sp_name]['idp'])) {
 				$this->idp = $parametros[$sp_name]['idp'];
@@ -78,7 +81,7 @@ class toba_autenticacion_saml_onelogin extends toba_autenticacion implements tob
 			try {
 				toba::manejador_sesiones()->login($id_usuario, 'foobar', $datos_iniciales);                    //La clave no importa porque se autentifica via token
 			} catch (toba_reset_nucleo $e) {
-				if (isset($_POST['RelayState']) && OneLogin_Saml2_Utils::getSelfURL() != $_POST['RelayState']) {
+				if (isset($_POST['RelayState']) && Utils::getSelfURL() != $_POST['RelayState']) {
 					$auth->redirectTo($_POST['RelayState']);
 				} else {
 					throw $e;
@@ -152,8 +155,9 @@ class toba_autenticacion_saml_onelogin extends toba_autenticacion implements tob
 			toba_logger::instancia()->var_dump($this->settingsInfo);
 			toba_logger::instancia()->var_dump($this->proyecto_login);
 			toba_logger::instancia()->var_dump($this->atributo_usuario);
+			$this->settingsInfo['debug'] = true;
 		}
-		$auth = new OneLogin_Saml2_Auth($this->settingsInfo);
+		$auth = new Auth($this->settingsInfo);
 		return $auth;
 	}
 	
@@ -181,6 +185,9 @@ class toba_autenticacion_saml_onelogin extends toba_autenticacion implements tob
                                                                 'singleLogoutService' => array ('url' => $entityID.'/?sls'	),
                                                                 'NameIDFormat' =>$this->atributo_usuario
                                     	);
+		//Falta agregar dos items extra: 
+		//  'x509cert' => '',
+		//'privateKey' => '',
 		return $info;
 	}
 		
@@ -203,7 +210,7 @@ class toba_autenticacion_saml_onelogin extends toba_autenticacion implements tob
 		return $info;
 	}
 	
-	private function verificar_errores_onelogin(OneLogin_Saml2_Auth $auth)
+	private function verificar_errores_onelogin(OneLogin\Saml2\Auth $auth)
 	{
 		$errors = $auth->getErrors();
 		if (!empty($errors)) {
@@ -214,7 +221,7 @@ class toba_autenticacion_saml_onelogin extends toba_autenticacion implements tob
 		}
 	}
 	
-	private function procesar_logout(OneLogin_Saml2_Auth $auth)
+	private function procesar_logout(OneLogin\Saml2\Auth $auth)
 	{
 		if (! is_null(toba::memoria()->get_parametro('sls'))) {
 			$auth->processSLO();
