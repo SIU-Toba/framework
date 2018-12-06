@@ -35,13 +35,23 @@ class toba_autenticacion_saml_onelogin extends toba_autenticacion implements tob
 			if (isset($parametros[$sp_name]['auth_source'])) {
 				$this->auth_source = $parametros[$sp_name]['auth_source'];
 			}
+			
+			$verificaPeer = (isset($parametros['basicos']['verifyPeer'])) ? $parametros['basicos']['verifyPeer'] == 1:  toba::instalacion()->es_produccion();
+			if ($verificaPeer) {
+				if (! isset($parametros[$sp_name]['x509cert']) || ! isset($parametros[$sp_name]['privateKey'])) {
+					throw new toba_error_seguridad('La configuracion de seguridad requiere la existencia de archivos certificado y clave privada para el SP');
+				}
+				$this->PKey = $parametros[$sp_name]['privateKey'];
+				$this->SPCert = $parametros[$sp_name]['x509cert'];
+			}
+			
 			if (!isset($parametros[$sp_name]['proyecto_login'])) {
 				throw new toba_error("Debe definir proyecto_login en ".$archivo_ini_instalacion);
 			}
 			$this->proyecto_login = trim($parametros[$sp_name]['proyecto_login']);
 
 			//Creo configuracion del SP
-			$this->settingsInfo= array ('strict' => true,  'sp' => $this->get_sp_config());			
+			$this->settingsInfo= array ('strict' => $verificaPeer,  'sp' => $this->get_sp_config());			
 			//Agrego configuracion del IdP
 			if (isset($parametros[$sp_name]['idp'])) {
 				$this->idp = $parametros[$sp_name]['idp'];
@@ -179,15 +189,28 @@ class toba_autenticacion_saml_onelogin extends toba_autenticacion implements tob
 	protected function get_sp_config()
 	{
 		//Arma el entityID en base a una URL fija de toba
-                                     $entityID = $this->getProyectoUrl();
+                   $entityID = $this->getProyectoUrl();
 		$info =  array ('entityId' => $entityID.'/' . $this->auth_source,
-                                                                'assertionConsumerService' => array ( 'url' => $entityID.'/?acs'),
-                                                                'singleLogoutService' => array ('url' => $entityID.'/?sls'	),
-                                                                'NameIDFormat' =>$this->atributo_usuario
+					'assertionConsumerService' => array ( 'url' => $entityID.'/?acs'),
+					'singleLogoutService' => array ('url' => $entityID.'/?sls'	),
+					'NameIDFormat' =>$this->atributo_usuario
                                     	);
-		//Falta agregar dos items extra: 
-		//  'x509cert' => '',
-		//'privateKey' => '',
+		
+		//Agrega PK y Certificado para cuando se verifica la conexion con strict
+		if (isset($this->SPCert) && trim($this->SPCert) != '') {
+			$nombre = realpath($this->SPCert);
+			if (file_exists($nombre)) {
+				$contenido = file_get_contents($nombre);
+				$info['x509cert'] = $contenido;
+			}			
+		}	
+		if (isset($this->PKey) && trim($this->PKey) != '') {
+			$nombre = realpath($this->PKey);
+			if (file_exists($nombre)) {
+				$contenido = file_get_contents($nombre);
+				$info['privateKey'] = $contenido;
+			}			
+		}	
 		return $info;
 	}
 		
