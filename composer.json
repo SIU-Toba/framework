@@ -20,7 +20,7 @@
         "siu-toba/rest": "~2.0",
         "siu-toba/ssl-cert-utils": "@dev",
         "guzzlehttp/guzzle": "~6.3",
-        "onelogin/php-saml": "dev-3.0.0-namespaceless",
+        "onelogin/php-saml": "~3.0",
         "siu-toba/Numbers_Words": "0.18.0.1",        
         "guiguiboy/PHP-CLI-Progress-Bar": "dev-master", 
         "phpoffice/phpspreadsheet": "^1.0", 
@@ -33,9 +33,10 @@
         "siu/rdi": "~0.9", 
         "vlucas/phpdotenv": "~2.0",
         "ioncube/php-openssl-cryptor": "dev-master",
-        "siu/manejador-salida-toba" : "dev-master",
+        "siu/manejador-salida-toba" : "dev-develop",
 	"jaspersoft/rest-client": "^2.0",
-	"psr/log": "^1.0"
+	"psr/log": "^1.0",
+        "siu/manejador-salida-bootstrap": "dev-develop"
     },
     "require-dev": {
         "simpletest/simpletest": "~1.1", 
@@ -60,13 +61,13 @@
     },
     "scripts": {
         "post-install-cmd": [
-            "yarn add ckeditor@4.7 --modules-folder www/js/packages/",
-            "yarn add jquery@3.3 --modules-folder www/js/packages/",
-            "yarn add jquery-migrate@3.0 --modules-folder www/js/packages/",
-            "yarn add siu-js-app-launcher@1.0 --modules-folder www/js/packages/"
+            "yarn add ckeditor@4.11 jquery@3.3 jquery-migrate@3.0 siu-js-app-launcher@1.0 --modules-folder www/js/packages/",
+            "yarn ",
+            "php bin/instalar_assets.php"
         ],
         "post-update-cmd": [
-            "yarn upgrade --non-interactive --modules-folder www/js/packages/"
+            "yarn  --non-interactive --modules-folder www/js/packages/", 
+            "php bin/instalar_assets.php"
         ]
     }
 }
