@@ -655,7 +655,8 @@ class RegistryHooksProyectoToba implements HooksInterface
 		$version = new \toba_version(AraiCli::getVersion());
 
 		//Recupero los topes inferior-superior de la config de toba
-		$limites = $this->instalacion->get_instancia($this->getInstanciaId())->get_compatibilidad_arai_cli();
+		$instalacion = \toba_modelo_catalogo::instanciacion()->get_instalacion(null);
+		$limites = $instalacion->get_compatibilidad_arai_cli();
 		$inferior = new \toba_version($limites[0]);
 		$techo = new \toba_version($limites[1]);
 
