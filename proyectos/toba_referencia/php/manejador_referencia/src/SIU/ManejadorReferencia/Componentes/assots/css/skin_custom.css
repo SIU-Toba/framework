@@ -1,0 +1,73 @@
+@CHARSET "UTF-8";
+
+
+.main-header .navbar .sidebar-toggle:hover {
+  color: #ffffff;
+}
+.main-header .navbar .sidebar-toggle {
+  color: #f6f6f6;
+  background: rgba(0, 0, 0, 0.1);
+}
+.main-header .navbar .sidebar-toggle {
+  color: #fff;
+}
+
+
+.main-header .sidebar-toggle::before{
+	color: var(--main-color);
+}
+.panel-heading {
+    border-bottom: 2px solid var(--main-color) !important;
+}
+
+.nav-tabs-custom > .nav-tabs > li.active {
+    border-top-color: var(--main-color);
+}
+
+.nav-tabs-custom > .nav-tabs.nav-stacked  > li.active {
+    border-left-color: var(--main-color);
+}
+/********* tablas *********/
+table a , .input-group-addon a {
+	color: black;
+	text-decoration: none;
+}
+
+table a:HOVER, .input-group-addon a:HOVER{
+	color: var(--main-color);
+	text-decoration: none;
+}
+
+
+/******************/
+
+.breadcrumb .glyphicon{
+	color: var(--main-color);
+}
+
+label > span.glyphicon{
+	color: var(--main-color);
+	
+}
+
+.footer_skin{
+	color: var(--main-color);
+}
+.fa-folder
+{
+	color: var(--main-color);
+}
+.content-header > .breadcrumb > li + li::before{
+	color: var(--main-color);
+}
+.sidebar-menu > li.active > a {
+    font-weight: 400;
+}
+.treeview-menu > li.active > a {
+    font-weight: 400;
+}
+
+.progress-bar{
+	background-color: var(--main-color);
+}
+
