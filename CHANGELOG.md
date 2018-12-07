@@ -4,6 +4,12 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.1.5](https://github.com/SIU-Toba/framework/releases/tag/v3.1.5) (2018-12-07)
+- Fix en verificacion de versiones compatibles de Arai (merge desde develop)
+- Acualizacion de seguridad de librerias:
+  * phpmailer/phpmailer: v6.0.6
+  * phpoffice/phpspreadsheet: v1.5.1
+
 [3.1.4](https://github.com/SIU-Toba/framework/releases/tag/v3.1.4) (2018-11-16)
 - Quita el paquete simplesamlphp/simplesamlphp del requiere en composer
 
