@@ -27,3 +27,4 @@ www/siu/
 /arai.lock
 /.yarnclean
 /bin/arai-cli
+node_modules
