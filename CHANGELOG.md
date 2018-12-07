@@ -3,6 +3,13 @@
 ## CHANGELOG
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
+- El SP Onelogin va a correr en modo estricto (requiere certificados) en una instancia de produccion a menos que se especifique lo contrario 
+- Actualizacion librerias
+  * onelogin/php-saml: v3.0.0
+- El comando servicios_web configurar-cli agrega parametro para indicar el tipo de autenticacion
+- Fix en toba_factory_service para permitir manejadores de salida parciales
+- El ef_fecha muestra un rango de años fijo en el cliente (no relacionado con la validacion)
+- El log de WS extiende desde Psr\Log 
 - Se modifica tipclick.js y se agrega una clase css basica al archivo toba.css del template del proyecto
 - Se agregan clases css a las tablas que contienen los efs de seleccion multiple
 - Se agrega la imagen del calendario al proceso de migración ya que cambia su ruta
@@ -26,6 +33,15 @@
 - Bugfix a la ejecucion de test desde consola
 - Se agrega siu/manejador-salida-bootstrap como paquete sugerido
 - Se traslada parte de la generación del marcado HTML al paquete siu/manejador-salida-toba
+
+[3.1.5](https://github.com/SIU-Toba/framework/releases/tag/v3.1.5) (2018-12-07)
+- Fix en verificacion de versiones compatibles de Arai (merge desde develop)
+- Acualizacion de seguridad de librerias:
+  * phpmailer/phpmailer: v6.0.6
+  * phpoffice/phpspreadsheet: v1.5.1
+
+[3.1.4](https://github.com/SIU-Toba/framework/releases/tag/v3.1.4) (2018-11-16)
+- Quita el paquete simplesamlphp/simplesamlphp del requiere en composer
 
 [3.1.3](https://github.com/SIU-Toba/framework/releases/tag/v3.1.3) (2018-10-29)
 - Bugfix en toba_analizador_logger, se invocaba mal una variable estatica
@@ -87,7 +103,7 @@
 - Fix a ER que eliminaba los comentarios durante la creacion del archivo autoload 
 
 [3.0.28](https://github.com/SIU-Toba/framework/releases/tag/v3.0.28) (2018-08-21):
- - Fix a los metodos toba_varios::acceso_post y toba_varios::acceso_get
+- Fix a los metodos toba_varios::acceso_post y toba_varios::acceso_get
 
 [3.0.27](https://github.com/SIU-Toba/framework/releases/tag/v3.0.27) (2018-08-21):
 - Actualiza el archivo .lock
