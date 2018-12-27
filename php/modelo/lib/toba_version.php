@@ -9,7 +9,7 @@ class toba_version
 	protected $build;
 	protected $path_migraciones;
 	protected $inestable;
-	protected $inestables = array('pre-alpha', 'alpha', 'beta', 'rc');
+	protected $inestables = array('dev', 'alpha', 'beta', 'rc');
 	
 	function __construct($numero)
 	{
@@ -31,21 +31,16 @@ class toba_version
 			if (! is_numeric($digito)) {
 				throw new toba_error("El número de versión $numero es incorrecto. Las partes deben ser numéricas. ".$formato);
 			}
-			$extra = trim(str_replace(array('(',')'), '', substr($this->partes[2], strlen($digito))));			
+			$extra = trim(str_replace(array('(', ')', '-'), '', substr($this->partes[2], strlen($digito))));			
 			$this->partes[2] = $digito;
-			$extra = explode('-', $extra);
 			$build = '';
-			if (count($extra) == 2) {
-				$inestable = $extra[0];
-				$build = $extra[1];
+			if (is_numeric($extra)) {
+				$build = $extra;
 			} else {
-				if (is_numeric($extra[0])) {
-					$build = $extra[0];
-				} else {
-					$inestable = $extra[0];
-				}
+				$inestable = $extra;
 			}
 			if (isset($inestable)) {
+				var_dump($inestable);
 				if (! in_array($inestable, $this->inestables)) {
 					throw new toba_error("El número de versión $numero es incorrecto. El codigo de inestable '$inestable' no es válido. ".$formato);
 				}
@@ -316,9 +311,6 @@ class toba_version
 	static function inicial()
 	{
 		return new toba_version("0.8.3");
-	}
-	
+	}	
 }
-
-
 ?>
