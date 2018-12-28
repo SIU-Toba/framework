@@ -40,7 +40,6 @@ class toba_version
 				$inestable = $extra;
 			}
 			if (isset($inestable)) {
-				var_dump($inestable);
 				if (! in_array($inestable, $this->inestables)) {
 					throw new toba_error("El número de versión $numero es incorrecto. El codigo de inestable '$inestable' no es válido. ".$formato);
 				}
