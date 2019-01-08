@@ -126,6 +126,15 @@ class toba_autenticacion_saml_onelogin extends toba_autenticacion implements tob
 		
 	function logout()
 	{
+		if ($this->uso_login_basico() && $this->permite_login_toba()) {
+			$this->eliminar_marca_login(self::$marca_login_basico);
+			return;
+		}
+				
+		if ($this->uso_login_centralizado()) {
+			$this->eliminar_marca_login(self::$marca_login_central);
+		}
+
 		$auth = $this->instanciar_pedido_onelogin();
 		$auth->logout();							//No se verifica la respuesta, para toba el usuario se deslogueo
 	}		
@@ -248,7 +257,7 @@ class toba_autenticacion_saml_onelogin extends toba_autenticacion implements tob
 	{
 		if (! is_null(toba::memoria()->get_parametro('sls'))) {
 			$auth->processSLO();
-		} elseif (isset($_GET['slo'])) {
+		} elseif (! is_null(toba::memoria()->get_parametro('slo'))) {
 			$auth->logout();
 		}
 		$this->verificar_errores_onelogin($auth);
