@@ -402,7 +402,6 @@ class RegistryHooksProyectoToba implements HooksInterface
 	protected function inicializarEntorno()
 	{
 		$this->instalacion = $this->cargarToba();
-
 		$this->araiSyncKey = $this->cargarAraiSyncKey();
 	}
 
@@ -412,12 +411,11 @@ class RegistryHooksProyectoToba implements HooksInterface
 	 */
 	protected function cargarToba()
 	{
-		//--Carga nucleo toba
-		$dir = $this->getTobaDir()."/php";
-		$separador = (substr(PHP_OS, 0, 3) == 'WIN') ? ';.;' : ':.:';
-		ini_set('include_path', ini_get('include_path'). $separador . $dir);
-		require_once("nucleo/toba_nucleo.php");
-		\toba_nucleo::instancia()->iniciar_contexto_desde_consola($this->getInstanciaId(), $this->getProyectoId());
+		//--Carga nucleo para registrar todos los autoloaders y tener acceso a las clases del modelo / funciones globales desde arai-cli
+		$dir = realpath($this->getTobaDir()."/php");
+		require_once("$dir/nucleo/toba_nucleo.php");
+		//Inicio desde consola para procesar el contexto de ejecucion (puede ser necesario para JWT)
+		\toba_nucleo::instancia()->iniciar_contexto_desde_consola($this->getInstanciaId(), $this->getProyectoId());	
 		return \toba_modelo_catalogo::instanciacion()->get_instalacion(null);
 	}
 
