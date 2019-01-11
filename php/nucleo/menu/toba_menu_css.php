@@ -24,13 +24,13 @@ class toba_menu_css extends toba_menu
 				function on_menu_set_popup_on(e) {
 				   	var id = (window.event) ? event.keyCode : e.keyCode;
 					if (id == 16) {
-						toba.set_menu_popup(true);
+						toba.set_menu_popup(true, "menu-h", "nivel-0" );
 					}
 				}
 				function on_menu_set_popup_off(e) {
 				   	var id = (window.event) ? event.keyCode : e.keyCode;
 					if (id == 16) {
-						toba.set_menu_popup(false);
+						toba.set_menu_popup(false, "menu-h", "nivel-0" );
 					}			
 				}
 				agregarEvento(document, "keyup", on_menu_set_popup_off);

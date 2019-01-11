@@ -221,9 +221,9 @@ toba = new function() {
 	/**
 	 * Cambia la forma en la que trabaja el menu, haciendo que los links se abran en una nueva celda de memoria y en un popup
 	 */
-	toba.set_menu_popup = function(estado) {	
+	toba.set_menu_popup = function(estado, id, clase) {	
 		//var links = $("menu-h").getElementsByTagName("a");
-		var links = getElementsByClass('nivel-0', $$('menu-h'));
+		var links = getElementsByClass(clase, $$(id));
 		for (var i=0; i<links.length; i++) {
 			if (estado) {
 				agregar_clase_css(links[i], "menu-link-alt");
