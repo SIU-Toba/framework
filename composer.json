@@ -31,7 +31,7 @@
         "siu-toba/text_highlighter": "~0.8",
         "siu-toba/services_json": "^1.0.3.3", 
         "siu/rdi": "~0.9", 
-        "vlucas/phpdotenv": "~2.0",
+        "vlucas/phpdotenv": "~3.0",
         "ioncube/php-openssl-cryptor": "dev-master",
         "siu/manejador-salida-toba" : "^1.0",
 	"jaspersoft/rest-client": "^2.0",
@@ -40,7 +40,7 @@
     "require-dev": {
         "simpletest/simpletest": "~1.1", 
         "facebook/webdriver": "^1",
-        "greenlion/PHP-SQL-Parser": "@dev"        
+        "greenlion/PHP-SQL-Parser": "@dev"
     },
     "suggest": {
         "siu-toba/jasper": "Permite imprimir reportes via Jasper desde SIU-Toba",
