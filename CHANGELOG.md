@@ -3,6 +3,13 @@
 ## CHANGELOG
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
+- Se modifican estilos en la pantalla de login generica para que al cambiar el manejador de salida no se vea desalineado
+- En la API JS se agregan parametros al metodo toba::set_menu_popup para poder reusarlo en los menu de manejadores de salida
+- Fix en toba_basic_logger para evitar leak de memoria cuando en la traza se devuelven objetos
+- Fix en toba_autenticacion_saml_onelogin cuando se permite usar la autenticacion basica de Toba
+- Se incorpora Workaround para salvaguardar bug en Yarn
+- Se incorpora toba_ei_calendario al esquema de manejadores de salida
+- Se agrega un ejemplo de manejador-salida parcial que deriva del paquete siu/manejador-salida-boostrap
 - El SP Onelogin va a correr en modo estricto (requiere certificados) en una instancia de produccion a menos que se especifique lo contrario 
 - Actualizacion librerias
   * onelogin/php-saml: v3.0.0
@@ -33,6 +40,10 @@
 - Bugfix a la ejecucion de test desde consola
 - Se agrega siu/manejador-salida-bootstrap como paquete sugerido
 - Se traslada parte de la generación del marcado HTML al paquete siu/manejador-salida-toba
+
+[3.1.6](https://github.com/SIU-Toba/framework/releases/tag/v3.1.6) (2019-01-15)
+- Modifica el hook de Toba para Registry, remueve codigo no necesario
+- Modifica toba_version quitando la opcion pre-alpha y agregando la opcion dev
 
 [3.1.5](https://github.com/SIU-Toba/framework/releases/tag/v3.1.5) (2018-12-07)
 - Fix en verificacion de versiones compatibles de Arai (merge desde develop)
@@ -93,6 +104,9 @@
   * Elimina element-34/php-webdriver 
   * Agrega facebook/webdriver: v1.5.0
 - Se cambia Bower por Yarn como manejador de assets JS
+
+[3.0.31](https://github.com/SIU-Toba/framework/releases/tag/v3.0.31) (2018-10-25):
+- Se corrige bug en toba_ini que en ciertas secuencias de uso mezclaba configuraciones generales con secciones al guardar
 
 [3.0.30](https://github.com/SIU-Toba/framework/releases/tag/v3.0.30) (2018-08-28):
 - Se cambia el scope de los métodos que implementan el selector de ordenamiento múltiple del cuadro a protected
