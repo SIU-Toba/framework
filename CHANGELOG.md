@@ -4,6 +4,10 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.1.6](https://github.com/SIU-Toba/framework/releases/tag/v3.1.6) (2019-01-15)
+- Modifica el hook de Toba para Registry, remueve codigo no necesario (merge @develop)
+- Modifica toba_version quitando la opcion pre-alpha y agregando la opcion dev (merge @develop)
+
 [3.1.5](https://github.com/SIU-Toba/framework/releases/tag/v3.1.5) (2018-12-07)
 - Fix en verificacion de versiones compatibles de Arai (merge desde develop)
 - Acualizacion de seguridad de librerias:
