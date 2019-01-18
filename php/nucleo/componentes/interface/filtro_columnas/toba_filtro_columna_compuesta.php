@@ -77,6 +77,39 @@ abstract class toba_filtro_columna_compuesta extends toba_filtro_columna
 		return $html;
 	}		
 	
+	function get_pdf_valor()
+	{
+		$this->_ef->ir_a_fila();	
+		$valor = $this->_ef->get_descripcion_estado('pdf');
+		if ($this->es_compuesto() && $this->_estado['condicion'] == 'entre') {
+			$estado_anterior = $this->_ef->get_estado();
+			$this->_ef->ir_a_fila('extra');
+			if (isset($this->_estado) && isset($this->_estado['valor']['hasta'])) {
+				$this->_ef->set_estado($this->_estado['valor']['hasta']);
+				$valor .= PHP_EOL . $this->_ef->get_descripcion_estado('pdf');
+			}			
+			$this->_ef->ir_a_fila();
+			$this->_ef->set_estado($estado_anterior);
+		}
+		return $valor;
+	}
+	
+	function get_excel_valor()
+	{
+		$this->_ef->ir_a_fila();	
+		$valor = $this->_ef->get_descripcion_estado('excel');
+		if ($this->es_compuesto() && $this->_estado['condicion'] == 'entre') {
+			$estado_anterior = $this->_ef->get_estado();
+			$this->_ef->ir_a_fila('extra');
+			if (isset($this->_estado) && isset($this->_estado['valor']['hasta'])) {
+				$this->_ef->set_estado($this->_estado['valor']['hasta']);
+				$aux = $this->_ef->get_descripcion_estado('excel');
+				$valor = array($valor[0] . ' & ' . $aux[0], null);
+			}
+			$this->_ef->ir_a_fila();
+			$this->_ef->set_estado($estado_anterior);
+		}
+		return $valor;
+	}
 }
-
 ?>

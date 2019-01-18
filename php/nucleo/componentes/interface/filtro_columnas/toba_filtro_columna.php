@@ -488,7 +488,18 @@ abstract class toba_filtro_columna
 		return $html;
 	}
 		
-
+	function get_pdf_valor()
+	{
+		$valor = $this->_ef->get_descripcion_estado('pdf');
+		return $valor;
+	}
+	
+	function get_excel_valor()
+	{
+		$valor = $this->_ef->get_descripcion_estado('excel');
+		return $valor;		
+	}
+	
 	//-----------------------------------------------
 	//--- JAVASCRIPT   ------------------------------
 	//-----------------------------------------------
