@@ -27,8 +27,6 @@ class RegistryHooksProyectoToba implements HooksInterface
 	 */
 	protected $instalacion;
 
-	protected $araiSyncKey;
-
 	function __construct()
 	{
 		$this->inicializarEntorno();
@@ -186,16 +184,16 @@ class RegistryHooksProyectoToba implements HooksInterface
 	{
 		$cant = count($feature->getProviders());
 		echo "Detectando proveedores de api '{$feature->getName()}': {$cant}\n";
-		
+
 		$providers = $feature->getProviders();
 		if (empty($providers)) return;    //Nada para configurar
 
 		/** @var Provision */
 		$optionsFijas = $feature->getOptions();
 		$provider = current($providers);  //Asume primer IDP que encuentra!
-		
+
 		echo "Procesando proveedor '{$provider->getName()}': ";
-		
+
 		if ($provider->getEndpoint() == '') {
 			echo "no posee configurado 'endpoint'\n";
 			return;
@@ -220,7 +218,7 @@ class RegistryHooksProyectoToba implements HooksInterface
 			$iniInstalacion = new \toba_ini($this->instalacion->archivo_info_basica());
 			$iniInstalacion->agregar_entrada("vincula_arai_usuarios", "1");
 			$iniInstalacion->guardar();
-			
+
 			echo "Activando vínculo entre 'toba_usuarios' y 'Araí' para la gestión de cuentas\n";
 		}		
 	}
@@ -231,7 +229,7 @@ class RegistryHooksProyectoToba implements HooksInterface
 	{
 		$cant = count($feature->getProviders());
 		echo "Detectando proveedores de servicio '{$feature->getName()}': {$cant}\n";
-		
+
 		if ($feature->getName() == "service:siu/sso-saml-idp") {
 			$this->postConsumeSamlIdp($feature);
 		}
@@ -246,7 +244,7 @@ class RegistryHooksProyectoToba implements HooksInterface
 		$options = $provider->getOptions();
 
 		echo "Procesando proveedor '{$provider->getName()}': ";
-		
+
 		$endpoint = $provider->getEndpoint();
 		if ($endpoint == '') {
 			echo "no posee configurado 'endpoint'\n";
@@ -283,7 +281,7 @@ class RegistryHooksProyectoToba implements HooksInterface
 		}
 		$iniSaml->agregar_entrada("idp:".$endpoint, $idp);
 		$iniSaml->guardar();
-		
+
 		echo "configurado con '{$provider->getEndpoint()}'\n";
 	}
 
@@ -315,7 +313,7 @@ class RegistryHooksProyectoToba implements HooksInterface
 			$options['auth']['type'] = $iniServer->get_datos_entrada("autenticacion");
 		}
 
-	$publicKey = $this->getAraiSyncKeyPublic();
+		$publicKey = $this->getAraiSyncKeyPublic();
 		$options['auth']['credentials']['cert'] = $publicKey;
 
 		$endpoint = $this->getProyectoUrl();
@@ -362,7 +360,7 @@ class RegistryHooksProyectoToba implements HooksInterface
 
 		$cant = count($feature->getConsumers());
 		echo "Detectando clientes de api '{$feature->getName()}': {$cant}\n";
-		
+
 		foreach ($feature->getConsumers() as $consumer) {
 			$authInfo = $consumer->getAuth();
 			if (empty($authInfo)) continue;
@@ -390,9 +388,9 @@ class RegistryHooksProyectoToba implements HooksInterface
 			$archivo = $this->instalacion->get_instancia($this->getInstanciaId())->get_dir()."/instancia.ini";
 			throw new \Exception("Es necesario especificar la URL completa del sistema en el atributo 'full_url' de la seccion [$proyecto] del archivo $archivo");
 		}
-	if (substr($fullUrl, -1) == '/') {
-		$fullUrl = substr($fullUrl, 0, -1);
-	}
+		if (substr($fullUrl, -1) == '/') {
+			$fullUrl = substr($fullUrl, 0, -1);
+		}
 		return $fullUrl;
 	}
 
@@ -402,7 +400,6 @@ class RegistryHooksProyectoToba implements HooksInterface
 	protected function inicializarEntorno()
 	{
 		$this->instalacion = $this->cargarToba();
-		$this->araiSyncKey = $this->cargarAraiSyncKey();
 	}
 
 	/**
@@ -436,18 +433,20 @@ class RegistryHooksProyectoToba implements HooksInterface
 		if (!is_readable($araiSyncKeyFile)) {
 			throw new \Exception("No se puede leer el certificado '$araiSyncKeyFile' para sincronizar con SIU-Arai configurado en el archivo 'instalacion.ini'");
 		}
-		
+
 		return $araiSyncKeyFile;
 	}
 
 	protected function getAraiSyncKeyPublic()
 	{
-		return AraiCli::getCryptoService()->getPublicFromSyncKey($this->araiSyncKey);
+		$araiSyncKey = $this->cargarAraiSyncKey();
+		return AraiCli::getCryptoService()->getPublicFromSyncKey($araiSyncKey);
 	}
 
 	protected function getAraiSyncKeyPrivate()
 	{
-		return AraiCli::getCryptoService()->getPrivateFromSyncKey($this->araiSyncKey);
+		$araiSyncKey = $this->cargarAraiSyncKey();
+		return AraiCli::getCryptoService()->getPrivateFromSyncKey($araiSyncKey);
 	}
 
 	/**
@@ -588,7 +587,7 @@ class RegistryHooksProyectoToba implements HooksInterface
 
 		$iniCliente->agregar_entrada("conexion", $datos);
 		$iniCliente->guardar();
-		
+
 		echo "configurado con '{$provider->getEndpoint()}'\n";
 	}
 
@@ -605,7 +604,7 @@ class RegistryHooksProyectoToba implements HooksInterface
 			echo "el cliente de la api '$apiId' no esta correctamente configurado (no posee la entrada conexion)\n";
 			return;
 		}
-		
+
 		$provider = current($feature->getProviders());
 		if (empty($provider)){
 			return;
@@ -613,9 +612,9 @@ class RegistryHooksProyectoToba implements HooksInterface
 
 		$authServer = $provider->getOptions()['auth'];
 		$authCliente = $iniCliente->get_datos_entrada('conexion');
-		
+
 		$authType = $authCliente['auth_tipo'];
-		
+
 		if (in_array($authType, array('basic', 'digest'))) {
 			$credentials = $this->configurarClienteSimple($feature, $authServer, $authCliente);
 		}
@@ -641,12 +640,12 @@ class RegistryHooksProyectoToba implements HooksInterface
 		$credentials = [
 			'user' => $authCliente['auth_usuario'],
 			'password' => $encrypted,
-		         'cert' => $sendPublic,
+			'cert' => $sendPublic,
 		];
 
 		 return $credentials;
 	}
-	
+
 	//-----------------------------------------------------------------------------//
 	public static function checkVersionCompatible()
 	{
