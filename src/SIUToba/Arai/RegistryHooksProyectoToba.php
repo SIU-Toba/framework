@@ -27,8 +27,6 @@ class RegistryHooksProyectoToba implements HooksInterface
      */
     protected $instalacion;
 
-    protected $araiSyncKey;
-
     function __construct()
     {
         $this->inicializarEntorno();
@@ -250,9 +248,9 @@ class RegistryHooksProyectoToba implements HooksInterface
 
         $endpoint = $provider->getEndpoint();
         if ($endpoint == '') {
-		echo "no posee configurado 'endpoint'\n";
-		return;
-	}
+                echo "no posee configurado 'endpoint'\n";
+                return;
+        }
         $iniInstalacion = new \toba_ini($this->instalacion->archivo_info_basica());
 
         $iniInstalacion->agregar_entrada("autenticacion", "saml_onelogin");
@@ -316,7 +314,7 @@ class RegistryHooksProyectoToba implements HooksInterface
             $options['auth']['type'] = $iniServer->get_datos_entrada("autenticacion");
         }
 
-	$publicKey = $this->getAraiSyncKeyPublic();
+        $publicKey = $this->getAraiSyncKeyPublic();
         $options['auth']['credentials']['cert'] = $publicKey;
 
         $endpoint = $this->getProyectoUrl();
@@ -391,9 +389,9 @@ class RegistryHooksProyectoToba implements HooksInterface
             $archivo = $this->instalacion->get_instancia($this->getInstanciaId())->get_dir()."/instancia.ini";
             throw new \Exception("Es necesario especificar la URL completa del sistema en el atributo 'full_url' de la seccion [$proyecto] del archivo $archivo");
         }
-	if (substr($fullUrl, -1) == '/') {
-		$fullUrl = substr($fullUrl, 0, -1);
-	}
+        if (substr($fullUrl, -1) == '/') {
+                $fullUrl = substr($fullUrl, 0, -1);
+        }
         return $fullUrl;
     }
 
@@ -403,8 +401,6 @@ class RegistryHooksProyectoToba implements HooksInterface
     protected function inicializarEntorno()
     {
         $this->instalacion = $this->cargarToba();
-
-        $this->araiSyncKey = $this->cargarAraiSyncKey();
     }
 
     /**
@@ -444,12 +440,14 @@ class RegistryHooksProyectoToba implements HooksInterface
 
     protected function getAraiSyncKeyPublic()
     {
-        return AraiCli::getCryptoService()->getPublicFromSyncKey($this->araiSyncKey);
+        $araiSyncKey = $this->cargarAraiSyncKey();
+        return AraiCli::getCryptoService()->getPublicFromSyncKey($araiSyncKey);
     }
 
     protected function getAraiSyncKeyPrivate()
     {
-	    return AraiCli::getCryptoService()->getPrivateFromSyncKey($this->araiSyncKey);
+         $araiSyncKey = $this->cargarAraiSyncKey();
+         return AraiCli::getCryptoService()->getPrivateFromSyncKey($araiSyncKey);
     }
 
     /**
@@ -582,7 +580,7 @@ class RegistryHooksProyectoToba implements HooksInterface
         if (!$iniCliente->existe_entrada("conexion")) {
             echo "el cliente de la api '$apiId' no esta correctamente configurado (no posee la entrada conexion)\n";
             return;
-	}
+        }
 
         $datos = $iniCliente->get_datos_entrada('conexion');
 
