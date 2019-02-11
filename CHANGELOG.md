@@ -3,6 +3,11 @@
 ## CHANGELOG
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
+- El hook de contacto con Arai pospone la carga del archivo con las claves al momento estrictamente necesario
+- Bugfix en exportacion pdf y excel de columnas compuestas de toba_ei_filtro
+- Actualizacion librerias
+  * vlucas/phpdotevn: v3.1.0
+  * ircmaxell/random-lib cambia de proveedor a paragonie/random-lib @2.0
 - Se modifican estilos en la pantalla de login generica para que al cambiar el manejador de salida no se vea desalineado
 - En la API JS se agregan parametros al metodo toba::set_menu_popup para poder reusarlo en los menu de manejadores de salida
 - Fix en toba_basic_logger para evitar leak de memoria cuando en la traza se devuelven objetos
