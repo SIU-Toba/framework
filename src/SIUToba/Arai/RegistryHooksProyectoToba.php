@@ -27,8 +27,6 @@ class RegistryHooksProyectoToba implements HooksInterface
      */
     protected $instalacion;
 
-    protected $araiSyncKey;
-
     function __construct()
     {
         $this->inicializarEntorno();
@@ -250,9 +248,9 @@ class RegistryHooksProyectoToba implements HooksInterface
 
         $endpoint = $provider->getEndpoint();
         if ($endpoint == '') {
-		echo "no posee configurado 'endpoint'\n";
-		return;
-	}
+                echo "no posee configurado 'endpoint'\n";
+                return;
+        }
         $iniInstalacion = new \toba_ini($this->instalacion->archivo_info_basica());
 
         $iniInstalacion->agregar_entrada("autenticacion", "saml_onelogin");
@@ -316,7 +314,7 @@ class RegistryHooksProyectoToba implements HooksInterface
             $options['auth']['type'] = $iniServer->get_datos_entrada("autenticacion");
         }
 
-	$publicKey = $this->getAraiSyncKeyPublic();
+        $publicKey = $this->getAraiSyncKeyPublic();
         $options['auth']['credentials']['cert'] = $publicKey;
 
         $endpoint = $this->getProyectoUrl();
@@ -391,9 +389,9 @@ class RegistryHooksProyectoToba implements HooksInterface
             $archivo = $this->instalacion->get_instancia($this->getInstanciaId())->get_dir()."/instancia.ini";
             throw new \Exception("Es necesario especificar la URL completa del sistema en el atributo 'full_url' de la seccion [$proyecto] del archivo $archivo");
         }
-	if (substr($fullUrl, -1) == '/') {
-		$fullUrl = substr($fullUrl, 0, -1);
-	}
+        if (substr($fullUrl, -1) == '/') {
+                $fullUrl = substr($fullUrl, 0, -1);
+        }
         return $fullUrl;
     }
 
@@ -403,8 +401,6 @@ class RegistryHooksProyectoToba implements HooksInterface
     protected function inicializarEntorno()
     {
         $this->instalacion = $this->cargarToba();
-
-        $this->araiSyncKey = $this->cargarAraiSyncKey();
     }
 
     /**
@@ -444,12 +440,14 @@ class RegistryHooksProyectoToba implements HooksInterface
 
     protected function getAraiSyncKeyPublic()
     {
-        return AraiCli::getCryptoService()->getPublicFromSyncKey($this->araiSyncKey);
+        $araiSyncKey = $this->cargarAraiSyncKey();
+        return AraiCli::getCryptoService()->getPublicFromSyncKey($araiSyncKey);
     }
 
     protected function getAraiSyncKeyPrivate()
     {
-	    return AraiCli::getCryptoService()->getPrivateFromSyncKey($this->araiSyncKey);
+         $araiSyncKey = $this->cargarAraiSyncKey();
+         return AraiCli::getCryptoService()->getPrivateFromSyncKey($araiSyncKey);
     }
 
     /**
@@ -538,6 +536,7 @@ class RegistryHooksProyectoToba implements HooksInterface
     {
         echo "Procesando cliente con usuario '{$auth['credentials']['user']}':";
         if (!isset($auth['credentials']['cert'])) {
+            echo " sin clave pública\n";
             return;
         }
 
@@ -556,7 +555,8 @@ class RegistryHooksProyectoToba implements HooksInterface
             echo " {$e->getMessage()}\n";
         }
 
-        if (!$decryptedCredentials){
+        if (!$decryptedCredentials) {
+            echo " no se pudo desencriptar la clave\n";
             return;
         }
 
@@ -582,13 +582,25 @@ class RegistryHooksProyectoToba implements HooksInterface
         if (!$iniCliente->existe_entrada("conexion")) {
             echo "el cliente de la api '$apiId' no esta correctamente configurado (no posee la entrada conexion)\n";
             return;
-	}
+        }
 
         $datos = $iniCliente->get_datos_entrada('conexion');
 
         $datos['to'] = $provider->getEndpoint();
 
-        $datos['auth_tipo'] = $provider->getOptions()['auth']['type'];
+       $posibles = explode(',' , $provider->getOptions()['auth']['type']);
+        if (count($posibles) > 1) {
+            if (! isset($datos['auth_tipo'])) {
+                $datos['auth_tipo'] = current($posibles);			//Defaultea en el primero porque se desconocen las capacidades del cliente
+            } elseif (! in_array($datos['auth_tipo'], $posibles)) {
+                echo 'El servidor no provee el mecanismo de autenticación "' . $datos['auth_tipo'] . '"' . PHP_EOL;
+                return;
+            } elseif (in_array($datos['auth_tipo'], array('basic', 'digest')) && in_array('digest', $posibles)) {
+                $datos['auth_tipo'] = 'digest';					//Si usa uno de los basicos y esta disponible, poner el menos peorcito
+            }			
+        } else {
+            $datos['auth_tipo'] = current($posibles);			//Defaultea en el unico metodo provisto por el server (BC)
+        }
 
         $iniCliente->agregar_entrada("conexion", $datos);
         $iniCliente->guardar();
@@ -621,11 +633,12 @@ class RegistryHooksProyectoToba implements HooksInterface
 
         $authType = $authCliente['auth_tipo'];
 
+        $credentials = [];
         if (in_array($authType, array('basic', 'digest'))){
             $credentials = $this->configurarClienteSimple($feature, $authServer, $authCliente);
         }
 
-        if ($credentials){
+       if ( ! empty($credentials)) {
             $feature->addAuth($authType, $credentials);
         }
     }

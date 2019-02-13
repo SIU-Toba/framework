@@ -4,6 +4,10 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.1.7](https://github.com/SIU-Toba/framework/releases/tag/v3.1.7) (2019-02-13)
+- Se mejora la autoconfiguración de apis rest via arai-cli (merge @develop)
+- Se pospone la carga del archivo de claves de arai (merge @develop)
+
 [3.1.6](https://github.com/SIU-Toba/framework/releases/tag/v3.1.6) (2019-01-15)
 - Modifica el hook de Toba para Registry, remueve codigo no necesario (merge @develop)
 - Modifica toba_version quitando la opcion pre-alpha y agregando la opcion dev (merge @develop)
