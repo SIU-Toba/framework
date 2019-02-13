@@ -590,7 +590,8 @@ class RegistryHooksProyectoToba implements HooksInterface
 			if (! isset($datos['auth_tipo'])) {
 				$datos['auth_tipo'] = current($posibles);			//Defaultea en el primero porque se desconocen las capacidades del cliente
 			} elseif (! in_array($datos['auth_tipo'], $posibles)) {
-				throw new \Exception('El servidor no provee el mecanismo de autenticación "' . $datos['auth_tipo'] . '" por favor seleccione otro' );
+				echo 'El servidor no provee el mecanismo de autenticación "' . $datos['auth_tipo'] . '"' . PHP_EOL;
+				return;
 			} elseif (in_array($datos['auth_tipo'], array('basic', 'digest')) && in_array('digest', $posibles)) {
 				$datos['auth_tipo'] = 'digest';					//Si usa uno de los basicos y esta disponible, poner el menos peorcito
 			}			
