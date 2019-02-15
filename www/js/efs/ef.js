@@ -11,7 +11,7 @@ if (pagina_cargada) {
 	marcaError.style.display = 'none';
 	marcaError.style.position = 'absolute';
 	
-	document.body.appendChild(html);
+	document.body.appendChild(marcaError);
 }
 
 var apex_ef_no_seteado = 'nopar';
