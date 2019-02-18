@@ -627,7 +627,7 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 		$descripcion_resp_popup = $this->_cuadro->get_descripcion_resp_popup($id_fila);
 		
 		echo toba::output()->get('CuadroSalidaHtml')->getPreCeldaEvento($pre_columnas,$this->_cuadro->get_eventos_sobre_fila());
-		foreach ($this->_cuadro->get_eventos_sobre_fila() as $id => $evento) {
+		foreach ($this->_cuadro->get_eventos_sobre_fila() as $evento) {
 			$parametros = $this->get_parametros_interaccion($id_fila, $clave_fila);
 			$invocacion_evento_fila = $this->get_invocacion_evento_fila($evento, $id_fila, $clave_fila, false, $parametros);
 			
