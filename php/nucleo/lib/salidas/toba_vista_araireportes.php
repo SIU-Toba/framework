@@ -21,21 +21,20 @@ class toba_vista_araireportes
 	
 	private $lista_jrprint = array();
 	protected $url; 
-	protected $url_base;
-	protected $usr;
-	protected $pwd;
 	
 	protected $uri;
 	protected $extension = 'pdf';
-	protected $id_reporte;
+	protected $id_reporte='';
+	
+	 static protected $servicio_reporte='reportes';
 	
 	function __construct()
 	{
 		$this->temp_salida = toba::proyecto()->get_path_temp().'/'.uniqid('jasper_');
+		$this->url =  self::$servicio_reporte .'?proyecto='. toba::proyecto()->get_id();			//Hago que parta de la carpeta del proyecto (o al menos deberia)
 		
-		$this->read_ini_config();
 		$this->crear_cliente();		
-		
+
 		/*Creamos una variable tipo arreglo que contendrá los parámetros */
 		$this->parametros = [];
 	}
@@ -48,18 +47,9 @@ class toba_vista_araireportes
 		$this->objetos = $objetos;
 	}
 	
-	protected function read_ini_config()
-	{
-		$this->usr = 'usuario1';
-		$this->pwd = '1234';
-		$this->url_base = 'http://localhost';
-		$this->url =  '/reporting/rest/reportes/?proyecto='. toba::proyecto()->get_id();		
-	}
-	
 	protected function crear_cliente()
 	{
-		$opciones = array('to' => $this->url_base, 'auth_usuario' => $this->usr, 'auth_password' => $this->pwd, 'auth_tipo' => 'basic');
-		$this->cliente = new \toba_servicio_web_cliente_rest($opciones, null, null);
+		$this->cliente = toba_servicio_web_cliente_rest::conectar('rest_arai_reportes');
 	}
 		
 	/**
@@ -146,6 +136,7 @@ class toba_vista_araireportes
 	function set_path_reporte($path) 
 	{
 		$this->uri = $path;
+		$this->url = self::$servicio_reporte . "/". toba::proyecto()->get_id();
 	}
 	
 	function compilar_reporte($path_plantilla, $path_reporte=null)
@@ -253,27 +244,29 @@ class toba_vista_araireportes
 	function crear_recursos_temporales()
 	{		
 		//Si el conjunto de datos viene de un archivo comun
-		$url = '/report/rest/archivos';
-		$data = array('proyecto' => toba::proyecto()->get_id(), 'uri' => $this->uri);
-		if ($this->modo_archivo) {
-			$data['archivo']['tipo'] = 'xml';
-                        $data['archivo']['temporal'] = true;
-			$data['archivo']['data'] = base64_encode(file_get_contents($this->xml_path));
-		}
-		
-		try {			
-			$resp = $this->cliente->guzzle()->request('POST', $url, array('json' => $data));
-		} catch (RequestException $e) {
-			toba::logger()->debug($e->getMessage());
-			throw new toba_error_usuario('Se produjo un error al generar el reporte');
-		}
-		
-		if ($resp->getStatusCode() == 201) {
-			$result = json_decode($resp->getBody()->getContents());
-			if ($result !== false) {
-				$this->parametros['net.sf.jasperreports.xml.source'] = 'repo:' . $result->uri;
+		if (isset($this->xml_path)) {
+			$url = 'archivos';
+			$data = array('proyecto' => toba::proyecto()->get_id(), 'uri' => $this->uri);
+			if ($this->modo_archivo) {
+				$data['archivo']['tipo'] = 'xml';
+				$data['archivo']['temporal'] = 1;
+				$data['archivo']['data'] = base64_encode(file_get_contents($this->xml_path));
 			}
-		}		
+
+			try {			
+				$resp = $this->cliente->guzzle()->request('POST', $url, array('json' => $data));
+			} catch (RequestException $e) {
+				toba::logger()->debug($e->getMessage());
+				throw new toba_error_usuario('Se produjo un error al generar el reporte');
+			}
+
+			if ($resp->getStatusCode() == 201) {
+				$result = json_decode($resp->getBody()->getContents());
+				if ($result !== false) {
+					$this->parametros['net.sf.jasperreports.xml.source'] = 'repo:' . $result->uri;
+				}
+			}		
+		}
 	}
 
 	/**
