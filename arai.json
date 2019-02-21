@@ -20,13 +20,18 @@
     }, 
     {
        "name": "api:siu/arai_reportes",
-      "version": ">=1.0.0"		
+       "version": ">=1.0.0", 
+       "options": {
+	"toba-rest" : [
+	  {"proyecto" : "toba_referencia", "rest-id": "rest_arai_reportes"}
+	 ]
+	}	
     }
   ], 
   "provide" : [
     {
       "name": "app:siu/toba_usuarios",
-      "version": ">=3.0.27"
+      "version": ">=3.2.0"
     }
   ]
 } 
