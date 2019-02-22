@@ -51,11 +51,11 @@ class toba_app_launcher
 									'aplicaciones' => array(),
 									'cuentas' => array(),
 								);
-		
+				
 		// datos provenientes de la autenticacion
 		$atributos_usuario = toba::manejador_sesiones()->get_autenticacion()->get_atributos_usuario();
 		if (isset($atributos_usuario['appLauncherData']) && !empty($atributos_usuario['appLauncherData'])) {			
-			$appLauncherData = array_a_latin1(json_decode(current($atributos_usuario['appLauncherData']), true));
+			$appLauncherData = array_a_latin1(json_decode(current($atributos_usuario['appLauncherData']), true));		
 			$appLauncherData['usuario_id'] = $this->generar_descripcion_id($appLauncherData, toba::usuario()->get_id());
 		} else {
 			$appLauncherData = array();
@@ -66,7 +66,10 @@ class toba_app_launcher
 			$appLauncherData['cuenta_actual'] = $cuentas_disponibles['usuario_actual'];
 			unset($cuentas_disponibles['usuario_actual']);		
 			$appLauncherData['cuentas']  = $cuentas_disponibles;
-		}
+		}		
+		//Para debug
+		//return array_merge($appLauncherDataDefault, $appLauncherData, $this->getJsonTest());
+		
 		// mergeo entre los datos por defecto y los datos de la autenticacion
 		return array_merge($appLauncherDataDefault, $appLauncherData);
 	}
@@ -137,5 +140,11 @@ class toba_app_launcher
 		}
 		return $resultado; 
 	}	
+	
+	private function getJsonTest()
+	{
+		$jsondetest = '{"aplicaciones":[{"url":"https:\/\/gitlab.control.ar","etiqueta":"Gitlab","descripcion":"Gitlab S86","appUniqueId":"s86-gitlab_1.s86-gitlab","icono_url":"https:\/\/usuarios.s86.edu.ar\/resources\/img\/aplicaciones_iconos\/s86-gitlab_1.s86-gitlab.png"},{"url":"https:\/\/aulavirtual.s86.maxwell.ar","etiqueta":"Moodle","descripcion":"El moodle","appUniqueId":"s86-aulavirtual_1.s86-maxwell","icono_url":"https:\/\/usuarios.s86.ar\/resources\/img\/aplicaciones_iconos\/s86-usuarios_1.s86.png"},{"url":"https:\/\/redtuyo.s86.edu.ar","etiqueta":"Redtuyo","descripcion":"Repositorio Redtuyo","appUniqueId":"s86-redtuyo_1.s86-redtuyo","icono_url":"https:\/\/usuarios.s86.ar\/resources\/img\/aplicaciones_iconos\/s86-redtuyo_1.s86-redtuyo.png"}],"usuario_id":"Chakotay","usuario_nombre":"Hijo del viento","perfil_url":"https:\/\/indio.s86.ar"}';			
+		return array_a_latin1(json_decode($jsondetest, true));		
+	}
 }
 ?>
