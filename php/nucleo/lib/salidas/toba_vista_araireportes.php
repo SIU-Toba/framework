@@ -262,7 +262,7 @@ class toba_vista_araireportes
 
 			if ($resp->getStatusCode() == 201) {
 				$result = json_decode($resp->getBody()->getContents());
-				if ($result !== false) {
+				if ($result !== false && is_object($result)) {
 					$this->parametros['net.sf.jasperreports.xml.source'] = 'repo:' . $result->uri;
 				}
 			}		
