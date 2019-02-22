@@ -1,18 +1,21 @@
 {
-	"name" : "siu-toba/framework",
-	"description" : "Framework de desarrollo web",
-	"authors" : [{
-			"name" : "SIU",
-			"email" : "toba@siu.edu.ar"
-		}
-	],
-	"repositories" : [{
-			"type" : "composer",
-			"url" : "https://satis.siu.edu.ar"
-		}],
-	"minimum-stability" : "dev",
-	"prefer-stable" : true,
-	"require" : {
+    "name": "siu-toba/framework",
+    "description": "Framework de desarrollo web",
+    "authors": [
+        {
+            "name": "SIU",
+            "email": "toba@siu.edu.ar"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://satis.siu.edu.ar"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable" : true,
+    "require": {
 	"php" : ">=7.1",
         "symfony/yaml": "~3.1",
         "siu/security-multitool": "1.0",
@@ -30,11 +33,10 @@
         "phpmailer/phpmailer": "^6.0",
         "siu-toba/text_highlighter": "~0.8",
         "siu-toba/services_json": "^1.0.3.3", 
-        "siu/rdi": "~0.9", 
-        "vlucas/phpdotenv": "~3.0",
+        "siu/rdi": "~0.9",
+        "vlucas/phpdotenv": "~3.1",
         "ioncube/php-openssl-cryptor": "dev-master",
         "siu/manejador-salida-toba" : "^1.0",
-	"jaspersoft/rest-client": "^2.0",
 	"psr/log": "^1.0"
     },
     "require-dev": {
@@ -46,10 +48,11 @@
         "siu/arai-json-parser": "*",
         "siu/arai-json-migrator": "*",
         "paragonie/halite": "1.6.0",
-        "siu/manejador-salida-bootstrap" : "1.0"
+        "siu/manejador-salida-bootstrap" : "^1.0"
     },
     "suggest": {
         "siu-toba/jasper": "Permite imprimir reportes via Jasper desde SIU-Toba",
+        "siu/arai-reportes": "Permite imprimir reportes via un servidor Jasper desde SIU-Toba",
         "siu/arai-cli" : "Librería cliente de los componentes ARAI",
         "siu/manejador-salida-bootstrap": "Permite generar un marcado HTML responsive",
         "simplesamlphp/simplesamlphp": "Permite conectarse a un IDP centralizado (see onelogin)"

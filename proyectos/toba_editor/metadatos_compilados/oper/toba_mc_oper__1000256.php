@@ -3861,21 +3861,6 @@ class toba_mc_comp__1530
       'externa' => 0,
       'tabla' => NULL,
     ),
-    78 => 
-    array (
-      'objeto_proyecto' => 'toba_editor',
-      'objeto' => 1530,
-      'col_id' => 33000196,
-      'columna' => 'editor_config_file',
-      'tipo' => 'C',
-      'pk' => 0,
-      'secuencia' => NULL,
-      'largo' => NULL,
-      'no_nulo' => NULL,
-      'no_nulo_db' => 0,
-      'externa' => 0,
-      'tabla' => NULL,
-    ),
   ),
   '_info_externas' => 
   array (
@@ -5458,58 +5443,6 @@ class toba_mc_comp__1390
   array (
     0 => 
     array (
-      'identificador' => 'efs',
-      'proyecto' => 'toba_editor',
-      'objeto' => 1387,
-      'clase' => 'toba_ei_formulario',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
-      'fuente' => 'instancia',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    1 => 
-    array (
-      'identificador' => 'efs_importar',
-      'proyecto' => 'toba_editor',
-      'objeto' => 1631,
-      'clase' => 'toba_ei_formulario',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
-      'fuente' => 'instancia',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    2 => 
-    array (
-      'identificador' => 'efs_ini',
-      'proyecto' => 'toba_editor',
-      'objeto' => 1393,
-      'clase' => 'toba_ei_formulario_ml',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
-      'fuente' => 'instancia',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    3 => 
-    array (
-      'identificador' => 'efs_lista',
-      'proyecto' => 'toba_editor',
-      'objeto' => 1389,
-      'clase' => 'toba_ei_formulario_ml',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
-      'subclase' => 'eiform_abm_detalle',
-      'subclase_archivo' => 'objetos_toba/eiform_abm_detalle.php',
-      'fuente' => 'instancia',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    4 => 
-    array (
       'identificador' => 'esquema_cascadas',
       'proyecto' => 'toba_editor',
       'objeto' => 1000122,
@@ -5521,7 +5454,20 @@ class toba_mc_comp__1390
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
-    5 => 
+    1 => 
+    array (
+      'identificador' => 'param_varios',
+      'proyecto' => 'toba_editor',
+      'objeto' => 1000154,
+      'clase' => 'toba_ei_formulario',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
+      'subclase' => 'form_varios',
+      'subclase_archivo' => 'objetos_toba/efs/form_varios.php',
+      'fuente' => 'instancia',
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    2 => 
     array (
       'identificador' => 'param_carga',
       'proyecto' => 'toba_editor',
@@ -5534,15 +5480,54 @@ class toba_mc_comp__1390
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
-    6 => 
+    3 => 
     array (
-      'identificador' => 'param_varios',
+      'identificador' => 'efs',
       'proyecto' => 'toba_editor',
-      'objeto' => 1000154,
+      'objeto' => 1387,
       'clase' => 'toba_ei_formulario',
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
-      'subclase' => 'form_varios',
-      'subclase_archivo' => 'objetos_toba/efs/form_varios.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
+      'fuente' => 'instancia',
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    4 => 
+    array (
+      'identificador' => 'efs_importar',
+      'proyecto' => 'toba_editor',
+      'objeto' => 1631,
+      'clase' => 'toba_ei_formulario',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
+      'fuente' => 'instancia',
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    5 => 
+    array (
+      'identificador' => 'efs_ini',
+      'proyecto' => 'toba_editor',
+      'objeto' => 1393,
+      'clase' => 'toba_ei_formulario_ml',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
+      'fuente' => 'instancia',
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    6 => 
+    array (
+      'identificador' => 'efs_lista',
+      'proyecto' => 'toba_editor',
+      'objeto' => 1389,
+      'clase' => 'toba_ei_formulario_ml',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
+      'subclase' => 'eiform_abm_detalle',
+      'subclase_archivo' => 'objetos_toba/eiform_abm_detalle.php',
       'fuente' => 'instancia',
       'parametros_a' => NULL,
       'parametros_b' => NULL,
@@ -12398,90 +12383,6 @@ Intervalo de números permitidos. Los corchetes incluyen el límite, los paréntesi
     ),
     27 => 
     array (
-      'objeto_ei_formulario_fila' => 33000264,
-      'objeto_ei_formulario' => 1000154,
-      'objeto_ei_formulario_proyecto' => 'toba_editor',
-      'identificador' => 'editor_config_file',
-      'elemento_formulario' => 'ef_editable',
-      'columnas' => 'editor_config_file',
-      'obligatorio' => 0,
-      'oculto_relaja_obligatorio' => 0,
-      'orden' => '28',
-      'etiqueta' => 'Archivo config',
-      'etiqueta_estilo' => NULL,
-      'descripcion' => 'Nombre del archivo de configuración de CKEditor, relativo a la carpeta JS del proyecto.',
-      'colapsado' => 0,
-      'desactivado' => 0,
-      'estilo' => NULL,
-      'total' => NULL,
-      'inicializacion' => NULL,
-      'permitir_html' => 0,
-      'deshabilitar_rest_func' => 0,
-      'estado_defecto' => NULL,
-      'solo_lectura' => 0,
-      'solo_lectura_modificacion' => 0,
-      'carga_metodo' => NULL,
-      'carga_clase' => NULL,
-      'carga_include' => NULL,
-      'carga_dt' => NULL,
-      'carga_consulta_php' => NULL,
-      'carga_sql' => NULL,
-      'carga_fuente' => NULL,
-      'carga_lista' => NULL,
-      'carga_col_clave' => NULL,
-      'carga_col_desc' => NULL,
-      'carga_maestros' => NULL,
-      'carga_cascada_relaj' => NULL,
-      'cascada_mantiene_estado' => 0,
-      'carga_permite_no_seteado' => 0,
-      'carga_no_seteado' => NULL,
-      'carga_no_seteado_ocultar' => NULL,
-      'edit_tamano' => 50,
-      'edit_maximo' => 255,
-      'edit_mascara' => NULL,
-      'edit_unidad' => NULL,
-      'edit_rango' => NULL,
-      'edit_filas' => NULL,
-      'edit_columnas' => NULL,
-      'edit_wrap' => NULL,
-      'edit_resaltar' => NULL,
-      'edit_ajustable' => NULL,
-      'edit_confirmar_clave' => NULL,
-      'edit_expreg' => NULL,
-      'popup_item' => NULL,
-      'popup_proyecto' => NULL,
-      'popup_editable' => NULL,
-      'popup_ventana' => NULL,
-      'popup_carga_desc_metodo' => NULL,
-      'popup_carga_desc_clase' => NULL,
-      'popup_carga_desc_include' => NULL,
-      'popup_puede_borrar_estado' => NULL,
-      'fieldset_fin' => NULL,
-      'check_valor_si' => NULL,
-      'check_valor_no' => NULL,
-      'check_desc_si' => NULL,
-      'check_desc_no' => NULL,
-      'check_ml_toggle' => NULL,
-      'fijo_sin_estado' => NULL,
-      'editor_ancho' => NULL,
-      'editor_alto' => NULL,
-      'editor_botonera' => NULL,
-      'editor_config_file' => NULL,
-      'selec_cant_minima' => NULL,
-      'selec_cant_maxima' => NULL,
-      'selec_utilidades' => NULL,
-      'selec_tamano' => NULL,
-      'selec_ancho' => NULL,
-      'selec_serializar' => NULL,
-      'selec_cant_columnas' => NULL,
-      'upload_extensiones' => NULL,
-      'punto_montaje' => NULL,
-      'placeholder' => NULL,
-      'carga_consulta_php_clase' => NULL,
-      'carga_consulta_php_archivo' => NULL,
-    ),
-    28 => 
-    array (
       'objeto_ei_formulario_fila' => 1000170,
       'objeto_ei_formulario' => 1000154,
       'objeto_ei_formulario_proyecto' => 'toba_editor',
@@ -12490,7 +12391,7 @@ Intervalo de números permitidos. Los corchetes incluyen el límite, los paréntesi
       'columnas' => 'selec_cant_minima',
       'obligatorio' => 0,
       'oculto_relaja_obligatorio' => 0,
-      'orden' => '29',
+      'orden' => '28',
       'etiqueta' => 'Cantidad Mínima',
       'etiqueta_estilo' => NULL,
       'descripcion' => 'Cantidad mínima de elementos que se deben seleccionar.',
@@ -12564,7 +12465,7 @@ Intervalo de números permitidos. Los corchetes incluyen el límite, los paréntesi
       'carga_consulta_php_clase' => NULL,
       'carga_consulta_php_archivo' => NULL,
     ),
-    29 => 
+    28 => 
     array (
       'objeto_ei_formulario_fila' => 1000171,
       'objeto_ei_formulario' => 1000154,
@@ -12574,7 +12475,7 @@ Intervalo de números permitidos. Los corchetes incluyen el límite, los paréntesi
       'columnas' => 'selec_cant_maxima',
       'obligatorio' => 0,
       'oculto_relaja_obligatorio' => 0,
-      'orden' => '30',
+      'orden' => '29',
       'etiqueta' => 'Cantidad Máxima',
       'etiqueta_estilo' => NULL,
       'descripcion' => 'Cantidad máxima de elementos que se pueden seleccionar.',
@@ -12648,7 +12549,7 @@ Intervalo de números permitidos. Los corchetes incluyen el límite, los paréntesi
       'carga_consulta_php_clase' => NULL,
       'carga_consulta_php_archivo' => NULL,
     ),
-    30 => 
+    29 => 
     array (
       'objeto_ei_formulario_fila' => 1000172,
       'objeto_ei_formulario' => 1000154,
@@ -12658,7 +12559,7 @@ Intervalo de números permitidos. Los corchetes incluyen el límite, los paréntesi
       'columnas' => 'selec_utilidades',
       'obligatorio' => 0,
       'oculto_relaja_obligatorio' => 0,
-      'orden' => '31',
+      'orden' => '30',
       'etiqueta' => 'Utilidad <em>Todos/Ninguno</em>',
       'etiqueta_estilo' => NULL,
       'descripcion' => 'Permite que el usuario seleccione/deseleccione todos los elementos',
@@ -12732,7 +12633,7 @@ Intervalo de números permitidos. Los corchetes incluyen el límite, los paréntesi
       'carga_consulta_php_clase' => NULL,
       'carga_consulta_php_archivo' => NULL,
     ),
-    31 => 
+    30 => 
     array (
       'objeto_ei_formulario_fila' => 1000173,
       'objeto_ei_formulario' => 1000154,
@@ -12742,7 +12643,7 @@ Intervalo de números permitidos. Los corchetes incluyen el límite, los paréntesi
       'columnas' => 'selec_tamano',
       'obligatorio' => 0,
       'oculto_relaja_obligatorio' => 0,
-      'orden' => '32',
+      'orden' => '31',
       'etiqueta' => 'Tamaño Visual',
       'etiqueta_estilo' => NULL,
       'descripcion' => NULL,
@@ -12816,7 +12717,7 @@ Intervalo de números permitidos. Los corchetes incluyen el límite, los paréntesi
       'carga_consulta_php_clase' => NULL,
       'carga_consulta_php_archivo' => NULL,
     ),
-    32 => 
+    31 => 
     array (
       'objeto_ei_formulario_fila' => 1000193,
       'objeto_ei_formulario' => 1000154,
@@ -12826,7 +12727,7 @@ Intervalo de números permitidos. Los corchetes incluyen el límite, los paréntesi
       'columnas' => 'selec_serializar',
       'obligatorio' => 0,
       'oculto_relaja_obligatorio' => 0,
-      'orden' => '33',
+      'orden' => '32',
       'etiqueta' => 'Serializar el estado',
       'etiqueta_estilo' => NULL,
       'descripcion' => 'El formato del estado del ef (tanto para el set_estado como el get_estado) es serializado en un sola cadena. La serialización es utilizando coma.',
@@ -12900,7 +12801,7 @@ Intervalo de números permitidos. Los corchetes incluyen el límite, los paréntesi
       'carga_consulta_php_clase' => NULL,
       'carga_consulta_php_archivo' => NULL,
     ),
-    33 => 
+    32 => 
     array (
       'objeto_ei_formulario_fila' => 1000224,
       'objeto_ei_formulario' => 1000154,
@@ -12910,7 +12811,7 @@ Intervalo de números permitidos. Los corchetes incluyen el límite, los paréntesi
       'columnas' => 'edit_confirmar_clave',
       'obligatorio' => 0,
       'oculto_relaja_obligatorio' => 0,
-      'orden' => '34',
+      'orden' => '33',
       'etiqueta' => 'Confirmar la Clave',
       'etiqueta_estilo' => NULL,
       'descripcion' => 'Determina si se muestra dos editables para ingresar la clave, típicamente para confirmar en el alta de uno nuevo.',
@@ -12984,7 +12885,7 @@ Intervalo de números permitidos. Los corchetes incluyen el límite, los paréntesi
       'carga_consulta_php_clase' => NULL,
       'carga_consulta_php_archivo' => NULL,
     ),
-    34 => 
+    33 => 
     array (
       'objeto_ei_formulario_fila' => 1000264,
       'objeto_ei_formulario' => 1000154,
@@ -12994,7 +12895,7 @@ Intervalo de números permitidos. Los corchetes incluyen el límite, los paréntesi
       'columnas' => 'upload_extensiones',
       'obligatorio' => 0,
       'oculto_relaja_obligatorio' => 0,
-      'orden' => '35',
+      'orden' => '34',
       'etiqueta' => 'Extensiones válidas',
       'etiqueta_estilo' => NULL,
       'descripcion' => 'Lista de extensiones válidas, si se deja en blanco se permite cualquier extensión de archivo. Separar las extensiones por coma sin la puntuación (ej. jpg, jpeg, gif)',
@@ -13068,7 +12969,7 @@ Intervalo de números permitidos. Los corchetes incluyen el límite, los paréntesi
       'carga_consulta_php_clase' => NULL,
       'carga_consulta_php_archivo' => NULL,
     ),
-    35 => 
+    34 => 
     array (
       'objeto_ei_formulario_fila' => 4000001,
       'objeto_ei_formulario' => 1000154,
@@ -13078,7 +12979,7 @@ Intervalo de números permitidos. Los corchetes incluyen el límite, los paréntesi
       'columnas' => 'selec_cant_columnas',
       'obligatorio' => 0,
       'oculto_relaja_obligatorio' => 0,
-      'orden' => '36',
+      'orden' => '35',
       'etiqueta' => 'Agrupar opciones',
       'etiqueta_estilo' => NULL,
       'descripcion' => 'Muestra las opciones agrupadas en columnas. En caso de ausencia de este parámetro, se asume una única columna.',
@@ -13152,7 +13053,7 @@ Intervalo de números permitidos. Los corchetes incluyen el límite, los paréntesi
       'carga_consulta_php_clase' => NULL,
       'carga_consulta_php_archivo' => NULL,
     ),
-    36 => 
+    35 => 
     array (
       'objeto_ei_formulario_fila' => 1000324,
       'objeto_ei_formulario' => 1000154,
@@ -13162,7 +13063,7 @@ Intervalo de números permitidos. Los corchetes incluyen el límite, los paréntesi
       'columnas' => 'selec_ancho',
       'obligatorio' => 0,
       'oculto_relaja_obligatorio' => 0,
-      'orden' => '37',
+      'orden' => '36',
       'etiqueta' => 'Ancho de la lista',
       'etiqueta_estilo' => NULL,
       'descripcion' => 'Ancho que toma el select html, recordar indicar medida (ej. 200px)',
@@ -13236,7 +13137,7 @@ Intervalo de números permitidos. Los corchetes incluyen el límite, los paréntesi
       'carga_consulta_php_clase' => NULL,
       'carga_consulta_php_archivo' => NULL,
     ),
-    37 => 
+    36 => 
     array (
       'objeto_ei_formulario_fila' => 4796,
       'objeto_ei_formulario' => 1000154,
@@ -13246,7 +13147,7 @@ Intervalo de números permitidos. Los corchetes incluyen el límite, los paréntesi
       'columnas' => 'popup_carga_desc_metodo',
       'obligatorio' => 1,
       'oculto_relaja_obligatorio' => 1,
-      'orden' => '38',
+      'orden' => '37',
       'etiqueta' => 'Método Descripción',
       'etiqueta_estilo' => NULL,
       'descripcion' => 'Las descripción del estado del EF se cargan a partir del resultado de este método. El formato de retorno es una cadena simple.',
@@ -13320,7 +13221,7 @@ Intervalo de números permitidos. Los corchetes incluyen el límite, los paréntesi
       'carga_consulta_php_clase' => NULL,
       'carga_consulta_php_archivo' => NULL,
     ),
-    38 => 
+    37 => 
     array (
       'objeto_ei_formulario_fila' => 4799,
       'objeto_ei_formulario' => 1000154,
@@ -13330,7 +13231,7 @@ Intervalo de números permitidos. Los corchetes incluyen el límite, los paréntesi
       'columnas' => 'popup_carga_desc_estatico',
       'obligatorio' => 1,
       'oculto_relaja_obligatorio' => 1,
-      'orden' => '39',
+      'orden' => '38',
       'etiqueta' => '¿Es estático?',
       'etiqueta_estilo' => NULL,
       'descripcion' => 'Normalmente el método se encuentra en el [wiki:Referencia/Objetos/Ci CI] contenedor, si en cambio se encuentra en alguna otra clase/archivo se denomina carga estática (porque se invoca clase::metodo).',
@@ -13404,7 +13305,7 @@ Intervalo de números permitidos. Los corchetes incluyen el límite, los paréntesi
       'carga_consulta_php_clase' => NULL,
       'carga_consulta_php_archivo' => NULL,
     ),
-    39 => 
+    38 => 
     array (
       'objeto_ei_formulario_fila' => 33000068,
       'objeto_ei_formulario' => 1000154,
@@ -13414,7 +13315,7 @@ Intervalo de números permitidos. Los corchetes incluyen el límite, los paréntesi
       'columnas' => 'punto_montaje',
       'obligatorio' => 0,
       'oculto_relaja_obligatorio' => 0,
-      'orden' => '40',
+      'orden' => '39',
       'etiqueta' => 'Punto Montaje',
       'etiqueta_estilo' => NULL,
       'descripcion' => NULL,
@@ -13488,7 +13389,7 @@ Intervalo de números permitidos. Los corchetes incluyen el límite, los paréntesi
       'carga_consulta_php_clase' => 'toba_info_editores',
       'carga_consulta_php_archivo' => 'modelo/info/toba_info_editores.php',
     ),
-    40 => 
+    39 => 
     array (
       'objeto_ei_formulario_fila' => 4798,
       'objeto_ei_formulario' => 1000154,
@@ -13498,7 +13399,7 @@ Intervalo de números permitidos. Los corchetes incluyen el límite, los paréntesi
       'columnas' => 'popup_carga_desc_include',
       'obligatorio' => 1,
       'oculto_relaja_obligatorio' => 1,
-      'orden' => '41',
+      'orden' => '40',
       'etiqueta' => 'Archivo',
       'etiqueta_estilo' => NULL,
       'descripcion' => 'Archivo donde se encuentra definida la clase',
@@ -13572,7 +13473,7 @@ Intervalo de números permitidos. Los corchetes incluyen el límite, los paréntesi
       'carga_consulta_php_clase' => NULL,
       'carga_consulta_php_archivo' => NULL,
     ),
-    41 => 
+    40 => 
     array (
       'objeto_ei_formulario_fila' => 4797,
       'objeto_ei_formulario' => 1000154,
@@ -13582,7 +13483,7 @@ Intervalo de números permitidos. Los corchetes incluyen el límite, los paréntesi
       'columnas' => 'popup_carga_desc_clase',
       'obligatorio' => 1,
       'oculto_relaja_obligatorio' => 1,
-      'orden' => '42',
+      'orden' => '41',
       'etiqueta' => 'Clase',
       'etiqueta_estilo' => NULL,
       'descripcion' => 'Nombre de la clase que contiene el método a consultar. Este método necesita ser <strong>estático</strong>.',
@@ -13656,7 +13557,7 @@ Intervalo de números permitidos. Los corchetes incluyen el límite, los paréntesi
       'carga_consulta_php_clase' => NULL,
       'carga_consulta_php_archivo' => NULL,
     ),
-    42 => 
+    41 => 
     array (
       'objeto_ei_formulario_fila' => 5273,
       'objeto_ei_formulario' => 1000154,
@@ -13666,7 +13567,7 @@ Intervalo de números permitidos. Los corchetes incluyen el límite, los paréntesi
       'columnas' => 'popup_puede_borrar_estado',
       'obligatorio' => 0,
       'oculto_relaja_obligatorio' => 0,
-      'orden' => '43',
+      'orden' => '42',
       'etiqueta' => 'Puede borrar estado',
       'etiqueta_estilo' => NULL,
       'descripcion' => 'Cuando el ef tiene estado se coloca un icono que permite resetearlo.',

@@ -474,31 +474,18 @@ class toba_mc_comp__1554
   array (
     0 => 
     array (
-      'identificador' => 'base',
+      'identificador' => 'permisos_tablas',
       'proyecto' => 'toba_editor',
-      'objeto' => 1553,
+      'objeto' => 30000103,
       'clase' => 'toba_datos_tabla',
       'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_tabla.php',
       'subclase' => NULL,
       'subclase_archivo' => NULL,
       'fuente' => 'instancia',
-      'parametros_a' => '1',
-      'parametros_b' => '1',
+      'parametros_a' => '',
+      'parametros_b' => '',
     ),
     1 => 
-    array (
-      'identificador' => 'objetos',
-      'proyecto' => 'toba_editor',
-      'objeto' => 1558,
-      'clase' => 'toba_datos_tabla',
-      'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_tabla.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
-      'fuente' => 'instancia',
-      'parametros_a' => '0',
-      'parametros_b' => '0',
-    ),
-    2 => 
     array (
       'identificador' => 'permisos',
       'proyecto' => 'toba_editor',
@@ -511,18 +498,31 @@ class toba_mc_comp__1554
       'parametros_a' => '0',
       'parametros_b' => '0',
     ),
-    3 => 
+    2 => 
     array (
-      'identificador' => 'permisos_tablas',
+      'identificador' => 'objetos',
       'proyecto' => 'toba_editor',
-      'objeto' => 30000103,
+      'objeto' => 1558,
       'clase' => 'toba_datos_tabla',
       'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_tabla.php',
       'subclase' => NULL,
       'subclase_archivo' => NULL,
       'fuente' => 'instancia',
-      'parametros_a' => '',
-      'parametros_b' => '',
+      'parametros_a' => '0',
+      'parametros_b' => '0',
+    ),
+    3 => 
+    array (
+      'identificador' => 'base',
+      'proyecto' => 'toba_editor',
+      'objeto' => 1553,
+      'clase' => 'toba_datos_tabla',
+      'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_tabla.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
+      'fuente' => 'instancia',
+      'parametros_a' => '1',
+      'parametros_b' => '1',
     ),
   ),
   '_info_columnas_asoc_rel' => 

@@ -416,7 +416,6 @@ abstract class toba_filtro_columna
 	 */
 	function get_html_condicion()
 	{
-		$class = toba::output()->get('FiltroColumnas')->getClassCss();
 		if (count($this->_condiciones) > 1) {
 			//-- Si tiene mas de una condicion se muestran con un combo
 			$onchange = $this->get_objeto_js(). '.cambio_condicion("' . $this->get_nombre().'");';
@@ -428,12 +427,12 @@ abstract class toba_filtro_columna
 			if ($this->_solo_lectura || $this->hay_condicion_fija()) {
 				$id = $this->_id_form_cond.'_disabled';
 				$disabled = 'disabled';
-				$html .= "<input class='$class' type='hidden' id='{$this->_id_form_cond}' name='{$this->_id_form_cond}' value='{$this->_estado['condicion']}'/>\n";				
+				$html .= "<input type='hidden' id='{$this->_id_form_cond}' name='{$this->_id_form_cond}' value='{$this->_estado['condicion']}'/>\n";				
 			} else {
 				$disabled = '';
 				$id = $this->_id_form_cond;
 			}
-			$html .= "<select class='$class' id='$id' name='$id' $disabled onchange='$onchange'>";
+			$html .= "<select id='$id' name='$id' $disabled onchange='$onchange'>";
 			foreach ($this->_condiciones as $id => $condicion) {
 				$selected = '';
 				if (isset($this->_estado) && $this->_estado['condicion'] == $id) {

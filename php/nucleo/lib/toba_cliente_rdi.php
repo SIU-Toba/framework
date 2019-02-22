@@ -58,6 +58,7 @@ class toba_cliente_rdi
 	protected function instanciar_cliente()
 	{
 		$id_proyecto = $this->proyecto->get_id();		
+
 		if (! toba::config()->existe_valor('rdi', null, $id_proyecto)) {
 			throw new toba_error('Falta el archivo de configuración rdi.ini o no se encuentra la seccion del proyecto');
 		}

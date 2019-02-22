@@ -321,12 +321,13 @@ class toba_ei_filtro extends toba_ei
 		if (isset($this->_info_filtro["ancho"])) {
 			$ancho = convertir_a_medida_tabla($this->_info_filtro["ancho"]);
 		}
-		
-		echo toba::output()->get('Filtro')->getInicioHtml($this->_estilos, $ancho);		
+		echo "<table class='{$this->_estilos}' $ancho>";
+		echo "<tr><td style='padding:0'>";
 		echo $this->get_html_barra_editor();
 		$this->generar_html_barra_sup(null, true,"ei-filtro-barra-sup");
 		$this->generar_formulario();
-		echo toba::output()->get('Filtro')->getFinHtml();
+		echo "</td></tr>\n";
+		echo "</table>\n";
 		$this->_flag_out = true;
 	}	
 	
@@ -342,16 +343,16 @@ class toba_ei_filtro extends toba_ei
 		//Ancho y Scroll
 		$estilo = '';
 		$ancho = isset($this->_info_filtro["ancho"]) ? $this->_info_filtro["ancho"] : "auto";
+		$alto_maximo = "auto";
 		if (isset($this->_colapsado) && $this->_colapsado) {
 			$estilo .= "display:none;";
 		}
 		//Campo de comunicacion con JS
 		echo toba_form::hidden("{$this->objeto_js}_listafilas",'');
 		echo toba_form::hidden("{$this->objeto_js}__parametros", '');		
-		echo toba::output()->get('Filtro')->getPreLayout("cuerpo_{$this->objeto_js}", $estilo);
+		echo "<div class='ei-cuerpo ei-filtro-base' id='cuerpo_{$this->objeto_js}' style='$estilo'>";
 		$this->generar_layout($ancho);
-		echo toba::output()->get('Filtro')->getPostLayout();
-		
+		echo "\n</div>";
 	}	
 
 	/**
@@ -361,10 +362,10 @@ class toba_ei_filtro extends toba_ei
 	protected function generar_layout($ancho)
 	{
 		//Botonera de agregar y ordenar
-		echo toba::output()->get('Filtro')->getInicioLayout("{$this->objeto_js}_grilla","width: $ancho");
+		echo "<table id='{$this->objeto_js}_grilla' class='ei-filtro-grilla' style='width: $ancho' >\n";
 		$this->generar_formulario_encabezado();
 		$this->generar_formulario_cuerpo();
-		echo toba::output()->get('Filtro')->getFinLayout();
+		echo "\n</table>";
 		if ($this->botonera_abajo()) {
 			$this->generar_botones();
 		}
@@ -375,8 +376,18 @@ class toba_ei_filtro extends toba_ei
 	 */
 	protected function get_botonera_manejo_filas()
 	{
-		$js = "onchange='{$this->objeto_js}.crear_fila()'";
-		return toba::output()->get('Filtro')->getManejoFiltros("botonera_{$this->objeto_js}", $this->objeto_js, $this->_columnas,$js);
+		$salida = '';
+		$salida = "<div class='ei-filtro-botonera' id='botonera_{$this->objeto_js}'>";
+		$texto = toba_recurso::imagen_toba('nucleo/agregar.gif', true);
+		$opciones = array(apex_ef_no_seteado => '');
+		foreach ($this->_columnas as $columna) {
+			$opciones[$columna->get_nombre()] = $columna->get_etiqueta();
+		}
+		$salida .= 'Agregar filtro ';
+		$onchange = "onchange='{$this->objeto_js}.crear_fila()'";
+		$salida .= toba_form::select("{$this->objeto_js}_nuevo", null, $opciones, 'ef-combo', $onchange);
+		$salida .="</div>\n";
+		return $salida;
 	}	
 	
 	/**
@@ -384,8 +395,22 @@ class toba_ei_filtro extends toba_ei
 	 */
 	protected function generar_formulario_encabezado()
 	{
-		
-		echo toba::output()->get('Filtro')->getEncabebezadoFiltro("cabecera_{$this->objeto_js}", $this->_etiquetas);
+		echo "<thead id='cabecera_{$this->objeto_js}'>\n";		
+		//------ TITULOS -----	
+		echo "<tr>\n";
+		$i = 1;
+		foreach ($this->_etiquetas as $id => $etiqueta){
+			$colspan = '';
+			if ($i == count($this->_etiquetas)) {
+				$colspan = 'colspan=2';
+			}
+			echo "<th class='ei-filtro-columna' $colspan>\n";
+			echo $etiqueta;
+			echo "</th>\n";
+			$i++;
+		}
+		echo "</tr>\n";
+		echo "</thead>\n";
 	}
 	
 	/**
@@ -393,28 +418,45 @@ class toba_ei_filtro extends toba_ei
 	 */
 	protected function generar_formulario_cuerpo()
 	{
-		echo toba::output()->get('Filtro')->getInicioFormularioFiltros();
-		
+		echo "<tbody>";			
 		$estilo_celda = "ei-filtro-fila";
 		foreach ($this->_columnas as $nombre_col => $columna) {
 			$this->analizar_visualizacion_columna ($columna);			
 			echo toba::output()->get('Filtro')->getInicioFiltro("{$this->objeto_js}_fila$nombre_col", $nombre_col, $columna->get_html_etiqueta(),  $columna->es_visible(), "{$this->objeto_js}.seleccionar('$nombre_col')", $estilo_celda, $this->generar_vinculo_editor($nombre_col), $columna);
+			} else {
+				$estilo_fila = "style='display:none;'";
+			}
+			echo "\n<!-- FILA $nombre_col -->\n\n";			
+			echo "<tr $estilo_fila id='{$this->objeto_js}_fila$nombre_col' onclick='{$this->objeto_js}.seleccionar(\"$nombre_col\")'>";
+			echo "<td class='$estilo_celda ei-filtro-col'>";
+			echo $this->generar_vinculo_editor($nombre_col);
+			echo $columna->get_html_etiqueta();
+			echo "</td>\n";
 			
 			//-- Condición
-			echo toba::output()->get('Filtro')->getParseCondicion($columna->get_html_condicion(), $estilo_celda);
-		
-			//-- Valor
-			ob_start();
-			$columna->get_html_valor();				//Esto se hace para mantener el contrato del metodo get_html_valor
-			$html_columna_valor = ob_get_clean();
-			echo toba::output()->get('Filtro')->getParseValor($html_columna_valor, $estilo_celda);
+			echo "<td class='$estilo_celda ei-filtro-cond'>";
+			echo $columna->get_html_condicion();
+			echo "</td>\n";
 			
+			//-- Valor			
+			echo "<td class='$estilo_celda ei-filtro-valor'>";
+			$columna->get_html_valor();
+			echo "</td>\n";
+
 			//-- Borrar a nivel de fila
 			echo toba::output()->get('Filtro')->getEliminarFiltro("{$this->objeto_js}_eliminar$nombre_col", "{$this->objeto_js}.seleccionar('$nombre_col');{$this->objeto_js}.eliminar_seleccionada();", $this->_rango_tabs[0]++, $columna->es_solo_lectura(), $columna->es_obligatorio(), $estilo_celda);
-
-			echo toba::output()->get('Filtro')->getFinFiltro();
+			//Si es obligatoria no se puede borrar
+			if (!$columna->es_solo_lectura() && !$columna->es_obligatorio()) {
+				echo toba_form::button_html("{$this->objeto_js}_eliminar$nombre_col", toba_recurso::imagen_toba('borrar.gif', true), 
+									"onclick='{$this->objeto_js}.seleccionar(\"$nombre_col\");{$this->objeto_js}.eliminar_seleccionada();'", 
+									$this->_rango_tabs[0]++, null, 'Elimina la fila');
+			} else {
+				echo '&nbsp;';
+			}
+			echo "</td>\n";
+			echo "</tr>\n";
 		}
-		echo toba::output()->get('Filtro')->getFinFormularioFiltros();
+		echo "</tbody>\n";		
 	}	
 	
 	/**
@@ -427,9 +469,10 @@ class toba_ei_filtro extends toba_ei
 
 		//----------- Generacion
 		if ($this->hay_botones()) {
-			echo toba::output()->get('Filtro')->getInicioBotonera($clase, $extra, $this->_eventos_usuario_utilizados);
+			echo "<div class='ei-botonera $clase'>";
+			echo $extra;
 			$this->generar_botones_eventos();
-			echo toba::output()->get('Filtro')->getFinBotonera();			
+			echo "</div>";
 		} elseif ($extra != '') {
 			echo $extra;
 		}

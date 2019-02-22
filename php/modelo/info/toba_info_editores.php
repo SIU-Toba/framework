@@ -1474,6 +1474,7 @@ class toba_info_editores
 		}
 
 		$salida = rs_ordenar_por_columna($salida, 'metodo');		
+				
 		//Desregistro el autoload de los puntos de montaje existentes para que no interfieran con el editor.
 		if (! empty($pm_obj)) {
 			foreach ($pm_obj as $klave => $obj) {

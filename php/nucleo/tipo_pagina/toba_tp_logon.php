@@ -1,35 +1,38 @@
 <?php
 /**
- * Tipo de pï¿½gina pensado para pantallas de login, presenta un logo y un pie de pï¿½gina bï¿½sico
+ * Tipo de página pensado para pantallas de login, presenta un logo y un pie de página básico
  * 
  * @package SalidaGrafica
  */
 class toba_tp_logon extends toba_tp_basico
 {
-	
-	function inicio_barra_superior()
+	function barra_superior()
 	{
-		echo toba::output()->get('PaginaLogon')->getInicioBarraSuperior();
-	}
-	
-	function fin_barra_superior()
-	{
-		echo toba::output()->get('PaginaLogon')->getFinBarraSuperior();
-	}
+		echo "
+			<style type='text/css'>
+				.cuerpo {
+					
+				}
+			</style>
+		";
+		echo "<div id='barra-superior' class='barra-superior-login'>\n";		
+	}	
 
 	function pre_contenido()
 	{
-		echo toba::output()->get('PaginaLogon')->getPreContenido();		
+		echo "<div class='login-titulo'>". toba_recurso::imagen_proyecto("logo.gif",true);
+		echo "<div>versión ".toba::proyecto()->get_version()."</div>";
+		echo "</div>";
+		echo "\n<div align='center' class='cuerpo'>\n";		
 	}
 
 	function post_contenido()
 	{
-		echo toba::output()->get('PaginaLogon')->getPostContenido();
-	}
-	
-	function footer()
-	{
-		echo toba::output()->get('PaginaLogon')->getFooterHtml();
+		echo "</div>";		
+		echo "<div class='login-pie'>";
+		echo "<div>Desarrollado por <strong><a href='http://www.siu.edu.ar' style='text-decoration: none' target='_blank'>SIU-CIN</a></strong></div>
+			<div>2002-".date('Y')."</div>";
+		echo "</div>";
 	}
 }
 ?>

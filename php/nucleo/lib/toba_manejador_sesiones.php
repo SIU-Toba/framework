@@ -382,7 +382,6 @@ class toba_manejador_sesiones
 		}
 		return $this->perfiles_funcionales_activos = array_unique($finales);
 	}	
-	
 
 	/**
 	* @deprecated Desde 1.5 usar get_perfiles_funcionales

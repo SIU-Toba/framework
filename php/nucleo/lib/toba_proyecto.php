@@ -15,6 +15,7 @@ class toba_proyecto
 	private $indice_items_accesibles;
 	private $items_excluidos = array();
 	private $mapeo_componentes = array();
+	private $ini_proyecto;
 	private $personalizacion_iniciada;
 	const prefijo_punto_acceso = 'apex_pa_';
 
@@ -105,7 +106,7 @@ class toba_proyecto
 			return constant(self::prefijo_punto_acceso.$id);
 		} elseif (isset($this->memoria[$id])) {
 			return $this->memoria[$id];
-		} elseif (toba::config()->existe_valor('proyecto', $seccion, $parametro)) {			
+		} elseif (toba::config()->existe_valor('proyecto', $seccion, $parametro)) {
 			return toba::config()->get_parametro('proyecto', $seccion, $parametro);
 		} else {
 			if( array_key_exists($id, $this->memoria)) {

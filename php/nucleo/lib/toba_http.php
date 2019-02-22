@@ -145,6 +145,6 @@ class toba_http
 			return $_SERVER[$entrada];
 		}
 		return null;
-	}	
+	}
 }
 ?>

@@ -95,7 +95,7 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 	{
 		if (toba::config()->existe_valor('instalacion', null, 'nombre')) {
 			return toba::config()->get_parametro('instalacion', null, 'nombre');
-		}		
+		}
 		return '';		
 	}
 	
@@ -175,10 +175,9 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 	* Devuelve las claves utilizadas para encriptar
 	*/
 	function get_claves_encriptacion()
-	{	
+	{
 		$claves['db']  = toba::config()->get_parametro('instalacion', null, 'clave_db');
 		$claves['get'] = toba::config()->get_parametro('instalacion', null, 'clave_querystring');
-		
 		return $claves;
 	}
 	

@@ -47,7 +47,7 @@ class toba_instancia
 		toba::config()->load();
 		if (! is_file( $archivo ) ) {
 			throw new toba_error("INFO_INSTANCIA: No se encuentra definido el archivo de inicializacion de la INSTANCIA: '".self::get_id()."' ('$archivo')");
-		} 
+		}
 		return toba::config()->get_seccion('instancia');
 	}
 	
