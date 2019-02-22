@@ -1,11 +1,13 @@
 <?php
+namespace JpGraph;
+
 //=======================================================================
 // File:        JPGRAPH_LED.PHP
 // Description: Module to generate Dotted LED-like digits
 // Created:     2006-11-26
 // Ver:         $Id: jpgraph_led.php 1674 2009-07-22 19:42:23Z ljp $
 //
-// Copyright 2006 (c) Aditus Consulting. All rights reserved.
+// Copyright 2006 (c) Asial Corporation. All rights reserved.
 //
 // Changed: 2007-08-06 by Alexander Kurochkin (inspector@list.ru)
 //========================================================================

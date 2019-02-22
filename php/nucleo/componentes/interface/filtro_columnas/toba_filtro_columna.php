@@ -418,7 +418,7 @@ abstract class toba_filtro_columna
 	{
 		if (count($this->_condiciones) > 1) {
 			//-- Si tiene mas de una condicion se muestran con un combo
-			$onchange = "{$this->get_objeto_js()}.cambio_condicion(\"{$this->get_nombre()}\");";
+			$onchange = $this->get_objeto_js(). '.cambio_condicion("' . $this->get_nombre().'");';
 			$html = '';
 			if ($this->hay_condicion_default() && (!isset($this->_estado['condicion']) || is_null($this->_estado['condicion']))){
 				//Si no tiene estado y hay default seteado, el default es el nuevo estado
@@ -471,23 +471,34 @@ abstract class toba_filtro_columna
 			$estilo = 'ei-filtro-etiq-oblig';
 			$marca = '(*)';
 		} else {
-			$estilo = 'ei-filtro-etiq';
+			$estilo = 'ei-filtro-etiq opcional';
 		}
 		$desc='';
 		$desc = $this->_datos['descripcion'];
 		if ($desc !=""){
 			$desc = toba_parser_ayuda::parsear($desc);
-			$desc = toba_recurso::imagen_toba("descripcion.gif",true,null,null,$desc);
+			$desc =  toba::output()->get('Filtro')->getIconoAyuda($desc);			
 		}
 		$id_ef = $this->_ef->get_id_form();					
 		$editor = '';		
 		//$editor = $this->generar_vinculo_editor($ef);
 		$etiqueta = $this->get_etiqueta();
-		$html .= "<label for='$id_ef' class='$estilo'>$editor $desc $etiqueta $marca</label>\n";
+		$html .= "<label for='$id_ef' class='col-sm-2 control-label $estilo'>$editor $desc $etiqueta $marca</label>\n";
 		return $html;
 	}
 		
-
+	function get_pdf_valor()
+	{
+		$valor = $this->_ef->get_descripcion_estado('pdf');
+		return $valor;
+	}
+	
+	function get_excel_valor()
+	{
+		$valor = $this->_ef->get_descripcion_estado('excel');
+		return $valor;		
+	}
+	
 	//-----------------------------------------------
 	//--- JAVASCRIPT   ------------------------------
 	//-----------------------------------------------

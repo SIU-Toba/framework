@@ -116,6 +116,7 @@ class comando_servicios_web extends comando_toba
 	 *  --cert_pwd Password para el certificado si asi lo requiere (REST)
 	 *  --usuario Nombre usuario para autenticar (REST)
 	 *  --usuario_pwd Password para autenticacion basica (REST)
+	 *  --auth_tipo ssl|digest|basic indica el tipo de autenticacion a utilizar en el servidor (default digest)
 	 *  --all Configura todos los WS consumibles con los mismos datos
 	 */	
 	function opcion__cli_configurar()
@@ -246,7 +247,8 @@ class comando_servicios_web extends comando_toba
 		$proyecto = $this->get_proyecto();
 		$id_servicio = (isset($parametros['-s'])) ? $parametros['-s'] : $this->get_servicio_cli();		
 		$servicio = toba_modelo_catalogo::get_servicio_web($proyecto, $id_servicio, $this->consola, 'rest');		
-		
+		$auth = (isset($parametros['--auth_tipo']) && trim($parametros['--auth_tipo']) != '') ? $parametros['--auth_tipo'] : null;
+	
 		//Me fijo si se puso un usuario y pwd
 		if (isset($parametros['--usuario']) && trim($parametros['--usuario']) != '') {
 			if (! isset($parametros['--usuario_pwd']) || trim($parametros['--usuario_pwd']) == '') {
@@ -255,7 +257,7 @@ class comando_servicios_web extends comando_toba
 			}
 			$usr = $parametros['--usuario'];
 			$usr_pwd = $parametros['--usuario_pwd'];
-		}
+		} 
 		//Recupero los posibles archivos de certificados que se hayan incluido
 		$leyenda = 'El archivo para el parametro $param no existe o no es accesible';
 		$cert_cli = $this->recuperar_archivo_parametro($parametros, '--cert_cli', $leyenda);
@@ -273,7 +275,7 @@ class comando_servicios_web extends comando_toba
 			$url_sistema = $parametros['-u'];
 		}
 		//Genero la config para el servicio especificado (analizar si se pueden configurar varios distintos)			
-		$servicio->generar_configuracion_cliente($cert_CA, $url_sistema, $cert_cli, $key_cli, $cert_pwd,$usr, $usr_pwd);
+		$servicio->generar_configuracion_cliente($cert_CA, $url_sistema, $cert_cli, $key_cli, $cert_pwd,$usr, $usr_pwd, $auth);
 	}
 	
 	//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -350,6 +352,7 @@ class comando_servicios_web extends comando_toba
 	protected function recuperar_archivo_parametro($parametros, $param, $leyenda)
 	{
 		if (isset($parametros[$param]) && !file_exists($parametros[$param])) {
+			$leyenda = preg_replace('/\$param/', $param, $leyenda);
 			$this->consola->error($leyenda);
 			die;	
 		}

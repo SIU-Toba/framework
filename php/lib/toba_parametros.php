@@ -27,7 +27,7 @@ class toba_parametros
 		if (PHP_SAPI != 'cli') {
 			return toba::proyecto($proyecto);
 		}
-		return toba_modelo_catalogo::instanciacion()->get_proyecto(self::get_instancia(), $proyecto);		//Por si en algun momento se llega a usar desde el modelo
+		return toba_modelo_catalogo::instanciacion()->get_proyecto(toba_instancia::get_id(), $proyecto);		//Por si en algun momento se llega a usar desde el modelo
 	}
 	
 	/**

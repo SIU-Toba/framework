@@ -451,16 +451,40 @@ ef_editable_fecha.prototype.constructor = ef_editable_fecha;
 	 * @constructor
 	 * @phpdoc classes/toba_ef_editable_fecha.html toba_ef_editable_fecha
 	 */
+	
 	function ef_editable_fecha(id_form, etiqueta, obligatorio, colapsable, masc, expreg, rango)	{
 		ef_editable.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsable,null, expreg);
-		this._forma_mascara = (masc) ? masc : 'dd/mm/yyyy';
-		this._rango_valido = rango;
-	}	
+		this._forma_mascara = (masc) ? masc : 'dd/mm/yy';
+		this._rango_valido = rango;				
+	}
 	
 	ef_editable_fecha.prototype.iniciar = function(id, controlador) {
-		ef.prototype.iniciar.call(this, id, controlador);
-		this._mascara = new mascara_fecha(this._forma_mascara);
-		this._mascara.attach(this.input());
+		ef.prototype.iniciar.call(this, id, controlador);		
+		$( '#' + this._id_form).datepicker( {
+			prevText: '&#x3c;Ant',
+			nextText: 'Sig&#x3e;',
+			currentText: 'Hoy',
+			monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
+			'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+			monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun',
+			'Jul','Ago','Sep','Oct','Nov','Dic'],
+			dayNames: ['Domingo','Lunes','Martes','Mi&eacute;rcoles','Jueves','Viernes','S&aacute;bado'],
+			dayNamesShort: ['Dom','Lun','Mar','Mi&eacute;','Juv','Vie','S&aacute;b'],
+			dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','S&aacute;'],
+			weekHeader: 'Sm',
+			dateFormat: this._forma_mascara,
+			firstDay: 1,
+			changeYear: true,
+		         changeMonth: true,
+ 			showOn: "button",
+			buttonImage: "img/calendario.gif",
+			buttonImageOnly: true,
+			altField: this._id_form,
+			altFormat: this._forma_mascara,
+			yearRange: "-100:+20"
+		});
+		var solo_lectura = this.input().readOnly;
+		this.set_solo_lectura(solo_lectura);
 	};
 	
 	ef_editable_fecha.prototype.get_estado = function() {
@@ -473,8 +497,7 @@ ef_editable_fecha.prototype.constructor = ef_editable_fecha;
 	 */
 	ef_editable_fecha.prototype.fecha = function() {
 		if (this.tiene_estado() && this.validar()) {
-			var arr = this.get_estado().split('/');
-			return new Date(arr[2], arr[1] - 1, arr[0]);
+			return this.get_input_jq().datepicker('getDate');
 		}
 		return null;
 	};
@@ -485,52 +508,56 @@ ef_editable_fecha.prototype.constructor = ef_editable_fecha;
 	 */
 	ef_editable_fecha.prototype.calcular_edad = function(fecha_base) {
 		if (! isset(fecha_base)) {
-	    	fecha_base=new Date();
+			fecha_base=new Date();
 		}
-	    var array_fecha = this.get_estado().split("/");
-	    //si el array no tiene tres partes, la fecha es incorrecta
-	    if (array_fecha.length!=3) {
-	       return false;
-	    }
-	    //compruebo que los ano, mes, dia son correctos
-	    var ano = parseInt(array_fecha[2], 10);
-	    if (isNaN(ano)) {
-	       return false;
-	    }
-	    var mes = parseInt(array_fecha[1], 10);
-	    if (isNaN(mes)) {
-	       return false;
-	    }
-	    var dia = parseInt(array_fecha[0], 10);
-	    if (isNaN(dia)) {
-	       return false;
-	    }
-	    //si el año de la fecha que recibo solo tiene 2 cifras hay que cambiarlo a 4
-	    if (ano<=99) {
-	       ano +=1900;
-	    }
-	    //resto los años de las dos fechas
-	    edad=fecha_base.getFullYear()- ano - 1; //-1 porque no se si ha cumplido años ya este año
-	    //si resto los meses y me da menor que 0 entonces no ha cumplido años. Si da mayor si ha cumplido
-	    if (fecha_base.getMonth() + 1 - mes < 0) { //+ 1 porque los meses empiezan en 0
-	       return edad;
-	    }
-	    if (fecha_base.getMonth() + 1 - mes > 0) {
-	       return edad+1;
-	    }
-	    //entonces es que eran iguales. miro los dias
-	    //si resto los dias y me da menor que 0 entonces no ha cumplido años. Si da mayor o igual si ha cumplido
-	    if (fecha_base.getUTCDate() - dia >= 0) {
-	       return edad + 1;
-	    }
-	    return edad;		
+		var array_fecha = this.get_estado().split("/");
+		//si el array no tiene tres partes, la fecha es incorrecta
+		if (array_fecha.length!=3) {
+			return false;
+		}
+		//compruebo que los ano, mes, dia son correctos
+		var ano = parseInt(array_fecha[2], 10);
+		if (isNaN(ano)) {
+			return false;
+		}
+		var mes = parseInt(array_fecha[1], 10);
+		if (isNaN(mes)) {
+			return false;
+		}
+		var dia = parseInt(array_fecha[0], 10);
+		if (isNaN(dia)) {
+			return false;
+		}
+		//si el año de la fecha que recibo solo tiene 2 cifras hay que cambiarlo a 4
+		if (ano<=99) {
+			ano +=1900;
+		}
+		//resto los años de las dos fechas
+		edad=fecha_base.getFullYear()- ano - 1; //-1 porque no se si ha cumplido años ya este año
+		//si resto los meses y me da menor que 0 entonces no ha cumplido años. Si da mayor si ha cumplido
+		if (fecha_base.getMonth() + 1 - mes < 0) { //+ 1 porque los meses empiezan en 0
+			return edad;
+		}
+		if (fecha_base.getMonth() + 1 - mes > 0) {
+			return edad+1;
+		}
+		//entonces es que eran iguales. miro los dias
+		//si resto los dias y me da menor que 0 entonces no ha cumplido años. Si da mayor o igual si ha cumplido
+		if (fecha_base.getUTCDate() - dia >= 0) {
+			return edad + 1;
+		}
+		return edad;		
 	};
 
 	/**
 	 * Cambia el estado del ef en base a un objeto Date de javascript
 	 */
 	ef_editable_fecha.prototype.set_fecha = function(fecha) {	
-		 this.set_estado(fecha.getDate() + '/' + (fecha.getMonth()+1) + '/' + fecha.getFullYear());
+		this.set_estado(fecha.getDate() + '/' + (fecha.getMonth()+1) + '/' + fecha.getFullYear());
+	};
+	
+	ef_editable_fecha.prototype.set_estado = function(fecha) {	
+		 this.get_input_jq().datepicker('setDate', fecha);
 	};
 	
 	ef_editable_fecha.prototype.validar = function() {
@@ -574,11 +601,15 @@ ef_editable_fecha.prototype.constructor = ef_editable_fecha;
 	ef_editable_fecha.prototype.set_solo_lectura = function(solo_lectura) {
 		solo_lectura = (typeof solo_lectura != 'undefined' && solo_lectura);
 		ef_editable.prototype.set_solo_lectura.call(this, solo_lectura);
-		var vinculo = this.vinculo();
-		if (isset(vinculo)) {
+		this.get_input_jq().datepicker("option", "disabled", solo_lectura);
+		/*if (isset(vinculo)) {
 			vinculo.style.visibility = (solo_lectura) ? "hidden" : "visible";
-		}
+		}*/		
 	};
+	
+	ef_editable_fecha.prototype.get_input_jq = function() {
+		return $( '#' + this._id_form);
+	}
 
 	// ########################################################################################################
 	// ########################################################################################################
@@ -594,22 +625,43 @@ ef_editable_fecha_hora.prototype.constructor = ef_editable_fecha_hora;
 	*/
 	function ef_editable_fecha_hora(id_form, etiqueta, obligatorio, colapsable, masc, expreg, rango)	{
 		ef_editable.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsable,null, expreg);						//Llamo al padre
-
 		//Creo los dos elementos que voy a manejar aca para el caso
-		this._forma_mascara_fecha = (masc) ? masc : 'dd/mm/yyyy';
+		this._forma_mascara_fecha = (masc) ? masc : 'dd/mm/yy';
 		this._forma_mascara_hora = '##:##';
 		this._rango_valido = rango;
 	}
 
 	ef_editable_fecha_hora.prototype.iniciar = function(id, controlador) {
-		ef.prototype.iniciar.call(this, id, controlador);
+		ef.prototype.iniciar.call(this, id, controlador);		
 		var arr_inputs = this.input();
-
-		this._mascara_fecha = new mascara_fecha(this._forma_mascara_fecha);
-		this._mascara_fecha.attach(arr_inputs[0]);
-
+		var solo_lectura = arr_inputs[0].disabled;
+		$( '#' + arr_inputs[0].id).datepicker({
+			prevText: '&#x3c;Ant',
+			nextText: 'Sig&#x3e;',
+			currentText: 'Hoy',
+			monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
+			'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+			monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun',
+			'Jul','Ago','Sep','Oct','Nov','Dic'],
+			dayNames: ['Domingo','Lunes','Martes','Mi&eacute;rcoles','Jueves','Viernes','S&aacute;bado'],
+			dayNamesShort: ['Dom','Lun','Mar','Mi&eacute;','Juv','Vie','S&aacute;b'],
+			dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','S&aacute;'],
+			weekHeader: 'Sm',
+			dateFormat: this._forma_mascara_fecha,
+			firstDay: 1,
+			changeYear: true,
+		         changeMonth: true,
+ 			showOn: "button",
+			buttonImage: "img/calendario.gif",
+			buttonImageOnly: true,
+			altField: arr_inputs[0].id,
+			altFormat: this._forma_mascara_fecha
+		});
+		
 		this._mascara_hora = new mascara_generica(this._forma_mascara_hora);
 		this._mascara_hora.attach(arr_inputs[1]);
+		
+		this.set_solo_lectura(solo_lectura);
 	};
 
 	/**
@@ -627,6 +679,10 @@ ef_editable_fecha_hora.prototype.constructor = ef_editable_fecha_hora;
 		return arreglo;
 	}
 
+	ef_editable_fecha_hora.prototype.get_input_jq = function() {
+		return $( '#' + this._id_form + '_fecha');
+	}
+	
 	/**
 	 * Devuelve un arreglo con los valores para la fecha y hora.
 	 *@type Array
@@ -718,16 +774,10 @@ ef_editable_fecha_hora.prototype.constructor = ef_editable_fecha_hora;
 
 		//Seteo la componente Fecha
 		if (isset(nuevo[0])) {
-			if (this._mascara_fecha) {
-				var valor_f = this._mascara_fecha.format(nuevo[0], false, true);
-				componentes[0].value = valor_f;
-				var desc_f = document.getElementById(this._id_form + '_desc');
-				if (desc_f) {
-					desc_f.value = valor_f;
-				}
-			}
+			this.get_input_jq().datepicker('setDate', nuevo[0]);
 		}else {
-			componentes[0].value = null;
+			//componentes[0].value = null;
+			this.get_input_jq().datepicker('setDate', null);
 			hay_estado = false;
 		}
 
@@ -860,7 +910,7 @@ ef_editable_fecha_hora.prototype.constructor = ef_editable_fecha_hora;
 	* Retorna el tag html que contiene el link para abrir el calendario gr?fico de selecci?n de fecha
 	*/
 	ef_editable_fecha_hora.prototype.vinculo = function() {
-		return document.getElementById('link_' + this._id_form);
+		//return document.getElementById('link_' + this._id_form);
 	};
 
 	/**
@@ -870,14 +920,14 @@ ef_editable_fecha_hora.prototype.constructor = ef_editable_fecha_hora;
 		solo_lectura = (typeof solo_lectura != 'undefined' && solo_lectura);
 		var input = this.input();
 		if (isset(input[0])) {
-			input[0].readOnly = solo_lectura;
+			this.get_input_jq().datepicker("option", "disabled", solo_lectura);
 			input[1].readOnly = solo_lectura;
 			this._solo_lectura = solo_lectura;
 		}
-		var vinculo = this.vinculo();
+		/*var vinculo = this.vinculo();
 		if (isset(vinculo)) {
 			vinculo.style.visibility = (solo_lectura) ? "hidden" : "visible";
-		}
+		}*/
 	};
 
 	/**

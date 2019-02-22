@@ -15,18 +15,26 @@ var tipclick = {
 			e.stopPropagation();
 		}
 		this._do_hide();
-		var tooltip = document.getElementById("tipclick_div");
-		tooltip.innerHTML = content;
-		if ((e.type == "click" && tooltip.style.visibility == 'hidden') || e.type == "mouseover") {
+		var tip_div = $('#tipclick_div');		
+				
+		tip_div.html(content);
+		if ((e.type == "click" && tip_div.is(':hidden')) || e.type == "mouseover") {
 			var self = this;
 			this._show_handler = setTimeout(function() {self._do_show();}, delay);
 		} else if (e.type=="click") {
-			tooltip.style.visibility = 'hidden';
+			tip_div.hide();
 		}
-		tooltip.x = this._get_pos_offset(obj, true);
-		tooltip.y = this._get_pos_offset(obj, false);
-		tooltip.style.left = tooltip.x - this._clear_browser_edge(obj, true) + "px";
-		tooltip.style.top = tooltip.y - this._clear_browser_edge(obj, false) + obj.offsetHeight + "px";
+		
+		//Calculamos la posicion del objeto que lanza el evento
+		var x = Math.round(this._get_pos_offset(obj, true));
+		var y = Math.round(this._get_pos_offset(obj, false));
+		
+		//Agregamos la clase correspondiente y modificamos la posicion via css
+		tip_div.addClass('tooltip')
+			   .css('visibility', 'visible')
+			   .css('left', x - this._clear_browser_edge(obj, true, x, y ) + "px")
+			   .css('top', y - this._clear_browser_edge(obj, false, x, y) + obj.offsetHeight + "px");
+		
 		return true;
 	},
 
@@ -61,24 +69,25 @@ var tipclick = {
 		}
 	},
 	
-	_clear_browser_edge : function(obj, is_horizontal) {
-		var tooltip = document.getElementById("tipclick_div");
+	_clear_browser_edge : function(obj, is_horizontal, x , y) {		
 		var edge_offset = (is_horizontal) ? parseInt(this.horizontal_offset, 10)*-1 : parseInt(this.vertical_offset, 10)*-1;
-		var is_ie = document.all && !window.opera;
+		var is_ie = (document.all && !window.opera);
 		var window_edge, content_measure;
 		if (is_ie) {
 			var ie_body = this._ie_body();
 		}
+		
+		var tooltip = document.getElementById("tipclick_div");				//Esto es mas rapido que $('#tipclick_div') para calcular el offset
 		if (is_horizontal) {
 			window_edge = is_ie ? ie_body.scrollLeft + ie_body.clientWidth-15 : window.pageXOffset+window.innerWidth-15;
 			content_measure = tooltip.offsetWidth;
-			if (window_edge - tooltip.x < content_measure) {
+			if (window_edge - x < content_measure) {
 				edge_offset= content_measure - obj.offsetWidth;
 			}
 		} else {
 			window_edge = is_ie ? ie_body.scrollTop + ie_body.clientHeight-15 : window.pageYOffset+window.innerHeight-18;
 			content_measure= tooltip.offsetHeight;
-			if (window_edge - tooltip.y < content_measure) {
+			if (window_edge - y < content_measure) {
 				edge_offset = content_measure + obj.offsetHeight;
 			}
 		}
@@ -90,12 +99,12 @@ var tipclick = {
 	 },
 	 
  	_do_show : function() {
-	 	document.getElementById("tipclick_div").style.visibility="visible";
+		$('#tipclick_div').show();
  	},
  	
  	_do_hide : function() {
  		if (this._must_hide) {
-			document.getElementById("tipclick_div").style.visibility="hidden";
+			$('#tipclick_div').hide();
  		}
 		this._clear_tip();
  	},
@@ -110,12 +119,15 @@ var tipclick = {
  	}
 };
 
-var html = '<div id="tipclick_div" onmouseover="if (typeof window.tipclick != \'undefined\' && window.tipclick !== null) return window.tipclick._continue()" onmouseout="if (typeof window.tipclick != \'undefined\' && window.tipclick !== null) return window.tipclick._stop()"></div>';
-if (typeof pagina_cargada != 'undefined' && pagina_cargada) {
-	document.body.innerHTML += html;	
-} else {
-	document.write(html);
-}
+$('<div />', {id: 'tipclick_div'})
+		.on('mouseover', function(){
+			if (typeof window.tipclick != 'undefined' && window.tipclick !== null) 
+				return window.tipclick._continue();})
+		.on('mouseout', function(){
+			if (typeof window.tipclick != 'undefined' && window.tipclick !== null) 
+				return window.tipclick._stop();})
+		.appendTo($(document.body));
+
 if (typeof toba != 'undefined') {
 	toba.confirmar_inclusion('basicos/tipclick');
 }

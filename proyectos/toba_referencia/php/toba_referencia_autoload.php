@@ -1,6 +1,6 @@
 <?php
 /**
- * Esta clase fue y será generada automáticamente. NO EDITAR A MANO.
+ * Esta clase fue y serÃ¡ generada automÃ¡ticamente. NO EDITAR A MANO.
  * @ignore
  */
 class toba_referencia_autoload 
@@ -98,6 +98,17 @@ class toba_referencia_autoload
 		'ci_login' => 'login/ci_login.php',
 		'cuadro_autologin' => 'login/cuadro_autologin.php',
 		'pant_login' => 'login/pant_login.php',
+		'referencia_evento_tab' => 'manejador_referencia/src/SIU/ManejadorReferencia/Componentes/Botones/referencia_evento_tab.php',
+		'referencia_evento_usuario' => 'manejador_referencia/src/SIU/ManejadorReferencia/Componentes/Botones/referencia_evento_usuario.php',
+		'referencia_cuadro' => 'manejador_referencia/src/SIU/ManejadorReferencia/Componentes/Interfaz/referencia_cuadro.php',
+		'referencia_cuadro_salida_html' => 'manejador_referencia/src/SIU/ManejadorReferencia/Componentes/Interfaz/referencia_cuadro_salida_html.php',
+		'referencia_ei' => 'manejador_referencia/src/SIU/ManejadorReferencia/Componentes/Interfaz/referencia_ei.php',
+		'referencia_formulario' => 'manejador_referencia/src/SIU/ManejadorReferencia/Componentes/Interfaz/referencia_formulario.php',
+		'referencia_formulario_ml' => 'manejador_referencia/src/SIU/ManejadorReferencia/Componentes/Interfaz/referencia_formulario_ml.php',
+		'referencia_pantalla' => 'manejador_referencia/src/SIU/ManejadorReferencia/Componentes/Interfaz/referencia_pantalla.php',
+		'referencia_config' => 'manejador_referencia/src/SIU/ManejadorReferencia/referencia_config.php',
+		'referencia_factory' => 'manejador_referencia/src/SIU/ManejadorReferencia/referencia_factory.php',
+		'referencia_tp_basico' => 'manejador_referencia/src/SIU/ManejadorReferencia/Componentes/TiposPagina/referencia_tp_basico.php',
 		'ci_mensajes' => 'mensajes/ci_mensajes.php',
 		'form_opciones' => 'mensajes/form_opciones.php',
 		'modelo_persona' => 'modelo/modelo_persona.php',
@@ -123,7 +134,6 @@ class toba_referencia_autoload
 		'ctrl_persona_1' => 'puntos_de_control/controles/ctrl_persona.php',
 		'ctrl_persona_2' => 'puntos_de_control/controles/ctrl_persona.php',
 		'ctrl_requisitos' => 'puntos_de_control/controles/ctrl_requisitos.php',
-
 		'ci_cliente_rest' => 'servicios/rest/ci_cliente_rest.php',
 		'ci_cliente' => 'servicios/seguro_codigo/ci_cliente.php',
 		'servicio' => 'servicios/seguro_codigo/servicio.php',

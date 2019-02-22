@@ -13,12 +13,12 @@ class pant_login extends toba_ei_pantalla
 			echo '</div>';
 		} 
 		if ($this->existe_dependencia('openid')) {
-			echo "<div style='margin-left: 30px; float:right;'>";			
+			echo "<div style='padding-left: 30px; padding-right: 30px;float:right;'>";			
 			$this->dep('openid')->generar_html();
 			echo '</div>';
 		}
 		if ($this->existe_dependencia('cas')) {
-			echo "<div style='margin-left: 30px; float:right;'>";			
+			echo "<div style='padding-left: 30px; padding-right: 30px;float:right;'>";		
 			$this->dep('cas')->generar_html();
 			echo '</div>';
 		}		

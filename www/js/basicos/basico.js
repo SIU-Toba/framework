@@ -318,8 +318,9 @@ function firstFocus()
 			var elemento = formulario.elements[j];
 			var display = elemento.style.display;
 			var solo_lect_attrib = isset(elemento.getAttribute('readonly'));
+			var box_busqueda = (elemento.id == 'search-input');
 			if (ie){solo_lect_attrib = elemento.getAttribute('readonly');}
-			if ((elemento.type=="text" || elemento.type=="textarea") && (!elemento.disabled)  && ( display != 'none') && ( display != 'hidden') && (! solo_lect_attrib)) {
+			if ((elemento.type=="text" || elemento.type=="textarea")  && (!box_busqueda) && (!elemento.disabled)  && ( display != 'none') && ( display != 'hidden') && (! solo_lect_attrib)) {
 				var error =false;
 				try {
 				   elemento.focus();

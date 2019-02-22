@@ -1,9 +1,17 @@
 
 //--- Creacion dinamica del div de error
-var html = "<img id='ef_warning' src='" + toba.imagen('error') + "' style='left: 0px;margin: 0px 0px 0px 0px; display:none; position: absolute;'>";
+
 if (pagina_cargada) {
 } else {
-	document.write(html);
+	var marcaError = document.createElement('img');
+	marcaError.setAttribute('id', 'ef_warning');
+	marcaError.setAttribute('src', toba.imagen('error'));
+	marcaError.style.left = '0px;';
+	marcaError.style.margin = 'margin: 0px 0px 0px 0px;';
+	marcaError.style.display = 'none';
+	marcaError.style.position = 'absolute';
+	
+	document.body.appendChild(marcaError);
 }
 
 var apex_ef_no_seteado = 'nopar';

@@ -233,7 +233,7 @@ trait toba_basic_logger
 	protected function construir_traza($con_parametros=false, $pasos = null)
 	{
 		if (!isset($pasos)) {			
-			$opciones = ($con_parametros) ? null: DEBUG_BACKTRACE_IGNORE_ARGS;
+			$opciones = ($con_parametros) ? null: \DEBUG_BACKTRACE_IGNORE_ARGS;
 			$pasos = debug_backtrace($opciones);
 		}
 		$html = "[TRAZA]\n";
@@ -255,11 +255,7 @@ trait toba_basic_logger
 					$html .= "Parámetros: <ol>";
 					foreach ($paso['args'] as $arg) {
 						$html .= "<li>";
-						if (is_object($arg)) {
-							$html .= 'Instancia de <em>'.get_class($arg).'</em>';
-						} else {
-							$html .= highlight_string(print_r($arg, true), true);
-						}
+						$html .= $this->armar_parametros_traza($arg);
 						$html .= "</li>\n";
 					}
 					$html .= "\t</ol>\n";
@@ -276,7 +272,22 @@ trait toba_basic_logger
 		}
 		return $html;
 	}
-		
+	
+	protected function armar_parametros_traza($argumento)
+	{
+		$html = '';
+		if (is_object($argumento)) {
+			$html .= 'Instancia de <em>'.get_class($argumento).'</em>';
+		} elseif (is_array($argumento)) {
+			foreach($argumento as $arg) {
+				$html .= $this->armar_parametros_traza($arg);
+			}
+		} else {
+			$html .= highlight_string(print_r($argumento, true), true);
+		}		
+		return $html;
+	}
+	
 	protected function armar_mensajes()
 	{
 		$texto = '';

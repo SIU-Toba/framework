@@ -422,8 +422,7 @@ class toba_ei_filtro extends toba_ei
 		$estilo_celda = "ei-filtro-fila";
 		foreach ($this->_columnas as $nombre_col => $columna) {
 			$this->analizar_visualizacion_columna ($columna);			
-			if ($columna->es_visible()) {
-				$estilo_fila = "";
+			echo toba::output()->get('Filtro')->getInicioFiltro("{$this->objeto_js}_fila$nombre_col", $nombre_col, $columna->get_html_etiqueta(),  $columna->es_visible(), "{$this->objeto_js}.seleccionar('$nombre_col')", $estilo_celda, $this->generar_vinculo_editor($nombre_col), $columna);
 			} else {
 				$estilo_fila = "style='display:none;'";
 			}
@@ -445,7 +444,7 @@ class toba_ei_filtro extends toba_ei
 			echo "</td>\n";
 
 			//-- Borrar a nivel de fila
-			echo "<td class='$estilo_celda ei-filtro-borrar'>";
+			echo toba::output()->get('Filtro')->getEliminarFiltro("{$this->objeto_js}_eliminar$nombre_col", "{$this->objeto_js}.seleccionar('$nombre_col');{$this->objeto_js}.eliminar_seleccionada();", $this->_rango_tabs[0]++, $columna->es_solo_lectura(), $columna->es_obligatorio(), $estilo_celda);
 			//Si es obligatoria no se puede borrar
 			if (!$columna->es_solo_lectura() && !$columna->es_obligatorio()) {
 				echo toba_form::button_html("{$this->objeto_js}_eliminar$nombre_col", toba_recurso::imagen_toba('borrar.gif', true), 
@@ -874,7 +873,7 @@ class toba_ei_filtro extends toba_ei
 		$formateo = new $this->_clase_formateo('pdf');
 		$datos = array();
 		$datos['datos_tabla'] = array();
-		foreach ( $this->_columnas as $columna ){
+		foreach ( $this->_columnas as $columna) {
 			if (!$columna->es_visible()){
 				continue;
 			}
@@ -884,27 +883,27 @@ class toba_ei_filtro extends toba_ei
 				$condicion = $columna->condicion()->get_etiqueta();
 								
 				$fn_formateo = $columna->get_formateo();
-				if (! is_null($fn_formateo)){
+				if (! is_null($fn_formateo)) {
 					$funcion = "formato_" . $fn_formateo;
-                	$valor_real = $columna->get_ef()->get_estado();
-                	$valor = $formateo->$funcion($valor_real);
-				}else{
-					$valor = $columna->get_ef()->get_descripcion_estado('pdf');
+					$valor_real = $columna->get_pdf_valor();
+					$valor = $formateo->$funcion($valor_real);
+				} else {
+					$valor = $columna->get_pdf_valor();
 				}
 				$datos['datos_tabla'][] = array('Columna' => $etiqueta, 'Condicion' => $condicion, 'Valor' => $valor);
 			}
 		}
 		//-- Genera la tabla
-        $ancho = null;
-        if (strpos($this->_pdf_tabla_ancho, '%') !== false) {
-        	$ancho = $salida->get_ancho(str_replace('%', '', $this->_pdf_tabla_ancho));	
-        } elseif (isset($this->_pdf_tabla_ancho)) {
-        		$ancho = $this->_pdf_tabla_ancho;
-        }
-        $opciones = $this->_pdf_tabla_opciones;
-        if (isset($ancho)) {
-        	$opciones['width'] = $ancho;		
-        }        
+		$ancho = null;
+		if (strpos($this->_pdf_tabla_ancho, '%') !== false) {
+			$ancho = $salida->get_ancho(str_replace('%', '', $this->_pdf_tabla_ancho));	
+		} elseif (isset($this->_pdf_tabla_ancho)) {
+				$ancho = $this->_pdf_tabla_ancho;
+		}
+		$opciones = $this->_pdf_tabla_opciones;
+		if (isset($ancho)) {
+			$opciones['width'] = $ancho;		
+		}        
 		$datos['titulo_tabla'] =  $this->get_titulo();
 		$salida->tabla($datos, false, $this->_pdf_letra_tabla, $opciones);
 	}
@@ -931,10 +930,10 @@ class toba_ei_filtro extends toba_ei
 				$fn_formateo = $columna->get_formateo();
 				if (! is_null($fn_formateo)){
 					$funcion = "formato_" . $fn_formateo;
-	                $valor_real = $columna->get_ef()->get_estado();
-	                list($valor, $estilo) = $formateo->$funcion($valor_real);
-				}else{
-					list($valor, $estilo) = $columna->get_ef()->get_descripcion_estado('excel');
+					$valor_real = $columna->get_excel_valor();
+					list($valor, $estilo) = $formateo->$funcion($valor_real);
+				} else {
+					list($valor, $estilo) = $columna->get_excel_valor();
 				}
 				
 				$condicion = $columna->condicion()->get_etiqueta();				
@@ -945,10 +944,10 @@ class toba_ei_filtro extends toba_ei
 				$opciones['etiqueta']['ancho'] = 'auto';
 				$opciones['condicion']['ancho'] = 'auto';
 				$opciones['valor']['ancho'] = 'auto';				
-				$datos = array(array('etiqueta' => $etiqueta, 'condicion' => $condicion, 'valor' => $valor));
+				$datos = array(array('etiqueta' => $etiqueta, 'condicion' => $condicion, 'valor' => $valor));				
 				$salida->tabla($datos, array(), $opciones);
 			}
-		}		
+		}
 	}
 	
 	//---------------------------------------------------------------

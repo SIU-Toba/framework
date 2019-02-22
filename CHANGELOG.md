@@ -4,13 +4,62 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+
+[3.2.0](https://github.com/SIU-Toba/framework/releases/tag/v3.2.0) (2019-02-22)
+- Se agrega ejemplo de uso de Araí-Reportes a toba_referencia
+- Bugfix en el metodo toba_parametros::get_proyecto() pasaba mal el id de la instancia
+- Fix en ef_multiseleccion para que se muestre correctamente la imagen de error al ser usados en ei_filtro
+- Se mejora la autoconfiguración de clientes rest via SIU-Araí
+- El hook de contacto con Arai pospone la carga del archivo con las claves al momento estrictamente necesario
+- Bugfix en exportacion pdf y excel de columnas compuestas de toba_ei_filtro
+- Actualizacion librerias
+  * vlucas/phpdotevn: v3.1.0
+  * ircmaxell/random-lib cambia de proveedor a paragonie/random-lib @2.0
+- Se modifican estilos en la pantalla de login generica para que al cambiar el manejador de salida no se vea desalineado
+- En la API JS se agregan parametros al metodo toba::set_menu_popup para poder reusarlo en los menu de manejadores de salida
+- Fix en toba_basic_logger para evitar leak de memoria cuando en la traza se devuelven objetos
+- Fix en toba_autenticacion_saml_onelogin cuando se permite usar la autenticacion basica de Toba
+- Se incorpora Workaround para salvaguardar bug en Yarn
+- Se incorpora toba_ei_calendario al esquema de manejadores de salida
+- Se agrega un ejemplo de manejador-salida parcial que deriva del paquete siu/manejador-salida-boostrap
+- El SP Onelogin va a correr en modo estricto (requiere certificados) en una instancia de produccion a menos que se especifique lo contrario 
+- Actualizacion librerias
+  * onelogin/php-saml: v3.1.0
+- El comando servicios_web configurar-cli agrega parametro para indicar el tipo de autenticacion
+- Fix en toba_factory_service para permitir manejadores de salida parciales
+- El ef_fecha muestra un rango de años fijo en el cliente (no relacionado con la validacion)
+- El log de WS extiende desde Psr\Log 
+- Se modifica tipclick.js y se agrega una clase css basica al archivo toba.css del template del proyecto
+- Se agregan clases css a las tablas que contienen los efs de seleccion multiple
+- Se agrega la imagen del calendario al proceso de migración ya que cambia su ruta
+- Se agrega la accion predefinida Arai-Reportes para los eventos
+- Se crea la clase toba_vista_arai_reportes
+- Se agrega un cliente rest para JasperReports
+- Se modifica la componente JS del ef_fecha para proveer un datepicker compatible con bootstrap
+- Se modifican los componenetes toba_ei_esquema y toba_ei_grafico para incluir los namespaces de JpGraph
+- Se actualiza JpGraph v4.2.0 y se le agrega namespaces de manera propia.
+- Se actualiza operacion de armado de menues en toba_usuarios
+- Se eliminan viejas versiones de JQuery, JQuery-ui dentro de la carpeta JS de Toba (requiere re-escritura en caso de URL hardcoded)
+- Actualizacion librerias JS e inclusion como recurso basico:
+  * JQuery: v3.3.1
+  * JQuery-ui: v1.12.1 (en directorio /js/utilidades/jquery-ui)
+  * Agrega JQuery-migrate: v.3.0
+- Se modifica ef_editable_fecha y ef_editable_fecha_hora para compatibilizar el funcionamiento
+- Se reemplaza el calendario anterior en JS por jquery-ui::datepicker (ojo con las redefiniciones JS!!)
+- Se elimina el calendario del DOM al seleccionar una fecha (mejora problema visual en manejador-salida-bootstrap)
+- Se deja de usar toba_notificacion para informar un error en un servicio ajax, se hace echo del msg.
+- Se desactiva el uso del manejador-salida-bootstrap en toba_usuarios para no forzar a su instalación por defecto
+- Bugfix a la ejecucion de test desde consola
+- Se agrega siu/manejador-salida-bootstrap como paquete sugerido
+- Se traslada parte de la generación del marcado HTML al paquete siu/manejador-salida-toba
+
 [3.1.7](https://github.com/SIU-Toba/framework/releases/tag/v3.1.7) (2019-02-13)
 - Se mejora la autoconfiguración de apis rest via arai-cli (merge @develop)
 - Se pospone la carga del archivo de claves de arai (merge @develop)
 
 [3.1.6](https://github.com/SIU-Toba/framework/releases/tag/v3.1.6) (2019-01-15)
-- Modifica el hook de Toba para Registry, remueve codigo no necesario (merge @develop)
-- Modifica toba_version quitando la opcion pre-alpha y agregando la opcion dev (merge @develop)
+- Modifica el hook de Toba para Registry, remueve codigo no necesario
+- Modifica toba_version quitando la opcion pre-alpha y agregando la opcion dev
 
 [3.1.5](https://github.com/SIU-Toba/framework/releases/tag/v3.1.5) (2018-12-07)
 - Fix en verificacion de versiones compatibles de Arai (merge desde develop)
@@ -28,9 +77,6 @@
 - Merge desde 3.0.31 con fix a toba_ini
 - Se agrega metodo para acceder al objeto db que se pasa al modelo durante la instanciacion via toba_modelo_catalogo
 - Se agrega advertencia en pantalla inicia de toba_editor cuando se usa el id desarrolo por defecto
-
-[3.1.1](https://github.com/SIU-Toba/framework/releases/tag/v3.1.1) (2018-09-20)
-- Bugfix en toba_modelo_instalacion por merge incorrecto @[376e0370c752050329541c2dc689777187846de4]
 
 [3.1.0](https://github.com/SIU-Toba/framework/releases/tag/v3.1.0) (2018-09-19)
 - Se actualiza el link de la pantalla inicial del editor para que apunte al changelog
@@ -75,6 +121,9 @@
   * Agrega facebook/webdriver: v1.5.0
 - Se cambia Bower por Yarn como manejador de assets JS
 
+[3.0.31](https://github.com/SIU-Toba/framework/releases/tag/v3.0.31) (2018-10-25):
+- Se corrige bug en toba_ini que en ciertas secuencias de uso mezclaba configuraciones generales con secciones al guardar
+
 [3.0.30](https://github.com/SIU-Toba/framework/releases/tag/v3.0.30) (2018-08-28):
 - Se cambia el scope de los métodos que implementan el selector de ordenamiento múltiple del cuadro a protected
 - Se corrige bug por merge desde develop
@@ -112,7 +161,7 @@
 - Actualiza el paquete siu/text_Highlighter: v0.8
 - Se corrigen notices en toba_editor
 
-[3.0.22](https://github.com/SIU-Toba/framework/releases/tag/v3.0.22) (2018-04-05):
+[3.0.22](https://github.com/SIU-Toba/framework/releases/tag/v3.0.22) (2018-04-06):
 - Se actualiza el paquete siu/arai-cli a v2.3.1
 - Se corrigen bugs en los hooks de Toba para conectar a Araí
 - Se corrige XSS via toba_notificacion (IMPORTANTE!!)

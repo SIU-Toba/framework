@@ -174,9 +174,10 @@ class ci_recordatorio_pwd extends toba_ci
 			$cripter = toba_encriptador::instancia();
 			$datos = toba::instancia()->get_pregunta_secreta($usuario);
 			if (! is_null($datos)) {
+				$cripter = toba_encriptador::instancia();
 				$clave = toba::instalacion()->get_claves_encriptacion();        
 				$aux['pregunta'] = $cripter->desencriptar($datos['pregunta'], $clave['get']);
-+				$aux['respuesta'] =$cripter->desencriptar($datos['respuesta'], $clave['get']);
+				$aux['respuesta'] =$cripter->desencriptar($datos['respuesta'], $clave['get']);
 			}
 			return $aux;
 		} catch (toba_error $e) {

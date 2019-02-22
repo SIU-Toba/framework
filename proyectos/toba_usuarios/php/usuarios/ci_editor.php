@@ -259,16 +259,20 @@ class ci_editor extends toba_ci
 	
 	private function encriptar_datos($dato_original)
 	{	
-		$clave = toba::instalacion()->get_claves_encriptacion();
-		$cripter = toba_encriptador::instancia();
-		return $cripter->encriptar($dato_original, $clave['get']);
+		if (trim($dato_original) != '') {
+			$clave = toba::instalacion()->get_claves_encriptacion();
+			$cripter = toba_encriptador::instancia();
+			return $cripter->encriptar($dato_original, $clave['get']);
+		}
 	}
 	
 	private function desencriptar_datos($dato_encriptado)
 	{
-		$clave = toba::instalacion()->get_claves_encriptacion();		
-		$cripter = toba_encriptador::instancia();
-		return $cripter->desencriptar($dato_encriptado, $clave['get']);
+		if (trim($dato_encriptado) != '') {
+			$clave = toba::instalacion()->get_claves_encriptacion();		
+			$cripter = toba_encriptador::instancia();
+			return $cripter->desencriptar($dato_encriptado, $clave['get']);
+		}
 	}
 	
 	public function get_usuario_arai() {

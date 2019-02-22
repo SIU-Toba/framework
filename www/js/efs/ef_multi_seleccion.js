@@ -83,7 +83,7 @@ ef_multi_seleccion.prototype.constructor = ef_multi_seleccion;
 	};
 	
 	ef_multi_seleccion.prototype.get_contenedor_opciones = function() {
-		return null;	
+		return document.getElementById(this._id_form + '_opciones');
 	};
 	
 	
@@ -316,13 +316,8 @@ ef_multi_seleccion_check.constructor = ef_multi_seleccion_check;
 			nodo = this.input();	
 		}	
 		return (nodo.style.display == 'none' );	//Evalua unicamente la visibilidad del contenedor
-	};
-	
-	ef_multi_seleccion_check.prototype.get_contenedor_opciones = function() {
-		return document.getElementById(this._id_form + '_opciones');	
-	};
-	
-	
+	};	
+		
 // ########################################################################################################
 // ########################################################################################################
 
@@ -533,6 +528,6 @@ ef_multi_seleccion_doble.constructor = ef_multi_seleccion_doble;
 	ef_multi_seleccion_doble.prototype.set_tab_index = function(tab_index) {
 		this.input('izq').tabIndex = tab_index;
 	};
-		
+	
 	
 toba.confirmar_inclusion('efs/ef_multi_seleccion');

@@ -466,7 +466,7 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 		for (id_ef in this._efs) {			
 			if (this._efs[id_ef] instanceof  ef_html ) {			//Para los ef_html tengo que destruir la instancia del CKEditor resguardando asi el estado
 				this._efs[id_ef].ir_a_fila(this._filas[pos_a]).get_editor().destroy();
-				this._efs[id_ef].ir_a_fila(this._filas[pos_b]).get_editor().destroy();
+				this._efs[id_ef].ir_a_fila(this._filas[pos_b]).get_editor().destroy();	
 			}
 		}
 		
@@ -483,7 +483,7 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 			this._efs[id_ef].ir_a_fila(this._filas[pos_b]).set_tab_index(tab_a);			
 			if (this._efs[id_ef] instanceof  ef_html ) {						//Recreo la instancia del CKEditor  y restauro el estado de los ef_html
 				this._efs[id_ef].ir_a_fila(this._filas[pos_a]).crear_editor();
-				this._efs[id_ef].ir_a_fila(this._filas[pos_b]).crear_editor();				
+				this._efs[id_ef].ir_a_fila(this._filas[pos_b]).crear_editor();
 			}			
 		}
 		

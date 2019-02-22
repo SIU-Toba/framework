@@ -367,7 +367,7 @@ class toba_manejador_sesiones
 	 */
 	function set_perfiles_funcionales_activos($activos)
 	{
-		$finales = array();		
+		$finales = array();
 		$perfiles = $this->get_perfiles_funcionales();		
 		//Validacion
 		foreach ($activos as $perfil) {

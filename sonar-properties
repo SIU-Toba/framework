@@ -1,0 +1,9 @@
+sonar.projectKey=siu:toba_ci_wrapper
+sonar.projectName=SIU-Toba
+sonar.projectVersion=3.0.30
+
+sonar.links.homepage=https://gitlab.siu.edu.ar/rdalinger/toba_ci_wrapper
+sonar.sourceEncoding=ISO-8859-1
+sonar.sources=php,src,proyectos
+
+sonar.host.url=http://sonar.siu.edu.ar:8080

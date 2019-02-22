@@ -1,19 +1,4 @@
 <?php	
-/*if (toba::instalacion()->vincula_arai_usuarios()) {
-	$dir = dirname(__FILE__);		//Me fijo donde estoy
-	$pos = stripos($dir, DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR);
-	if ($pos !== FALSE) {			//Me instalo por composer, hay una carpeta vendor en el path
-		$path = substr($dir, 0, $pos) . '/vendor/autoload.php';
-	} elseif (file_exists(realpath(toba_nucleo::toba_dir().'/vendor/autoload.php'))) {
-		$path = realpath(toba_nucleo::toba_dir() . '/vendor/autoload.php');			//Nivel inicial por desarrollo de Toba o Rama 2.8+
-	} else {
-		$path = realpath(toba_nucleo::toba_dir().'/php/vendor/autoload.php');			//Valido para rama 2.7.x
-	}
-	if (file_exists($path)) {
-		require_once($path);					
-	}
-}*/
-
 /**
  * Clase para utilizar Arai-Usuarios
  * 
@@ -135,7 +120,7 @@ class gestion_arai_usuarios
 			}
 		} while(! $claveok);
 		return $clave_tmp;
-	}
+	}	
 	
 	static private function verifica_version_arai_cli()
 	{
@@ -144,10 +129,10 @@ class gestion_arai_usuarios
 		}
 		//Agregar verificacion puntual de version compatible de arai-cli
 		if (! SIUToba\Framework\Arai\RegistryHooksProyectoToba::checkVersionCompatible()) {
-			throw new toba_error('La versiÃ³n del paquete siu/arai-cli no es compatible, revise la documentaciÃ³n del sistema.');
+			throw new toba_error('La versión del paquete siu/arai-cli no es compatible, revise la documentación del sistema.');
 		}
 
 		return true;
-	}	
+ 	}
 }
 ?>

@@ -1472,8 +1472,8 @@ class toba_info_editores
 		foreach ($metodos as $obj) {
 			$salida[] = array('metodo' => $obj->getName());
 		}
-		
-		$salida = rs_ordenar_por_columna($salida, 'metodo');
+
+		$salida = rs_ordenar_por_columna($salida, 'metodo');		
 				
 		//Desregistro el autoload de los puntos de montaje existentes para que no interfieran con el editor.
 		if (! empty($pm_obj)) {

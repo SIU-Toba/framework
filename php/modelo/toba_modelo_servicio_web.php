@@ -124,7 +124,7 @@ class toba_modelo_servicio_web extends toba_modelo_elemento
 	 * @param array $datos_cert
 	 * @param string $url_sistema 
 	 */
-	function generar_configuracion_cliente($cert_servidor, $url_sistema, $cert_cli=null, $key_cli=null, $cert_pwd=null,$usr=null, $usr_pwd=null)
+	function generar_configuracion_cliente($cert_servidor, $url_sistema, $cert_cli=null, $key_cli=null, $cert_pwd=null,$usr=null, $usr_pwd=null, $tipo_auth=null)
 	{
 		if (! $this->rest) {
 			$soap = new toba_modelo_soap($this->proyecto);
@@ -133,7 +133,7 @@ class toba_modelo_servicio_web extends toba_modelo_elemento
 		} else {
 			$rest = new toba_modelo_rest($this->proyecto);
 			$rest->set_manejador_interface($this->manejador_interface);
-			$rest->generar_configuracion_cliente($this->get_id(),$cert_servidor, $url_sistema, $cert_cli, $key_cli, $cert_pwd, $usr, $usr_pwd);
+			$rest->generar_configuracion_cliente($this->get_id(),$cert_servidor, $url_sistema, $cert_cli, $key_cli, $cert_pwd, $usr, $usr_pwd, $tipo_auth);
 		}
 	}
 	

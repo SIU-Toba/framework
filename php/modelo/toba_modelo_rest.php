@@ -238,7 +238,7 @@ class toba_modelo_rest extends toba_modelo_elemento
 		return $proyecto->get_dir_pers().'/php' . self::CARPETA_REST;		
 	}
 		
-	function generar_configuracion_cliente($id_servicio, $cert_CA, $url, $cert_cli, $key_cli, $cert_pwd, $usr, $usr_pwd)
+	function generar_configuracion_cliente($id_servicio, $cert_CA, $url, $cert_cli, $key_cli, $cert_pwd, $usr, $usr_pwd, $tipo_auth)
 	{		
 		//Intento crear la carpeta de destino de configuraciones por si no esta.
 		try {
@@ -255,6 +255,11 @@ class toba_modelo_rest extends toba_modelo_elemento
 			die;
 		}	
 		
+		$auth_basica = null;
+		if (! is_null($tipo_auth)) {
+			$auth_basica = (strtolower($tipo_auth) == 'basic'  || strtolower($tipo_auth) == 'digest' );
+		}		
+		
 		$ini = self::get_ini_cliente($this->proyecto, $id_servicio);
 		$datos = array();
 		if ($ini->existe_entrada('conexion')) {					//Recupero los datos de la entrada o la genero vacia
@@ -267,13 +272,21 @@ class toba_modelo_rest extends toba_modelo_elemento
 		if (! is_null($usr)) {
 			$datos['auth_usuario'] = $usr;
 			$datos['auth_password'] = $usr_pwd;
-			$datos['auth_tipo'] = 'digest';
+			$datos['auth_tipo'] = (! is_null($tipo_auth)) ? $tipo_auth : 'digest';
+			if ($auth_basica === false) {
+				$this->manejador_interface->mensaje("El tipo de autenticacion no coincide con los parametros entregados");
+				die;
+			}
 		} elseif (! is_null($cert_cli)) {
-			$datos['auth_tipo'] =  'ssl';
+			$datos['auth_tipo'] =  (! is_null($tipo_auth)) ? $tipo_auth : 'ssl';
 			$datos['cert_file'] = $cert_cli;
 			$datos['key_file'] = $key_cli;
 			if (! is_null($cert_pwd)) {$datos['cert_pwd'] =  $cert_pwd;}
 			if (! is_null($cert_CA)) { $datos['ca_cert'] = $cert_CA;}
+			if ($auth_basica === true) {
+				$this->manejador_interface->mensaje("El tipo de autenticacion no coincide con los parametros entregados");
+				die;
+			}			
 		}
 		
 		$ini->set_datos_entrada('conexion', $datos);

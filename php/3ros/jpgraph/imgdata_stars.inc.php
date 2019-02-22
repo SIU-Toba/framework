@@ -1,11 +1,13 @@
 <?php
+namespace JpGraph;
+
 //=======================================================================
 // File:        IMGDATA_STARS.INC
 // Description: Base64 encoded images for stars
 // Created:     2003-03-20
 // Ver:         $Id: imgdata_stars.inc.php 1106 2009-02-22 20:16:35Z ljp $
 //
-// Copyright (c) Aditus Consulting. All rights reserved.
+// Copyright (c) Asial Corporation. All rights reserved.
 //========================================================================
 
 

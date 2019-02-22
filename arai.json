@@ -1,0 +1,37 @@
+{
+  "name": "siu-toba/framework",
+  "description": "Toba",
+  "scripts": {
+    "hooks": "SIUToba\\Framework\\Arai\\RegistryHooksProyectoToba"
+  },
+  "consume": [
+    {
+      "name": "service:siu/sso-saml-idp",
+      "version": ">=0.1.0"
+    },
+    {
+      "name": "api:siu/arai-usuarios",
+      "version": ">=0.1.0",
+      "options": {
+        "toba-rest": [
+          { "proyecto": "toba_usuarios", "rest-id": "rest_arai_usuarios" }
+        ]
+      }
+    }, 
+    {
+       "name": "api:siu/arai_reportes",
+       "version": ">=1.0.0", 
+       "options": {
+	"toba-rest" : [
+	  {"proyecto" : "toba_referencia", "rest-id": "rest_arai_reportes"}
+	 ]
+	}	
+    }
+  ], 
+  "provide" : [
+    {
+      "name": "app:siu/toba_usuarios",
+      "version": ">=3.2.0"
+    }
+  ]
+} 

@@ -89,7 +89,7 @@ class toba_nucleo
 		try {
 			$this->iniciar_contexto_ejecucion();
 			toba::manejador_sesiones()->verificar_cambio_perfil_activo();				//Miro si se quiere cambiar el perfil funcional activo
-			$this->verificar_pedido_post();			
+			$this->verificar_pedido_post();	
 			try {
 				$this->solicitud = $this->cargar_solicitud_web();
 				$this->solicitud_en_proceso = true;
@@ -326,13 +326,12 @@ class toba_nucleo
 		toba_http::headers_standart();
 		$this->agregar_paths();
 		$this->recuperar_revision_recursos();
+		$this->registrar_autoloaders_proyecto();		
 		toba::manejador_sesiones()->iniciar();
-		toba::config();
-		$this->registrar_autoloaders_proyecto();
 		toba::contexto_ejecucion()->conf__inicial();
 	}
         
-        protected function iniciar_contexto_consola()
+	protected function iniciar_contexto_consola()
 	{
 		if (!ini_get('safe_mode') && strpos(ini_get('disable_functions'), 'set_time_limit') === FALSE) {		
 			set_time_limit(0);
@@ -345,7 +344,7 @@ class toba_nucleo
 		toba::config();
 		toba::contexto_ejecucion()->conf__inicial();
 	}
-        
+	
 	protected function iniciar_contexto_soap()
 	{
 		$this->iniciar_contexto_consola();				//Reuso porque el codigo es el mismo, lo dejo separado por si llega a necesitar cambios 

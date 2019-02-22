@@ -396,6 +396,7 @@ padding-left:4px;
 }
 .ef-fecha img, .ef-popup img {
 	vertical-align: top;
+	margin-left: 2px;
 }
 .ef-fijo {
 	text-align: left;
@@ -476,6 +477,7 @@ padding-left:4px;
 }
 .ef-fecha-hora img {
 	vertical-align: middle;
+	margin-left: 2px;
 }
 .ef-editable-clave-barra-info {
 	width: 100px;

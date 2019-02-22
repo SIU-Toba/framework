@@ -251,6 +251,7 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 
 	/**
 	 *  Envia la botonera del selector
+	 *  @see manejador_salida_toba
 	 */
 	protected function html_botonera_selector()
 	{
@@ -266,6 +267,7 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 
 	/**
 	 * Genera la cabecera con los titulos del selector
+	 * @see manejador_salida_toba
 	 */
 	protected function html_cabecera_selector()
 	{
@@ -278,6 +280,7 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 
 	/**
 	 *  Genera el cuerpo del selector
+	 *  @see manejador_salida_toba
 	 */
 	protected function html_cuerpo_selector()
 	{
@@ -683,7 +686,7 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 	
 	protected function html_cuadro_celda_evento($id_fila, $clave_fila, $pre_columnas)
 	{
-		foreach ($this->_cuadro->get_eventos_sobre_fila() as $id => $evento) {
+		foreach ($this->_cuadro->get_eventos_sobre_fila() as $evento) {
 			$grafico_evento = !($pre_columnas xor $evento->tiene_alineacion_pre_columnas());		//Decido si se debe graficar el boton en este lugar (logica explicada en html_cuadro_cabecera_columna_evento)
 			if ($grafico_evento) {
 					$parametros = $this->get_parametros_interaccion($id_fila, $clave_fila);

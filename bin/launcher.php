@@ -17,11 +17,15 @@ if (! isset($_SERVER['TOBA_DIR'])) {
     include(realpath($toba_dir . $path_autoload));                      //Necesito cargar el autoload de composer antes, sino no funca nada
     $path_env =  (stripos($toba_dir,  DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR) !== false)  ?  realpath($toba_dir . '/../../../')  : $toba_dir;      
     if (file_exists($path_env. '/entorno_toba.env')) {  
-        $dotenv = new Dotenv\Dotenv($path_env, 'entorno_toba.env');         
-        $dotenv->load();
-        //Chequeo que existan las variables correspondientes... deberia pero bue nunca esta de mas.
-        $dotenv->required('TOBA_INSTANCIA');
-        $dotenv->required('TOBA_INSTALACION_DIR');
+	try {
+		$dotenv = Dotenv\Dotenv::create($path_env, 'entorno_toba.env');         
+		$dotenv->load();
+		//Chequeo que existan las variables correspondientes... deberia pero bue nunca esta de mas.
+		$dotenv->required('TOBA_INSTANCIA');
+		$dotenv->required('TOBA_INSTALACION_DIR');
+	} catch (Dotenv\Exception\ValidationException $e) {
+		echo 'Falta definir una variable de entorno que es requerida ' . PHP_EOL . $e->getMessage();
+	}
     }       
 }
 
