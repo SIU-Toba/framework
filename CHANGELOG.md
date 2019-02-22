@@ -3,6 +3,13 @@
 ## CHANGELOG
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
+
+
+[3.2.0](https://github.com/SIU-Toba/framework/releases/tag/v3.2.0) (2019-02-22)
+- Se agrega ejemplo de uso de Araí-Reportes a toba_referencia
+- Bugfix en el metodo toba_parametros::get_proyecto() pasaba mal el id de la instancia
+- Fix en ef_multiseleccion para que se muestre correctamente la imagen de error al ser usados en ei_filtro
+- Se mejora la autoconfiguración de clientes rest via SIU-Araí
 - El hook de contacto con Arai pospone la carga del archivo con las claves al momento estrictamente necesario
 - Bugfix en exportacion pdf y excel de columnas compuestas de toba_ei_filtro
 - Actualizacion librerias
@@ -17,7 +24,7 @@
 - Se agrega un ejemplo de manejador-salida parcial que deriva del paquete siu/manejador-salida-boostrap
 - El SP Onelogin va a correr en modo estricto (requiere certificados) en una instancia de produccion a menos que se especifique lo contrario 
 - Actualizacion librerias
-  * onelogin/php-saml: v3.0.0
+  * onelogin/php-saml: v3.1.0
 - El comando servicios_web configurar-cli agrega parametro para indicar el tipo de autenticacion
 - Fix en toba_factory_service para permitir manejadores de salida parciales
 - El ef_fecha muestra un rango de años fijo en el cliente (no relacionado con la validacion)
@@ -45,6 +52,10 @@
 - Bugfix a la ejecucion de test desde consola
 - Se agrega siu/manejador-salida-bootstrap como paquete sugerido
 - Se traslada parte de la generación del marcado HTML al paquete siu/manejador-salida-toba
+
+[3.1.7](https://github.com/SIU-Toba/framework/releases/tag/v3.1.7) (2019-02-13)
+- Se mejora la autoconfiguración de apis rest via arai-cli (merge @develop)
+- Se pospone la carga del archivo de claves de arai (merge @develop)
 
 [3.1.6](https://github.com/SIU-Toba/framework/releases/tag/v3.1.6) (2019-01-15)
 - Modifica el hook de Toba para Registry, remueve codigo no necesario
