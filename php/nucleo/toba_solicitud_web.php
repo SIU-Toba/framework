@@ -227,11 +227,12 @@ class toba_solicitud_web extends toba_solicitud
 		if (toba::solicitud()->hay_zona() && toba::zona()->cargada()) {
 			toba::zona()->generar_html_barra_superior();
 		}
+		
 		//--- Se incluyen botones en la botonera de la operacion
 		$this->generar_html_botonera_sup($objetos);
-		echo "</div>";//---- Se finaliza aqui el div de la barra superior
-		echo '<div style="clear:both;"></div>';
-		echo "</div>"; //-- Se finaliza aqui el div del encabezado, por la optimizacion del pre-servicio..
+		
+		$this->tipo_pagina()->post_encabezado();
+		
 		$this->tipo_pagina()->pre_contenido();
 		
 		//--- Abre el formulario

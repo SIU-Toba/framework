@@ -291,16 +291,6 @@ class toba_mc_comp__1517
   array (
     0 => 
     array (
-      'pantalla' => 462,
-      'proyecto' => 'toba_editor',
-      'objeto_ci' => 1517,
-      'dep_id' => 92,
-      'orden' => 0,
-      'identificador_pantalla' => 'pant_permisos_tablas',
-      'identificador_dep' => 'permisos',
-    ),
-    1 => 
-    array (
       'pantalla' => 466,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1517,
@@ -309,7 +299,7 @@ class toba_mc_comp__1517
       'identificador_pantalla' => 'pant_dependencias',
       'identificador_dep' => 'objetos',
     ),
-    2 => 
+    1 => 
     array (
       'pantalla' => 33000049,
       'proyecto' => 'toba_editor',
@@ -319,17 +309,17 @@ class toba_mc_comp__1517
       'identificador_pantalla' => 'pant_permisos',
       'identificador_dep' => 'form_acl',
     ),
-    3 => 
+    2 => 
     array (
-      'pantalla' => 460,
+      'pantalla' => 462,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1517,
-      'dep_id' => 93,
-      'orden' => 1,
-      'identificador_pantalla' => 'pant_prop_basicas',
-      'identificador_dep' => 'prop_basicas',
+      'dep_id' => 92,
+      'orden' => 0,
+      'identificador_pantalla' => 'pant_permisos_tablas',
+      'identificador_dep' => 'permisos',
     ),
-    4 => 
+    3 => 
     array (
       'pantalla' => 462,
       'proyecto' => 'toba_editor',
@@ -338,6 +328,16 @@ class toba_mc_comp__1517
       'orden' => 1,
       'identificador_pantalla' => 'pant_permisos_tablas',
       'identificador_dep' => 'form_tablas',
+    ),
+    4 => 
+    array (
+      'pantalla' => 460,
+      'proyecto' => 'toba_editor',
+      'objeto_ci' => 1517,
+      'dep_id' => 93,
+      'orden' => 1,
+      'identificador_pantalla' => 'pant_prop_basicas',
+      'identificador_dep' => 'prop_basicas',
     ),
   ),
   '_info_evt_pantalla' => 
@@ -365,18 +365,18 @@ class toba_mc_comp__1517
       'pantalla' => 462,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1517,
-      'evento_id' => 92,
+      'evento_id' => 91,
       'identificador_pantalla' => 'pant_permisos_tablas',
-      'identificador_evento' => 'procesar',
+      'identificador_evento' => 'eliminar',
     ),
     3 => 
     array (
       'pantalla' => 462,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1517,
-      'evento_id' => 91,
+      'evento_id' => 92,
       'identificador_pantalla' => 'pant_permisos_tablas',
-      'identificador_evento' => 'eliminar',
+      'identificador_evento' => 'procesar',
     ),
     4 => 
     array (
@@ -419,22 +419,22 @@ class toba_mc_comp__1517
   array (
     0 => 
     array (
-      'identificador' => 'prop_basicas',
+      'identificador' => 'datos',
       'proyecto' => 'toba_editor',
-      'objeto' => 1519,
-      'clase' => 'toba_ei_formulario',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
-      'subclase' => 'form_prop_basicas',
-      'subclase_archivo' => 'editores/editor_item/form_prop_basicas.php',
+      'objeto' => 1554,
+      'clase' => 'toba_datos_relacion',
+      'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_relacion.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
       'fuente' => 'instancia',
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
     1 => 
     array (
-      'identificador' => 'permisos',
+      'identificador' => 'form_acl',
       'proyecto' => 'toba_editor',
-      'objeto' => 1520,
+      'objeto' => 33000105,
       'clase' => 'toba_ei_formulario_ml',
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
       'subclase' => NULL,
@@ -471,9 +471,9 @@ class toba_mc_comp__1517
     ),
     4 => 
     array (
-      'identificador' => 'form_acl',
+      'identificador' => 'permisos',
       'proyecto' => 'toba_editor',
-      'objeto' => 33000105,
+      'objeto' => 1520,
       'clase' => 'toba_ei_formulario_ml',
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
       'subclase' => NULL,
@@ -484,13 +484,13 @@ class toba_mc_comp__1517
     ),
     5 => 
     array (
-      'identificador' => 'datos',
+      'identificador' => 'prop_basicas',
       'proyecto' => 'toba_editor',
-      'objeto' => 1554,
-      'clase' => 'toba_datos_relacion',
-      'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_relacion.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
+      'objeto' => 1519,
+      'clase' => 'toba_ei_formulario',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
+      'subclase' => 'form_prop_basicas',
+      'subclase_archivo' => 'editores/editor_item/form_prop_basicas.php',
       'fuente' => 'instancia',
       'parametros_a' => NULL,
       'parametros_b' => NULL,
@@ -615,31 +615,18 @@ class toba_mc_comp__1554
   array (
     0 => 
     array (
-      'identificador' => 'permisos_tablas',
+      'identificador' => 'base',
       'proyecto' => 'toba_editor',
-      'objeto' => 30000103,
+      'objeto' => 1553,
       'clase' => 'toba_datos_tabla',
       'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_tabla.php',
       'subclase' => NULL,
       'subclase_archivo' => NULL,
       'fuente' => 'instancia',
-      'parametros_a' => '',
-      'parametros_b' => '',
+      'parametros_a' => '1',
+      'parametros_b' => '1',
     ),
     1 => 
-    array (
-      'identificador' => 'permisos',
-      'proyecto' => 'toba_editor',
-      'objeto' => 1555,
-      'clase' => 'toba_datos_tabla',
-      'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_tabla.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
-      'fuente' => 'instancia',
-      'parametros_a' => '0',
-      'parametros_b' => '0',
-    ),
-    2 => 
     array (
       'identificador' => 'objetos',
       'proyecto' => 'toba_editor',
@@ -652,18 +639,31 @@ class toba_mc_comp__1554
       'parametros_a' => '0',
       'parametros_b' => '0',
     ),
-    3 => 
+    2 => 
     array (
-      'identificador' => 'base',
+      'identificador' => 'permisos',
       'proyecto' => 'toba_editor',
-      'objeto' => 1553,
+      'objeto' => 1555,
       'clase' => 'toba_datos_tabla',
       'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_tabla.php',
       'subclase' => NULL,
       'subclase_archivo' => NULL,
       'fuente' => 'instancia',
-      'parametros_a' => '1',
-      'parametros_b' => '1',
+      'parametros_a' => '0',
+      'parametros_b' => '0',
+    ),
+    3 => 
+    array (
+      'identificador' => 'permisos_tablas',
+      'proyecto' => 'toba_editor',
+      'objeto' => 30000103,
+      'clase' => 'toba_datos_tabla',
+      'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_tabla.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
+      'fuente' => 'instancia',
+      'parametros_a' => '',
+      'parametros_b' => '',
     ),
   ),
   '_info_columnas_asoc_rel' => 

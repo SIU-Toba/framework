@@ -202,7 +202,7 @@ class toba_autenticacion_saml_onelogin extends toba_autenticacion implements tob
 		$info =  array ('entityId' => $entityID.'/' . $this->auth_source,
 					'assertionConsumerService' => array ( 'url' => $entityID.'/?acs'),
 					'singleLogoutService' => array ('url' => $entityID.'/?sls'	),
-                                                                'NameIDFormat' =>$this->atributo_usuario
+					'NameIDFormat' =>$this->atributo_usuario
                                     	);
 		
 		//Agrega PK y Certificado para cuando se verifica la conexion con strict

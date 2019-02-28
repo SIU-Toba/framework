@@ -15,7 +15,6 @@ class toba_proyecto
 	private $indice_items_accesibles;
 	private $items_excluidos = array();
 	private $mapeo_componentes = array();
-	private $ini_proyecto;
 	private $personalizacion_iniciada;
 	const prefijo_punto_acceso = 'apex_pa_';
 
