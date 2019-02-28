@@ -10,19 +10,9 @@ class toba_tp_popup extends toba_tp_basico_titulo
 {
 	
 	function barra_superior()
-	{
-		echo "<div id='barra-superior' class='barra-superior barra-superior-tit barra-popup'>\n";		
+	{	
 		$info = toba::solicitud()->get_datos_item();
-		echo "<div class='item-barra'>";
-		if (trim($info['item_descripcion']) != '') {
-			$desc = toba_parser_ayuda::parsear(trim($info['item_descripcion']));
-			$ayuda = toba_recurso::ayuda(null, $desc, 'item-barra-ayuda', 0);
-			echo "<div $ayuda>";
-			echo toba_recurso::imagen_toba("ayuda_grande.gif", true);
-			echo "</div>";
-		}		
-		echo "<div class='item-barra-tit'>".$this->titulo_item()."</div>";
-		echo "</div>\n\n";
+		echo toba::output()->get('PaginaPopup')->getContenidoBarraSuperior($info['item_descripcion'],$this->titulo_item());
 	}
 
 }

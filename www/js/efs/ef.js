@@ -588,7 +588,7 @@ ef_html.prototype.constructor = ef_html;
 			}
 		}
 	};
-	
+
 	ef_html.prototype.get_estado = function() {
 		var editor = this.get_editor();
 		if (editor) {

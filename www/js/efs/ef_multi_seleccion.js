@@ -316,7 +316,7 @@ ef_multi_seleccion_check.constructor = ef_multi_seleccion_check;
 			nodo = this.input();	
 		}	
 		return (nodo.style.display == 'none' );	//Evalua unicamente la visibilidad del contenedor
-	};	
+	};
 		
 // ########################################################################################################
 // ########################################################################################################

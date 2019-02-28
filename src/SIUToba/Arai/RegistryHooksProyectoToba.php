@@ -188,7 +188,6 @@ class RegistryHooksProyectoToba implements HooksInterface
 		$providers = $feature->getProviders();
 		if (empty($providers)) return;    //Nada para configurar
 
-
 		/** @var Provision */
 		$optionsFijas = $feature->getOptions();
 		$provider = current($providers);  //Asume primer IDP que encuentra!
@@ -220,7 +219,7 @@ class RegistryHooksProyectoToba implements HooksInterface
 			$iniInstalacion->agregar_entrada("vincula_arai_usuarios", "1");
 			$iniInstalacion->guardar();
 
-			echo "Activando vï¿½nculo entre 'toba_usuarios' y 'Araï¿½' para la gestiï¿½n de cuentas\n";
+			echo "Activando vínculo entre 'toba_usuarios' y 'Araí' para la gestión de cuentas\n";
 		}		
 	}
 
