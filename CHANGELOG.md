@@ -3,6 +3,7 @@
 ## CHANGELOG
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
+- Nueva opción `--excluir-bloqueads` para el comando `exportar_usuarios_arai`, evita exportar las cuentas bloqueadas
 
 [3.2.1](https://github.com/SIU-Toba/framework/releases/tag/v3.2.1) (2019-02-28)
 - Undo de braindead merge by gitflow
