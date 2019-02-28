@@ -120,6 +120,7 @@ class toba_aplicacion_comando_base implements toba_aplicacion_comando
 	 *			'-m' => 'toba',
 	 *			'-e' => 'toba@siu.edu.ar',
 	 *			'--mascara' => "<apellido>, <nombres>" O una combinacion de patron similar
+	 *			'--excluir-bloqueados'  para indicar que no se quieren las cuentas bloqueadas
 	 * 		)
 	 * @throws Exception
 	 */
@@ -144,9 +145,10 @@ class toba_aplicacion_comando_base implements toba_aplicacion_comando
 			throw new toba_error("No se pudo crear la carpeta $pathMigration. ¿Problemas de permisos?");
 		}
 		$tokens = (isset($parametros['--mascara'])) ? $this->recuperar_tokens_indicativos($parametros['--mascara']) : array();
+		$excluir_bloqueados = isset($parametros['--excluir-bloqueados']);
 		
 		// obtengo los usuarios para generar el JSON
-		$datosUsuarios = $this->modelo->getDatosUsuarios($tokens);
+		$datosUsuarios = $this->modelo->getDatosUsuarios($tokens, $excluir_bloqueados);
 		$totalUsuarios = count($datosUsuarios);
 
 		// Inicializo la barra de progreso
