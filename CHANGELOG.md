@@ -4,6 +4,9 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.2.1](https://github.com/SIU-Toba/framework/releases/tag/v3.2.1) (2019-02-28)
+- Undo de braindead merge by gitflow
+- Recompilado de metadatos de toba_editor
 
 [3.2.0](https://github.com/SIU-Toba/framework/releases/tag/v3.2.0) (2019-02-22)
 - Se agrega ejemplo de uso de Araí-Reportes a toba_referencia
