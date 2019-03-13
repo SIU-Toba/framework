@@ -4,6 +4,9 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.1.8](https://github.com/SIU-Toba/framework/releases/tag/v3.1.8) (2018-03-13):
+- Agrega metodo para obtener el identificador de usuario en Arai-Usuarios para la cuenta actualmente logueada (merge desde develop)
+
 [3.1.7](https://github.com/SIU-Toba/framework/releases/tag/v3.1.7) (2019-02-13)
 - Se mejora la autoconfiguración de apis rest via arai-cli (merge @develop)
 - Se pospone la carga del archivo de claves de arai (merge @develop)
