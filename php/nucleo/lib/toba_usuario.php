@@ -22,6 +22,11 @@ class toba_usuario implements toba_interface_usuario
 		return null;
 	}
 	
+	function get_id_en_arai()
+	{
+		return null;
+	}
+	
 	function get_nombre()
 	{
 		return null;
