@@ -623,9 +623,13 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 	 * 		)
 	 *
      */
-	public function getDatosUsuarios($tokens = array())
+	public function getDatosUsuarios($tokens = array(), $sin_bloqueados = false)
 	{
 		$db_arai = $this->get_instancia()->get_db();
+		$where = '1=1';
+		if ($sin_bloqueados) {
+			$where .= ' AND u.bloqueado = 0';
+		}
 		$sql = "SELECT  DISTINCT
 						u.usuario,
 						u.clave,
@@ -639,7 +643,8 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 						END autentificacion_arai,
 						u.bloqueado
 				FROM apex_usuario u
-				JOIN apex_usuario_proyecto up ON (u.usuario = up.usuario AND up.proyecto = :toba_proyecto) ";
+				JOIN apex_usuario_proyecto up ON (u.usuario = up.usuario AND up.proyecto = :toba_proyecto) 
+				WHERE $where";
 		$sentencia = $db_arai->sentencia_preparar($sql);
 		$datosUsuariosToba = $db_arai->sentencia_consultar($sentencia, array('toba_proyecto' => $this->get_proyecto()->get_id()));
 

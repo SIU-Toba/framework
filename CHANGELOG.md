@@ -4,6 +4,10 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.2.2](https://github.com/SIU-Toba/framework/releases/tag/v3.2.2) (2019-03-13)
+- Agrega metodo a toba_usuario_basico para obtener el identificador en arai-usuario para la cuenta actualmente logueada
+- Nueva opción `--excluir-bloqueads` para el comando `exportar_usuarios_arai`, evita exportar las cuentas bloqueadas
+
 [3.2.1](https://github.com/SIU-Toba/framework/releases/tag/v3.2.1) (2019-02-28)
 - Undo de braindead merge by gitflow
 - Recompilado de metadatos de toba_editor
