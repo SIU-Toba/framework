@@ -161,6 +161,7 @@ class toba_autenticacion_saml_onelogin extends toba_autenticacion implements tob
 	{
 		$atributos_usuario = $this->get_atributos_usuario();
 		$id_usuario = utf8_d_seguro($atributos_usuario[$this->atributo_usuario][0]);
+		$id_usuario_arai = utf8_d_seguro($atributos_usuario['uniqueIdentifier'][0]);
 		$datos_usuario = false;
 		
 		$subclase = $this->get_subclase_usuario_proyecto();
@@ -169,6 +170,9 @@ class toba_autenticacion_saml_onelogin extends toba_autenticacion implements tob
 				toba::logger()->crit("El usuario SAML '$id_usuario' no existe en la instancia toba");
 				throw new toba_error_autenticacion("El usuario '$id_usuario' no esta dado de alta en el sistema");
 		}
+		if (trim($id_usuario_arai) != '') {
+			toba::memoria()->set_dato_instancia('usuario_arai', $id_usuario_arai);
+		}		
 		return $id_usuario;
 	}
 	

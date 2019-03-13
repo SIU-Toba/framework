@@ -4,6 +4,9 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.0.32](https://github.com/SIU-Toba/framework/releases/tag/v3.0.32) (2018-03-13):
+- Agrega metodo para obtener el identificador de usuario en Arai-Usuarios para la cuenta actualmente logueada
+
 [3.0.31](https://github.com/SIU-Toba/framework/releases/tag/v3.0.31) (2018-10-25):
 - Se corrige bug en toba_ini que en ciertas secuencias de uso mezclaba configuraciones generales con secciones al guardar
 
