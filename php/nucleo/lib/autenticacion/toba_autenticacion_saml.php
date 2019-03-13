@@ -109,6 +109,7 @@ class toba_autenticacion_saml  extends toba_autenticacion implements  toba_auten
 	protected function recuperar_usuario_toba()
 	{
 		$id_usuario = utf8_d_seguro($this->saml_attributes[$this->atributo_usuario][0]);
+		$id_usuario_arai = utf8_d_seguro($this->saml_attributes['uniqueIdentifier'][0]);
 		$datos_usuario = false;
 		
 		$subclase = $this->get_subclase_usuario_proyecto();
@@ -116,6 +117,9 @@ class toba_autenticacion_saml  extends toba_autenticacion implements  toba_auten
 		if ($datos_usuario === false) {													//El usuario no existe en la bd de toba.
 				toba::logger()->crit("El usuario SAML '$id_usuario' no existe en la instancia toba");
 				throw new toba_error_autenticacion("El usuario '$id_usuario' no esta dado de alta en el sistema");
+		}
+		if (trim($id_usuario_arai) != '') {
+			toba::memoria()->set_dato_instancia('usuario_arai', $id_usuario_arai);
 		}
 		return $id_usuario;
 	}	

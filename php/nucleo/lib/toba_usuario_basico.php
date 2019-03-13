@@ -74,6 +74,19 @@ class toba_usuario_basico extends toba_usuario
 	}
 
 	/**
+	 * Retorna el identificador de usuario existente en Arai.
+	 * @return type
+	 */
+	function get_id_en_arai()
+	{
+		$usuario_arai = toba::memoria()->get_dato_instancia('usuario_arai');
+		if (! is_null($usuario_arai)) {
+			return $usuario_arai;
+		}
+		return $this->get_id();
+	}
+	
+	/**
 	*	Retorna el nombre del usuario
 	*/
 	function get_nombre()
