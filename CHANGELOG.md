@@ -4,6 +4,9 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.1.9](https://github.com/SIU-Toba/framework/releases/tag/v3.1.9) (2018-04-09):
+- Bugfix en el metodo toba_parametros::get_proyecto() pasaba mal el id de la instancia (merge desde 3.2.0)
+
 [3.1.8](https://github.com/SIU-Toba/framework/releases/tag/v3.1.8) (2018-03-13):
 - Agrega metodo para obtener el identificador de usuario en Arai-Usuarios para la cuenta actualmente logueada (merge desde develop)
 
