@@ -74,7 +74,7 @@ class toba_usuario implements toba_interface_usuario
 		if (version_compare(PHP_VERSION, '7.0.0') >= 0) {
 			try {
 				$cad = random_bytes($long);												//PHP7.0
-				return $cad;
+				return bin2hex($cad);
 			} catch (Exception $e) {
 				//Captura excepcion y sigue adelante con el viejo metodo
 			}
