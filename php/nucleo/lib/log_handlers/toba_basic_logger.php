@@ -84,6 +84,11 @@ trait toba_basic_logger
 		return count($this->mensajes);
 	}
 	
+	function modo_debug()
+	{
+		return ($this->get_nivel() == TOBA_LOG_DEBUG);
+	}
+	
 	public function get_mensajes_minimo_nivel()
 	{
 		$cantidad = array();
@@ -387,4 +392,127 @@ trait toba_basic_logger
 			throw new toba_error("Imposible guardar el archivo de log '$archivo'. Chequee los permisos de escritura del usuario apache sobre esta carpeta/archivo");
 		}
 	}	
+	
+	
+	//------------------------------------------------------------------
+	//------ Entradas para los distintos tipos de error
+	//------------------------------------------------------------------
+	
+	/**
+	 * Registra un suceso de emergencia (hecatombe)
+	 */
+	function emergencia($mensaje, $proyecto=null)
+	{
+		return $this->log(TOBA_LOG_EMERGENCY, $mensaje, array('proyecto' => $proyecto));		
+	}
+	
+	/**
+	 * Registra un suceso de alerta (un error que requiere intervencion humana)
+	 */
+	function alerta($mensaje, $proyecto=null)
+	{
+		return $this->log(TOBA_LOG_ALERT, $mensaje, array('proyecto' => $proyecto));		
+	}
+	
+	/**
+	 * Registra un suceso CRITICO (un error muy grave)
+	 */
+	function crit($mensaje, $proyecto=null)
+	{
+		return $this->log(TOBA_LOG_CRIT, $mensaje, array('proyecto' => $proyecto));		
+	}
+
+	/**
+	 * Registra un error en la apl., este nivel es que el se usa en las excepciones
+	 */    
+	function error($mensaje, $proyecto=null)
+	{
+		return $this->log(TOBA_LOG_ERROR, $mensaje, array('proyecto' => $proyecto));		
+	}
+
+	/**
+	 * Registra un suceso no contemplado pero que posiblemente no afecta la correctitud del proceso
+	 */
+	function warning($mensaje, $proyecto=null)
+	{
+		return $this->log(TOBA_LOG_WARNING, $mensaje, array('proyecto' => $proyecto));		
+	}
+
+	/**
+	 * Registra un suceso no contemplado que no es critico para la aplicacion
+	 */    
+	function notice($mensaje, $proyecto=null)
+	{
+		return $this->log(TOBA_LOG_NOTICE, $mensaje, array('proyecto' => $proyecto));		
+	}
+
+	/**
+	 * Registra un suceso netamente informativo, para una inspección posterior
+	 */
+	function info($mensaje, $proyecto=null)
+	{
+		return $this->log(TOBA_LOG_INFO, $mensaje, array('proyecto' => $proyecto));		
+	}
+
+	/**
+	 * Registra un suceso útil para rastrear problemas o bugs en la aplicación
+	 */
+	function debug($mensaje, $proyecto=null)
+	{
+		return $this->log(TOBA_LOG_DEBUG, $mensaje, array('proyecto' => $proyecto));
+	}
+
+	//-----------------------------------------------------------------------------------------------//
+	//		Entradas extra para tipos propios
+	//-----------------------------------------------------------------------------------------------//
+	/**
+	*	Indica la llamada a un metodo/funcion obsoleto, es un alias de notice
+	*	@param string $version  Versión desde la cual el metodo/funcion deja de estar disponible
+	*/
+	function obsoleto($clase, $metodo, $version, $extra=null, $proyecto=null) 
+	{
+		if (TOBA_LOG_NOTICE <= $this->nivel_maximo) {
+			$extra = "";
+			//Se saca el archivo que llamo el metodo obsoleto solo cuando hay modo debug
+			if (TOBA_LOG_DEBUG <= $this->nivel_maximo) {
+				$traza = debug_backtrace();
+				$archivo = $traza[2]['file'];
+				$linea = $traza[2]['line'];
+				$extra = "Archivo: $archivo, linea: $linea";
+			}
+			if ($clase != '') {
+				$unidad = "Método '$clase::$metodo'";
+			} elseif ($metodo != '') {
+				$unidad = "Función '$metodo'";
+			} else {
+				$unidad = '';	
+			}
+			$msg = "OBSOLETO: $unidad desde versión $version. $extra";
+			$this->notice($msg, $proyecto);
+		}
+	}
+
+	/**
+	 * Muestra la traza de ejecucion actual en el logger
+	 */
+	function trace($con_parametros=false, $proyecto = null)
+	{
+		$this->debug($this->construir_traza($con_parametros), array('proyecto' => $proyecto));
+	}
+
+	/**
+	 * Dumpea el contenido de una variable al logger
+	 */
+	function var_dump($variable, $proyecto = null)
+	{
+		$this->debug(var_export($variable, true), array('proyecto' =>$proyecto));
+	}
+	
+	/**
+	 * Inserta un mensaje de debug que permite al visualizador dividir en secciones la ejecución
+	 */
+	function seccion($mensaje, $proyecto=null)
+	{
+		return $this->log(TOBA_LOG_DEBUG, "[SECCION] ".$mensaje, array('proyecto' => $proyecto));
+	}
 }
