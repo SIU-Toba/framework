@@ -45,7 +45,7 @@ trait toba_basic_logger
 	protected $es_php_compatible = true;
 	
 	
-	public function get_proyecto_actual()
+	static public function get_proyecto_actual()
 	{
 		if (class_exists('toba_proyecto')) {
 			try {
