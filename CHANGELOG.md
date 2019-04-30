@@ -4,6 +4,16 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.1.10](https://github.com/SIU-Toba/framework/releases/tag/v3.1.10) (2018-04-30):
+- Actualizacion librerias:
+  * onelogin/php-saml: v2.15.0
+  * phpoffice/phpspreadsheet: v1.6.0
+  * rospdf/pdf-php: v0.12.51
+  * vlucas/phpdotenv: v2.6.1
+  * phpmailer/phpmailer: v6.0.7
+  * guzzlehttp/psr7: v1.5.2 
+- Reintegra el paquete siu/arai-json-migrator quitado por error
+
 [3.1.9](https://github.com/SIU-Toba/framework/releases/tag/v3.1.9) (2018-04-09):
 - Bugfix en el metodo toba_parametros::get_proyecto() pasaba mal el id de la instancia (merge desde 3.2.0)
 
