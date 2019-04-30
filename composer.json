@@ -33,6 +33,7 @@
         "phpmailer/phpmailer": "^6.0",
         "siu-toba/text_highlighter": "~0.8",
         "siu-toba/services_json": "^1.0.3.3", 
+        "siu/arai-json-migrator": "~1.0",
         "siu/rdi": "~0.9",
         "vlucas/phpdotenv": "~2.0",
         "ioncube/php-openssl-cryptor": "dev-master",
