@@ -39,7 +39,7 @@ class toba_solicitud_web extends toba_solicitud
 		} else {
 			try {				
 				$this->crear_zona();
-				$retrasar_headers = ($this->info['basica']['retrasar_headers']);
+				$retrasar_headers = ($this->info['basica']['retrasar_headers']);												
 				//Chequeo si necesito enviar la clase para google analytics (necesito ponerlo aca para que salga como basico)
 				//La otra forma es agregarlo a la generacion de consumos globales al medio de la generacion de HTML
 				if ($this->hacer_seguimiento() && ! $this->es_item_login()) {
@@ -50,6 +50,7 @@ class toba_solicitud_web extends toba_solicitud
 				if (! $retrasar_headers) {
 					$this->pre_proceso_servicio();
 				}
+				
 				$this->cargar_objetos();
 				toba::cronometro()->marcar('Procesando Eventos');
 				$this->procesar_eventos();
@@ -57,6 +58,15 @@ class toba_solicitud_web extends toba_solicitud
 					$this->pre_proceso_servicio();
 				}
 				toba::cronometro()->marcar('Procesando Servicio');
+				//Chequeo si necesito enviar la clase para google analytics (necesito ponerlo aca para que salga como basico)
+				//La otra forma es agregarlo a la generacion de consumos globales al medio de la generacion de HTML				
+				/*if ($this->hacer_seguimiento()) {
+					$cod_ga = toba::proyecto()->get_parametro('codigo_ga_tracker');
+					echo toba_js::incluir('https://www.googletagmanager.com/gtag/js?id='. toba::escaper()->escapeJs($cod_ga));
+					if (! $this->es_item_login()) {
+						toba_js::agregar_consumos_basicos(array('basicos/google_analytics'));
+					}
+				}*/
 				$this->procesar_servicios();
 			}catch(toba_error $e) {
 				toba::logger()->error($e, 'toba');
@@ -550,7 +560,7 @@ class toba_solicitud_web extends toba_solicitud
 		$cod_ga = toba::proyecto()->get_parametro('codigo_ga_tracker');
 		if (isset($cod_ga) && trim($cod_ga) != '') {		//No llamo a la funcion xq ya tengo el valor aca
 			$escapador = toba::escaper();
-			if (! $this->es_item_login()) {
+			if (! $this->es_item_login()) {				
 				echo "estadista.set_codigo('". $escapador->escapeJs($cod_ga)."'); \n";		
 				echo "estadista.iniciar(); \n";
 				echo "estadista.add_operacion('". $escapador->escapeJs($this->item[1])."'); \n";
@@ -558,20 +568,18 @@ class toba_solicitud_web extends toba_solicitud
 				$ventana = toba::proyecto()->get_parametro('sesion_tiempo_no_interac_min');
 				if ($ventana != 0) {
 					$ventana *= 60; //$ventana esta en minutos y necesito segundos
-					echo "estadistica.set_timeout('". $escapador->escapeJs($ventana)."'); \n";
+					echo "estadista.set_timeout('". $escapador->escapeJs($ventana)."'); \n";
 				}
 				echo "estadista.trace()";
 			} else { //Es item de login
-				//Tengo que cerrar el tag js que viene abierto de antes
-				echo "</script><script type=\"text/javascript\">"			
-				."var gaJsHost = ((\"https:\" == document.location.protocol) ? \"https://ssl.\" : \"http://www.\");"
-				."document.write(unescape(\"%3Cscript src='\" + gaJsHost + \"google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E\"));"
-				."</script>"
-				."<script type=\"text/javascript\">"
-				."try {"
-				."var pageTracker = _gat._getTracker(\"". $escapador->escapeJs($cod_ga)."\");"
-				."pageTracker._trackPageview();"
-				."} catch(err) {}</script><script type=\"text/javascript\">";
+				//Tengo que cerrar el tag js que viene abierto de antes				
+				echo '</script>' . toba_js::incluir('https://www.googletagmanager.com/gtag/js?id='. $escapador->escapeJs($cod_ga));
+				echo "<script>
+				  window.dataLayer = window.dataLayer || [];
+				  function gtag(){dataLayer.push(arguments);}
+				  gtag('js', new Date());
+				  gtag('config', '".$escapador->escapeJs($cod_ga)."');
+				  gtag('event', 'login'); ";
 			}
 		}
 	}

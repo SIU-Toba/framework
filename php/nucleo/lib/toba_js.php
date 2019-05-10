@@ -102,7 +102,7 @@ class toba_js
 	 * antes de enviar la cabecera HTML.
 	 * @param array $consumos Arreglo con consumos basicos a incluir
 	 */
-	function agregar_consumos_basicos($consumos = array())
+	static function agregar_consumos_basicos($consumos = array())
 	{
 		self::$consumos_basicos = array_merge(self::$consumos_basicos, $consumos);
 	}
