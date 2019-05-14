@@ -37,11 +37,19 @@ ga.prototype.iniciar = function()
 	try{
 		if (typeof gtag == 'undefined') {
 			var loader = document.createElement('script');
+			loader.async = true;			
 			loader.src  = 'https://www.googletagmanager.com/gtag/js?id=' + this._codigo;
 			document.head.appendChild(loader);
+			
+			var fundef = document.createElement('script').textContent('window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);}');
+			document.head.appendChild(fundef);
 			sleep(1);
-		}		
-		gtag('config',  this._codigo);
+		}
+		gtag('js', new Date());
+		gtag('config',  this._codigo, { 'transport_type': 'beacon', 
+								'allow_ad_personalization_signals': false,
+								'page_path' :'/aplicacion.php',
+								 'send_page_view': false });		
 	} catch(err) {
 	}
 };
@@ -61,7 +69,7 @@ ga.prototype.base_config = function()
  */
 ga.prototype.set_timeout = function(tiempo)
 {
-	//gtag('config', 'event_timeout', tiempo);
+	//Deprecated, por defecto 30 mins
 };
 
 /**
@@ -127,7 +135,11 @@ ga.prototype.trace = function ()
 	};
 	try{
 		//En los ultimos parametros de los eventos podriamos poner el titulo o algo mas.. ver
-		gtag('config',  this._codigo, {'operacion' : this._operacion, 'evento' : this._evento, 'titulo' : this._titulo, 'usuario' : this._usuario});
+		/*gtag('set',  {'operacion' : this._operacion, 
+				'evento' : this._evento, 
+				'titulo' : this._titulo, 
+				'usuario' : this._usuario});*/
+		gtag('event', this._evento, {'event_category' : this._operacion, 'event_label' : this._titulo, 'value' : this._usuario});
 		gtag('event', 'page_view');
 	} catch(err) {
 	}
