@@ -8,15 +8,15 @@
  */	
 class toba_ws_handler_log extends toba_handler_log
 {	
-	use \toba_basic_logger;
 	
 	private $hubo_encabezado = false;
 	
 	protected $nombre_archivo = 'web_services.log';
 	protected $archivos_individuales = false;
-	protected $modo_archivo = false;
+	protected $modo_archivo = true;
 	
 	static protected $instancia;	
+	protected $activo = true;
 			
 	/**
 	 * Este es un singleton por proyecto
