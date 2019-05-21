@@ -9,11 +9,11 @@
 class toba_ws_handler_log extends toba_handler_log
 {	
 	
-	private $hubo_encabezado = false;
+	//private $hubo_encabezado = false;
 	
 	protected $nombre_archivo = 'web_services.log';
 	protected $archivos_individuales = false;
-	protected $modo_archivo = true;
+	protected $modo_archivo = false;
 	
 	static protected $instancia;	
 	protected $activo = true;
