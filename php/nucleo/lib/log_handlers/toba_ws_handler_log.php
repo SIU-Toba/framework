@@ -9,8 +9,6 @@
 class toba_ws_handler_log extends toba_handler_log
 {	
 	
-	//private $hubo_encabezado = false;
-	
 	protected $nombre_archivo = 'web_services.log';
 	protected $archivos_individuales = false;
 	protected $modo_archivo = false;
@@ -64,22 +62,16 @@ class toba_ws_handler_log extends toba_handler_log
 	{
 		$this->archivos_individuales = $activo;
 	}
-	
-	/**
-	 * Permite redirigir el log desde el archivo web_services.log hacia stderr
-	 * @param boolean $redirigir
-	 */
-	public function redirect_to_stderr($redirigir)
-	{
-		$this->modo_archivo = (! $redirigir);
-	}	
-
+		
 	//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	//							METODOS AUXILIARES
 	//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------//		
 	protected function instanciar_handler()
 	{
+		$permisos = 0774;
 		$dir_log = $this->directorio_logs();
+		toba_manejador_archivos::crear_arbol_directorios(basename($dir_log), $permisos);
+		
 		$path_completo = realpath($dir_log) . '/' . $this->nombre_archivo;		
 		$stream_source = ($this->modo_archivo) ? 'file://' . $path_completo : 'php://stderr';
 		

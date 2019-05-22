@@ -34,10 +34,8 @@ trait toba_basic_logger
 	protected $proyectos = array();
 	protected $proyecto_actual;
 	
-	protected $nivel_maximo = 7;
-	
-	protected $es_php_compatible = true;
-	
+	protected $nivel_maximo = 7;	
+	protected $es_php_compatible = true;	
 	
 	static public function get_proyecto_actual()
 	{
@@ -103,6 +101,7 @@ trait toba_basic_logger
 	
 	/**
 	 * @ignore 
+	 * @deprecated since version 3.2.3
 	 */
 	protected function registrar_mensaje($mensaje, $proyecto, $nivel)
 	{
@@ -118,6 +117,7 @@ trait toba_basic_logger
 	
 	/**
 	 * @ignore 
+	 * @deprecated since version 3.2.3 
 	 */	
 	protected function extraer_mensaje($mensaje)
 	{		
@@ -166,12 +166,22 @@ trait toba_basic_logger
 		}
 	}
 	
+	/**
+	 * @deprecated since version 3.2.3
+	 */
 	protected function parsear_msg($mensaje, $parametros=true)
 	{
 		$er = "/\([a-zA-Z'\"\s].+\)/i";
 		return ($parametros) ? $mensaje:  preg_replace($er, '(args ignored)', $mensaje);
 	}
 	
+	/**
+	 * 
+	 * @param type $con_parametros
+	 * @param type $pasos
+	 * @return string
+	 * @deprecated since version 3.2.3
+	 */
 	protected function construir_traza($con_parametros=false, $pasos = null)
 	{
 		if (!isset($pasos)) {			
@@ -215,6 +225,12 @@ trait toba_basic_logger
 		return $html;
 	}
 	
+	/**
+	 * 
+	 * @param type $argumento
+	 * @return type
+	 * @deprecated since version 3.2.3
+	 */
 	protected function armar_parametros_traza($argumento)
 	{
 		$html = '';
@@ -230,6 +246,11 @@ trait toba_basic_logger
 		return $html;
 	}
 	
+	/**
+	 * Arma un string con los mensajes y sus datos
+	 * @return string
+	 * @deprecated since version 3.2.3
+	 */
 	protected function armar_mensajes()
 	{
 		$texto = '';
@@ -241,7 +262,7 @@ trait toba_basic_logger
 		}
 		return $texto;
 	}
-	
+		
 	protected function mensajes()
 	{
 		return $this->mensajes;

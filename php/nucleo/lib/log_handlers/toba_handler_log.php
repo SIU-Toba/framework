@@ -10,8 +10,8 @@ class toba_handler_log
 	protected $proximo = 0;
 	public static $separador = "-o-o-o-o-o-";
 	public static $fin_encabezado = "==========";
-	
-	//--- Variables que son necesarias para cuando el logger se muestra antes de terminar la pág.
+
+	protected $modo_archivo = true;
 	
 	protected function __construct($proyecto)
 	{
@@ -102,6 +102,16 @@ class toba_handler_log
 			unlink($archivo);			
 		}
 	}
+	
+	/**
+	 * Permite redirigir el log desde el archivo web_services.log hacia stderr
+	 * @param boolean $redirigir
+	 */
+	public function redirect_to_stderr($redirigir)
+	{
+		$this->modo_archivo = (! $redirigir);
+	}
+	
 	//-------------------------------------------------------------------------------------------------------------------//
 	//				METODOS PROTEGIDOS
 	//-------------------------------------------------------------------------------------------------------------------//
@@ -121,27 +131,34 @@ class toba_handler_log
 	{		
 		$permisos = 0774;		
 		$es_nuevo = false;
-		$path = $this->directorio_logs();
-		toba_manejador_archivos::crear_arbol_directorios(basename($path), $permisos);
+		$dir_log = $this->directorio_logs();		
+		toba_manejador_archivos::crear_arbol_directorios(basename($dir_log), $permisos);		
+		$path_completo = realpath($dir_log) . '/' .$archivo;
 		
-		$path_completo = $path ."/".$archivo;
-		if (!file_exists($path_completo)) {
-			//Caso base el archivo no existe
-			$this->anexar_a_archivo($texto, $path_completo);
-			$es_nuevo = true;
-		} else {
-			//El archivo existe, ¿Hay que ciclarlo?
+		$stream_source = ($this->modo_archivo) ? 'file://' . $path_completo : 'php://stderr';		
+		if (file_exists($path_completo)) {
 			$excede_tamanio = (filesize($path_completo) > apex_log_archivo_tamanio * 1024);
 			if (apex_log_archivo_tamanio != null && $excede_tamanio) {
-				$this->ciclar_archivos_logs($path, $archivo);
+				$this->ciclar_archivos_logs($dir_log, $this->nombre_archivo);
 				$es_nuevo = true;
 			}
-			$this->anexar_a_archivo($texto, $path_completo);
+			$stream_handler = fopen($stream_source, 'a');
+		} elseif ($this->modo_archivo) {
+			$stream_handler = fopen($stream_source, 'x');
+			$es_nuevo = true;
+		} else {
+			$stream_handler = fopen($stream_source, 'a');
+					
 		}
 		
+		if (false === fwrite($stream_handler, $texto)) {
+			$msg = ($this->modo_archivo) ? "Imposible guardar el archivo de log '$path_completo'. Chequee los permisos de escritura del usuario apache sobre esta carpeta/archivo" : "Imposible escribir el log en stderr";
+			throw new toba_error($msg);
+		}
+		fclose($stream_handler);			
 		if ($es_nuevo) {
 			//Cambiar permisos
-			@toba_manejador_archivos::chmod_recursivo($path, $permisos);
+			@toba_manejador_archivos::chmod_recursivo($dir_log, $permisos);
 		}
 	}	
 	
@@ -205,7 +222,14 @@ class toba_handler_log
 			error_log($msg_error_log);
 		}		
 	}
-		
+	
+	/**
+	 * 
+	 * @param type $texto
+	 * @param type $archivo
+	 * @throws toba_error
+	 * @deprecated since version 3.2.3
+	 */
 	protected function anexar_a_archivo($texto, $archivo)
 	{
 		$res = file_put_contents($archivo, "$texto\r\n", FILE_APPEND);
