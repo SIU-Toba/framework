@@ -70,7 +70,7 @@ class toba_ws_handler_log extends toba_handler_log
 	{
 		$permisos = 0774;
 		$dir_log = $this->directorio_logs();
-		toba_manejador_archivos::crear_arbol_directorios(basename($dir_log), $permisos);
+		toba_manejador_archivos::crear_arbol_directorios($dir_log, $permisos);
 		
 		$path_completo = realpath($dir_log) . '/' . $this->nombre_archivo;		
 		$stream_source = ($this->modo_archivo) ? 'file://' . $path_completo : 'php://stderr';

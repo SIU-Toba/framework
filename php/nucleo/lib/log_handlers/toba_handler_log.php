@@ -132,8 +132,8 @@ class toba_handler_log
 		$permisos = 0774;		
 		$es_nuevo = false;
 		$dir_log = $this->directorio_logs();		
-		toba_manejador_archivos::crear_arbol_directorios(basename($dir_log), $permisos);		
-		$path_completo = realpath($dir_log) . '/' .$archivo;
+		toba_manejador_archivos::crear_arbol_directorios($dir_log, $permisos);		
+		$path_completo = $dir_log . '/' .$archivo;
 		
 		$stream_source = ($this->modo_archivo) ? 'file://' . $path_completo : 'php://stderr';		
 		if (file_exists($path_completo)) {
@@ -151,7 +151,7 @@ class toba_handler_log
 					
 		}
 		
-		if (false === fwrite($stream_handler, $texto)) {
+		if (false !== $stream_handler && false === fwrite($stream_handler, $texto)) {
 			$msg = ($this->modo_archivo) ? "Imposible guardar el archivo de log '$path_completo'. Chequee los permisos de escritura del usuario apache sobre esta carpeta/archivo" : "Imposible escribir el log en stderr";
 			throw new toba_error($msg);
 		}
