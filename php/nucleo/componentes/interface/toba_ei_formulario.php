@@ -1154,7 +1154,9 @@ class toba_ei_formulario extends toba_ei
 		$id_ef = $this->_elemento_formulario[$ef]->get_id_form();		
 		$resaltar = isset($this->_info_formulario['resaltar_efs_con_estado'])?$this->_info_formulario['resaltar_efs_con_estado']:null;		
 		
-		$salida .= toba::output()->get('Formulario')->getInicioEf("nodo_{$this->_elemento_formulario[$ef]->get_id_form()}", $this->_elemento_formulario[$ef]->esta_expandido(), $resaltar, $this->_elemento_formulario[$ef]->seleccionado(),$es_fieldset);		
+		if (! $es_fieldset || ! $this->_elemento_formulario[$ef]->es_fieldset_cierre()) {
+			$salida .= toba::output()->get('Formulario')->getInicioEf("nodo_{$this->_elemento_formulario[$ef]->get_id_form()}", $this->_elemento_formulario[$ef]->esta_expandido(), $resaltar, $this->_elemento_formulario[$ef]->seleccionado(),$es_fieldset);		
+		}
 		$ancho = isset($ancho_etiqueta) ? $ancho_etiqueta : $this->_ancho_etiqueta;		
 		if($this->_elemento_formulario[$ef]->tiene_etiqueta() && $con_etiqueta){
 			$salida .= $this->get_etiqueta_ef($ef, $ancho_etiqueta);
@@ -1162,7 +1164,9 @@ class toba_ei_formulario extends toba_ei
 		
 		$expandir = isset($this->_info_formulario['expandir_descripcion'])?$this->_info_formulario['expandir_descripcion']:null;
 		$salida .= toba::output()->get('Formulario')->getParseEf($this->get_input_ef($ef), "cont_$id_ef", $ancho, $this->_elemento_formulario[$ef]->tiene_etiqueta(), $con_etiqueta, $expandir, $this->_elemento_formulario[$ef]->get_descripcion(),get_class($this->_elemento_formulario[$ef]));		
-		$salida .= toba::output()->get('Formulario')->getFinEf($es_fieldset);
+		if (! $es_fieldset || $this->_elemento_formulario[$ef]->es_fieldset_cierre()) {
+			$salida .= toba::output()->get('Formulario')->getFinEf($es_fieldset);
+		}
 		return $salida;
 	}
 	
