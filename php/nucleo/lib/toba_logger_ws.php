@@ -15,7 +15,7 @@ class toba_logger_ws
 	static function instancia($proyecto=null)
 	{		
 		$logger = logger::instancia($proyecto);
-		$logger->set_log_writer(toba_ws_handler_log::instancia($proyecto), $proyecto);		
+		$logger->set_logger_instance(toba_ws_handler_log::instancia($proyecto), $proyecto);		
 		$logger->set_id_solicitud(toba::solicitud()->get_id());
 		return $logger;
 	}	

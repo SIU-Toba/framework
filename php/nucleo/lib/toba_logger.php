@@ -55,7 +55,7 @@ class toba_logger
 	static function instancia($proyecto=null)
 	{
 		$logger = logger::instancia($proyecto);
-		$logger->set_log_writer(toba_handler_log::instancia($proyecto), $proyecto);
+		$logger->set_logger_instance(toba_handler_log::instancia($proyecto), $proyecto);
 		if (class_exists('toba') && is_object(toba::solicitud())) {
 			$logger->set_id_solicitud(toba::solicitud()->get_id());
 		}		

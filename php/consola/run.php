@@ -36,7 +36,7 @@ if ( isset( $_SERVER['TOBA_DIR'] ) ) {
 	$handler->set_directorio_logs($dir_logs);
 	$handler->set_archivo_destino('comandos.log');
 	
-	toba_logger::instancia()->set_log_writer($handler);
+	toba_logger::instancia()->set_logger_instance($handler);
 	toba_logger::instancia()->guardar();
 } else {
 	echo "  ATENCION: La variable de entorno 'toba_dir' no esta definida!";	

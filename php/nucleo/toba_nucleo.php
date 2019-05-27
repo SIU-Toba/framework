@@ -226,7 +226,7 @@ class toba_nucleo
 		$handler->set_directorio_logs($dir_logs);
 		$handler->set_archivo_destino('comandos.log');
 		
-		toba::logger()->set_log_writer($handler);		
+		toba::logger()->set_logger_instance($handler);		
 		toba::logger()->guardar();
 		exit($estado_proceso);		
 	}

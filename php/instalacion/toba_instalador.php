@@ -39,7 +39,7 @@ class toba_instalador
 		$handler = toba_handler_log::instancia();
 		$handler->set_directorio_logs($dir_logs);
 		$handler->set_archivo_destino('comandos.log');
-		toba_logger::instancia()->set_log_writer($handler);		
+		toba_logger::instancia()->set_logger_instance($handler);		
 		toba_logger::instancia()->guardar();
 	}
 	

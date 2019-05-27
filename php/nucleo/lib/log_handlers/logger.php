@@ -33,7 +33,7 @@ class logger extends AbstractLogger
 		return self::$instancia[$proyecto];
 	}
 		
-	public function set_log_writer($writer, $proyecto=null)
+	public function set_logger_instance(LoggerInterface $writer, $proyecto=null)
 	{
 		if (is_null($proyecto)) {
 			$this->write_handler = array($writer);
