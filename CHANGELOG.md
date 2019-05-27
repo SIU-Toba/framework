@@ -3,6 +3,7 @@
 ## CHANGELOG
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
+- Fix en toba_rest cuando se setea la versión de la api a partir de la del proyecto
 
 [3.2.2](https://github.com/SIU-Toba/framework/releases/tag/v3.2.2) (2019-03-13)
 - Agrega metodo a toba_usuario_basico para obtener el identificador en arai-usuario para la cuenta actualmente logueada

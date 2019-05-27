@@ -69,8 +69,8 @@ class toba_rest
 			'encoding' => 'latin1'
 		);
 		$datos_ini_proyecto = $this->get_ini_proyecto();
-		if (!empty($datos_ini_proyecto) && isset($datos_ini_proyecto['version'])) {
-			$settings['api_version'] = $datos_ini_proyecto['version'];
+		if (!empty($datos_ini_proyecto) && isset($datos_ini_proyecto['proyecto']['version'])) {
+			$settings['api_version'] = $datos_ini_proyecto['proyecto']['version'];
 		}
 		$settings = array_merge($settings, $ini->get('settings', null, array(), false));
 
@@ -213,7 +213,7 @@ class toba_rest
 	protected function get_ini_proyecto()
 	{
 		$resultado = array();
-		if (toba::config()->existe_valor('proyecto', null, 'id')) {
+		if (toba::config()->existe_valor('proyecto', 'proyecto', 'id')) {
 			$resultado = toba::config()->get_seccion('proyecto');
 		}
 		return $resultado;
