@@ -3,6 +3,7 @@
 ## CHANGELOG
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
+- Fix en toba_rest cuando se setea la versión de la api a partir de la del proyecto
 
 [3.1.11](https://github.com/SIU-Toba/framework/releases/tag/v3.1.11) (2018-06-03):
 - Fix en toba_varios::array_a_utf8 y toba_varios::array_a_latin1, ahora usan las funciones utf8_e_seguro y utf8_d_seguro (merge develop)
