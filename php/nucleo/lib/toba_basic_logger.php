@@ -26,6 +26,9 @@ if (!defined('apex_log_error_log_nivel')) {
 	define('apex_log_error_log_nivel', TOBA_LOG_ERROR); 
 }
 
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+
 trait toba_basic_logger 
 {	
 	public static $separador = "-o-o-o-o-o-";
@@ -43,7 +46,7 @@ trait toba_basic_logger
 	protected $activo = true;
 	
 	protected $es_php_compatible = true;
-	
+	protected $logger_instance;
 	
 	public function get_proyecto_actual()
 	{
@@ -110,6 +113,23 @@ trait toba_basic_logger
 	{
 		return $this->nivel_maximo;
 	}	
+	
+	
+	/**
+	 * Funcion que permite asignar un recurso puntual al cual dirigir el log (stream write only)
+	 * @param LoggerInterface $log_handler
+	 */
+	public function set_logger_instance($log_handler)
+	{
+		$this->logger_instance = $log_handler;		
+	}
+	
+	public function get_logger_instance()
+	{
+		if (isset($this->logger_instance)) { 
+			return $this->logger_instance;
+		}
+	}
 	
 	//------------------------------------------------------------------
 	//---- Manejo de las fuentes de log

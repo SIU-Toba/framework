@@ -34,6 +34,7 @@ class toba_logger_ws extends AbstractLogger
 		if (!isset(self::$instancia[$proyecto])) {
 			self::$instancia[$proyecto] = new toba_logger_ws($proyecto);			
 		}
+		
 		return self::$instancia[$proyecto];	
 	}	
 		
@@ -42,6 +43,10 @@ class toba_logger_ws extends AbstractLogger
 		$this->proyecto_actual = (isset($proyecto)) ? $proyecto : $this->get_proyecto_actual();
 		$this->mapeo_niveles = array_flip($this->get_niveles());
 		$this->id_solicitud = toba::solicitud()->get_id();
+		
+		//Instancio un handler monolog por defecto
+		$this->set_logger_instance(new Logger());
+		$this->get_logger_instance()->pushHandler(new ErrorLogHandler());
 	}
 			
 	/**

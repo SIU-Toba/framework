@@ -62,7 +62,11 @@ class toba_logger
 	 */
 	protected function __construct($proyecto = null)
 	{
-		$this->proyecto_actual = (isset($proyecto)) ? $proyecto : $this->get_proyecto_actual();
+		$this->proyecto_actual = (isset($proyecto)) ? $proyecto : $this->get_proyecto_actual();		
+		
+		//Instancio un handler monolog por defecto
+		$this->set_logger_instance(new Logger());
+		$this->get_logger_instance()->pushHandler(new ErrorLogHandler());
 	}
 	
 	/**
