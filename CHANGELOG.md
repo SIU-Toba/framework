@@ -3,6 +3,7 @@
 ## CHANGELOG
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
+- Nueva opción `--usuario-email-admin` que permite especificar el email para la cuenta administrativa al momento de instalar el framework
 
 [3.2.2](https://github.com/SIU-Toba/framework/releases/tag/v3.2.2) (2019-03-13)
 - Agrega metodo a toba_usuario_basico para obtener el identificador en arai-usuario para la cuenta actualmente logueada
