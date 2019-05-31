@@ -199,17 +199,7 @@ trait toba_basic_logger
 	 */	
 	protected function extraer_mensaje($mensaje)
 	{		
-		if (is_object($mensaje)) {
-			/*switch (true) {				
-			case ($mensaje instanceof Exception) : echo "exception";break;
-			case (method_exists($mensaje, 'getMessage')) : echo "getMessage"; break;
-			case (method_exists($mensaje, 'tostring')) : echo "tostring"; break;
-			case (method_exists($mensaje, '__tostring')): echo "__magicToString"; break;
-			default: 
-				echo "var_export";
-			}*/
-			
-			
+		if (is_object($mensaje)) {			
 			if ($mensaje instanceof Exception) {
 				/*$es_php_compatible = (false && version_compare(phpversion(), "5.1.0", ">="));				*/		//Va al constructor
 				$con_parametros = (TOBA_LOG_DEBUG <= $this->nivel_maximo);		
@@ -310,14 +300,15 @@ trait toba_basic_logger
 	
 	protected function armar_mensajes()
 	{
-		$texto = '';
+		$msg = array();
 		$mascara_ok = $this->mascara_hasta($this->nivel_maximo);
 		for($a=0; $a < count($this->mensajes); $a++) {
 			if( $mascara_ok & $this->mascara($this->niveles[$a])) {
-				$texto .= "[" . $this->ref_niveles[$this->niveles[$a]] . 	"][".$this->proyectos[$a]."] " . $this->mensajes[$a] . PHP_EOL;
+				$msg[$a] = $this->mensajes[$a];
+				//"[" . $this->ref_niveles[$this->niveles[$a]] . 	"][".$this->proyectos[$a]."] " .
 			}			
 		}
-		return $texto;
+		return $msg;
 	}
 	
 	protected function mensajes()
@@ -339,7 +330,7 @@ trait toba_basic_logger
 		return ((1 << ($nivel + 1)) - 1);
 	}
 		
-	protected function ciclar_archivos_logs($path, $archivo)
+	/*protected function ciclar_archivos_logs($path, $archivo)
 	{
 		if (apex_log_archivo_backup_cant == 0) {
 			//Si es un unico archivo hay que borrarlo
@@ -384,7 +375,7 @@ trait toba_basic_logger
 		}
 	}
 
-	protected function purgar_archivos_viejos($lista_archivos)
+	/*protected function purgar_archivos_viejos($lista_archivos)
 	{
 		//¿Hay que purgar algunos?
 		$puede_purgar = (apex_log_archivo_backup_cant != -1);
@@ -398,13 +389,13 @@ trait toba_basic_logger
 				next($lista_archivos);
 			} while ($a_purgar > 0);
 		}		
-	}
+	}*/
 	
-	protected function anexar_a_archivo($texto, $archivo)
+	/*protected function anexar_a_archivo($texto, $archivo)
 	{
 		$res = file_put_contents($archivo, "$texto\r\n", FILE_APPEND);
 		if ($res === FALSE) {
 			throw new toba_error("Imposible guardar el archivo de log '$archivo'. Chequee los permisos de escritura del usuario apache sobre esta carpeta/archivo");
 		}
-	}	
+	}	*/
 }

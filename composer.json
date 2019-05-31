@@ -37,7 +37,8 @@
         "vlucas/phpdotenv": "~3.6",
         "ioncube/php-openssl-cryptor": "dev-master",
         "siu/manejador-salida-toba" : "dev-develop",
-	"psr/log": "^1.1"
+        "psr/log": "^1.1",
+        "monolog/monolog": "^1.0"
     },
     "require-dev": {
         "simpletest/simpletest": "~1.2", 

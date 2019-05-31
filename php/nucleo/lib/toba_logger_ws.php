@@ -46,12 +46,14 @@ class toba_logger_ws extends AbstractLogger
 		
 		//Instancio un handler monolog por defecto
 		$this->set_logger_instance(new Logger());
-		$this->get_logger_instance()->pushHandler(new ErrorLogHandler());
+		//$this->get_logger_instance()->pushHandler(new ErrorLogHandler());
 	}
 			
 	/**
 	 * Funcion que permite asignar un recurso puntual al cual dirigir el log (stream write only)
 	 * @param resource $log_handler
+	 * @deprecated since version 3.2.3
+	 * @see set_logger_instance
 	 */
 	public function set_log_handler($log_handler)
 	{
@@ -62,9 +64,21 @@ class toba_logger_ws extends AbstractLogger
 	/**
 	 * Permite redirigir el log desde el archivo web_services.log hacia stderr
 	 * @param boolean $redirigir
+	 * @deprecated since version 3.2.3
 	 */
 	public function redirect_to_stderr($redirigir)
 	{
+		if ($redirigir) {
+			$this->get_logger_instance()->setHandlers([new ErrorLogHandler()]);
+		} else {
+			$actuales = $this->get_logger_instance()->getHandlers();
+			for ($i = 0; $i < count($actuales); $i++) {
+				if ($actuales[$i] instanceof Monolog\Handlers\ErrorLogHandler) {
+					unset($actuales[$i]);
+				}
+			}
+			$this->get_logger_instance()->setHandlers($actuales);
+		}
 		$this->modo_archivo = (! $redirigir);
 	}
 	
@@ -79,39 +93,32 @@ class toba_logger_ws extends AbstractLogger
 		/*if (strpos('{', $mensaje) !== false) {					//Habria que parsear para ver si no existe algun replace en base al contexto.
 			//Hay que hacer el replace aca dentro del mensaje por ahora awanto
 			
-		}*/		
+		}*/
+		$this->get_logger_instance()->log(Logger::toMonologLevel($nivel_pedido), $message, $context);
 		if (isset($this->mapeo_niveles[$nivel_pedido]) && $this->mapeo_niveles[$nivel_pedido] <= $this->nivel_maximo) {
 			switch ($level) {
 				case LogLevel::EMERGENCY:
-					$this->stream_log($this->armar_mensaje($mensaje, TOBA_LOG_EMERGENCY));
 					$this->registrar_mensaje($mensaje, null, TOBA_LOG_EMERGENCY);
 					break;
 				case LogLevel::ALERT:
-					$this->stream_log($this->armar_mensaje($mensaje, TOBA_LOG_ALERT));
 					$this->registrar_mensaje($mensaje, null, TOBA_LOG_ALERT);
 					break;
 				case LogLevel::CRITICAL:
-					$this->stream_log($this->armar_mensaje($mensaje, TOBA_LOG_CRITICAL));
 					$this->registrar_mensaje($mensaje, null, TOBA_LOG_CRITICAL);
 					break;
 				case LogLevel::ERROR:
-					$this->stream_log($this->armar_mensaje($mensaje, TOBA_LOG_ERROR));
 					$this->registrar_mensaje($mensaje, null, TOBA_LOG_ERROR);
 					break;
 				case LogLevel::WARNING:
-					$this->stream_log($this->armar_mensaje($mensaje, TOBA_LOG_WARNING));
 					$this->registrar_mensaje($mensaje, null, TOBA_LOG_WARNING);
 					break;
 				case LogLevel::NOTICE:
-					$this->stream_log($this->armar_mensaje($mensaje, TOBA_LOG_NOTICE));
 					$this->registrar_mensaje($mensaje, null, TOBA_LOG_NOTICE);
 					break;
 				case LogLevel::INFO:
-					$this->stream_log($this->armar_mensaje($mensaje, TOBA_LOG_INFO));
 					$this->registrar_mensaje($mensaje, null, TOBA_LOG_INFO);
 					break;
 				case LogLevel::DEBUG:
-					$this->stream_log($this->armar_mensaje($mensaje, TOBA_LOG_DEBUG));
 					$this->registrar_mensaje($mensaje, null, TOBA_LOG_DEBUG);
 					break;
 				default:
@@ -153,7 +160,7 @@ class toba_logger_ws extends AbstractLogger
 	//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------//		
 	protected function instanciar_handler()
 	{
-		$dir_log = $this->directorio_logs();
+		/*$dir_log = $this->directorio_logs();
 		$path_completo = realpath($dir_log) . '/' . $this->archivo_log;		
 		$stream_source = ($this->modo_archivo) ? 'file://' . $path_completo : 'php://stderr';
 		
@@ -167,15 +174,15 @@ class toba_logger_ws extends AbstractLogger
 			$this->stream_handler = fopen($stream_source, 'x');
 		} else {
 			$this->stream_handler = fopen($stream_source, 'a');
-		}
+		}*/
 	}
 	
-	protected function stream_log($mensaje)
+	protected function stream_log($mensaje, $nivel)
 	{
-		if (! isset($this->stream_handler)) {
+		/*if (! isset($this->stream_handler)) {
 			$this->instanciar_handler();
 		}
-		fwrite($this->stream_handler, $mensaje);
+		fwrite($this->stream_handler, $mensaje);*/
 	}
 	
 	protected function armar_mensaje($mensaje, $nivel)
@@ -217,12 +224,14 @@ class toba_logger_ws extends AbstractLogger
 			$texto .= $this->armar_encabezado();
 			$texto .= self::$fin_encabezado.$salto;		
 			$this->hubo_encabezado = true;
+			$this->guardar_archivo_log($texto, $archivo);
 		}
 		$mensajes = $this->armar_mensajes();
-		$hay_salida = (trim($mensajes) != '');
+		$hay_salida = (! empty($mensajes));
 		if ($hay_salida || $forzar_salida) {
-			$texto .= $mensajes;
-			$this->guardar_archivo_log($texto, $archivo);
+			foreach($mensajes as $indx => $msg) {
+				$this->get_logger_instance()->log(Logger::toMonologLevel($this->ref_niveles[$this->niveles[$indx]]), $msg);
+			}
 		}
 	}	
 		
@@ -234,20 +243,14 @@ class toba_logger_ws extends AbstractLogger
 		$path_completo = $path ."/".$archivo;
 		toba_manejador_archivos::crear_arbol_directorios($path, $permisos);
 
-		//Grabo el archivo
-		$es_nuevo = (!file_exists($path_completo));
-		$this->anexar_a_archivo($texto, $path_completo);
+		$this->get_logger_instance()->pushHandler(new RotatingFileHandler($path_completo, 10, Logger::DEBUG,true, $permisos));
+		$this->get_logger_instance()->log(Logger::DEBUG, $texto);
 		
 		//Reseteo las variables internas para no escribir lo mismo varias veces
 		$this->proyectos = array(); 
 		$this->mensajes = array();
 		$this->niveles = array();
 		$this->proximo = 0;
-		
-		if ($es_nuevo) {
-			//Cambiar permisos
-			@toba_manejador_archivos::chmod_recursivo($path, $permisos);
-		}
 	}	
 	
 	protected function get_nombre_archivo()

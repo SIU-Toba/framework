@@ -43,6 +43,10 @@ if (! defined('E_DEPRECATED')) {		//Fix para PHP 5.2.x o anteriores
  * @wiki Referencia/PuntosDeAcceso El nivel actual se define en el Punto de Acceso
  * @package Debug
  */
+
+use Monolog\Logger;
+use Monolog\Handler\RotatingFileHandler;
+
 class toba_logger
 {
 	use \toba_basic_logger;
@@ -65,8 +69,8 @@ class toba_logger
 		$this->proyecto_actual = (isset($proyecto)) ? $proyecto : $this->get_proyecto_actual();		
 		
 		//Instancio un handler monolog por defecto
-		$this->set_logger_instance(new Logger());
-		$this->get_logger_instance()->pushHandler(new ErrorLogHandler());
+		$this->set_logger_instance(new Logger($this->proyecto_actual));
+		//$this->get_logger_instance()->pushHandler(new ErrorLogHandler());
 	}
 	
 	/**
@@ -223,8 +227,6 @@ class toba_logger
 	//-----------------------------------------------------------------------------------------------------------------//
 	//				METODOS PUBLICOS
 	//-----------------------------------------------------------------------------------------------------------------//
-	
-	
 	function modo_debug()
 	{
 		return ($this->get_nivel() == TOBA_LOG_DEBUG);
@@ -279,15 +281,17 @@ class toba_logger
 	
 	function guardar_en_archivo($archivo, $forzar_salida = false)
 	{
-		$salto = "\r\n";
-		
 		$texto = $this->armar_encabezado();
-		$texto .= self::$fin_encabezado.$salto;		
+		$texto .= self::$fin_encabezado."\r\n";	
+		
 		$mensajes = $this->armar_mensajes();
-		$hay_salida = (trim($mensajes) != '');
+		$hay_salida = (! empty($mensajes));
 		if ($hay_salida || $forzar_salida) {
-			$texto .= $mensajes;
+			//Hay que mandar un registro para el encabezado y otro para cada msg
 			$this->guardar_archivo_log($texto, $archivo);
+			foreach($mensajes as $indx => $msg) {
+				$this->get_logger_instance()->log(Logger::toMonologLevel($this->ref_niveles[$this->niveles[$indx]]),$msg);
+			}
 		}
 	}
 	
@@ -298,26 +302,9 @@ class toba_logger
 		$path = $this->directorio_logs();
 		$path_completo = $path ."/".$archivo;
 		toba_manejador_archivos::crear_arbol_directorios($path, $permisos);
-
-		$es_nuevo = false;
-		if (!file_exists($path_completo)) {
-			//Caso base el archivo no existe
-			$this->anexar_a_archivo($texto, $path_completo);
-			$es_nuevo = true;
-		} else {
-			//El archivo existe, ¿Hay que ciclarlo?
-			$excede_tamanio = (filesize($path_completo) > apex_log_archivo_tamanio * 1024);
-			if (apex_log_archivo_tamanio != null && $excede_tamanio) {
-				$this->ciclar_archivos_logs($path, $archivo);
-				$es_nuevo = true;
-			}
-			$this->anexar_a_archivo($texto, $path_completo);
-		}
 		
-		if ($es_nuevo) {
-			//Cambiar permisos
-			@toba_manejador_archivos::chmod_recursivo($path, $permisos);
-		}
+		$this->get_logger_instance()->pushHandler(new RotatingFileHandler($path_completo, 10, Logger::DEBUG,true, $permisos));
+		$this->get_logger_instance()->log(Logger::DEBUG, $texto);
 	}
 	
 	/**
