@@ -24,12 +24,12 @@
         "siu-toba/ssl-cert-utils": "@dev",
         "guzzlehttp/guzzle": "~6.3",
         "onelogin/php-saml": "^2.13",
-        "siu-toba/Numbers_Words": "0.18.0.1",        
-        "guiguiboy/PHP-CLI-Progress-Bar": "dev-master", 
+        "siu-toba/numbers_words": "0.18.0.1",        
+        "guiguiboy/php-cli-progress-bar": "dev-master", 
         "phpoffice/phpspreadsheet": "^1.0", 
         "dapphp/securimage": "~3.6", 
         "rospdf/pdf-php": "~0.12",
-        "siu-toba/Structures_Graph": "^1.1.1.1",
+        "siu-toba/structures_graph": "^1.1.1.1",
         "phpmailer/phpmailer": "^6.0",
         "siu-toba/text_highlighter": "~0.8",
         "siu-toba/services_json": "^1.0.3.3", 
@@ -42,7 +42,7 @@
     "require-dev": {
         "simpletest/simpletest": "~1.1", 
         "facebook/webdriver": "^1",
-        "greenlion/PHP-SQL-Parser": "@dev"        
+        "greenlion/php-sql-parser": "@dev"        
     },
     "suggest": {
         "siu-toba/jasper": "Permite imprimir reportes via Jasper desde SIU-Toba",

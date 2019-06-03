@@ -196,7 +196,7 @@
 			if (is_array($valor)) {
 				$salida[$clave] = array_a_latin1($valor);
 			} elseif (is_string($valor)) {
-				$salida[$clave] = utf8_decode($valor);
+				$salida[$clave] = utf8_d_seguro($valor);
 			} else {
 				$salida[$clave] = $valor;
 			}
@@ -206,7 +206,7 @@
 
 	function array_a_utf8($datos){
 		if (is_string($datos)) {
-			return utf8_encode($datos);
+			return utf8_e_seguro($datos);
 		}
 		if (!is_array($datos)) {
 			return $datos;
