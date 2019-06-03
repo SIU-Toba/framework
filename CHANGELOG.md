@@ -4,6 +4,10 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.1.11](https://github.com/SIU-Toba/framework/releases/tag/v3.1.11) (2018-06-03):
+- Fix en toba_varios::array_a_utf8 y toba_varios::array_a_latin1, ahora usan las funciones utf8_e_seguro y utf8_d_seguro (merge develop)
+- Se ajustan los nombres de paquetes al formato composer 2.0 (lowercase)
+
 [3.1.10](https://github.com/SIU-Toba/framework/releases/tag/v3.1.10) (2018-04-30):
 - Actualizacion librerias:
   * onelogin/php-saml: v2.15.0
