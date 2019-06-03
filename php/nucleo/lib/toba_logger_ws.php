@@ -4,6 +4,9 @@ use Psr\Log\AbstractLogger;
 use Psr\Log\LogLevel;
 use Psr\Log\InvalidArgumentException;
 
+use Monolog\Logger;
+use Monolog\Handler\RotatingFileHandler;
+
 /**
  * Mantiene una serie de sucesos generados durante un WS no visibles al usuario y los almacena para el posterior analisis
  * Los sucesos tienen una categoria (debug, info, error, etc.) y el proyecto que la produjo
@@ -22,7 +25,7 @@ class toba_logger_ws extends AbstractLogger
 	protected $mapeo_niveles = array();
 	protected $id_solicitud;
 	
-	protected $modo_archivo = true;
+	protected $modo_archivo = false;
 	static protected $instancia;
 			
 	/**
@@ -45,8 +48,8 @@ class toba_logger_ws extends AbstractLogger
 		$this->id_solicitud = toba::solicitud()->get_id();
 		
 		//Instancio un handler monolog por defecto
-		$this->set_logger_instance(new Logger());
-		//$this->get_logger_instance()->pushHandler(new ErrorLogHandler());
+		$this->set_logger_instance(new Logger($this->proyecto_actual));
+		$this->get_logger_instance()->pushHandler(new ErrorLogHandler());
 	}
 			
 	/**
@@ -133,7 +136,7 @@ class toba_logger_ws extends AbstractLogger
 	 */
 	public function guardar()
 	{		
-		if ($this->activo && $this->archivos_individuales) {
+		if ($this->activo && $this->modo_archivo) {
 			$this->guardar_en_archivo($this->get_nombre_archivo());
 		}
 	}
@@ -160,34 +163,15 @@ class toba_logger_ws extends AbstractLogger
 	//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------//		
 	protected function instanciar_handler()
 	{
-		/*$dir_log = $this->directorio_logs();
-		$path_completo = realpath($dir_log) . '/' . $this->archivo_log;		
-		$stream_source = ($this->modo_archivo) ? 'file://' . $path_completo : 'php://stderr';
-		
-		if (file_exists($path_completo)) {
-			$excede_tamanio = (filesize($path_completo) > apex_log_archivo_tamanio * 1024);
-			if (apex_log_archivo_tamanio != null && $excede_tamanio) {
-				$this->ciclar_archivos_logs($dir_log, $this->archivo_log);
-			}
-			$this->stream_handler = fopen($stream_source, 'a');
-		} elseif ($this->modo_archivo) {
-			$this->stream_handler = fopen($stream_source, 'x');
-		} else {
-			$this->stream_handler = fopen($stream_source, 'a');
-		}*/
 	}
 	
 	protected function stream_log($mensaje, $nivel)
 	{
-		/*if (! isset($this->stream_handler)) {
-			$this->instanciar_handler();
-		}
-		fwrite($this->stream_handler, $mensaje);*/
 	}
 	
 	protected function armar_mensaje($mensaje, $nivel)
 	{
-		return  "[" . $this->id_solicitud . "][" .$this->proyecto_actual . "][" . $this->ref_niveles[$nivel] ."] "  . $mensaje . PHP_EOL;
+		return  "[" . $this->id_solicitud . "]" . $mensaje . PHP_EOL;
 	}
 	
 	//------------------------------------------------------------------------------------------------------------------------------//
@@ -256,8 +240,12 @@ class toba_logger_ws extends AbstractLogger
 	protected function get_nombre_archivo()
 	{
 		if (! isset($this->nombre_archivo)) {
-			$ip = isset($_SERVER["REMOTE_ADDR"]) ? $_SERVER["REMOTE_ADDR"]: 'sin_ip';
-			$this->nombre_archivo = '/web_services/web_services_'. $ip. "_{$this->id_solicitud}.log";				//Agrego el dir final aca para mantener el viejo esquema
+			if ($this->archivos_individuales) {
+				$ip = isset($_SERVER["REMOTE_ADDR"]) ? $_SERVER["REMOTE_ADDR"]: 'sin_ip';
+				$this->nombre_archivo = '/web_services/web_services_'. $ip. "_{$this->id_solicitud}.log";				//Agrego el dir final aca para mantener el viejo esquema
+			} else {
+				$this->nombre_archivo =  '/web_services/'. $this->archivo_log;
+			}
 		}		
 		return $this->nombre_archivo;		
 	}
