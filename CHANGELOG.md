@@ -3,8 +3,16 @@
 ## CHANGELOG
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
+- Bugfix en toba_varios::array_a_latin1 y toba_varios::array_a_utf8
+- Bugfix en regeneracion al eliminar los perfiles funcionales editables
 - Fix en toba_rest cuando se setea la versión de la api a partir de la del proyecto
 - Nueva opción `--usuario-email-admin` que permite especificar el email para la cuenta administrativa al momento de instalar el framework
+- Update de libreria:
+   * jquery: v3.4
+- Reincorpora paquete "siu/arai-json-migrator" eliminado por error
+- Bugfix en toba_usuarios al generar la clave aleatoria, retornaba bytes en lugar de un string
+- Agrega metodo a toba_usuario_basico para recuperar atributos del token saml
+- Agrega excepcion al enviar caracteres invalidos a la generación via PHPSpreadsheet
 
 [3.2.2](https://github.com/SIU-Toba/framework/releases/tag/v3.2.2) (2019-03-13)
 - Agrega metodo a toba_usuario_basico para obtener el identificador en arai-usuario para la cuenta actualmente logueada
