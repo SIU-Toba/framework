@@ -125,5 +125,13 @@ class toba_autenticacion
 		}
 		return array();
 	}
+	
+	function get_id_usuario_arai()
+	{
+		$atributos = $this->get_atributos_usuario();
+		if (isset($atributos['uniqueIdentifier']) && ! empty($atributos['uniqueIdentifier'])) {
+			return  utf8_d_seguro($atributos['uniqueIdentifier'][0]);
+		}
+	}	
 }
 ?>

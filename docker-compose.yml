@@ -1,5 +1,5 @@
 pgdata:
-  image: postgres:9.4
+  image: postgres:9.6
   command: "true"
   volumes:
 #Comentar la siguiente linea para corregir permisos en OSX  
@@ -8,14 +8,14 @@ pgdata:
    - ./docker-data/toba:/var/local/docker-data/toba
 
 web:
-  image: siutoba/docker-toba
+  image: siutoba/docker-toba:latest
   ports:
    - "2020:80"
   env_file: docker.env
   environment:
 ## Descomentar y definir para cagar/instalar un proyecto especifico o instalar toba en un path dado  
-#    TOBA_DIR: /var/local/toba
-#    TOBA_INSTALACION_DIR: /var/local/toba/docker-data/instalacion
+    TOBA_DIR: /var/local/toba
+    TOBA_INSTALACION_DIR: /var/local/toba/docker-data/instalacion
 #    TOBA_PROYECTO                     : miproyecto
 #    TOBA_BASE_NOMBRE                  : toba
 #    TOBA_PROYECTO_DIR                 : /var/local/toba/proyectos/miproyecto
@@ -43,7 +43,7 @@ web:
 #   - ./:/var/local/toba
 
 pg:
-  image: postgres:9.4
+  image: postgres:9.6
   ports:
    - "4432:5432"
   environment:

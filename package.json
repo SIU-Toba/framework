@@ -1,6 +1,6 @@
 {
   "name": "siu-toba-framework",
-  "version": "3.2.2",
+  "version": "3.2.3",
   "description": "Framework para desarrollo rápido de aplicaciones web",
   "license": "SEE LICENSE IN licencia.txt",
   "repository": "https://github.com/SIU-Toba/framework.git",
@@ -8,7 +8,7 @@
   "private": false,
   "dependencies": {
     "ckeditor": "4.11",
-    "jquery": "3.3",
+    "jquery": "3.4",
     "jquery-migrate": "3.0",
     "siu-js-app-launcher": "1.0"
   }

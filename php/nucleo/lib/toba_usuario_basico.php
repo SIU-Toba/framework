@@ -79,7 +79,7 @@ class toba_usuario_basico extends toba_usuario
 	 */
 	function get_id_en_arai()
 	{
-		$usuario_arai = toba::memoria()->get_dato_instancia('usuario_arai');
+		$usuario_arai = toba::manejador_sesiones()->get_autenticacion()->get_id_usuario_arai();
 		if (! is_null($usuario_arai)) {
 			return $usuario_arai;
 		}
@@ -93,6 +93,15 @@ class toba_usuario_basico extends toba_usuario
 	{
 		return $this->datos_basicos['nombre'];
 	}
+	
+	/**
+	 * Retorna la informacion de atributos del token saml directamente
+	 * @return array
+	 */
+	function get_informacion_atributos()
+	{
+		return toba::manejador_sesiones()->get_autenticacion()->get_atributos_usuario();
+	}	
 	
 	//-------------------------------------------------------
 	//----- Perfil

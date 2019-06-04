@@ -84,8 +84,11 @@ class comando_instalacion_silenciosa extends comando_toba
 		$pwd = $this->definir_clave_usuario_admin($param);
 
 		$usr = $this->definir_usuario_admin($param);
+
+		$email = $this->definir_email_admin($param);
+
 		//--- Vincula un usuario a todos los proyectos y se instala el proyecto				
-		$instancia->agregar_usuario($usr, 'Usuario Administrador', $pwd);				
+		$instancia->agregar_usuario($usr, 'Usuario Administrador', $pwd, $email);
 		$instancia->exportar_local();
 		
 		//--- Crea los nuevos alias
@@ -447,6 +450,18 @@ class comando_instalacion_silenciosa extends comando_toba
 			return 'toba';
 		}
 		return $result['resultado'];
-	}	
+	}
+
+	protected function definir_email_admin($param)
+	{
+		$nombre_parametro = array('--usuario-email-admin');
+		$result = $this->recuperar_dato_y_validez($param, $nombre_parametro);
+
+		if ($result['invalido']) {
+			toba::logger()->error("No se se selecciono ningun email para usuario administrador, ya que uno válido no fue provisto");
+			return null;
+		}
+		return $result['resultado'];
+	}
 }
 ?>

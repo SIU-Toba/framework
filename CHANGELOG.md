@@ -4,6 +4,18 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.2.3](https://github.com/SIU-Toba/framework/releases/tag/v3.2.3) (2019-06-04)
+- Bugfix en toba_varios::array_a_latin1 y toba_varios::array_a_utf8
+- Bugfix en regeneracion al eliminar los perfiles funcionales editables
+- Fix en toba_rest cuando se setea la versión de la api a partir de la del proyecto
+- Nueva opción `--usuario-email-admin` que permite especificar el email para la cuenta administrativa al momento de instalar el framework
+- Update de libreria:
+   * jquery: v3.4
+- Reincorpora paquete "siu/arai-json-migrator" eliminado por error
+- Bugfix en toba_usuarios al generar la clave aleatoria, retornaba bytes en lugar de un string
+- Agrega metodo a toba_usuario_basico para recuperar atributos del token saml
+- Agrega excepcion al enviar caracteres invalidos a la generación via PHPSpreadsheet
+
 [3.2.2](https://github.com/SIU-Toba/framework/releases/tag/v3.2.2) (2019-03-13)
 - Agrega metodo a toba_usuario_basico para obtener el identificador en arai-usuario para la cuenta actualmente logueada
 - Nueva opción `--excluir-bloqueads` para el comando `exportar_usuarios_arai`, evita exportar las cuentas bloqueadas
@@ -59,6 +71,26 @@
 - Bugfix a la ejecucion de test desde consola
 - Se agrega siu/manejador-salida-bootstrap como paquete sugerido
 - Se traslada parte de la generación del marcado HTML al paquete siu/manejador-salida-toba
+
+[3.1.11](https://github.com/SIU-Toba/framework/releases/tag/v3.1.11) (2018-06-03):
+- Fix en toba_varios::array_a_utf8 y toba_varios::array_a_latin1, ahora usan las funciones utf8_e_seguro y utf8_d_seguro (merge develop)
+- Se ajustan los nombres de paquetes al formato composer 2.0 (lowercase)
+
+[3.1.10](https://github.com/SIU-Toba/framework/releases/tag/v3.1.10) (2018-04-30):
+- Actualizacion librerias:
+  * onelogin/php-saml: v2.15.0
+  * phpoffice/phpspreadsheet: v1.6.0
+  * rospdf/pdf-php: v0.12.51
+  * vlucas/phpdotenv: v2.6.1
+  * phpmailer/phpmailer: v6.0.7
+  * guzzlehttp/psr7: v1.5.2 
+- Reintegra el paquete siu/arai-json-migrator quitado por error
+
+[3.1.9](https://github.com/SIU-Toba/framework/releases/tag/v3.1.9) (2018-04-09):
+- Bugfix en el metodo toba_parametros::get_proyecto() pasaba mal el id de la instancia (merge desde 3.2.0)
+
+[3.1.8](https://github.com/SIU-Toba/framework/releases/tag/v3.1.8) (2018-03-13):
+- Agrega metodo para obtener el identificador de usuario en Arai-Usuarios para la cuenta actualmente logueada (merge desde develop)
 
 [3.1.7](https://github.com/SIU-Toba/framework/releases/tag/v3.1.7) (2019-02-13)
 - Se mejora la autoconfiguración de apis rest via arai-cli (merge @develop)

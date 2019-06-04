@@ -124,7 +124,8 @@ class toba_vista_excel
 	function crear_hoja($nombre=null)
 	{
 		$hoja = $this->excel->createSheet();
-		if (isset($nombre)) {
+		if (isset($nombre)) {	
+			$this->check_caracteres($nombre);
 			$hoja->setTitle(utf8_encode(strval($nombre)));
 		}
 		$this->excel->setActiveSheetIndex($this->excel->getSheetCount()-1);
@@ -135,6 +136,7 @@ class toba_vista_excel
 	{
 		if (strlen($nombre) > 31) {
 			$nombre = substr($nombre, 0, 30);
+			$this->check_caracteres($nombre);
 		}
 		$this->excel->getActiveSheet()->setTitle(utf8_encode(strval($nombre)));
 	}
@@ -353,5 +355,12 @@ class toba_vista_excel
 		}
 	}
 	
+	private function check_caracteres($texto) 
+	{
+		$ic = Worksheet::getInvalidCharacters();
+		  if (str_replace($ic, '', $texto) !== $texto) {
+			throw new toba_error('El texto tiene caracteres inválidos para Excel');
+		}
+	}
 }
 ?>

@@ -738,7 +738,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 					$datos[$tabla] = $contenido;
 				}
 			}
-			
+			//Separar las membresias en un archivo aparte
 			if (!empty($datos)) {
 				$archivo = $dir_perfiles."/perfil_$permiso.xml";
 				$xml = new toba_xml_tablas();
@@ -2996,7 +2996,6 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$where = "proyecto = $proyecto AND restriccion_funcional IN (SELECT res.restriccion_funcional FROM apex_restriccion_funcional AS res WHERE res.proyecto = $proyecto AND res.permite_edicion = 1)";
 		foreach(array_reverse($this->get_lista_tablas_restricciones()) as $tabla) {
 			$sql = "DELETE FROM $tabla WHERE $where";
-			$this->db->ejecutar($sql);
 			$cant = $this->db->ejecutar($sql);
 			toba_logger::instancia()->debug("$tabla ($cant)");
 			$this->manejador_interface->progreso_avanzar();
