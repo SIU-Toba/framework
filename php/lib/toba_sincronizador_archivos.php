@@ -14,7 +14,7 @@ class toba_sincronizador_archivos
 	private $dir;
 	private $patron_archivos;
 	private $archivos_originales;
-	private $archivos_utilizados;
+	private $archivos_utilizados = array();
 	private $archivos_agregados = array();
 	private $archivos_eliminados = array();
 	private $activado = true;
