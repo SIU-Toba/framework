@@ -4,6 +4,9 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.2.5](https://github.com/SIU-Toba/framework/releases/tag/v3.2.5) (2019-08-06)
+- Bugfix en la lectura del archivo de configuracion para ldap
+
 [3.2.4](https://github.com/SIU-Toba/framework/releases/tag/v3.2.4) (2019-06-28)
 - Bugfix en el editor de columnas externas del DT en el proyecto toba_editor
 - Bugfix en toba_sincronizador_archivos para evitar warnings durante la exportacion de metadatos
