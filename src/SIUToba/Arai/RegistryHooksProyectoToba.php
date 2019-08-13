@@ -5,6 +5,7 @@ use SIU\AraiCli\AraiCli;
 use SIU\AraiCli\Services\Registry\HooksInterface;
 use SIU\AraiJsonParser\Feature\Consumption;
 use SIU\AraiJsonParser\Feature\Provision;
+use SIU\AraiJsonParser\Version\VersionParser;
 
 /**
  * Class RegistryHooksProyectoToba
@@ -82,6 +83,10 @@ class RegistryHooksProyectoToba implements HooksInterface
      */
     public function preProvide(Provision $provision)
     {
+        $vParser = new VersionParser();
+        $version = $vParser->parseConstraint($this->getModeloProyecto()->get_version_proyecto()->__toString());
+        $provision->setVersion($version);
+        
         switch ($provision->getType()) {
             case "api":
                 $this->preProvideApi($provision);
@@ -597,7 +602,7 @@ class RegistryHooksProyectoToba implements HooksInterface
                 return;
             } elseif (in_array($datos['auth_tipo'], array('basic', 'digest')) && in_array('digest', $posibles)) {
                 $datos['auth_tipo'] = 'digest';					//Si usa uno de los basicos y esta disponible, poner el menos peorcito
-            }			
+            }
         } else {
             $datos['auth_tipo'] = current($posibles);			//Defaultea en el unico metodo provisto por el server (BC)
         }
