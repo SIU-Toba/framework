@@ -4,14 +4,14 @@
 use SIU\InterfacesManejadorSalidaToba\Componentes\Interfaz\IFormularioMl;
 
 class referencia_formulario_ml implements IFormularioMl{
-	
+
 	public function getConsumosJs(){
 		return [
 				'../siu/manejador_referencia/js/bt_formulario',
 				'../siu/manejador_referencia/js/bt_formulario_ml'
 		];
 	}
-	
+
 	public function getPreLayout($id,$ancho,$alto,$scroll, $colapsado){
 		$style = '';
 		$colapsado = (isset($colapsado) && $colapsado) ? "display:none;" : "";
@@ -22,7 +22,7 @@ class referencia_formulario_ml implements IFormularioMl{
 		}
 		return "<div class='form-horizontal' style='$colapsado $style' id='$id'>"; //Comienza el formulario
 	}
-	
+
 	public function getBotoneraExportacion($exportar_pdf, $exportar_xls, $pdf_js, $xls_js){
 		$salida = '';
 		if (($exportar_pdf || $exportar_xls)){
@@ -33,13 +33,13 @@ class referencia_formulario_ml implements IFormularioMl{
 			}
 			if ($exportar_xls== 1) {
 				$img = \toba_recurso::imagen_toba('exp_xls.gif', true);
-				$salida .= "<a class='btn btn-default' href='javascript: $xls_js' title='Exporta el listado a formato Excel (.xls)'>$img</a>";
+				$salida .= "<a class='btn btn-default' href='javascript: $xls_js' title='Exporta el listado a formato Excel (.xlsx)'>$img</a>";
 			}
 			$salida .= "</div>\n";
 		}
 		return $salida;
 	}
-	
+
 	public function getBotoneraManejoFila($objeto_js,$tab, $agregar, $mostrar_agregar, $modo_agregar,$js_agregar, $borrar_enlinea, $js_borrar, $filas_agregar, $js_deshacer, $ordenar, $ordenar_linea, $js_subir, $js_bajar){
 		$salida = "<div class='btn-group col-md-12' role='group'>"; // Inicio de botonera
 		if ($agregar) {
@@ -57,12 +57,12 @@ class referencia_formulario_ml implements IFormularioMl{
 				$salida .= \toba_form::button_html("{$objeto_js}_eliminar", $img,"onclick='$js_borrar' disabled", $tab, '-', 'Elimina la fila seleccionada');
 			}
 		}
-		
+
 		if ($filas_agregar ) {		//Si se pueden agregar o quitar filas, el deshacer debe estar
 			$html = "<span class='glyphicon glyphicon-refresh' id='{$objeto_js}_deshacer_cant'></span>";
 			$salida .= \toba_form::button_html("{$objeto_js}_deshacer", $html,"onclick='$js_deshacer' disabled", $tab, 'z', 'Deshace la Última eliminación');
 		}
-		
+
 		if ($ordenar && !$ordenar_linea) {
 			$arriba = '<span class="glyphicon glyphicon-arrow-up"></span>';;
 			$abajo = '<span class="glyphicon glyphicon-arrow-down"></span>';;
@@ -72,17 +72,17 @@ class referencia_formulario_ml implements IFormularioMl{
 		$salida .= "</div>\n"; // Fin de botonera
 		return $salida;
 	}
-	
+
 	public function getInicioLayout($ancho){
 		$salida = "<div class='table-resposive'>";
 		$salida .= "	<table class='table table-condensed'>";
 		return $salida;
 	}
-	
+
 	public function getInicioBody(){
 		return "<tbody>";
 	}
-	
+
 	/******Inicio Metodos cabecera*****/
 	public function getInicioCabecera($id, $enumerar_filas){
 		$salida = "<thead id='$id' >\n";
@@ -92,13 +92,13 @@ class referencia_formulario_ml implements IFormularioMl{
 		}
 		return $salida;
 	}
-	
+
 	public function getInicioColumnaCabecera($id, $class, $extra, $es_evento,$post_tag){
 		return "<th id='$id'>\n";
 	}
-	
+
 	public function getEtiquetaColumna($estilo, $obligatorio, $editor,$etiqueta, $descripcion){
-		
+
 		$marca = $obligatorio?'(*)':'';
 		if ($estilo == '') {
 			if ($obligatorio) {
@@ -113,25 +113,25 @@ class referencia_formulario_ml implements IFormularioMl{
 		}
 		return "<span class='$estilo'>$etiqueta $marca $editor $desc</span>\n";
 	}
-	
+
 	public function getInputToggle($id, $js_toggle){
 		return "<input id='$id' type='checkbox' class='ef-checkbox' onclick='$js_toggle' />";
 	}
-	
+
 	public function getFinColumnaCabecera(){
 		return "</th>";
 	}
-	
+
 	public function getFinCabecera(){
 		$salida = "</tr>\n";
 		$salida .= "</thead>\n";
 		return $salida;
 	}
-	
+
 	/******Fin Metodos cabecera*****/
-	
-	
-	
+
+
+
 	/*****Inicio metodos filas*****/
 	public function getInicioFila($id, $js_seleccion,$class, $style_fila,$numerar, $numero_fila, $id_numerar ){
 		$salida = "<tr $style_fila id='$id' onclick='$js_seleccion'>";
@@ -140,16 +140,16 @@ class referencia_formulario_ml implements IFormularioMl{
 		}
 		return $salida;
 	}
-	
+
 	public function getFormateoCelda($clase, $es_evento, $contenido){
 		$clase .= $es_evento ? ' celda-evento': '';
-		
+
 		$salida = "<td class='$clase'>";
 		$salida .= $contenido;
 		$salida .= "</td>";
 		return $salida;
 	}
-	
+
 	public function getFormateoEventos($estilo_celda,$html_eventos){
 		$salida = "<td class='celda-evento'>";
 		foreach ($html_eventos as $evento){
@@ -158,7 +158,7 @@ class referencia_formulario_ml implements IFormularioMl{
 		$salida .= "</td>";
 		return $salida;
 	}
-	
+
 	public function getBotoneraOrdenarLinea($id, $estilo_actual, $js_subir, $js_bajar,$fila){
 		$arriba = '<span class="glyphicon glyphicon-arrow-up"></span>';;
 		$abajo = '<span class="glyphicon glyphicon-arrow-down"></span>';;
@@ -168,30 +168,30 @@ class referencia_formulario_ml implements IFormularioMl{
 		$salida .= "</td>\n";
 		return $salida;
 	}
-	
+
 	public function getFinFila(){
 		return "</tr>\n";
 	}
-	
+
 	public function getInicioLayoutEf($id_form, $class){
 		$salida = "<td id='cont_$id_form'>\n";
 		$salida .= "<div id='nodo_$id_form'>\n";
 		return $salida;
 	}
-	
+
 	public function getFinLayoutEf(){
 		$salida = "</div>";
 		$salida .= "</td>\n";
 		return $salida;
 	}
-	
-	
-	
+
+
+
 	/*****FIN metodos Filas********/
 	public function getFinBody(){
 		return  "</tbody>";
 	}
-	
+
 	public function getPieFormulario($id_foot, $lista_ids, $cantidad_totales, $enumerar_filas, $cant_eventos_sobre_fila, $_colspan){
 		$salida = "<tfoot id='$id_foot'>\n";
 		//Defino la cantidad de columnas
@@ -218,11 +218,11 @@ class referencia_formulario_ml implements IFormularioMl{
 		$salida .= "</tfoot>\n";
 		return $salida;
 	}
-	
+
 	public function getInicioBotoneraMl($class){
 		return "<div class='col-md-12 divider  $class'>";
 	}
-	
+
 	public function getBotonAgregarInferior($id, $js_agregar, $tab, $modo_agregar){
 		$texto = "<span class='glyphicon glyphicon-plus'></span>";
 		if ($modo_agregar != '') {
@@ -230,19 +230,19 @@ class referencia_formulario_ml implements IFormularioMl{
 		}
 		return \toba_form::button_html("$id", $texto, "onclick='$js_agregar'", $tab , '+', 'Crea una nueva fila');
 	}
-	
+
 	public function getFinBotoneraMl(){
 		return "</div>";
 	}
-	
+
 	public function getFinLayout(){
 		$salida = "	</table>";
 		$salida .= "\n</div>";
 		return $salida;
 	}
-	
+
 	public function getFinPreLayout(){
 		return "</div>\n"; // Fin de formulario
 	}
-	
+
 }
