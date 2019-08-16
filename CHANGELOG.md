@@ -4,6 +4,11 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.2.6](https://github.com/SIU-Toba/framework/releases/tag/v3.2.6) (2019-08-16)
+- Se adelanta la carga de jquery y derivados
+- Se incorpora la version del proyecto como atributo "version" de las provision del mismo
+- Se agrega toba_modelo_instalacion al esquema de configuraciones via toba_config
+
 [3.2.5](https://github.com/SIU-Toba/framework/releases/tag/v3.2.5) (2019-08-06)
 - Bugfix en la lectura del archivo de configuracion para ldap
 

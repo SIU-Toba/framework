@@ -5,6 +5,7 @@ use SIU\AraiCli\AraiCli;
 use SIU\AraiCli\Services\Registry\HooksInterface;
 use SIU\AraiJsonParser\Feature\Consumption;
 use SIU\AraiJsonParser\Feature\Provision;
+use SIU\AraiJsonParser\Version\VersionParser;
 
 /**
  * Class RegistryHooksProyectoToba
@@ -82,17 +83,21 @@ class RegistryHooksProyectoToba implements HooksInterface
 	 */
 	public function preProvide(Provision $provision)
 	{
-		switch ($provision->getType()) {
-			case "api":
-				$this->preProvideApi($provision);
-				break;
-			case "app":
-				$this->preProvideApp($provision);
-				break;
-			case "service":
-				$this->preProvideService($provision);
-				break;
-		}
+            $vParser = new VersionParser();
+            $version = $vParser->parseConstraint($this->getModeloProyecto()->get_version_proyecto()->__toString());
+            $provision->setVersion($version);
+
+            switch ($provision->getType()) {
+                    case "api":
+                            $this->preProvideApi($provision);
+                            break;
+                    case "app":
+                            $this->preProvideApp($provision);
+                            break;
+                    case "service":
+                            $this->preProvideService($provision);
+                            break;
+            }
 	}
 
 	public function postProvide(Provision $provision)
@@ -220,7 +225,7 @@ class RegistryHooksProyectoToba implements HooksInterface
 			$iniInstalacion->guardar();
 
 			echo "Activando vínculo entre 'toba_usuarios' y 'Araí' para la gestión de cuentas\n";
-		}		
+		}
 	}
 
 
@@ -412,7 +417,7 @@ class RegistryHooksProyectoToba implements HooksInterface
 		$dir = realpath($this->getTobaDir()."/php");
 		require_once("$dir/nucleo/toba_nucleo.php");
 		//Inicio desde consola para procesar el contexto de ejecucion (puede ser necesario para JWT)
-		\toba_nucleo::instancia()->iniciar_contexto_desde_consola($this->getInstanciaId(), $this->getProyectoId());	
+		\toba_nucleo::instancia()->iniciar_contexto_desde_consola($this->getInstanciaId(), $this->getProyectoId());
 		return \toba_modelo_catalogo::instanciacion()->get_instalacion(null);
 	}
 
@@ -557,7 +562,7 @@ class RegistryHooksProyectoToba implements HooksInterface
 		if (!$decryptedCredentials) {
 			echo " no se pudo desencriptar la clave\n";
 			return;
-		}		
+		}
 		echo " Desencriptado correcto de la clave\n";
 		$credentials = [
 			'user' => $auth['credentials']['user'],
@@ -594,7 +599,7 @@ class RegistryHooksProyectoToba implements HooksInterface
 				return;
 			} elseif (in_array($datos['auth_tipo'], array('basic', 'digest')) && in_array('digest', $posibles)) {
 				$datos['auth_tipo'] = 'digest';					//Si usa uno de los basicos y esta disponible, poner el menos peorcito
-			}			
+			}
 		} else {
 			$datos['auth_tipo'] = current($posibles);			//Defaultea en el unico metodo provisto por el server (BC)
 		}
