@@ -3,6 +3,8 @@
 ## CHANGELOG
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
+
+[3.1.12](https://github.com/SIU-Toba/framework/releases/tag/v3.1.12) (2018-08-16):
 - Se incorpora la version del proyecto como atributo de las provisions del mismo (merge desde develop)
 - Suma toba_modelo_instalacion al esquema via toba_config (merge desde develop)
 - Fix en toba_rest cuando se setea la versión de la api a partir de la del proyecto (merge PR#44)
