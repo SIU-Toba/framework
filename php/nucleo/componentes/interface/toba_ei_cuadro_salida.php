@@ -8,7 +8,7 @@ class toba_ei_cuadro_salida
 	{
 		$this->_cuadro = $cuadro;
 	}
-	
+
 	/**
 	 * Retorna el texto que sumariza la cantidad de filas de un nivel de corte
 	 * @param integer $profundidad Nivel de profundidad actual
@@ -21,7 +21,7 @@ class toba_ei_cuadro_salida
 			$etiqueta .= ': ';
 		} else {
 			$etiqueta = 'Cantidad de filas: ';
-		}		
+		}
 		return $etiqueta;
 	}
 
@@ -29,5 +29,11 @@ class toba_ei_cuadro_salida
 	{
 		$this->_objeto_toba_salida = $salida;
 	}
+
+        function inicio_datos_corte($id_unico, $es_tabla_gral, $nivel_nodo)
+        {}
+
+        function fin_datos_corte($es_tabla_gral)
+        {}
 }
 ?>
