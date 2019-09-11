@@ -31,7 +31,7 @@ class toba_rest
 		if (! $this->es_pedido_documentacion()) {
 			$this->app = $this->instanciar_libreria_rest($api);
 			$this->configurar_libreria_rest($this->app);
-		}		
+		}
 	}
 
 	function get_instancia_rest()
@@ -119,14 +119,14 @@ class toba_rest
 					break;
 				case 'oauth2':
 					$conf = $this->get_conf();
-					$conf_auth = $conf->get('oauth2');					
+					$conf_auth = $conf->get('oauth2');
 					$metodos[] = $this->get_autenticador_oauth($conf_auth);
 					//Le inyecto el autorizador al app
 					$app->set_autorizador($this->get_autorizador_oauth($conf_auth));
-					break;					
+					break;
 				case 'toba':
 					$toba_aut = new toba_autenticacion_basica();
-					$user_prov = new toba_usuarios_rest_bd($toba_aut);					
+					$user_prov = new toba_usuarios_rest_bd($toba_aut);
 					$metodos[] = new autenticacion\autenticacion_basic_http($user_prov);
 					break;
 				default:
@@ -185,8 +185,8 @@ class toba_rest
 	protected function get_path_controladores()
 	{
 		$api_base = toba_proyecto::get_path_php() . self::CARPETA_REST;
-		$api_pers = toba_proyecto::get_path_pers_php() . self::CARPETA_REST;			
-			
+		$api_pers = toba_proyecto::get_path_pers_php() . self::CARPETA_REST;
+
 		$path_controladores = array($api_base, $api_pers);
 		return $path_controladores;
 	}
@@ -196,7 +196,10 @@ class toba_rest
 	 */
 	public function es_pedido_documentacion()
 	{
-		return toba_recurso::url_proyecto() . self::CARPETA_REST == rtrim( $_SERVER['REQUEST_URI'], '/');
+            if (! is_null($this->app)){
+                return $this->get_instancia_rest()->config('url_api') == rtrim( $_SERVER['REQUEST_URI'], '/');
+            }
+            return toba_recurso::url_proyecto() . self::CARPETA_REST == rtrim( $_SERVER['REQUEST_URI'], '/');
 	}
 
 	protected function get_modelo_proyecto()
@@ -209,7 +212,7 @@ class toba_rest
 		}
 		return $this->modelo_proyecto;
 	}
-	
+
 	protected function get_ini_proyecto()
 	{
 		$resultado = array();
@@ -218,7 +221,7 @@ class toba_rest
 		}
 		return $resultado;
 	}
-	
+
 	protected function  get_autenticador_oauth($conf_auth)
 	{
 		$decoder = null;
@@ -238,7 +241,7 @@ class toba_rest
 		$auth->set_decoder($decoder);
 		return $auth;
 	}
-	
+
 	protected function get_autorizador_oauth($conf_auth)
 	{
 		if (!isset($conf_auth['scopes'])) {
