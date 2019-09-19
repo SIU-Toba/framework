@@ -4,6 +4,11 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.2.7](https://github.com/SIU-Toba/framework/releases/tag/v3.2.7) (2019-09-19)
+- Se agrega posibilidad de especificar el encoding cliente al momento de registrar la base de datos
+- Se corrige tamaño de imagenes en el selector de toba_editor (credits lcassettai)
+- Se permite utilizar un URI que no termine en rest para la documentacion de la API
+
 [3.2.6](https://github.com/SIU-Toba/framework/releases/tag/v3.2.6) (2019-08-16)
 - Se adelanta la carga de jquery y derivados
 - Se incorpora la version del proyecto como atributo "version" de las provision del mismo
