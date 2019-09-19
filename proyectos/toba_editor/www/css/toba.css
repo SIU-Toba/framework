@@ -87,6 +87,8 @@
 }
 #editor_imagen_listado img {
 	vertical-align: middle;
+	max-width: 25px;
+	min-width: 20px;
 }
 #editor_imagen_listado table {
 	width: 100%;
