@@ -20,7 +20,7 @@
         "symfony/yaml": "~3.1",
         "siu/security-multitool": "1.0",
         "paragonie/random-lib" : "~2.0",
-        "siu-toba/rest": "~2.0",
+        "siu-toba/rest": "dev-feature/PSReando",
         "siu-toba/ssl-cert-utils": "@dev",
         "guzzlehttp/guzzle": "~6.3",
         "onelogin/php-saml": "~3.1",
