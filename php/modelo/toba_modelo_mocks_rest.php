@@ -19,7 +19,7 @@ class mock_autenticador extends SIUToba\rest\seguridad\proveedor_autenticacion
 		return $usuario;
 	}
 
-	public function requerir_autenticacion(SIUToba\rest\http\respuesta_rest $rta){}
+	public function requerir_autenticacion(SIUToba\rest\http\respuesta_rest &$rta){}
 
     public function atiende_pedido(request $request){}
 }
