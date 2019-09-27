@@ -1,23 +1,6 @@
 /*
 **********  Sistema de comunicaciones asincronicas con el SERVER  *********
 */
-/*
-Copyright (c) 2009, Yahoo! Inc. All rights reserved.
-Code licensed under the BSD License:
-http://developer.yahoo.net/yui/license.txt
-version: 2.7.0
-*/
-/**
- * The Connection Manager provides a simplified interface to the XMLHttpRequest
- * object.  It handles cross-browser instantiantion of XMLHttpRequest, negotiates the
- * interactive states and server response, returning the results to a pre-defined
- * callback you create.
- *
- * @namespace YAHOO.util
- * @module connection
- * @requires yahoo
- * @requires event
- */
 
 /**
  * The Connection Manager singleton provides methods for creating and managing
@@ -26,15 +9,8 @@ version: 2.7.0
  * @class Connect
  */
 
-YAHOO.lang = {};
-YAHOO.lang.hasOwnProperty = function() {
-	return true;
-}
-YAHOO.lang.isString = function(valor) {
-	return (typeof valor == 'string');
-}
 
-YAHOO.util.Connect = 
+var conexion = 
 {
   /**
    * @description Array of MSFT ActiveX ids for XMLHttpRequest.
@@ -240,7 +216,7 @@ YAHOO.util.Connect =
    */
 	 _hasSubmitListener:(function()
 	 {
-		if(YAHOO.util.Event){
+		/*if(YAHOO.util.Event){
 			YAHOO.util.Event.addListener(
 				document,
 				'click',
@@ -252,7 +228,7 @@ YAHOO.util.Connect =
 					}
 				});
 			return true;
-	    }
+	    }*/
 	    return false;
 	 })(),
 
@@ -263,7 +239,7 @@ YAHOO.util.Connect =
    * @static
    * @type CustomEvent
    */
-	startEvent: new YAHOO.util.CustomEvent('start'),
+	//startEvent: /*new YAHOO.util.CustomEvent('start')*/,
 
   /**
    * @description Custom event that fires when a transaction response has completed.
@@ -272,7 +248,7 @@ YAHOO.util.Connect =
    * @static
    * @type CustomEvent
    */
-	completeEvent: new YAHOO.util.CustomEvent('complete'),
+	//completeEvent: new YAHOO.util.CustomEvent('complete'),
 
   /**
    * @description Custom event that fires when handleTransactionResponse() determines a
@@ -282,7 +258,7 @@ YAHOO.util.Connect =
    * @static
    * @type CustomEvent
    */
-	successEvent: new YAHOO.util.CustomEvent('success'),
+	//successEvent: /*new YAHOO.util.CustomEvent('success')*/,
 
   /**
    * @description Custom event that fires when handleTransactionResponse() determines a
@@ -292,7 +268,7 @@ YAHOO.util.Connect =
    * @static
    * @type CustomEvent
    */
-	failureEvent: new YAHOO.util.CustomEvent('failure'),
+	//failureEvent: /*new YAHOO.util.CustomEvent('failure')*/,
 
   /**
    * @description Custom event that fires when handleTransactionResponse() determines a
@@ -302,7 +278,7 @@ YAHOO.util.Connect =
    * @static
    * @type CustomEvent
    */
-	uploadEvent: new YAHOO.util.CustomEvent('upload'),
+	//uploadEvent: /*new YAHOO.util.CustomEvent('upload')*/,
 
   /**
    * @description Custom event that fires when a transaction is successfully aborted.
@@ -311,7 +287,7 @@ YAHOO.util.Connect =
    * @static
    * @type CustomEvent
    */
-	abortEvent: new YAHOO.util.CustomEvent('abort'),
+	//abortEvent: /*new YAHOO.util.CustomEvent('abort')*/,
 
   /**
    * @description A reference table that maps callback custom events members to its specific
@@ -408,7 +384,7 @@ YAHOO.util.Connect =
    */
 	createXhrObject:function(transactionId)
 	{
-		var obj,http;
+		/*var obj,http;
 		try
 		{
 			// Instantiates XMLHttpRequest in non-IE browsers and assigns to http.
@@ -433,7 +409,7 @@ YAHOO.util.Connect =
 		finally
 		{
 			return obj;
-		}
+		}*/
 	},
 
   /**
@@ -447,7 +423,7 @@ YAHOO.util.Connect =
    */
 	getConnectionObject:function(isFileUpload)
 	{
-		var o;
+		/*var o;
 		var tId = this._transaction_id;
 
 		try
@@ -469,9 +445,16 @@ YAHOO.util.Connect =
 		finally
 		{
 			return o;
-		}
+		}*/
 	},
 
+
+        _getTransactionId:function()
+        {
+            var tId = this._transaction_id;
+            this._transaction_id++;
+            return tId;
+        },
   /**
    * @description Method for initiating an asynchronous request via the XHR object.
    * @method asyncRequest
@@ -485,91 +468,60 @@ YAHOO.util.Connect =
    */
 	asyncRequest:function(method, uri, callback, postData)
 	{
-		toba.inicio_aguardar();	
-		var o = (this._isFileUpload)?this.getConnectionObject(true):this.getConnectionObject();
-		var args = (callback && callback.argument)?callback.argument:null;
-
-		if(!o){
-			return null;
-		}
-		else{
-
-			// Intialize any transaction-specific custom events, if provided.
-			if(callback && callback.customevents){
-				this.initCustomEvents(o, callback);
-			}
-
-			if(this._isFormSubmit){
-				if(this._isFileUpload){
-					this.uploadFile(o, callback, uri, postData);
-					return o;
-				}
-
-				// If the specified HTTP method is GET, setForm() will return an
-				// encoded string that is concatenated to the uri to
-				// create a querystring.
-				if(method.toUpperCase() == 'GET'){
-					if(this._sFormData.length !== 0){
-						// If the URI already contains a querystring, append an ampersand
-						// and then concatenate _sFormData to the URI.
-						uri += ((uri.indexOf('?') == -1)?'?':'&') + this._sFormData;
-					}
-				}
-				else if(method.toUpperCase() == 'POST'){
-					// If POST data exist in addition to the HTML form data,
-					// it will be concatenated to the form data.
-					postData = postData?this._sFormData + "&" + postData:this._sFormData;
-				}
-			}
-
-			if(method.toUpperCase() == 'GET' && (callback && callback.cache === false)){
-				// If callback.cache is defined and set to false, a
-				// timestamp value will be added to the querystring.
-				uri += ((uri.indexOf('?') == -1)?'?':'&') + "rnd=" + new Date().valueOf().toString();
-			}
-
-			o.conn.open(method, uri, true);
-
-			// Each transaction will automatically include a custom header of
-			// "X-Requested-With: XMLHttpRequest" to identify the request as
-			// having originated from Connection Manager.
-			if(this._use_default_xhr_header){
-				if(!this._default_headers['X-Requested-With']){
-					this.initHeader('X-Requested-With', this._default_xhr_header, true);
-				}
-			}
-
-			//If the transaction method is POST and the POST header value is set to true
-			//or a custom value, initalize the Content-Type header to this value.
-			if((method.toUpperCase() === 'POST' && this._use_default_post_header) && this._isFormSubmit === false){
-				this.initHeader('Content-Type', this._default_post_header);
-			}
-;			
-			//Initialize all default and custom HTTP headers,
-			if(this._has_default_headers || this._has_http_headers){
-				this.setHeader(o);
-			}
-
-			this.handleReadyState(o, callback);
-			o.conn.send(postData || '');
-
-
-			// Reset the HTML form data and state properties as
-			// soon as the data are submitted.
-			if(this._isFormSubmit === true){
-				this.resetFormState();
-			}
-
-			// Fire global custom event -- startEvent
-			this.startEvent.fire(o, args);
-
-			if(o.startEvent){
-				// Fire transaction custom event -- startEvent
-				o.startEvent.fire(o, args);
-			}
-
-			return o;
-		}
+            toba.inicio_aguardar();              
+            var args = (callback && callback.argument)?callback.argument:null;
+            var metodo = method.toUpperCase();
+            var conf = {
+                tId: this._getTransactionId(),
+                method: metodo,
+                crossDomain: false,
+                isLocal: false, 
+                callbackConf: callback
+            };
+            
+            if(callback){
+                this.initEvents(conf, callback);
+                if (callback.customevents) {
+                    this.initCustomEvents(conf, callback);
+                }
+            }
+            
+            if(this._isFormSubmit){
+                if(this._isFileUpload){
+                    conf.processData = false;                    
+                    postData = this._uploadFile(conf, callback, uri, postData);
+                    //Hay que pegar el upload del archivo y retornar?
+                    return;
+                }
+                
+                if(metodo === 'POST'){
+                     // If POST data exist in addition to the HTML form data,
+                     // it will be concatenated to the form data.
+                     postData = postData ? this._sFormData + "&" + postData:this._sFormData;                     
+                } else if (metodo === 'GET' && this._sFormData.length > 0) {
+                     postData = this._sFormData;
+                }
+            } else if (this._use_default_post_header && metodo === 'POST'){
+                conf.contentType = this._default_post_header;
+            }            
+                              
+            if(metodo === 'GET' && (callback && callback.cache === false)){
+                conf.cache = false;
+            }
+            
+            if(this._has_default_headers || this._has_http_headers){
+                this.setHeader(conf);
+            }
+            
+            conf.data = (postData || '');   
+            //console.log(conf);
+            var tjqhr = $.ajax(uri, conf);                  //Inicia la conexion                
+            this.handleReadyState(tjqhr, callback);         //Espera y analiza el resultado via polling
+            
+            if(this._isFormSubmit === true){
+                this.resetFormState();
+            }
+            
 	},
 
   /**
@@ -584,18 +536,30 @@ YAHOO.util.Connect =
    */
 	initCustomEvents:function(o, callback)
 	{
-		var prop;
+		var prop, name;
 		// Enumerate through callback.customevents members and bind/subscribe
 		// events that match in the _customEvents table.
-		for(prop in callback.customevents){
+		for(prop in callback.customevents){                    
 			if(this._customEvents[prop][0]){
-				// Create the custom event
-				o[this._customEvents[prop][0]] = new YAHOO.util.CustomEvent(this._customEvents[prop][1], (callback.scope)?callback.scope:null);
-
-				// Subscribe the custom event
-				o[this._customEvents[prop][0]].subscribe(callback.customevents[prop]);
+                            o[this._customEvents[prop][0]] = callback.customevents[prop];
 			}
 		}
+	},
+        
+        initEvents:function(conf, callback)
+	{                
+            if (callback.success) {
+                conf.success = function(data, status, jqXHR) {
+                    toba.fin_aguardar();
+                    callback.success.call(callback.scope, jqXHR);
+                }
+            }
+            
+            if (callback.failure) {
+                conf.error = function(data, status, jqXHR) {
+                    callback.failure.call(callback.scope, jqXHR)
+                }
+            }            
 	},
 
   /**
@@ -612,9 +576,8 @@ YAHOO.util.Connect =
    */
 
     handleReadyState:function(o, callback)
-
     {
-		var oConn = this;
+		/*var oConn = this;
 		var args = (callback && callback.argument)?callback.argument:null;
 
 		if(callback && callback.timeout){
@@ -623,30 +586,28 @@ YAHOO.util.Connect =
 
 		this._poll[o.tId] = window.setInterval(
 			function(){
-				if(o.conn && o.conn.readyState === 4){
+				if(o && o.readyState === 4){
 					toba.fin_aguardar();
 					// Clear the polling interval for the transaction
 					// and remove the reference from _poll.
 					window.clearInterval(oConn._poll[o.tId]);
-					delete oConn._poll[o.tId];
+					delete oConn._poll[o.settings.tId];
 
 					if(callback && callback.timeout){
 						window.clearTimeout(oConn._timeOut[o.tId]);
 						delete oConn._timeOut[o.tId];
 					}
 
-					// Fire global custom event -- completeEvent
-					oConn.completeEvent.fire(o, args);
-
-					if(o.completeEvent){
+                                        /*if (o.complete) {
 						// Fire transaction custom event -- completeEvent
-						o.completeEvent.fire(o, args);
+						//o.completeEvent.fire(o, args);      //Bindea a evento Local conf.complete
+                                                o.complete.call(o.scope, this, args);
 					}
 
 					oConn.handleTransactionResponse(o, callback);
 				}
 			}
-		,this._polling_interval);
+		,this._polling_interval);*/
     },
 
   /**
@@ -702,7 +663,7 @@ YAHOO.util.Connect =
 			if(o.successEvent){
 				// Fire transaction custom event -- successEvent
 				o.successEvent.fire(responseObject);
-			}
+		}
 		}
 		else{
 			switch(httpStatus){
@@ -873,7 +834,7 @@ YAHOO.util.Connect =
    */
 	setHeader:function(o)
 	{
-		var prop;
+		/*var prop;
 		if(this._has_default_headers){
 			for(prop in this._default_headers){
 				if(YAHOO.lang.hasOwnProperty(this._default_headers, prop)){
@@ -892,7 +853,7 @@ YAHOO.util.Connect =
 
 			this._http_headers = {};
 			this._has_http_headers = false;
-		}
+		}*/
 	},
 
   /**
@@ -1385,5 +1346,5 @@ YAHOO.util.Connect =
 		}
 	}
 };
-var conexion = YAHOO.util.Connect;
+
 toba.confirmar_inclusion('basicos/comunicacion_server');
