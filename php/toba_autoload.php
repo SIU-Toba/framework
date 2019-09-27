@@ -3,7 +3,7 @@
  * Esta clase fue y será generada automáticamente. NO EDITAR A MANO.
  * @ignore
  */
-class toba_autoload 
+class toba_autoload
 {
 	/**
 	 * @ignore
@@ -18,8 +18,8 @@ class toba_autoload
 	 */
 	static function cargar($nombre)
 	{
-		if (self::existe_clase($nombre)) { 
-			 require_once(dirname(__FILE__) .'/'. self::$clases[$nombre]); 
+		if (self::existe_clase($nombre)) {
+			 require_once(dirname(__FILE__) .'/'. self::$clases[$nombre]);
 		}
 	}
 
@@ -474,7 +474,6 @@ class toba_autoload
 		'toba_menu' => 'nucleo/menu/toba_menu.php',
 		'toba_menu_css' => 'nucleo/menu/toba_menu_css.php',
 		'toba_menu_libmenu' => 'nucleo/menu/toba_menu_libmenu.php',
-		'toba_menu_yui' => 'nucleo/menu/toba_menu_yui.php',
 		'toba_tipo_pagina' => 'nucleo/tipo_pagina/toba_tipo_pagina.php',
 		'toba_tp_basico' => 'nucleo/tipo_pagina/toba_tp_basico.php',
 		'toba_tp_basico_titulo' => 'nucleo/tipo_pagina/toba_tp_basico_titulo.php',

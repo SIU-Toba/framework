@@ -4,7 +4,7 @@
  * Centraliza la generación de código e includes javacript:
  *  - Include centralizado de recursos js
  *  - Conversión de estructuras de datos entre php y js
- * 
+ *
  * @package SalidaGrafica
  */
 class toba_js
@@ -16,22 +16,22 @@ class toba_js
 	private static $basicos_cargados = false;
 	private static $consumos_compr = array('componentes/', 'efs/', 'basicos/');
 	private static $consumos_basicos = array(
-						'basicos/basico', 'basicos/toba',  
-						'utilidades/datadumper', 'basicos/yahoo',
+						'basicos/basico', 'basicos/toba',
+						'utilidades/datadumper',
 						'basicos/comunicacion_server', 'basicos/notificacion',
 						'basicos/vinculador');
-	
+
 	/**
 	 * @return toba_js
 	 */
-	static function instancia() 
+	static function instancia()
 	{
 		if (! isset(self::$instancia)) {
-			self::$instancia = new toba_js();			
+			self::$instancia = new toba_js();
 		}
 		return self::$instancia;
 	}
-	
+
 
 	/**
 	*	Retorna el string de identado actual para el código JS
@@ -44,16 +44,16 @@ class toba_js
 		}
 		return $tabs;
 	}
-	
+
 	/**
 	*	Cambia el nivel de identado agregando $nivel
-	*/	
+	*/
 	function identar($nivel)
 	{
 		$this->nivel_identado += $nivel;
 		return $this->identado();
 	}
-	
+
 	//--- SERVICIOS ESTATICOS
 	static function version()
 	{
@@ -80,19 +80,19 @@ class toba_js
 	 * Incluye un tag <SCRIPT> con el include del archivo definido
 	 * @param string $archivo URL del recurso js a incluir
 	 */
-	static function incluir($archivo) 
+	static function incluir($archivo)
 	{
-		$version = toba::memoria()->get_dato_instancia('toba_revision_recursos_cliente'); 
+		$version = toba::memoria()->get_dato_instancia('toba_revision_recursos_cliente');
 		if (! is_null($version)) {
 			$archivo = $archivo . "?av=". toba::escaper()->escapeUrl($version);
 		}
-		return "<SCRIPT language='JavaScript".toba_js::version()."' type='text/javascript' src='$archivo'></SCRIPT>\n";		
+		return "<SCRIPT language='JavaScript".toba_js::version()."' type='text/javascript' src='$archivo'></SCRIPT>\n";
 	}
 
 	/**
 	 * Incluye el código js suministrado dentro de un tag <SCRIPT>
 	 */
-	static function ejecutar($codigo) 
+	static function ejecutar($codigo)
 	{
 		return toba_js::abrir().$codigo.toba_js::cerrar();
 	}
@@ -116,15 +116,15 @@ class toba_js
 			$escapador = toba::escaper();
 			self::$consumos_basicos[] = 'packages/jquery/dist/jquery.min';
 			self::$consumos_basicos[] = 'packages/jquery-migrate/dist/jquery-migrate.min';
-			self::$consumos_basicos[] = 'utilidades/jquery-ui/jquery-ui.min';			
+			self::$consumos_basicos[] = 'utilidades/jquery-ui/jquery-ui.min';
 			if (toba::proyecto()->get_parametro('es_css3')) {
 				self::$consumos_basicos[] = 'formalize/javascripts/jquery.formalize.min';
 			}
 			$item = toba::memoria()->get_item_solicitado() ;
-			$imagenes = array(	'error' => toba_recurso::imagen_toba('error.gif', false), 
+			$imagenes = array(	'error' => toba_recurso::imagen_toba('error.gif', false),
 							'info' => toba_recurso::imagen_toba('info_chico.gif', false),
-							'warning' => toba_recurso::imagen_toba('warning.gif', false),  
-							'maximizar' => toba_recurso::imagen_toba('nucleo/sentido_des_sel.gif', false), 
+							'warning' => toba_recurso::imagen_toba('warning.gif', false),
+							'maximizar' => toba_recurso::imagen_toba('nucleo/sentido_des_sel.gif', false),
 							'minimizar' => toba_recurso::imagen_toba('nucleo/sentido_asc_sel.gif', false),
 							'expandir'  => toba_recurso::imagen_skin('expandir_vert.gif', false),
 							'contraer'  => toba_recurso::imagen_skin('contraer_vert.gif', false),
@@ -134,13 +134,13 @@ class toba_js
 							'cerrar' => toba_recurso::imagen_toba('nucleo/cerrar_ventana.gif', false),
 							);
 			$script = (isset($_SERVER['SCRIPT_FILENAME'])) ? basename($_SERVER['SCRIPT_FILENAME']): 'aplicacion.php';
-			
+
 			echo toba_js::abrir();
 			echo "var toba_alias='".$escapador->escapeJs(toba_recurso::url_toba())."';\n";
 			echo "var toba_proyecto_alias='".$escapador->escapeJs(toba_recurso::url_proyecto())."';\n";
 			if (toba_editor::activado()) {
 				echo 'var toba_proyecto_editado_alias = "'.$escapador->escapeJs(toba_editor::get_url_previsualizacion())."\";\n";
-			}			
+			}
 			echo "var toba_hilo_qs='".apex_hilo_qs_item."';\n";
 			echo "var toba_hilo_separador='".apex_qs_separador."';\n";
 			echo "var toba_hilo_separador_interno='". apex_qs_sep_interno. "';\n";
@@ -152,9 +152,9 @@ class toba_js
 			echo " toba_prefijo_vinculo=toba_proyecto_alias + '/". $escapador->escapeJs($script) .'?' . apex_hilo_qs_id."='+'".  $escapador->escapeJs(toba::memoria()->get_id())
 				. "&'+ toba_hilo_qs + '=". $escapador->escapeJs($item[0]). "'+toba_hilo_separador+'". $escapador->escapeJs($item[1]) .
 				"' + '&'+ apex_hilo_qs_celda_memoria + '='  +'".$escapador->escapeJs(toba::memoria()->get_celda_memoria_actual_id())."';\n";
-			echo "var apex_solicitud_tipo='".$escapador->escapeJs(toba::solicitud()->get_tipo())."';\n";			
-			
-			$espera = toba::proyecto()->get_parametro('tiempo_espera_ms');		
+			echo "var apex_solicitud_tipo='".$escapador->escapeJs(toba::solicitud()->get_tipo())."';\n";
+
+			$espera = toba::proyecto()->get_parametro('tiempo_espera_ms');
 			if (! isset($espera)) {
 				$espera = 0;	//No hay espera
 			}
@@ -178,7 +178,7 @@ class toba_js
 				}
 
 				function iniciar_respuesta_popup(objeto, parametros)
-				{					
+				{
 					var posicion = objeto.id.ultima_ocurrencia('_');
 					var nombre = objeto.id.substr(0, posicion) + '_descripcion';
 					var descripcion = $$(nombre).value;
@@ -186,9 +186,9 @@ class toba_js
 				}";
 			}
 			//-----------------------------------------------------------------------------------------------------
-			echo toba_js::cerrar();		
-			//Incluyo el javascript STANDART	
-			self::cargar_consumos_globales(self::$consumos_basicos);					
+			echo toba_js::cerrar();
+			//Incluyo el javascript STANDART
+			self::cargar_consumos_globales(self::$consumos_basicos);
 			if (toba::instalacion()->arreglo_png_ie()) {
 				///---Arreglo PNGs IE
 				$url = toba_recurso::js("utilidades/pngbehavior.htc");
@@ -200,22 +200,22 @@ class toba_js
 					</style>
 					<![endif]-->\n";
 			}
-			$url = toba_recurso::js('basicos/html5shiv.js');			
+			$url = toba_recurso::js('basicos/html5shiv.js');
 			echo "	<!--[if lt IE 9]>
 						<script src='$url'></script>
 					<![endif]-->\n";
-			echo '<link rel="stylesheet" href="'. toba_recurso::url_toba().'/js/utilidades/jquery-ui/jquery-ui.min.css"> ';			
+			echo '<link rel="stylesheet" href="'. toba_recurso::url_toba().'/js/utilidades/jquery-ui/jquery-ui.min.css"> ';
 			self::$basicos_cargados = true;
 		}
 	}
-	
+
 	static function cargar_definiciones_runtime()
-	{		
-		echo "window.toba_prefijo_vinculo =  toba_prefijo_vinculo;\n";	
+	{
+		echo "window.toba_prefijo_vinculo =  toba_prefijo_vinculo;\n";
 		echo "window.toba_hilo_item = ".toba_js::arreglo(toba::memoria()->get_item_solicitado(), false)."\n";
 		echo "window.toba_qs_zona = '".toba::vinculador()->get_qs_zona()."';\n";
 	}
-	
+
 	/**
 	 * Incluye una serie de librerías o consumos javascript
 	 * @param array $consumos Lista de consumos, un consumo es el path relativo a www/js, sin la ext. js
@@ -232,7 +232,7 @@ class toba_js
 					case 'ereg_nulo':
 					case 'ereg_numero':
 						break;
-					///--> Excepciones a la validacion del cuit, al ser dinamicas no se pueden meter en un .js						
+					///--> Excepciones a la validacion del cuit, al ser dinamicas no se pueden meter en un .js
 					case 'ef_cuit_excepciones':
 						$excepciones = toba_ef_cuit::get_excepciones();
 						echo toba_js::abrir();
@@ -267,15 +267,15 @@ class toba_js
 			}
 		}
 	}
-	
+
 	static function finalizar()
 	{
-		//echo toba_js::ejecutar('toba.confirmar_inclusion('. toba_js::arreglo(self::$cargados) .')');	
+		//echo toba_js::ejecutar('toba.confirmar_inclusion('. toba_js::arreglo(self::$cargados) .')');
 	}
-	
+
 	//----------------------------------------------------------------------------------
 	//						CONVERSION DE TIPOS
-	//----------------------------------------------------------------------------------	
+	//----------------------------------------------------------------------------------
 
 	/**
 	 * Conversion de una variable booleana a javascript
@@ -300,13 +300,13 @@ class toba_js
 				$js .= "{";
 				foreach($arreglo as $id => $valor) {
 					$id_js = $escapador->escapeJs($id);
-					if (is_array($valor)) { 
+					if (is_array($valor)) {
 						//RECURSIVIDAD
 						$js .= "'$id_js': ".self::arreglo($valor, $seg_nivel_assoc)." ,";
 					} elseif (is_bool($valor)) {
 						$js .= "'$id_js': ". self::bool($valor) . ' ,';
 					} else {
-						$valor = addslashes($valor);				
+						$valor = addslashes($valor);
 						$js .= "'$id_js': '". $escapador->escapeJs($valor)."', ";
 					}
 				}
@@ -328,19 +328,19 @@ class toba_js
 					//RECURSIVIDAD
 					$js .= self::arreglo($valor, $seg_nivel_assoc).",";
 				} else {
-					//$valor = addslashes($valor);				
+					//$valor = addslashes($valor);
 					$js .= "'". $escapador->escapeJs($valor)."',";
 				}
 			}
 			$js = substr($js, 0, -1);
 			$js .= " ]";
 		}
-		return $js;		
-	}	
-	
+		return $js;
+	}
+
 	/**
 	 * Reemplaza los strings multilinea por cadenas válidas en JS
-	 */	
+	 */
 	static function string($cadena)
 	{
 		return pasar_a_unica_linea($cadena);
@@ -351,7 +351,7 @@ class toba_js
 		$unica_linea = self::string($cadena);
 		return toba::escaper()->escapeJs($unica_linea);
 	}
-	
+
 	/**
 	 * Retorna el codigo necesario para crear un evento en js
 	 *
@@ -366,21 +366,21 @@ class toba_js
 		if (is_array($parametros)) {
 			$param = ", ".toba_js::arreglo($parametros, true);
 		} else {
-			$param = (isset($parametros)) ? ", '".str_replace('"',"'", $escapador->escapeJs($parametros))."'" : '';			
+			$param = (isset($parametros)) ? ", '".str_replace('"',"'", $escapador->escapeJs($parametros))."'" : '';
 		}
 
 		$implicito = '';
-		if ($es_implicito) { 				
-			$implicito =  ($param == '')? ",''" : '';			
+		if ($es_implicito) {
+			$implicito =  ($param == '')? ",''" : '';
 			$implicito .= ', '. toba_js::bool(true);
 		}
 		$id_js = $escapador->escapeJs($id);
 		return "new evento_ei('$id_js', $js_validar, $js_confirm $param $implicito)";
-	}	
-	
+	}
+
 	//----------------------------------------------------------------------------------
 	//						UTILIDADES
-	//----------------------------------------------------------------------------------		
+	//----------------------------------------------------------------------------------
 
 }
 ?>
