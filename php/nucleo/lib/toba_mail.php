@@ -4,7 +4,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 
 /**
  * Clase para crear un mail en texto plano o html. Encapsula a la librería phpmailer
- * @package Centrales  
+ * @package Centrales
  */
 class toba_mail implements toba_tarea
 {
@@ -23,7 +23,7 @@ class toba_mail implements toba_tarea
 	protected $reply_to;
 	protected $confirmacion;
 	protected $nombre_conf = null;
-	
+
 	/**
 	 * Constructor de la clase
 	 * @param string $hacia  Direccion de email a la cual se enviará
@@ -77,7 +77,7 @@ class toba_mail implements toba_tarea
 		if (! isset($this->desde)) {
 			$this->desde = $this->datos_configuracion['from'];
 		}
-		
+
 		//Construye y envia el mail
 	   	$mail = new PHPMailer();
 	   	$mail->IsSMTP();
@@ -94,7 +94,7 @@ class toba_mail implements toba_tarea
 			}
 			$mail->SMTPSecure = $this->datos_configuracion['seguridad'];
 		}
-		
+
 		if (isset($this->datos_configuracion['puerto']) && trim($this->datos_configuracion['puerto']) != '') {
 			$mail->Port = $this->datos_configuracion['puerto'];
 		}
@@ -103,34 +103,42 @@ class toba_mail implements toba_tarea
 			$mail->SMTPAuth = true;
 			$mail->Username = trim($this->datos_configuracion['usuario']);
 			$mail->Password = trim($this->datos_configuracion['clave']);
-		}		
-		
+		}
+
+                //Habilita la encripcion por defecto de la capa de transporte si el server provee el mecanismo.
+                $mail->SMTPAutoTLS = (isset($this->datos_configuracion['auto_tls']) && $this->datos_configuracion['auto_tls'] == 1);
 		if (isset($this->datos_configuracion['nombre_from']) && trim($this->datos_configuracion['nombre_from']) != '') {
 			$this->desde_nombre = $this->datos_configuracion['nombre_from'];
-		}		
+		}
 		if (isset($this->desde_nombre)){
 			$mail->setFrom($this->desde, $this->desde_nombre);
 		} else {
 			$mail->setFrom($this->desde, $this->desde);
 		}
-		$mail->AddAddress($this->hacia);
-		//Agrego copias
-		foreach($this->cc as $copia) {
-			$mail->AddCC($copia);
-		}
-		//Agrego copias ocultas
-		foreach($this->bcc as $copia) {
-			$mail->AddBCC($copia);
-		}
+
+                //Alterno entre mail de prueba y destino oficial
+                if (isset($this->datos_configuracion['destino_prueba']) && trim($this->datos_configuracion['destino_prueba']) != '') {
+                    $mail->AddAddress(trim($this->datos_configuracion['destino_prueba']));
+                } else {
+                    $mail->AddAddress($this->hacia);
+                    //Agrego copias
+                    foreach($this->cc as $copia) {
+                            $mail->AddCC($copia);
+                    }
+                    //Agrego copias ocultas
+                    foreach($this->bcc as $copia) {
+                            $mail->AddBCC($copia);
+                    }
+                }
 		//Direccion de respuesta
 		if (isset($this->reply_to)) {
 			$mail->AddReplyTo($this->reply_to);
 		}
-		
+
 		if (isset($this->confirmacion)) {
 			$mail->ConfirmReadingTo = $this->confirmacion;
 		}
-			
+
 		$mail->Subject  = $this->asunto;
 		$mail->Body     = $this->cuerpo;
 		$mail->IsHTML($this->html);
@@ -143,18 +151,18 @@ class toba_mail implements toba_tarea
 		   	$tipo = $mail->_mime_types($this->adjuntos[$id_adjunto]['tipo']);
 			$mail->AddAttachment($archivo, $this->adjuntos[$id_adjunto]['nombre'], 'base64', $tipo);
 		}
-		
+
 		$exito = $mail->Send();
 		toba::logger()->debug("Enviado mail con asunto {$this->asunto} a {$this->hacia}");
-		
+
 		//Elimina los temporales creado para los attachments
 		foreach ($temporales as $temp) {
 			unlink($temp);
 		}
 		if (!$exito) {
 			throw new toba_error("Imposible enviar mail. Mensaje de error: {$mail->ErrorInfo}");
-		}			
-		
+		}
+
 	}
 
 	/**
@@ -165,7 +173,7 @@ class toba_mail implements toba_tarea
 	{
 		$this->cc = $direcciones;
 	}
-	
+
 	/**
 	 * Configura las direcciones a las que se enviara copia carbónica oculta
 	 * @param array $direcciones Arreglo de direcciones de email
@@ -174,7 +182,7 @@ class toba_mail implements toba_tarea
 	{
 		$this->bcc = $direcciones;
 	}
-	
+
 
 	/**
 	 * Indica que el cuerpo del email contiene codigo HTML
@@ -202,7 +210,7 @@ class toba_mail implements toba_tarea
 	{
 		$this->desde_nombre = $from_name;
 	}
-	
+
 	/**
 	 * Indica la direccion de email a la cual debe llegar la confirmacion
 	 * @param string $confirm
@@ -211,7 +219,7 @@ class toba_mail implements toba_tarea
 	{
 		$this->confirmacion = $confirm;
 	}
-	
+
 	/**
 	 * Agrega un archivo adjunto al mail
 	 * @param string $nombre Nombre del archivo a mostrarse en el correo
@@ -227,7 +235,7 @@ class toba_mail implements toba_tarea
 			'encoding' => $encoding,
 			'tipo' => $tipo
 		);
-	}	
+	}
 }
 
 ?>
