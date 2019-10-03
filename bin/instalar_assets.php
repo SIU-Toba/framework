@@ -1,4 +1,4 @@
-<?php	
+<?php
 function copiar_directorio( $origen, $destino,  $copiar_ocultos=true )
 {
 	if( ! is_dir( $origen ) ) {
@@ -7,7 +7,7 @@ function copiar_directorio( $origen, $destino,  $copiar_ocultos=true )
 	$ok = true;
 	if( ! is_dir( $destino ) ) {
 		$ok = @mkdir($destino, 0754, true) && $ok;
-	} 
+	}
 	//Busco los archivos del directorio
 	$lista_archivos = array();
 	$dir = opendir($origen);
@@ -24,8 +24,8 @@ function copiar_directorio( $origen, $destino,  $copiar_ocultos=true )
 		foreach ( $lista_archivos as $archivo ) {
 			$x_origen = $origen . '/' . $archivo;
 			$x_destino = $destino . '/' . $archivo;
-			//Evito excepciones			
-			if (($copiar_ocultos || substr($archivo, 0, 1) != '.')) {			
+			//Evito excepciones
+			if (($copiar_ocultos || substr($archivo, 0, 1) != '.')) {
 				if ( is_dir( $x_origen )) {
 					$ok = copiar_directorio( $x_origen, $x_destino, $copiar_ocultos) && $ok;
 				} else {
@@ -37,21 +37,18 @@ function copiar_directorio( $origen, $destino,  $copiar_ocultos=true )
 		echo " No se pudo escribir en el directorio $destino , verifique los permisos del mismo \n";
 	}
 	return $ok;
-}	
+}
 
 $dir_origen = realpath(__DIR__ .'/../node_modules');
 $path_destino = realpath(__DIR__ .'/../www/js/packages');
 
 //echo $dir_origen . PHP_EOL;
 //echo $path_destino . PHP_EOL ;
-	
+
 //Copiar el directorio a los respectivos lugares
-echo "Copiando assets actualizados ..\n" ;
-echo "------------------------------------------------------------------\n" ;
-copiar_directorio($dir_origen , $path_destino );
-/*copiar_directorio($dir_origen . '/jquery', $path_destino . '/jquery');
-copiar_directorio($dir_origen . '/jquery-migrate', $path_destino . '/jquery-migrate');
-copiar_directori*/
-
-
+if (\is_dir($dir_origen)) {                     //Solo las versiones afectadas de Yarn (< 1.9.x) dejan la carpeta node_modules
+    echo "Copiando assets actualizados ..\n" ;
+    echo "------------------------------------------------------------------\n" ;
+    copiar_directorio($dir_origen , $path_destino );
+}
 ?>
