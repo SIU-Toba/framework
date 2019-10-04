@@ -548,16 +548,21 @@ var conexion =
         
         initEvents:function(conf, callback)
 	{                
+            var Oconn = this;            
             if (callback.success) {
                 conf.success = function(data, status, jqXHR) {
                     toba.fin_aguardar();
-                    callback.success.call(callback.scope, jqXHR);
+                    var response = Oconn.handleTransactionResponse(jqXHR, callback);
+                    callback.success.call(callback.scope, response);
+                    Oconn.releaseObject(response);
                 }
             }
             
             if (callback.failure) {
                 conf.error = function(data, status, jqXHR) {
-                    callback.failure.call(callback.scope, jqXHR)
+                    var response = Oconn.handleTransactionResponse(jqXHR, callback);
+                    callback.failure.call(callback.scope, response);
+                    Oconn.releaseObject(response);
                 }
             }            
 	},
@@ -577,13 +582,13 @@ var conexion =
 
     handleReadyState:function(o, callback)
     {
-		/*var oConn = this;
-		var args = (callback && callback.argument)?callback.argument:null;
+		//var oConn = this;
+		//var args = (callback && callback.argument)?callback.argument:null;
 
-		if(callback && callback.timeout){
+		/*if(callback && callback.timeout){
 			this._timeOut[o.tId] = window.setTimeout(function(){ oConn.abort(o, callback, true); }, callback.timeout);
 		}
-
+/*
 		this._poll[o.tId] = window.setInterval(
 			function(){
 				if(o && o.readyState === 4){
@@ -624,26 +629,26 @@ var conexion =
    */
     handleTransactionResponse:function(o, callback, isAbort)
     {
-		var httpStatus, responseObject;
-		var args = (callback && callback.argument)?callback.argument:null;
+	var responseObject;
 
-		try
-		{
-			if(o.conn.status !== undefined && o.conn.status !== 0){
-				httpStatus = o.conn.status;
-			}
-			else{
-				httpStatus = 13030;
-			}
-		}
-		catch(e){
-
-			 // 13030 is a custom code to indicate the condition -- in Mozilla/FF --
-			 // when the XHR object's status and statusText properties are
-			 // unavailable, and a query attempt throws an exception.
-			httpStatus = 13030;
-		}
-
+        try
+        {
+            if(o.status !== undefined && o.status !== 0){
+                     responseObject = this.createResponseObject(o, callback);
+            } else {
+                    responseObject = this.createExceptionObject(callback.tId, callback, (isAbort?isAbort:false));
+            }
+        }
+        catch(e){
+                 // custom code to indicate the condition -- in Mozilla/FF --
+                 // when the XHR object's status and statusText properties are
+                 // unavailable, and a query attempt throws an exception.
+                 responseObject = this.createExceptionObject(callback.tId, callback, (isAbort?isAbort:false));
+        }
+                
+        return responseObject;        
+                
+                /*
 		if(httpStatus >= 200 && httpStatus < 300 || httpStatus === 1223){
 			responseObject = this.createResponseObject(o, args);
 			if(callback && callback.success){
@@ -708,7 +713,7 @@ var conexion =
 		}
 
 		this.releaseObject(o);
-		responseObject = null;
+		responseObject = null;*/
     },
 
   /**
@@ -719,39 +724,40 @@ var conexion =
    * @private
    * @static
    * @param {object} o The connection object
-   * @param {callbackArg} callbackArg The user-defined argument or arguments to be passed to the callback
+   * @param {callback} callback The callback object
    * @return {object}
    */
-    createResponseObject:function(o, callbackArg)
+    createResponseObject:function(o, callback)
     {
 		var obj = {};
 		var headerObj = {};
-
+                var args = (callback && callback.argument)?callback.argument:null;
+                
 		try
 		{
-			var headerStr = o.conn.getAllResponseHeaders();
+			var headerStr = o.getAllResponseHeaders();
 			var header = headerStr.split('\n');
 			for(var i=0; i<header.length; i++){
 				var delimitPos = header[i].indexOf(':');
-				if(delimitPos != -1){
+				if(delimitPos !== -1){
 					headerObj[header[i].substring(0,delimitPos)] = header[i].substring(delimitPos+2);
 				}
 			}
 		}
 		catch(e){}
 
-		obj.tId = o.tId;
+		obj.tId = callback.tId;
 		// Normalize IE's response to HTTP 204 when Win error 1223.
-		obj.status = (o.conn.status == 1223)?204:o.conn.status;
+		obj.status = (o.status === 1223)?204:o.status;
 		// Normalize IE's statusText to "No Content" instead of "Unknown".
-		obj.statusText = (o.conn.status == 1223)?"No Content":o.conn.statusText;
+		obj.statusText = (o.status === 1223)?"No Content":o.statusText;
 		obj.getResponseHeader = headerObj;
 		obj.getAllResponseHeaders = headerStr;
-		obj.responseText = o.conn.responseText;
-		obj.responseXML = o.conn.responseXML;
+		obj.responseText = o.responseText;
+		obj.responseXML = o.responseXML;
 
-		if(callbackArg){
-			obj.argument = callbackArg;
+		if(args){
+			obj.argument = args;
 		}
 
 		return obj;
@@ -768,21 +774,21 @@ var conexion =
    * @method createExceptionObject
    * @private
    * @static
-   * @param {int} tId The Transaction Id
-   * @param {callbackArg} callbackArg The user-defined argument or arguments to be passed to the callback
+   * @param {callback} callback The callback object
    * @param {boolean} isAbort Determines if the exception case is caused by a transaction abort
    * @return {object}
    */
-    createExceptionObject:function(tId, callbackArg, isAbort)
+    createExceptionObject:function(callback, isAbort)
     {
 		var COMM_CODE = 0;
 		var COMM_ERROR = 'communication failure';
 		var ABORT_CODE = -1;
 		var ABORT_ERROR = 'transaction aborted';
+                var args = (callback && callback.argument)?callback.argument:null;
 
 		var obj = {};
 
-		obj.tId = tId;
+		obj.tId = callback.tId;
 		if(isAbort){
 			obj.status = ABORT_CODE;
 			obj.statusText = ABORT_ERROR;
@@ -792,8 +798,8 @@ var conexion =
 			obj.statusText = COMM_ERROR;
 		}
 
-		if(callbackArg){
-			obj.argument = callbackArg;
+		if(args){
+			obj.argument = args;
 		}
 
 		return obj;
@@ -834,26 +840,22 @@ var conexion =
    */
 	setHeader:function(o)
 	{
-		/*var prop;
-		if(this._has_default_headers){
-			for(prop in this._default_headers){
-				if(YAHOO.lang.hasOwnProperty(this._default_headers, prop)){
-					o.conn.setRequestHeader(prop, this._default_headers[prop]);
-				}
-			}
-		}
+            var actualHeaders = {};
+            if(this._has_default_headers){
+                Object.assign(actualHeaders, this._default_headers);
+            }
 
-		if(this._has_http_headers){
-			for(prop in this._http_headers){
-				if(YAHOO.lang.hasOwnProperty(this._http_headers, prop)){
-					o.conn.setRequestHeader(prop, this._http_headers[prop]);
-				}
-			}
-			delete this._http_headers;
+            if(this._has_http_headers){
+                Object.assign(actualHeaders, this._http_headers);
 
-			this._http_headers = {};
-			this._has_http_headers = false;
-		}*/
+                delete this._http_headers;
+                this._http_headers = {};
+                this._has_http_headers = false;                        
+            }
+            
+            if (Object.getOwnPropertyNames(actualHeaders).length > 0) {
+                o.headers = actualHeaders;
+            }
 	},
 
   /**
@@ -884,7 +886,26 @@ var conexion =
    */
 	setForm:function(formId, isUpload, secureUri)
 	{
-        var oForm, oElement, oName, oValue, oDisabled,
+            
+            var oForm;
+            this.resetFormState();
+            
+            if(typeof formId == 'string'){   // Determine if the argument is a form id or a form name.                    
+                oForm = (document.getElementById(formId) || document.forms[formId]);
+            } else if(typeof formId == 'object'){ // Treat argument as an HTML form object.                    
+                oForm = formId;
+            } else {
+                return;
+            }
+
+            this._formData = new FormData(oForm);                
+            this._isFormSubmit = true;
+            this._isFileUpload = isUpload;
+            this._formNode = oForm;
+
+            this.initHeader('Content-Type', this._default_form_header);     //Check header
+            return this._sFormData;
+      /*  var oForm, oElement, oName, oValue, oDisabled,
             hasSubmit = false,
             data = [], item = 0,
             i,len,j,jlen,opt;
@@ -996,7 +1017,7 @@ var conexion =
 
 		this.initHeader('Content-Type', this._default_form_header);
 
-		return this._sFormData;
+		return this._sFormData;*/
 	},
 
   /**
@@ -1028,7 +1049,7 @@ var conexion =
 		// IE does not allow the setting of id and name attributes as object
 		// properties via createElement().  A different iframe creation
 		// pattern is required for IE.
-		var frameId = 'yuiIO' + this._transaction_id;
+		/*var frameId = 'yuiIO' + this._transaction_id;
 		var io;
 		if(YAHOO.env.ua.ie){
 			io = document.createElement('<iframe id="' + frameId + '" name="' + frameId + '" />');
@@ -1049,7 +1070,7 @@ var conexion =
 		io.style.top = '-1000px';
 		io.style.left = '-1000px';
 
-		document.body.appendChild(io);
+		document.body.appendChild(io);*/
 	},
 
   /**
@@ -1063,7 +1084,7 @@ var conexion =
    */
 	appendPostData:function(postData)
 	{
-		var formElements = [],
+		/*var formElements = [],
 			postMessage = postData.split('&'),
 			i, delimitPos;
 		for(i=0; i < postMessage.length; i++){
@@ -1077,7 +1098,8 @@ var conexion =
 			}
 		}
 
-		return formElements;
+		return formElements;*/
+            return postData;
 	},
 
   /**
@@ -1092,11 +1114,30 @@ var conexion =
    * @param {string} postData POST data to be submitted in addition to HTML form.
    * @return {void}
    */
-	uploadFile:function(o, callback, uri, postData){
-
+	uploadFile:function(o, callback, uri, postData)
+        {
+            var uploadEncoding = 'multipart/form-data',
+                oConn = this,   
+                args = (callback && callback.argument)?callback.argument:null;
+        
+        
+            this._formData = new FormData(this._formNode);
+            if(postData){
+                    oElements = this.appendPostData(postData);
+                    //Hay que agregar al formdata esto!
+            }
+            // Start file upload.
+            this._formNode.submit();
+            
+            if(callback && callback.timeout){
+                this._timeOut[o.tId] = window.setTimeout(function(){ oConn.abort(o, callback, true); }, callback.timeout);
+            }
+            
+            this.resetFormState();
+                
 		// Each iframe has an id prefix of "yuiIO" followed
 		// by the unique transaction id.
-		var frameId = 'yuiIO' + o.tId,
+		/*var frameId = 'yuiIO' + o.tId,
 		    uploadEncoding = 'multipart/form-data',
 		    io = document.getElementById(frameId),
 		    oConn = this,
@@ -1229,7 +1270,7 @@ var conexion =
 		};
 
 		// Bind the onload handler to the iframe to detect the file upload response.
-		YAHOO.util.Event.addListener(io, "load", uploadCallback);
+		YAHOO.util.Event.addListener(io, "load", uploadCallback);*/
 	},
 
   /**
@@ -1248,23 +1289,22 @@ var conexion =
 		var args = (callback && callback.argument)?callback.argument:null;
 
 
-		if(o && o.conn){
-			if(this.isCallInProgress(o)){
-				// Issue abort request
-				o.conn.abort();
+		if(o){
+                    if(this.isCallInProgress(o)){
+                        // Issue abort request
+                        o.abort();
 
-				window.clearInterval(this._poll[o.tId]);
-				delete this._poll[o.tId];
+                        window.clearInterval(this._poll[o.tId]);
+                        delete this._poll[o.tId];
 
-				if(isTimeout){
-					window.clearTimeout(this._timeOut[o.tId]);
-					delete this._timeOut[o.tId];
-				}
+                        if(isTimeout){
+                                window.clearTimeout(this._timeOut[o.tId]);
+                                delete this._timeOut[o.tId];
+                        }
 
-				abortStatus = true;
-			}
-		}
-		else if(o && o.isUpload === true){
+                        abortStatus = true;
+                    }
+		}/*else if(o && o.isUpload === true){
 			var frameId = 'yuiIO' + o.tId;
 			var io = document.getElementById(frameId);
 
@@ -1282,19 +1322,19 @@ var conexion =
 
 				abortStatus = true;
 			}
-		}
+		}*/
 		else{
 			abortStatus = false;
 		}
 
 		if(abortStatus === true){
 			// Fire global custom event -- abortEvent
-			this.abortEvent.fire(o, args);
+			//this.abortEvent.fire(o, args);
 
-			if(o.abortEvent){
+			/*if(o.abortEvent){
 				// Fire transaction custom event -- abortEvent
 				o.abortEvent.fire(o, args);
-			}
+			}*/
 
 			this.handleTransactionResponse(o, callback, true);
 		}
@@ -1312,18 +1352,16 @@ var conexion =
    */
 	isCallInProgress:function(o)
 	{
-		// if the XHR object assigned to the transaction has not been dereferenced,
-		// then check its readyState status.  Otherwise, return false.
-		if(o && o.conn){
-			return o.conn.readyState !== 4 && o.conn.readyState !== 0;
-		}
-		else if(o && o.isUpload === true){
+            // if the XHR object assigned to the transaction has not been dereferenced,
+            // then check its readyState status.  Otherwise, return false.
+            if(o){
+                return o.readyState !== 4 && o.readyState !== 0;
+            }
+		/*else if(o && o.isUpload === true){
 			var frameId = 'yuiIO' + o.tId;
 			return document.getElementById(frameId)?true:false;
-		}
-		else{
-			return false;
-		}
+		}*/	
+            return false;	
 	},
 
   /**
@@ -1336,14 +1374,10 @@ var conexion =
    */
 	releaseObject:function(o)
 	{
-		if(o && o.conn){
-			//dereference the XHR instance.
-			o.conn = null;
-
-
-			//dereference the connection object.
-			o = null;
-		}
+            if(o){
+                //dereference the connection object.
+                o = null;
+            }
 	}
 };
 
