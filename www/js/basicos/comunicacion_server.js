@@ -2,29 +2,11 @@
 **********  Sistema de comunicaciones asincronicas con el SERVER  *********
 */
 
-/**
- * The Connection Manager singleton provides methods for creating and managing
- * asynchronous transactions.
- *
- * @class Connect
- */
-
+/* global toba, this */
 
 var conexion = 
 {
-  /**
-   * @description Array of MSFT ActiveX ids for XMLHttpRequest.
-   * @property _msxml_progid
-   * @private
-   * @static
-   * @type array
-   */
-	_msxml_progid:[
-		'Microsoft.XMLHTTP',
-		'MSXML2.XMLHTTP.3.0',
-		'MSXML2.XMLHTTP'
-		],
-
+  
   /**
    * @description Object literal of HTTP header(s)
    * @property _http_header
@@ -203,21 +185,7 @@ var conexion =
    * @static
    * @type string
    */
-	 _submitElementValue:null,
-
-  /**
-   * @description Determines whether YAHOO.util.Event is available and returns true or false.
-   * If true, an event listener is bound at the document level to trap click events that
-   * resolve to a target type of "Submit".  This listener will enable setForm() to determine
-   * the clicked "Submit" value in a multi-Submit button, HTML form.
-   * @property _hasSubmitListener
-   * @private
-   * @static
-   */
-	 _hasSubmitListener:(function()
-	 {
-	    return false;
-	 })(),
+	_submitElementValue:null,
 
   /**
    * @description A reference table that maps callback custom events members to its specific
@@ -238,21 +206,6 @@ var conexion =
 	},
 
   /**
-   * @description Member to add an ActiveX id to the existing xml_progid array.
-   * In the event(unlikely) a new ActiveX id is introduced, it can be added
-   * without internal code modifications.
-   * @method setProgId
-   * @public
-   * @static
-   * @param {string} id The ActiveX id to be added to initialize the XHR object.
-   * @return void
-   */
-	setProgId:function(id)
-	{
-		this._msxml_progid.unshift(id);
-	},
-
-  /**
    * @description Member to override the default POST header.
    * @method setDefaultPostHeader
    * @public
@@ -262,12 +215,11 @@ var conexion =
    */
 	setDefaultPostHeader:function(b)
 	{
-		if(typeof b == 'string'){
-			this._default_post_header = b;
-		}
-		else if(typeof b == 'boolean'){
-			this._use_default_post_header = b;
-		}
+            if(typeof b == 'string'){
+                    this._default_post_header = b;
+            } else if(typeof b == 'boolean') {
+                    this._use_default_post_header = b;
+            }
 	},
 
   /**
@@ -280,56 +232,21 @@ var conexion =
    */
 	setDefaultXhrHeader:function(b)
 	{
-		if(typeof b == 'string'){
-			this._default_xhr_header = b;
-		}
-		else{
-			this._use_default_xhr_header = b;
-		}
+            if(typeof b == 'string'){
+                    this._default_xhr_header = b;
+            } else {
+                    this._use_default_xhr_header = b;
+            }
 	},
 
-  /**
-   * @description Member to modify the default polling interval.
-   * @method setPollingInterval
-   * @public
-   * @static
-   * @param {int} i The polling interval in milliseconds.
-   * @return void
-   */
-	setPollingInterval:function(i)
-	{
-		if(typeof i == 'number' && isFinite(i)){
-			this._polling_interval = i;
-		}
-	},
-
-  /**
-   * @description Instantiates a XMLHttpRequest object and returns an object with two properties:
-   * the XMLHttpRequest instance and the transaction id.
-   * @method createXhrObject
-   * @private
-   * @static
-   * @param {int} transactionId Property containing the transaction id for this transaction.
-   * @return object
-   */
-	createXhrObject:function(transactionId)
-	{
-	},
-
-  /**
-   * @description This method is called by asyncRequest to create a
-   * valid connection object for the transaction.  It also passes a
+   /**
+   * @description This method is called by asyncRequest to get
    * transaction id and increments the transaction id counter.
    * @method getConnectionObject
    * @private
    * @static
    * @return {object}
    */
-	getConnectionObject:function(isFileUpload)
-	{
-	},
-
-
         _getTransactionId:function()
         {
             var tId = this._transaction_id;
@@ -370,7 +287,7 @@ var conexion =
             if(this._isFormSubmit){
                 if(this._isFileUpload){
                     conf.processData = false;                    
-                    postData = this._uploadFile(conf, callback, uri, postData);
+                    postData = this._uploadFile(conf, postData);
                     //Hay que pegar el upload del archivo y retornar?
                     return;
                 }
@@ -378,7 +295,7 @@ var conexion =
                 if(metodo === 'POST'){
                      // If POST data exist in addition to the HTML form data,
                      // it will be concatenated to the form data.
-                     postData = postData ? this._sFormData + "&" + postData:this._sFormData;                     
+                     postData = (postData) ? this._sFormData + "&" + postData : this._sFormData;                     
                 } else if (metodo === 'GET' && this._sFormData.length > 0) {
                      postData = this._sFormData;
                 }
@@ -396,8 +313,7 @@ var conexion =
             
             conf.data = (postData || '');   
             //console.log(conf);
-            var tjqhr = $.ajax(uri, conf);                  //Inicia la conexion                
-            this.handleReadyState(tjqhr, callback);         //Espera y analiza el resultado via polling
+            $.ajax(uri, conf);                  //Inicia la conexion                
             
             if(this._isFormSubmit === true){
                 this.resetFormState();
@@ -426,7 +342,16 @@ var conexion =
 			}
 		}
 	},
-        
+    
+   /**
+    * @description This method creates local functions to fire callbacks 
+    * @method initEvents
+    * @private
+    * @static
+    * @param {object} conf The configuration object
+    * @param {callback} callback The user-defined callback object
+    * @return {void}
+    */
         initEvents:function(conf, callback)
 	{                
             var Oconn = this;            
@@ -436,7 +361,7 @@ var conexion =
                     var response = Oconn.handleTransactionResponse(jqXHR, callback);
                     callback.success.call(callback.scope, response);
                     Oconn.releaseObject(response);
-                }
+                };
             }
             
             if (callback.failure) {
@@ -444,26 +369,9 @@ var conexion =
                     var response = Oconn.handleTransactionResponse(jqXHR, callback);
                     callback.failure.call(callback.scope, response);
                     Oconn.releaseObject(response);
-                }
+                };
             }            
 	},
-
-  /**
-   * @description This method serves as a timer that polls the XHR object's readyState
-   * property during a transaction, instead of binding a callback to the
-   * onreadystatechange event.  Upon readyState 4, handleTransactionResponse
-   * will process the response, and the timer will be cleared.
-   * @method handleReadyState
-   * @private
-   * @static
-   * @param {object} o The connection object
-   * @param {callback} callback The user-defined callback object
-   * @return {void}
-   */
-
-    handleReadyState:function(o, callback)
-    {
-    },
 
   /**
    * @description This method attempts to interpret the server response and
@@ -618,7 +526,7 @@ var conexion =
    * @method setHeader
    * @private
    * @static
-   * @param {object} o The connection object for the transaction.
+   * @param {object} o The configuration object
    * @return {void}
    */
 	setHeader:function(o)
@@ -664,10 +572,9 @@ var conexion =
    * @static
    * @param {string || object} form id or name attribute, or form object.
    * @param {boolean} optional enable file upload.
-   * @param {boolean} optional enable file upload over SSL in IE only.
    * @return {string} string of the HTML form field name and value pairs..
    */
-	setForm:function(formId, isUpload, secureUri)
+	setForm:function(formId, isUpload)
 	{
             
             var oForm;
@@ -706,63 +613,50 @@ var conexion =
 	},
 
   /**
-   * @description Creates an iframe to be used for form file uploads.  It is remove from the
-   * document upon completion of the upload transaction.
-   * @method createFrame
-   * @private
-   * @static
-   * @param {string} optional qualified path of iframe resource for SSL in IE.
-   * @return {void}
-   */
-	createFrame:function(secureUri){
-
-	},
-
-  /**
-   * @description Parses the POST data and creates hidden form elements
-   * for each key-value, and appends them to the HTML form object.
+   * @description Parses the POST data and adds each key-value
+   * to the FormData object
    * @method appendPostData
    * @private
    * @static
    * @param {string} postData The HTTP POST data
-   * @return {array} formElements Collection of hidden fields.
+   * @return {void}
    */
-	appendPostData:function(postData)
+	appendPostData:function(formObj, postData)
 	{
-            return postData;
+            var postMessage = postData.split('&'),
+                i, delimitPos, name, value;
+            
+            for(i=0; i < postMessage.length; i++){
+                    delimitPos = postMessage[i].indexOf('=');
+                    if(delimitPos !== -1){
+                        name = decodeURIComponent(postMessage[i].substring(0,delimitPos));
+                        value = decodeURIComponent(postMessage[i].substring(delimitPos+1));
+                        if (formObj.has(name)) {
+                            formObj.set(name, value);
+                        } else {
+                            formObj.append(name, value);
+                        }
+                    }
+		}
 	},
 
   /**
-   * @description Uploads HTML form, inclusive of files/attachments, using the
-   * iframe created in createFrame to facilitate the transaction.
+   * @description Uploads HTML form, inclusive of files/attachments
    * @method uploadFile
    * @private
    * @static
-   * @param {int} id The transaction id.
-   * @param {object} callback User-defined callback object.
-   * @param {string} uri Fully qualified path of resource.
+   * @param {object} o The jqXHR object
    * @param {string} postData POST data to be submitted in addition to HTML form.
    * @return {void}
    */
-	uploadFile:function(o, callback, uri, postData)
-        {
-            var uploadEncoding = 'multipart/form-data',
-                oConn = this,   
-                args = (callback && callback.argument)?callback.argument:null;
-        
-        
-            this._formData = new FormData(this._formNode);
-            if(postData){
-                    oElements = this.appendPostData(postData);
-                    //Hay que agregar al formdata esto!
+	uploadFile:function(o, postData)
+        {               
+            var formData = new FormData(this._formNode);
+            if(postData){		
+                this.appendPostData(formData, postData);
             }
             // Start file upload.
-            this._formNode.submit();
-            
-            if(callback && callback.timeout){
-                this._timeOut[o.tId] = window.setTimeout(function(){ oConn.abort(o, callback, true); }, callback.timeout);
-            }
-            
+            this._formNode.submit();                        
             this.resetFormState();
 	},
 
