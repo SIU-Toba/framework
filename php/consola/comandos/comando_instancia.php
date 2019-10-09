@@ -1,4 +1,4 @@
-<?php	
+<?php
 require_once('comando_toba.php');
 /**
  * Publica los servicios de la clase INSTANCIA a la consola toba
@@ -31,16 +31,16 @@ class comando_instancia extends comando_toba
 		$salida .= "\nBase: {$db['profile']} / {$db['base']}";
 		return $salida;
 	}
-		
-	
+
+
 	//-------------------------------------------------------------
 	// Opciones
 	//-------------------------------------------------------------
 
 	/**
-	* Crea una instancia NUEVA. 
-	* 
-	* @gtk_icono nucleo/agregar.gif 
+	* Crea una instancia NUEVA.
+	*
+	* @gtk_icono nucleo/agregar.gif
 	* @gtk_no_mostrar 1
 	*/
 	function opcion__crear($datos=null)
@@ -48,7 +48,7 @@ class comando_instancia extends comando_toba
 		if (isset($datos)) {
 			list($id_instancia, $tipo, $base, $proyectos, $usuario) = $datos;
 		} else {
-			$id_instancia = $this->get_id_instancia_actual();			
+			$id_instancia = $this->get_id_instancia_actual();
 			$tipo = $this->get_tipo_instancia();
 			$usuario = null;
 		}
@@ -87,7 +87,7 @@ class comando_instancia extends comando_toba
 			if ( $this->consola->dialogo_simple('Desea ELIMINAR la instancia y luego CARGARLA (La informacion local previa se perdera!)?') ) {
 				$instancia->$metodo_carga( true );
 			} else {
-				return;	
+				return;
 			}
 		} catch ( toba_error $e ) {
 			$this->consola->error( 'Ha ocurrido un error durante la importacion de la instancia.' );
@@ -102,19 +102,19 @@ class comando_instancia extends comando_toba
 			//---- D: Exporto la informacion LOCAL
 			$instancia->exportar_local();
 			//-- Agregar los alias
-			$this->consola->enter();		
+			$this->consola->enter();
 			$crear_alias = $this->consola->dialogo_simple("Desea crear automáticamente los alias de apache en el archivo toba.conf?", true);
 			if ($crear_alias) {
 				$instancia->crear_alias_proyectos();
 			}
 		}
 		//Creo el esquema basico de logs de Toba.
-		//$instancia->crear_modelo_logs_toba();		
+		//$instancia->crear_modelo_logs_toba();
 	}
 
 	/**
 	* Brinda informacion sobre la instancia.
-	* @gtk_icono info_chico.gif 
+	* @gtk_icono info_chico.gif
 	* @gtk_no_mostrar 1
 	*/
 	function opcion__info()
@@ -126,7 +126,7 @@ class comando_instancia extends comando_toba
 			// Lista de USUARIOS
 			$this->consola->subtitulo('Listado de USUARIOS');
 			$this->consola->tabla( $i->get_lista_usuarios(), array( 'Usuario', 'Nombre') );
-		} else {										
+		} else {
 			// Informacion BASICA
 			$this->consola->subtitulo('Informacion BASICA');
 			//VERSION
@@ -136,15 +136,46 @@ class comando_instancia extends comando_toba
 			$this->consola->enter();
 			$this->consola->subtitulo('Reportes');
 			$subopciones = array( '-u' => 'Listado de usuarios' ) ;
-			$this->consola->coleccion( $subopciones );			
+			$this->consola->coleccion( $subopciones );
 		}
 	}
-	
+
+        /**
+         * Verifica la existencia de la instancia en bd
+         * @consola_parametros Opcionales: [-i id instancia]
+         * @return boolean
+         */
+        function opcion__verifica_existencia()
+        {
+            $id_instancia = $this->get_id_instancia_actual();
+            $this->consola->titulo( 'INSTANCIA: ' . $id_instancia );
+            $this->consola->enter();
+
+            //Chequeo existencia de la carpeta (sin eso no deberia haber modelo)
+            if (! toba_modelo_instancia::existe_carpeta_instancia($id_instancia) ) {
+                $this->consola->error( 'Instancia inexistente o carpeta no accesible' );
+                exit(-1);
+            }
+
+            //Chequeo existencia de la bd (si no hay bd... no hay instancia)
+            if (! $this->get_instalacion()->hay_bases()) {
+                $this->consola->error( 'Base de datos inexistente' );
+                exit(-1);
+            }
+
+            //Chequeo que este el schema y que haya al menos una tabla
+            if (! $this->get_instancia($id_instancia)->existe_modelo()) {
+                $this->consola->error( 'Instancia inexistente o identificador erroneo' );
+                exit(-1);
+            }
+            $this->consola->progreso_fin();
+        }
+
 	/**
 	* Crea un nuevo proyecto asociado a la instancia
-	* @consola_no_mostrar 1 
+	* @consola_no_mostrar 1
 	* @gtk_icono nucleo/proyecto.gif
-	*/	
+	*/
 	function opcion__crear_proyecto()
 	{
 		//------ESTO ES UN ALIAS DE PROYECTO::CREAR
@@ -153,29 +184,29 @@ class comando_instancia extends comando_toba
 		$comando->set_id_instancia_actual($this->get_id_instancia_actual());
 		$comando->opcion__crear();
 	}
-	
+
 	/**
 	* Carga un PROYECTO en la INSTANCIA (Carga metadatos y crea un vinculo entre ambos elementos).
-	* @consola_no_mostrar 1 
+	* @consola_no_mostrar 1
 	* @gtk_icono nucleo/proyecto.gif
 	* @gtk_param_extra cargar_proyecto
-	*/	
+	*/
 	function opcion__cargar_proyecto($datos = null)
 	{
 		//------ESTO ES UN ALIAS DE PROYECTO::CARGAR
 		require_once('comando_proyecto.php');
 		$comando = new comando_proyecto($this->consola);
 		$comando->set_id_instancia_actual($this->get_id_instancia_actual());
-		$comando->opcion__cargar($datos);		
-	}	
-	
+		$comando->opcion__cargar($datos);
+	}
+
 	/**
 	* Importa y migra un proyecto desde otra instalacion de toba. Se asume que el código del proyecto se encuentra en la carpeta PROYECTOS de toba
-	* @consola_no_mostrar 1 
+	* @consola_no_mostrar 1
 	* @gtk_icono nucleo/proyecto.gif
-	* @gtk_separador 1 
+	* @gtk_separador 1
 	* @gtk_param_extra importar_proyecto
-	*/	
+	*/
 	function opcion__importar_proyecto($datos = null)
 	{
 		//------ESTO ES UN ALIAS DE PROYECTO::IMPORTAR
@@ -184,11 +215,11 @@ class comando_instancia extends comando_toba
 		$comando->set_id_instancia_actual($this->get_id_instancia_actual());
 		$comando->opcion__importar($datos);
 	}
-	
-	
+
+
 	/**
 	* Exporta la instancia completa incluyendo METADATOS propios y de proyectos contenidos.
-	* @gtk_icono exportar.png 
+	* @gtk_icono exportar.png
 	*/
 	function opcion__exportar()
 	{
@@ -197,7 +228,7 @@ class comando_instancia extends comando_toba
 
 	/**
 	 * Exporta los METADATOS propios de la instancia de la DB (exclusivamente la información local).
-	 * @gtk_icono exportar.png	 
+	 * @gtk_icono exportar.png
 	 */
 	function opcion__exportar_local()
 	{
@@ -221,13 +252,13 @@ class comando_instancia extends comando_toba
 			if ( $this->consola->dialogo_simple('Desea conservar datos locales como usuarios y logs?', true, $extra) ) {
 				$this->opcion__exportar_local();
 			}
-		}							
+		}
 		$this->consola->enter();
 		$i = $this->get_instancia();
 		$this->consola->lista($i->get_parametros_db(), 'BASE');
 		$forzar = false;
-		
-		//Para ejecutar migraciones a la instancia mediante el instalador		
+
+		//Para ejecutar migraciones a la instancia mediante el instalador
 		$this->get_instancia()->ejecutar_ventana_migracion_version();
 		if ($i->existe_modelo()) {
 			$this->consola->mensaje("Se guardaran los datos existentes en un schema backup");
@@ -236,10 +267,10 @@ class comando_instancia extends comando_toba
 		$this->get_instancia()->cargar($forzar);
 	}
 
-	
+
 	/**
 	* Carga una instancia en la DB referenciada, partiendo de los METADATOS en el sistema de archivos.
-	* @gtk_icono importar.png 
+	* @gtk_icono importar.png
 	*/
 	function opcion__cargar()
 	{
@@ -256,11 +287,11 @@ class comando_instancia extends comando_toba
 			$this->consola->error( $e->getMessage() );
 		}
 	}
-	
+
 	/**
 	 * Importa los METADATOS locales desde otra instalacion/instancia
 	 * @consola_parametros Opcionales: [-o instancia origen] [-d 'directorio toba'] [-r 0|1 Reemplazar los metadatos actuales, por defecto 0]
-	 * @gtk_icono importar.png  
+	 * @gtk_icono importar.png
 	 * @gtk_param_extra importar_instancia
 	 */
 	function opcion__importar($datos=null)
@@ -276,16 +307,16 @@ class comando_instancia extends comando_toba
 			}
 			if ( isset($param['-d']) &&  (trim($param['-d']) != '') ) {
 				$path = $param['-d'];
-			}		
+			}
 			if ( isset($param['-r']) &&  (trim($param['-r']) != '') ) {
 				$reemplazar = $param['-r'];
-			}				
+			}
 		} else {
 			list($origen, $path, $reemplazar) = $datos;
 		}
 		$this->get_instancia()->importar_informacion_instancia($origen, $path, $reemplazar);
-	}	
-	
+	}
+
 	/**
 	* Elimina la instancia.
 	* @gtk_icono borrar.png
@@ -299,7 +330,7 @@ class comando_instancia extends comando_toba
 		}
 		if ( $this->consola->dialogo_simple('Desea eliminar la carpeta de datos y configuración de la INSTANCIA?') ) {
 			$i->eliminar_archivos();
-		}		
+		}
 	}
 
 	/**
@@ -313,7 +344,7 @@ class comando_instancia extends comando_toba
 		if (!isset($datos)) {
 			$datos = $this->get_datos_usuario();
 		}
-		
+
 		$instancia->get_db()->abrir_transaccion();
 		$instancia->agregar_usuario( $datos['usuario'], $datos['nombre'], $datos['clave'] );
 		foreach( $instancia->get_lista_proyectos_vinculados() as $id_proyecto ) {
@@ -321,11 +352,11 @@ class comando_instancia extends comando_toba
 			$grupo_acceso = $this->seleccionar_grupo_acceso( $proyecto );
 			$proyecto->vincular_usuario($datos['usuario'],array($grupo_acceso), null, $asociar_previsualizacion_admin);
 		}
-		$instancia->get_db()->cerrar_transaccion();		
+		$instancia->get_db()->cerrar_transaccion();
 	}
-	
+
 	/**
-	 * Permite cambiar los grupos de acceso de un usuario 
+	 * Permite cambiar los grupos de acceso de un usuario
 	 * @consola_parametros [-u usuario] [-p proyecto]
 	 * @gtk_icono usuarios/grupo.gif
 	 */
@@ -338,11 +369,11 @@ class comando_instancia extends comando_toba
 		} else {
 			$usuarios = $instancia->get_lista_usuarios();
 			$usuarios = rs_convertir_asociativo($usuarios, array('usuario'),'nombre');
-			$usuario = $this->consola->dialogo_lista_opciones( $usuarios, 'Seleccionar Usuario', false, 'Nombre de usuario', 
-														true);			
+			$usuario = $this->consola->dialogo_lista_opciones( $usuarios, 'Seleccionar Usuario', false, 'Nombre de usuario',
+														true);
 		}
 		if (! isset($usuario)) {
-			throw new toba_error("Es necesario indicar el usuario con '-u'");			
+			throw new toba_error("Es necesario indicar el usuario con '-u'");
 		}
 		$acceso = array();
 		if ( isset($param['-p']) &&  (trim($param['-p']) != '') ) {
@@ -365,7 +396,7 @@ class comando_instancia extends comando_toba
 
 		$instancia->cambiar_acceso_usuario($usuario, $acceso);
 	}
-	
+
 	/**
 	 * Limpia la tabla de ips bloqueadas
 	 * @gtk_icono desbloquear.png
@@ -375,7 +406,7 @@ class comando_instancia extends comando_toba
 		$instancia = $this->get_instancia();
 		$instancia->desbloquear_ips();
 	}
-	
+
 	/**
 	 * Migra un instancia entre dos versiones toba.
 	 * @consola_parametros Opcionales: [-d 'desde']  [-h 'hasta'] [-R 0|1] [-m metodo puntual de migracion]
@@ -389,7 +420,7 @@ class comando_instancia extends comando_toba
 		$desde = isset($param['-d']) ? new toba_version($param['-d']) : $instancia->get_version_actual();
 		$hasta = isset($param['-h']) ? new toba_version($param['-h']) : toba_modelo_instalacion::get_version_actual();
 		$recursivo = (!isset($param['-R']) || $param['-R'] == 1);
-		
+
 		if ($recursivo) {
 			$texto_recursivo = " y proyectos contenidos";
 		}
@@ -409,19 +440,19 @@ class comando_instancia extends comando_toba
 			//Se pidio un método puntual
 			$this->consola->mensaje("Ejecutando método particular:". trim($param['-m']));
 			$instancia->ejecutar_migracion_particular($hasta, trim($param['-m']));
-		}		
+		}
 	}
-	
+
 	function get_tipo_instancia()
 	{
 		$tipo = 'normal';
 		$param = $this->get_parametros();
 		if ( isset($param['-t'] ) && ( trim( $param['-t'] ) == 'mini') ) {
 			$tipo = 'mini';
-		}		
+		}
 		return $tipo;
 	}
-	
+
 	function get_datos_usuario()
 	{
 		//Verifico que la clave cumpla ciertos requisitos basicos
@@ -440,7 +471,7 @@ class comando_instancia extends comando_toba
 				}
 			}
 		} while ($hubo_error);
-		return $datos;		
+		return $datos;
 	}
 }
 ?>

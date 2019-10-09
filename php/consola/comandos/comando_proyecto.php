@@ -1,5 +1,5 @@
 <?php
-require_once('comando_toba.php');	
+require_once('comando_toba.php');
 /**
  * Publica los servicios del proyecto a la consola toba
  *  TODO:	La asociacion de usuarios al proyecto nuevo tiene que ofrecer una seleccion
@@ -9,7 +9,7 @@ class comando_proyecto extends comando_toba
 {
 	const tipo_paquete_produccion = 'p';
 	const tipo_paquete_desarrollo = 'd';
-	
+
 	static function get_info()
 	{
 		return 'Administracion de PROYECTOS';
@@ -36,12 +36,12 @@ class comando_proyecto extends comando_toba
 			$url = $proyecto->get_url();
 			if (isset($url)) {
 				$salida .= "\nURL: ".$url;
-			}			
+			}
 			return $salida;
 		} catch (toba_error $e) {
 			//El proyecto puede no existir
 		}
-	}	
+	}
 
 	function inspeccionar_opciones($clase = null)
 	{
@@ -57,12 +57,12 @@ class comando_proyecto extends comando_toba
 					$opciones = parent::inspeccionar_opciones($clase);
 				}
 			} catch (toba_error $e) {
-				
+
 			}
 		}
-		return $basicas + $opciones;	
-	}	
-	
+		return $basicas + $opciones;
+	}
+
 	protected function ejecutar_opcion($opcion, $argumentos)
 	{
 		$id_proyecto = $this->get_id_proyecto_actual(false);
@@ -76,7 +76,7 @@ class comando_proyecto extends comando_toba
 				$this->consola->mensaje('Existe un problema con la base de datos, por favor verifique los logs');
 				return;
 			} catch (toba_error $e) {
-				
+
 			}
 		}
 		if(isset($clase) && method_exists( $clase, $opcion ) ) {
@@ -92,7 +92,7 @@ class comando_proyecto extends comando_toba
 			$this->mostrar_ayuda();
 		}
 	}
-	
+
 	//-------------------------------------------------------------
 	// Opciones
 	//-------------------------------------------------------------
@@ -140,7 +140,7 @@ class comando_proyecto extends comando_toba
 	function opcion__actualizar_proyecto()
 	{
 		$proyecto = $this->get_proyecto();
-		
+
 		$instalacion = $proyecto->get_instalacion();
 		$instancia = $proyecto->get_instancia();
 		$params = $instalacion->get_parametros_base($instancia->get_ini_base());
@@ -204,7 +204,7 @@ class comando_proyecto extends comando_toba
 		$extractor = $proyecto->generar_autoload($this->consola, false, true, $generar_solo_pers);
 		$clases_repetidas = $extractor->get_clases_repetidas();
 		$pms_no_encontrados = $extractor->get_pms_no_encontrados();
-		
+
 		if (isset($params['-v'])) {
 			if (count($pms_no_encontrados) > 0) {
 				$this->consola->separador('Puntos de montaje no encontrados');
@@ -246,7 +246,7 @@ class comando_proyecto extends comando_toba
 	* Crea un proyecto NUEVO.
 	* @consola_parametros Opcional: [-x] Si se utiliza esta opción el proyecto creado será personalizable
 	* @consola_parametros Opcional: [-d] Directorio donde se crearÃ¡ el proyecto
-	* @gtk_icono nucleo/agregar.gif 
+	* @gtk_icono nucleo/agregar.gif
 	* @gtk_no_mostrar 1
 	*/
 	function opcion__crear()
@@ -256,11 +256,11 @@ class comando_proyecto extends comando_toba
 		$instancia = $this->get_instancia($id_instancia);
 		$params = $this->get_parametros();
 		$dir_instal_proyecto = null;
-		
+
 		if (isset($params['-d'])) {
 			$dir_instal_proyecto = $params['-d'];
 		}
-		
+
 		// --  Creo el proyecto
 		$this->consola->mensaje( "Creando el proyecto '$id_proyecto' en la instancia '$id_instancia'...", false );
 		$usuarios = $this->seleccionar_usuarios( $instancia );
@@ -291,8 +291,8 @@ class comando_proyecto extends comando_toba
 				$this->consola->mensaje('OK. Debe reiniciar el servidor web para que los cambios tengan efecto');
 			}
 		}
-	}	
-	
+	}
+
 
 	/**
 	* Carga el PROYECTO en la INSTANCIA (Carga metadatos y crea un vinculo entre ambos elementos).
@@ -313,7 +313,7 @@ class comando_proyecto extends comando_toba
 				if ($id_proyecto == $path) {
 					$path=null;
 				}
-			}			
+			}
 			if (isset($param['-d'])) {
 				$path = realpath($param['-d']);
 			}
@@ -343,7 +343,7 @@ class comando_proyecto extends comando_toba
 				$this->consola->progreso_avanzar();
 			}
 			$this->consola->progreso_fin();
-			
+
 			//-- 2 -- Exportar proyecto
 			$this->consola->enter();
 			// Exporto la instancia con la nueva configuracion (por fuera del request)
@@ -366,10 +366,10 @@ class comando_proyecto extends comando_toba
 				$full_url = (isset($param['--full-url'])) ?$param['--full-url'] : null;
 				$p->publicar($url, $full_url);
 				$this->consola->mensaje('OK. Debe reiniciar el servidor web para que los cambios tengan efecto');
-			}		
+			}
 		}
 	}
-	
+
 
 	/**
 	* Brinda informacion sobre los METADATOS del proyecto.
@@ -390,17 +390,17 @@ class comando_proyecto extends comando_toba
 			// GRUPOS de ACCESO
 			$this->consola->subtitulo('Listado de GRUPOS de ACCESO');
 			$this->consola->tabla( $p->get_lista_grupos_acceso() , array( 'ID', 'Nombre') );
-		} else {										
+		} else {
 			$this->consola->subtitulo('Reportes');
 			$subopciones = array( 	'-c' => 'Listado de COMPONENTES',
 									'-g' => 'Listado de GRUPOS de ACCESO' ) ;
-			$this->consola->coleccion( $subopciones );	
-		}		
+			$this->consola->coleccion( $subopciones );
+		}
 	}
-	
+
 	/**
 	* Exporta los METADATOS del proyecto.
-	* @gtk_icono exportar.png 
+	* @gtk_icono exportar.png
 	*/
 	function opcion__exportar()
 	{
@@ -409,10 +409,10 @@ class comando_proyecto extends comando_toba
 		$p->get_instancia()->exportar_local();
 	}
 
-	
+
 	/**
 	* Elimina los METADATOS del proyecto y los vuelve a cargar.
-	* @gtk_icono importar.png 
+	* @gtk_icono importar.png
 	*/
 	function opcion__regenerar()
 	{
@@ -428,7 +428,7 @@ class comando_proyecto extends comando_toba
 		$id_proyecto = $this->get_id_proyecto_actual();
 		if ( $id_proyecto == 'toba' ) {
 			throw new toba_error("No es posible eliminar el proyecto 'toba'");
-		}	
+		}
 		try {
 			$p = $this->get_proyecto();
 			if ( $this->consola->dialogo_simple("Desea ELIMINAR los metadatos y DESVINCULAR el proyecto '"
@@ -441,33 +441,55 @@ class comando_proyecto extends comando_toba
 		}
 		$this->get_instancia()->desvincular_proyecto( $id_proyecto );
 	}
-	
+
 	/**
 	 * Exporta los METADATOS, actualiza el proyecto (usando svn) y regenera el proyecto en la instancia
 	 * @gtk_icono refrescar.png
 	 */
 	function opcion__actualizar()
 	{
-		$this->consola->titulo("1.- Exportando METADATOS");		
+		$this->consola->titulo("1.- Exportando METADATOS");
 		$this->opcion__exportar();
 
 		$this->consola->titulo("2.- Actualizando el proyecto utilizando SVN");
-		$p = $this->get_proyecto();		
-		$p->actualizar();		
-		
+		$p = $this->get_proyecto();
+		$p->actualizar();
+
 		$this->consola->titulo("3.- Regenerando el proyecto en la instancia");
 		$p->regenerar();
-	}	
+	}
 
 	/**
 	* Compila los METADATOS del proyecto.
-	* @gtk_icono compilar.png 
+	* @gtk_icono compilar.png
 	*/
 	function opcion__compilar()
 	{
 		$this->get_proyecto()->compilar();
 	}
-	
+
+        /**
+         * Compila unicamente los METADATOS correspondientes a los perfiles funcionales del proyecto.
+         */
+        function opcion__compilar_perfiles()
+        {
+            $param = $this->get_parametros();
+            $id = isset($param["-p"]) ? $param["-p"] : $this->get_id_proyecto_actual(true);
+
+            try {
+                $proyecto = $this->get_proyecto($id);
+                $path = $proyecto->get_dir_generales_compilados();
+                if (!\file_exists($path) || !\is_writable($path)) {
+                    $this->consola->error('ATENCION!!: Considere ejecutar el comando compilar para abarcar todos los metadatos'. PHP_EOL);
+                    throw new toba_error('No existe o no es accesible la carpeta de metadatos compilados!!'. PHP_EOL);
+                }
+                toba_manejador_archivos::crear_arbol_directorios($path);
+                $proyecto->compilar_metadatos_generales_grupos_acceso(true);
+            } catch ( toba_error $e ) {
+		$this->consola->error( "PROYECTO $id: Ha ocurrido un error durante la compilacion:\n".$e->getMessage());
+                exit(-1);
+            }
+        }
 
 	/**
 	* Incluye al proyecto dentro del archivo de configuración de apache (toba.conf)
@@ -487,8 +509,8 @@ class comando_proyecto extends comando_toba
 		} else {
 			throw new toba_error("El proyecto ya se encuentra publicado. Debe despublicarlo primero");
 		}
-	}	
-	
+	}
+
 	/**
 	* Quita al proyecto del archivo de configuración de apache (toba.conf)
 	*/
@@ -500,7 +522,7 @@ class comando_proyecto extends comando_toba
 		} else {
 			throw new toba_error("El proyecto no se encuentra actualmente publicado.");
 		}
-	}		
+	}
 
 	/**
 	* Crea un instalador del proyeto/framework para produccion
@@ -509,18 +531,18 @@ class comando_proyecto extends comando_toba
 	function opcion__empaquetar()
 	{
 		//Aca tengo que decidir si empaqueto para produccion o desarrollo.
-		//* @consola_parametros Opcional: [-d 'deployment'] Indica si el instalador sera para produccion o desarrollo. 
+		//* @consola_parametros Opcional: [-d 'deployment'] Indica si el instalador sera para produccion o desarrollo.
 		$param = $this->get_parametros();
 		/*if (isset($param['-d']) && trim($param['-d']) == 'desarrollo') {
 			$paquete = self::tipo_paquete_desarrollo;
 		} else {*/
 			$paquete = self::tipo_paquete_produccion;
 		//}
-		$es_legacy = (isset($param['-L']) && ($param['-L'] == 1));			
+		$es_legacy = (isset($param['-L']) && ($param['-L'] == 1));
 		$this->get_proyecto()->empaquetar($paquete, $es_legacy);
-	}		
-	
-	
+	}
+
+
 	/**
 	 * Actualiza o crea la operación de login asociada al proyecto
 	 * @consola_parametros --punto_montaje Especifica el punto de montaje a utilizar
@@ -531,7 +553,7 @@ class comando_proyecto extends comando_toba
 		$pm = null;
 		$param = $this->get_parametros();
 		$proyecto = $this->get_proyecto();
-	
+
 		//--- Existe un item de login??
 		if ($proyecto->get_item_login()) {
 			$clonar = $this->consola->dialogo_simple("Va a sobrescribir el item de login, ¿desea continuar?", true);
@@ -546,23 +568,23 @@ class comando_proyecto extends comando_toba
 				$etiqueta = $lista[0]['etiqueta'];
 			} else {
 				$opciones = rs_convertir_asociativo($lista, array('etiqueta'), 'path_pm');
-				$etiqueta =  $this->consola->dialogo_lista_opciones( $opciones, 'Seleccione el Punto de Montaje destino' , false, 'PATH');				
+				$etiqueta =  $this->consola->dialogo_lista_opciones( $opciones, 'Seleccione el Punto de Montaje destino' , false, 'PATH');
 			}
 		} else {
 			$etiqueta = $param['--punto_montaje'];
 		}
-		
+
 		$pm = $proyecto->get_pms()->get($etiqueta);
 		$proyecto->actualizar_login(false, $pm->get_id());
 	}
-	
+
 	/**
 	* Importa y migra un proyecto desde otra instalacion de toba
 	* @consola_parametros -d 'directorio'. Especifica el path de toba que contiene el proyecto a migrar
 	* @consola_parametros --destino 'directorio'. Especifica el path de toba donde se exportaran los datos
-	* @gtk_icono importar.png 
+	* @gtk_icono importar.png
 	* @gtk_no_mostrar 1
-	*/	
+	*/
 	function opcion__importar($datos = null)
 	{
 		$destino = null;
@@ -575,16 +597,16 @@ class comando_proyecto extends comando_toba
 				$dir_toba_viejo = $param['-d'];
 			} else {
 				throw new toba_error("Debe indicar el path del toba desde donde se quiere importar un proyecto con el parámetro -d");
-			}			
+			}
 			if (isset($param['--destino'])) {
 				$destino = $param['--destino'];
 			}
-		}		
+		}
 		$this->get_instalacion()->importar_migrar_proyecto($this->get_id_instancia_actual(true), $id_proyecto, $dir_toba_viejo, $destino);
-	}	
-	
-	
-	
+	}
+
+
+
 	/**
 	 * Ejecuta las tareas planificadas pendientes
 	 * @consola_parametros Opcional: [-v 0|1] Modo verbose
@@ -601,16 +623,16 @@ class comando_proyecto extends comando_toba
 		//Incluye el contexto consola
 		require_once("nucleo/toba.php");
 		toba::nucleo()->iniciar_contexto_desde_consola($this->get_id_instancia_actual(true), $this->get_id_proyecto_actual(true));
-		
+
 		//Ejecuta el planificador
 		$planificador = new toba_planificador_tareas();
 		$planificador->ejecutar_pendientes($manejador_interface);
 	}
-		
+
 	/**
 	 * Migra un proyecto entre dos versiones toba.
 	 * @consola_parametros Opcionales: [-d 'desde']  [-h 'hasta'] [-R 0|1] [-m metodo puntual de migracion]
-	 * @gtk_icono convertir.png 
+	 * @gtk_icono convertir.png
 	 * @consola_separador 1
 	 * @gtk_separador 1
 	 */
@@ -642,16 +664,16 @@ class comando_proyecto extends comando_toba
 	/**
 	* Muestra los LOGS del proyecto
 	* @consola_parametros Opcional: [-n 'numero'] Muestra un log específico. Por defecto se muestra el último
-	*/	
+	*/
 	function opcion__ver_log()
-	{	
+	{
 		$param = $this->get_parametros();
 		$proyecto = isset($param["-p"]) ? $param["-p"] : $this->get_id_proyecto_actual(true);
 		$instancia = isset($param["-i"]) ? $param["-i"] : $this->get_id_instancia_actual(true);
 		toba_nucleo::instancia()->iniciar_contexto_desde_consola($instancia, $proyecto);
 
 		$logger = toba_logger::instancia($proyecto);
-		$archivo = $logger->directorio_logs()."/sistema.log";		
+		$archivo = $logger->directorio_logs()."/sistema.log";
 		$analizador = new toba_analizador_logger_fs($archivo);
 		$analizador->procesar_entidades_html(false);
 
@@ -661,7 +683,7 @@ class comando_proyecto extends comando_toba
        		$pedido = $param['-n'];
 			if( $pedido < 1 || $pedido > $analizador->get_cantidad_pedidos() ) {
 				$this->consola->mensaje("El log específico solicitado no existe.");
-				return ;				
+				return ;
 			}
         } else {
 			$pedido = ($analizador->get_cantidad_pedidos());
@@ -677,7 +699,7 @@ class comando_proyecto extends comando_toba
 	 */
 	function opcion__roles_script()
 	{
-		$proyecto = $this->get_proyecto();		
+		$proyecto = $this->get_proyecto();
 		try {
 			$proyecto->crear_script_generacion_roles_db();
 			$this->consola->mensaje('Se generaron los archivos correspondientes a los roles');

@@ -4,6 +4,12 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.2.8](https://github.com/SIU-Toba/framework/releases/tag/v3.2.8) (2019-10-09)
+- Se chequea la existencia de la carpeta node_modules en el script que instala assets
+- Se agregan opciones nuevas al archivo smtp.ini
+- Se agrega comando para recompilar unicamente perfiles funcionales
+- Se agrega un comando especifico para verificar existencia de la instancia Toba
+
 [3.2.7](https://github.com/SIU-Toba/framework/releases/tag/v3.2.7) (2019-09-19)
 - Se agrega posibilidad de especificar el encoding cliente al momento de registrar la base de datos
 - Se corrige tamaño de imagenes en el selector de toba_editor (credits lcassettai)
