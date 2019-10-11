@@ -4,18 +4,18 @@ ini_set('max_execution_time', 0);
 require_once('consola/comando.php');
 /**
  * Clase que agrupa los elementos comunes a todos los comandos toba
- * 
+ *
  *	TODO: - Seleccion adecuada de Usuarios y Grupo de acceso
  *			- Tendria que existir un esquema para extender un comando
  *				por ejemplo, despues de crear una instancia, un proyecto puede querer
  *				agregar mas tablas a la misma
- * 
+ *
  * @package consola
  */
 
 class comando_toba extends comando
 {
-	private $interprete; 
+	private $interprete;
 	protected $id_proyecto_actual;
 	protected $id_instancia_actual;
 
@@ -29,7 +29,16 @@ class comando_toba extends comando
 	{
 		return '';
 	}
-	
+
+        function recuperar_contenido_archivo($nombre)
+	{
+		$resultado = '';
+		if (file_exists($nombre)) {
+			$resultado = file_get_contents($nombre);
+		}
+		return $resultado;
+	}
+
 	//-----------------------------------------------------------
 	// Acceso a los SUJETOS sobre los que actuan los comandos
 	//-----------------------------------------------------------
@@ -42,7 +51,7 @@ class comando_toba extends comando
 	{
 		return toba_modelo_catalogo::instanciacion()->get_instalacion( $this->consola );
 	}
-	
+
 	/**
 	*	Devuelve una referencia a la INSTANCIA
 	* @return toba_modelo_instancia
@@ -57,7 +66,7 @@ class comando_toba extends comando
 	}
 
 	/**
-	*	Devuelve una referencia al PROYECTO 
+	*	Devuelve una referencia al PROYECTO
 	* @return toba_modelo_proyecto
 	*/
 	protected function get_proyecto($id_proy = null)
@@ -105,13 +114,13 @@ class comando_toba extends comando
 		} else {
 			$id = $this->get_entorno_id_instancia();
 		}
-		
+
 		if ( $obligatorio && is_null( $id ) ) {
 			throw new toba_error("Es necesario definir una INSTANCIA. Utilice el modificador '-i' o defina la variable de entorno 'toba_instancia'");
 		}
 		return $id;
 	}
-	
+
 	function set_id_instancia_actual($id)
 	{
 		$this->id_instancia_actual = $id;
@@ -142,13 +151,13 @@ class comando_toba extends comando
 		if ( $obligatorio && is_null( $id ) ) {
 			//--- Lo pregunta explicitamente y recuerda el seteo
 			if (!isset($this->id_proyecto_actual)) {
-				 $this->id_proyecto_actual = $this->consola->dialogo_ingresar_texto('Id. del Proyecto', true);				 
+				 $this->id_proyecto_actual = $this->consola->dialogo_ingresar_texto('Id. del Proyecto', true);
 			}
 			return $this->id_proyecto_actual;
 		}
 		return $id;
 	}
-	
+
 	/**
 	*	Describe el parametro PROYECTO
 	*/
@@ -162,14 +171,14 @@ class comando_toba extends comando
 	//-----------------------------------------------------------
 	// Acceso al entorno
 	//-----------------------------------------------------------
-	
+
 	/**
 	*	Acceso a la variable de entorno 'toba_instancia'
 	*/
 	protected function get_entorno_id_instancia($obligatorio = false)
 	{
 		if ( isset( $this->interprete ) ) {
-			
+
 		} else {
 			if ( isset( $_SERVER['TOBA_INSTANCIA'] ) ) {
 				return $_SERVER['TOBA_INSTANCIA'];
@@ -183,7 +192,7 @@ class comando_toba extends comando
 	protected function get_entorno_id_proyecto($obligatorio = false)
 	{
 		if ( isset( $this->interprete ) ) {
-			
+
 		} else {
 			if ( isset( $_SERVER['TOBA_PROYECTO'] ) ) {
 				return $_SERVER['TOBA_PROYECTO'];
@@ -194,7 +203,7 @@ class comando_toba extends comando
 	//-----------------------------------------------------------
 	// Primitivas de INTERFACE comunes
 	//-----------------------------------------------------------
-	
+
 	/**
 	*	Interface de seleccion de N usuarios
 	*/
@@ -207,7 +216,7 @@ class comando_toba extends comando
 		$opcion[1] = "Asociar TODOS los usuarios de la instancia";
 		$opcion[2] = "Mostrar una lista de usuario y SELECCIONAR";
 		$ok = $this->consola->dialogo_lista_opciones( $opcion, 'Asociar USUARIOS al proyecto. Seleccione una FORMA de CARGA', false );
-		*/		
+		*/
 		$usuarios = array();
 		$ok = 1;
 		if ($instancia->get_instalacion()->es_produccion()) {
@@ -217,14 +226,14 @@ class comando_toba extends comando
 		}
 		switch ( $ok ) {
 			case 0:			// Usuario toba (pero..existe?)
-				break;	
-			case 1:			// Todos				
+				break;
+			case 1:			// Todos
 				foreach ( $datos as $dato ) {
 					$usuarios[] = $dato['usuario'];
 				}
-				break;	
+				break;
 			case 2:			// Seleccionar usuarios de una lista
-				break;	
+				break;
 		}
 		return $usuarios;
 	}
@@ -240,7 +249,7 @@ class comando_toba extends comando
 
 	/**
 	*	Permite seleccionar una base de datos
-	*/	
+	*/
 	protected function seleccionar_base()
 	{
 		$titulo = "Seleccionar BASE";
@@ -255,7 +264,7 @@ class comando_toba extends comando
 			return $this->consola->dialogo_lista_opciones( $bases, $titulo, false, $cabecera_tabla, true,
 															$defecto, $defecto );
 		} else {
-			return null;	
+			return null;
 		}
 	}
 
@@ -267,7 +276,7 @@ class comando_toba extends comando
 		$titulo = $seleccion_multiple ? "Seleccionar PROYECTOS" : "Seleccionar PROYECTO";
 		$proyectos = toba_modelo_proyecto::get_lista();
 		if( count( $proyectos ) > 0 ) {
-			$sel = $this->consola->dialogo_lista_opciones( $proyectos, $titulo, $seleccion_multiple, 'Nombre real del proyecto', 
+			$sel = $this->consola->dialogo_lista_opciones( $proyectos, $titulo, $seleccion_multiple, 'Nombre real del proyecto',
 														$obligatorio, array_keys($proyectos), 'todos');
 			//--- Se valida que un proyecto no se incluya dos veces
 			//--- Ademas se transpone la matriz, ya que ahora proyecto es una PK
@@ -275,7 +284,7 @@ class comando_toba extends comando
 			if ($seleccion_multiple) {
 				foreach ($sel as $path) {
 					if (isset($seleccion[$proyectos[$path]])) {
-						throw new toba_error('ERROR: Una instancia no soporta contener el mismo proyecto más de una vez');	
+						throw new toba_error('ERROR: Una instancia no soporta contener el mismo proyecto más de una vez');
 					}
 					$seleccion[$proyectos[$path]] = $path;
 				}
@@ -283,10 +292,10 @@ class comando_toba extends comando
 				//--Arreglo id,path
 				return array($proyectos[$sel], $sel);
 			}
-			return $seleccion;			
+			return $seleccion;
 		} else {
 			if ( $obligatorio ) {
-				throw new toba_error('No hay proyectos definidos');	
+				throw new toba_error('No hay proyectos definidos');
 			}
 			return array();
 		}
@@ -303,7 +312,7 @@ class comando_toba extends comando
 		$form->agregar_campo( array( 'id' => 'clave', 	'nombre' => 'Clave' ) );
 		return $form->procesar();
 	}
-	
+
 	protected function mostrar_bases_definidas()
 	{
 		$a = 0;
@@ -311,7 +320,7 @@ class comando_toba extends comando
 			$base[ $a ]['nombre'] = $db;
 			$param = $this->get_instalacion()->get_parametros_base( $db );
 			$base[ $a ]['parametros'] = implode(',  ',$param);
-			$a++; 
+			$a++;
 		}
 		if ( $a > 0 ) {
 			$txt_param = implode( ', ', array_keys( $param ) );
@@ -319,7 +328,60 @@ class comando_toba extends comando
 		} else {
 			$this->consola->enter();
 			$this->consola->mensaje("ATENCION: No hay BASES definidas.");
-		}		
+		}
+	}
+
+        protected function definir_clave_usuario_admin($param)
+	{
+		$nombre_parametro = array('-k', '--archivo-clave-admin', 'toba-archivo-clave-admin');
+		$esto_es_produccion = $this->get_instalacion()->es_produccion();
+		do {
+			$ind = current($nombre_parametro);
+			$es_invalido = (! isset($param[$ind]));
+			if (! $es_invalido) {
+				$pwd = $this->recuperar_contenido_archivo($param[$ind]);
+				if ($esto_es_produccion) {											//Verifico que la clave recuperada posea ciertos requisitos.
+					try {
+						toba_usuario::verificar_composicion_clave($pwd, apex_pa_pwd_largo_minimo);
+					} catch (toba_error_pwd_conformacion_invalida $e) {
+						$this->consola->mensaje($e->getMessage(), true);
+						$es_invalido=true;
+					}
+				}
+			}
+		} while($es_invalido && next($nombre_parametro) !== false);
+
+		if ($es_invalido) {
+			$this->consola->mensaje('Se procede con un password no válido bajo su responsabilidad' , true);
+			toba::logger()->error('Se procede con el password seleccionado a pesar que no cumple con las condiciones, su responsabilidad!');
+		}
+		return (isset($pwd)) ? $pwd: null;
+	}
+
+	protected function definir_usuario_admin($param)
+	{
+		$nombre_parametro = array('--usuario-admin', 'toba-usuario-admin');
+		$result = $this->recuperar_dato_y_validez($param, $nombre_parametro);
+
+		if ($result['invalido']) {
+			toba::logger()->error("Se selecciono toba como nombre del usuario administrador, ya que uno válido no fue provisto");
+			return 'toba';
+		}
+		return $result['resultado'];
+	}
+
+        protected function recuperar_dato_y_validez($param, $nombre_parametro)
+	{
+		$resultado = null;
+		do {
+			$ind = current($nombre_parametro);
+			$es_invalido = (! isset($param[$ind]));
+			if (! $es_invalido) {
+				$resultado = $param[$ind];
+			}
+		} while ($es_invalido && next($nombre_parametro) !== false);
+
+		return array('invalido' => $es_invalido, 'resultado' => $resultado);
 	}
 }
 ?>

@@ -335,6 +335,7 @@ class comando_instancia extends comando_toba
 
 	/**
 	 * Crea un usuario administrador y lo asigna a los proyectos
+         * @consola_parametros Opcionales: [--usuario-admin 'usuario admin'][-k 'archivo clave usuario admin'] [--no-interactive]
 	 * @gtk_icono usuarios/usuario_nuevo.gif
 	 * @gtk_param_extra crear_usuario
 	 */
@@ -455,23 +456,29 @@ class comando_instancia extends comando_toba
 
 	function get_datos_usuario()
 	{
+            $datos = array();
+            $param = $this->get_parametros();
+            if (isset($param['--no-interactive'])) {                            //Si no requiere intervencion del usuario
+                $datos['clave'] = $this->definir_clave_usuario_admin($param);
+                $datos['usuario'] = $this->definir_usuario_admin($param);
+                $datos['nombre'] = 'Usuario Administrador';
+            } else {
 		//Verifico que la clave cumpla ciertos requisitos basicos
 		do {
-			$hubo_error = false;
-			if (!isset($datos)) {
-				$datos = $this->definir_usuario( "Crear USUARIO" );
-			}
-			if ($this->get_instalacion()->es_produccion()) {
-				try {
-					toba_usuario::verificar_composicion_clave($datos['clave'], apex_pa_pwd_largo_minimo);			//Hay que brindar la posibilidad de marcar produccion antes
-				} catch(toba_error_pwd_conformacion_invalida $e) {
-					$this->consola->mensaje($e->getMessage(), true);
-					$hubo_error = true;
-					unset($datos);
-				}
-			}
+                    $hubo_error = false;
+                    $datos = $this->definir_usuario( "Crear USUARIO" );
+                    if ($this->get_instalacion()->es_produccion()) {
+                        try {
+                            toba_usuario::verificar_composicion_clave($datos['clave'], apex_pa_pwd_largo_minimo);			//Hay que brindar la posibilidad de marcar produccion antes
+                        } catch(toba_error_pwd_conformacion_invalida $e) {
+                            $this->consola->mensaje($e->getMessage(), true);
+                            $hubo_error = true;
+                            unset($datos);
+                        }
+                    }
 		} while ($hubo_error);
-		return $datos;
+            }
+            return $datos;
 	}
 }
 ?>
