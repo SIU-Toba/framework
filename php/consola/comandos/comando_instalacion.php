@@ -3,10 +3,10 @@ require_once('comando_toba.php');
 
 /**
  *  Clase que implementa los comandos de la instalacion de toba.
- * 
+ *
  * Class comando_instalacion.
  * @package consola
- */	
+ */
 class comando_instalacion extends comando_toba
 {
 	static function get_info()
@@ -33,30 +33,21 @@ class comando_instalacion extends comando_toba
 		}
 		return $salida;
 	}
-	
-	function recuperar_parametro($lista, $parametro, $leyenda_alternativa) 
+
+	function recuperar_parametro($lista, $parametro, $leyenda_alternativa)
 	{
 		if (! isset($lista[$parametro])) {
 			$resultado = $this->consola->dialogo_ingresar_texto($leyenda_alternativa, false);
 		} else {
 			$resultado = $lista[$parametro];
-		}		
-		return $resultado;
-	}
-	
-	function recuperar_contenido_archivo($nombre)
-	{
-		$resultado = '';
-		if (file_exists($nombre)) {
-			$resultado = file_get_contents($nombre);
 		}
 		return $resultado;
 	}
-
+	
 	function mostrar_ayuda_desatendida()
 	{
 		$this->consola->titulo( $this->get_info() );
-		
+
 		$clase = new ReflectionClass(get_class($this));
 		$metodo = $clase->getMethod('opcion__instalar');
 		$comentario = $metodo->getDocComment();
@@ -64,7 +55,7 @@ class comando_instalacion extends comando_toba
 			'ayuda' => parsear_doc_comment($comentario),
 			'tags' => parsear_doc_tags($comentario)
 		);
-		
+
 		$salida = array();
 		$id = 'instalar';
 		if (!isset($opcion['tags']['consola_no_mostrar'])) {
@@ -78,14 +69,14 @@ class comando_instalacion extends comando_toba
 	//-------------------------------------------------------------
 	// Opciones
 	//-------------------------------------------------------------
-	
+
 	/**
 	 * Ejecuta una instalacion completa del framework para desarrollar un nuevo proyecto
 	 * @consola_parametros Opcionales: [-d 'iddesarrollo'] [-t 0| 1] [-n 'nombre inst'] [-h 'ubicacion bd'] [-p 'puerto'] [-u 'usuario bd'] [-b nombre bd] [-c 'archivo clave bd'] [-k 'archivo clave toba'] [--no-interactive][--alias-nucleo 'aliastoba'][--schema-toba 'schemaname'].
 	 * @gtk_icono instalacion.png
 	 */
 	function opcion__instalar()
-	{		
+	{
 		$nombre_toba = 'toba_'.toba_modelo_instalacion::get_version_actual()->get_release('_');
 		$this->consola->titulo("Instalacion Toba ".toba_modelo_instalacion::get_version_actual()->__toString());
 
@@ -97,7 +88,7 @@ class comando_instalacion extends comando_toba
 		if (! extension_loaded('pdo_pgsql')) {
 			$this->consola->mensaje("------------------------------------");
 			throw new toba_error("ERROR: Necesita activar la extension 'pdo_pgsql' en el archivo php.ini");
-		}		
+		}
 		$version_php = shell_exec('php -v');
 		if ($version_php == '') {
 			$this->consola->mensaje("------------------------------------");
@@ -114,8 +105,8 @@ class comando_instalacion extends comando_toba
 		if (toba_modelo_instalacion::existe_info_basica() ) {
 			toba_modelo_instalacion::borrar_directorio();
 		}
-		
-		//--- Crea la INSTALACION		
+
+		//--- Crea la INSTALACION
 		$alias = $this->definir_alias_nucleo($param);
 		if ($alias ==  '/toba') {												//Si viene el alias por defecto, le agrego el nro de version
 			$alias = $alias. '_' . toba_modelo_instalacion::get_version_actual()->get_release();
@@ -124,11 +115,11 @@ class comando_instalacion extends comando_toba
 		$tipo_instalacion = (isset($param['-t'])) ? $param['-t'] : $this->definir_tipo_instalacion_produccion();
 		$nombre = (isset($param['-n'])) ? $param ['-n'] : $this->definir_nombre_instalacion();
 		toba_modelo_instalacion::crear($id_desarrollo, $alias, $nombre, $tipo_instalacion);
-		$id_instancia = $this->get_entorno_id_instancia(true);		
+		$id_instancia = $this->get_entorno_id_instancia(true);
 		if (is_null($id_instancia) || trim($id_instancia) == '') {
 			$id_instancia = ($tipo_instalacion == '1') ? 'produccion' : 'desarrollo';
 		}
-		
+
 		//--- Crea la definicion de bases
 		$base = $nombre_toba;
 		$puerto = '5432';			//Asumo el puerto por defecto del servidor;
@@ -138,34 +129,34 @@ class comando_instalacion extends comando_toba
 				$profile = $this->recuperar_parametro($param, '-h',  'PostgreSQL - Ubicación (ENTER utilizará localhost)');
 				if (trim($profile) == '') {
 					$profile = 'localhost';
-				}			
-				
+				}
+
 				$puerto_tmp = $this->recuperar_parametro($param, '-p', "PostgreSQL - Puerto (ENTER utilizará: $puerto)");
-				if (trim($puerto_tmp) != '') {		
+				if (trim($puerto_tmp) != '') {
 					$puerto = $puerto_tmp;
 				}
-				
+
 				$usuario = $this->recuperar_parametro($param, '-u',  'PostgreSQL - Usuario (ENTER utilizará postgres)');
 				if (trim($usuario) == '') {
 					$usuario = 'postgres';
 				}
-				
+
 				if (! isset($param['-c'])) {
 					$clave = $this->consola->dialogo_ingresar_texto( 'PostgreSQL - Clave  (ENTER para usar sin clave)', false);
 				} else {
 					$clave = $this->recuperar_contenido_archivo($param['-c']);
 				}
-				
+
 				$base_temp = $this->recuperar_parametro($param, '-b', "PostgreSQL - Base de datos (ENTER utilizará $base)");
 				if (trim($base_temp) != '') {
 					$base = $base_temp;
 				}
-				
+
 				$base_schema = $this->recuperar_parametro($param, '--schema-toba', "Nombre del schema a usar (ENTER utilizará $id_instancia)");
 				if (trim($base_schema) != '') {
 					$schema = $base_schema;
 				}
-				
+
 				$datos = array(
 					'motor' => 'postgres7',
 					'profile' => $profile,
@@ -188,56 +179,56 @@ class comando_instalacion extends comando_toba
 					}
 				}
 			} while ($puede_conectar !== true);
-		}	
+		}
 		//--- Pido el password para el usuario por defecto
-		if (! isset($param['-k'])) {	
-			$pwd = $this->definir_clave_usuario_admin();
+		if (! isset($param['-k'])) {
+			$pwd = $this->definir_clave_usuario_admin(false);           //El parametro es irrelevante solo esta por Strict
 		} else {
 			$pwd = $this->recuperar_contenido_archivo($param['-k']);
-		}				
+		}
 		//--- Si la base existe, pregunta por un nombre alternativo, por si no quiere pisarla
 		if ($interactive && $this->get_instalacion()->existe_base_datos($base, array(), false, $id_instancia)) {
 			$nueva_base = $this->consola->dialogo_ingresar_texto("La base '$base' ya contiene un schema '$id_instancia', puede ingresar un nombre ".
-																"de base distinto sino quiere sobrescribir los datos actuales: (ENTER sobrescribe la actual)", false);			
-			if ($nueva_base != '') {																
+																"de base distinto sino quiere sobrescribir los datos actuales: (ENTER sobrescribe la actual)", false);
+			if ($nueva_base != '') {
 				$datos['base'] = $nueva_base;
 				$this->get_instalacion()->agregar_db( $base, $datos );
 			}
 		}
-		
+
 		//--- Crea la instancia
 		$proyectos = toba_modelo_proyecto::get_lista();
 		if (isset($proyectos['toba_testing'])) {
-			//--- Elimina el proyecto toba_testing 
+			//--- Elimina el proyecto toba_testing
 			unset($proyectos['toba_testing']);
 		}
 		if (isset($proyectos['curso_intro'])) {
-			//--- Elimina el proyecto curso_intro 
+			//--- Elimina el proyecto curso_intro
 			unset($proyectos['curso_intro']);
-		}		
+		}
 		toba_modelo_instancia::crear_instancia( $id_instancia, $base, $proyectos );
 
 		//-- Carga la instancia
 		$instancia = $this->get_instancia($id_instancia);
 		$instancia->cargar(true, ! $interactive);	//Si no es interactivo, crea siempre la BD
 
-		//--- Vincula un usuario a todos los proyectos y se instala el proyecto				
+		//--- Vincula un usuario a todos los proyectos y se instala el proyecto
 		$instancia->agregar_usuario( 'toba', 'Usuario Toba', $pwd);
 		foreach( $instancia->get_lista_proyectos_vinculados() as $id_proyecto ) {
 			$proyecto = $instancia->get_proyecto($id_proyecto);
 			$grupo_acceso = $proyecto->get_grupo_acceso_admin();
 			$proyecto->vincular_usuario('toba', array($grupo_acceso));
 		}
-		
+
 		$instancia->exportar_local();
-		
+
 		//--- Crea los nuevos alias
 		$instancia->crear_alias_proyectos();
-		
+
 		//--- Ejecuta instalaciones particulares de cada proyecto
 		foreach( $instancia->get_lista_proyectos_vinculados() as $id_proyecto ) {
 			$instancia->get_proyecto($id_proyecto)->instalar();
-		}		
+		}
 
 		//--- Mensajes finales
 		if ($interactive) {
@@ -265,13 +256,13 @@ class comando_instalacion extends comando_toba
 		$release = toba_modelo_instalacion::get_version_actual()->get_release();
 		$instal_dir = toba_modelo_instalacion::dir_base();
 		$pos = posicion_ruta_vendor(toba_dir());
-		
+
 		//--Genero el archivo de entorno
 		$path = $instal_dir. "/entorno_toba.env";
 		file_put_contents($path, generar_archivo_entorno($instal_dir, $id_instancia));
 		chmod($path, 0755);
-		
-		//Lo copio a la raiz del proyecto para cargarlo en el lanzamiento del comando	(solo si estoy dentro de vendor)		
+
+		//Lo copio a la raiz del proyecto para cargarlo en el lanzamiento del comando	(solo si estoy dentro de vendor)
 		if ($pos !== FALSE) {
 			$path_copia = substr(toba_dir(), 0, $pos) . '/entorno_toba.env';
 			copy($path, $path_copia);
@@ -287,7 +278,7 @@ class comando_instalacion extends comando_toba
 			} else {
 				$pathw = $instal_dir;
 			}
-			$pathw .= "\\entorno_toba_$release.bat";			
+			$pathw .= "\\entorno_toba_$release.bat";
 			file_put_contents($pathw, generar_archivo_entorno($instal_dir, $id_instancia, true));
 			if ($interactive) {
 				$this->consola->mensaje("2) Se genero el siguiente .bat:");
@@ -304,7 +295,7 @@ class comando_instalacion extends comando_toba
 				$this->consola->mensaje("");
 				$this->consola->mensaje("Para usar los comandos toba ejecute antes el .env precedido por un punto y espacio");
 			}
-		}		
+		}
 		if ($interactive) {
 			$this->consola->mensaje("");
 			$this->consola->mensaje("3) Entre otras cosas puede crear un nuevo proyecto ejecutando el comando");
@@ -312,7 +303,7 @@ class comando_instalacion extends comando_toba
 			$this->consola->mensaje("   toba proyecto crear");
 		}
 	}
-	
+
 	/**
 	* Crea una instalación básica.
 	* @gtk_icono nucleo/agregar.gif
@@ -335,13 +326,13 @@ class comando_instalacion extends comando_toba
 			$this->consola->enter();
 		}
 	}
-	
-	
+
+
 	/**
 	 * Muestra información de la instalación.
 	 * @gtk_icono info_chico.gif
 	 * @gtk_no_mostrar 1
-	 * @gtk_separador 1 
+	 * @gtk_separador 1
 	 */
 	function opcion__info()
 	{
@@ -384,13 +375,13 @@ class comando_instalacion extends comando_toba
 			$this->consola->mensaje( 'La INSTALACION no ha sido inicializada.');
 		}
 	}
-	
+
 	/**
 	* Crea una instancia
-	* @consola_no_mostrar 1 
-	* @gtk_icono instancia.gif 
+	* @consola_no_mostrar 1
+	* @gtk_icono instancia.gif
 	* @gtk_param_extra crear_instancia
-	*/	
+	*/
 	function opcion__crear_instancia($datos)
 	{
 		//------ESTO ES UN ALIAS DE INSTANCIA::CREAR
@@ -398,9 +389,9 @@ class comando_instalacion extends comando_toba
 		$comando = new comando_instancia($this->consola);
 		$comando->opcion__crear($datos);
 	}
-	
+
 	/**
-	 * Cambia los permisos de los archivo para que el usuario Apache cree directorios y pueda crear y leer carpetas navegables 
+	 * Cambia los permisos de los archivo para que el usuario Apache cree directorios y pueda crear y leer carpetas navegables
 	 * @consola_parametros [-u usuario apache, se asume www-data] [-g grupo de usuarios, no se asume ninguno]
 	 * @gtk_icono  password.png
 	 */
@@ -409,10 +400,10 @@ class comando_instalacion extends comando_toba
 		//Si es produccion dar permisos solo a apache, sino a usuario y grupo
 		$instalacion = $this->get_instalacion();
 		$subject = $instalacion->es_produccion() ? "u" : "ug";
-		
+
 		$param = $this->get_parametros();
 		$grupo = isset($param['-g']) ? $param['-g'] : null;
-		$usuario = isset($param['-u']) ? $param['-u'] : 'www-data';		
+		$usuario = isset($param['-u']) ? $param['-u'] : 'www-data';
 		$toba_dir = toba_dir();
 		$instalacion_dir = $instalacion->get_path_carpeta_instalacion();
 		$this->consola->subtitulo('Cambiando permisos de archivos navegables');
@@ -421,13 +412,13 @@ class comando_instalacion extends comando_toba
 		}
 		$comandos = array(
 			array("chown -R $usuario $toba_dir/www", "Archivos navegables comunes:\n"),
-			array("chmod -R $subject+rw $toba_dir/www", ''),			
+			array("chmod -R $subject+rw $toba_dir/www", ''),
 			array("chown -R $usuario $instalacion_dir", "Archivos de configuración:\n"),
-			array("chmod -R $subject+rw $instalacion_dir", ''),			
+			array("chmod -R $subject+rw $instalacion_dir", ''),
 			array("chown -R $usuario $toba_dir/temp", "Archivos temporales comunes:\n"),
 			array("chmod $subject+rw $toba_dir/temp", '')
 		);
-		
+
 		foreach ($instalacion->get_lista_instancias() as $id_inst) {
 			$lista = $this->get_instancia($id_inst)->get_lista_proyectos_vinculados();
 			foreach($lista as $proy) {
@@ -439,11 +430,11 @@ class comando_instalacion extends comando_toba
 				$comandos[] = array("chmod -R $subject+rw $path/temp", '');
 			}
 		}
-		
+
 		foreach ($comandos as $comando) {
 			$this->consola->mensaje($comando[1], false);
 			$this->consola->mensaje("   ".$comando[0]. exec($comando[0]));
-		}		
+		}
 	}
 
 	/**
@@ -453,7 +444,7 @@ class comando_instalacion extends comando_toba
 	{
 		$this->get_instalacion()->eliminar_logs();
 	}
-	
+
 	/**
 	 * Cambia el número de desarrollador y deja las instancias listas
                     * @consola_parametros Opcionales: [-d 'iddesarrollo'].
@@ -461,12 +452,12 @@ class comando_instalacion extends comando_toba
 	function opcion__cambiar_id_desarrollador()
 	{
 		$id_grupo_desarrollador = $this->definir_id_grupo_desarrollo();
-		$this->get_instalacion()->set_id_desarrollador($id_grupo_desarrollador);		
+		$this->get_instalacion()->set_id_desarrollador($id_grupo_desarrollador);
 	}
-	
+
 
 	/**
-	 * Migra la instalación de versión. 
+	 * Migra la instalación de versión.
 	 * @consola_parametros Opcionales: [-d 'desde']  [-h 'hasta'] [-R 0|1].
 	 * @gtk_icono convertir.png
 	 */
@@ -491,11 +482,11 @@ class comando_instalacion extends comando_toba
 		if (empty($versiones)) {
 			$this->consola->mensaje("No es necesario ejecutar una migración entre estas versiones");
 			return ;
-		} 
-		
+		}
+
 		$instalacion->migrar_rango_versiones($desde, $hasta, $recursivo);
-	}		
-	
+	}
+
 	/**
 	* Incluye en el archivo toba.conf las configuraciones de alias definidas en instalacion.ini e instancia.ini
 	*/
@@ -507,8 +498,8 @@ class comando_instalacion extends comando_toba
 		} else {
 			throw new toba_error("La instalación ya se encuentra publicada. Debe despublicarla primero");
 		}
-	}	
-	
+	}
+
 	/**
 	* Quita del archivo toba.conf los alias de la instalacion y de los proyectos
 	*/
@@ -520,8 +511,8 @@ class comando_instalacion extends comando_toba
 		} else {
 			throw new toba_error("La instalación no se encuentra actualmente publicada.");
 		}
-	}		
-	
+	}
+
 	//-------------------------------------------------------------
 	// Interface
 	//-------------------------------------------------------------
@@ -534,25 +525,25 @@ class comando_instalacion extends comando_toba
                             $param = $this->get_parametros();
                             $nombre_parametro = array( '-d', '--id-desarrollador', 'toba-id-desarrollador');
                             $mensaje = "Debe ser un entero positivo, mas info en http://repositorio.siu.edu.ar/trac/toba/wiki/Referencia/CelulaDesarrollo";
-                            
+
                             //Busco primeramente los parametros con modificadores
-                            do {			
+                            do {
                                     $ind = current($nombre_parametro);
                                     $es_invalido = (! isset($param[$ind]));
                                     if (! $es_invalido) {
                                             $id_desarrollo = $param[$ind];
                                             if (! is_numeric($id_desarrollo) || $id_desarrollo < 0) {
                                                     $es_invalido = true;
-                                            }				
+                                            }
                                     }
                             } while ($es_invalido && next($nombre_parametro) !== false);
-                            
+
                             //Termine de recorrer los posibles parametros  y sigue mal
                             if ( $es_invalido) {
                                     do {
                                             $es_invalido = false;
                                             $id_desarrollo = $this->consola->dialogo_ingresar_texto('Por favor, ingrese su número de desarrollador (ENTER utilizará 0)', false);
-                                            
+
                                             if ($id_desarrollo == '') {
                                                     $id_desarrollo = 0;
                                             }
@@ -560,16 +551,16 @@ class comando_instalacion extends comando_toba
                                                     $es_invalido = true;
                                                     $this->consola->mensaje($mensaje);
                                             }
-                                    } while ($es_invalido);                                
-                            }                                                        
+                                    } while ($es_invalido);
+                            }
                             $id_desarrollo = (int) $id_desarrollo;
-                            return $id_desarrollo;		
+                            return $id_desarrollo;
 	}
 
 
 	protected function definir_alias_nucleo()
 	{
-		$this->consola->enter();		
+		$this->consola->enter();
 		$this->consola->subtitulo('Definir el nombre del ALIAS del núcleo Toba');
 		$this->consola->mensaje('Este alias se utiliza para consumir todo el contenido navegable de Toba');
 		$this->consola->enter();
@@ -577,23 +568,23 @@ class comando_instalacion extends comando_toba
 		if ( $resultado == '' ) {
 			return '/toba';
 		} else {
-			return '/'.$resultado;	
+			return '/'.$resultado;
 		}
-		
+
 	}
-	
+
 	protected function definir_tipo_instalacion_produccion()
 	{
 		$tipo_desarrollo = $this->consola->dialogo_simple('Se trata de una instalacion de producción?');
-		return ($tipo_desarrollo) ? 1: 0;		
+		return ($tipo_desarrollo) ? 1: 0;
 	}
-	
+
 	protected function definir_nombre_instalacion()
 	{
 		return $this->consola->dialogo_ingresar_texto('Nombre de la instalación (ej: Andromeda): ', true);
 	}
-	
-	protected function definir_clave_usuario_admin()
+
+	protected function definir_clave_usuario_admin($param)
 	{
 		do {
 			$es_invalido = false;
@@ -601,12 +592,12 @@ class comando_instalacion extends comando_toba
 			//Verifico que la clave cumpla ciertos requisitos basicos
 			if ($this->get_instalacion()->es_produccion()) {
 				try {
-					toba_usuario::verificar_composicion_clave($pwd, apex_pa_pwd_largo_minimo);			
+					toba_usuario::verificar_composicion_clave($pwd, apex_pa_pwd_largo_minimo);
 				} catch (toba_error_pwd_conformacion_invalida $e) {
 					$es_invalido = true;
 					$this->consola->mensaje($e->getMessage(), true);
 				}
-			}			
+			}
 		} while($es_invalido);
 		if (strtoupper($pwd) == 'TOBA') {
 			$this->consola->mensaje('Este password puede crear un OJO de seguridad, por favor cambialo lo antes posible', true);
