@@ -4,6 +4,13 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.1.14](https://github.com/SIU-Toba/framework/releases/tag/v3.1.14) (2018-10-15):
+- Se limita la version de la lib php-saml a la rama 2.16.x
+- Se implementa modo no interactivo al comando crear_usuario (backport from develop)
+- Se agregan opciones nuevas al archivo smtp.ini (backport from develop)
+- Se agrega comando para recompilar unicamente perfiles funcionales (backport from develop)
+- Se agrega un comando especifico para verificar existencia de la instancia Toba (backport from develop)
+
 [3.1.13](https://github.com/SIU-Toba/framework/releases/tag/v3.1.13) (2018-09-19):
 - Se incorpora la posibilidad de especificar el encoding al comando base::registrar (merge desde develop)
 
