@@ -4,6 +4,10 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.2.9](https://github.com/SIU-Toba/framework/releases/tag/v3.2.8) (2019-10-18)
+- Actualiza la version del paquete siu-app-launcher@1.0.4
+- Implementa modo no interactivo para la creacion del usuario admin de la instalacion
+
 [3.2.8](https://github.com/SIU-Toba/framework/releases/tag/v3.2.8) (2019-10-09)
 - Se chequea la existencia de la carpeta node_modules en el script que instala assets
 - Se agregan opciones nuevas al archivo smtp.ini
@@ -95,11 +99,27 @@
 - Se agrega siu/manejador-salida-bootstrap como paquete sugerido
 - Se traslada parte de la generación del marcado HTML al paquete siu/manejador-salida-toba
 
-[3.1.11](https://github.com/SIU-Toba/framework/releases/tag/v3.1.11) (2018-06-03):
+[3.1.14](https://github.com/SIU-Toba/framework/releases/tag/v3.1.14) (2019-10-15):
+- Se limita la version de la lib php-saml a la rama 2.16.x
+- Se implementa modo no interactivo al comando crear_usuario (backport from develop)
+- Se agregan opciones nuevas al archivo smtp.ini (backport from develop)
+- Se agrega comando para recompilar unicamente perfiles funcionales (backport from develop)
+- Se agrega un comando especifico para verificar existencia de la instancia Toba (backport from develop)
+
+[3.1.13](https://github.com/SIU-Toba/framework/releases/tag/v3.1.13) (2019-09-19):
+- Se incorpora la posibilidad de especificar el encoding al comando base::registrar (merge desde develop)
+
+[3.1.12](https://github.com/SIU-Toba/framework/releases/tag/v3.1.12) (2019-08-16):
+- Se incorpora la version del proyecto como atributo de las provisions del mismo (merge desde develop)
+- Suma toba_modelo_instalacion al esquema via toba_config (merge desde develop)
+- Fix en toba_rest cuando se setea la versión de la api a partir de la del proyecto (merge PR#44)
+- Bugfix en la lectura del archivo de configuracion para ldap (merge desde develop)
+
+[3.1.11](https://github.com/SIU-Toba/framework/releases/tag/v3.1.11) (2019-06-03):
 - Fix en toba_varios::array_a_utf8 y toba_varios::array_a_latin1, ahora usan las funciones utf8_e_seguro y utf8_d_seguro (merge develop)
 - Se ajustan los nombres de paquetes al formato composer 2.0 (lowercase)
 
-[3.1.10](https://github.com/SIU-Toba/framework/releases/tag/v3.1.10) (2018-04-30):
+[3.1.10](https://github.com/SIU-Toba/framework/releases/tag/v3.1.10) (2019-04-30):
 - Actualizacion librerias:
   * onelogin/php-saml: v2.15.0
   * phpoffice/phpspreadsheet: v1.6.0
@@ -109,10 +129,10 @@
   * guzzlehttp/psr7: v1.5.2 
 - Reintegra el paquete siu/arai-json-migrator quitado por error
 
-[3.1.9](https://github.com/SIU-Toba/framework/releases/tag/v3.1.9) (2018-04-09):
+[3.1.9](https://github.com/SIU-Toba/framework/releases/tag/v3.1.9) (2019-04-09):
 - Bugfix en el metodo toba_parametros::get_proyecto() pasaba mal el id de la instancia (merge desde 3.2.0)
 
-[3.1.8](https://github.com/SIU-Toba/framework/releases/tag/v3.1.8) (2018-03-13):
+[3.1.8](https://github.com/SIU-Toba/framework/releases/tag/v3.1.8) (2019-03-13):
 - Agrega metodo para obtener el identificador de usuario en Arai-Usuarios para la cuenta actualmente logueada (merge desde develop)
 
 [3.1.7](https://github.com/SIU-Toba/framework/releases/tag/v3.1.7) (2019-02-13)
