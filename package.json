@@ -10,6 +10,6 @@
     "ckeditor": "4.11",
     "jquery": "3.4",
     "jquery-migrate": "3.0",
-    "siu-js-app-launcher": "1.0"
+    "siu-js-app-launcher": "1.0.4"
   }
 }
