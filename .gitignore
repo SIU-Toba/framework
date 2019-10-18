@@ -1,8 +1,7 @@
 instalacion/
 vendor/
 .buildpath
-.settings/*
-
+.settings/
 .log.git
 .files.git
 *.iml
@@ -24,7 +23,9 @@ temp/
 xlib
 composer.lock
 www/siu/
-/arai.lock
-/.yarnclean
-/bin/arai-cli
-node_modules
+arai.lock
+.yarnclean
+yarn.lock
+bin/arai-cli
+node_modules/
+proyectos/toba_referencia/www/siu/
