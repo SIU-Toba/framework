@@ -55,7 +55,7 @@ class toba_http
 		}
 	}
 	
-	static function headers_download($tipo_descarga, $archivo, $longitud, $tipo_salida='application/pdf') 
+	static function headers_download($tipo_salida, $archivo, $longitud, $tipo_descarga = 'attachment') 
 	{ 
 		header("Cache-Control: private"); 
 		header("Content-type: $tipo_salida"); 

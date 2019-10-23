@@ -416,7 +416,7 @@ class toba_vista_jasperreports
 	 */
 	protected function cabecera_http( $longitud )
 	{
-		toba_http::headers_download($this->tipo_descarga, $this->nombre_archivo, $longitud, $this->tipo_salida);
+		toba_http::headers_download($this->tipo_salida, $this->nombre_archivo, $longitud, $this->tipo_descarga);
 	}
 	
 
