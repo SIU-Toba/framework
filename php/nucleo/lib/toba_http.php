@@ -55,12 +55,12 @@ class toba_http
 		}
 	}
 	
-	static function headers_download($tipo, $archivo, $longitud, $disposition='attachment') 
+	static function headers_download($tipo_descarga, $archivo, $longitud, $tipo_salida='application/pdf') 
 	{ 
 		header("Cache-Control: private"); 
-		header("Content-type: $tipo"); 
+		header("Content-type: $tipo_salida"); 
 		header("Content-Length: $longitud"); 
-		header("Content-Disposition: $disposition; filename=$archivo"); 
+		header("Content-Disposition: $tipo_descarga; filename=$archivo"); 
 		header("Pragma: no-cache"); 
 		header("Expires: 0"); 
 

@@ -14,7 +14,7 @@ class toba_vista_jasperreports
 	protected $tipo_descarga = 'attachment';
 	protected $jasper;
 	protected $temp_salida;
-	protected $tipo_salida ='attachment';
+	protected $tipo_salida = 'application/pdf';
 	
 
 	// Parametros para el reporte
@@ -170,7 +170,7 @@ class toba_vista_jasperreports
 	 */
 	function set_tipo_descarga( $tipo )
 	{
-		$this->tipo_salida = $tipo;
+		$this->tipo_descarga = $tipo;
 	}
 	
 	/**
