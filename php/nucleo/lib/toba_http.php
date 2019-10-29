@@ -3,14 +3,14 @@
 /**
  * Maneja HEADERS de HTTP.
  * Hay que llamarla antes de devolver cualquier tipo de contenido o llamar a session_start
- * 
+ *
  * @package SalidaGrafica
  */
 class toba_http
 {
 	static protected $nombre_ini = 'web_server.ini';
 	static protected $config;
-	
+
 	static function cache()
 	//Induce al BROWSER a cachear esta pagina
 	{
@@ -26,13 +26,13 @@ class toba_http
 		header("Cache-Control: no-cache, must-revalidate");					// HTTP/1.1
 		header("Pragma: no-cache");
 	}
-	
+
 	static function pdf()
 	{
 		header('Content-type: application/pdf');
 		header('Content-Disposition: attachment; filename="downloaded.pdf"');
 	}
-	
+
 	static function encoding()
 	{
 		header('Content-Type: text/html; charset=iso-8859-1');
@@ -44,7 +44,7 @@ class toba_http
 		//Parche para solucionar el error del HISTORY BACK de los browsers:
 		//	cuando la pagina anterior fue solicitada con un POST y se presiona el boton BACK
 		//	se muestra un mensaje de pagina caducada y un usuario puede pensar que es un error del sistema
-		//	Este error de transparencia del cache esta comentado en el RFC del HTTP 
+		//	Este error de transparencia del cache esta comentado en el RFC del HTTP
 		self::encoding();
 		if (acceso_post()){
 			if (!headers_sent()) {
@@ -54,35 +54,35 @@ class toba_http
 			}
 		}
 	}
-	
-	static function headers_download($tipo, $archivo, $longitud) 
-	{ 
-		header("Cache-Control: private"); 
-		header("Content-type: $tipo"); 
-		header("Content-Length: $longitud"); 
-		header("Content-Disposition: attachment; filename=$archivo"); 
-		header("Pragma: no-cache"); 
-		header("Expires: 0"); 
 
-	} 
-	
+	static function headers_download($tipo_salida, $archivo, $longitud, $tipo_descarga = 'attachment')
+	{
+		header("Cache-Control: private");
+		header("Content-type: $tipo_salida");
+		header("Content-Length: $longitud");
+		header("Content-Disposition: $tipo_descarga; filename=$archivo");
+		header("Pragma: no-cache");
+		header("Expires: 0");
+
+	}
+
 	static function get_url_actual($incluir_qs= false, $incluir_uri=false)
 	{
 		$qs =self::get_query_string();
 		$ru = self::get_uri();
 		$url = self::get_protocolo() . self::get_nombre_servidor();
-		if ($incluir_uri) {		
+		if ($incluir_uri) {
 			$url .= $ru;
 		}
-		if ($incluir_qs) {		
+		if ($incluir_qs) {
 			if ($qs != '' && stripos($ru, $qs) === FALSE) {			//Si el querystring no esta dentro del request uri, lo agrego
 				$url .= $qs;
-			}			
+			}
 		}
-		
+
 		return $url;
 	}
-	
+
 	static function get_protocolo($basado_en_host = true, $forzar_seguro = false)
 	{
 		$basico = 'http';
@@ -92,7 +92,7 @@ class toba_http
 		$basico .= '://';
 		return $basico;
 	}
-	
+
 	static function get_nombre_servidor()
 	{
 		$srv_name = self::get_config('SERVER_NAME');					//Igual a HTTP_HOST si no esta forzando UseCanonicalName pero escapado minimamente
@@ -103,39 +103,39 @@ class toba_http
 		}
 		return $nombre;
 	}
-	
+
 	static function usa_protocolo_seguro()
 	{
 		$secure = self::get_config('HTTPS');
 		return (isset($secure) && (strtolower($secure) != 'off'));		//Hay que poder forzarlo
 	}
-	
+
 	static function get_puerto()
 	{
 		return self::get_config('SERVER_PORT');
 	}
-	
+
 	static function get_uri()
 	{
 		return self::strleft($_SERVER['REQUEST_URI'], '?');
 	}
-		
+
 	static function get_query_string()
 	{
 		$qs = isset($_SERVER['QUERY_STRING']) ? $_SERVER['QUERY_STRING']: '';
 		return $qs;
 	}
-	
+
 	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
-	protected static function strleft($s1, $s2) 
+	protected static function strleft($s1, $s2)
 	{
 		$length = strpos($s1, $s2);
 		if ($length !== false) {
 			return substr($s1, 0, $length);
-		} 		
+		}
 		return $s1;
 	}
-	
+
 	protected static function get_config($entrada)
 	{
 		$entrada_file = strtolower($entrada);
