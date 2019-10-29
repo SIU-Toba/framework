@@ -669,7 +669,7 @@ class RegistryHooksProyectoToba implements HooksInterface
         protected function activarAppLauncher()
         {
             $proyecto = $this->getModeloProyecto();
-            $parametro = $proyecto->get_parametro('proyecto', 'appLauncher', false);
+            $parametro = $proyecto->get_parametro('proyecto', 'app_launcher', false);
             if (is_null($parametro) || trim($parametro) == '') {
                 $iniName = realpath($proyecto->get_dir() . '/proyecto.ini');
                 if (false === $iniName) {
@@ -679,7 +679,7 @@ class RegistryHooksProyectoToba implements HooksInterface
                 $valores = $iniFile->get_datos_entrada('proyecto');
 
                 //Fijo valor y guardo
-                $valores['appLauncher'] = 1;
+                $valores['app_launcher'] = 1;
                 $iniFile->set_datos_entrada('proyecto', $valores);
                 $iniFile->guardar();
             }
