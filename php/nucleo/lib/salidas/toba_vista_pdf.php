@@ -2,8 +2,8 @@
 /**
  * Genera un pdf a través de una api básica
  * @package SalidaGrafica
- * @todo La numeración de páginas no funcionará si se cambia la orientación de la misma. Habría que 
- * implementar un método que en base al tipo de papel y orientación de la página, devuelva las 
+ * @todo La numeración de páginas no funcionará si se cambia la orientación de la misma. Habría que
+ * implementar un método que en base al tipo de papel y orientación de la página, devuelva las
  * coordenadas para una correcta visualización de la numeración de páginas.
  * @todo El método insertar_imagen esta implementado con un método en estado beta de la api ezpdf. Usar
  * con discreción.
@@ -15,17 +15,18 @@ class toba_vista_pdf
 	/**
 	 * @var Cezpdf
 	 */
-	protected $pdf;	
+	protected $pdf;
 	protected $texto_pie;
 	protected $nombre_archivo = 'archivo.pdf';
 	protected $tipo_descarga = 'attachment';
+        protected $tipo_salida = 'application/pdf';
 	protected $temp_salida;
-	
+
 	function __construct()
 	{
 		$this->inicializar();
 	}
-	
+
 	/**
 	 * @ventana Lugar donde se puede cambiar alguna configuracion del objeto Cezpdf
 	 */
@@ -34,26 +35,26 @@ class toba_vista_pdf
 		$this->pdf = new Cezpdf($this->configuracion['hoja_tamanio'], $this->configuracion['hoja_orientacion']);
 		$this->set_pdf_fuente();
 	}
-	
+
 	/**
-	 * @ignore 
+	 * @ignore
 	 */
 	function asignar_objetos( $objetos )
 	{
 		$this->objetos = $objetos;
 	}
-	
+
 	//------------------------------------------------------------------------
 	//-- Configuracion
 	//------------------------------------------------------------------------
-	
+
 	/**
 	 * Genera el encabezado y pie del pdf
 	 * @todo Implementar
-	 */	
+	 */
 	protected function generar_pdf_encabezado_pie(){}
-	
-	
+
+
 	/**
 	 * @ignore
 	 * @todo Implementar junto a un set_texto_encabezado
@@ -62,27 +63,27 @@ class toba_vista_pdf
 	{
 		$this->texto_pie = 	$texto;
 	}
-	
+
 	/**
 	 * @param string $nombre Nombre del archivo pdf + la extension del mismo (pdf)
 	 */
-	
+
 	function set_nombre_archivo( $nombre )
 	{
 		$this->nombre_archivo = $nombre;
 	}
-	
+
 	/**
 	 * Permite setear el tipo de descarga pdf desde el browser, inline o attachment
 	 * @param string $tipo inline o attachment
 	 */
 	function set_tipo_descarga( $tipo )
 	{
-		$this->tipo_salida = $tipo;
+		$this->tipo_descarga = $tipo;
 	}
-	
+
 	/**
-	 * Cambia el tamaño del papel, se debe llamar a un inicializar 
+	 * Cambia el tamaño del papel, se debe llamar a un inicializar
 	 * para que tenga efecto sobre una hoja ya creada (la inicial por ejemplo)
 	 * @param string $tamanio Tipo de página (por defecto a4)
 	 */
@@ -92,7 +93,7 @@ class toba_vista_pdf
 	}
 
 	/**
-	 * Cambia la orientacion del papel, se debe llamar a un inicializar 
+	 * Cambia la orientacion del papel, se debe llamar a un inicializar
 	 * para que tenga efecto sobre una hoja ya creada (la inicial por ejemplo)
 	 * @param string $orientacion portrait o landscape
 	 */
@@ -100,7 +101,7 @@ class toba_vista_pdf
 	{
 		$this->configuracion['hoja_orientacion'] = $orientacion;
 	}
-	
+
 	/**
 	 * Cambia la fuente para futuras inserciones de texto
 	 * @param string $fuente Nombre del archivo de la fuente (estan en la carpeta fonts de la libreria ezpdf)
@@ -110,25 +111,25 @@ class toba_vista_pdf
 		$this->configuracion['fuente'] = $fuente;
 		$this->pdf->selectFont(toba_dir() . '/php/3ros/ezpdf/fonts/' . $this->configuracion['fuente']);
 	}
-	
+
 
 	//------------------------------------------------------------------------
 	//-- Generacion del pdf
 	//------------------------------------------------------------------------
 
 	/**
-	 * @ignore 
+	 * @ignore
 	 */
 	function generar_salida()
-	{	
+	{
 		$this->generar_pdf_encabezado_pie();
 		foreach( $this->objetos as $objeto ) {
-			$objeto->vista_pdf( $this );	
+			$objeto->vista_pdf( $this );
 		}
 		$this->parar_numeracion_paginas();
 		return $this->crear_pdf();
 	}
-	
+
 	/**
 	 * Devuelve el objeto pdf para manipular a gusto y piachere.
 	 * @return Cezpdf
@@ -137,7 +138,7 @@ class toba_vista_pdf
 	{
 		return $this->pdf;
 	}
-	
+
 	/**
 	 * Indica el momento en el que se comienzan a numerar las páginas.
 	 * @param string $posicion Indica la posicion de la numeracion de las paginas (left,right)
@@ -149,12 +150,12 @@ class toba_vista_pdf
 	{
 		$this->pdf->ezStartPageNumbers(500,20,8,$posicion,$formato,1);
 	}
-	
+
 	function parar_numeracion_paginas()
 	{
 		$this->pdf->ezStopPageNumbers(1,1);
 	}
-	
+
 	protected function crear_pdf()
 	{
 		toba::logger()->debug("Mensajes PDF: ".$this->pdf->messages);
@@ -169,16 +170,16 @@ class toba_vista_pdf
    		$this->cabecera_http( strlen(ltrim($this->temp_salida)) );
    		echo ltrim($this->temp_salida);
 	}
-	
+
 	protected function cabecera_http( $longitud )
 	{
-		toba_http::headers_download($this->tipo_descarga, $this->nombre_archivo, $longitud);
+		toba_http::headers_download($this->tipo_salida, $this->nombre_archivo, $longitud, $this->tipo_descarga);
 	}
 
 	//------------------------------------------------------------------------
 	//-- Primitivas graficas
 	//------------------------------------------------------------------------
-	
+
 	/**
 	 * Dado un porcentaje, retorna el valor absoluto del ancho de la pagina segun sus medidas actuales
 	 * @param int $porcentaje
@@ -188,42 +189,42 @@ class toba_vista_pdf
 		$ancho_visible = ($this->pdf->ez['pageWidth'] - $this->pdf->ez['rightMargin']) - $this->pdf->ez['leftMargin'];
 		return $ancho_visible * $porcentaje / 100;
 	}
-	
-	function salto_linea() 
+
+	function salto_linea()
 	{
 		$this->pdf->ezText("\n");
 	}
-	
-	function separacion( $espacio=6 ) 
+
+	function separacion( $espacio=6 )
 	{
 		$this->pdf->ezSetDy( -$espacio, 'makeSpace' );
 	}
-	
-	function salto_pagina() 
+
+	function salto_pagina()
 	{
 		$this->pdf->ezNewPage();
 	}
-	
+
 	function titulo( $texto )
 	{
-		$this->pdf->ezText(utf8_encode("<b>$texto</b>"), 11, array( 'justification' => 'center' ));					
+		$this->pdf->ezText(utf8_encode("<b>$texto</b>"), 11, array( 'justification' => 'center' ));
 	}
-	
+
 	function subtitulo( $texto )
 	{
-		$this->pdf->ezText(utf8_encode("<b>$texto</b>"), 9, array( 'justification' => 'left' ));					
+		$this->pdf->ezText(utf8_encode("<b>$texto</b>"), 9, array( 'justification' => 'left' ));
 	}
 
 	function mensaje( $texto )
 	{
-		$this->pdf->ezText(utf8_encode("<i>$texto</i>"), 8, array( 'justification' => 'left' ));					
+		$this->pdf->ezText(utf8_encode("<i>$texto</i>"), 8, array( 'justification' => 'left' ));
 	}
-	
+
 	function texto( $texto, $tamanio=8, $opciones=array( 'justification' => 'left'))
 	{
-		$this->pdf->ezText(utf8_encode($texto), $tamanio, $opciones);	
+		$this->pdf->ezText(utf8_encode($texto), $tamanio, $opciones);
 	}
-	
+
 	/**
 	 * Inserta una imagen siguiendo el flujo del texto en el documento.
 	 * @version OJO! ezImage es un método en estado beta de la clase ezpdf y por lo que pude ver
@@ -233,9 +234,9 @@ class toba_vista_pdf
 	 */
 	function insertar_imagen($archivo,$pad=5,$width=0,$alineacion='left')
 	{
-		$this->pdf->ezImage("$archivo",$pad,$width,'none',$alineacion); 	
+		$this->pdf->ezImage("$archivo",$pad,$width,'none',$alineacion);
 	}
-	
+
 	/**
 	 * Genera una tabla para impresion en pdf
 	 *
@@ -254,7 +255,7 @@ class toba_vista_pdf
 		$opciones_def = array(
 						'splitRows'=>0,
 						'rowGap' => 1,
-						'showHeadings' => $ver_tit_col,	
+						'showHeadings' => $ver_tit_col,
 						'titleFontSize' => 9,
 						'fontSize' => $tamanio,
 						'shadeCol' => array(0.9,0.9,0.9),
