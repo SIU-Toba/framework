@@ -90,10 +90,9 @@ class ci_editor extends toba_ci
 
 		// quito los campos que no se utilizan cuando esta vinculado con arai-usuarios y ademas usa 2FA
                 if (toba::instalacion()->vincula_arai_usuarios()) {
-                    $efs = array('usuario', 'nombre', 'email', 'clave', 'forzar_cambio_pwd', 'vencimiento');
+                    $efs = array('usuario', 'nombre', 'email', 'clave', 'forzar_cambio_pwd', 'vencimiento', 'pide_2do_factor');
                     if (toba::instalacion()->usa_2FA()) {
-                        //$efs = array_diff($efs, ['clave', 'forzar_cambio_pwd']);          //Falta que pueda cambiar el password localmente para esto.
-                        unset($efs[3]);
+                        $efs = array_diff($efs, ['clave', 'pide_2do_factor']);
                     }
                 } else {
                     $efs = array('usuario_arai', 'cuenta', 'pide_2do_factor');
