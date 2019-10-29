@@ -34,7 +34,6 @@
         "siu-toba/text_highlighter": "~0.8",
         "siu-toba/services_json": "^1.0.3.3", 
         "siu/arai-json-migrator": "~1.0",
-        "siu/rdi": "~0.9",        
         "vlucas/phpdotenv": "~3.1",
         "ioncube/php-openssl-cryptor": "dev-master",
         "siu/manejador-salida-toba" : "^1.0",
@@ -49,7 +48,8 @@
         "siu/arai-json-parser": "*",
         "siu/arai-json-migrator": "*",
         "paragonie/halite": "1.6.0",
-        "siu/manejador-salida-bootstrap" : "^1.0"
+        "siu/manejador-salida-bootstrap" : "^1.0",
+        "siu/rdi": "Permite almacenar documentos en un ECM"
     },
     "suggest": {
         "siu-toba/jasper": "Permite imprimir reportes via Jasper desde SIU-Toba",
