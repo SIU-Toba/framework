@@ -24,7 +24,7 @@ class toba_autenticacion_saml_onelogin extends toba_autenticacion implements tob
 			if (isset($parametros['basicos']['permite_login_toba'])) {
 				$this->permite_login_toba = ($parametros['basicos']['permite_login_toba'] == 1);
 			}
-                        if (isset($parametros['basicos']['usa_proxy_vars']) && method_exists('Utils', 'setProxyVars')) {
+                        if (isset($parametros['basicos']['usa_proxy_vars']) && method_exists('OneLogin\Saml2\Utils', 'setProxyVars')) {
                             Utils::setProxyVars($parametros['basicos']['usa_proxy_vars'] == 1);
                         }
 
