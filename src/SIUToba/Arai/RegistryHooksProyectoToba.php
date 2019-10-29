@@ -129,7 +129,8 @@ class RegistryHooksProyectoToba implements HooksInterface
 	 */
 	public function postSync()
 	{
-
+            //Activa el appLauncher para el proyecto luego de hacer un sync
+            $this->activarAppLauncher();
 	}
 
 	//---------------------------------------------------------------
@@ -664,6 +665,25 @@ class RegistryHooksProyectoToba implements HooksInterface
 
 		 return $credentials;
 	}
+
+        protected function activarAppLauncher()
+        {
+            $proyecto = $this->getModeloProyecto();
+            $parametro = $proyecto->get_parametro('proyecto', 'appLauncher', false);
+            if (is_null($parametro) || trim($parametro) == '') {
+                $iniName = realpath($proyecto->get_dir() . '/proyecto.ini');
+                if (false === $iniName) {
+                    throw new \Exception('No se encontro el archivo proyecto.ini');
+                }
+                $iniFile = new \toba_ini($iniName);
+                $valores = $iniFile->get_datos_entrada('proyecto');
+
+                //Fijo valor y guardo
+                $valores['appLauncher'] = 1;
+                $iniFile->set_datos_entrada('proyecto', $valores);
+                $iniFile->guardar();
+            }
+        }
 
 	//-----------------------------------------------------------------------------//
 	public static function checkVersionCompatible()
