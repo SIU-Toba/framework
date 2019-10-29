@@ -48,15 +48,15 @@
         "siu/arai-json-parser": "*",
         "siu/arai-json-migrator": "*",
         "paragonie/halite": "1.6.0",
-        "siu/manejador-salida-bootstrap" : "^1.0",
-        "siu/rdi": "Permite almacenar documentos en un ECM"
+        "siu/manejador-salida-bootstrap" : "^1.0"
     },
     "suggest": {
         "siu-toba/jasper": "Permite imprimir reportes via Jasper desde SIU-Toba",
         "siu/arai-reportes": "Permite imprimir reportes via un servidor Jasper desde SIU-Toba",
         "siu/arai-cli" : "Librería cliente de los componentes ARAI",
         "siu/manejador-salida-bootstrap": "Permite generar un marcado HTML responsive",
-        "simplesamlphp/simplesamlphp": "Permite conectarse a un IDP centralizado (see onelogin)"
+        "simplesamlphp/simplesamlphp": "Permite conectarse a un IDP centralizado (see onelogin)",
+        "siu/rdi": "Permite almacenar documentos en un ECM"
     },
     "conflict": {
         "siu/arai-cli": "<2.5.0",
