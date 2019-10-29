@@ -3,26 +3,26 @@
 class ci_editor extends toba_ci
 {
 	const clave_falsa = 'xS34Io9gF2JD';					//La clave no se envia al cliente
-	
+
 	protected $s__proyecto;
 	protected $s__usuario;
 	protected $s__usuario_arai;
-				
+
 	function ini()
 	{
 		toba::solicitud()->set_autocomplete(false);	//Evita que el browser quiera guardar la clave de usuario
 	}
-	
+
 	function datos($tabla)
 	{
 		return $this->controlador->dep('datos')->tabla($tabla);
 	}
-	
+
 	function limpiar_datos()
 	{
 		unset($this->s__proyecto);
 	}
-	
+
 	function conf()
 	{
 		if ($this->controlador()->dep('datos')->esta_cargada()) {
@@ -36,17 +36,17 @@ class ci_editor extends toba_ci
 		} else {
 			$this->controlador->pantalla()->eliminar_evento('eliminar');
 		}
-		
+
 		// Elimina la dependencia form_pregunta_secreta cuando esta vinculado a arai-usuarios
-		if (toba::instalacion()->vincula_arai_usuarios() && $this->pantalla('usuario')->existe_dependencia('form_pregunta_secreta')) {			
+		if (toba::instalacion()->vincula_arai_usuarios() && $this->pantalla('usuario')->existe_dependencia('form_pregunta_secreta')) {
 			$this->pantalla('usuario')->eliminar_dep('form_pregunta_secreta');
 		}
 	}
-	
+
 	function conf__proyecto()
 	{
 		if (!isset($this->s__proyecto)) {
-			$this->pantalla('proyecto')->eliminar_dep('form_proyectos');	
+			$this->pantalla('proyecto')->eliminar_dep('form_proyectos');
 		}
 	}
 
@@ -63,8 +63,8 @@ class ci_editor extends toba_ci
 		}
 
 		if ($datos['clave'] == self::clave_falsa ) {
-			unset($datos['clave']);	
-		} else {						//Chequeamos que la composicion de la clave sea valida			
+			unset($datos['clave']);
+		} else {						//Chequeamos que la composicion de la clave sea valida
 			toba_usuario::verificar_composicion_clave($datos['clave'], $largo_clave);
 		}
 
@@ -84,17 +84,21 @@ class ci_editor extends toba_ci
 		$largo_clave = toba_parametros::get_largo_pwd(null);							//Como aun no se sobre que proyecto trabajo.. el largo es el por defecto, osea 8.
 		$form->ef('clave')->set_expreg(toba_usuario::get_exp_reg_pwd($largo_clave));
 		$form->ef('clave')->set_descripcion("La clave debe tener al menos $largo_clave caracteres, entre letras mayúsculas, minúsculas, números y símbolos, no pudiendo repetir caracteres adyacentes");
-		
+
 		// obtengo los datos de arai-usuarios
 		$datos = gestion_arai_usuarios::get_datos($datos);
 
-		// quito los campos que no se utilizan cuando esta vinculado con arai-usuarios
-		if (toba::instalacion()->vincula_arai_usuarios()) {
-			$form->desactivar_efs(array('usuario', 'nombre', 'email', 'clave', 'forzar_cambio_pwd', 'vencimiento'));
-		} else {
-			$form->desactivar_efs(array('usuario_arai', 'cuenta'));
-		}
-		
+		// quito los campos que no se utilizan cuando esta vinculado con arai-usuarios y ademas usa 2FA
+                if (toba::instalacion()->vincula_arai_usuarios()) {
+                    $efs = array('usuario', 'nombre', 'email', 'clave', 'forzar_cambio_pwd', 'vencimiento');
+                    if (toba::instalacion()->usa_2FA()) {
+                        //$efs = array_diff($efs, ['clave', 'forzar_cambio_pwd']);          //Falta que pueda cambiar el password localmente para esto.
+                        unset($efs[3]);
+                    }
+                } else {
+                    $efs = array('usuario_arai', 'cuenta', 'pide_2do_factor');
+                }
+                $form->desactivar_efs($efs);
 		return $datos;
 	}
 
@@ -102,16 +106,16 @@ class ci_editor extends toba_ci
 
 	function evt__proyecto__salida()
 	{
-		$this->datos('proyecto')->resetear_cursor();		
+		$this->datos('proyecto')->resetear_cursor();
 	}
 
 	function evt__cuadro_proyectos__seleccion($seleccion)
 	{
 		$this->s__proyecto = $seleccion['proyecto'];
 	}
-	
+
 	function conf__cuadro_proyectos($componente)
-	{	
+	{
 		$proyectos = consultas_instancia::get_lista_proyectos();
 		foreach ($proyectos as $id => $proyecto) {
 			$grupos_acceso = $this->datos('proyecto')->get_filas(array('proyecto' => $proyecto['proyecto']));
@@ -133,24 +137,24 @@ class ci_editor extends toba_ci
 	}
 
 	function evt__form_proyectos__modificacion($datos)
-	{		
+	{
 		//-- Perfil funcional -------------------------
 		$id = $this->datos('proyecto')->get_id_fila_condicion(array('proyecto'=>$this->s__proyecto));
 		foreach ($id as $clave) {
 			$this->datos('proyecto')->eliminar_fila($clave);
-		}		
+		}
 		$fila = array('proyecto' => $this->s__proyecto, 'usuario' => $this->s__usuario);
 		foreach ($datos['usuario_grupo_acc'] as $grupo_acceso) {
 			$fila['usuario_grupo_acc'] = $grupo_acceso;
 			$this->datos('proyecto')->nueva_fila($fila);
 		}
-		
+
 		//-- Perfil datos -----------------------------
 		$id = $this->datos('proyecto_pd')->get_id_fila_condicion(array('proyecto'=>$this->s__proyecto));
 		foreach ($id as $clave) {
 			$this->datos('proyecto_pd')->eliminar_fila($clave);
-		}		
-		
+		}
+
 		$fila = array('proyecto' => $this->s__proyecto, 'usuario' => $this->s__usuario);
 		foreach ($datos['usuario_perfil_datos'] as $perfil) {
 			$fila['usuario_perfil_datos'] = $perfil;
@@ -173,25 +177,25 @@ class ci_editor extends toba_ci
 		}
 		$this->limpiar_datos();
 	}
-	
+
 	function evt__form_proyectos__cancelar()
 	{
 		unset($this->s__proyecto);
 	}
-	
+
 	function conf__form_proyectos($componente)
 	{
 		if (isset($this->s__proyecto)) {
 			$datos = array();
 			$datos['proyecto'] = $this->s__proyecto;
 			//-- Perfil funcional -------------------------
-			$grupo_acc = $this->datos('proyecto')->get_filas(array('usuario'=> $this->s__usuario, 'proyecto'=>$this->s__proyecto));			
+			$grupo_acc = $this->datos('proyecto')->get_filas(array('usuario'=> $this->s__usuario, 'proyecto'=>$this->s__proyecto));
 			$ga_seleccionados = array();
 			foreach ($grupo_acc as $ga) {
 				$ga_seleccionados[] = $ga['usuario_grupo_acc'];
 			}
 			$datos['usuario_grupo_acc'] = $ga_seleccionados;
-			
+
 			//-- Perfil datos -----------------------------
 			$pd_seleccionados = array();
 			$perfil_datos = $this->datos('proyecto_pd')->get_filas(array('usuario'=> $this->s__usuario, 'proyecto'=>$this->s__proyecto));
@@ -243,9 +247,9 @@ class ci_editor extends toba_ci
 		}
 		$this->datos('pregunta_secreta')->procesar_filas($datos);
 	}
-		
+
 	//---- Consultas ---------------------------------------------------
-	
+
 	function get_lista_grupos_acceso_proyecto()
 	{
 		$proyecto = quote($this->s__proyecto);
@@ -256,25 +260,25 @@ class ci_editor extends toba_ci
 				WHERE 	proyecto = $proyecto;";
 		return toba::db()->consultar($sql);
 	}
-	
+
 	private function encriptar_datos($dato_original)
-	{	
+	{
 		if (trim($dato_original) != '') {
 			$clave = toba::instalacion()->get_claves_encriptacion();
 			$cripter = toba_encriptador::instancia();
 			return $cripter->encriptar($dato_original, $clave['get']);
 		}
 	}
-	
+
 	private function desencriptar_datos($dato_encriptado)
 	{
 		if (trim($dato_encriptado) != '') {
-			$clave = toba::instalacion()->get_claves_encriptacion();		
+			$clave = toba::instalacion()->get_claves_encriptacion();
 			$cripter = toba_encriptador::instancia();
 			return $cripter->desencriptar($dato_encriptado, $clave['get']);
 		}
 	}
-	
+
 	public function get_usuario_arai() {
 		return $this->s__usuario_arai;
 	}

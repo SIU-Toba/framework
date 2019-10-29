@@ -159,6 +159,19 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 		}
 	}
 
+        /**
+         * Retorna si la instalacion utiliza en sus proyectos 2do Factor de autenticacion
+         * @return boolean
+         */
+        function usa_2FA()
+        {
+		if (toba::config()->existe_valor('instalacion', null, 'usa_2do_factor')) {
+			return (toba::config()->get_parametro('instalacion', null, 'usa_2do_factor') == '1');
+		} else {
+			return false;
+		}
+        }
+
 	/**
 	 * Retorna si se debe realizar el chequeo de revisiones de metadatos desde toba_editor.
 	 * Se usa el parametro 'chequea_sincro_svn' 0|1

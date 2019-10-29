@@ -404,7 +404,7 @@ class toba_instancia
                                         parametro_a as                              parametro_a,
                                         parametro_b as                              parametro_b,
                                         parametro_c as                              parametro_c,
-                                        COALESCE(0, requiere_segundo_factor) as     require_2do_factor
+                                        COALESCE(requiere_segundo_factor,0) as     require_2do_factor
                                 FROM 	apex_usuario u
                                 WHERE	usuario IN ('. implode(',' , $usuario_list) . ')';
 			$rs = $this->get_db()->consultar($sql);
