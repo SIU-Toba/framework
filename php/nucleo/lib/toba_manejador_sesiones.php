@@ -1,10 +1,9 @@
 <?php
-	
+
 define("apex_sesion_qs_finalizar","fs");    	//SOLICITUD de finalizacion de sesion
 define("apex_sesion_qs_cambio_proyecto","cps"); //SOLICITUD de cambio e proyecto: cerrar sesion y abrir nueva
 define('apex_sesion_qs_cambio_pf', 'cpf');	//Solicitud de cambio de perfil funcional activo
 define('apex_sesion_qs_cambio_usuario', 'alcu'); //Solicitud de cambio de usuario via App Launcher
-
 
 /**
  * Maneja los segmentos de memoria y el proceso de creacion de sesiones
@@ -22,18 +21,18 @@ class toba_manejador_sesiones
 	private $autenticacion = null;
 	private $contrasenia_vencida = false;
 	private $_usuarios_posibles=array();
-	
+
 	/**
 	 * @return toba_manejador_sesiones
 	 */
 	static function instancia()
 	{
 		if (!isset(self::$instanciacion)) {
-			self::$instanciacion = new toba_manejador_sesiones();	
+			self::$instanciacion = new toba_manejador_sesiones();
 		}
-		return self::$instanciacion;	
+		return self::$instanciacion;
 	}
-	
+
 	static function verificar_directorio_toba()
 	{
 	    if (!defined('TOBA_DIR')) {
@@ -43,26 +42,36 @@ class toba_manejador_sesiones
 
 	private function __construct()
 	{
-		if (!defined('TOBA_DIR')) {
-		    define('TOBA_DIR', toba_nucleo::toba_dir());
-		}
-		if (PHP_SAPI != 'cli') {
-			if (session_id() != '') {
-				throw new toba_error("Ya existe una sesión abierta, probablemente tenga activado session.auto_start = 1 en el php.ini");
-			}
-			if (! toba_nucleo::instancia()->es_acceso_rest()) {
-				session_name(toba::instalacion()->get_session_name());
-				session_start();
-			}
-		}
-		$this->instancia = toba_instancia::get_id();
-		$this->proyecto = toba_proyecto::get_id();
-		
-		if(session_status() == PHP_SESSION_ACTIVE && !isset($_SESSION[TOBA_DIR]['nucleo'])) { //Primer acceso al sistema
-			$_SESSION[TOBA_DIR]['nucleo']['inicio'] = time();		
-		}
+            if (!defined('TOBA_DIR')) {
+                define('TOBA_DIR', toba_nucleo::toba_dir());
+            }
+            if (PHP_SAPI != 'cli') {
+                $this->iniciar_session_php();
+            }
+            $this->instancia = toba_instancia::get_id();
+            $this->proyecto = toba_proyecto::get_id();
+
+            if(session_status() == PHP_SESSION_ACTIVE && !isset($_SESSION[TOBA_DIR]['nucleo'])) { //Primer acceso al sistema
+                    $_SESSION[TOBA_DIR]['nucleo']['inicio'] = time();
+            }
 	}
-	
+
+        private function iniciar_session_php()
+        {
+            //Instancio el handler y configuro via ini_set
+            $handler = $this->instanciar_handler();
+            $handler->read_env_settings();
+            $handler->configure_settings();
+
+            if (session_id() != '') {
+                    throw new toba_error("Ya existe una sesión abierta, probablemente tenga activado session.auto_start = 1 en el php.ini");
+            }
+            if (! toba_nucleo::instancia()->es_acceso_rest()) {
+                    session_name(toba::instalacion()->get_session_name());
+                    session_start();
+            }
+        }
+
 	static function enviar_csrf_hidden()
 	{
 		$tm = toba::memoria();
@@ -71,7 +80,7 @@ class toba_manejador_sesiones
 			echo toba_form::hidden(apex_sesion_csrt, $valor);
 		}
 	}
-	
+
 	//------------------------------------------------------------------
 	//---  API para el manejo de sesiones ------------------------------
 	//------------------------------------------------------------------
@@ -96,7 +105,7 @@ class toba_manejador_sesiones
 			throw new  toba_error_login_contrasenia_vencida('La contraseña actual del usuario ha caducado');
 		}
 		$this->procesar_acceso_instancia($id_usuario, $datos_iniciales);
-		
+
 		// Se recarga el nucleo, esta vez sobre una sesion activa.
 		if (toba::nucleo()->solicitud_en_proceso()) {
 			throw new toba_reset_nucleo('INICIAR SESION... recargando el nucleo.');
@@ -137,13 +146,13 @@ class toba_manejador_sesiones
 
 		//Mando a hacer el logout para los tipos de autenticacion externos.
 		$this->get_autenticacion()->logout();
-		
+
 		// Se recarga el nucleo, esta vez sobre una sesion INACTIVA.
 		if (toba::nucleo()->solicitud_en_proceso()) {
 			throw new toba_reset_nucleo('FINALIZAR SESION... recargando el nucleo.');
 		}
 	}
-	
+
 	/**
 	 * Realiza un cambio de usuario en runtime
 	 * @param string $actual  ID del usuario actual
@@ -155,7 +164,7 @@ class toba_manejador_sesiones
 	{
 		//verificar usuario actual
 		if ($actual != toba::usuario()->get_id()) {
-			throw new toba_error_seguridad('El usuario actual no es el especificado');			
+			throw new toba_error_seguridad('El usuario actual no es el especificado');
 		}
 		//Verificar que el usuario nuevo esta en la lista de posibles fijada por el app_launcher
 		$mapeo = $this->recuperar_mapeo_usuarios($nuevo , $this->_usuarios_posibles);
@@ -165,8 +174,8 @@ class toba_manejador_sesiones
 		//Si todo va bien.
 		$this->procesar_salida_proyecto("Logout por cambio de usuario");			//Redirije a la pantalla de login, quizas hay que hacer algo distinto por ejemplo, no borrar la sesion
 		$this->procesar_acceso_instancia($mapeo, $datos_iniciales);
-	}	
-		
+	}
+
 	/**
 	*	Entrada a un proyecto desde la operación de inicializacion de sesion
 	*/
@@ -175,22 +184,22 @@ class toba_manejador_sesiones
 		//Login anonimo de sesiones extendidas.
 		if ( ! toba::proyecto()->get_parametro('requiere_validacion') ) {
 			$this->login_anonimo($datos_iniciales);
-		}		
-		$this->procesar_acceso_proyecto($datos_iniciales);			
+		}
+		$this->procesar_acceso_proyecto($datos_iniciales);
 		if (toba::nucleo()->solicitud_en_proceso()) {
 			throw new toba_reset_nucleo('INICIAR SESION PROYECTO... recargando el nucleo.');
 		}
 	}
-	
+
 	/**
-	 * Delega la autenticación del proyecto a un objeto 
+	 * Delega la autenticación del proyecto a un objeto
 	 * @param toba_autenticable $autenticacion Objeto responsable de la autenticacion
 	 */
 	function set_autenticacion(toba_autenticable $autenticacion)
 	{
 		$this->autenticacion = $autenticacion;
 	}
-	
+
 	function get_autenticacion() {
 		if (!isset($this->autenticacion)) {
 			switch (toba::instalacion()->get_tipo_autenticacion()) {
@@ -205,15 +214,15 @@ class toba_manejador_sesiones
 					break;
 				case 'saml':
 					$this->set_autenticacion(new toba_autenticacion_saml());
-					break;		
+					break;
 				case 'saml_onelogin':
 					$this->set_autenticacion(new toba_autenticacion_saml_onelogin());
-					break;						
+					break;
 				default:												//tipo == 'toba'
 					$this->set_autenticacion(new toba_autenticacion_basica());
-					break;					
+					break;
 			}
-		}		
+		}
 		return $this->autenticacion;
 	}
 
@@ -229,7 +238,7 @@ class toba_manejador_sesiones
 		$instancia = isset($instancia) ? $instancia : $this->instancia;
 		return isset($_SESSION[TOBA_DIR]['instancias'][$instancia]['id_usuario']);
 	}
-	
+
 	/**
 	* Devuelve true si existe una sesion para el proyecto actual
 	*/
@@ -330,7 +339,7 @@ class toba_manejador_sesiones
 	{
 		return isset($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$proyecto]);
 	}
-	
+
 	/**
 	*	Determina los perfiles funcionales pertenecientes del usuario actual
 	*/
@@ -341,17 +350,17 @@ class toba_manejador_sesiones
 		} else {
 			return $this->usuario()->get_perfiles_funcionales();
 		}
-	}	
-	
-	
+	}
+
+
 	/**
 	*	Determina los ids de restricciones funcionales pertenecientes al usuario actual segun sus perfiles activos
 	*/
 	function get_restricciones_funcionales()
 	{
 		return toba::usuario()->get_restricciones_funcionales($this->get_perfiles_funcionales_activos());
-	}	
-		
+	}
+
 	/**
 	 * Retorna los perfiles funcionales activos en la sesión actual
 	 * @return array
@@ -360,7 +369,7 @@ class toba_manejador_sesiones
 	{
 		return $this->perfiles_funcionales_activos;
 	}
-	
+
 	/**
 	 * Activa un subconjunto de los perfiles funcionales propios del usuario actual
 	 * @param array $activos
@@ -368,20 +377,20 @@ class toba_manejador_sesiones
 	function set_perfiles_funcionales_activos($activos)
 	{
 		$finales = array();
-		$perfiles = $this->get_perfiles_funcionales();		
+		$perfiles = $this->get_perfiles_funcionales();
 		//Validacion
 		foreach ($activos as $perfil) {
 			if (! in_array($perfil, $perfiles)) {
 				throw new toba_error_seguridad("Se esta intentando activar el perfil '$perfil' y el mismo no pertenece al usuario actual");
 			}
 			$finales[] = $perfil;
-			$membresias = toba::proyecto()->get_perfiles_funcionales_asociados($perfil);			
-			if (! empty($membresias)) {				
+			$membresias = toba::proyecto()->get_perfiles_funcionales_asociados($perfil);
+			if (! empty($membresias)) {
 				$finales = array_merge($finales, $membresias);
 			}
 		}
 		return $this->perfiles_funcionales_activos = array_unique($finales);
-	}	
+	}
 
 	/**
 	* @deprecated Desde 1.5 usar get_perfiles_funcionales
@@ -392,13 +401,13 @@ class toba_manejador_sesiones
 
 	}
 
-	function verificar_cambio_perfil_activo() 
+	function verificar_cambio_perfil_activo()
 	{
 		if (isset($_POST[apex_sesion_qs_cambio_pf]) && toba::proyecto()->permite_cambio_perfiles()) {
 			$perfil_solicitado = trim($_POST[apex_sesion_qs_cambio_pf]);
 			if ($perfil_solicitado != apex_ef_no_seteado) {
 				toba::logger()->debug('Seteando el perfil '. $perfil_solicitado . ' como activo para el proyecto ' . $this->proyecto);
-				$this->set_perfiles_funcionales_activos(array($perfil_solicitado));											
+				$this->set_perfiles_funcionales_activos(array($perfil_solicitado));
 			} else {
 				toba::logger()->debug('Seteando como activos para el proyecto los perfiles originales definidos.');
 				$this->set_perfiles_funcionales_activos($this->get_perfiles_funcionales());
@@ -406,7 +415,7 @@ class toba_manejador_sesiones
 			toba::memoria()->set_dato('usuario_perfil_funcional_seleccionado', $perfil_solicitado);
 		}
 	}
-	
+
 	/**
 	*	Determina el perfil de datos del usuario actual
 	* @deprecated 3.0.0
@@ -431,9 +440,9 @@ class toba_manejador_sesiones
 			return toba_editor::get_perfiles_datos_previsualizacion();
 		} else {
 			return $this->usuario()->get_perfiles_datos();
-		}		
-	}	
-	
+		}
+	}
+
 	function get_perfil_datos_activo()
 	{
 		if (! isset($this->perfiles_datos_activos)) {
@@ -441,7 +450,7 @@ class toba_manejador_sesiones
 		}
 		return $this->perfiles_datos_activos;
 	}
-	
+
 	/**
 	* @deprecated 3.0.0
 	* @see toba_manejador_sesiones::set_perfiles_datos_activos()
@@ -452,9 +461,9 @@ class toba_manejador_sesiones
 			if (! is_null($id_perfil)) {
 				$this->set_perfiles_datos_activos(array($id_perfil));
 			}
-		} 
+		}
 	}
-	
+
 	/**
 	 * Fija cuales son los perfiles de datos activos para el usuario actual, chequea contra configurados en base
 	 * @param array $perfiles
@@ -467,11 +476,11 @@ class toba_manejador_sesiones
 			$df = array_diff($perfiles, $disponibles);
 			 if (! empty($df)) {
 				throw new toba_error_seguridad('Alguno de los perfiles de datos seteado no es valido');
-			}			
+			}
 			$this->perfiles_datos_activos = $perfiles;
 		}
 	}
-	
+
 	//-----------  Acceso a los objetos USUARIO y SESION  ------------------
 
 	/**
@@ -481,8 +490,8 @@ class toba_manejador_sesiones
 	{
 		if( $this->existe_usuario_activo() && $this->existe_sesion_activa() ) {
 			if (!is_object($this->usuario)) {
-				toba::logger()->crit("MANEJADOR de SESIONES. Error de consistencia interna, 
-										la sesion y el usuario estan marcados como activos, 
+				toba::logger()->crit("MANEJADOR de SESIONES. Error de consistencia interna,
+										la sesion y el usuario estan marcados como activos,
 										pero la propiedad 'usuario' no se encuentra seteada");
 				return new toba_usuario_no_autenticado();
 			} else {
@@ -524,7 +533,7 @@ class toba_manejador_sesiones
 			try {
 				$this->control_finalizacion_sesion();
 				$this->registrar_activacion_sesion();
-				$this->control_cambio_usuario();				
+				$this->control_cambio_usuario();
 			} catch ( toba_error $e ) {
 				toba::logger()->debug('Pérdida de sesión: '. $e->getMessage());
 				$this->logout($e->getMessage());
@@ -545,7 +554,7 @@ class toba_manejador_sesiones
 						//La inicializacion automatica fallo, no pasa nada malo. Se prueba con item de inicializacion
 						toba::logger()->notice("MANEJADOR de SESIONES: Fallo la inicializacion automatica de la sesion del proyecto. " . $e->getMessage() ,'toba');
 					}
-				} 
+				}
 				// Tiene item de inicializacion
 				if ( $this->sesion_posse_item_inicializacion() ) {
 					//Apunto al nucleo al item de inicializacion de sesion
@@ -564,9 +573,9 @@ class toba_manejador_sesiones
 		}
 		if ( $this->modo_previsualizacion() ) {
 			$this->activar_editor();
-		}		
+		}
 	}
-	
+
 	private function comprobar_acceso_anonimo()
 	{
 		// Si el proyecto no requiere autentificacion disparo una sesion anonima
@@ -612,7 +621,7 @@ class toba_manejador_sesiones
 			unset($this->sesion);
 			$this->borrar_segmento_instancia();
 			throw $e;
-		}		
+		}
 	}
 
 	/**
@@ -666,7 +675,7 @@ class toba_manejador_sesiones
 		}
 		*/
 	}
-	
+
 	private function cargar_usuario($id_usuario=null)
 	{
 		$msg_error = "No es posible cargar el usuario '$id_usuario'. El mismo no posee un perfil funcional definido para el proyecto '{$this->proyecto}'.";
@@ -686,7 +695,7 @@ class toba_manejador_sesiones
 		$_SESSION[TOBA_DIR]['instancias'][$this->instancia]['inicio'] = time();
 		$_SESSION[TOBA_DIR]['instancias'][$this->instancia]['id_usuario'] = $this->usuario->get_id();
 	}
-	
+
 	private function abrir_sesion($datos_iniciales=null, $tipo='normal')
 	{
 		$id = toba::instancia()->get_id_sesion();
@@ -711,18 +720,18 @@ class toba_manejador_sesiones
 	private function control_cambio_usuario()
 	{
 		$param = toba::memoria()->get_parametro(apex_sesion_qs_cambio_usuario);
-		if (! is_null($param)) {			
+		if (! is_null($param)) {
 			$id = $this->usuario()->get_id();
 			$this->cambio_usuario($id, $param);
 		}
 	}
-	
+
 	/**
 	*	Controla el cierre de la sesion.
 	*/
 	private function control_finalizacion_sesion()
 	{
-		//El usuario solicito cerrar la sesion 
+		//El usuario solicito cerrar la sesion
 		if ( isset($_GET[apex_sesion_qs_finalizar])&&($_GET[apex_sesion_qs_finalizar]==1) ) {
 			throw new toba_error_usuario('Finalizada por el usuario');
 		}
@@ -733,8 +742,8 @@ class toba_manejador_sesiones
 			$ultimo_acceso = $_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['info_sesion']['ultimo_acceso'];
 			$tiempo_desconectado = ((time()-$ultimo_acceso)/60);//Tiempo desde el ultimo REQUEST
 			if ( $tiempo_desconectado >= $ventana) {
-				toba::notificacion("Usted ha permanecido mas de $ventana minutos sin interactuar 
-							con el servidor. Por razones de seguridad su sesion ha sido eliminada. 
+				toba::notificacion("Usted ha permanecido mas de $ventana minutos sin interactuar
+							con el servidor. Por razones de seguridad su sesion ha sido eliminada.
 							Por favor vuelva a registrarse si desea continuar utilizando el sistema.
 							Disculpe las molestias ocasionadas.");
 				throw new toba_error_autorizacion("Se exedio la ventana temporal ($ventana m.)");
@@ -752,12 +761,12 @@ class toba_manejador_sesiones
 				throw new toba_error_autorizacion("Se exedio el tiempo maximo de sesion ($maximo m.)");
 			}
 		}
-		
+
 		//--Controla que la autenticacion siga presente (caso CAS y SAML), no se hace para proyectos sin login
 		if (toba::proyecto()->get_parametro('requiere_validacion') ) {
 			$this->get_autenticacion()->verificar_logout();
 		}
-	}	
+	}
 
 	private function cerrar_sesion($observaciones=null)
 	{
@@ -775,10 +784,10 @@ class toba_manejador_sesiones
 		unset($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['inicio']);
 		unset($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['id_usuario']);
 	}
-	
+
 	/**
 	*	Permite controlar desde un proyecto la vida de la sesion del otro a bajo nivel.
-	*	Para salir del normalmente del proyecto actual, usar 'logout()' 
+	*	Para salir del normalmente del proyecto actual, usar 'logout()'
 	*	Este metodo fuerza la eliminacion directa y esta pensado para que lo consuma el proyecto toba_editor.
 	*/
 	function abortar_sesion_proyecto($proyecto, $obs=null)
@@ -789,7 +798,7 @@ class toba_manejador_sesiones
 		$this->borrar_segmento_proyecto($proyecto);
 	}
 
-	
+
 	function recargar_info_proyecto($proyecto)
 	{
 		if ($proyecto == toba_proyecto::get_id()) {
@@ -798,20 +807,20 @@ class toba_manejador_sesiones
 		$info =& toba::manejador_sesiones()->segmento_info_proyecto($proyecto);
 		$info = null;
 	}
-	
+
 	static function recargar_info_instalacion()
 	{
 		toba_instalacion::instancia(true);
 	}
-	
+
 	static function recargar_info_instancia()
 	{
 		toba_instancia::instancia(true);
 	}
-	
-	
+
+
 	//------------------------------------------------------------------
-	
+
 	private function guardar_contexto()
 	{
 		if( !isset($this->usuario) || !isset($this->sesion) ) {
@@ -823,7 +832,7 @@ class toba_manejador_sesiones
 		$_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['usuarios_posibles'] = serialize($this->_usuarios_posibles);
 		$_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['sesion'] = serialize($this->sesion);
 	}
-	
+
 	private function cargar_contexto()
 	{
 		if( !isset($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['usuario']) ||
@@ -833,10 +842,10 @@ class toba_manejador_sesiones
 		//Cargo las clases de los archivos serializados
 		//SESION
 		$this->cargar_clase_sesion();
-		
+
 		//USUARIO
 		$this->cargar_clase_usuario();
-		
+
 		$this->usuario = unserialize($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['usuario']);
 		$this->sesion = unserialize($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['sesion']);
 		$this->perfiles_funcionales_activos = unserialize($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['perfiles_funcionales_activos']);
@@ -851,40 +860,40 @@ class toba_manejador_sesiones
 		$archivo = toba::proyecto()->get_parametro('sesion_subclase_archivo');
 		if (trim($archivo) != '' && trim($subclase) != '') {
 			$pm = toba::proyecto()->get_parametro('pm_sesion');
-			toba_cargador::cargar_clase_archivo($pm, $archivo, toba::proyecto()->get_id());			
+			toba_cargador::cargar_clase_archivo($pm, $archivo, toba::proyecto()->get_id());
 		}
 	}
-	
+
 	private function cargar_clase_usuario()
 	{
 		$archivo = toba::proyecto()->get_parametro('usuario_subclase_archivo');
-		$subclase = toba::proyecto()->get_parametro('usuario_subclase');	
+		$subclase = toba::proyecto()->get_parametro('usuario_subclase');
 		if (trim($archivo) != '' && trim($subclase) != '') {
 			$pm = toba::proyecto()->get_parametro('pm_usuario');
-			toba_cargador::cargar_clase_archivo($pm, $archivo, toba::proyecto()->get_id());			
-		} 
+			toba_cargador::cargar_clase_archivo($pm, $archivo, toba::proyecto()->get_id());
+		}
 	}
-			
+
 	private function get_usuario_proyecto($id_usuario)
-	{	
-		$subclase = toba::proyecto()->get_parametro('usuario_subclase');			
+	{
+		$subclase = toba::proyecto()->get_parametro('usuario_subclase');
 		if (trim($subclase) == '') {
-			$subclase = 'toba_usuario_basico';	
+			$subclase = 'toba_usuario_basico';
 		} else {
 			$this->cargar_clase_usuario();
 		}
-		return new $subclase($id_usuario);		
+		return new $subclase($id_usuario);
 	}
-	
+
 	public function invocar_autenticar($id_usuario, $clave, $datos_iniciales) {
-		return $this->invocar_metodo_usuario('autenticar', array($id_usuario, $clave, $datos_iniciales) );		
+		return $this->invocar_metodo_usuario('autenticar', array($id_usuario, $clave, $datos_iniciales) );
 	}
-	
+
 	private function invocar_metodo_usuario($metodo, $parametros)
 	{
-		$subclase = toba::proyecto()->get_parametro('usuario_subclase');	
+		$subclase = toba::proyecto()->get_parametro('usuario_subclase');
 		if (trim($subclase)  == '') {
-			$subclase = 'toba_usuario_basico';	
+			$subclase = 'toba_usuario_basico';
 		} else {
 			$this->cargar_clase_usuario();
 		}
@@ -907,17 +916,17 @@ class toba_manejador_sesiones
 	{
 		return ( toba::proyecto()->get_parametro('sesion_subclase') &&
 					toba::proyecto()->get_parametro('sesion_subclase_archivo'));
-	}	
+	}
 
 	private function sesion_posse_item_inicializacion()
 	{
 		return ( toba::proyecto()->get_parametro('item_set_sesion'));
-	}	
+	}
 
 	private function sesion_posse_metodo_inicializacion()
 	{
 		return ( toba::proyecto()->get_parametro('item_set_sesion'));
-	}	
+	}
 
 	//------------------------------------------------------------------
 	//---  Relacion con el EDITOR --------------------------------------
@@ -934,7 +943,7 @@ class toba_manejador_sesiones
 
 	/**
 	*	Se encarga de inicializar a toba_editor en los proyectos ejecutados en modo previsualizacion
-	*	(la inicializacion esta en la activacion de la sesion del editor y no se invocaba 
+	*	(la inicializacion esta en la activacion de la sesion del editor y no se invocaba
 	*		cuando el proyecto estaba previsualizaciondose)
 	*/
 	private function activar_editor()
@@ -949,7 +958,7 @@ class toba_manejador_sesiones
 	//------------------------------------------------------------------
 
 	/**
-	*	Lleva a cabo la autentificacion. 
+	*	Lleva a cabo la autentificacion.
 	*	Los fallos se registran con excepciones, en funcionamiento normal no devulve ningun valor
 	*/
 	private function autenticar($id_usuario, $clave=null, $datos_iniciales=null)
@@ -981,8 +990,8 @@ class toba_manejador_sesiones
 			$cant_max_intentos = toba_parametros::get_intentos_validacion($proyecto);
 			if (isset($cant_max_intentos)) {
 				$accion_pedida = toba_parametros::get_debe_bloquear_usuario($proyecto);
-				$bloquear_usuario = ($accion_pedida == '1'); 
-				$lanzar_excepcion =  ($accion_pedida == '2'); 
+				$bloquear_usuario = ($accion_pedida == '1');
+				$lanzar_excepcion =  ($accion_pedida == '2');
 				//Bloqueo el Usuario o IP si la cantidad de intentos supera los esperados dentro de la ventana temporal establecida
 				$ventana_temporal = toba_parametros::get_ventana_intentos($proyecto);
 				if ( $bloquear_usuario || $lanzar_excepcion) {
@@ -1034,7 +1043,7 @@ class toba_manejador_sesiones
 		}
 		return $rs;
 	}
-	
+
 	/**
 	 * Genera un mapeo interno de los ids de usuario y arma un arreglo con el id hasheado y el nombre
 	 * @param array $lista_usuarios
@@ -1051,7 +1060,7 @@ class toba_manejador_sesiones
 		}
 		return $resultado;
 	}
-	
+
 	/**
 	 * Devuelve el id original del usuario encontrado o un arreglo vacio
 	 * @param string $id ID hasheado del usuario
@@ -1059,17 +1068,17 @@ class toba_manejador_sesiones
 	 * @return mixed
 	 * @ignore
 	 */
-	protected function recuperar_mapeo_usuarios($id, $lista)		
+	protected function recuperar_mapeo_usuarios($id, $lista)
 	{
 		$resultado = array();
 		foreach($lista as $clave => $valores) {
 			if ($id == $valores['id_base']) {
 				$resultado = $clave;
 			}
-		}		
+		}
 		return $resultado;
-	}	
-	
+	}
+
 	/**
 	 * Recupera las descripciones de las cuentas de usuario via una subclase del proyecto o toba_usuario_basico
 	 * @param array $cuentas Arreglo de cuentas a recuperar las descripciones
@@ -1078,17 +1087,17 @@ class toba_manejador_sesiones
 	 */
 	protected function get_descripcion_cuentas_usuario($cuentas)
 	{
-		$subclase = toba::proyecto()->get_parametro('usuario_subclase');			
+		$subclase = toba::proyecto()->get_parametro('usuario_subclase');
 		if (trim($subclase) == '') {
-			$subclase = 'toba_usuario_basico';	
+			$subclase = 'toba_usuario_basico';
 		} else {
 			$this->cargar_clase_usuario();
 		}
-		
+
 		$rs = $subclase::recuperar_descripcion_cuentas($cuentas);
 		return $rs;
-	}	
-	
+	}
+
 	//------------------------------------------------------------------
 	//---  ESPACIOS de MEMORIA  ----------------------------------------
 	//------------------------------------------------------------------
@@ -1119,7 +1128,7 @@ class toba_manejador_sesiones
 		}
 		return $_SESSION[TOBA_DIR]['instancias'][$this->instancia]['datos_globales'];
 	}
-	
+
 	function & segmento_editor()
 	{
 		self::verificar_directorio_toba();
@@ -1133,7 +1142,7 @@ class toba_manejador_sesiones
 	{
 		self::verificar_directorio_toba();
 		if (! isset($proyecto)) {
-			$proyecto = $this->proyecto;	
+			$proyecto = $this->proyecto;
 		}
 		if(!isset($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$proyecto]['info'])) {
 			$_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$proyecto]['info'] = array();
@@ -1164,7 +1173,7 @@ class toba_manejador_sesiones
 	function borrar_segmento_instalacion()
 	{
 		self::verificar_directorio_toba();
-		unset($_SESSION[TOBA_DIR]['instalacion']);	
+		unset($_SESSION[TOBA_DIR]['instalacion']);
 		toba_instalacion::eliminar_instancia();
 		toba::logger()->debug('BORRAR segmento memoria INSTALACION','toba');
 	}
@@ -1193,5 +1202,30 @@ class toba_manejador_sesiones
 		toba_memoria::eliminar_instancia();
 		toba::logger()->debug('BORRAR segmento memoria PROYECTO: ' . $proyecto ,'toba');
 	}
+
+        /**
+         * Devuelve una instancia del configudor de session
+         * @return \toba_session_handler
+         */
+        protected function instanciar_handler()
+        {
+            $handler = '\toba_session_handler';
+
+            //Busco la presencia de modificador en variable de entorno
+            $handler_type = \getenv('TOBA_SESSION_HANDLER');
+            if ($handler_type !== false) {
+                switch ($handler_type) {
+                    case 'file' :
+                        $handler = '\toba_files_handler';
+                        break;
+                    case 'memcache':
+                        $handler =  '\toba_memcached_handler';
+                        break;
+                    default:
+                        throw new \toba_error_ini_sesion('El handler de sesion elegido no es válido');
+                }
+            }
+            return new $handler();
+        }
 }
 ?>
