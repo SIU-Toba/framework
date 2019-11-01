@@ -1216,10 +1216,10 @@ class toba_manejador_sesiones
             if ($handler_type !== false) {
                 switch ($handler_type) {
                     case 'file' :
-                        $handler = '\toba_files_handler';
+                        $handler = '\toba_session_files_handler';
                         break;
                     case 'memcache':
-                        $handler =  '\toba_memcached_handler';
+                        $handler =  '\toba_session_memcached_handler';
                         break;
                     default:
                         throw new \toba_error_ini_sesion('El handler de sesion elegido no es válido');

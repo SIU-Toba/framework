@@ -1,5 +1,5 @@
 <?php
-class toba_memcached_handler extends toba_session_handler
+class toba_session_memcached_handler extends toba_session_handler
 {
     protected $default_settings = array(
         'session.save_handler' => 'memcached',
