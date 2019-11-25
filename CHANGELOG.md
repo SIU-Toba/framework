@@ -4,7 +4,17 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
-[3.2.9](https://github.com/SIU-Toba/framework/releases/tag/v3.2.8) (2019-10-18)
+[3.2.10](https://github.com/SIU-Toba/framework/releases/tag/v3.2.10) (2019-11-25)
+- Fix a la desactivacion de eventos (con manejador-bootstrap)
+- Se actualizan los paquetes:
+  * robrichards/xmlseclibs @v3.0.4 (PR#67)
+  * phpoffice/phpspreadsheet @1.8.0 (PR#68)
+- Se permite fijar el save_handler para las sessiones via variable de entorno (PR#66)
+- Se activa el menu via appLauncher al invocar la sincronizacion con SIU-Arai (PR#63)
+- Se incorpora el parametro 'usa_proxy_vars' en saml_onelogin.ini para marcar cuando nos encontramos detras de un proxy (PR#62)
+- Se setea el header content-disposition para la descarga en la vista JasperReports(PR#60)
+
+[3.2.9](https://github.com/SIU-Toba/framework/releases/tag/v3.2.9) (2019-10-18)
 - Actualiza la version del paquete siu-app-launcher@1.0.4
 - Implementa modo no interactivo para la creacion del usuario admin de la instalacion
 
