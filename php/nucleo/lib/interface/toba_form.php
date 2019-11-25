@@ -2,10 +2,10 @@
 /**
  * Clase estática con métodos que encapsulan los tags de un formulario HTML
  * Estos métodos son de bajisimo nivel y son solo shorcuts para evitar escribir html directo
- * 
+ *
  * @package SalidaGrafica
  */
-class toba_form 
+class toba_form
 {
 
     static function text($nombre,$actual,$read_only,$len,$size,$clase="ef-input",$extra="")
@@ -54,7 +54,7 @@ class toba_form
         $combo .= "</select>\n";
         return $combo;
     }
-	
+
     static function multi_select($nombre,$actuales,$datos, $tamanio, $clase="ef-combo", $extra="")
     {
         if(!is_array($datos)){//Si datos no es un array, no puedo seguir
@@ -69,7 +69,7 @@ class toba_form
         }
         $combo .= "</select>\n";
         return $combo;
-    }	
+    }
 
     static function textarea($nombre,$valor,$filas,$columnas,$clase="ef-textarea",$wrap="",$extra="")
     //TEXTAREA
@@ -83,7 +83,7 @@ class toba_form
     static function checkbox($nombre,$actual,$valor,$clase="ef-checkbox",$extra="")
     //Checkbox STANDART. recibe el valor y el valor actual
     {
-        $s = ""; 
+        $s = "";
         if(!is_null($valor) && !is_null($actual) && $valor == $actual) $s = "CHECKED";		//Castea null a cero, por ende en necesario evitarlo
         $valor = texto_plano($valor);
         return "<input name='$nombre' id='$nombre' type='checkbox' value='$valor' $s class='$clase' $extra />\n";
@@ -92,7 +92,7 @@ class toba_form
     static function radio($nombre, $actual, $datos, $clase=null, $extra="", $tab_index = "")
     {
     	if (!is_array($datos)) {
-    		$datos = array();	
+    		$datos = array();
     	}
     	$html = '';
     	$html_clase = isset($clase) ? "class='$clase'" : '';
@@ -146,7 +146,7 @@ class toba_form
 			return toba_form::button_html($nombre, $valor, $extra, 0, $tecla, '', 'button', '', $clase);
     }
 
-    static function button_html($nombre,$html, $extra="", $tab = null, $tecla = null, $tip='', $tipo='button', $valor='', 
+    static function button_html($nombre,$html, $extra="", $tab = null, $tecla = null, $tip='', $tipo='button', $valor='',
     								$clase="ei-boton", $con_id=true, $estilo_inline=null, $habilitado=true )
     // Boton con html embebido
     {
@@ -166,18 +166,21 @@ class toba_form
     	$acceso = toba_recurso::ayuda($tecla, $tip, $clase);
     	$tab = (isset($tab) && $tab != 0) ? "tabindex='$tab'" : "";
     	$id = ($con_id) ? "id='$nombre'" : '';
-    	$estilo_inline = isset($estilo_inline) ? "style='" . $estilo_inline . "'": '';
-    	//$habilitado = $habilitado ? '' : 'disabled="disabled"';
-    	$tag = "<a href='#' type='$tipo' name='$nombre' $id  $tab $acceso $extra $estilo_inline $habilitado>$html $valor</a>\n";
-    	
+    	$stilo_inline = isset($estilo_inline) ? "style='" . $estilo_inline . "'": '';
+        if ($habilitado) {
+            $tag = "<a href='#' type='$tipo' name='$nombre' $id  $tab $acceso $extra $stilo_inline $habilitado>$html $valor</a>\n";
+        } else {
+            $tag = "<a href='#' type='$tipo' name='$nombre' $id  $tab $acceso $stilo_inline>$html $valor</a>\n";
+        }
+
     	return $tag;
     }
-    
+
     static function password($nombre,$valor="", $maximo='', $tamanio='', $clase="ef-input", $extra = '')
     {
     	$valor = texto_plano($valor);
-    	$max_length = ($maximo != '') ? "maxlength='$maximo'" : '';    	
-    	$tamanio = ($tamanio != '') ? "size='$tamanio'" : '';  
+    	$max_length = ($maximo != '') ? "maxlength='$maximo'" : '';
+    	$tamanio = ($tamanio != '') ? "size='$tamanio'" : '';
         return "<INPUT type='password' name='$nombre' $tamanio $max_length id='$nombre' value='$valor' class='$clase' $extra />\n";
     }
 
