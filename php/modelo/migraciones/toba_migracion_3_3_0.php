@@ -9,6 +9,11 @@ class toba_migracion_3_3_0 extends toba_migracion
 		*/
 		$sql = 'SET CONSTRAINTS ALL IMMEDIATE;';
 		$this->elemento->get_db()->ejecutar($sql);
+		$sql = array();
+
+		$sql[] = 'ALTER TABLE apex_usuario ADD COLUMN requiere_segundo_factor SMALLINT NOT NULL DEFAULT 0;';
+
+		$this->elemento->get_db()->ejecutar($sql);
 
 		$sql = 'SET CONSTRAINTS ALL DEFERRED;';
 		$this->elemento->get_db()->ejecutar($sql);

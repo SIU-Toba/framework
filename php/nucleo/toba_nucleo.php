@@ -31,7 +31,7 @@ class toba_nucleo
 	 */
 	private $solicitud = null;
 	private $solicitud_en_proceso = false;
-	
+
 	private $acceso_rest = false;
 
 	static function instancia()
@@ -62,10 +62,10 @@ class toba_nucleo
 			$path = realpath(self::toba_dir().'/php/vendor/autoload.php');			//Valido para rama 2.7.x
 		}
 		if (file_exists($path)) {
-			require_once($path);					
-		}		
+			require_once($path);
+		}
 	}
-		
+
 	private function __construct()
 	{
 		$this->cargar_includes_basicos();
@@ -80,7 +80,7 @@ class toba_nucleo
 	{
 		return $this->solicitud;
 	}
-		
+
 	/**
 	 * Punto de entrada http al nucleo
 	 */
@@ -89,7 +89,7 @@ class toba_nucleo
 		try {
 			$this->iniciar_contexto_ejecucion();
 			toba::manejador_sesiones()->verificar_cambio_perfil_activo();				//Miro si se quiere cambiar el perfil funcional activo
-			$this->verificar_pedido_post();	
+			$this->verificar_pedido_post();
 			try {
 				$this->solicitud = $this->cargar_solicitud_web();
 				$this->solicitud_en_proceso = true;
@@ -104,7 +104,7 @@ class toba_nucleo
 				$this->solicitud_en_proceso = false;
 				toba::memoria()->limpiar_memoria();
 				$item_nuevo = $e->get_item();
-				toba::memoria()->set_item_solicitado($item_nuevo);				
+				toba::memoria()->set_item_solicitado($item_nuevo);
 				$this->solicitud = $this->cargar_solicitud_web();
 				$this->solicitud->procesar();
 			}
@@ -117,11 +117,11 @@ class toba_nucleo
 		} catch (Exception $e) {
 			toba::logger()->crit($e, 'toba');
 			echo $e->getMessage() . "\n\n";
-		}		
+		}
 		//toba::logger()->debug('Tiempo utilizado: ' . toba::cronometro()->tiempo_acumulado() . ' seg.');
 		toba::logger()->guardar();
 	}
-	
+
 	/**
 	 * Punto de entrada http al nucleo
 	 */
@@ -134,7 +134,7 @@ class toba_nucleo
 				//Si no tiene ID (porque axis lo elimina del GET) usar el extra la URL
 				$servicio = basename($_SERVER['REQUEST_URI']);	//Asume que es x.php/id_servicio
 				if (strpos($servicio, '?') !== false) {
-					$servicio = substr($servicio, 0, strpos($servicio, '?')); 
+					$servicio = substr($servicio, 0, strpos($servicio, '?'));
 				}
 				//Si es el .php a secas pide un listado de los servicios
 				if (basename($servicio, '.php') !== $servicio) {
@@ -168,7 +168,7 @@ class toba_nucleo
 			echo $e->getMessage() . "\n\n";
 		}
 		toba::logger()->guardar();
-	}	
+	}
 
 	/**
 	 * Punto de entrada http-REST al nucleo
@@ -177,8 +177,8 @@ class toba_nucleo
 	{
 		$app = null;
 		try {
-			$this->acceso_rest = true;			
-			$this->iniciar_contexto_rest();			
+			$this->acceso_rest = true;
+			$this->iniciar_contexto_rest();
 			$this->solicitud = new toba_solicitud_servicio_rest();
 			$this->solicitud->procesar();
 			$app = $this->solicitud->get_app();
@@ -192,15 +192,15 @@ class toba_nucleo
 			toba::logger()->crit($e, 'toba');
 			echo $e->getMessage() . "\n\n";
 			toba::logger()->guardar();
-		}		
+		}
 		if (! is_null($app)) {
 			$app->logger->guardar();
-		}		
+		}
 	}
 
 	/**
 	 * Punto de entrada desde la consola al nucleo
-	 */	
+	 */
 	function acceso_consola($instancia, $proyecto, $item)
 	{
 		$estado_proceso = null;
@@ -217,24 +217,24 @@ class toba_nucleo
 		} catch (Error $e) {
 			toba::logger()->crit($e, 'toba');
 			echo $e->getMessage() . "\n\n";
-		} 
+		}
 		$this->finalizar_contexto_ejecucion();
 		toba::logger()->debug('Estado Proceso: '.$estado_proceso, 'toba');
 		//toba::logger()->debug('Tiempo utilizado: ' . toba::cronometro()->tiempo_acumulado() . ' seg.');
 		$dir_logs = toba_modelo_instalacion::dir_base().'/logs_comandos';
 		toba::logger()->set_directorio_logs($dir_logs);
 		toba::logger()->guardar_en_archivo('comandos.log');
-		exit($estado_proceso);		
+		exit($estado_proceso);
 	}
-	
+
 	function iniciar_contexto_desde_consola($instancia, $proyecto)
 	{
 		//Seteo el estado del nucleo
 		$_SERVER['TOBA_INSTANCIA'] = $instancia;
 		$_SERVER['TOBA_PROYECTO'] = $proyecto;
-		$this->iniciar_contexto_consola();	
+		$this->iniciar_contexto_consola();
 	}
-	
+
 	function solicitud_en_proceso()
 	{
 		return $this->solicitud_en_proceso;
@@ -246,10 +246,10 @@ class toba_nucleo
 	function cargar_solicitud_web()
 	{
 		if (toba::manejador_sesiones()->existe_sesion_activa()) {		// Estoy dentro de una SESION
-			$item = $this->get_id_item('item_inicio_sesion', false, true);
+                        $item = $this->verifica_cambio_2FA($this->get_id_item('item_inicio_sesion', false, true));
 			if (!$item[0]||!$item[1]) {
-				throw new toba_error_def('ERROR: No esta definido el ITEM de INICIO de sesion');	
-			}			
+				throw new toba_error_def('ERROR: No esta definido el ITEM de INICIO de sesion');
+			}
 			$this->iniciar_contexto_solicitud($item);
 			$solicitud = toba_constructor::get_runtime(array('proyecto'=>$item[0],'componente'=>$item[1]), 'toba_item');
 			if (!$solicitud->es_item_publico()) {
@@ -260,8 +260,8 @@ class toba_nucleo
 			$mensaje_error = 'La sesión no esta activa. Solo es posible acceder items PUBLICOS.';
 			$item = $this->get_id_item('item_pre_sesion');
 			if(!$item[0] || !$item[1]) {
-				throw new toba_error_def('ERROR: No esta definido el ITEM de LOGIN');	
-			}			
+				throw new toba_error_def('ERROR: No esta definido el ITEM de LOGIN');
+			}
 			$this->iniciar_contexto_solicitud($item);
 			$solicitud = toba_constructor::get_runtime(array('proyecto'=>$item[0],'componente'=>$item[1]), 'toba_item');
 			if (!$solicitud->es_item_publico()) {
@@ -271,19 +271,19 @@ class toba_nucleo
 				// (NOTA: esto puede ocultar la navegacion entre items supuestamente publicos)
 				if ( toba::memoria()->get_item_solicitado() ) {
 					toba::logger()->notice('Fallo la carga de una operación publica. Se intenta con la operación predeterminada', 'toba');
-					toba::memoria()->set_item_solicitado(null);					
+					toba::memoria()->set_item_solicitado(null);
 					$item = $this->get_id_item('item_pre_sesion');
 					$this->iniciar_contexto_solicitud($item);
 					$solicitud = toba_constructor::get_runtime(array('proyecto'=>$item[0],'componente'=>$item[1]), 'toba_item');
 					if (!$solicitud->es_item_publico()) {
-						throw new toba_error_def($mensaje_error);		
+						throw new toba_error_def($mensaje_error);
 					}
 				} else {
-					throw new toba_error_def($mensaje_error);				
+					throw new toba_error_def($mensaje_error);
 				}
 			}
 			return $solicitud;
-		}		
+		}
 	}
 
 	/**
@@ -292,12 +292,12 @@ class toba_nucleo
 	protected function get_id_item($predefinido=null,$forzar_predefinido=false, $evitar_pre_sesion=false)
 	{
 		$item = toba::memoria()->get_item_solicitado();
-		if (!$item || ($evitar_pre_sesion && 
+		if (!$item || ($evitar_pre_sesion &&
 						$item[0] == toba::proyecto()->get_id() &&
 						$item[1] == toba::proyecto()->get_parametro('item_pre_sesion'))) {
 			if(isset($predefinido)){
 				$item[0] = toba::proyecto()->get_id();
-				$item[1] = toba::proyecto()->get_parametro($predefinido);		
+				$item[1] = toba::proyecto()->get_parametro($predefinido);
 				toba::memoria()->set_item_solicitado($item);
 			} else {
 				throw new toba_error_def('NUCLEO: No es posible determinar la operación a cargar');
@@ -305,7 +305,7 @@ class toba_nucleo
 		}
 		return $item;
 	}
-	
+
 	protected function autorizar_acceso_item($item)
 	{
 		if (toba::proyecto()->get_id() != $item[0]) {
@@ -319,56 +319,56 @@ class toba_nucleo
 
 	protected function iniciar_contexto_ejecucion()
 	{
-		if (!ini_get('safe_mode') && strpos(ini_get('disable_functions'), 'set_time_limit') === FALSE) {		
+		if (!ini_get('safe_mode') && strpos(ini_get('disable_functions'), 'set_time_limit') === FALSE) {
 			set_time_limit(0);
 		}
 		$this->controlar_requisitos_basicos();
 		toba_http::headers_standart();
 		$this->agregar_paths();
 		$this->recuperar_revision_recursos();
-		$this->registrar_autoloaders_proyecto();		
+		$this->registrar_autoloaders_proyecto();
 		toba::manejador_sesiones()->iniciar();
 		toba::contexto_ejecucion()->conf__inicial();
 	}
-        
+
 	protected function iniciar_contexto_consola()
 	{
-		if (!ini_get('safe_mode') && strpos(ini_get('disable_functions'), 'set_time_limit') === FALSE) {		
+		if (!ini_get('safe_mode') && strpos(ini_get('disable_functions'), 'set_time_limit') === FALSE) {
 			set_time_limit(0);
 		}
 		$this->controlar_requisitos_basicos();
 		$this->agregar_paths();
 		$this->recuperar_revision_recursos();
-		$this->registrar_autoloaders_proyecto();		
+		$this->registrar_autoloaders_proyecto();
 		toba::manejador_sesiones()->iniciar();
 		toba::config();
 		toba::contexto_ejecucion()->conf__inicial();
 	}
-	
+
 	protected function iniciar_contexto_soap()
 	{
-		$this->iniciar_contexto_consola();				//Reuso porque el codigo es el mismo, lo dejo separado por si llega a necesitar cambios 
+		$this->iniciar_contexto_consola();				//Reuso porque el codigo es el mismo, lo dejo separado por si llega a necesitar cambios
 	}
-	
+
 	protected function iniciar_contexto_rest()
 	{
-		if (!ini_get('safe_mode') && strpos(ini_get('disable_functions'), 'set_time_limit') === FALSE) {		
+		if (!ini_get('safe_mode') && strpos(ini_get('disable_functions'), 'set_time_limit') === FALSE) {
 			set_time_limit(0);
 		}
 		$this->controlar_requisitos_basicos();
 		$this->agregar_paths();
-		toba::config();		
+		toba::config();
 		$this->registrar_autoloaders_proyecto();
-		toba::contexto_ejecucion()->conf__inicial();		
-	}		
-	
+		toba::contexto_ejecucion()->conf__inicial();
+	}
+
 	protected function agregar_paths()
 	{
 		agregar_dir_include_path(toba_proyecto::get_path_php());
 		if (toba::proyecto()->es_personalizable()) {
 			agregar_dir_include_path(toba_proyecto::get_path_pers_php());
 		}
-	}        
+	}
 
 	protected function registrar_autoloaders_proyecto()
 	{
@@ -394,22 +394,22 @@ class toba_nucleo
 			$this->solicitud->guardar_cronometro();
 		}
 	}
-	
+
 	function finalizar_contexto_rest()
 	{
 		toba::contexto_ejecucion()->conf__final();
 		if (isset($this->solicitud)) {
 			$this->solicitud->guardar_cronometro();
-		}		
+		}
 	}
-	
+
 	function controlar_requisitos_basicos()
 	{
 		if (php_sapi_name() !== 'cli' && get_magic_quotes_gpc()) {
 			throw new toba_error_def("Necesita desactivar las 'magic_quotes' en el servidor (ver http://www.php.net/manual/es/security.magicquotes.disabling.php)");
 		}
 	}
-	
+
 	function es_acceso_rest()
 	{
 		return $this->acceso_rest;
@@ -435,8 +435,8 @@ class toba_nucleo
 		}else {
 			return self::toba_dir().'/instalacion';
 		}
-	}	
-	
+	}
+
 	/**
 	*	Carga de includes basicos
 	*/
@@ -444,7 +444,7 @@ class toba_nucleo
 	{
 		//Las funciones globales no puden cargarse con el autoload.
 		if ($this->utilizar_archivos_compilados()) {
-			require_once( self::toba_dir() . '/php/nucleo/toba_motor.php');	
+			require_once( self::toba_dir() . '/php/nucleo/toba_motor.php');
 		} else {
 			foreach(self::get_includes_funciones_globales() as $archivo ) {
 				require_once( self::toba_dir() . $archivo);
@@ -464,7 +464,7 @@ class toba_nucleo
 	{
 		return (defined('apex_pa_archivos_compilados') && apex_pa_archivos_compilados);
 	}
-		
+
 	/**
 	*	En el modo compilado, carga los metadatos necesarios para la solicitud actual
 	*	@ignore
@@ -479,7 +479,7 @@ class toba_nucleo
 			require_once( self::get_directorio_compilacion() . '/gene/toba_mc_gene__basicos.php' );
 			$grupos_acceso = toba::manejador_sesiones()->get_perfiles_funcionales_activos();
 			foreach( $grupos_acceso as $grupo ) {
-				require_once( self::get_directorio_compilacion() . '/gene/toba_mc_gene__grupo_'.$grupo.'.php' );				
+				require_once( self::get_directorio_compilacion() . '/gene/toba_mc_gene__grupo_'.$grupo.'.php' );
 			}
 		}
 	}
@@ -497,7 +497,7 @@ class toba_nucleo
 			//Mecanismo obsoleto
 			return (defined('apex_pa_metadatos_compilados') && apex_pa_metadatos_compilados);
 		}else{
-			return $flag;			
+			return $flag;
 		}
 	}
 
@@ -527,41 +527,41 @@ class toba_nucleo
 	*/
 	static function get_includes_funciones_globales()
 	{
-		return array( 
+		return array(
 			'/php/lib/toba_varios.php',
 			'/php/lib/toba_parseo.php',
 			'/php/lib/toba_sql.php',
 			'/php/nucleo/lib/toba_db.php',
 			'/php/nucleo/lib/interface/toba_ei.php',
-			'/php/nucleo/lib/toba_debug.php', 
+			'/php/nucleo/lib/toba_debug.php',
 			'/php/contrib/lib/array_column.php'
 		);
 	}
-	
+
 	private function recuperar_revision_recursos()
 	{
-		$svn = new toba_svn();		
+		$svn = new toba_svn();
 		if (! toba::memoria()->existe_dato_instancia('toba_revision_recursos_cliente')) {
 			$path_recursos = $this->toba_dir(). '/www';
 			if (toba::instalacion()->es_produccion() || ! $svn->hay_cliente_svn() || ! $svn->es_copia_trabajo($path_recursos)) {
 				$version = toba::instalacion()->get_version()->__toString();
-			} else {				
+			} else {
 				$version = $svn->get_revision($path_recursos);
 			}
 			toba::memoria()->set_dato_instancia('toba_revision_recursos_cliente', $version);
 		}
-		
+
 		if (! toba::memoria()->existe_dato_instancia('proyecto_revision_recursos_cliente')) {
 			$path_recursos = toba::proyecto()->get_path(). '/www';
 			if (toba::instalacion()->es_produccion() || ! $svn->hay_cliente_svn() || ! $svn->es_copia_trabajo($path_recursos)) {
 				$version = toba::proyecto()->get_version()->__toString();
-			} else {				
+			} else {
 				$version = $svn->get_revision($path_recursos);
 			}
 			toba::memoria()->set_dato_instancia('proyecto_revision_recursos_cliente', $version);
 		}
 	}
-	
+
 	//----------------------------------------------------------------
 	//-- Metodos auxiliares
 	//----------------------------------------------------------------
@@ -576,6 +576,36 @@ class toba_nucleo
 				throw new toba_error_seguridad('Request Invalido');
 			}
 		}
-	}	
+	}
+
+        /**
+         * Devuelve si es necesario pedir un 2FA
+         * @return boolean
+         */
+        function verifica_necesidad_2FA()
+        {
+            $twoFA_completo = (! is_null(toba::memoria()->get_dato_instancia('second_factor_complete')));
+            $twoFA_usuario = toba::usuario()->requiere_segundo_factor();
+            $twoFA_instalacion = toba::instalacion()->usa_2FA();
+
+            return ($twoFA_instalacion && $twoFA_usuario && ! $twoFA_completo);
+        }
+
+        /**
+         * Devuelve el item original o el de login en caso de necesitarse un 2FA
+         * @param array $item
+         * @return array
+         */
+        protected function verifica_cambio_2FA($item)
+        {
+            if($this->verifica_necesidad_2FA()) {       //Lo mando again al login y agrego marca en el proyecto
+                toba::memoria()->set_dato('redirect_a_chequeo', 1);
+                $item[1] = toba::proyecto()->get_parametro('item_pre_sesion');
+                toba::memoria()->set_item_solicitado($item);
+            }
+            return $item;
+        }
+
+
 }
 ?>
