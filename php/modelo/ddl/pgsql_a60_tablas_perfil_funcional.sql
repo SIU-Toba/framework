@@ -15,14 +15,14 @@ CREATE TABLE apex_usuario_grupo_acc
 ---------------------------------------------------------------------------------------------------
 (	
 	proyecto						varchar(15)		NOT NULL,
-	usuario_grupo_acc				varchar(30)		NOT NULL,
+	usuario_grupo_acc                                       varchar(30)		NOT NULL,
 	nombre							varchar(80)		NOT NULL,
-	nivel_acceso					smallint		NULL,
+	nivel_acceso                                            smallint		NULL,
 	descripcion						TEXT			NULL,
 	vencimiento						date			NULL,
 	dias							smallint		NULL,
-	hora_entrada					time(0) without time	zone NULL,
-	hora_salida						time(0) without time	zone NULL,
+	hora_entrada                                            time without time	zone NULL,
+	hora_salida						time without time	zone NULL,
 	listar							smallint			NULL,
 	permite_edicion					smallint 		NOT NULL 	DEFAULT 1,
 	menu_usuario						VARCHAR(50)	NULL,
