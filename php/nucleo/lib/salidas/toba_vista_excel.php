@@ -18,6 +18,7 @@ class toba_vista_excel
 	 */
 	protected $excel;
 	protected $objetos = array();
+        protected $tipo_salida = 'application/vnd.ms-excel';
 	protected $nombre_archivo = 'salida.xlsx';
 	protected $tipo_descarga = 'attachment';
 	protected $writer = 'Xlsx';
@@ -68,6 +69,15 @@ class toba_vista_excel
 		$this->nombre_archivo = $nombre;
 	}
 
+        /**
+	 * Permite setear el tipo de descarga pdf desde el browser, inline o attachment
+	 * @param string $tipo inline o attachment
+	 */
+	function set_tipo_descarga( $tipo )
+	{
+		$this->tipo_descarga = $tipo;
+	}
+
 	//------------------------------------------------------------------------
 	//-- Generacion del excel
 	//------------------------------------------------------------------------
@@ -114,7 +124,7 @@ class toba_vista_excel
 
 	protected function cabecera_http($longitud)
 	{
-		toba_http::headers_download($this->tipo_descarga, $this->nombre_archivo, $longitud);
+		toba_http::headers_download($this->tipo_salida, $this->nombre_archivo, $longitud, $this->tipo_descarga);
 	}
 
 	//------------------------------------------------------------------------
