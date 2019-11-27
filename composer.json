@@ -34,7 +34,6 @@
         "siu-toba/text_highlighter": "~0.8",
         "siu-toba/services_json": "^1.0.3.3", 
         "siu/arai-json-migrator": "~1.0",
-        "siu/rdi": "~0.9",        
         "vlucas/phpdotenv": "~3.1",
         "ioncube/php-openssl-cryptor": "dev-master",
         "siu/manejador-salida-toba" : "^1.0",
@@ -56,7 +55,8 @@
         "siu/arai-reportes": "Permite imprimir reportes via un servidor Jasper desde SIU-Toba",
         "siu/arai-cli" : "Librería cliente de los componentes ARAI",
         "siu/manejador-salida-bootstrap": "Permite generar un marcado HTML responsive",
-        "simplesamlphp/simplesamlphp": "Permite conectarse a un IDP centralizado (see onelogin)"
+        "simplesamlphp/simplesamlphp": "Permite conectarse a un IDP centralizado (see onelogin)",
+        "siu/rdi": "Permite almacenar documentos en un ECM"
     },
     "conflict": {
         "siu/arai-cli": "<2.5.0",
