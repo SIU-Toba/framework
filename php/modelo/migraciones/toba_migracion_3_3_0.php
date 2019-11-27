@@ -12,6 +12,8 @@ class toba_migracion_3_3_0 extends toba_migracion
 		$sql = array();
 
 		$sql[] = 'ALTER TABLE apex_usuario ADD COLUMN requiere_segundo_factor SMALLINT NOT NULL DEFAULT 0;';
+                $sql[] = 'ALTER TABLE apex_grupo_acc_restriccion_funcional ADD CONSTRAINT "apex_grupo_acc_restriccion_funcional_ga_fk"
+                    FOREIGN KEY	("proyecto","usuario_grupo_acc") REFERENCES "apex_usuario_grupo_acc" ("proyecto","usuario_grupo_acc") ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE;';
 
 		$this->elemento->get_db()->ejecutar($sql);
 
