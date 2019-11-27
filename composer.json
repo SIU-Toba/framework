@@ -60,7 +60,7 @@
     },
     "conflict": {
         "siu/arai-cli": "<2.5.0",
-        "siu/interfaces-manejador-salida-toba" : ">=1.2.0"
+        "siu/interfaces-manejador-salida-toba" : "<1.2.0"
     },
     "bin": ["bin/toba",
             "bin/toba_docker"],

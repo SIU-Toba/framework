@@ -76,7 +76,7 @@ class toba_ei_cuadro_salida_impresion_html extends toba_ei_cuadro_salida_html
 		$this->html_mensaje_cuadro_vacio($texto);
 	}
 
-	protected function html_cuadro_cabecera_columna_evento($rowspan, $pre_columnas)		
+	protected function html_cuadro_cabecera_columna_evento($rowspan, $pre_columnas)
 	{
 		//Redefine para anular comportamiento
 	}
@@ -178,7 +178,7 @@ class toba_ei_cuadro_salida_impresion_html extends toba_ei_cuadro_salida_html
 	{
 	}
 
-    function impresion_html_cc_fin_nivel()
+        function impresion_html_cc_fin_nivel()
 	{
 	}
 
@@ -191,6 +191,15 @@ class toba_ei_cuadro_salida_impresion_html extends toba_ei_cuadro_salida_html
 	{
 			echo "</td></tr></table>\n";
 	}
-	
+
+        function inicio_datos_corte($id_unico, $es_tabla_gral, $nivel_nodo)
+        {
+            echo toba::output()->get('CuadroSalidaHtml')->getInicioCorte($id_unico, $es_tabla_gral, $nivel_nodo);
+        }
+
+        function fin_datos_corte($es_tabla_gral)
+        {
+            echo toba::output()->get('CuadroSalidaHtml')->getFinCorte($es_tabla_gral);
+        }
 }
 ?>
