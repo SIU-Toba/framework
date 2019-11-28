@@ -34,7 +34,7 @@ class toba_registro_conflictos
 
 		foreach ($this->conflictos as $por_archivo) {
 			if (isset($por_archivo[$tipo])) {
-				$error_count += count($por_archivo[$tipo]);	
+				$error_count += count($por_archivo[$tipo]);
 			}
 		}
 
@@ -49,26 +49,33 @@ class toba_registro_conflictos
 		$warning	= toba_registro_conflicto::warning;
 
 		foreach (array_keys($this->conflictos) as $nombre) {
-			fwrite($handle, "Conflictos del archivo $nombre\n");
+			if (false === fwrite($handle, "Conflictos del archivo $nombre\n")) {
+                            throw new Exception('No se pueden agregar los conflictos del archivo ' . $nombre . ' al log');
+                        }
 			if (isset($this->conflictos[$nombre][$fatal])) {
-				fwrite($handle, "\tErrores fatales\n");
-				foreach ($this->conflictos[$nombre][$fatal] as $conflicto) {
-					$desc = $conflicto->get_descripcion();
-					fwrite($handle, "\t\t$desc\n");
-				}
+                            $this->generar_linea_log($handle, $this->conflictos[$nombre][$fatal], "\tErrores fatales\n");
 			}
-
 			if (isset($this->conflictos[$nombre][$warning])) {
-				fwrite($handle, "\tErrores recuperables\n");
-				foreach ($this->conflictos[$nombre][$warning] as $conflicto) {
-					$desc = $conflicto->get_descripcion();
-					fwrite($handle, "\t\t$desc\n");
-				}
+                            $this->generar_linea_log($handle, $this->conflictos[$nombre][$warning], "\tErrores recuperables\n");
 			}
 		}
 
 		fclose($handle);
 	}
+
+        protected function generar_linea_log($handle, $conflictos, $descripcion_grupo)
+        {
+            if (false === fwrite($handle, $descripcion_grupo)) {
+                throw new Exception('No se pudo escribir el grupo '. $descripcion_grupo . ' al archivo de log');
+            }
+            foreach ($conflictos as $conflicto) {
+                    $desc = $conflicto->get_descripcion();
+                    if (false === fwrite($handle, "\t\t$desc\n")) {
+                        throw new Exception('No se pudo escribir el conflicto '. $desc . ' al archivo de log');
+                    }
+            }
+
+        }
 
 	function get_reporte($path = null)
 	{
