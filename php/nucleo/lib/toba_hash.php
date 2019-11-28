@@ -3,33 +3,33 @@
 /**
  * Clase que realiza el hasheo de passwords
  * @package Seguridad
- */	
+ */
 class toba_hash
 {
 	protected $rounds = 10;
-	protected $metodo = 'bcrypt';	
+	protected $metodo = 'bcrypt';
 	private  $randomState = null;
 	private $indicadores_hash = array('$5$', '$6$', '$1$');
 	private $indicadores_bcrypt = array('$2y$','$2a$', '$2x$');
-	
-	
+
+
 	public final function __construct($metodo=null)
 	{
 		if (version_compare(PHP_VERSION, '5.3.2') < 0) {
 			throw new toba_error('Se requiere PHP 5.3.2 al menos para usar esta clase');
 		}
-		
+
 		if (! is_null($metodo)) {
 			$this->metodo = $metodo;
 		}
 	}
-	
+
 	public function set_ciclos($nro)
 	{
 		$this->rounds = ($nro > 10) ? $nro : 10;
 	}
-	
-	public function hash($input) 
+
+	public function hash($input)
 	{
 		$hash = crypt($input, $this->getSalt());
 		if(strlen($hash) > 13) {
@@ -39,42 +39,42 @@ class toba_hash
 	}
 
 	public function get_hash_verificador($input, $existingHash)
-	{		
+	{
 		return  crypt($input, $existingHash);
 	}
-		
-	public function verify($input, $existingHash) 
+
+	public function verify($input, $existingHash)
 	{
 		$hash = crypt($input, $existingHash);
 		return hash_equals($hash,$existingHash);
 	}
-		
-	private function getSalt() 
-	{		
-		switch(strtoupper($this->metodo)) {		
+
+	private function getSalt()
+	{
+		switch(strtoupper($this->metodo)) {
 		case 'BCRYPT' : $str_inicial = (version_compare(PHP_VERSION, '5.3.7') < 0) ? "$2a$": "$2y$";
-					  $salt = sprintf($str_inicial.'%02d$', $this->rounds);   
+					  $salt = sprintf($str_inicial.'%02d$', $this->rounds);
 					   break;
-		
-		case 'SHA512': 
+
+		case 'SHA512':
 					$vueltas = ($this->rounds < 1000) ? $this->rounds * 1000: $this->rounds + 5000;
 					$salt = sprintf('$6$rounds=%d$', $this->rounds);
 					 break;
-				 
-		case 'SHA256': 
+
+		case 'SHA256':
 					$vueltas = ($this->rounds < 1000) ? $this->rounds * 1000: $this->rounds + 5000;
 					$salt = sprintf('$5$rounds=%d$', $this->rounds);
 					 break;
 
 		case 'MD5':  	$salt = '$1$';
-		
-		default: 
+
+		default:
 					toba::logger()->debug("Se suministro un algoritmo no esperado para el hash: {$this->metodo}");
 					$salt = '';
-		}			
+		}
 		if (version_compare(PHP_VERSION, '7.0.0') >= 0) {
 			try {
-				$bytes = random_bytes(16);												//PHP7.0			
+				$bytes = random_bytes(16);												//PHP7.0
 			} catch (Exception $e) {
 				$bytes = $this->getRandomBytes(16);	//Old way
 			}
@@ -83,24 +83,31 @@ class toba_hash
 		}
 		$salt .= $this->encodeBytes($bytes);
 		return $salt;
-	}	
-	
+	}
+
 	//-----------------------------------------------------------------------------------------------------------------------------------------//
 	//			FUNCIONES PARA GENERAR SALT (tomadas de bcrypt.php @StackOverflow)
 	//-----------------------------------------------------------------------------------------------------------------------------------------//
-	
-	private function getRandomBytes($count) 
+
+	private function getRandomBytes($count)
 	{
 		$bytes = '';
 		if(function_exists('openssl_random_pseudo_bytes') &&	(strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN')) { // OpenSSL slow on Win
+                    try {
 			$bytes = openssl_random_pseudo_bytes($count);
+                    } catch (\Exception $e) {           //No hay suficientes bytes random
+                        $bytes = '';
+                    }
 		}
 		if($bytes === '' && is_readable('/dev/urandom') && ($hRand = @fopen('/dev/urandom', 'rb')) !== FALSE) {
 			$bytes = fread($hRand, $count);
+                        if (false === $bytes) { //Fallo la lectura
+                            $bytes = '';
+                        }
 			fclose($hRand);
 		}
-		
-		if(strlen($bytes) < $count) {
+
+		if(strlen($bytes) < $count) {           //Damn fallback
 			$bytes = '';
 			if($this->randomState === null) {
 				$this->randomState = microtime();
