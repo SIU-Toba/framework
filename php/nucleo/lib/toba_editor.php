@@ -4,7 +4,7 @@
  * Esta es una clase muy particular, su contenido deberia repartirse entre modelo,
  * proyecto editor y nucleo. Por simplicidad se deja todo junto.
  * @package Varios
- * @ignore 
+ * @ignore
  */
 class toba_editor
 {
@@ -14,7 +14,7 @@ class toba_editor
 
 	static function get_id()
 	{
-		return 'toba_editor';	
+		return 'toba_editor';
 	}
 
 	/**
@@ -24,32 +24,32 @@ class toba_editor
 	static function iniciar($instancia, $proyecto)
 	{
 		if(!isset($instancia) || !isset($proyecto)) {
-			throw new toba_error('Editor: es necesario definir la instancia y proyecto a utilizar.');	
+			throw new toba_error('Editor: es necesario definir la instancia y proyecto a utilizar.');
 		}
 		self::referenciar_memoria();
-		
+
 		self::$memoria['instancia'] = $instancia;
 		self::$memoria['proyecto'] = $proyecto;
 		//Busco el ID de la base donde reside la instancia
 		$parametros_instancia = toba::instancia()->get_datos_instancia($instancia);
 		self::$memoria['base'] = $parametros_instancia['base'];
 		//Averiguo el punto de acceso del editor
-		$punto_acceso = explode('?', $_SERVER['PHP_SELF']);	
+		$punto_acceso = explode('?', $_SERVER['PHP_SELF']);
 		self::$memoria['punto_acceso'] = $punto_acceso[0];
 		self::$memoria['conexion_limitada'] = 1;
 	}
-	
+
 	static function referenciar_memoria()
 	{
 		self::$memoria =& toba::manejador_sesiones()->segmento_editor();
 		//Acceso a la informacion del modelo
 		toba_contexto_info::set_proyecto(toba_editor::get_proyecto_cargado());
 		toba_contexto_info::set_db(toba_editor::get_base_activa());
-				
+
 		if (! self::modo_prueba()) {
 			return;
 		}
-		
+
 		//Cambia el perfil activo
 		$perfil_activo = toba::memoria()->get_parametro('perfil_activo');
 		if (isset($perfil_activo)) {
@@ -59,16 +59,16 @@ class toba_editor
 				toba::manejador_sesiones()->set_perfiles_funcionales_activos(array($perfil_activo));
 			}
 		}
-		
+
 		//Cambia el usuario de conexion
 		$tipo_conexion = toba::memoria()->get_parametro('usuario_conexion');
 		if (isset($tipo_conexion)) {
 			self::$memoria['conexion_limitada'] = ($tipo_conexion == 'limitado');
 		}
 		self::$fuentes = toba_info_editores::get_fuentes_datos(toba_editor::get_proyecto_cargado());
-		$modelo = self::get_modelo_proyecto();			
+		$modelo = self::get_modelo_proyecto();
 		foreach (self::$fuentes as $fuente) {
-			try {			
+			try {
 				if (self::$memoria['conexion_limitada'] && $fuente['permisos_por_tabla']) {
 					//El proyecto usa permisos por tablas para las operaciones, en modo previsualizacion se setea el rol especifico
 					$id_base = self::$memoria['instancia'].' '.self::get_proyecto_cargado().' '.$fuente['fuente_datos'];
@@ -83,13 +83,13 @@ class toba_editor
 				$base = toba_admin_fuentes::instancia()->get_fuente($fuente['fuente_datos'], toba_editor::get_proyecto_cargado())->get_db();
 				if ($base) {
 					$base->set_modo_debug(true, false);
-				}				
+				}
 			} catch (toba_error $e) {
 				//Si no se tiene acceso a la base no se hace nada
 			}
 		}
-		
-		
+
+
 		//Cambia el skin
 		if (toba::memoria()->get_parametro('skin') != '') {
 			$skin = explode(apex_qs_separador, toba::memoria()->get_parametro('skin'));
@@ -98,14 +98,14 @@ class toba_editor
 			toba::proyecto()->set_parametro('estilo', $skin[0]);
 			toba::proyecto()->set_parametro('estilo_proyecto', $skin[1]);
 			toba::proyecto()->set_parametro('es_css3', $datos['es_css3']);
-			
+
 		}
 		//Cambia tipo de navegación
 		if (toba::memoria()->get_parametro('navegacion_ajax') != '') {
 			$ajax = toba::memoria()->get_parametro('navegacion_ajax') ? true : false;
 			toba::proyecto()->set_parametro('navegacion_ajax', $ajax);
 		}
-		
+
 	}
 
 	static function finalizar()
@@ -113,20 +113,20 @@ class toba_editor
 		toba::manejador_sesiones()->borrar_segmento_editor();
 	}
 
-	
+
 	/**
 	*	Indica si el EDITOR de metadatos se encuentra encendido
 	*/
 	static function activado()
 	{
 		if (is_array(self::$memoria) && count(self::$memoria)>0) {
-			return true;	
+			return true;
 		}
 		return false;
 	}
 
 	/**
-	*	Indica si la ejecucion actual corresponde a la previsualizacion de un proyecto 
+	*	Indica si la ejecucion actual corresponde a la previsualizacion de un proyecto
 	*		lanzada desde el admin
 	*/
 	static function modo_prueba()
@@ -143,14 +143,14 @@ class toba_editor
 			return self::$memoria['instancia'];
 		}
 	}
-	
+
 	static function get_base_activa()
 	{
 		if (self::activado()) {
 			return toba_dba::get_db(self::$memoria['base']);
 		}
 	}
-	
+
 	static function get_db_defecto()
 	{
 		$fuente = toba_info_editores::get_fuente_datos_defecto(toba_editor::get_proyecto_cargado());
@@ -163,7 +163,7 @@ class toba_editor
 			return self::$memoria['proyecto'];
 		}
 	}
-	
+
 	static function set_proyecto_cargado($proyecto)
 	{
 		if (self::$memoria['proyecto'] != $proyecto ) {
@@ -173,20 +173,20 @@ class toba_editor
 		self::$memoria['proyecto'] = $proyecto;
 		self::get_parametros_previsualizacion(true);
 	}
-	
+
 	/**
 	 * Se cambio el item actual
 	 */
-	static function set_item_solicitado($item) 
+	static function set_item_solicitado($item)
 	{
-		if (isset($item) && $item[0] == self::$memoria['proyecto'] && 
+		if (isset($item) && $item[0] == self::$memoria['proyecto'] &&
 				!isset(self::$ultimo_item) && self::$ultimo_item[1] != $item[1]) {
-			self::$ultimo_item = $item;			
-					
+			self::$ultimo_item = $item;
+
 			$modelo = self::get_modelo_proyecto();
 
 			if (isset(self::$fuentes)) {
-				foreach (self::$fuentes as $fuente) {				
+				foreach (self::$fuentes as $fuente) {
 					if (self::$memoria['conexion_limitada'] && $fuente['permisos_por_tabla']) {
 						try {
 							$rol = $modelo->get_rol_prueba_db($fuente['fuente_datos'], $item[1]);
@@ -196,7 +196,7 @@ class toba_editor
 								$rol = $modelo->get_rol_prueba_db_basico($fuente['fuente_datos']);
 								toba::db()->set_rol($rol);
 							}
-							toba::logger()->info("Se cambio el rol postgres a '$rol'");													
+							toba::logger()->info("Se cambio el rol postgres a '$rol'");
 						} catch (toba_error_db $e) {
 							toba::notificacion()->error("No fue posible cambiar el rol del usuario de conexion", $e->get_mensaje_log());
 						}
@@ -205,7 +205,7 @@ class toba_editor
 			}
 		}
 	}
-		
+
 	static function get_punto_acceso_editor()
 	{
 		if (self::activado()) {
@@ -221,7 +221,7 @@ class toba_editor
 		if (self::activado()) {
 			return self::get_proyecto_cargado() == self::get_id();
 		}
-		return false;		
+		return false;
 	}
 
 	static function limpiar_memoria_proyecto_cargado()
@@ -239,7 +239,7 @@ class toba_editor
 	}
 
 	//---------------------------------------------------------------------------
-	//-- 
+	//--
 	//---------------------------------------------------------------------------
 
 	/**
@@ -258,14 +258,14 @@ class toba_editor
 			}
 		}
 	}
-	
+
 	function incluir_path_proyecto_cargado()
 	{
 		if(!self::acceso_recursivo()){
 			//La subclase puede incluir archivos del proyecto
 			$path_proyecto = toba::instancia()->get_path_proyecto(toba_editor::get_proyecto_cargado()) . '/php';
 			agregar_dir_include_path($path_proyecto);
-		}		
+		}
 	}
 
 	//---------------------------------------------------------------------------
@@ -290,7 +290,7 @@ class toba_editor
 	{
 		return self::get_perfiles_funcionales_previsualizacion();
 	}
-	
+
 
 	static function get_perfiles_funcionales_previsualizacion()
 	{
@@ -300,9 +300,9 @@ class toba_editor
 			$grupos = array_map('trim', $grupos);
 			return $grupos;
 		} else {
-			throw new toba_error("No estan definidos los perfiles de acceso a la previsualización. Desde toba_editor se pueden definir en la opción de Configuración > Previsualización");	
+			throw new toba_error("No estan definidos los perfiles de acceso a la previsualización. Desde toba_editor se pueden definir en la opción de Configuración > Previsualización");
 		}
-	}	
+	}
 
 	/**
 	* @deprecated 3.0.0
@@ -313,9 +313,9 @@ class toba_editor
 		$perfiles = self::get_perfiles_datos_previsualizacion();
 		if (! empty($perfiles) && $perfiles !== FALSE) {
 			return current($perfiles);
-		}		
+		}
 	}
-	
+
 	static function get_perfiles_datos_previsualizacion()
 	{
 		$param_prev = self::get_parametros_previsualizacion();
@@ -326,7 +326,7 @@ class toba_editor
 			}
 		}
 	}
-	
+
 	/**
 	 * Retorna la URL base del proyecto editado, basandose en la URL del PA (puede no ser la real..)
 	 * @return unknown
@@ -340,10 +340,10 @@ class toba_editor
 		if (strpos($pa, '.php') !== false) {
 			return dirname($pa);
 		} else {
-			return $pa;	
+			return $pa;
 		}
 	}
-	
+
 
 	/**
 	*	Recuperar las propiedades y setearlas en la sesion
@@ -360,14 +360,14 @@ class toba_editor
 		}
 		return 	self::$memoria['previsualizacion'];
 	}
-	
+
 	/**
 	*	Establecer las propiedades desde el editor
 	*/
 	static function set_parametros_previsualizacion($datos)
 	{
-		if (!( array_key_exists('punto_acceso', $datos) && array_key_exists('grupo_acceso', $datos))) {
-			throw new toba_error('Los parametros de previsualizacion son incorrectos.');	
+		if (!( \array_key_exists('punto_acceso', $datos) && \array_key_exists('grupo_acceso', $datos))) {
+			throw new toba_error('Los parametros de previsualizacion son incorrectos.');
 		}
 		self::$memoria['previsualizacion']['punto_acceso'] = $datos['punto_acceso'];
 		self::$memoria['previsualizacion']['grupo_acceso'] = $datos['grupo_acceso'];
@@ -389,11 +389,11 @@ class toba_editor
 		//Esto se accede solo desde el ADMIN
 		$datos = toba::db()->consultar($sql);
 		if ($datos) {
-			return $datos[0];	
+			return $datos[0];
 		}
 		return null;
 	}
-	
+
 	static function set_parametros_previsualizacion_db($datos)
 	{
 		$rs = self::get_parametros_previsualizacion_db();
@@ -401,12 +401,12 @@ class toba_editor
 		$proyecto = quote(self::get_proyecto_cargado());
 		$usuario = quote(toba::usuario()->get_id());
 		if (!$rs) {
-			$sql = "INSERT INTO apex_admin_param_previsualizazion (perfil_datos, grupo_acceso, punto_acceso, proyecto, usuario) 
+			$sql = "INSERT INTO apex_admin_param_previsualizazion (perfil_datos, grupo_acceso, punto_acceso, proyecto, usuario)
 					VALUES ({$datos['perfil_datos']}, {$datos['grupo_acceso']}, {$datos['punto_acceso']}, $proyecto, $usuario);";
 		} else {
 			$sql = "UPDATE apex_admin_param_previsualizazion
-					SET grupo_acceso = {$datos['grupo_acceso']}, 
-						perfil_datos = {$datos['perfil_datos']}, 
+					SET grupo_acceso = {$datos['grupo_acceso']},
+						perfil_datos = {$datos['perfil_datos']},
 						punto_acceso = {$datos['punto_acceso']}
 					WHERE proyecto = $proyecto
 					AND usuario = $usuario;";
@@ -423,7 +423,7 @@ class toba_editor
 	{
 		return toba_modelo_catalogo::instanciacion()->get_proyecto(self::get_id_instancia_activa(), self::get_proyecto_cargado());
 	}
-	
+
 	//---------------------------------------------------------------------------
 	//-- Generacion de VINCULOS al editor (desde un proyecto PREVISUALIZADO)
 	//---------------------------------------------------------------------------
@@ -446,7 +446,7 @@ class toba_editor
 		$link_analizador_sql = toba::vinculador()->get_url('toba_editor', '30000030', null, array('prefijo'=>toba_editor::get_punto_acceso_editor()));
 		$link_logger = toba::vinculador()->get_url('toba_editor', '1000003', null, array('prefijo'=>toba_editor::get_punto_acceso_editor()));
 		$link_archivos = toba::vinculador()->get_url('toba_editor', '30000029', null, array('prefijo'=>toba_editor::get_punto_acceso_editor()));
-		$estilo = toba::proyecto()->get_parametro('estilo');		
+		$estilo = toba::proyecto()->get_parametro('estilo');
 		if ($enviar_div_wrapper) {
 			echo "<div id='editor_previsualizacion'>";
 		/*echo "<div id='editor_previsualizacion_colap'><img style='cursor:pointer;_cursor:hand;' title='Ocultar la barra'
@@ -461,7 +461,7 @@ class toba_editor
 		$niveles = toba::logger()->get_niveles();
 		$niveles[0] = 'INFO';
 		$img = self::imagen_editor('logger/'.strtolower($niveles[$log_nivel]).'.gif', true);
-		$html_ayuda_logger = toba_recurso::ayuda(null, 'Visor de logs');		
+		$html_ayuda_logger = toba_recurso::ayuda(null, 'Visor de logs');
 		echo "<a href='$link_logger' target='logger' $html_ayuda_logger >".$img." $log_cant</a>\n";
 
 		//Cronometro
@@ -469,14 +469,14 @@ class toba_editor
 		echo "<a href='$link_cronometro' target='logger' $html_ayuda_cronometro >\n".
 				toba_recurso::imagen_toba('clock.png', true).
 				' '.round(toba::cronometro()->tiempo_acumulado(), 2). ' seg'."</a> ";
-				
+
 		//Memoria
 		if (function_exists('memory_get_peak_usage')) {
 			$memoria_pico = memory_get_peak_usage();
 			echo toba_recurso::imagen_toba('memory.png', true, 16, 16, 'Pico máximo de memoria que ha consumido el script actual');
 			echo ' '.file_size($memoria_pico, 0).' ';
 		}
-		
+
 		//Base de datos
 		$fuente = toba_admin_fuentes::instancia()->get_fuente_predeterminada(false, toba_editor::get_proyecto_cargado());
 		if ($fuente) {
@@ -493,14 +493,14 @@ class toba_editor
 				toba::memoria()->set_dato_instancia('previsualizacion_consultas', array('fuente' => $fuente, 'datos' => $info_db));
 				echo "<a href='$link_analizador_sql' target='logger'>".toba_recurso::imagen_toba('objetos/datos_relacion.gif', true, 16, 16, 'Ver detalles de las consultas y comandos ejecutados en este pedido de página').
 					count($info_db). " ($rol)</a>";
-					
+
 			} catch (toba_error $e) {
 				//Si no se tiene acceso a la base no se hace nada
 			}
 		}
-		
+
 		//Archivos
-		$archivos = self::get_archivos_incluidos();		
+		$archivos = self::get_archivos_incluidos();
 		$total = 0;
 		foreach ($archivos as $arch) {
 			$total += filesize($arch);
@@ -508,12 +508,12 @@ class toba_editor
 		toba::memoria()->set_dato_instancia('previsualizacion_archivos', $archivos);
 		echo "<a href='$link_archivos' target='logger'>".toba_recurso::imagen_toba('nucleo/php.gif', true, 16, 16, 'Ver detalle de archivos .php del proyecto incluidos en este pedido de página').
 			' '.count($archivos)." arch. (".file_size($total,0).')</a>';
-				
-		//Session		
+
+		//Session
 		$tamano = file_size(strlen(serialize($_SESSION)), 0);
 		echo toba_recurso::imagen_toba('sesion.png', true, 16, 16, 'Tamaño de la sesión')." $tamano  ";
-		echo "</span>";		
-		
+		echo "</span>";
+
 		//-- ACCIONES
 		echo "<span id='editor_previsualizacion_acc'>";
 		$perfiles = array(apex_ef_no_seteado => '-- Todos --');
@@ -526,36 +526,36 @@ class toba_editor
 			$actual = current($actuales);
 		}
 		$js = "title='Cambia el perfil actual del usuario' onchange=\"location.href = toba_prefijo_vinculo + '&perfil_activo=' + this.value\"";
-		echo "Perfiles: ".toba_form::select('cambiar_perfiles', $actual, $perfiles, 'ef-combo', $js);		
+		echo "Perfiles: ".toba_form::select('cambiar_perfiles', $actual, $perfiles, 'ef-combo', $js);
 
 		//Usuario de la base
 		$hay_limitado = false;
 		if (! isset(self::$fuentes)) {
-			self::$fuentes = toba_info_editores::get_fuentes_datos(toba_editor::get_proyecto_cargado());	
+			self::$fuentes = toba_info_editores::get_fuentes_datos(toba_editor::get_proyecto_cargado());
 		}
 		foreach (self::$fuentes as $fuente) {
 			if ($fuente['permisos_por_tabla']) {
 				$hay_limitado = true;
 			}
-		}		
-		
+		}
+
 		if ($hay_limitado) {
 			$actual = self::$memoria['conexion_limitada'] ? 'limitado' : 'normal';
 			$datos = array("normal" => "Normal", "limitado" => "Limitados");
 			$js = "title='Cambia temporalmente el usuario de conexión a la base' onchange=\"location.href = toba_prefijo_vinculo + '&usuario_conexion=' + this.value\"";
 			echo "Permisos DB: ".toba_form::select('cambiar_rol', $actual, $datos, 'ef-combo', $js);
 		}
-		
-		
+
+
 		//Skin
 		$skins = rs_convertir_asociativo(toba_info_editores::get_lista_skins(), array('estilo','proyecto'), 'descripcion');
 		$js = "title='Cambia temporalmente el skin de la aplicación' onchange=\"location.href = toba_prefijo_vinculo + '&skin=' + this.value\"";
 		$defecto = toba::proyecto()->get_parametro('estilo').apex_qs_separador.toba::proyecto()->get_parametro('estilo_proyecto');
 		echo "Skin: ".toba_form::select('cambiar_skin', $defecto, $skins, 'ef-combo', $js);
-		
-		//AJAX		
+
+		//AJAX
 		echo "<a id='editor_ajax' href='javascript: editor_cambiar_ajax()' $html_ayuda_ajax>".toba_recurso::imagen_toba('objetos/ajax_off.png', true)."</a>\n";
-				
+
 		//Edicion
 		echo	"<a href='javascript: editor_cambiar_vinculos()' $html_ayuda_editor >".
 		toba_recurso::imagen_toba('edicion_chico.png', true)."</a>\n";
@@ -565,13 +565,13 @@ class toba_editor
 		if (isset($vinculos[1])) {
 			self::mostrar_vinculo($vinculos[1]);
 		}
-		
+
 		//Editor
 		echo "<a href='#' onclick='return toba_invocar_editor()' $html_ayuda_editor>".toba_recurso::imagen_toba('icono_16.png', true)."</a>\n";
 		echo "</span>";
 		echo "</span>";
-		
-			
+
+
 		echo "<div class='div-editor' style='position:fixed; top: 85px; left: 1px;'>";
 		foreach(self::get_vinculos_item($item, $accion) as $vinculo) {
 			self::mostrar_vinculo($vinculo);
@@ -582,7 +582,7 @@ class toba_editor
 
 		}
 	}
-	
+
 	static protected function get_archivos_incluidos()
 	{
 		$todos = get_included_files();
@@ -658,14 +658,14 @@ class toba_editor
 
 		$proyecto = self::get_proyecto_cargado();
 		$vinculos = array();
-		
+
 		//Accion
 		if ($accion != '') {
 			$parametros[apex_hilo_qs_zona] = $proyecto . apex_qs_separador . $item;
 			$opciones = array('servicio' => 'ejecutar', 'zona' => false, 'celda_memoria' => 'ajax', 'menu' => true);
 			$vinculo = toba::vinculador()->get_url(toba_editor::get_id(), "30000014", $parametros, $opciones);
 			$js = "toba.comunicar_vinculo('$vinculo')";
-			$vinculo = array();			
+			$vinculo = array();
 			$vinculo['js'] = $js;
 			$vinculo['frame'] = '';
 			$vinculo['imagen'] = 'reflexion/abrir.gif';
@@ -692,7 +692,7 @@ class toba_editor
 		$opciones = array();
 		$opciones['celda_memoria'] = 'lateral';
 		$opciones['prefijo'] = self::get_punto_acceso_editor();
-		$vinculo = array();		
+		$vinculo = array();
 		$vinculo['url'] = toba::vinculador()->get_url(self::get_id(),'1000239',$parametros,$opciones);
 		$vinculo['frame'] = 'frame_lista';
 		$vinculo['imagen'] = 'objetos/arbol.gif';
@@ -709,7 +709,7 @@ class toba_editor
 		return $vinculos;
 	}
 
-	static function get_vinculos_componente($componente,$editor,$clase) 
+	static function get_vinculos_componente($componente,$editor,$clase)
 	{
 		$vinculos = array();
 		$opciones['celda_memoria'] = 'central';
@@ -717,7 +717,7 @@ class toba_editor
 		$opciones['prefijo'] = self::get_punto_acceso_editor();
 		$opciones['validar'] = false;
 
-		$vinculos = call_user_func(array('toba_datos_editores', 'get_pantallas_'.$clase));		
+		$vinculos = call_user_func(array('toba_datos_editores', 'get_pantallas_'.$clase));
 		foreach(array_keys($vinculos) as $id) {
 			$parametros = array(apex_hilo_qs_zona => implode(apex_qs_separador,$componente),
 								'etapa' => $vinculos[$id]['identificador']);
@@ -734,14 +734,14 @@ class toba_editor
 		$opciones['validar'] = false;
 		$parametros = array(apex_hilo_qs_zona=>implode(apex_qs_separador,$componente), 'evento' => $evento);
 		$url = toba::vinculador()->get_url(self::get_id(),$editor,$parametros,$opciones);
-		$salida = "<span class='div-editor'>";		
+		$salida = "<span class='div-editor'>";
 		$salida .= "<a href='#' title='Editar propiedades del evento' onclick=\"return toba_invocar_editor('frame_centro', '$url')\">";
 		$salida .= toba_recurso::imagen_toba('objetos/editar.gif',true);
 		$salida .= "</a>\n";
-		$salida .= "</span>";		
+		$salida .= "</span>";
 		return $salida;
 	}
-	
+
 	static function get_vinculo_pantalla($componente, $editor, $pantalla)
 	{
 		$opciones['celda_memoria'] = 'central';
@@ -749,14 +749,14 @@ class toba_editor
 		$opciones['validar'] = false;
 		$parametros = array(apex_hilo_qs_zona=>implode(apex_qs_separador,$componente), 'pantalla' => $pantalla);
 		$url = toba::vinculador()->get_url(self::get_id(),$editor,$parametros,$opciones);
-		$salida = "<span class='div-editor' style='position:absolute'>";		
+		$salida = "<span class='div-editor' style='position:absolute'>";
 		$salida .= "<a href='#' title='Editar propiedades de la pantalla' onclick=\"return toba_invocar_editor('frame_centro', '$url')\">";
 		$salida .= toba_recurso::imagen_toba('objetos/editar.gif',true);
 		$salida .= "</a>\n";
-		$salida .= "</span>";		
-		return $salida;		
+		$salida .= "</span>";
+		return $salida;
 	}
-	
+
 	static function get_utileria_editor_abrir_php($id_componente, $icono='reflexion/abrir.gif')
 	{
 		$parametros[apex_hilo_qs_zona] = $id_componente['proyecto'] . apex_qs_separador . $id_componente['componente'];
@@ -765,8 +765,8 @@ class toba_editor
 		$js = "toba.comunicar_vinculo('$vinculo')";
 		$ayuda = 'Abre la extensión PHP del componente en el editor del escritorio';
 		return "<a href='#' title='$ayuda' onclick=\"$js\">".self::imagen_editor($icono, true)."</a>";
-	}	
-	
+	}
+
 	static function imagen_editor($imagen,$html=false,$ancho=null, $alto=null,$tooltip=null,$mapa=null)
 	{
 		$src = toba_recurso::url_proyecto(self::get_id()) . "/img/" . $imagen;
@@ -776,17 +776,17 @@ class toba_editor
 			return $src;
 		}
 	}
-	
+
 	//--------------------------------------------------------------------------
 	// Abrir una fuente de datos del proyecto editado
 	//--------------------------------------------------------------------------
-	
+
 	static function db_proyecto_cargado($id_fuente)
 	{
 		$fuente_datos = toba_admin_fuentes::instancia()->get_fuente( $id_fuente,
 																	 toba_editor::get_proyecto_cargado() );
-		return $fuente_datos->get_db();		
+		return $fuente_datos->get_db();
 	}
-	
+
 }
 ?>
