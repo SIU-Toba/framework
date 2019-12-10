@@ -45,7 +45,8 @@
         "siu/arai-cli": "*",
         "siu/arai-crypto": "*",
         "siu/arai-json-parser": "*",
-        "siu/manejador-salida-bootstrap": "~1.3"
+        "siu/manejador-salida-bootstrap": "~1.3",
+        "phpstan/phpstan": "^0.12.2"
     },
     "suggest": {
         "simplesamlphp/simplesamlphp": "Permite conectarse a un IDP centralizado (see onelogin)",

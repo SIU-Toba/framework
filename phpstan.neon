@@ -1,0 +1,13 @@
+parameters:
+      paths:
+        - php/
+        - src/
+      autoload_files:
+        - php/toba_autoload.php
+        - vendor/autoload.php
+      excludes_analyse:
+        - php/3eros/
+        - php/instalacion/
+        - php/convenciones/
+
+
