@@ -504,6 +504,7 @@ class toba_autoload
 		'toba_solicitud_web' => 'nucleo/toba_solicitud_web.php',
 		'toba_autoload' => 'toba_autoload.php',
 		'toba_migracion' => 'modelo/migraciones/toba_migracion.php',
+                'PHP_Highlight' => '3ros/PHP_Highlight.php',
 	);
 }
 ?>
