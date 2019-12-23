@@ -3,6 +3,29 @@
 ## CHANGELOG
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
+- Se actualiza el item de login en toba_usuarios y toba_referencia, tambien se eliminan objetos huerfanos
+- Se agrega FK a la tabla apex_grupo_acc_restriccion_funcional
+- Se compatibiliza el mecanismo de actualizacion de secuencias con Postgresql 12
+- Se actualizan los siquientes paquetes:
+    * symfony/yaml: v4.4
+    * guzzlehttp/guzzle: v6.5
+    * michelf/php-markdown: v1.9
+    * phpmailer/phpmailer: v6.1
+    * phpoffice/phpspreadsheet: v1.10
+    * vlucas/dotenv: v3.6
+    * psr/log: v1.1
+    * siu/manejador-salida-toba: v1.1
+    * simpletest/simpletest: v1.2
+- Se brinda la posibilidad de definir si la salida de una vista se enviara inline o como adjunto
+- Se actualiza la interface del tipo de pagina popup para compatibilizar con los cambios en el manejador de salida
+- Se agrega la posibilidad de cambiar el pwd de un usuario determinado via comando de consola
+- Se agrega la posibilidad de marcar la instalacion para solicitar un segundo factor luego de loguear con un IDP
+- Se eliminan los assets correspondientes a Yahoo/YUI por cuestiones de seguridad y el menu basado en las mismas
+- Las membresias de perfiles funcionales se exportan en un archivo separado en una instalacion de produccion
+- Se actualiza el paquete siu/interfaces-manejador-salida-toba @v1.2 por bugfixes (rompe BC)
+- La exportacion via toba_vista_excel ahora tendra el formato xlsx
+- Se simplifica tratamiento de ef_fieldset en el formulario
+- Se pasa el paquete siu/rdi a suggested
 
 [3.2.10](https://github.com/SIU-Toba/framework/releases/tag/v3.2.10) (2019-11-25)
 - Fix a la desactivacion de eventos (con manejador-bootstrap)
