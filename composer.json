@@ -36,7 +36,7 @@
         "siu/arai-json-migrator": "~1.0",
         "vlucas/phpdotenv": "~3.6",
         "ioncube/php-openssl-cryptor": "dev-master",
-        "siu/manejador-salida-toba" : "dev-develop",
+        "siu/manejador-salida-toba" : "~1.1",
 	"psr/log": "^1.1"
     },
     "require-dev": {
@@ -47,7 +47,7 @@
         "siu/arai-crypto": "*",
         "siu/arai-json-parser": "*",
         "siu/arai-json-migrator": "*",
-        "siu/manejador-salida-bootstrap" : "dev-develop"
+        "siu/manejador-salida-bootstrap" : "~1.3"
     },
     "suggest": {
         "siu-toba/jasper": "Permite imprimir reportes via Jasper desde SIU-Toba",
