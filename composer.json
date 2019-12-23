@@ -22,7 +22,7 @@
         "paragonie/random-lib" : "~2.0",
         "siu-toba/rest": "~2.0",
         "siu-toba/ssl-cert-utils": "@dev",
-        "guzzlehttp/guzzle": "~6.4",
+        "guzzlehttp/guzzle": "~6.5",
         "onelogin/php-saml": "~3.4",
         "siu-toba/numbers_words": "0.18.0.1",
         "guiguiboy/php-cli-progress-bar": "dev-master", 
