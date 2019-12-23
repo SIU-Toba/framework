@@ -378,11 +378,6 @@ class toba_mc_gene__grupo_admin
     'proyecto' => 'toba_usuarios',
     'item' => '33000036',
   ),
-  'toba_usuarios-33000037' => 
-  array (
-    'proyecto' => 'toba_usuarios',
-    'item' => '33000037',
-  ),
   'toba_usuarios-33000046' => 
   array (
     'proyecto' => 'toba_usuarios',
@@ -437,6 +432,11 @@ class toba_mc_gene__grupo_admin
   array (
     'proyecto' => 'toba_usuarios',
     'item' => '45000001',
+  ),
+  'toba_usuarios-45000002' => 
+  array (
+    'proyecto' => 'toba_usuarios',
+    'item' => '45000002',
   ),
 );
 	}

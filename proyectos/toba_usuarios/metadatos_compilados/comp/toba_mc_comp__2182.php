@@ -236,6 +236,21 @@ class toba_mc_comp__2182
       'externa' => 0,
       'tabla' => NULL,
     ),
+    11 => 
+    array (
+      'objeto_proyecto' => 'toba_usuarios',
+      'objeto' => 2182,
+      'col_id' => 33000198,
+      'columna' => 'requiere_segundo_factor',
+      'tipo' => 'L',
+      'pk' => 0,
+      'secuencia' => NULL,
+      'largo' => NULL,
+      'no_nulo' => NULL,
+      'no_nulo_db' => 0,
+      'externa' => 0,
+      'tabla' => NULL,
+    ),
   ),
   '_info_externas' => 
   array (
