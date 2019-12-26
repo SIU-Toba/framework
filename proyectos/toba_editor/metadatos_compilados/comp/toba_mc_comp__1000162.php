@@ -49,7 +49,7 @@ class toba_mc_comp__1000162
     'ap_clase' => NULL,
     'ap_archivo' => NULL,
     'ap_punto_montaje' => NULL,
-    'cant_dependencias' => 5,
+    'cant_dependencias' => 6,
     'posicion_botonera' => 'abajo',
   ),
   '_info_eventos' => 
@@ -108,20 +108,28 @@ class toba_mc_comp__1000162
       'template' => NULL,
       'template_impresion' => NULL,
     ),
+    2 => 
+    array (
+      'pantalla' => 33000085,
+      'identificador' => '2do_factor',
+      'etiqueta' => 'Segundo Factor',
+      'descripcion' => NULL,
+      'tip' => NULL,
+      'imagen_recurso_origen' => 'apex',
+      'imagen' => NULL,
+      'objetos' => NULL,
+      'eventos' => NULL,
+      'orden' => 3,
+      'punto_montaje' => NULL,
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
+      'template' => NULL,
+      'template_impresion' => NULL,
+    ),
   ),
   '_info_obj_pantalla' => 
   array (
     0 => 
-    array (
-      'pantalla' => 33000031,
-      'proyecto' => 'toba_editor',
-      'objeto_ci' => 1000162,
-      'dep_id' => 33000050,
-      'orden' => 0,
-      'identificador_pantalla' => 'cambiar_contrasenia',
-      'identificador_dep' => 'form_passwd_vencido',
-    ),
-    1 => 
     array (
       'pantalla' => 1000030,
       'proyecto' => 'toba_editor',
@@ -131,7 +139,27 @@ class toba_mc_comp__1000162
       'identificador_pantalla' => 'login',
       'identificador_dep' => 'datos',
     ),
+    1 => 
+    array (
+      'pantalla' => 33000031,
+      'proyecto' => 'toba_editor',
+      'objeto_ci' => 1000162,
+      'dep_id' => 33000050,
+      'orden' => 0,
+      'identificador_pantalla' => 'cambiar_contrasenia',
+      'identificador_dep' => 'form_passwd_vencido',
+    ),
     2 => 
+    array (
+      'pantalla' => 33000085,
+      'proyecto' => 'toba_editor',
+      'objeto_ci' => 1000162,
+      'dep_id' => 33000166,
+      'orden' => 0,
+      'identificador_pantalla' => '2do_factor',
+      'identificador_dep' => 'form_2do_factor',
+    ),
+    3 => 
     array (
       'pantalla' => 1000030,
       'proyecto' => 'toba_editor',
@@ -141,7 +169,7 @@ class toba_mc_comp__1000162
       'identificador_pantalla' => 'login',
       'identificador_dep' => 'openid',
     ),
-    3 => 
+    4 => 
     array (
       'pantalla' => 1000030,
       'proyecto' => 'toba_editor',
@@ -151,7 +179,7 @@ class toba_mc_comp__1000162
       'identificador_pantalla' => 'login',
       'identificador_dep' => 'seleccion_usuario',
     ),
-    4 => 
+    5 => 
     array (
       'pantalla' => 1000030,
       'proyecto' => 'toba_editor',
@@ -169,6 +197,19 @@ class toba_mc_comp__1000162
   array (
     0 => 
     array (
+      'identificador' => 'seleccion_usuario',
+      'proyecto' => 'toba_editor',
+      'objeto' => 1000161,
+      'clase' => 'toba_ei_cuadro',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_cuadro.php',
+      'subclase' => 'cuadro_autologin',
+      'subclase_archivo' => 'login_generico/cuadro_autologin.php',
+      'fuente' => NULL,
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    1 => 
+    array (
       'identificador' => 'cas',
       'proyecto' => 'toba_editor',
       'objeto' => 33000106,
@@ -180,7 +221,7 @@ class toba_mc_comp__1000162
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
-    1 => 
+    2 => 
     array (
       'identificador' => 'datos',
       'proyecto' => 'toba_editor',
@@ -193,7 +234,7 @@ class toba_mc_comp__1000162
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
-    2 => 
+    3 => 
     array (
       'identificador' => 'form_passwd_vencido',
       'proyecto' => 'toba_editor',
@@ -206,7 +247,20 @@ class toba_mc_comp__1000162
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
-    3 => 
+    4 => 
+    array (
+      'identificador' => 'form_2do_factor',
+      'proyecto' => 'toba_editor',
+      'objeto' => 33000215,
+      'clase' => 'toba_ei_formulario',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
+      'fuente' => 'instancia',
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    5 => 
     array (
       'identificador' => 'openid',
       'proyecto' => 'toba_editor',
@@ -216,19 +270,6 @@ class toba_mc_comp__1000162
       'subclase' => NULL,
       'subclase_archivo' => NULL,
       'fuente' => 'instancia',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    4 => 
-    array (
-      'identificador' => 'seleccion_usuario',
-      'proyecto' => 'toba_editor',
-      'objeto' => 1000161,
-      'clase' => 'toba_ei_cuadro',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_cuadro.php',
-      'subclase' => 'cuadro_autologin',
-      'subclase_archivo' => 'login_generico/cuadro_autologin.php',
-      'fuente' => NULL,
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),

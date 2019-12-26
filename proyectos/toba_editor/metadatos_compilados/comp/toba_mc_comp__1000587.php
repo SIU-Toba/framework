@@ -179,31 +179,18 @@ class toba_mc_comp__1000587
   array (
     0 => 
     array (
-      'identificador' => 'efs',
+      'identificador' => 'param_varios',
       'proyecto' => 'toba_editor',
-      'objeto' => 1000586,
+      'objeto' => 1000154,
       'clase' => 'toba_ei_formulario',
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
+      'subclase' => 'form_varios',
+      'subclase_archivo' => 'objetos_toba/efs/form_varios.php',
       'fuente' => 'instancia',
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
     1 => 
-    array (
-      'identificador' => 'efs_lista',
-      'proyecto' => 'toba_editor',
-      'objeto' => 1000585,
-      'clase' => 'toba_ei_formulario_ml',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
-      'subclase' => 'ml_cols',
-      'subclase_archivo' => 'objetos_toba/ei_filtro/ml_cols.php',
-      'fuente' => 'instancia',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    2 => 
     array (
       'identificador' => 'param_carga',
       'proyecto' => 'toba_editor',
@@ -216,15 +203,28 @@ class toba_mc_comp__1000587
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
-    3 => 
+    2 => 
     array (
-      'identificador' => 'param_varios',
+      'identificador' => 'efs',
       'proyecto' => 'toba_editor',
-      'objeto' => 1000154,
+      'objeto' => 1000586,
       'clase' => 'toba_ei_formulario',
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
-      'subclase' => 'form_varios',
-      'subclase_archivo' => 'objetos_toba/efs/form_varios.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
+      'fuente' => 'instancia',
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    3 => 
+    array (
+      'identificador' => 'efs_lista',
+      'proyecto' => 'toba_editor',
+      'objeto' => 1000585,
+      'clase' => 'toba_ei_formulario_ml',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
+      'subclase' => 'ml_cols',
+      'subclase_archivo' => 'objetos_toba/ei_filtro/ml_cols.php',
       'fuente' => 'instancia',
       'parametros_a' => NULL,
       'parametros_b' => NULL,

@@ -188,19 +188,6 @@ class toba_mc_comp__1617
   array (
     0 => 
     array (
-      'identificador' => 'archivos',
-      'proyecto' => 'toba_editor',
-      'objeto' => 1618,
-      'clase' => 'toba_ei_formulario',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
-      'fuente' => 'instancia',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    1 => 
-    array (
       'identificador' => 'faltantes',
       'proyecto' => 'toba_editor',
       'objeto' => 1619,
@@ -212,7 +199,7 @@ class toba_mc_comp__1617
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
-    2 => 
+    1 => 
     array (
       'identificador' => 'sobrantes',
       'proyecto' => 'toba_editor',
@@ -222,6 +209,19 @@ class toba_mc_comp__1617
       'subclase' => NULL,
       'subclase_archivo' => NULL,
       'fuente' => NULL,
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    2 => 
+    array (
+      'identificador' => 'archivos',
+      'proyecto' => 'toba_editor',
+      'objeto' => 1618,
+      'clase' => 'toba_ei_formulario',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
+      'fuente' => 'instancia',
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),

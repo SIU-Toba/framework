@@ -131,6 +131,19 @@ class toba_mc_comp__1747
   array (
     0 => 
     array (
+      'identificador' => 'generador',
+      'proyecto' => 'toba_editor',
+      'objeto' => 1719,
+      'clase' => 'toba_ei_formulario',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
+      'fuente' => 'instancia',
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    1 => 
+    array (
       'identificador' => 'eventos',
       'proyecto' => 'toba_editor',
       'objeto' => 1366,
@@ -142,7 +155,7 @@ class toba_mc_comp__1747
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
-    1 => 
+    2 => 
     array (
       'identificador' => 'eventos_lista',
       'proyecto' => 'toba_editor',
@@ -151,19 +164,6 @@ class toba_mc_comp__1747
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
       'subclase' => 'eiform_abm_detalle',
       'subclase_archivo' => 'objetos_toba/eiform_abm_detalle.php',
-      'fuente' => 'instancia',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    2 => 
-    array (
-      'identificador' => 'generador',
-      'proyecto' => 'toba_editor',
-      'objeto' => 1719,
-      'clase' => 'toba_ei_formulario',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
       'fuente' => 'instancia',
       'parametros_a' => NULL,
       'parametros_b' => NULL,
