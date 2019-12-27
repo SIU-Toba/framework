@@ -26,7 +26,7 @@ class toba_usuario_basico extends toba_usuario
 		} else {
 			//--- Autentificación
 			$algoritmo = $datos_usuario['autentificacion'];
-			if ($algoritmo != 'plano')  { 
+			if ($algoritmo != 'plano')  {
 				if ($algoritmo == 'md5') {
 					$clave = hash($algoritmo, $clave);
 				} else {
@@ -42,7 +42,7 @@ class toba_usuario_basico extends toba_usuario
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Recupera las descripciones de las cuentas de usuario
 	 * @param array $cuentas Lista de ids de usuario
@@ -52,9 +52,9 @@ class toba_usuario_basico extends toba_usuario
 	{
 		return toba::instancia()->get_info_usuarios($cuentas);
 	}
-	
+
 	//----------------------------------------------------------------------------------
-	
+
 	function __construct($id_usuario)
 	{
 		$this->datos_basicos = toba::instancia()->get_info_usuario($id_usuario);
@@ -85,7 +85,7 @@ class toba_usuario_basico extends toba_usuario
 		}
 		return $this->get_id();
 	}
-	
+
 	/**
 	*	Retorna el nombre del usuario
 	*/
@@ -93,7 +93,7 @@ class toba_usuario_basico extends toba_usuario
 	{
 		return $this->datos_basicos['nombre'];
 	}
-	
+
 	/**
 	 * Retorna la informacion de atributos del token saml directamente
 	 * @return array
@@ -101,12 +101,34 @@ class toba_usuario_basico extends toba_usuario
 	function get_informacion_atributos()
 	{
 		return toba::manejador_sesiones()->get_autenticacion()->get_atributos_usuario();
-	}	
-	
+	}
+
+        /**
+         * Utiliza la clave local del usuario para verificar un segundo factor
+         * @param string $clave
+         * @throws \Exception
+         */
+        function verificar_segundo_factor($clave)
+        {
+            $usr = $this->get_id();
+            if (false === self::autenticar($usr, $clave)) {
+                throw new \Exception('Segundo factor no valido para el usuario ' . $usr);
+            }
+        }
+
+        /**
+         * Determina si el usuario requiere un segundo factor de autenticacion
+         * @return boolean 
+         */
+        function requiere_segundo_factor()
+        {
+            return (isset($this->datos_basicos['require_2do_factor']) && $this->datos_basicos['require_2do_factor'] == 1);
+        }
+
 	//-------------------------------------------------------
 	//----- Perfil
 	//-------------------------------------------------------
-	
+
 	/**
 	*	Retorna un array de perfiles funcionales a los que el usuario actual tiene acceso en este proyecto
 	*	@return Array de perfiles funcionales
@@ -114,8 +136,8 @@ class toba_usuario_basico extends toba_usuario
 	function get_perfiles_funcionales()
 	{
 		return $this->grupos_acceso;
-	}	
-	
+	}
+
 	/**
 	*	@deprecated Desde 1.5 usar get_perfiles_funcionales
 	*/
@@ -132,7 +154,7 @@ class toba_usuario_basico extends toba_usuario
 	{
 		return $this->perfil_datos;
 	}
-	
+
 	/**
 	 * Retorna un array con los perfiles de datos del usuario
 	 * @return array
@@ -141,13 +163,13 @@ class toba_usuario_basico extends toba_usuario
 	{
 		return $this->perfiles_datos;
 	}
-	
+
 	function get_restricciones_funcionales($perfiles = null)
 	{
 		if (! isset($perfiles)) {
 			$perfiles = $this->get_perfiles_funcionales();
 		}
-		return toba_proyecto_implementacion::get_restricciones_funcionales($perfiles, toba::proyecto()->get_id());		
+		return toba_proyecto_implementacion::get_restricciones_funcionales($perfiles, toba::proyecto()->get_id());
 	}
 
 	function set_perfil_activo($perfil)
@@ -159,7 +181,7 @@ class toba_usuario_basico extends toba_usuario
 		}
 		toba::manejador_sesiones()->set_perfiles_funcionales_activos($perfil);
 	}
-	
+
 	//-------------------------------------------------------
 	//----- Parametros
 	//-------------------------------------------------------
@@ -173,10 +195,10 @@ class toba_usuario_basico extends toba_usuario
 	{
 		$parametro = strtolower(trim($parametro));
 		if ( !($parametro=='a'||$parametro=='b'||$parametro=='c') ) {
-			throw new toba_error("Consulta de parametro de usuario: El parametro '$parametro' es invalido.");	
+			throw new toba_error("Consulta de parametro de usuario: El parametro '$parametro' es invalido.");
 		}
 		//Las opciones correctas son 'a','b' o 'c'
-		$nombre_parametro = 'parametro_'. $parametro;	
+		$nombre_parametro = 'parametro_'. $parametro;
 		if (isset($this->datos_basicos[$nombre_parametro])){
 			return $this->datos_basicos[$nombre_parametro];
 		}else{
@@ -192,7 +214,7 @@ class toba_usuario_basico extends toba_usuario
 	{
 		return toba::instancia()->es_ip_rechazada($ip);
 	}
-	
+
 	static function registrar_error_login($usuario, $ip, $texto)
 	{
 		return toba::instancia()->registrar_error_login($usuario, $ip, $texto);
@@ -202,27 +224,27 @@ class toba_usuario_basico extends toba_usuario
 	{
 		return toba::instancia()->bloquear_ip($ip);
 	}
-	
+
 	static function get_cantidad_intentos_en_ventana_temporal($ip, $ventana_temporal=null)
 	{
 		return toba::instancia()->get_cantidad_intentos_en_ventana_temporal($ip, $ventana_temporal);
 	}
-	
+
 	//-------------------- Bloqueo de Usuarios en LOGIN  ----------------------------
-	
+
 	static function get_cantidad_intentos_usuario_en_ventana_temporal($usuario, $ventana_temporal=null)
 	{
 		return toba::instancia()->get_cantidad_intentos_usuario_en_ventana_temporal($usuario, $ventana_temporal);
 	}
-	
+
 	static function bloquear_usuario($usuario)
 	{
 		return toba::instancia()->bloquear_usuario($usuario);
 	}
-	
+
 	static function es_usuario_bloqueado($usuario)
 	{
-		return toba::instancia()->es_usuario_bloqueado($usuario);		
+		return toba::instancia()->es_usuario_bloqueado($usuario);
 	}
 }
 ?>

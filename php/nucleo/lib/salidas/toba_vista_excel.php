@@ -5,60 +5,61 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 /**
  * Genera un pdf a través de una api básica
  * @package SalidaGrafica
- * @todo La numeración de páginas no funcionará si se cambia la orientación de la misma. Habría que 
- * implementar un método que en base al tipo de papel y orientación de la página, devuelva las 
+ * @todo La numeración de páginas no funcionará si se cambia la orientación de la misma. Habría que
+ * implementar un método que en base al tipo de papel y orientación de la página, devuelva las
  * coordenadas para una correcta visualización de la numeración de páginas.
  * @todo El método insertar_imagen esta implementado con un método en estado beta de la api ezpdf. Usar
  * con discreción.
- */	
+ */
 class toba_vista_excel
 {
 	/**
 	 * @var PHPExcel
 	 */
-	protected $excel;	
-	protected $objetos = array();	
-	protected $nombre_archivo = 'salida.xls';
+	protected $excel;
+	protected $objetos = array();
+        protected $tipo_salida = 'application/vnd.ms-excel';
+	protected $nombre_archivo = 'salida.xlsx';
 	protected $tipo_descarga = 'attachment';
-	protected $writer = 'Xls';
+	protected $writer = 'Xlsx';
 	protected $cursor_base = array(1,1);
 	protected $cursor = array(1,1);
 	protected $temp_salida;
-	
-	const FORMAT_CURRENCY_USD_CUSTOM	= '#,##0.00_- [$USD]'; 
+
+	const FORMAT_CURRENCY_USD_CUSTOM	= '#,##0.00_- [$USD]';
 	const FORMAT_DATE_DATETIMEFULL		= 'd/m/yy h:mm';
-	
+
 	function __construct()
 	{
 		$this->excel = new Spreadsheet();
 		$this->inicializar();
 	}
-	
+
 	function inicializar()
 	{
 	}
-	
+
 	/**
-	 * @ignore 
+	 * @ignore
 	 */
 	function asignar_objetos( $objetos )
 	{
 		$this->objetos = $objetos;
 	}
-	
+
 	//------------------------------------------------------------------------
 	//-- Configuracion
 	//------------------------------------------------------------------------
 
 	/**
 	 * Cambia el formato de salida del excel
-	 * @param string $tipo es Excel5, CSV, Excel2007, HTML o Serialized, por defecto es Excel5 (office97)
+	 * @param string $tipo es Excel5, CSV, Excel2007, HTML o Serialized, por defecto es Excel2007 (Office Open XML)
 	 */
 	function set_tipo_salida($tipo)
 	{
 		$this->writer = $tipo;
 	}
-	
+
 	/**
 	 * Cambia el nombre del archivo que el usuario visualiza al descargar
 	 * @param string $nombre
@@ -68,17 +69,26 @@ class toba_vista_excel
 		$this->nombre_archivo = $nombre;
 	}
 
+        /**
+	 * Permite setear el tipo de descarga pdf desde el browser, inline o attachment
+	 * @param string $tipo inline o attachment
+	 */
+	function set_tipo_descarga( $tipo )
+	{
+		$this->tipo_descarga = $tipo;
+	}
+
 	//------------------------------------------------------------------------
 	//-- Generacion del excel
 	//------------------------------------------------------------------------
 
 	/**
-	 * @ignore 
+	 * @ignore
 	 */
 	function generar_salida()
-	{	
+	{
 		foreach( $this->objetos as $objeto ) {
-			$objeto->vista_excel( $this );	
+			$objeto->vista_excel( $this );
 		}
 		$this->crear_excel();
 	}
@@ -106,32 +116,32 @@ class toba_vista_excel
 
 	protected function crear_excel()
 	{
-		$clase = '\PhpOffice\PhpSpreadsheet\Writer' . '\\'. $this->writer; 
+		$clase = '\PhpOffice\PhpSpreadsheet\Writer' . '\\'. $this->writer;
 		$writer = new $clase($this->excel);
 		$this->temp_salida = toba::proyecto()->get_path_temp().'/'.uniqid();
 		$writer->save($this->temp_salida);
 	}
-	
+
 	protected function cabecera_http($longitud)
 	{
-		toba_http::headers_download($this->tipo_descarga, $this->nombre_archivo, $longitud);
+		toba_http::headers_download($this->tipo_salida, $this->nombre_archivo, $longitud, $this->tipo_descarga);
 	}
 
 	//------------------------------------------------------------------------
 	//-- API de Creación
-	//------------------------------------------------------------------------	
-	
+	//------------------------------------------------------------------------
+
 	function crear_hoja($nombre=null)
 	{
 		$hoja = $this->excel->createSheet();
-		if (isset($nombre)) {	
+		if (isset($nombre)) {
 			$this->check_caracteres($nombre);
 			$hoja->setTitle(utf8_encode(strval($nombre)));
 		}
 		$this->excel->setActiveSheetIndex($this->excel->getSheetCount()-1);
 		$this->cursor = $this->cursor_base;
 	}
-	
+
 	function set_hoja_nombre($nombre)
 	{
 		if (strlen($nombre) > 31) {
@@ -140,13 +150,13 @@ class toba_vista_excel
 		}
 		$this->excel->getActiveSheet()->setTitle(utf8_encode(strval($nombre)));
 	}
-	
+
 	function get_hoja_nombre()
 	{
 		return $this->excel->getActiveSheet()->getTitle();
 	}
-	
-	
+
+
 	/**
 	 * Cambia el cursor de inserción en el flujo del excel generado
 	 * @param int $columna Número de columna, base 0
@@ -156,39 +166,39 @@ class toba_vista_excel
 	{
 		$this->cursor = array($columna, $fila);
 	}
-	
+
 	function get_cursor()
 	{
 		return $this->cursor;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param array $datos
 	 * @param array $titulos
 	 * @param array opciones => array(
-	 * 'columna' => 
+	 * 'columna' =>
 	 * 	 'ancho' => (auto|numero)
-	 * 	 'estilo' => array( 
+	 * 	 'estilo' => array(
 	 *		'font' => array('name' => 'Arial', 'bold' => true, 'italic' => false, 'underline' => Font::UNDERLINE_DOUBLE, 'strike' => false, 'color' => array('argb' => 'FF808080')),
 	 *		'borders' => array(
-	 *			'bottom' => array('style' => Border::BORDER_DASHDOT,'color' => array('argb' => 'FF808080')), 
+	 *			'bottom' => array('style' => Border::BORDER_DASHDOT,'color' => array('argb' => 'FF808080')),
 	 *			'top' => array( 'style' =>Border::BORDER_DASHDOT, 'color' => array('argb' => 'FF808080'))
 	 *			)
 	 *		)
-	 * 	)		
+	 * 	)
 	 * @param array $origen Arreglo [columna,fila], sino se toma el cursor actual
-	 * 
+	 *
 	 */
 	function tabla($datos, $titulos=array(), $opciones=array(), $totales=array(), $origen=null)
 	{
 	 	//Determina la agrupacion
- 		$agrupacion = array(); 		
+ 		$agrupacion = array();
  		foreach ($opciones as $clave => $atributos) {
  			if (isset($atributos['grupo']) && $atributos['grupo'] != '') {
  				$agrupacion[$atributos['grupo']][] = $clave;
 	 		}
- 		}		
+ 		}
 		if (! isset($origen)) {
 			$origen = $this->cursor;
 			//Determina donde va a terminar la tabla
@@ -198,10 +208,10 @@ class toba_vista_excel
 			}
 			if (! empty($totales)) {
 				$this->cursor[1]++;
-			}			
+			}
 			if (! empty($agrupacion)) {
 				$this->cursor[1]++;
-			}						
+			}
  		}
  		if (! empty($agrupacion)) {
  			$origen[1]++;	//Tiene que entrar una fila más
@@ -235,7 +245,7 @@ class toba_vista_excel
 					} else {
 					 	$grupo_actual = '';
 					}
-					$hoja->setCellValueByColumnAndRow($inicio, $origen[1]-1, utf8_encode(strval($grupo_actual)));					
+					$hoja->setCellValueByColumnAndRow($inicio, $origen[1]-1, utf8_encode(strval($grupo_actual)));
 					$hoja->getStyleByColumnAndRow($inicio, $origen[1]-1)->applyFromArray($estilo_titulos);
 					if ($ultimo_grupo != $grupo_actual) {
 						if (isset($agrupacion[$grupo_actual]) && count($agrupacion[$grupo_actual]) > 1) {
@@ -249,7 +259,7 @@ class toba_vista_excel
 						$hoja->setCellValueByColumnAndRow($inicio, $origen[1]-1, utf8_encode(strval($valor)));
 						$hoja->mergeCellsByColumnAndRow($inicio, $origen[1]-1, $inicio, $origen[1]);
 					}
-					$ultimo_grupo = $grupo_actual;					
+					$ultimo_grupo = $grupo_actual;
 				}
 				$x++;
 			}
@@ -257,7 +267,7 @@ class toba_vista_excel
 		}
 		//--- Datos
 		$columnas = array();
-		$y = 0;		
+		$y = 0;
 		$x = 0;
 		foreach($datos as $filas) {
 			$x = 0;
@@ -267,7 +277,7 @@ class toba_vista_excel
 				if (! isset($opciones[$clave]['estilo']['borders'])) {
 					$opciones[$clave]['estilo']['borders']= array('bottom' => $borde, 'top' => $borde, 'left' => $borde, 'right' => $borde);
 				}
-				//--- Se borran los estilos si no tiene valor (opcional)				
+				//--- Se borran los estilos si no tiene valor (opcional)
 				if (!isset($valor) && isset($opciones[$clave]['borrar_estilos_nulos'])) {
 					$opciones[$clave]['estilo'] = array();
 				}
@@ -294,33 +304,33 @@ class toba_vista_excel
 			$hoja->setCellValueByColumnAndRow($destino_x, $destino_y, utf8_encode(strval($total)) );
 			$estilo = $hoja->getStyleByColumnAndRow($destino_x, $destino_y);
 			unset($opciones[$clave]['estilo']['borders']);
-			$estilo->applyFromArray($opciones[$clave]['estilo']);			
+			$estilo->applyFromArray($opciones[$clave]['estilo']);
 			$estilo->getFont()->setBold(true);
 			$estilo->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK );
 			$estilo->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK );
 		}
 		return array($origen, array($origen[0]+($x-1), $origen[1]+($y-1)));
 	}
-	
+
 	function separacion($cant_filas, $cant_columnas=0)
 	{
 		$this->cursor[1] += $cant_filas;
 		$this->cursor[0] += $cant_columnas;
 	}
-	
+
 	function titulo($titulo, $celdas_ancho=1, $origen=null)
-	{		
+	{
 		$estilos = array(
 			'font' => array('
-				bold' => true, 
-				'size' => 14, 
+				bold' => true,
+				'size' => 14,
 				'color' => array('argb' => \PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE)
 			),
 			'alignment' => array(
 				'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER
 			),
 			'fill' => array(
-				'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID, 
+				'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
 				'startColor' => array('argb' => 'FF808080')
 			),
 			'borders' => array(
@@ -328,34 +338,34 @@ class toba_vista_excel
 			)
 		);
 		$altura = 20;
-		$this->texto($titulo, $estilos, $celdas_ancho, $altura, $origen);		
+		$this->texto($titulo, $estilos, $celdas_ancho, $altura, $origen);
 	}
-	
+
 	function texto($texto, $estilos=array(), $celdas_ancho=1, $altura=null, $origen=null)
 	{
 		if (! isset($origen)) {
 			$origen = $this->cursor;
 			$this->cursor[1]++;
- 		}		
-		$hoja = $this->excel->getActiveSheet();				
+ 		}
+		$hoja = $this->excel->getActiveSheet();
  		$hoja->setCellValueByColumnAndRow($origen[0], $origen[1],utf8_encode(strval($texto)) );
- 		$hoja->setBreak('A1',  Worksheet::BREAK_COLUMN );		
+ 		$hoja->setBreak('A1',  Worksheet::BREAK_COLUMN );
  		$estilo = $hoja->getStyleByColumnAndRow($origen[0], $origen[1]);
- 		$estilo->applyFromArray($estilos);		
+ 		$estilo->applyFromArray($estilos);
  		if (isset($altura)) {
  			$hoja->getRowDimension($origen[1])->setRowHeight($altura);
- 		}								
+ 		}
 		if ($celdas_ancho > 1) {
 			$fin = ($origen[0] + $celdas_ancho) -1;
 			$hoja->mergeCellsByColumnAndRow($origen[0], $origen[1], $fin, $origen[1]);
-	 		for($i=$origen[0]+1; $i<=$fin; $i++) {									
+	 		for($i=$origen[0]+1; $i<=$fin; $i++) {
 	 			$estilo = $hoja->getStyleByColumnAndRow($i, $origen[1]);
-	 			$estilo->applyFromArray($estilos);		
+	 			$estilo->applyFromArray($estilos);
 	 		}
 		}
 	}
-	
-	private function check_caracteres($texto) 
+
+	private function check_caracteres($texto)
 	{
 		$ic = Worksheet::getInvalidCharacters();
 		  if (str_replace($ic, '', $texto) !== $texto) {

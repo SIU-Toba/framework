@@ -86,19 +86,6 @@ class toba_mc_comp__1976
   array (
     0 => 
     array (
-      'identificador' => 'clase',
-      'proyecto' => 'toba_editor',
-      'objeto' => 1977,
-      'clase' => 'toba_datos_tabla',
-      'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_tabla.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
-      'fuente' => 'instancia',
-      'parametros_a' => '1',
-      'parametros_b' => '1',
-    ),
-    1 => 
-    array (
       'identificador' => 'relaciones',
       'proyecto' => 'toba_editor',
       'objeto' => 1978,
@@ -109,6 +96,19 @@ class toba_mc_comp__1976
       'fuente' => 'instancia',
       'parametros_a' => '0',
       'parametros_b' => '0',
+    ),
+    1 => 
+    array (
+      'identificador' => 'clase',
+      'proyecto' => 'toba_editor',
+      'objeto' => 1977,
+      'clase' => 'toba_datos_tabla',
+      'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_tabla.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
+      'fuente' => 'instancia',
+      'parametros_a' => '1',
+      'parametros_b' => '1',
     ),
   ),
   '_info_columnas_asoc_rel' => 

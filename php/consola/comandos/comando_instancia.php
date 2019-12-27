@@ -356,6 +356,43 @@ class comando_instancia extends comando_toba
 		$instancia->get_db()->cerrar_transaccion();
 	}
 
+        /**
+         * Modifica la clave de un usuario dado
+         * @consola_parametros Opcionales: [--u 'usuario'][-k 'archivo clave usuario']
+         * @param array $datos
+         */
+        function opcion__cambiar_clave_usuario($datos=\NULL)
+        {
+            if (! isset($datos)) {
+                $datos = $this->get_parametros();
+            }
+
+            if (! isset($datos['-u']) || trim($datos['-u']) == '') {
+                $this->consola->mensaje('No se especifico usuario, use el parametro -u');
+                exit(-1);
+            }
+            $usuario = trim($datos['-u']);
+            if (\strtolower($usuario) == 'toba') {
+                $this->consola->mensaje('No se puede cambiar la clave del usuario administrador');
+                toba::logger()->debug('Se intento modificar la clave del usuario "toba"');
+                exit(-1);
+            }
+
+            $clave = $this->definir_clave_usuario_admin($datos);        //Reuso metodo para leer archivo de clave
+            if (is_null($clave)) {
+                $this->consola->mensaje('Ohh wait, no se procede...clave no valida!', true);
+                exit(-1);
+            }
+
+            define('apex_pa_proyecto', 'toba_usuario');             //Define arbritrariamente para poder acceder al runtime
+            if (! toba_usuario::existe_usuario($usuario)) {
+                $this->consola->mensaje('Usuario inexistente!', true);
+                exit(-1);
+            }
+
+            toba_usuario::set_clave_usuario($clave, $usuario);
+        }
+
 	/**
 	 * Permite cambiar los grupos de acceso de un usuario
 	 * @consola_parametros [-u usuario] [-p proyecto]

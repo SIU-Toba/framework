@@ -11,7 +11,7 @@ class toba_usuario_no_autenticado extends toba_usuario
 
 	function __construct()
 	{
-		parent::__construct(self::NO_AUTENTICADO);	
+		parent::__construct(self::NO_AUTENTICADO);
 	}
 
 	/**
@@ -29,10 +29,15 @@ class toba_usuario_no_autenticado extends toba_usuario
 	{
 		return 'Usuario no autentificado';
 	}
-	
+
 	function get_perfiles_datos()
 	{
 		return array();
 	}
+
+        function requiere_segundo_factor()
+        {
+            return false;
+        }
 }
 ?>

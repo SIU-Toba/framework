@@ -3,18 +3,18 @@
  * Clase que devuelve un cliente para conectarse a un ECM
  * @package Centrales
  */
-class toba_cliente_rdi 
+class toba_cliente_rdi
 {
 	const nombre_archivo = '/rdi.ini';
 
 	protected $proyecto;
 	protected $clienteRdi;
 	protected $instalacion;
-	
+
 	function __construct()
 	{
 	}
-	
+
 	/**
 	 * Permite cambiar el proyecto del cliente RDI
 	 * @param toba_proyecto $obj_proyecto
@@ -32,7 +32,7 @@ class toba_cliente_rdi
 	{
 		$this->instalacion = $obj_instalacion;
 	}
-	
+
 	/**
 	 * Devuelve una instancia de RDICliente para poder trabajar contra el ECM
 	 * @throws toba_error
@@ -41,7 +41,7 @@ class toba_cliente_rdi
 	function get_cliente()
 	{
 		if (! isset($this->clienteRdi)) {
-			$this->clienteRdi = $this->instanciar_cliente();			
+			$this->clienteRdi = $this->instanciar_cliente();
 		}
 		return $this->clienteRdi;
 	}
@@ -57,7 +57,11 @@ class toba_cliente_rdi
 	 */
 	protected function instanciar_cliente()
 	{
-		$id_proyecto = $this->proyecto->get_id();		
+		$id_proyecto = $this->proyecto->get_id();
+
+                if (! \class_exists('\RDICliente')) {
+                    throw new toba_error("Falta incorporar el paquete 'siu/rdi' al proyecto");
+                }
 
 		if (! toba::config()->existe_valor('rdi', null, $id_proyecto)) {
 			throw new toba_error('Falta el archivo de configuración rdi.ini o no se encuentra la seccion del proyecto');
@@ -67,13 +71,13 @@ class toba_cliente_rdi
 		$nombre = $this->instalacion->get_nombre();
 		if ((trim($nombre) == '') && (! isset($parametros['instalacion']))) {
 			throw new toba_error('Falta especificar el nombre de la instalacion en el archivo instalacion.ini');
-		}		
-		$nombre_inst = (trim($nombre) != '') ? $nombre : $parametros['instalacion'];			
-		$rdi = new RDICliente($parametros['conector'], 
+		}
+		$nombre_inst = (trim($nombre) != '') ? $nombre : $parametros['instalacion'];
+		$rdi = new \RDICliente($parametros['conector'],
 							$parametros['repositorio'],
 							$parametros['usuario'],
 							$parametros['clave'],
-							$id_proyecto, 
+							$id_proyecto,
 							$nombre_inst);
 
 		//Agrego un log para desarrollo
@@ -88,12 +92,12 @@ class toba_cliente_rdi
 		if (! is_null($serv_personalizados)) {
 			foreach($serv_personalizados as $servicio => $clase) {
 				try {
-					$rdi->mapeoServicios()->redefinir($servicio, $clase);				
+					$rdi->mapeoServicios()->redefinir($servicio, $clase);
 				} catch (RDIExcepcion $ex) {
 					$rdi->mapeoServicios()->agregar($servicio, $clase);
 				}
 			}
-		}		
+		}
 
 		return $rdi;
 	}

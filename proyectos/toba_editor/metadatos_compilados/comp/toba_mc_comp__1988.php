@@ -169,16 +169,6 @@ class toba_mc_comp__1988
     ),
     2 => 
     array (
-      'pantalla' => 1000173,
-      'proyecto' => 'toba_editor',
-      'objeto_ci' => 1988,
-      'dep_id' => 1000178,
-      'orden' => 1,
-      'identificador_pantalla' => 'pant_filtro',
-      'identificador_dep' => 'form_filtro',
-    ),
-    3 => 
-    array (
       'pantalla' => 1000172,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1988,
@@ -186,6 +176,16 @@ class toba_mc_comp__1988
       'orden' => 1,
       'identificador_pantalla' => 'pant_form',
       'identificador_dep' => 'form_presentacion',
+    ),
+    3 => 
+    array (
+      'pantalla' => 1000173,
+      'proyecto' => 'toba_editor',
+      'objeto_ci' => 1988,
+      'dep_id' => 1000178,
+      'orden' => 1,
+      'identificador_pantalla' => 'pant_filtro',
+      'identificador_dep' => 'form_filtro',
     ),
     4 => 
     array (
@@ -199,16 +199,6 @@ class toba_mc_comp__1988
     ),
     5 => 
     array (
-      'pantalla' => 1000172,
-      'proyecto' => 'toba_editor',
-      'objeto_ci' => 1988,
-      'dep_id' => 1000176,
-      'orden' => 2,
-      'identificador_pantalla' => 'pant_form',
-      'identificador_dep' => 'cuadro_form_filas',
-    ),
-    6 => 
-    array (
       'pantalla' => 1000173,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1988,
@@ -216,6 +206,16 @@ class toba_mc_comp__1988
       'orden' => 2,
       'identificador_pantalla' => 'pant_filtro',
       'identificador_dep' => 'ml_filtro_filas',
+    ),
+    6 => 
+    array (
+      'pantalla' => 1000172,
+      'proyecto' => 'toba_editor',
+      'objeto_ci' => 1988,
+      'dep_id' => 1000176,
+      'orden' => 2,
+      'identificador_pantalla' => 'pant_form',
+      'identificador_dep' => 'cuadro_form_filas',
     ),
     7 => 
     array (
@@ -346,7 +346,7 @@ class toba_mc_comp__1988
     ),
     7 => 
     array (
-      'identificador' => 'form_form_fila',
+      'identificador' => 'form_cuadro_carga',
       'proyecto' => 'toba_editor',
       'objeto' => 1000317,
       'clase' => 'toba_ei_formulario',
@@ -359,7 +359,7 @@ class toba_mc_comp__1988
     ),
     8 => 
     array (
-      'identificador' => 'form_cuadro_carga',
+      'identificador' => 'form_form_fila',
       'proyecto' => 'toba_editor',
       'objeto' => 1000317,
       'clase' => 'toba_ei_formulario',

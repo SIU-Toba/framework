@@ -17,7 +17,7 @@ class toba_js
 	private static $consumos_compr = array('componentes/', 'efs/', 'basicos/');
 	private static $consumos_basicos = array(
 						'basicos/basico', 'basicos/toba',
-						'utilidades/datadumper', 'basicos/yahoo',
+						'utilidades/datadumper',
 						'basicos/comunicacion_server', 'basicos/notificacion',
 						'basicos/vinculador');
 
@@ -114,7 +114,7 @@ class toba_js
 	{
 		if (! self::$basicos_cargados) {
 			$escapador = toba::escaper();
-                        $consumos_lib = array('packages/jquery/dist/jquery.min',
+                        $consumos_lib = array(
                                             'packages/jquery/dist/jquery.min',
                                             'packages/jquery-migrate/dist/jquery-migrate.min',
                                             'utilidades/jquery-ui/jquery-ui.min'

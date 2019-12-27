@@ -3,8 +3,8 @@
 /**
  * Genera un pdf a través de una api básica
  * @package SalidaGrafica
- * @todo La numeración de páginas no funcionará si se cambia la orientación de la misma. Habría que 
- * implementar un método que en base al tipo de papel y orientación de la página, devuelva las 
+ * @todo La numeración de páginas no funcionará si se cambia la orientación de la misma. Habría que
+ * implementar un método que en base al tipo de papel y orientación de la página, devuelva las
  * coordenadas para una correcta visualización de la numeración de páginas.
  * @todo El método insertar_imagen esta implementado con un método en estado beta de la api ezpdf. Usar
  * con discreción.
@@ -13,6 +13,7 @@ class toba_vista_xslfo
 {
 	protected $nombre_archivo = 'archivo.pdf';
 	protected $tipo_descarga = 'attachment';
+        protected $tipo_salida = 'application/pdf';
 	protected $fop;
 	protected $xsl_proyecto;
 	protected $xml;
@@ -20,7 +21,7 @@ class toba_vista_xslfo
 	protected $temp_salida;
 	protected $callback_preproceso;
 	protected $xml_proyecto;
-	
+
 	function __construct()
 	{
 		$this->xml = new toba_vista_xml();
@@ -36,21 +37,21 @@ class toba_vista_xslfo
 		$this->xsl_proyecto = toba_manejador_archivos::path_a_plataforma($this->xsl_proyecto);
 		$this->xml_proyecto = toba_manejador_archivos::path_a_plataforma(tempnam(toba::nucleo()->toba_dir().'/temp', 'xml'));
 	}
-	
+
 
 	/**
-	 * @ignore 
+	 * @ignore
 	 */
 	function asignar_objetos( $objetos )
 	{
 		$this->xml->asignar_objetos($objetos);
 		$this->objetos = $objetos;
 	}
-	
+
 	//------------------------------------------------------------------------
 	//-- Configuracion
 	//------------------------------------------------------------------------
-	
+
 	/**
 	 * @ignore
 	 * @todo Implementar junto a un set_texto_encabezado
@@ -58,23 +59,23 @@ class toba_vista_xslfo
 	function set_texto_pie( $texto ){
 		$this->texto_pie = 	$texto;
 	}
-	
+
 	/**
 	 * @param string $nombre Nombre del archivo pdf + la extension del mismo (pdf)
 	 */
-	
+
 	function set_nombre_archivo( $nombre )
 	{
 		$this->nombre_archivo = $nombre;
 	}
-	
+
 	/**
 	 * Permite setear el tipo de descarga pdf desde el browser, inline o attachment
 	 * @param string $tipo inline o attachment
 	 */
 	function set_tipo_descarga( $tipo )
 	{
-		$this->tipo_salida = $tipo;
+		$this->tipo_descarga = $tipo;
 	}
 
 	/**
@@ -87,12 +88,12 @@ class toba_vista_xslfo
 	}
 
 	/**
-	 * @param toba_vista_xslfo_callback_generacion $object 
+	 * @param toba_vista_xslfo_callback_generacion $object
 	 * @ignore
 	 */
 	function set_callback_preproceso($object)
 	{
-		$this->callback_preproceso = $object;		
+		$this->callback_preproceso = $object;
 	}
 
 	//------------------------------------------------------------------------
@@ -100,13 +101,13 @@ class toba_vista_xslfo
 	//------------------------------------------------------------------------
 	/**
 	 * Devuelve el nombre del archivo pdf destino con la ruta absoluta
-	 * @return string 
+	 * @return string
 	 */
 	function get_nombre_archivo_destino()
 	{
-		return toba_manejador_archivos::path_a_plataforma(toba::nucleo()->toba_dir().'/temp/'.$this->nombre_archivo);		
+		return toba_manejador_archivos::path_a_plataforma(toba::nucleo()->toba_dir().'/temp/'.$this->nombre_archivo);
 	}
-	
+
 	/**
 	 * Devuelve el nombre del archivo xml con ruta absoluta
 	 * @return string
@@ -124,7 +125,7 @@ class toba_vista_xslfo
 	{
 		return $this->xsl_proyecto;
 	}
-	
+
 	/**
 	 * Devuelve el comando para realizar una llamada a fop
 	 * @return string
@@ -132,30 +133,30 @@ class toba_vista_xslfo
 	function get_path_to_fop()
 	{
 		return $this->fop;
-	}	
-	
+	}
+
 	/**
 	 * Devuelve una instancia de la clase que maneja la vista_xml de los componentes
-	 * @return toba_vista_xml  
+	 * @return toba_vista_xml
 	 */
 	function get_manejador_vista_xml()
 	{
 		return $this->xml;
 	}
-	
+
 	//------------------------------------------------------------------------
 	//-- Generacion del pdf
 	//------------------------------------------------------------------------
 
 	/**
-	 * @ignore 
+	 * @ignore
 	 */
 	function generar_salida()
-	{			
+	{
 		//Callback de los eis
 		foreach( $this->objetos as $objeto ) {
 			if(method_exists($objeto, 'vista_xslfo')) {
-				$objeto->vista_xslfo($this);	
+				$objeto->vista_xslfo($this);
 			}
 		}
 		$xml = $this->xml->generar_xml();
@@ -170,13 +171,13 @@ class toba_vista_xslfo
 	 * @ignore
 	 */
 	function enviar_archivo()
-	{	
+	{
 		$this->cabecera_http( strlen(ltrim($this->temp_salida)) );
 		echo ltrim($this->temp_salida);
 	}
-	
+
 	/**
-	 * @ignore 
+	 * @ignore
 	 */
 	protected function crear_pdf($xml)
 	{
@@ -197,9 +198,9 @@ class toba_vista_xslfo
 			$this->callback_preproceso->generar($this);
 		} else {
 			$comando = $this->fop.' -xml '.$fxml.' -xsl '.$this->xsl_proyecto.' -pdf '.$archivo_pdf;
-			shell_exec($comando);		
+			shell_exec($comando);
 		}
-		
+
 		if (!file_exists($archivo_pdf)) {
 			throw new toba_error_usuario("Error al ejecutar el comando '".$comando."'");
 		}
@@ -209,17 +210,17 @@ class toba_vista_xslfo
 
 		return file_get_contents($archivo_pdf);
 	}
-	
+
 	/**
-	 * @ignore 
+	 * @ignore
 	 */
 	protected function obtener_pdf($xml)
 	{
 		/*
 		  Hay problemas para procesar en servidores remotos... por tema de recursos, es decir,
-		  si queremos que el pdf contenga una imagen, o que llame a otro xsl, etc. 
-		  Tal vez se podría enviar un tar.gz, un jar, o zip en donde se arme la estructura de 
-		  directorios necesaria, y se indique en un archivo tipo INF cual es el path al xsl 
+		  si queremos que el pdf contenga una imagen, o que llame a otro xsl, etc.
+		  Tal vez se podría enviar un tar.gz, un jar, o zip en donde se arme la estructura de
+		  directorios necesaria, y se indique en un archivo tipo INF cual es el path al xsl
 		  inicial, tipo de transformación, etc.
 
 		  habría que hablarlo...
@@ -244,13 +245,13 @@ class toba_vista_xslfo
 	}
 
 	/**
-	 * @ignore 
+	 * @ignore
 	 */
 	protected function cabecera_http( $longitud )
 	{
-		toba_http::headers_download($this->tipo_descarga, $this->nombre_archivo, $longitud);
+		toba_http::headers_download($this->tipo_salida, $this->nombre_archivo, $longitud, $this->tipo_descarga);
 	}
-	
+
 
 }
 ?>

@@ -191,6 +191,7 @@ class toba_db_tablas_instancia
     21 => 'hora_salida',
     22 => 'ip_permitida',
     23 => 'forzar_cambio_pwd',
+    24 => 'requiere_segundo_factor',
   ),
 );
 	}

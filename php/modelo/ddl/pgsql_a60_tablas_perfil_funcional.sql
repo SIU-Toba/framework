@@ -15,14 +15,14 @@ CREATE TABLE apex_usuario_grupo_acc
 ---------------------------------------------------------------------------------------------------
 (	
 	proyecto						varchar(15)		NOT NULL,
-	usuario_grupo_acc				varchar(30)		NOT NULL,
+	usuario_grupo_acc                                       varchar(30)		NOT NULL,
 	nombre							varchar(80)		NOT NULL,
-	nivel_acceso					smallint		NULL,
+	nivel_acceso                                            smallint		NULL,
 	descripcion						TEXT			NULL,
 	vencimiento						date			NULL,
 	dias							smallint		NULL,
-	hora_entrada					time(0) without time	zone NULL,
-	hora_salida						time(0) without time	zone NULL,
+	hora_entrada                                            time without time	zone NULL,
+	hora_salida						time without time	zone NULL,
 	listar							smallint			NULL,
 	permite_edicion					smallint 		NOT NULL 	DEFAULT 1,
 	menu_usuario						VARCHAR(50)	NULL,
@@ -138,7 +138,8 @@ CREATE TABLE apex_grupo_acc_restriccion_funcional
 	usuario_grupo_acc					varchar(30)		NOT NULL,
 	restriccion_funcional				int8			NOT NULL,
 	CONSTRAINT	"apex_grupo_acc_restriccion_funcional_pk" 		PRIMARY	KEY ("usuario_grupo_acc","restriccion_funcional","proyecto"),
-	CONSTRAINT	"apex_grupo_acc_restriccion_funcional_rf_fk"	FOREIGN KEY	("proyecto","restriccion_funcional")	REFERENCES "apex_restriccion_funcional"	("proyecto","restriccion_funcional")	ON	DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT	"apex_grupo_acc_restriccion_funcional_rf_fk"	FOREIGN KEY	("proyecto","restriccion_funcional")	REFERENCES "apex_restriccion_funcional"	("proyecto","restriccion_funcional")	ON	DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE,
+        CONSTRAINT	"apex_grupo_acc_restriccion_funcional_ga_fk"	FOREIGN KEY	("proyecto","usuario_grupo_acc")	REFERENCES "apex_usuario_grupo_acc"	("proyecto","usuario_grupo_acc")	ON	DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
 

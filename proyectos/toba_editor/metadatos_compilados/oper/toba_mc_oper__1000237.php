@@ -376,19 +376,6 @@ class toba_mc_comp__1832
     ),
     1 => 
     array (
-      'identificador' => 'form',
-      'proyecto' => 'toba_editor',
-      'objeto' => 1834,
-      'clase' => 'toba_ei_formulario',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
-      'subclase' => 'eiform_prop_fuente_datos',
-      'subclase_archivo' => '/configuracion/eiform_prop_fuente_datos.php',
-      'fuente' => 'instancia',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    2 => 
-    array (
       'identificador' => 'form_auditoria',
       'proyecto' => 'toba_editor',
       'objeto' => 33000070,
@@ -396,6 +383,19 @@ class toba_mc_comp__1832
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
       'subclase' => NULL,
       'subclase_archivo' => NULL,
+      'fuente' => 'instancia',
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    2 => 
+    array (
+      'identificador' => 'form',
+      'proyecto' => 'toba_editor',
+      'objeto' => 1834,
+      'clase' => 'toba_ei_formulario',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
+      'subclase' => 'eiform_prop_fuente_datos',
+      'subclase_archivo' => '/configuracion/eiform_prop_fuente_datos.php',
       'fuente' => 'instancia',
       'parametros_a' => NULL,
       'parametros_b' => NULL,

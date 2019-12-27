@@ -3,23 +3,23 @@
 /**
  * Clase que mantiene información común a la actual instalación de toba
  * Enmascara principalmente al archivo de configuración instalacion.ini
- * 
+ *
  * @package Centrales
  */
 class toba_instalacion
 {
 	static private $instancia;
 	private $memoria;								//Referencia al segmento de $_SESSION asignado
-	
+
 	/**
 	 * @return toba_instalacion
 	 */
 	static function instancia($recargar=false)
 	{
 		if (!isset(self::$instancia) || $recargar) {
-			self::$instancia = new toba_instalacion($recargar);	
+			self::$instancia = new toba_instalacion($recargar);
 		}
-		return self::$instancia;	
+		return self::$instancia;
 	}
 
 	static function eliminar_instancia()
@@ -38,7 +38,7 @@ class toba_instalacion
 			$this->memoria = toba::config()->get_seccion('instalacion');
 		}
 	}
-	
+
 	/**
 	 * Retorna el nombre de la instalacion actual, cadena vacia si no esta seteado
 	 * @return string
@@ -50,7 +50,7 @@ class toba_instalacion
 		}
 		return '';
 	}
-	
+
 	/**
 	 * Claves utilizadas para encriptar el querystring y cosas en la base
 	 * @return Arreglo asociativo db=>, get=>
@@ -63,7 +63,7 @@ class toba_instalacion
 			return $claves;
 		}
 	}
-	
+
 	/**
 	* Retorna el metodo de autenticacion toba|ldap|openid
 	*/
@@ -74,9 +74,9 @@ class toba_instalacion
 		} else {
 			return 'toba';
 		}
-	}	
-	
-		
+	}
+
+
 	/**
 	* Retorna el metodo de autenticacion toba|ldap|openid
 	*/
@@ -87,8 +87,8 @@ class toba_instalacion
 		} else {
 			return 'TOBA_SESSID';
 		}
-	}	
-	
+	}
+
 	/**
 	 * Retorna un número que representa al grupo de trabajo y con el cual se indexaran los metadatos
 	 * Pensado para poder hacer trabajos concurrentes entre grupos de trabajo geograficamente distribuidos
@@ -99,19 +99,19 @@ class toba_instalacion
 	{
 		if (isset($this->memoria)) {
 			return $this->memoria['id_grupo_desarrollo'];
-		}		
+		}
 	}
-	
+
 	/**
 	 * Retorna el comando que usa la instalación para editar archivos php en forma interactiva
 	 */
-	function get_editor_php() 
+	function get_editor_php()
 	{
 		if (isset($this->memoria['editor_php'])) {
 			return $this->memoria['editor_php'];
 		}
 	}
-	
+
 	/**
 	 * La instalación trabaja con las librerías js comprimidas?
 	 */
@@ -120,10 +120,10 @@ class toba_instalacion
 		if (isset($this->memoria['js_comprimido'])) {
 			return $this->memoria['js_comprimido'];
 		} else {
-			return false;	
+			return false;
 		}
 	}
-	
+
 	/**
 	 * La instalación es una de produccion
 	 */
@@ -132,10 +132,10 @@ class toba_instalacion
 		if (isset($this->memoria['es_produccion'])) {
 			return $this->memoria['es_produccion'];
 		} else {
-			return false;	
+			return false;
 		}
 	}
-	
+
 	/**
 	* Retorna true si la instalación esta vinculada con Arai-Usuarios
 	*/
@@ -144,7 +144,7 @@ class toba_instalacion
 		if (isset($this->memoria['vincula_arai_usuarios'])) {
 			return $this->memoria['vincula_arai_usuarios'];
 		} else {
-			return false;	
+			return false;
 		}
 	}
 
@@ -156,16 +156,16 @@ class toba_instalacion
 			return false;
 		}
 	}
-	
+
 	function arreglo_png_ie()
 	{
 		if (isset($this->memoria['arreglo_png_ie'])) {
 			return $this->memoria['arreglo_png_ie'];
 		} else {
-			return true;	
-		}		
+			return true;
+		}
 	}
-	
+
 	/**
 	 * Número de versión de Toba
 	 */
@@ -182,15 +182,15 @@ class toba_instalacion
 	{
 		return new toba_version($this->get_numero_version());
 	}
-	
+
 	/**
 	 * Retorna el path de la instalación de toba
 	 */
 	function get_path()
 	{
 		return toba_nucleo::toba_dir();
-	}	
-	
+	}
+
 	/**
 	 * Retorna la ruta a la carpeta 'instalacion'
 	 */
@@ -198,25 +198,25 @@ class toba_instalacion
 	{
 		return toba_nucleo::toba_instalacion_dir();
 	}
-	
+
 	/**
 	 * Retorna la URL base del runtime toba (donde esta el js, img y demas recursos globales a todos los proyectos)
 	 * @return string
-	 */			
+	 */
 	function get_url()
 	{
 		if (isset($this->memoria['url'])) {
 			return $this->memoria['url'];
-		}		
+		}
 	}
-	
+
 	function get_datos_smtp($nombre_config = null)
 	{
 		if (! isset($this->memoria['smtp']) && is_null($nombre_config)) {
 			throw new toba_error('Debe definir la entrada "smtp" el archivo instalacion/instalacion.ini');
 		}
 		$path_ini_smtp = toba::nucleo()->toba_instalacion_dir().'/smtp.ini';
-		if (! file_exists($path_ini_smtp)) {								//Ver si se puede reemplazar por algun checkeo sobre secciones o algo.		
+		if (! file_exists($path_ini_smtp)) {								//Ver si se puede reemplazar por algun checkeo sobre secciones o algo.
 			throw new toba_error("No existe el archivo '$path_ini_smtp'");
 		}
 		$conf = (is_null($nombre_config)) ? $this->memoria['smtp']: $nombre_config;
@@ -225,13 +225,13 @@ class toba_instalacion
 		}
 		return toba::config()->get_subseccion('smtp', $conf);
 	}
-	
+
 	/**
 	 * Retorna un path donde incluir archivos temporales, el path no es navegable
 	 */
 	function get_path_temp()
 	{
-		return toba_dir()."/temp";	
+		return toba_dir()."/temp";
 	}
 
 	/**
@@ -255,7 +255,7 @@ class toba_instalacion
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Devuelve un arreglo con las rutas a los certificados ssl
 	 * @return array
@@ -268,5 +268,14 @@ class toba_instalacion
 		}
 		return $conf;
 	}
+
+        /**
+         * Devuelve si la instalacion usa 2do Factor de Autenticacion
+         * @return boolean
+         */
+        function usa_2FA()
+        {
+            return (isset($this->memoria['usa_2do_factor']) && $this->memoria['usa_2do_factor'] == 1);
+        }
 }
 ?>

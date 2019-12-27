@@ -2,7 +2,7 @@
 /**
  * Datos de ACCESO y AUDITORIA necesarios para el funcionamiento del nucleo.
  * Enmascara principalmente al archivo de configuración instancia.ini de la instancia actual
- * 
+ *
  * @package Centrales
  */
 class toba_instancia
@@ -11,16 +11,16 @@ class toba_instancia
 	static protected $id;
 	protected $id_solicitud;
 	private $memoria;							//Referencia al segmento de $_SESSION asignado
-		
+
 	/**
 	 * @return toba_instancia
 	 */
 	static function instancia($recargar=false)
 	{
 		if (!isset(self::$instancia) || $recargar) {
-			self::$instancia = new toba_instancia($recargar);	
+			self::$instancia = new toba_instancia($recargar);
 		}
-		return self::$instancia;	
+		return self::$instancia;
 	}
 
 	static function eliminar_instancia()
@@ -36,9 +36,9 @@ class toba_instancia
 			$this->memoria = $this->get_datos_instancia( self::get_id() );
 		}
 	}
-	
+
 	/**
-	 * Retorna el contenido del archivo instancia.ini de la instancia 
+	 * Retorna el contenido del archivo instancia.ini de la instancia
 	 */
 	static function get_datos_instancia($id_instancia)
 	{
@@ -50,7 +50,7 @@ class toba_instancia
 		}
 		return toba::config()->get_seccion('instancia');
 	}
-	
+
 	/**
 	 * Retorna el id de la instancia actual
 	 * La configuracion puede estar cono variable de entorno del servidor o una constante del PA
@@ -65,10 +65,10 @@ class toba_instancia
 			} else {
 				throw new toba_error("INFO_INSTANCIA: La INSTANCIA ACTUAL no se encuentra definida (no existe la variable de entorno TOBA_INSTANCIA ni la constante 'apex_pa_instancia')");
 			}
-		}		
+		}
 		return self::$id;
 	}
-	
+
 	/**
 	 * Retorna un vinculo a la base de datos que forma parte de la instancia
 	 * @return toba_db_postgres7
@@ -81,7 +81,7 @@ class toba_instancia
 			throw new toba_error("INFO_INSTANCIA: El archivo de inicializacion de la INSTANCIA: '".self::$id."' no posee una BASE DEFINIDA");
 		}
 	}
-	
+
 	function get_schema_db()
 	{
 		$parametros = toba_dba::get_parametros_base($this->memoria['base']);
@@ -89,12 +89,12 @@ class toba_instancia
 			return $parametros['schema'];
 		}
 	}
-	
+
 	function get_schema_logs_toba()
 	{
 		return $this->get_schema_db(). '_logs';
 	}
-	
+
 	/**
 	 * @return toba_modelo_instancia
 	 */
@@ -102,9 +102,9 @@ class toba_instancia
 	{
 		$catalogo = toba_modelo_catalogo::instanciacion();
 		$catalogo->set_db($this->get_db());
-		return $catalogo->get_instancia($this->get_id());		
+		return $catalogo->get_instancia($this->get_id());
 	}
-	
+
 	/**
 	 * Retorna el path absoluto de un proyecto perteneciente a esta instancia
 	 */
@@ -112,7 +112,7 @@ class toba_instancia
 	{
 		//incluyo el archivo de informacion basica de la INSTANCIA
 		if ($proyecto == 'toba') {
-			return toba::instalacion()->get_path();	
+			return toba::instalacion()->get_path();
 		} elseif (isset($this->memoria[$proyecto]['path'])) {
 			$path = $this->memoria[$proyecto]['path'];
 			if (substr($path, 0, 1) == '.') {
@@ -130,19 +130,19 @@ class toba_instancia
 		$path_proyecto = $this->get_path_proyecto($proyecto);
 		return $path_proyecto . '/' . toba_personalizacion::dir_personalizacion;
 	}
-	
+
 	function get_path_ini()
 	{
 		$id_instancia = toba::instancia()->get_id();
 		return toba::nucleo()->toba_instalacion_dir(). '/'.toba_modelo_instancia::dir_prefijo.$id_instancia . '/'. toba_modelo_instancia::toba_instancia;
 	}
-	
+
 	static function get_path_instalacion_proyecto($proyecto)
 	{
 		$id_instancia = toba::instancia()->get_id();
-		return toba::nucleo()->toba_instalacion_dir() . '/' . toba_modelo_instancia::dir_prefijo. $id_instancia . '/' . toba_modelo_instancia::prefijo_dir_proyecto . $proyecto;	
+		return toba::nucleo()->toba_instalacion_dir() . '/' . toba_modelo_instancia::dir_prefijo. $id_instancia . '/' . toba_modelo_instancia::prefijo_dir_proyecto . $proyecto;
 	}
-	
+
 	function get_directiva_compilacion($proyecto)
 	{
 		if (isset($this->memoria[$proyecto]['metadatos_compilados'])) {
@@ -150,7 +150,7 @@ class toba_instancia
 		}
 		return null;
 	}
-	
+
 	function get_largo_minimo_password()
 	{
 		if (isset($this->memoria['pwd_largo_minimo'])) {
@@ -159,15 +159,15 @@ class toba_instancia
 			return apex_pa_pwd_largo_minimo;
 		}
 	}
-	
-	function get_parametro_seccion_proyecto($proyecto, $parametro) 
+
+	function get_parametro_seccion_proyecto($proyecto, $parametro)
 	{
 		if (isset($this->memoria[$proyecto][$parametro])) {
 			return $this->memoria[$proyecto][$parametro];
 		}
 		return null;
 	}
-	
+
 	//----------------------------------------------------------------
 	// DATOS
 	//----------------------------------------------------------------
@@ -177,7 +177,7 @@ class toba_instancia
 	function get_id_solicitud()
 	{
 		if (! isset($this->id_solicitud)) {
-			$sql = "SELECT nextval('{$this->get_schema_logs_toba()}.apex_solicitud_seq'::text) as id;";	
+			$sql = "SELECT nextval('{$this->get_schema_logs_toba()}.apex_solicitud_seq'::text) as id;";
 			$rs = $this->get_db()->consultar($sql);
 			if (empty($rs)) {
 				throw new toba_error('No es posible generar un ID para la solicitud');
@@ -193,13 +193,13 @@ class toba_instancia
 		$rs = $this->get_db()->sentencia($sql, array('solicitud' => $id));
 		return (! empty($rs));
 	}
-	
+
 	function registrar_solicitud($id, $proyecto, $item, $tipo_solicitud)
 	{
 		//Evita que se intente registrar 2 veces la misma solicitud
 		if (! $this->existe_solicitud($id)) {
-			$sql = "INSERT INTO {$this->get_schema_logs_toba()}.apex_solicitud (proyecto, solicitud, solicitud_tipo, item_proyecto, item)	
-					VALUES (:proyecto, :solicitud, :solicitud_tipo,:item_proyecto, :item);";	
+			$sql = "INSERT INTO {$this->get_schema_logs_toba()}.apex_solicitud (proyecto, solicitud, solicitud_tipo, item_proyecto, item)
+					VALUES (:proyecto, :solicitud, :solicitud_tipo,:item_proyecto, :item);";
 
 			$parametros = array(
 				'proyecto' => $proyecto,
@@ -214,23 +214,23 @@ class toba_instancia
 
 	function actualizar_solicitud_cronometro($id, $proyecto)
 	{
-		$tiempo = toba::cronometro()->tiempo_acumulado();		
+		$tiempo = toba::cronometro()->tiempo_acumulado();
 		$sql = "UPDATE {$this->get_schema_logs_toba()}.apex_solicitud SET tiempo_respuesta = :tiempo_respuesta
 				WHERE	proyecto =  :proyecto AND solicitud = :solicitud;";
-		
+
 		$parametros = array(
 			'proyecto' => $proyecto,
 			'solicitud' => $id,
-			'tiempo_respuesta' => $tiempo						
+			'tiempo_respuesta' => $tiempo
 		);
 		$this->get_db()->sentencia($sql, $parametros);
 	}
-	
-	
+
+
 	function registrar_solicitud_observaciones( $proyecto, $id, $tipo, $observacion )
-	{		
-		$sql = "INSERT INTO {$this->get_schema_logs_toba()}.apex_solicitud_observacion (proyecto, solicitud, solicitud_obs_tipo_proyecto, solicitud_obs_tipo, observacion)	
-				VALUES (:proyecto, :solicitud, :solicitud_obs_tipo_proyecto,:solicitud_obs_tipo, :observacion);";	
+	{
+		$sql = "INSERT INTO {$this->get_schema_logs_toba()}.apex_solicitud_observacion (proyecto, solicitud, solicitud_obs_tipo_proyecto, solicitud_obs_tipo, observacion)
+				VALUES (:proyecto, :solicitud, :solicitud_obs_tipo_proyecto,:solicitud_obs_tipo, :observacion);";
 
 		$parametros = array(
 			'proyecto' => $proyecto,
@@ -239,13 +239,13 @@ class toba_instancia
 			'solicitud_obs_tipo_proyecto' => $tipo[1],
 			'observacion' => $observacion
 		);
-		$this->get_db()->sentencia($sql, $parametros);		
+		$this->get_db()->sentencia($sql, $parametros);
 	}
 
 	function registrar_solicitud_browser($proyecto, $id, $sesion_proyecto, $sesion, $ip)
 	{
-		$sql = "INSERT INTO {$this->get_schema_logs_toba()}.apex_solicitud_browser (solicitud_proyecto, solicitud_browser, proyecto, sesion_browser, ip)	
-				VALUES (:solicitud_proyecto, :solicitud_browser, :proyecto, :sesion_browser, :ip);";	
+		$sql = "INSERT INTO {$this->get_schema_logs_toba()}.apex_solicitud_browser (solicitud_proyecto, solicitud_browser, proyecto, sesion_browser, ip)
+				VALUES (:solicitud_proyecto, :solicitud_browser, :proyecto, :sesion_browser, :ip);";
 
 		$parametros = array(
 			'solicitud_proyecto' => $proyecto,
@@ -254,12 +254,12 @@ class toba_instancia
 			'sesion_browser' => $sesion,
 			'ip' => $ip
 		);
-		$this->get_db()->sentencia($sql, $parametros);		
+		$this->get_db()->sentencia($sql, $parametros);
 	}
 
 	function registrar_solicitud_consola($proyecto, $id, $usuario, $llamada)
 	{
-		$sql = "INSERT INTO {$this->get_schema_logs_toba()}.apex_solicitud_consola (proyecto, solicitud_consola, usuario, llamada) 
+		$sql = "INSERT INTO {$this->get_schema_logs_toba()}.apex_solicitud_consola (proyecto, solicitud_consola, usuario, llamada)
 				VALUES (:proyecto,:toba_solicitud_consola, :usuario, :llamada);";
 		$parametros = array(
 			'proyecto' => $proyecto,
@@ -267,12 +267,12 @@ class toba_instancia
 			'usuario' => $usuario,
 			'llamada' => $llamada
 		);
-		$this->get_db()->sentencia($sql, $parametros);		
+		$this->get_db()->sentencia($sql, $parametros);
 	}
 
 	function registrar_marca_cronometro($proyecto, $solicitud, $marca, $nivel, $texto, $tiempo)
 	{
-		$sql = "INSERT INTO {$this->get_schema_logs_toba()}.apex_solicitud_cronometro(proyecto, solicitud, marca, nivel_ejecucion, texto, tiempo) 
+		$sql = "INSERT INTO {$this->get_schema_logs_toba()}.apex_solicitud_cronometro(proyecto, solicitud, marca, nivel_ejecucion, texto, tiempo)
 				VALUES (:proyecto, :solicitud, :marca, :nivel_ejecucion, :texto, :tiempo);";
 		$parametros = array(
 			'proyecto' => $proyecto,
@@ -282,25 +282,25 @@ class toba_instancia
 			'texto' => $texto,
 			'tiempo' => $tiempo
 		);
-		$this->get_db()->sentencia($sql, $parametros);		
+		$this->get_db()->sentencia($sql, $parametros);
 	}
 
 	function registrar_solicitud_web_service($proyecto, $solicitud, $metodo, $ip)
 	{
 		$sql = "INSERT INTO {$this->get_schema_logs_toba()}.apex_solicitud_web_service (proyecto, solicitud, metodo, ip)
-				VALUES (:proyecto, :solicitud, :metodo, :ip);"; 
+				VALUES (:proyecto, :solicitud, :metodo, :ip);";
 		$parametros = array(
 			'proyecto' => $proyecto,
 			'solicitud' => $solicitud,
 			'metodo' => $metodo,
 			'ip' => $ip
-		);		
-		$this->get_db()->sentencia($sql, $parametros);		
+		);
+		$this->get_db()->sentencia($sql, $parametros);
 	}
-	
-	
+
+
 	//------------------ Relacion entre PROYECTOS --------------------------
-	
+
 	/**
 	 * Retorna las urls de los proyectos actualmente incluídos en la instancia
 	 */
@@ -312,10 +312,10 @@ class toba_instancia
 		}
 		return $salida;
 	}
-	
+
 	/**
 	 * Retorna las url asociada a un proyecto particular de la instancia
-	 */	
+	 */
 	function get_url_proyecto($proy)
 	{
 		if (isset($this->memoria[$proy]['url'])) {
@@ -327,7 +327,7 @@ class toba_instancia
 			return '/'.$proy;
 		}
 	}
-    
+
     function get_url_proyecto_pers($proy)
 	{
 		if (isset($this->memoria[$proy]['url_pers'])) {
@@ -346,12 +346,12 @@ class toba_instancia
 	{
 		if ($refrescar || ! isset($this->memoria['proyectos_accesibles'])) {
 			$usuario = $this->get_db()->quote(toba::usuario()->get_id());
-			$sql = "SELECT 		p.proyecto, 
+			$sql = "SELECT 		p.proyecto,
 	    						p.descripcion_corta
 	    				FROM 	apex_proyecto p,
 	    						apex_usuario_proyecto up
 	    				WHERE 	p.proyecto = up.proyecto
-						AND  	listar_multiproyecto = 1 
+						AND  	listar_multiproyecto = 1
 						AND		up.usuario = $usuario
 						ORDER BY orden;";
 			$this->memoria['proyectos_accesibles'] =
@@ -359,7 +359,7 @@ class toba_instancia
 		}
 		return $this->memoria['proyectos_accesibles'];
 	}
-	
+
 	function get_id_proyectos()
 	{
 		$ids = array();
@@ -388,7 +388,7 @@ class toba_instancia
 		}
 		return $rs[0];
 	}
-	
+
 	/**
 	 * Retorna la información cruda de un grupo de usuarios, tal como está en la base de datos
 	 * @see toba_usuario
@@ -398,31 +398,32 @@ class toba_instancia
 		$rs = array();
 		if (! empty($usuarios)) {
 			$usuario_list = $this->get_db()->quote($usuarios);
-			$sql = 'SELECT	usuario as							id,
-							nombre as							nombre,
-							email as							email,
-							parametro_a as						parametro_a,
-							parametro_b as 						parametro_b,
-							parametro_c as						parametro_c
-					FROM 	apex_usuario u
-					WHERE	usuario IN ('. implode(',' , $usuario_list) . ')';
+			$sql = 'SELECT	usuario as                                                  id,
+                                        nombre as                                   nombre,
+                                        email as                                    email,
+                                        parametro_a as                              parametro_a,
+                                        parametro_b as                              parametro_b,
+                                        parametro_c as                              parametro_c,
+                                        COALESCE(requiere_segundo_factor,0) as     require_2do_factor
+                                FROM 	apex_usuario u
+                                WHERE	usuario IN ('. implode(',' , $usuario_list) . ')';
 			$rs = $this->get_db()->consultar($sql);
 		}
 		return $rs;
-	}	
+	}
 
 	function get_info_autenticacion($usuario)
 	{
 		try {
-			$sql = 'SELECT clave, 
-						  autentificacion, 
+			$sql = 'SELECT clave,
+						  autentificacion,
 						  CASE WHEN (vencimiento IS NOT NULL) THEN
 							(now()::date > vencimiento::date)::integer		/*Verifico si la clave esta vencida*/
 						  ELSE
 						         0
 						  END  as clave_vencida,
 						  forzar_cambio_pwd
-				     FROM apex_usuario 
+				     FROM apex_usuario
 			              WHERE usuario = :usuario';
 			$id = $this->get_db()->sentencia_preparar($sql);
 			$rs = $this->get_db()->sentencia_consultar($id, array('usuario'=>$usuario));
@@ -445,13 +446,13 @@ class toba_instancia
 			throw new toba_error('Error recuperando información');
 		}
 	}
-			
+
 	function get_lista_claves_usadas($usuario, $periodo_tiempo=null, $no_repetidas=null)
-	{	
-		$params = array('usuario' => $usuario);		
-		$sql = 'SELECT clave, algoritmo FROM apex_usuario_pwd_usados WHERE usuario = :usuario '; 		
+	{
+		$params = array('usuario' => $usuario);
+		$sql = 'SELECT clave, algoritmo FROM apex_usuario_pwd_usados WHERE usuario = :usuario ';
 		if (! is_null($periodo_tiempo)) {
-			$sql .= ' AND (current_date - fecha_cambio)::integer <= :periodo';			
+			$sql .= ' AND (current_date - fecha_cambio)::integer <= :periodo';
 			$params['periodo'] = $periodo_tiempo;
 		}
 		if (! is_null($no_repetidas)) {
@@ -460,13 +461,13 @@ class toba_instancia
 		try {
 			$id = $this->get_db()->sentencia_preparar($sql);
 			$rs = $this->get_db()->sentencia_consultar($id, $params);
-			return $rs; 
+			return $rs;
 		} catch (toba_error_db $e) {
 			toba::logger()->info($e->getMessage());
 			throw new toba_error('Error recuperando información');
 		}
 	}
-	
+
 	/**
 	 * @ignore
 	 * @param string $usuario
@@ -490,19 +491,19 @@ class toba_instancia
 				ORDER BY ga.usuario_grupo_acc ASC;";
 		return $db->consultar($sql);
 	}
-		
+
 	/**
 	*	Retorna los perfiles funcionales que tiene asociado un usuario a un proyecto
 	*	@return $value	Retorna un array de grupos de acceso
-	*/	
-	function get_perfiles_funcionales($usuario, $proyecto) 
+	*/
+	function get_perfiles_funcionales($usuario, $proyecto)
 	{
 		$datos = $this->get_datos_perfiles_funcionales_usuario_proyecto($usuario, $proyecto);
 		if($datos){
 			$grupos = array();
 			foreach($datos as $dato) {
 				 $grupo = $dato['grupo_acceso'];
-				 $grupos[] = $grupo;				 					 
+				 $grupos[] = $grupo;
 				 if ($dato['cant_membresias'] > 0) {
 				 	$grupos = array_merge($grupos, toba::proyecto()->get_perfiles_funcionales_asociados($grupo));
 				 }
@@ -511,11 +512,11 @@ class toba_instancia
 			return $grupos;
 		} else {
 			return array();
-		}		
+		}
 	}
-	
-	
-	
+
+
+
 	/**
 	* @deprecated Usar get_perfiles_funcionales
 	*/
@@ -523,7 +524,7 @@ class toba_instancia
 	{
 		return $this->get_perfiles_funcionales($usuario, $proyecto);
 	}
-	
+
 	/**
 	*	Utilizada en el login automatico
 	*/
@@ -533,14 +534,14 @@ class toba_instancia
 			$proyecto = toba_proyecto::get_id();
 		}
 		$proyecto = $this->get_db()->quote($proyecto);
-		$sql = "SELECT 	DISTINCT 
-						u.usuario as usuario, 
+		$sql = "SELECT 	DISTINCT
+						u.usuario as usuario,
 						u.nombre as nombre
 				FROM 	apex_usuario u, apex_usuario_proyecto p
 				WHERE 	u.usuario = p.usuario
 				AND		p.proyecto = $proyecto
 				ORDER BY 1;";
-		return $this->get_db()->consultar($sql);	
+		return $this->get_db()->consultar($sql);
 	}
 
 	//-------------------- Bloqueo de IPs en LOGIN  ----------------------------
@@ -555,7 +556,7 @@ class toba_instancia
 		}
 		return true;
 	}
-	
+
 	function registrar_error_login($usuario, $ip, $texto)
 	{
 		$sql = "INSERT INTO {$this->get_schema_logs_toba()}.apex_log_error_login(usuario,clave,ip,gravedad,mensaje) VALUES ( :usuario, NULL, :ip,'1',:texto)";
@@ -574,10 +575,10 @@ class toba_instancia
 			$id = $this->get_db()->sentencia_preparar($sql);
 			$this->get_db()->sentencia_ejecutar($id, array('ip'=>$ip));
 		} catch ( toba_error $e ) {
-			//La ip ya esta rechazada	
+			//La ip ya esta rechazada
 		}
 	}
-	
+
 	function get_cantidad_intentos_en_ventana_temporal($ip, $ventana_temporal=null)
 	{
 		$sql = "SELECT count(*) as total FROM {$this->get_schema_logs_toba()}.apex_log_error_login WHERE ip = :ip AND (gravedad > 0)";
@@ -594,10 +595,10 @@ class toba_instancia
 			throw new toba_error('Error!');
 		}
 	}
-	
+
 	//-------------------- Bloqueo de Usuarios en LOGIN  ----------------------------
-	
-	
+
+
 	function get_cantidad_intentos_usuario_en_ventana_temporal($usuario, $ventana_temporal=null)
 	{
 		$sql = "SELECT count(*) as total FROM {$this->get_schema_logs_toba()}.apex_log_error_login WHERE usuario = :usuario AND (gravedad > 0)";
@@ -614,7 +615,7 @@ class toba_instancia
 			throw new toba_error('Error!');
 		}
 	}
-	
+
 	function bloquear_usuario($usuario)
 	{
 		try {
@@ -625,7 +626,7 @@ class toba_instancia
 			//el usuario ya esta bloqueado
 		}
 	}
-	
+
 	function es_usuario_bloqueado($usuario)
 	{
 		$sql = "SELECT '1' FROM apex_usuario WHERE usuario = :usuario AND bloqueado = 1";
@@ -636,11 +637,11 @@ class toba_instancia
 		}
 		return true;
 	}
-	
+
 	//--------------------------------------------------------------------------
 	//------------------------- SESION -------------------------------------
 	//--------------------------------------------------------------------------
-	
+
 	function get_id_sesion()
 	{
 		$sql = "SELECT nextval('{$this->get_schema_logs_toba()}.apex_sesion_browser_seq'::text) as id;";
@@ -650,12 +651,12 @@ class toba_instancia
 		}
 		return $rs[0]['id'];
 	}
-	
+
 	function abrir_sesion($sesion, $usuario, $proyecto)
 	{
-		$sql = "INSERT INTO {$this->get_schema_logs_toba()}.apex_sesion_browser(sesion_browser, usuario, ip, proyecto, php_id) 
+		$sql = "INSERT INTO {$this->get_schema_logs_toba()}.apex_sesion_browser(sesion_browser, usuario, ip, proyecto, php_id)
 				VALUES (:sesion_browser, :usuario, :ip, :proyecto, :php_id);";
-		$ip = isset($_SERVER["REMOTE_ADDR"]) ? $_SERVER["REMOTE_ADDR"] : null;		
+		$ip = isset($_SERVER["REMOTE_ADDR"]) ? $_SERVER["REMOTE_ADDR"] : null;
 		$parametros = array(
 			'sesion_browser' => $sesion,
 			'usuario' => $usuario,
@@ -663,9 +664,9 @@ class toba_instancia
 			'proyecto' => $proyecto,
 			'php_id' => session_id(),
 		);
-		$this->get_db()->sentencia($sql, $parametros);		
+		$this->get_db()->sentencia($sql, $parametros);
 	}
-	
+
 	function cerrar_sesion($sesion, $observaciones = null)
 	{
 		$db = $this->get_db();
@@ -675,7 +676,7 @@ class toba_instancia
 			$sql = "UPDATE {$this->get_schema_logs_toba()}.apex_sesion_browser SET egreso = current_timestamp, observaciones=$observaciones WHERE sesion_browser = $sesion;";
 		}else{
 			$sql = "UPDATE {$this->get_schema_logs_toba()}.apex_sesion_browser SET egreso = current_timestamp WHERE sesion_browser = $sesion;";
-		}		
+		}
 		$db->ejecutar($sql);
 	}
 
@@ -684,7 +685,7 @@ class toba_instancia
 	//--------------------------------------------------------------------------
 
 	/**
-	 *	Crea un nuevo usuario en la instancia 
+	 *	Crea un nuevo usuario en la instancia
 	 *
 	 * @param string $usuario
 	 * @param string $nombre
@@ -695,17 +696,17 @@ class toba_instancia
 	{
 		$this->get_modelo_instancia()->agregar_usuario($usuario, $nombre, $clave, null, $atributos);
 	}
-	
+
 	function vincular_usuario( $proyecto, $usuario, $perfil_acceso, $perfil_datos=array(), $set_previsualizacion=true )
 	{
 		$this->get_modelo_instancia()->get_proyecto($proyecto)->vincular_usuario($usuario, $perfil_acceso, $perfil_datos, $set_previsualizacion);
-	}	
+	}
 
 	function desbloquear_usuario($usuario)
 	{
 		$sql = "UPDATE apex_usuario SET bloqueado = 0 WHERE usuario = :usuario";
 		$id = $this->get_db()->sentencia_preparar($sql);
 		$this->get_db()->sentencia_ejecutar($id, array('usuario'=>$usuario));
-	}	
+	}
 }
 ?>
