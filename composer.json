@@ -16,7 +16,7 @@
     "minimum-stability": "dev",
     "prefer-stable" : true,
     "require": {
-	"php" : ">=7.2",
+	"php" : ">=7.3",
         "symfony/yaml": "~4.4",
         "siu/security-multitool": "1.0",
         "paragonie/random-lib" : "~2.0",

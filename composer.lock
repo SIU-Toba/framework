@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2d8c67c127bf6b2b764bfabbae43bf6f",
+    "content-hash": "1d0f141f84d3ec31c66f0f4a956acdbe",
     "packages": [
         {
             "name": "dapphp/securimage",
@@ -972,16 +972,16 @@
         },
         {
             "name": "paragonie/random-lib",
-            "version": "v2.0.0",
+            "version": "v2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/RandomLib.git",
-                "reference": "b73a1cb8eae7a346824ccee42298046dedbf2415"
+                "reference": "f0ca6a2859b22f7caea9c343e63ffb3ce9b2ffa7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/RandomLib/zipball/b73a1cb8eae7a346824ccee42298046dedbf2415",
-                "reference": "b73a1cb8eae7a346824ccee42298046dedbf2415",
+                "url": "https://api.github.com/repos/paragonie/RandomLib/zipball/f0ca6a2859b22f7caea9c343e63ffb3ce9b2ffa7",
+                "reference": "f0ca6a2859b22f7caea9c343e63ffb3ce9b2ffa7",
                 "shasum": ""
             },
             "require": {
@@ -998,7 +998,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.1.x-dev"
+                    "dev-master": "2.1.x-dev"
                 }
             },
             "autoload": {
@@ -1012,14 +1012,14 @@
             ],
             "authors": [
                 {
-                    "name": "Anthony Ferrara",
-                    "email": "ircmaxell@ircmaxell.com",
-                    "homepage": "http://blog.ircmaxell.com"
-                },
-                {
                     "name": "Paragon Initiative Enterprises",
                     "email": "security@paragonie.com",
                     "homepage": "https://paragonie.com"
+                },
+                {
+                    "name": "Anthony Ferrara",
+                    "email": "ircmaxell@ircmaxell.com",
+                    "homepage": "http://blog.ircmaxell.com"
                 }
             ],
             "description": "A Library For Generating Secure Random Numbers",
@@ -1030,7 +1030,7 @@
                 "random-numbers",
                 "random-strings"
             ],
-            "time": "2017-10-06T23:34:21+00:00"
+            "time": "2019-12-23T23:03:52+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -3726,7 +3726,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.2"
+        "php": ">=7.3"
     },
     "platform-dev": []
 }
