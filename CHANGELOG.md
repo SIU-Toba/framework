@@ -3,9 +3,12 @@
 ## CHANGELOG
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
+
+[3.3.0](https://github.com/SIU-Toba/framework/releases/tag/v3.3.0) (2019-12-27)
+- Se fija como version minima de PHP 7.3.0
 - Se actualiza el item de login en toba_usuarios y toba_referencia, tambien se eliminan objetos huerfanos
 - Se agrega FK a la tabla apex_grupo_acc_restriccion_funcional
-- Se compatibiliza el mecanismo de actualizacion de secuencias con Postgresql 12
+- Se compatibiliza el mecanismo de actualizacion de secuencias y recuperacion de definicion de tablas con Postgresql 12
 - Se actualizan los siquientes paquetes:
     * symfony/yaml: v4.4
     * guzzlehttp/guzzle: v6.5
