@@ -28,24 +28,16 @@ if (!defined('apex_log_error_log_nivel')) {
 
 trait toba_basic_logger 
 {	
-	public static $separador = "-o-o-o-o-o-";
-	public static $fin_encabezado = "==========";
-	public static $limite_mensaje = 100000; //100 KB
-
 	protected $ref_niveles = array("EMERGENCY" , "ALERT", "CRITICAL", "ERROR", "WARNING", "NOTICE", "INFO", "DEBUG");	
 	protected $mensajes = array();
 	protected $niveles = array();
 	protected $proyectos = array();
 	protected $proyecto_actual;
 	
-	protected $proximo = 0;
-	protected $nivel_maximo = 7;
-	protected $activo = true;
+	protected $nivel_maximo = 7;	
+	protected $es_php_compatible = true;	
 	
-	protected $es_php_compatible = true;
-	
-	
-	public function get_proyecto_actual()
+	static public function get_proyecto_actual()
 	{
 		if (class_exists('toba_proyecto')) {
 			try {
@@ -54,15 +46,6 @@ trait toba_basic_logger
 			}
 		}
 		return 'toba';
-	}
-	
-	public function get_usuario_actual()
-	{
-		if( php_sapi_name() === 'cli' ) {
-			return null;
-		} else {
-			return toba::usuario()->get_id();
-		}
 	}
 	
 	/**
@@ -82,6 +65,11 @@ trait toba_basic_logger
 	public function get_cantidad_mensajes()
 	{
 		return count($this->mensajes);
+	}
+	
+	function modo_debug()
+	{
+		return ($this->get_nivel() == TOBA_LOG_DEBUG);
 	}
 	
 	public function get_mensajes_minimo_nivel()
@@ -111,56 +99,9 @@ trait toba_basic_logger
 		return $this->nivel_maximo;
 	}	
 	
-	//------------------------------------------------------------------
-	//---- Manejo de las fuentes de log
-	//------------------------------------------------------------------	
-	public function directorio_logs()
-	{
-		if (! isset($this->dir_logs)) {
-			$id_instancia = toba_instancia::get_id();
-			$this->dir_logs = toba_nucleo::toba_instalacion_dir()."/i__$id_instancia/p__{$this->proyecto_actual}/logs";
-		}
-		return $this->dir_logs;
-	}	
-	
-	public function set_directorio_logs($dir)
-	{
-		$this->dir_logs = $dir;	
-	}
-	
-	//-----------------------------------------------------------------------------------------------------------//	
-	//					METODOS AUXILIARES
-	//-----------------------------------------------------------------------------------------------------------//
-	protected function truncar_msg($msg)
-	{
-		if (strlen($msg) > self::$limite_mensaje) {
-			$msg = substr($msg, 0, self::$limite_mensaje).
-					"..TEXTO CORTADO POR EXCEDER EL LIMITE DE ".
-					self::$limite_mensaje.
-					" bytes";
-		}
-		return $msg;
-	}
-	
-	protected function registrar_msg_cli($msg, $nivel)
-	{
-		if (PHP_SAPI != 'cli' && apex_log_error_log && $nivel <= apex_log_error_log_nivel) {
-			$error_log_max = ini_get("log_errors_max_len");
-			if (! isset($error_log_max) || !is_numeric($error_log_max) || strlen($error_log_max) <= 1) {
-				$error_log_max = 1024;
-			}
-			$error_log_extra = "...SIGUE...";
-			$msg_error_log = $msg;
-			if (strlen($msg_error_log) > $error_log_max) {
-				$msg_error_log = substr($msg_error_log, 0 , $error_log_max - strlen($error_log_extra));
-				$msg_error_log .= $error_log_extra;
-			}
-			error_log($msg_error_log);
-		}		
-	}
-	
 	/**
 	 * @ignore 
+	 * @deprecated since version 3.2.3
 	 */
 	protected function registrar_mensaje($mensaje, $proyecto, $nivel)
 	{
@@ -176,6 +117,7 @@ trait toba_basic_logger
 	
 	/**
 	 * @ignore 
+	 * @deprecated since version 3.2.3 
 	 */	
 	protected function extraer_mensaje($mensaje)
 	{		
@@ -224,12 +166,22 @@ trait toba_basic_logger
 		}
 	}
 	
+	/**
+	 * @deprecated since version 3.2.3
+	 */
 	protected function parsear_msg($mensaje, $parametros=true)
 	{
 		$er = "/\([a-zA-Z'\"\s].+\)/i";
 		return ($parametros) ? $mensaje:  preg_replace($er, '(args ignored)', $mensaje);
 	}
 	
+	/**
+	 * 
+	 * @param type $con_parametros
+	 * @param type $pasos
+	 * @return string
+	 * @deprecated since version 3.2.3
+	 */
 	protected function construir_traza($con_parametros=false, $pasos = null)
 	{
 		if (!isset($pasos)) {			
@@ -273,6 +225,12 @@ trait toba_basic_logger
 		return $html;
 	}
 	
+	/**
+	 * 
+	 * @param type $argumento
+	 * @return type
+	 * @deprecated since version 3.2.3
+	 */
 	protected function armar_parametros_traza($argumento)
 	{
 		$html = '';
@@ -288,6 +246,11 @@ trait toba_basic_logger
 		return $html;
 	}
 	
+	/**
+	 * Arma un string con los mensajes y sus datos
+	 * @return string
+	 * @deprecated since version 3.2.3
+	 */
 	protected function armar_mensajes()
 	{
 		$texto = '';
@@ -299,7 +262,7 @@ trait toba_basic_logger
 		}
 		return $texto;
 	}
-	
+		
 	protected function mensajes()
 	{
 		return $this->mensajes;
@@ -319,72 +282,125 @@ trait toba_basic_logger
 		return ((1 << ($nivel + 1)) - 1);
 	}
 		
-	protected function ciclar_archivos_logs($path, $archivo)
+	//------------------------------------------------------------------
+	//------ Entradas para los distintos tipos de error
+	//------------------------------------------------------------------
+	
+	/**
+	 * Registra un suceso de emergencia (hecatombe)
+	 */
+	function emergencia($mensaje, $proyecto=null)
 	{
-		if (apex_log_archivo_backup_cant == 0) {
-			//Si es un unico archivo hay que borrarlo
-			unlink($path."/".$archivo);
-			return;
-		}
-		//Encuentra los archivos
-		$patron = "/$archivo\.([0-9]+)/";
-		$archivos = toba_manejador_archivos::get_archivos_directorio($path, $patron);
-		sort($archivos);
+		return $this->log(TOBA_LOG_EMERGENCY, $mensaje, array('proyecto' => $proyecto));		
+	}
+	
+	/**
+	 * Registra un suceso de alerta (un error que requiere intervencion humana)
+	 */
+	function alerta($mensaje, $proyecto=null)
+	{
+		return $this->log(TOBA_LOG_ALERT, $mensaje, array('proyecto' => $proyecto));		
+	}
+	
+	/**
+	 * Registra un suceso CRITICO (un error muy grave)
+	 */
+	function crit($mensaje, $proyecto=null)
+	{
+		return $this->log(TOBA_LOG_CRIT, $mensaje, array('proyecto' => $proyecto));		
+	}
 
-		//¿Cual es el numero de cada uno?
-		$ultimo = 0;
-		$arch_ordenados = array();
-		foreach ($archivos as $arch_actual) {
-			$version = array();
-			preg_match($patron, $arch_actual, $version);
-			if (! empty($version) && count($version) > 1) {
-				$pos = $version[1];
-				$arch_ordenados[$pos] = $arch_actual;
-				if ($pos > $ultimo) {
-					$ultimo = $pos;
-				}
+	/**
+	 * Registra un error en la apl., este nivel es que el se usa en las excepciones
+	 */    
+	function error($mensaje, $proyecto=null)
+	{
+		return $this->log(TOBA_LOG_ERROR, $mensaje, array('proyecto' => $proyecto));		
+	}
+
+	/**
+	 * Registra un suceso no contemplado pero que posiblemente no afecta la correctitud del proceso
+	 */
+	function warning($mensaje, $proyecto=null)
+	{
+		return $this->log(TOBA_LOG_WARNING, $mensaje, array('proyecto' => $proyecto));		
+	}
+
+	/**
+	 * Registra un suceso no contemplado que no es critico para la aplicacion
+	 */    
+	function notice($mensaje, $proyecto=null)
+	{
+		return $this->log(TOBA_LOG_NOTICE, $mensaje, array('proyecto' => $proyecto));		
+	}
+
+	/**
+	 * Registra un suceso netamente informativo, para una inspección posterior
+	 */
+	function info($mensaje, $proyecto=null)
+	{
+		return $this->log(TOBA_LOG_INFO, $mensaje, array('proyecto' => $proyecto));		
+	}
+
+	/**
+	 * Registra un suceso útil para rastrear problemas o bugs en la aplicación
+	 */
+	function debug($mensaje, $proyecto=null)
+	{
+		return $this->log(TOBA_LOG_DEBUG, $mensaje, array('proyecto' => $proyecto));
+	}
+
+	//-----------------------------------------------------------------------------------------------//
+	//		Entradas extra para tipos propios
+	//-----------------------------------------------------------------------------------------------//
+	/**
+	*	Indica la llamada a un metodo/funcion obsoleto, es un alias de notice
+	*	@param string $version  Versión desde la cual el metodo/funcion deja de estar disponible
+	*/
+	function obsoleto($clase, $metodo, $version, $extra=null, $proyecto=null) 
+	{
+		if (TOBA_LOG_NOTICE <= $this->nivel_maximo) {
+			$extra = "";
+			//Se saca el archivo que llamo el metodo obsoleto solo cuando hay modo debug
+			if (TOBA_LOG_DEBUG <= $this->nivel_maximo) {
+				$traza = debug_backtrace();
+				$archivo = $traza[2]['file'];
+				$linea = $traza[2]['line'];
+				$extra = "Archivo: $archivo, linea: $linea";
 			}
-		}
-		//Se determina el siguiente numero
-		$sig = $ultimo + 1;
-		
-		//¿Hay que purgar algunos?
-		$this->purgar_archivos_viejos($arch_ordenados);
-	
-		//Se procede a mover el archivo actual
-		$path_completo = $path . "/" . $archivo;
-		if (apex_log_archivo_backup_compr) {
-			//Se comprime
-			$nuevo = $path_completo . ".$sig.gz";
-			toba_manejador_archivos::comprimir_archivo($path_completo, 5, $nuevo);
-			unlink($path_completo);
-		} else {
-			$nuevo = $path_completo . ".$sig";
-			rename($path_completo, $nuevo);
+			if ($clase != '') {
+				$unidad = "Método '$clase::$metodo'";
+			} elseif ($metodo != '') {
+				$unidad = "Función '$metodo'";
+			} else {
+				$unidad = '';	
+			}
+			$msg = "OBSOLETO: $unidad desde versión $version. $extra";
+			$this->notice($msg, $proyecto);
 		}
 	}
 
-	protected function purgar_archivos_viejos($lista_archivos)
+	/**
+	 * Muestra la traza de ejecucion actual en el logger
+	 */
+	function trace($con_parametros=false, $proyecto = null)
 	{
-		//¿Hay que purgar algunos?
-		$puede_purgar = (apex_log_archivo_backup_cant != -1);
-		$a_purgar = count($lista_archivos) - (apex_log_archivo_backup_cant -1); 			//Se dejan solo N-1 archivos
-		if ($puede_purgar && $a_purgar > 0) {
-			ksort($lista_archivos);
-			reset($lista_archivos);
-			 do {
-				unlink(current($lista_archivos));
-				$a_purgar--;
-				next($lista_archivos);
-			} while ($a_purgar > 0);
-		}		
+		$this->debug($this->construir_traza($con_parametros), array('proyecto' => $proyecto));
+	}
+
+	/**
+	 * Dumpea el contenido de una variable al logger
+	 */
+	function var_dump($variable, $proyecto = null)
+	{
+		$this->debug(var_export($variable, true), array('proyecto' =>$proyecto));
 	}
 	
-	protected function anexar_a_archivo($texto, $archivo)
+	/**
+	 * Inserta un mensaje de debug que permite al visualizador dividir en secciones la ejecución
+	 */
+	function seccion($mensaje, $proyecto=null)
 	{
-		$res = file_put_contents($archivo, "$texto\r\n", FILE_APPEND);
-		if ($res === FALSE) {
-			throw new toba_error("Imposible guardar el archivo de log '$archivo'. Chequee los permisos de escritura del usuario apache sobre esta carpeta/archivo");
-		}
-	}	
+		return $this->log(TOBA_LOG_DEBUG, "[SECCION] ".$mensaje, array('proyecto' => $proyecto));
+	}
 }
