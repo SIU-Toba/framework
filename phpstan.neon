@@ -2,12 +2,21 @@ parameters:
       paths:
         - php/
         - src/
+      autoload_directories:
+        - vendor
+        - php
       autoload_files:
-        - php/toba_autoload.php
         - vendor/autoload.php
+        - php/toba_autoload.php
       excludes_analyse:
         - php/3eros/
         - php/instalacion/
         - php/convenciones/
-
+        - php/modelo/migraciones_instancia/
+        - vendor/rospdf/
+        - vendor/ezyang/
+        - vendor/markbaker/
+        - vendor/simpletest/
+        - vendor/ircmaxell/
+        - vendor/pear/
 
