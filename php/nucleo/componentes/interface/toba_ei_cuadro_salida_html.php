@@ -475,7 +475,7 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 				$desc = $acumulador_usuario[$id]['descripcion'];
 				$datos[$desc] = $valor;
 			}
-			echo toba::output()->get('CuadroSalidaHtml')->getSumarizacion($datos,null,300,$css,$nivel_css,  "<tr><td  class='$css_pie' colspan='$total_columnas'>\n","</td></tr>\n");
+			echo toba::output()->get('CuadroSalidaHtml')->getSumarizacion($datos,null,300,$css,$nivel_css,  "<tr><td  class='$css_pie' colspan='$total_columnas'>\n","</td></tr>\n", '');
 		}
 	}
 
@@ -827,7 +827,8 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 		$sumarizacion = $this->_cuadro->calcular_totales_sumarizacion_usuario();
 		$total_columnas = $this->_cuadro->get_cantidad_columnas_total();
 		if (! empty($sumarizacion)) {
-			echo toba::output()->get('CuadroSalidaHtml')->getSumarizacion($sumarizacion,null,300,$css, "<tr><td colspan='$total_columnas'>\n","</td></tr>\n");
+                    $css = 'cuadro-cc-sum-nivel-1';
+                    echo toba::output()->get('CuadroSalidaHtml')->getSumarizacion($sumarizacion,null,300,$css, "<tr><td colspan='$total_columnas'>\n","</td></tr>\n", '');
 		}
 	}
 
