@@ -7,7 +7,7 @@
   "author": "enfoqueNativo <rdalinger@siu.edu.ar>",
   "private": false,
   "dependencies": {
-    "ckeditor": "4.11",
+    "ckeditor4": "4.13",
     "jquery": "3.4",
     "jquery-migrate": "3.0",
     "siu-js-app-launcher": "1.0.4"

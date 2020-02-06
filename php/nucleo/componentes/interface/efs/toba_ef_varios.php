@@ -23,13 +23,13 @@ class toba_ef_checkbox extends toba_ef
 						'check_ml_toggle'
 		);
 	}
- 
-    
+
+
 	function __construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros)
 	{
 		//VAlor FIJO
 		if (isset($parametros['estado_defecto'])) {
-			$this->estado_defecto = $parametros['estado_defecto'];		
+			$this->estado_defecto = $parametros['estado_defecto'];
 			$this->estado = $this->estado_defecto;
 		}
 		if (isset($parametros['check_valor_si'])) {
@@ -40,17 +40,17 @@ class toba_ef_checkbox extends toba_ef
 		if (isset($parametros['check_valor_no'])) {
 			$this->valor_no_seteado = $parametros['check_valor_no'];
 		} else {
-			$this->valor_no_seteado = '0';	
-		}	
+			$this->valor_no_seteado = '0';
+		}
 		if (isset($parametros["check_desc_si"])) {
 			$this->valor_info = $parametros["check_desc_si"];
 		}
 		if (isset($parametros["check_desc_no"])) {
 			$this->valor_info_no_seteado = $parametros["check_desc_no"];
-		}		
+		}
 		if (isset($parametros["check_ml_toggle"])) {
 			$this->check_ml_toggle = $parametros["check_ml_toggle"];
-		}			
+		}
 		parent::__construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio,$parametros);
 	}
 
@@ -65,15 +65,15 @@ class toba_ef_checkbox extends toba_ef
 			if ($this->seleccionado()) {
 				$html .= toba_recurso::imagen_toba('nucleo/efcheck_on.gif',true,16,16);
 			} else {
-				$html .= toba_recurso::imagen_toba('nucleo/efcheck_off.gif',true,16,16);            
+				$html .= toba_recurso::imagen_toba('nucleo/efcheck_off.gif',true,16,16);
 			}
 		 } else {
 			$js = '';
 			if ($this->cuando_cambia_valor != '') {
 				$js = "onchange=\"{$this->get_cuando_cambia_valor()}\"";
-			}         	
+			}
 			$tab = $this->padre->get_tab_index();
-			$extra = " tabindex='$tab'";		
+			$extra = " tabindex='$tab'";
 			$html = toba_form::checkbox($this->id_form, $this->estado, $this->valor, $this->clase_css, $extra.' '.$js);
 		 }
 		 $html .= $this->get_html_iconos_utilerias();
@@ -83,7 +83,7 @@ class toba_ef_checkbox extends toba_ef
 	function set_estado($estado)
 	//Carga el estado interno
 	{
-		if(isset($estado)){								
+		if(isset($estado)){
 			$this->estado=$estado;
 			return true;
 		}else{
@@ -92,12 +92,12 @@ class toba_ef_checkbox extends toba_ef
 				$this->estado = $this->valor_no_seteado;
 				return true;
 			} else {
-				$this->estado = null;			
+				$this->estado = null;
 			}
 		}
 		return false;
 	}
-	
+
 	function cargar_estado_post()
 	{
 		if(isset($_POST[$this->id_form])) {
@@ -105,26 +105,26 @@ class toba_ef_checkbox extends toba_ef
 		} else {
 			$this->set_estado(null);
 		}
-		return false;		
+		return false;
 	}
-	
+
 	function get_consumo_javascript()
 	{
 		$consumos = array('efs/ef','efs/ef_checkbox');
 		return $consumos;
-	}	
-	
+	}
+
 	function tiene_estado()
 	{
-		return isset($this->estado) && 
+		return isset($this->estado) &&
 				($this->estado == $this->valor || $this->estado == $this->valor_no_seteado);
-	}	
+	}
 
 	function seleccionado()
 	{
-		return isset($this->estado) && 
+		return isset($this->estado) &&
 				($this->estado == $this->valor);
-	}	
+	}
 
 	protected function parametros_js()
 	{
@@ -132,11 +132,11 @@ class toba_ef_checkbox extends toba_ef
 		$params = "$param_padre,  '{$this->valor}' ";		//Le paso el valor que tomaria estando checkeado para comparar en modo solo lectura
 		return $params;
 	}
-	
+
 	function crear_objeto_js()
 	{
 		return "new ef_checkbox({$this->parametros_js()})";
-	}	
+	}
 
 	function get_descripcion_estado($tipo_salida)
 	{
@@ -154,9 +154,9 @@ class toba_ef_checkbox extends toba_ef
 				return $valor;
 			case 'excel':
 				return array($valor, null);
-		}		
+		}
 	}
-	
+
 }
 // ########################################################################################################
 // ########################################################################################################
@@ -170,23 +170,23 @@ class toba_ef_fijo extends toba_ef_oculto
 {
 	protected $clase_css = 'ef-fijo';
 	private $maneja_datos;
-	
+
 	static function get_lista_parametros()
 	{
 		$parametros[] = 'fijo_sin_estado';
 		return $parametros;
 	}
-	
-    
+
+
 	static function get_lista_parametros_carga()
 	{
-		$parametros = toba_ef::get_lista_parametros_carga_basico();    
+		$parametros = toba_ef::get_lista_parametros_carga_basico();
 		array_borrar_valor($parametros, 'carga_lista');
 		array_borrar_valor($parametros, 'carga_col_clave');
 		array_borrar_valor($parametros, 'carga_col_desc');
 		return $parametros;
-	}  	
-	
+	}
+
 	function __construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros)
 	{
 		parent::__construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio,$parametros);
@@ -197,7 +197,7 @@ class toba_ef_fijo extends toba_ef_oculto
 		}
 
 	}
-   
+
 	function set_estado($estado=null)
 	{
 		/*
@@ -208,15 +208,15 @@ class toba_ef_fijo extends toba_ef_oculto
 		}else{
 			if(isset($estado)) {
 				$this->estado = $estado;
-			}		
+			}
 		}
 	}
 
 	function set_opciones($descripcion, $maestros_cargados=true)
 	{
 		$this->set_estado($descripcion);
-	}	
-	
+	}
+
 	function get_input()
 	{
 		$estado = (isset($this->estado)) ? $this->estado : null;
@@ -227,18 +227,18 @@ class toba_ef_fijo extends toba_ef_oculto
 		$html .= $this->get_html_iconos_utilerias();
 		return $html;
 	}
-	
+
 	function get_consumo_javascript()
 	{
 		$consumos = array('efs/ef');
 		return $consumos;
-	}	
-	
+	}
+
 	function crear_objeto_js()
 	{
 		return "new ef_fijo({$this->parametros_js()})";
-	}	
-			
+	}
+
 }
 
 
@@ -269,8 +269,8 @@ class toba_ef_html extends toba_ef
 		$parametros[] = 'editor_botonera';
 		$parametros[] = 'editor_config_file';
 		return $parametros;
-	}	
-	
+	}
+
 	function __construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros)
 	{
 		$this->ancho = (isset($parametros['editor_ancho']))? $parametros['editor_ancho'] : "100%";
@@ -283,16 +283,16 @@ class toba_ef_html extends toba_ef
 	function get_consumo_javascript()
 	{
 		$consumo = parent::get_consumo_javascript();
-		$consumo[] = "packages/ckeditor/ckeditor";
+		$consumo[] = "packages/ckeditor4/ckeditor";
 		return $consumo;
 	}
-	
+
 	/**
 	 * Retorna el objeto fckeditor para poder modificarlo según su propia API
 	 * @param mixed valor a pasarle al editor
 	 * @return fckeditor
 	 */
-	function get_editor($valor)	
+	function get_editor($valor)
 	{
 		$name = $this->id_form;
 		$attr = '';
@@ -302,32 +302,32 @@ class toba_ef_html extends toba_ef
 		} else {
 			$url_archivo = toba_recurso::url_proyecto() . '/js' . $this->config_file;
 		}
-				
+
 		$opciones = array(	'width' => $this->ancho,
 						'height' => $this->alto,
 						'toolbar' => $this->botonera,
 						'skin' => 'kama');
 		$opciones['customConfig'] = $url_archivo;
-		$opciones['readOnly'] =  $this->es_solo_lectura();		
+		$opciones['readOnly'] =  $this->es_solo_lectura();
 		$opciones =  array_map('utf8_e_seguro', $opciones);
 		if (isset($this->templates_ck) && ! empty($this->templates_ck)) {
 			$opciones['templates_files'] =  $this->templates_ck;
-		} 
-		if (! empty($opciones)) {			
+		}
+		if (! empty($opciones)) {
 			$this->js_config = \json_encode($opciones);
 		}
 		return $out;
 	}
-	
+
 	function get_estado()
 	{
 		if ($this->tiene_estado()) {
-			return trim($this->estado);			
+			return trim($this->estado);
 		} else {
 			return null;
 		}
-	}	
-	
+	}
+
 	function set_barra_colapsada($colapsada)
 	{
 		$this->colapsada = $colapsada;
@@ -337,38 +337,38 @@ class toba_ef_html extends toba_ef
 	{
 		$this->botonera = $botonera;
 	}
-	
+
 	function set_alto($alto)
 	{
 		$this->alto = $alto;
 	}
-	
+
 	function set_ancho($ancho)
 	{
 		$this->ancho = $ancho;
 	}
-	
+
 	function set_path_template($path)
 	{
 		$this->templates_ck = $path;
 	}
-	
+
 	function set_config_file($path)
 	{
 		$this->config_file = $path;
 	}
-	
+
 	function get_input()
 	{
 		if(isset($this->estado)){
 			$estado = $this->estado;
 		}else{
 			$estado = "";
-		}		
-		$html = $this->get_editor($estado);	
+		}
+		$html = $this->get_editor($estado);
 		return $html;
 	}
-	
+
 	protected function parametros_js()
 	{
 		$params = parent::parametros_js();
@@ -377,12 +377,12 @@ class toba_ef_html extends toba_ef
 		}
 		return $params;
 	}
-	
-	
+
+
 	function crear_objeto_js()
-	{		
+	{
 		return "new ef_html({$this->parametros_js()})";
-	}	
+	}
 }
 
 ?>
