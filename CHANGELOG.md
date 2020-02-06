@@ -4,6 +4,12 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.3.1](https://github.com/SIU-Toba/framework/releases/tag/v3.3.1) (2020-02-06)
+- Actualiza version de CKEditor (implica cambio en URL del asset)
+- Mejora chequeo en condicional del metodo get_nombre_clase_extendida
+- Bugfix a la lectura de variables de entorno para configurar el manejo de sesiones (credits svier)
+- Bugfix en toba_ei_cuadro_salida_html, se recupera inicializacion de variable $css y agrega parametro actual faltante en invocacion (credits esassone)
+
 [3.3.0](https://github.com/SIU-Toba/framework/releases/tag/v3.3.0) (2019-12-27)
 - Se fija como version minima de PHP 7.3.0
 - Se actualiza el item de login en toba_usuarios y toba_referencia, tambien se eliminan objetos huerfanos

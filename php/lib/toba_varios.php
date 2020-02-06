@@ -71,10 +71,10 @@
 	function get_nombre_clase_extendida($nombre, $proyecto, $extensiones)
 	{
 		$res = substr($nombre, strlen('toba_'));
-		if ($extensiones['extension_proyecto']) {
-			return $proyecto.'_pers_'.$res;
-		} else if ($extensiones['extension_toba']) {
-			return $proyecto.'_'.$res;
+		if (isset($extensiones['extension_proyecto']) && $extensiones['extension_proyecto'] === true) {
+                    return $proyecto.'_pers_'.$res;
+		} elseif (isset($extensiones['extension_toba']) && $extensiones['extension_toba'] === true) {
+                    return $proyecto.'_'.$res;
 		}
 
 		return $nombre;
@@ -88,7 +88,7 @@
 		$pos = array_search($elem, $arreglo);
 		if ($pos !== false) {
 			if ($pos > 0) {
-				$anterior = $arreglo[$pos - 1];	
+				$anterior = $arreglo[$pos - 1];
 			}
 			if ($pos < count($arreglo) -1) {
 				$siguiente = $arreglo[$pos + 1];
@@ -96,7 +96,7 @@
 		}
 		return array($anterior, $siguiente);
 	}
-	
+
 	function array_no_nulo($array)
 	//Controla que el array tiene todas sus entradas en NULL
 	{
@@ -119,7 +119,7 @@
 		}
 		return array_renombrar_llaves($arreglo, $cambios, false);
 	}
-	
+
 	function array_cambiar_prefijo_claves($arreglo, $prefijo, $quitar)
 	{
 		$salida = array();
@@ -131,10 +131,10 @@
 				$id = $prefijo.$id;
 			}
 			$salida[$id] = $dato;
-		}		
+		}
 		return $salida;
-	}	
-	
+	}
+
 	/**
 	 * Recorre un arreglo dejando solo aquellas entradas pasadas por parametro
 	 */
@@ -143,12 +143,12 @@
 		$nuevo = array();
 		foreach ($arreglo as $clave => $valor) {
 			if (in_array($clave, $llaves)) {
-				$nuevo[$clave] = $valor;	
+				$nuevo[$clave] = $valor;
 			}
 		}
 		return $nuevo;
 	}
-	
+
 	function array_renombrar_llaves($arreglo, $cambios, $recursivo = true)
 	//Toma un conjunto de $cambios ("original" => "reemplazo") y los aplica a $arreglo
 	{
@@ -168,8 +168,8 @@
 			}
 		}
 		return $arreglo;
-	}	
-	
+	}
+
 	/**
 	 * Determina si alguna componente recursiva del arreglo es un objeto php
 	 * @param array $variable
@@ -179,16 +179,16 @@
 	{
 		foreach($variable as $elemento) {
 			if(is_object($elemento)) {
-				return true;	
+				return true;
 			}
 			if(is_array($elemento)) {
 				return array_posee_objetos($elemento);
 			}
 		}
 		return false;
-	}	
-	
-	
+	}
+
+
 	function array_a_latin1($arreglo)
 	{
 		$salida = array();
@@ -200,7 +200,7 @@
 			} else {
 				$salida[$clave] = $valor;
 			}
-		}		
+		}
 		return $salida;
 	}
 
@@ -220,10 +220,10 @@
 
 	/** Transforma un json o arreglo en utf8 a un arreglo en latin1 */
 	function rest_decode($datos)
-	{		
+	{
 		if(is_string($datos) ){
 			$datos = json_decode($datos, true);
-		} //es un json ya decodificada guzzle->response->json		
+		} //es un json ya decodificada guzzle->response->json
 		return (! is_null($datos)) ?  array_a_latin1($datos) : array();
 	}
 
@@ -310,7 +310,7 @@
 		// Armo los parametros del mutisort
 		foreach ( $columnas as $id => $col ) {
 			$parametros[] =& $orden[$id];
-			if (! is_array($tipo)) {		//Valor comun 
+			if (! is_array($tipo)) {		//Valor comun
 				$parametros[] = &$tipo;
 			} elseif (isset($tipo[$col])) {		//Es arreglo asociativo por columna
 					$parametros[] =  &$tipo[$col];
@@ -342,8 +342,8 @@
 	//Toma una etiqueta e intenta extraer el caracter de acceso rápido
 	// Ej: Proce&sar retornar array('<u>P</u>rocesar', 'P')
 	{
-		$escapador = toba::escaper();		
-		$pos_guia = strpos($etiqueta, '&');		
+		$escapador = toba::escaper();
+		$pos_guia = strpos($etiqueta, '&');
 		if ($pos_guia === false || ($pos_guia ==  strlen($etiqueta) - 1)) {
 			$nueva_etiqueta = $escapador->escapeHtmlAttr($etiqueta);
 			$tecla = null;
@@ -351,20 +351,20 @@
 			$partes = explode('&', $etiqueta);
 			if (count($partes) != 2) {
 				throw new toba_error_def('No puede existir mas de un shortcut en la misma etiqueta');
-			}			
+			}
 			$tecla = substr($partes[1], 0, 1);
 			$escapada = $escapador->escapeHtmlAttr($partes[0]. $partes[1]);
-			
-			//---Me fijo si el escapado modifica algun otro caracter en las partes que pueda correr la guia a la derecha			
-			$parte1_escap = $escapador->escapeHtmlAttr($partes[0]);		
+
+			//---Me fijo si el escapado modifica algun otro caracter en las partes que pueda correr la guia a la derecha
+			$parte1_escap = $escapador->escapeHtmlAttr($partes[0]);
 			$tags = $escapador->quitar_tags($etiqueta);
 			//--- Si hay tags completos, como no se escapan se mantiene la posicion original, sino se calcula el corrimiento
-			$corrimiento_izq = empty($tags) ? strlen($parte1_escap) - strlen($partes[0]) : 0;			
+			$corrimiento_izq = empty($tags) ? strlen($parte1_escap) - strlen($partes[0]) : 0;
 			$nueva_etiqueta = substr($escapada, 0, $pos_guia + $corrimiento_izq) . "<u>$tecla</u>". substr($escapada, $pos_guia  +  1 + $corrimiento_izq);
 		}
 		return array($nueva_etiqueta, $tecla);
 	}
-	
+
 	function array_borrar_valor(& $arreglo, $valor)
 	{
 		$pos = array_search($valor, $arreglo);
@@ -372,7 +372,7 @@
 			array_splice($arreglo, $pos, 1);
 		}
 	}
-	
+
 	function aplanar_matriz($matriz, $campo = null)
 	//Toma una matriz y lo aplana a una sola dimension, si no se especifica un campo, se elige el primero
 	//Util para aplanar recordset de consultas de un solo campo
@@ -384,11 +384,11 @@
 				$aplanado[$clave] = current($arreglo);
 			}elseif (isset($arreglo[$campo])) {
 				$aplanado[$clave] = $arreglo[$campo];
-			}			
+			}
 		}
 		return $aplanado;
 	}
-	
+
 
 	/**
 	 * Toma una matriz en formato recordset y retorna un arreglo asociativo clave => valor
@@ -396,12 +396,12 @@
 	 * @param array $datos_recordset Matriz en formato recordset
 	 * @param array $claves Campos (asociativos o numericos) claves de cada registro
 	 * @param string $valor Campo valor (asociativo o numerico) de cada registro
-	 * @return array 
+	 * @return array
 	 */
 	function rs_convertir_asociativo($datos_recordset, $claves=array(0), $valor=1)
 	{
 		if (!isset($datos_recordset)) {
-			return array();	
+			return array();
 		}
 		$valores = array();
 		foreach ($datos_recordset as $fila){
@@ -421,9 +421,9 @@
 			}
 		}
 		return $valores;
-	}	
+	}
 
-	//-----------------------------------------------------------------	
+	//-----------------------------------------------------------------
 
 	/**
 	 * Toma una matriz en formato recordset y retorna la misma matriz pero con la primer componente asociativa
@@ -431,12 +431,12 @@
 	 * @param array $datos_recordset Matriz en formato recordset
 	 * @param array $claves Campos (asociativos o numericos) claves de cada registro
 	 * @param string $valores Campos valor (asociativo o numerico) de cada registro, se asumen todos los campos
-	 * @return array 
+	 * @return array
 	 */
 	function rs_convertir_asociativo_matriz($datos_recordset, $claves, $valores=null)
 	{
 		if (!isset($datos_recordset)) {
-			return array();	
+			return array();
 		}
 		$salida = array();
 		foreach ($datos_recordset as $fila){
@@ -460,7 +460,7 @@
 		return $salida;
 	}
 
-	//-----------------------------------------------------------------	
+	//-----------------------------------------------------------------
 
 	function dump_array_php($array, $nombre="array",$html=false)
 	//Dumpea un array como sintaxis de definicion de array de PHP
@@ -477,12 +477,12 @@
 			$php .=	$nombre . $linea[$a] . "\n";
 		}
 		if($html){
-			return "<pre>$php</pre>";	
+			return "<pre>$php</pre>";
 		}else{
 			return $php;
 		}
 	}
-	
+
 	function dump_array_nivel($array)
 	{
 		$php ="";
@@ -519,8 +519,8 @@
 				$valor = str_replace("\"","'",$valor);
 				$id_js = $escapador->escapeJs($id);
 				$valor_js = ($es_objeto) ? $valor : '"'. $escapador->escapeJs($valor). '"';
-				
-				$js .= "$nombre"."['$id_js'] = $valor_js;\n";	
+
+				$js .= "$nombre"."['$id_js'] = $valor_js;\n";
 			}
 		}
 		return $js;
@@ -539,13 +539,13 @@
 				$contenido = file_get_contents ( $archivo );
 				$captura = array();
 				if(preg_match("/revision=\"(.*)\"/", $contenido, $captura)){
-					//ei_arbol($captura);	
+					//ei_arbol($captura);
 					return $captura[1];
 				}else{
-					return "DESCONOCIDA";	
+					return "DESCONOCIDA";
 				}
 			}else{
-				return "DESCONOCIDA";	
+				return "DESCONOCIDA";
 			}
 		} else {
 			if (file_exists($dir.'/.svn')) {
@@ -565,21 +565,21 @@
 	{
 		return (posicion_ruta_vendor($dir) !== false);
 	}
-	
-	function posicion_ruta_vendor($dir) 
+
+	function posicion_ruta_vendor($dir)
 	{
 		return $pos = stripos($dir, DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR);
 	}
-	
-	function generar_archivo_entorno($instal_dir, $id_instancia, $es_windows=false)	
+
+	function generar_archivo_entorno($instal_dir, $id_instancia, $es_windows=false)
 	{
 		if (! $es_windows) {
 			$contenido =  "export TOBA_DIR=".toba_dir()."\n";
 			$contenido .= "export TOBA_INSTANCIA=$id_instancia\n";
-			$contenido.= "export TOBA_INSTALACION_DIR=$instal_dir\n";			
+			$contenido.= "export TOBA_INSTALACION_DIR=$instal_dir\n";
 			$contenido .= 'export PATH="$TOBA_DIR/bin:$PATH"'."\n";
 			$contenido .= "echo \"Entorno cargado.\"\n";
-			$contenido .= "echo \"Ejecute 'toba' para ver la lista de comandos disponibles.\"\n";			
+			$contenido .= "echo \"Ejecute 'toba' para ver la lista de comandos disponibles.\"\n";
 		} else {
 			$contenido = "@echo off\n";
 			$contenido .= "set TOBA_DIR=".toba_dir()."\n";
@@ -591,53 +591,53 @@
 		}
 		return $contenido;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Clase que otorga rangos para asignación de tabs
 	 * @package Varios
 	 */
-	class toba_manejador_tabs 
+	class toba_manejador_tabs
 	{
 		static private $instancia;
 		static function instancia() {
-			if (! toba_manejador_tabs::$instancia) { 
-				toba_manejador_tabs::$instancia = new toba_manejador_tabs(); 
+			if (! toba_manejador_tabs::$instancia) {
+				toba_manejador_tabs::$instancia = new toba_manejador_tabs();
 			}
 			return toba_manejador_tabs::$instancia;
-		}		
+		}
 
 		protected $proximo_tab = 1;
-		
+
 		function reservar($cantidad) {
 			$reserva = array($this->proximo_tab, $this->proximo_tab + $cantidad - 1);
 			$this->proximo_tab = $this->proximo_tab + $cantidad;
 			return $reserva;
 		}
-		
+
 		function siguiente()
 		{
 			return $this->proximo_tab++;
 		}
 	}
-	
+
 	/**
 	*	El objeto_de_mentira intenta superar su ejecución sin causar ningun error ni warning
 	*	Util para simulaciones
-	* @ignore 
+	* @ignore
 	*/
 	class toba_objeto_de_mentira
 	{
 		function __call($m, $a)
 		{
-			return new toba_objeto_de_mentira();	
-		}	
-		
+			return new toba_objeto_de_mentira();
+		}
+
 		function __set($p, $v)
 		{
 		}
-		
+
 		function __get($p)
 		{
 			return new toba_objeto_de_mentira();
@@ -646,14 +646,14 @@
 
 	function convertir_a_medida_tabla($ancho, $medida='width')
 	{
-		//El ancho de una tabla no puede tener 'px'			
+		//El ancho de una tabla no puede tener 'px'
 		$ancho = str_replace('px', '', $ancho);
 		if ($ancho != '') {
 			$ancho =  "$medida='".toba::escaper()->escapeHtmlAttr($ancho)."'";
 		}
 		return $ancho;
 	}
-	
+
 	function sumar_medida($original, $agregado)
 	{
 		$numero = intval($original);
@@ -670,8 +670,8 @@
 	//Devuelve TRUE si el acceso se dio por GET
 	{
 		return (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"]=="GET");
-	}	
-	
+	}
+
 	function set_tiempo_maximo($tiempo="30")
 	{
 		ini_set("max_execution_time",$tiempo);
@@ -688,9 +688,9 @@
 			}
 		}
 		sort($props);
-		return $props;		
+		return $props;
 	}
-	
+
 	function reflexion_buscar_metodos($obj, $patron)
 	{
 		$ref = new ReflectionClass($obj);
@@ -702,9 +702,9 @@
 			}
 		}
 		sort($props);
-		return $props;		
-	}	
-	
+		return $props;
+	}
+
 	function agregar_dir_include_path($dir)
 	{
 		$i_path = ini_get("include_path");
@@ -714,12 +714,12 @@
 			ini_set("include_path", $i_path . ":.:" . $dir);
 		}
 	}
-	
+
 	function get_url_desarrollos($forzar_alternativo=false)
 	{
 		return "http://repositorio.siu.edu.ar";
-	}	
-	
+	}
+
 	function comparar($valor1, $operador, $valor2)
 	{
 		switch ($operador) {
@@ -745,7 +745,7 @@
 				throw new toba_error("El operador $operador no está soportado");
 		}
 	}
-	
+
 	/**
 	 * Funcion que hashea con un metodo especifico y un salt
 	 * @param type $clave
@@ -756,27 +756,27 @@
 	 * @see toba_hash
 	 */
 	function encriptar_con_sal($clave, $metodo, $sal=null)
-	{		
+	{
 		if (version_compare(PHP_VERSION, '5.3.2') >= 0 || $metodo == 'bcrypt') {
-			$hasher = new toba_hash($metodo);			
+			$hasher = new toba_hash($metodo);
 			if (is_null($sal)) {									//Hash nuevo
 				return $hasher->hash($clave);
 			} else {											//Verificacion
 				$resultado = $hasher->get_hash_verificador($clave, $sal);
-				if (strlen($resultado) > 13) {	//Si es menor a 13 hubo error, puede ser que el hash 
+				if (strlen($resultado) > 13) {	//Si es menor a 13 hubo error, puede ser que el hash
 					return $resultado;		//se hubiera generado con el metodo anterior
-				}				
+				}
 			}
 		}
-		
+
 		if (is_null($sal)) {
 			$sal = get_salt();
 		} else {
 			$sal = substr($sal, 0, 10);
 		}
-		return $sal . hash($metodo, $sal . $clave);		
+		return $sal . hash($metodo, $sal . $clave);
 	}
-	
+
 	/**
 	 * Funcion que retorna un salt generado (no seguro)
 	 * @return type
@@ -786,17 +786,17 @@
 	{
 		return substr(md5(uniqid(rand(), true)), 0, 10);
 	}
-	
+
 	function dormir($tiempo)
 	{
 		if (class_exists('inst_timer')) {
 			$timer = new inst_timer();
 			$timer->wait($tiempo);
 		} else {
-			usleep(1000);	
-		}		
+			usleep(1000);
+		}
 	}
-	
+
 	function ejecutar_consola($cmd, &$stdout, &$stderr)
 	{
 		$outfile = tempnam(".", "cmd");
@@ -819,14 +819,14 @@
 		unlink($outfile);
 		unlink($errfile);
 		return $exit;
-	}	
+	}
 
 	function cambiar_fecha($fecha,$sep_actual,$sep_nuevo, $buscar_hora=false){
 		if (isset($fecha) && trim($fecha)!='') {
 			$f = explode($sep_actual,$fecha);
 			if(count($f) < 3){
 				toba::logger()->notice("Formateador: se recibio una fecha invalida. [$fecha]");
-				return '';	
+				return '';
 			}
 			$extra = explode(' ',$f[2]);
 			$dia = str_pad($f[0],2,0,STR_PAD_LEFT);
@@ -838,8 +838,8 @@
 			}
 			return $salida;
 		}
-	}	
-	
+	}
+
 	/**
 	 * Convierte una hora de formato 24 a 12
 	 * @param string $hora_original Cadena representando la hora que se quiere convertir
@@ -857,9 +857,9 @@
 		}
 		return null;
 	}
-		
+
 	/**
-	 * Purifica una cadena a incluir en la salida html, previniendo ataques XSS 
+	 * Purifica una cadena a incluir en la salida html, previniendo ataques XSS
 	 * @param string $texto
 	 * @return string
 	 */
@@ -884,12 +884,12 @@
 		}
 		return $valida;
 	}
-	
-	
+
+
 	function xml_encode($valor) {
 		return toba_xml_tablas::encode($valor);
 	}
-	
+
 	function xml_decode($valor) {
 		return toba_xml_tablas::decode($valor);
 	}
