@@ -4,13 +4,13 @@
  * Solicitud pensada para ejecutar items en la consola
  * De esta forma se cuenta con la capacidad de usar las librerias de toba
  * aunque no se tiene acceso al esquema de componentes, pensados para la arquitectura web
- * 
+ *
  * @package Centrales
  */
 class toba_solicitud_consola extends toba_solicitud
 {
 	protected $estado_proceso = 0;
-	
+
 	function __construct($info)
 	{
 	    $this->info = $info;
@@ -18,11 +18,15 @@ class toba_solicitud_consola extends toba_solicitud
 		$_SERVER["REQUEST_METHOD"] = "GET";
 		parent::__construct(toba::memoria()->get_item_solicitado(),toba::usuario()->get_id());
 	}
-	
+
 	function procesar()
 	{
-		$accion = $this->info['basica']['item_act_accion_script'];	
-		require($accion);
+            if (! is_null($this->info['basica']['punto_montaje'])) {
+                toba_cargador::cargar_clase_archivo($this->info['basica']['punto_montaje'],  $this->info['basica']['item_act_accion_script'], $this->info['basica']['item_proyecto']);
+            } else {
+                $accion = $this->info['basica']['item_act_accion_script'];
+                require($accion);
+            }
 	}
 
 	/**
@@ -45,7 +49,7 @@ class toba_solicitud_consola extends toba_solicitud
 					echo " (Si esta definiendo una REGEXP utilice \"/s\")\n";
 					exit(222);
 				}
-			}	
+			}
 		}
 		//Seteo el modo DEBUG
 		if (isset($this->parametros["--debug"])) {
@@ -54,7 +58,7 @@ class toba_solicitud_consola extends toba_solicitud
 			$this->debug = false;
 		}
 	}
-	
+
 	/**
 	 * Retorna el estado actual de la operación
 	 * El estado de la operación se retorna al sistema cuando termina la operación
@@ -63,7 +67,7 @@ class toba_solicitud_consola extends toba_solicitud
 	{
 		return $this->estado_proceso;
 	}
-	
+
 	/**
 	 * Cambia el estado que se retorna al sistema cuando termina la operación
 	 * @param int $estado Entero entre 0 y 254
