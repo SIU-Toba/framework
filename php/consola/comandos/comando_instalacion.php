@@ -43,7 +43,7 @@ class comando_instalacion extends comando_toba
 		}
 		return $resultado;
 	}
-	
+
 	function mostrar_ayuda_desatendida()
 	{
 		$this->consola->titulo( $this->get_info() );
@@ -197,16 +197,8 @@ class comando_instalacion extends comando_toba
 		}
 
 		//--- Crea la instancia
-		$proyectos = toba_modelo_proyecto::get_lista();
-		if (isset($proyectos['toba_testing'])) {
-			//--- Elimina el proyecto toba_testing
-			unset($proyectos['toba_testing']);
-		}
-		if (isset($proyectos['curso_intro'])) {
-			//--- Elimina el proyecto curso_intro
-			unset($proyectos['curso_intro']);
-		}
-		toba_modelo_instancia::crear_instancia( $id_instancia, $base, $proyectos );
+                $proyectos = $this->quitar_proyectos_sin_directorio(toba_modelo_proyecto::get_lista());
+		toba_modelo_instancia::crear_instancia($id_instancia, $base, $proyectos);
 
 		//-- Carga la instancia
 		$instancia = $this->get_instancia($id_instancia);
@@ -245,10 +237,12 @@ class comando_instalacion extends comando_toba
 				$this->consola->mensaje("     ln -s $toba_conf /etc/apache2/sites-enabled/$nombre_toba.conf");
 			}
 			$this->consola->mensaje("");
-			$url = $instancia->get_proyecto('toba_editor')->get_url();
-			$this->consola->mensaje("Reiniciar el servicio apache e ingresar al framework navegando hacia ");
-			$this->consola->mensaje("");
-			$this->consola->mensaje("     http://localhost$url");
+                        if (in_array('toba_editor', $instancia->get_lista_proyectos_vinculados())) {
+                            $url = $instancia->get_proyecto('toba_editor')->get_url();
+                            $this->consola->mensaje("Reiniciar el servicio apache e ingresar al framework navegando hacia ");
+                            $this->consola->mensaje("");
+                            $this->consola->mensaje("     http://localhost$url");
+                        }
 			$this->consola->mensaje("");
 			$this->consola->mensaje("");
 		}
@@ -604,5 +598,19 @@ class comando_instalacion extends comando_toba
 		}
 		return $pwd;
 	}
+
+        protected function quitar_proyectos_sin_directorio($proyectos)
+        {
+            $no_basicos = array('toba_testing', 'curso_intro');
+            foreach ($proyectos as $id_pro => $path_pro) {
+                $path = toba_dir().'/proyectos/'.$path_pro;
+                if (! is_dir($path)) {
+                    $no_basicos[] = $id_pro;
+                }
+            }
+
+            $eliminar = \array_fill_keys($no_basicos, '1');
+            return \array_diff_key($proyectos, $eliminar);
+        }
 }
 ?>
