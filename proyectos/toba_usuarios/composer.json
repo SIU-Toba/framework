@@ -1,0 +1,33 @@
+{
+  "name": "siu-toba/toba-usuarios",
+  "description": "",
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://satis.siu.edu.ar"
+    }
+  ],
+  "require": {
+    "siu-toba/framework": "~3.3",
+    "siu-toba/rest": "~2.0",
+    "siu/arai-cli": "^2.7"
+  },
+  "config": {
+     "bin-dir": "./bin" 
+  },
+  "autoload": {
+      "psr-4": {
+        "SIUToba\\TobaUsuarios\\": "php/"
+      }
+   },
+  "scripts": {
+     "post-install-cmd": [
+           "composer run-script post-install-cmd -d ./vendor/siu-toba/framework/"
+     ],
+     "post-update-cmd": [
+            "composer run-script post-install-cmd -d ./vendor/siu-toba/framework/"
+     ]
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
