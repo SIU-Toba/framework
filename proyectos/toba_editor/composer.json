@@ -1,0 +1,31 @@
+{
+  "name": "siu-toba/toba-editor",
+  "description": "Proyecto Editor de metadatos de SIU-Toba",
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://satis.siu.edu.ar"
+    }
+  ],
+  "require": {
+    "siu-toba/framework": "~3.3"    
+  },
+  "config": {
+     "bin-dir": "./bin" 
+  },
+  "autoload": {
+      "psr-4": {
+        "SIUToba\\TobaEditor\\": "php/"
+      }
+    },
+  "scripts": {
+     "post-install-cmd": [
+           "composer run-script post-install-cmd -d ./vendor/siu-toba/framework/"
+     ],
+     "post-update-cmd": [
+            "composer run-script post-install-cmd -d ./vendor/siu-toba/framework/"
+     ]
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
