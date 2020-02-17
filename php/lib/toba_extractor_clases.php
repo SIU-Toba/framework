@@ -2,10 +2,9 @@
 /**
  * Description of toba_extractor_clases
  * @package Varios
- * 
+ *
  * @author sp14ab
  */
-include_once 'toba_manejador_archivos.php';
 class toba_extractor_clases
 {
 	const regexp_eliminar_comentarios = '%\/\*[\s\S]*?\*\/|[/]{2}.*%i';
@@ -30,14 +29,11 @@ class toba_extractor_clases
 
 	protected $pms_no_encontrados;
 
-	private $constantes_errores;						// Guardo las constantes de errores de PCRE para debuggear un poco mejor en caso de fallo 
-
 	function  __construct($puntos_montaje)
 	{
 		$this->pms_no_encontrados = array();
 		$this->puntos_montaje = $puntos_montaje;
 		$this->extends_excluidos = array();
-		$this->constantes_errores = array_flip(get_defined_constants(true)['pcre']);
 	}
 
 	/**
@@ -79,17 +75,17 @@ class toba_extractor_clases
 				continue;	// simplemente se ignora
 			}
 
-			
+
 			$dirs_excluidos = (isset($data['dirs_excluidos'])) ? $data['dirs_excluidos'] : array();
 			$archivos  = $this->obtener_archivos($path, $dirs_excluidos);
 
 			$extras = (isset($data['extras'])) ? $data['extras'] : array();
 			$arreglo = $this->generar_arreglo($path, $archivos, $extras);
-			
+
 			$this->generar_archivo($path.'/'.$data['archivo_salida'], $arreglo, $path);
 		}
 	}
-	
+
 	function generar_vacio()
 	{
 		$this->init_registro();
@@ -101,7 +97,7 @@ class toba_extractor_clases
 
 			$this->generar_archivo($path.'/'.$data['archivo_salida'], '', $path);
 		}
-	}	
+	}
 
 	protected function obtener_archivos($path, $excluidos = array())
 	{
@@ -131,17 +127,17 @@ class toba_extractor_clases
 
 		foreach ($archivos as $archivo) {
 			$contenido = file_get_contents($archivo);
-			
+
 			$contenido = preg_replace(self::regexp_eliminar_comentarios, '', $contenido);	// removemos comentarios
 			if (PREG_NO_ERROR !== preg_last_error()) {
-				$msg =  'Error ' . $this->constantes_errores[preg_last_error()] . ' ignorando archivo: ';
+                                $msg = 'Error ' . array_flip(get_defined_constants(true)['pcre'])[preg_last_error()]. ' ignorando archivo: ';
 			}
 
 			// matches[1]: cada elemento acá trae 'class', 'interface', 'trait' o nada
 			// matches[2]: cada elemento acá trae el nombre de la clase, trait o interfaz
 			// matches[3]: cada elemento acá trae de que clase extiende
 			preg_match_all(self::regexp_extractor, $contenido, $matches);
-			
+
 			if (empty($matches[1])) {
 				toba::logger()->debug($msg . $archivo);
 				$msg = '';
@@ -218,7 +214,7 @@ class toba_extractor_clases
 			}
 		}
 	}
-	
+
 	protected function es_clase_repetida($montaje, $clase)
 	{
 		 return (isset($this->clases_repetidas[$montaje][$clase]));
