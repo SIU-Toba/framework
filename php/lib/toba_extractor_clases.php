@@ -5,11 +5,14 @@
  *
  * @author sp14ab
  */
+
+use PhpParser\ParserFactory;
+use PhpParser\Node\Stmt\Class_ as ClassNode;
+use PhpParser\Node\Stmt\Interface_ as InterfaceNode;
+use PhpParser\Node\Stmt\Trait_ as TraitNode;
+
 class toba_extractor_clases
 {
-	const regexp_eliminar_comentarios = '%\/\*[\s\S]*?\*\/|[/]{2}.*%i';
-	const regexp_extractor = '/.*\b(class|interface|trait)[\t\r\n ]+(\w+)[\t\r\n \{]+(?:[\t\r\n ]*extends[\t\r\n ]*(\w*))?/i';
-
 	/**
 	 * @var array Los puntos de montaje de donde se tienen que cargar las clases
 	 * Estructura:
@@ -68,22 +71,20 @@ class toba_extractor_clases
 
 	function generar()
 	{
-		$this->init_registro();
-		foreach ($this->puntos_montaje as $path => $data) {
-			if (!is_dir($path)) {
-				$this->pms_no_encontrados[] = $path;
-				continue;	// simplemente se ignora
-			}
+            $this->init_registro();
+            foreach ($this->puntos_montaje as $path => $data) {
+                if (!is_dir($path)) {
+                        $this->pms_no_encontrados[] = $path;
+                        continue;	// simplemente se ignora
+                }
+                $dirs_excluidos = (isset($data['dirs_excluidos'])) ? $data['dirs_excluidos'] : array();
+                $archivos  = $this->obtener_archivos($path, $dirs_excluidos);
 
+                $extras = (isset($data['extras'])) ? $data['extras'] : array();
+                $arreglo = $this->generar_arreglo($path, $archivos, $extras);
 
-			$dirs_excluidos = (isset($data['dirs_excluidos'])) ? $data['dirs_excluidos'] : array();
-			$archivos  = $this->obtener_archivos($path, $dirs_excluidos);
-
-			$extras = (isset($data['extras'])) ? $data['extras'] : array();
-			$arreglo = $this->generar_arreglo($path, $archivos, $extras);
-
-			$this->generar_archivo($path.'/'.$data['archivo_salida'], $arreglo, $path);
-		}
+                $this->generar_archivo($path.'/'.$data['archivo_salida'], $arreglo, $path);
+            }
 	}
 
 	function generar_vacio()
@@ -124,42 +125,36 @@ class toba_extractor_clases
 	protected function generar_arreglo($path_montaje, &$archivos, $extras = array())
 	{
 		$clases = $msg = '';
+                $parser = (new ParserFactory)->create(ParserFactory::PREFER_PHP7);
 
 		foreach ($archivos as $archivo) {
-			$contenido = file_get_contents($archivo);
+                    try {
+                        $sentencias = $parser->parse(file_get_contents($archivo));
+                        $path = substr(str_replace($path_montaje, '', $archivo), 1); // Sacamos el $path_montaje para que quede relativo al mismo
 
-			$contenido = preg_replace(self::regexp_eliminar_comentarios, '', $contenido);	// removemos comentarios
-			if (PREG_NO_ERROR !== preg_last_error()) {
-                                $msg = 'Error ' . array_flip(get_defined_constants(true)['pcre'])[preg_last_error()]. ' ignorando archivo: ';
-			}
+                        foreach($sentencias as $nodo) {
+                            if (! ($nodo instanceof ClassNode || $nodo instanceof TraitNode || $nodo instanceof InterfaceNode)) {
+                                toba::logger()->debug($msg . $archivo);
+                                $msg = '';
+                                continue;
+                            }
+                            //Si extiende de alguna clase y esta estaba excluida, lo ignoro tambien
+                            if (!is_null($nodo->extends) && \in_array($nodo->extends->parts, $this->extends_excluidos)) {
+                                continue;
+                            }
 
-			// matches[1]: cada elemento acá trae 'class', 'interface', 'trait' o nada
-			// matches[2]: cada elemento acá trae el nombre de la clase, trait o interfaz
-			// matches[3]: cada elemento acá trae de que clase extiende
-			preg_match_all(self::regexp_extractor, $contenido, $matches);
-
-			if (empty($matches[1])) {
-				toba::logger()->debug($msg . $archivo);
-				$msg = '';
-				continue;	// No es una clase , trait o una interfaz. No hay que incluirla
-			}
-
-			foreach ($matches[1] as $key => $tipo) {
-				if ($tipo == 'class') {
-					if (in_array($matches[3][$key], $this->extends_excluidos)) {
-						continue;
-					}
-				}
-				$clase = $matches[2][$key];
-				$this->registrar_clase($path_montaje, $clase, $archivo);
-				$path = substr(str_replace($path_montaje, '', $archivo), 1); // Sacamos el $path_montaje para que quede relativo al mismo
-
-				if (! $this->es_clase_repetida($path_montaje, $clase)) {
-					$clases .= sprintf("\t\t'%s' => '%s',\n", $clase, $path);
-				}
-			}
+                            $clase = $nodo->name->name;
+                            $this->registrar_clase($path_montaje, $clase, $archivo);
+                            if (! $this->es_clase_repetida($path_montaje, $clase)) {
+                                    $clases .= sprintf("\t\t'%s' => '%s',\n", $clase, $path);
+                            }
+                        }
+                    } catch(phpParser\Error $e) {
+                        echo $e->getMessage();
+                    }
 		}
 
+                //Agrego las clases extra si no se repiten
 		foreach ($extras as $clase => $path) {
 			if (! $this->es_clase_repetida($path_montaje, $clase)) {
 				$clases .= sprintf("\t\t'%s' => '%s',\n", $clase, $path);
