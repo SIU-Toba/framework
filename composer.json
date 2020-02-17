@@ -38,7 +38,7 @@
         "ioncube/php-openssl-cryptor": "dev-master",
         "siu/manejador-salida-toba" : "~1.1",
 	"psr/log": "^1.1",
-        "roave/better-reflection": "^3.5"
+	"nikic/php-parser": "~4.3"
     },
     "require-dev": {
         "simpletest/simpletest": "~1.2", 
