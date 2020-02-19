@@ -4,6 +4,9 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.2.12](https://github.com/SIU-Toba/framework/releases/tag/v3.2.12) (2020-02-19)
+- Actualiza el paquete siu/security-multitool (merge desde develop)
+
 [3.2.11](https://github.com/SIU-Toba/framework/releases/tag/v3.2.11) (2020-02-06)
 - Bugfix a la lectura de variables de entorno para configurar el manejo de sesiones (merge desde develop)
 - Se compatibiliza el mecanismo de actualizacion de secuencias y recuperacion de definicion de tablas con Postgresql 12
