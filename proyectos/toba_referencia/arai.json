@@ -1,0 +1,36 @@
+{
+  "name": "siu-toba/toba-referencia",
+  "description": "Toba-Referencia",
+  "scripts": {
+    "hooks": "SIUToba\\Framework\\Arai\\RegistryHooksProyectoToba"
+  },
+  "consume": [
+    {
+      "name": "service:siu/sso-saml-idp",
+      "version": ">=0.1.0"
+    }, 
+    {
+       "name": "api:siu/arai-reportes",
+       "version": ">=1.0.0", 
+       "options": {
+	"toba-rest" : [
+	  {"proyecto" : "toba_referencia", "rest-id": "rest_arai_reportes"}
+	 ]
+	}	
+    }
+  ], 
+  "provide" : [
+    {
+      "name": "app:siu-toba/toba-referencia",
+      "alias": "Toba Referencia",
+      "version": "3.3.1"
+    },
+    {
+      "name": "api:siu-toba/toba-referencia",
+      "version": "3.3.1",
+      "options": {
+        "auto-configurar": true
+      }
+    }
+  ]
+} 
