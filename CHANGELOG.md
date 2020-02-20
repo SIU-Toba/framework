@@ -4,6 +4,12 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.3.2](https://github.com/SIU-Toba/framework/releases/tag/v3.3.2) (2020-02-20)
+- Se actualiza la version del paquete siu/security-multitool para evitar conflicto de providers (#75)
+- Se mejora la generacion de autoload via el paquete nikic/php-parser
+- Fix a warning al generar el autoload de los proyectos
+- Se agrega posibilidad de instalar el framework aun sin proyectos internos
+
 [3.3.1](https://github.com/SIU-Toba/framework/releases/tag/v3.3.1) (2020-02-06)
 - Actualiza version de CKEditor (implica cambio en URL del asset)
 - Mejora chequeo en condicional del metodo get_nombre_clase_extendida
@@ -35,6 +41,13 @@
 - La exportacion via toba_vista_excel ahora tendra el formato xlsx
 - Se simplifica tratamiento de ef_fieldset en el formulario
 - Se pasa el paquete siu/rdi a suggested
+
+[3.2.12](https://github.com/SIU-Toba/framework/releases/tag/v3.2.12) (2020-02-19)
+- Actualiza el paquete siu/security-multitool (merge desde develop)
+
+[3.2.11](https://github.com/SIU-Toba/framework/releases/tag/v3.2.11) (2020-02-06)
+- Bugfix a la lectura de variables de entorno para configurar el manejo de sesiones (merge desde develop)
+- Se compatibiliza el mecanismo de actualizacion de secuencias y recuperacion de definicion de tablas con Postgresql 12
 
 [3.2.10](https://github.com/SIU-Toba/framework/releases/tag/v3.2.10) (2019-11-25)
 - Fix a la desactivacion de eventos (con manejador-bootstrap)
