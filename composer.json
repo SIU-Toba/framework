@@ -31,17 +31,18 @@
         "rospdf/pdf-php": "~0.12",
         "siu-toba/structures_graph": "^1.1.1.1",
         "phpmailer/phpmailer": "~6.1",
-        "siu-toba/text_highlighter": "~0.8",
         "siu-toba/services_json": "^1.0.3.3", 
         "siu/arai-json-migrator": "~1.0",
         "vlucas/phpdotenv": "~3.6",
         "ioncube/php-openssl-cryptor": "dev-master",
         "siu/manejador-salida-toba" : "~1.1",
-	"psr/log": "^1.1"
+	"psr/log": "^1.1",
+	"nikic/php-parser": "~4.3"
     },
     "require-dev": {
         "simpletest/simpletest": "~1.2", 
         "facebook/webdriver": "^1.0",
+        "siu-toba/text_highlighter": "~0.8",
         "greenlion/php-sql-parser": "@dev", 
         "siu/arai-cli": "*",
         "siu/arai-crypto": "*",
