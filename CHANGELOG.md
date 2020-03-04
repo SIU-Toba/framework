@@ -4,6 +4,9 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.1.16](https://github.com/SIU-Toba/framework/releases/tag/v3.1.16) (2020-03-04):
+- Hotfix cambio de proveedor del paquete random-lib
+
 [3.1.15](https://github.com/SIU-Toba/framework/releases/tag/v3.1.15) (2019-11-07):
 - La clase toba_vista_jasperreports permite especificar si el pdf se abre dentro del browser o se baja (PR#60, merge desde develop)
 
