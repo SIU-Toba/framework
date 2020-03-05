@@ -73,6 +73,9 @@ class toba_rest
 		if (!empty($datos_ini_proyecto) && isset($datos_ini_proyecto['proyecto']['version'])) {
 			$settings['api_version'] = $datos_ini_proyecto['proyecto']['version'];
 		}
+                if (!empty($datos_ini_proyecto) && isset($datos_ini_proyecto['proyecto']['id'])) {
+			$settings['api_titulo'] = 'Referencia de API para ' . $datos_ini_proyecto['proyecto']['id'];
+		}
 		$settings = array_merge($settings, $ini->get('settings', null, array(), false));
 
 		//        include_once 'lib/rest/rest.php';
