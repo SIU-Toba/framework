@@ -356,12 +356,13 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 				throw new toba_error("No existe el archivo '$nombre_ini' en la raiz del proyecto");
 			}
 			toba::config()->add_config_file('proyecto', $path_ini);
+                        toba::config()->load();
 		}
 
 		if (toba::config()->existe_valor('proyecto', $seccion, $parametro)) {
 			return toba::config()->get_parametro('proyecto', $seccion, $parametro);
 		} elseif ($obligatorio) {
-			throw new toba_error("INFO_PROYECTO: El parametro '$id' no se encuentra definido.");
+			throw new toba_error("INFO_PROYECTO: El parametro '$parametro' no se encuentra definido.");
 		}
 		return null;
 	}
@@ -3070,41 +3071,39 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	 */
 	public function get_documentacion_rest()
 	{
-		$doc_rest = '';
+            //Armo la info de inicializacion de libreria REST
+            $ini =  toba_modelo_rest::get_ini_server($this, '');
+            $es_produccion = (boolean) $this->get_instalacion()->es_produccion();
+            $path_controladores = $this->get_path_api_rest();
+            $url_base = toba_modelo_rest::get_url_base($this);
+            $settings = array(
+                    'path_controladores' => $path_controladores,
+                    'url_api' => $url_base,
+                    'prefijo_api_docs' => 'api-docs',
+                    'debug' => !$es_produccion,
+                    'encoding' => 'latin1',
+                    'api_titulo' => 'Referencia de API para ' . $this->get_id()
+            );
+            //Agrego el nro de version del proyecto a la API
+            $datos_ini_proyecto = $this->get_parametro('proyecto','version', false);
+            if (isset($datos_ini_proyecto)) {
+                    $settings['api_version'] = $datos_ini_proyecto;
+            }
+            $settings = array_merge($settings, $ini->get('settings', null, array(), false));
+            //Hay que definir esto porque la libreria REST las asume siempre presentes y saca notice rompiendo el json.
+            $_SERVER['REQUEST_METHOD'] = '';
+            $_SERVER['REQUEST_URI'] = '';
 
-		//Armo la info de inicializacion de libreria REST
-		$ini =  toba_modelo_rest::get_ini_server($this, '');
-		$es_produccion = (boolean) $this->get_instalacion()->es_produccion();
-		$path_controladores = $this->get_path_api_rest();
-		$url_base = toba_modelo_rest::get_url_base($this);
-		$settings = array(
-			'path_controladores' => $path_controladores,
-			'url_api' => $url_base,
-			'prefijo_api_docs' => 'api-docs',
-			'debug' => !$es_produccion,
-			'encoding' => 'latin1'
-		);
-		//Agrego el nro de version del proyecto a la API
-		$datos_ini_proyecto = $this->get_parametro('proyecto','version', false);
-		if (isset($datos_ini_proyecto)) {
-			$settings['api_version'] = $datos_ini_proyecto;
-		}
-		$settings = array_merge($settings, $ini->get('settings', null, array(), false));
+            //Instancio la libreria, agrego los mocks necesarios para poder generar sin problemas la doc
+            $app = new SIUToba\rest\rest($settings);
+            $app->set_request(new mock_request($url_base. '/api-docs'));
+            $app->set_autenticador(new mock_autenticador());
 
-		//Hay que definir esto porque la libreria REST las asume siempre presentes y saca notice rompiendo el json.
-		$_SERVER['REQUEST_METHOD'] = '';
-		$_SERVER['REQUEST_URI'] = '';
-
-		//Instancio la libreria, agrego los mocks necesarios para poder generar sin problemas la doc
-		$app = new SIUToba\rest\rest($settings);
-		$app->set_request(new mock_request($url_base. '/api-docs'));
-		$app->set_autenticador(new mock_autenticador());
-
-		//Capturo el procesamiento del pedido donde se genera la documentacion
-		ob_start();
-		$app->procesar();
-		$doc_rest = ob_get_clean();
-		return $doc_rest;
+            //Capturo el procesamiento del pedido donde se genera la documentacion
+            ob_start();
+            $app->procesar();
+            $doc_rest = ob_get_clean();
+            return ($doc_rest !== false) ? $doc_rest: '';
 	}
 
 }
