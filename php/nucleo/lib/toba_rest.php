@@ -59,7 +59,7 @@ class toba_rest
 		$ini = $this->get_conf($api);
 		$es_produccion = (boolean) toba::instalacion()->es_produccion();
 
-		$path_controladores = $this->get_path_controladores();
+		$path_controladores = $this->get_path_controladores($api);
 		$url_base = self::url_rest();
 
 		$settings = array(
@@ -192,12 +192,17 @@ class toba_rest
 	/**
 	 * @return string
 	 */
-	protected function get_path_controladores()
+	protected function get_path_controladores($api='')
 	{
 		$api_base = toba_proyecto::get_path_php() . self::CARPETA_REST;
 		$api_pers = toba_proyecto::get_path_pers_php() . self::CARPETA_REST;
-
-		$path_controladores = array($api_base, $api_pers);
+		
+		$ini_server = $this->get_conf($api);
+		$path_controladores = array(
+					$ini_server->get($api, 'path_api', $api_base, FALSE),
+					$ini_server->get($api, 'path_api_pers', $api_pers, FALSE)
+		);
+		
 		return $path_controladores;
 	}
 
