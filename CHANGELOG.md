@@ -4,6 +4,9 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.3.3](https://github.com/SIU-Toba/framework/releases/tag/v3.3.3) (2020-03-17)
+- Hotfix el Hook para Arai no instanciaba correctamente el CryptoService lo que generaba un error por libreria faltante
+
 [3.3.2](https://github.com/SIU-Toba/framework/releases/tag/v3.3.2) (2020-02-20)
 - Se actualiza la version del paquete siu/security-multitool para evitar conflicto de providers (#75)
 - Se mejora la generacion de autoload via el paquete nikic/php-parser
