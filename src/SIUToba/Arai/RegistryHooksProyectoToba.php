@@ -446,13 +446,13 @@ class RegistryHooksProyectoToba implements HooksInterface
 	protected function getAraiSyncKeyPublic()
 	{
 		$araiSyncKey = $this->cargarAraiSyncKey();
-		return AraiCli::getCryptoService()->getPublicFromSyncKey($araiSyncKey);
+		return AraiCli::getCryptoService(true)->getPublicFromSyncKey($araiSyncKey);
 	}
 
 	protected function getAraiSyncKeyPrivate()
 	{
 		$araiSyncKey = $this->cargarAraiSyncKey();
-		return AraiCli::getCryptoService()->getPrivateFromSyncKey($araiSyncKey);
+		return AraiCli::getCryptoService(true)->getPrivateFromSyncKey($araiSyncKey);
 	}
 
 	/**
@@ -555,7 +555,7 @@ class RegistryHooksProyectoToba implements HooksInterface
 		$decryptedCredentials = false;
 		try {
 			// se desencripta la clave del cliente con el certificado privado del server y el publico del cliente
-			$decryptedCredentials = AraiCli::getCryptoService()->decrypt($encrypted, $privateKey, $certPublic);
+			$decryptedCredentials = AraiCli::getCryptoService(true)->decrypt($encrypted, $privateKey, $certPublic);
 		} catch (\Exception $e) {
 			echo " {$e->getMessage()}\n";
 		}
@@ -655,7 +655,7 @@ class RegistryHooksProyectoToba implements HooksInterface
 		$ourPrivate = $this->getAraiSyncKeyPrivate();
 		$sendPublic = $this->getAraiSyncKeyPublic();
 
-		$encrypted = AraiCli::getCryptoService()->encrypt($authCliente['auth_password'], $ourPrivate, $theirPublic);
+		$encrypted = AraiCli::getCryptoService(true)->encrypt($authCliente['auth_password'], $ourPrivate, $theirPublic);
 
 		$credentials = [
 			'user' => $authCliente['auth_usuario'],
