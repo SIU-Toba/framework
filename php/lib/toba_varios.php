@@ -578,8 +578,8 @@
 			$contenido .= "export TOBA_INSTANCIA=$id_instancia\n";
 			$contenido.= "export TOBA_INSTALACION_DIR=$instal_dir\n";			
 			$contenido .= 'export PATH="$TOBA_DIR/bin:$PATH"'."\n";
-			$contenido .= "echo \"Entorno cargado.\"\n";
-			$contenido .= "echo \"Ejecute 'toba' para ver la lista de comandos disponibles.\"\n";			
+			$contenido .= "# \"Entorno cargado.\"\n";
+			$contenido .= "# \"Ejecute 'bin/toba' para ver la lista de comandos disponibles.\"\n";
 		} else {
 			$contenido = "@echo off\n";
 			$contenido .= "set TOBA_DIR=".toba_dir()."\n";
