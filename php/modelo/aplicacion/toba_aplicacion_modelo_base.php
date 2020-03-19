@@ -507,6 +507,13 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 		$auditoria->migrar_estructura_campos_toba_3_1();
 	}
 	
+	function migrar_auditoria_3_4($tablas=array(), $prefijo_tablas=null)
+	{
+		$auditoria = $this->preparar_migracion_estructura($tablas, $prefijo_tablas);
+		$auditoria->desactivar();
+		$auditoria->migrar();
+	}
+	
 	/**
 	 * Ejecuta los scripts de migración entre dos versiones específicas del sistema
 	 * @param toba_version $desde
