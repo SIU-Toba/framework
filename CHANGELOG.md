@@ -4,6 +4,9 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.2.13](https://github.com/SIU-Toba/framework/releases/tag/v3.2.13) (2020-03-20)
+- Actualiza autoload para reincorporar clase usada por el editor (merge desde develop)
+
 [3.2.12](https://github.com/SIU-Toba/framework/releases/tag/v3.2.12) (2020-02-19)
 - Actualiza el paquete siu/security-multitool (merge desde develop)
 
