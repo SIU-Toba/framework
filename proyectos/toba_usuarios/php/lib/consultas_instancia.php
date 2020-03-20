@@ -377,6 +377,25 @@ class consultas_instancia
 		}
 	}
 	
+	static function set_segundo_factor_x_perfil($proyecto, $perfil, $segundo_factor, $usuarios=array()) 
+	{
+		$extra = (! empty($usuarios)) ? ' AND up.usuario IN ('. implode(',', quote($usuarios)) . ')': '';
+		$params = ['factor' => $segundo_factor, 
+					'proyecto' => quote($proyecto), 
+					'perfil' => quote($perfil)];
+		
+		$sql = 'UPDATE apex_usuario 
+				SET requiere_segundo_factor = :factor 
+				WHERE usuario IN ( SELECT up.usuario 
+									FROM apex_usuario_proyecto up
+									WHERE up.proyecto = :proyecto 
+									AND up.usuario_grupo_acc = :perfil 
+									'. $extra . ');';
+		
+		$id = toba::db()->sentencia_preparar($sql);
+		return toba::db()->sentencia_ejecutar($id, $params);
+	}
+	
 	//---------------------------------------------------------------------
 	//------ Perfil Funcional ---------------------------------------------
 	//---------------------------------------------------------------------
@@ -411,6 +430,56 @@ class consultas_instancia
 		toba::logger()->debug($sql);
 		return toba::db()->consultar($sql);	
 	}
+	
+	static function get_usuarios_con_grupo_acceso_unico($proyecto, $perfil)
+	{
+		$sql = 'SELECT ap.usuario
+				FROM  apex_usuario_proyecto ap
+				WHERE ap.usuario_grupo_acc = '. quote($perfil). '
+					AND ap.proyecto = ' . quote($proyecto) . ' 
+					AND NOT IN ( SELECT up.usuario
+								 FROM apex_usuario_proyecto up
+								 GROUP BY up.usuario
+								 HAVING count(up.usuario_grupo_acc) > 1
+								);';
+		return toba::db()->consultar($sql);
+	}
+	
+//	static function get_lista_grupos_acceso_con_segundo_factor($filtro)
+//	{
+//		//Armo SQL de filtrado basico
+//		$where = array();
+//		if (isset($filtro['proyecto'])) { $where[] = 'uga.proyecto = '.quote($filtro['proyecto']); }
+//		if (isset($filtro['grupo'])) { $where[] = 'uga.usuario_grupo_acc = '.quote($filtro['grupo']); }
+//		
+//		$select = 'SELECT uga.proyecto,
+//						uga.usuario_grupo_acc,
+//						uga.nombre,
+//						uga.descripcion, ';
+//		$from = ' FROM 	apex_usuario_grupo_acc uga ';
+//		
+//		//Armo la parte que no usa 2FA
+//		$sql_nofa = $select . PHP_EOL . ' false as usa_2fa '. PHP_EOL . $from;
+//		if (! empty($where)) {
+//			$sql_nofa = sql_concatenar_where($sql_nofa, $where);
+//		} 
+//		
+//		//Armo la parte que usa 2FA
+//		$sql_2fa = $select . PHP_EOL . ' true as usa_2fa '. PHP_EOL . $from;
+//		$where[] = 'EXISTS (select usr.usuario 
+//								from apex_usuario usr 
+//								join apex_usuario_proyecto up ON up.usuario = usr.usuario
+//								where usr.requiere_segundo_factor = 1 
+//								AND up.usuario_grupo_acc = uga.usuario_grupo_acc) ';
+//		if (! empty($where)) {
+//			$sql_2fa = sql_concatenar_where($sql_2fa, $where);
+//		}
+//		
+//		//Hago el union entre ambos
+//		$sql = "($sql_nofa)". PHP_EOL . ' UNION '. PHP_EOL . "($sql_2fa)";
+//		toba::logger()->debug($sql);
+//		return toba::db()->consultar($sql);	
+//	}
 	
 	static function get_lista_grupos_acceso_proyecto($proyecto)
 	{
