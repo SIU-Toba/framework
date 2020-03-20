@@ -381,8 +381,8 @@ class consultas_instancia
 	{
 		$extra = (! empty($usuarios)) ? ' AND up.usuario IN ('. implode(',', quote($usuarios)) . ')': '';
 		$params = ['factor' => $segundo_factor, 
-					'proyecto' => quote($proyecto), 
-					'perfil' => quote($perfil)];
+					'proyecto' => $proyecto, 
+					'perfil' => $perfil];
 		
 		$sql = 'UPDATE apex_usuario 
 				SET requiere_segundo_factor = :factor 
@@ -437,10 +437,11 @@ class consultas_instancia
 				FROM  apex_usuario_proyecto ap
 				WHERE ap.usuario_grupo_acc = '. quote($perfil). '
 					AND ap.proyecto = ' . quote($proyecto) . ' 
-					AND NOT IN ( SELECT up.usuario
-								 FROM apex_usuario_proyecto up
-								 GROUP BY up.usuario
-								 HAVING count(up.usuario_grupo_acc) > 1
+					AND ap.usuario NOT IN ( 
+								SELECT up.usuario
+								FROM apex_usuario_proyecto up
+								GROUP BY up.usuario
+								HAVING count(up.usuario_grupo_acc) > 1
 								);';
 		return toba::db()->consultar($sql);
 	}

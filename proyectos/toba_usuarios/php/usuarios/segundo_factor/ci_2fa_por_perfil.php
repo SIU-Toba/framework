@@ -82,14 +82,16 @@ class ci_2fa_por_perfil extends toba_ci
 	function marcar_usuarios_perfil($perfiles)
 	{
 		foreach($perfiles as $perfil) {
-			\consultas_instancia::set_segundo_factor_x_perfil($this->s__filtro['proyecto'], $perfil, TRUE);
+			\consultas_instancia::set_segundo_factor_x_perfil($this->s__filtro['proyecto'], $perfil, 1);
 		}
 	}
 	
-	function desmarcar_usuarios_perfil($perfil)
+	function desmarcar_usuarios_perfil($perfiles)
 	{
-		$usuarios = \consultas_instancia::get_usuarios_con_grupo_acceso_unico($this->s__filtro['proyecto'], $perfil); 
-		\consultas_instancia::set_segundo_factor_x_perfil($this->s__filtro['proyecto'], $perfil, FALSE, $usuarios);
+		$perfil = current($perfiles);
+		$probables = \consultas_instancia::get_usuarios_con_grupo_acceso_unico($this->s__filtro['proyecto'], $perfil); 
+		$usuarios = \aplanar_matriz($probables, 'usuario');
+		\consultas_instancia::set_segundo_factor_x_perfil($this->s__filtro['proyecto'], $perfil, 0, $usuarios);
 	}
 }
 ?>
