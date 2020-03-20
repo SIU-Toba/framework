@@ -257,6 +257,18 @@ class toba_mc_gene__grupo_admin
     'imagen_recurso_origen' => 'apex',
     'es_primer_nivel' => false,
   ),
+  'toba_usuarios-33000050' => 
+  array (
+    'padre' => '3430',
+    'carpeta' => 0,
+    'proyecto' => 'toba_usuarios',
+    'item' => '33000050',
+    'nombre' => 'Segundo Factor de Autenticacion',
+    'orden' => NULL,
+    'imagen' => NULL,
+    'imagen_recurso_origen' => 'apex',
+    'es_primer_nivel' => false,
+  ),
   'toba_usuarios-33000031' => 
   array (
     'padre' => '3443',
@@ -387,6 +399,11 @@ class toba_mc_gene__grupo_admin
   array (
     'proyecto' => 'toba_usuarios',
     'item' => '33000047',
+  ),
+  'toba_usuarios-33000050' => 
+  array (
+    'proyecto' => 'toba_usuarios',
+    'item' => '33000050',
   ),
   'toba_usuarios-3426' => 
   array (

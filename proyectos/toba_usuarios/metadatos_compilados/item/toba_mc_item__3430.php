@@ -51,7 +51,7 @@ class toba_mc_item__3430
     'solicitud_tipo' => NULL,
     'item_padre' => '1000229',
     'cant_dependencias' => 0,
-    'cant_items_hijos' => 2,
+    'cant_items_hijos' => 3,
     'molde' => NULL,
     'retrasar_headers' => NULL,
   ),
