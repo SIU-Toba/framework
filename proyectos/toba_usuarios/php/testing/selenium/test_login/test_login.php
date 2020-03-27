@@ -11,8 +11,8 @@ class test_login extends caso_base
 
 	function test_salir()
 	{
-		toba_selenium_monje_negro::click_element($this->session, 'id', 'activador_datos_usuario');
-		toba_selenium_monje_negro::click_element($this->session, 'id',  'boton_salir');				
+		Toba_selenium_monje_negro::click_element($this->session, 'id', 'activador_datos_usuario');
+		Toba_selenium_monje_negro::click_element($this->session, 'id',  'boton_salir');				
 		$this->session->switchTo()->alert()->accept();	
 		
 		// -- hay que procesar el alert
