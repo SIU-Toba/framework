@@ -36,7 +36,7 @@
         "siu/interfaces-manejador-salida-toba": "<1.2.0"
     },
     "require-dev": {
-        "facebook/webdriver": "^1.0",
+        "php-webdriver/webdriver": "~1.8",
         "greenlion/php-sql-parser": "@dev",
         "simpletest/simpletest": "~1.2",
         "siu-toba/text_highlighter": "~0.8",
