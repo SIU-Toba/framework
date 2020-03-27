@@ -4,6 +4,9 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.2.14](https://github.com/SIU-Toba/framework/releases/tag/v3.2.14) (2020-03-27)
+- Fuerza la recarga del perfil de datos al cambiar de cuenta (merge desde develop)
+
 [3.2.13](https://github.com/SIU-Toba/framework/releases/tag/v3.2.13) (2020-03-20)
 - Actualiza autoload para reincorporar clase usada por el editor (merge desde develop)
 
