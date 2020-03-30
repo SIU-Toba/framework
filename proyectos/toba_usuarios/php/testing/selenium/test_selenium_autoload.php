@@ -1,8 +1,8 @@
 <?php
 
-define('TEST_ID_CAMPO_USUARIO', 'ef_form_33000127_datosusuario');
-define('TEST_ID_CAMPO_PWD', 'ef_form_33000127_datosclave');
-define('TEST_SUBMIT_LOGIN', 'form_33000127_datos_ingresar');
+define('TEST_ID_CAMPO_USUARIO', 'ef_form_46000003_datosusuario');
+define('TEST_ID_CAMPO_PWD', 'ef_form_46000003_datosclave');
+define('TEST_SUBMIT_LOGIN', 'form_46000003_datos_ingresar');
 
 class test_selenium_autoload 
 {

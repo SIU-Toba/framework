@@ -1,5 +1,5 @@
 <?php
-use Zend\Escaper\Escaper;
+use Laminas\Escaper\Escaper;
 /**
  * Clase utilizada para escapar los diferentes datos que se envian al cliente
  * @package Seguridad

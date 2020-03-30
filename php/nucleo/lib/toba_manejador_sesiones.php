@@ -772,6 +772,7 @@ class toba_manejador_sesiones
 	{
 		$this->sesion->conf__final();
 		toba::instancia()->cerrar_sesion($this->get_id_sesion(), $observaciones);
+		$this->perfiles_datos_activos = null;
 		if (PHP_SAPI != 'cli') {
 			session_regenerate_id(true);
 		}

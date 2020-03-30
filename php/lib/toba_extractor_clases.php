@@ -125,36 +125,36 @@ class toba_extractor_clases
 	protected function generar_arreglo($path_montaje, &$archivos, $extras = array())
 	{
 		$clases = $msg = '';
-                $parser = (new ParserFactory)->create(ParserFactory::PREFER_PHP7);
+		$parser = (new ParserFactory)->create(ParserFactory::PREFER_PHP7);
 
 		foreach ($archivos as $archivo) {
-                    try {
-                        $sentencias = $parser->parse(file_get_contents($archivo));
-                        $path = substr(str_replace($path_montaje, '', $archivo), 1); // Sacamos el $path_montaje para que quede relativo al mismo
+			try {
+				$sentencias = $parser->parse(file_get_contents($archivo));
+				$path = substr(str_replace($path_montaje, '', $archivo), 1); // Sacamos el $path_montaje para que quede relativo al mismo
 
-                        foreach($sentencias as $nodo) {
-                            if (! ($nodo instanceof ClassNode || $nodo instanceof TraitNode || $nodo instanceof InterfaceNode)) {
-                                toba::logger()->debug($msg . $archivo);
-                                $msg = '';
-                                continue;
-                            }
-                            //Si extiende de alguna clase y esta estaba excluida, lo ignoro tambien
-                            if (!is_null($nodo->extends) && \in_array($nodo->extends->parts, $this->extends_excluidos)) {
-                                continue;
-                            }
+				foreach($sentencias as $nodo) {
+					if (! ($nodo instanceof ClassNode || $nodo instanceof TraitNode || $nodo instanceof InterfaceNode)) {
+						toba::logger()->debug($msg . $archivo);
+						$msg = '';
+						continue;
+					}
+					//Si extiende de alguna clase y esta estaba excluida, lo ignoro tambien
+					if (null !== $nodo->extends && \is_object($nodo->extends) && \in_array($nodo->extends->parts, $this->extends_excluidos)) {
+						continue;
+					}
 
-                            $clase = $nodo->name->name;
-                            $this->registrar_clase($path_montaje, $clase, $archivo);
-                            if (! $this->es_clase_repetida($path_montaje, $clase)) {
-                                    $clases .= sprintf("\t\t'%s' => '%s',\n", $clase, $path);
-                            }
-                        }
-                    } catch(phpParser\Error $e) {
-                        echo $e->getMessage();
-                    }
+					$clase = $nodo->name->name;
+					$this->registrar_clase($path_montaje, $clase, $archivo);
+					if (! $this->es_clase_repetida($path_montaje, $clase)) {
+							$clases .= sprintf("\t\t'%s' => '%s',\n", $clase, $path);
+					}
+				}
+			} catch(phpParser\Error $e) {
+				echo $e->getMessage();
+			}
 		}
 
-                //Agrego las clases extra si no se repiten
+		//Agrego las clases extra si no se repiten
 		foreach ($extras as $clase => $path) {
 			if (! $this->es_clase_repetida($path_montaje, $clase)) {
 				$clases .= sprintf("\t\t'%s' => '%s',\n", $clase, $path);
