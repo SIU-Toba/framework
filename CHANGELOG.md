@@ -4,6 +4,18 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.3.4](https://github.com/SIU-Toba/framework/releases/tag/v3.3.4) (2020-03-30)
+- Se corrige bug al cargar el punto de montaje para los items con acciones (PHP Plano)
+- Se cambia el proveedor y version de los siguientes paquetes:
+   * facebook/webdriver --> PHP-Webdriver/webdriver
+   * zendframework/zend-escaper --> laminas/laminas-escaper
+- Se actualiza el paquete siu/security-multitool @v1.1.0 por cambio de proveedor en dependencias
+- Se corrigen typos en las clases que permiten testing via Selenium
+- Se corrige bug en cambios al autoload realizado @v3.3.2
+- Se corrige bug en manejador_sesiones que prevenia la actualizacion del perfil de datos al cambiar la cuenta.
+- Se agrega operacion a toba_usuarios para asignar 2FA por perfil funcional.
+- Los msg a usuario se transforman en comentarios en archivo env.
+
 [3.3.3](https://github.com/SIU-Toba/framework/releases/tag/v3.3.3) (2020-03-17)
 - Hotfix el Hook para Arai no instanciaba correctamente el CryptoService lo que generaba un error por libreria faltante
 
