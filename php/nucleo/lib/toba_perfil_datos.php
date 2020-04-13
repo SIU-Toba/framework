@@ -289,11 +289,12 @@ class toba_perfil_datos
 			if ($this->hay_combinaciones_de_querys($sql)) {
 				$id_operador = 0; $sql = '';
 				foreach ($this->operacion_segmentos as $id => $segmento_sql) {
-					$sql .= $this->filtrar_sql($segmento_sql, $fuente_datos);
+					//Para cada subsql de un UNION/ETC
+					/*$sql .= $this->filtrar_sql($segmento_sql, $fuente_datos);
 					if (isset($this->operacion_tipo[$id_operador])) {
 						$sql .= "\n" . $this->operacion_tipo[$id_operador] . "\n";
-					}
-					$id_operador++;
+					}*/
+					//$id_operador++;
 				}
 			} else {
 				$sql = $this->filtrar_sql($sql, $fuente_datos,$dimensiones_desactivar, $gatillos_exclusivos);
@@ -305,11 +306,11 @@ class toba_perfil_datos
 	
 	function filtrar_sql($sql, $fuente_datos=null,$dimensiones_desactivar = null, $gatillos_exclusivos=array())
 	{
-		$where = $where_join = array();
+		$where = $where_join = $withs = array();
 		$this->operadores_asimetricos = array();
 		$sql = $this->quitar_comentarios_sql($sql);
 		//-- 1 -- Busco GATILLOS en el SQL
-		$tablas_gatillo_encontradas = $this->buscar_tablas_gatillo_en_sql( $sql, $fuente_datos );		
+		$tablas_gatillo_encontradas = $this->buscar_tablas_gatillo_en_sql($sql, $fuente_datos);		
 		if (! empty($gatillos_exclusivos)) {
 			$keys_e = array_keys($tablas_gatillo_encontradas);
 			foreach($keys_e as $key) {					//Elimino todas aquellas tablas que no esten en los gatillos requeridos
@@ -325,23 +326,79 @@ class toba_perfil_datos
 			if(isset($dimensiones_desactivar) && in_array($dimension,$dimensiones_desactivar)) continue;
 			$alias_tabla = $tablas_gatillo_encontradas[$tabla];
 			//Genero la clausula para la tabla gatillo			
-			$where_gatillo = $this->get_where_dimension_gatillo($fuente_datos, $dimension, $tabla, $alias_tabla);			
-			if (isset($this->operadores_asimetricos[$tabla]) && ($this->operadores_asimetricos[$tabla] != ',')) {			//Si existe un operador opcional para la tabla gatillo
-				$where_join[$tabla] = $where_gatillo;
-			} else {
-				$where[] = $where_gatillo;											//Lo incorporo a las clausulas del where
-			}
+			$where_gatillo = $this->get_where_dimension_gatillo($fuente_datos, $dimension, $tabla, $alias_tabla);
+			$withs[$tabla] = $this->get_filtrado_with($tabla, $where_gatillo);
 		}
 		$sql = $this->quitar_comentarios_sql($sql);		
 		//-- 4 -- Altero el SQL
-		if(! empty($where)) {
-			$sql = sql_concatenar_where($sql, $where, 'PERFIL DE DATOS');
+		if(! empty($withs)) {
+			$sql = $this->reescribir_tablas($sql, $withs);
+			$sql = $this->pegar_clausulas_with($sql, $withs);
 		}
 		
-		// -- 5 -- Altero el From cuando hay left/right joins (Esta detras porque sql_concatenar_where no se banca subselects)
-		if (! empty($where_join)) {					
-			$sql = sql_concatenar_clausulas_producto_cartesiano($sql, $fuente_datos, $where_join);
+		return $sql;
+	}
+	
+	/**
+	 * Retorna la SQL con la que se va a filtrar la tabla en cuestion
+	 * @param string $tabla
+	 * @param string $where
+	 * @return string
+	 */
+	protected function get_filtrado_with($tabla, $where)
+	{
+		$sql = ' SELECT * FROM '. $tabla . ' WHERE '. $where;
+		return $sql;
+	}
+	
+	/**
+	 * Arma la clausula WITH para la tabla especificada
+	 * @param string $tabla
+	 * @param string $where
+	 * @return string
+	 */
+	protected function armar_clausula_with($tabla, $where)
+	{
+		return $tabla ."__perfilada as ($where) ";
+	}
+	
+	/**
+	 * Agrega la/s clausula/s with a la SQL principal
+	 * @param string $sql
+	 * @param array $withs
+	 * @return string
+	 */
+	protected function pegar_clausulas_with($sql, $withs)
+	{
+		$resultado =  ' WITH ' . '/*-------- PERFIL DE DATOS --------*/'. PHP_EOL ;
+		$pegote = array();
+		foreach($withs as $tabla => $with) {
+			$pegote[] = $this->armar_clausula_with($tabla, $with);
 		}
+		
+		$resultado .=  implode(', ', $pegote);
+		$resultado = $resultado . PHP_EOL .	'/*--------------------------------*/' . PHP_EOL .	$sql; 
+		return $resultado;
+	}
+	
+	/**
+	 * Reescribe los nombres de las tablas filtradas en la SQL original
+	 * @param string $sql
+	 * @param array $withs
+	 * @return string
+	 */
+	protected function reescribir_tablas($sql, $withs)
+	{
+		$match = $replace = array();
+		$claves = array_keys($withs);
+		foreach($claves as $tabla) {
+			$match[] = "@[\s\n\w+]?$tabla(\.\w+|,|\s)@gi";
+			$replace[] = $tabla . '__filtrada$1';
+		}
+		if (! empty($match)) {
+			$sql = preg_replace($match, $replace, $sql);
+		}
+		
 		return $sql;
 	}
 	
