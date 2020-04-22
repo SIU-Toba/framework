@@ -186,11 +186,20 @@ class toba_config
 	 */
 	protected function parse_val($valor)
 	{
-		$matches=array();
+		$matches = array();
 		if (substr($valor, 0, 4) == '$env' && substr($valor,-1) == '$') {
-			if (preg_match('/^\$env\((.*)\)\$$/', $valor, $matches) !== false) {
-				$var_name = (is_array($matches) && ! empty($matches)) ? $matches[1]: '';
-				return self::load_from_env($var_name);
+			if (preg_match_all('/(?<=\$env\().*?(?=\)\$)/', $valor, $matches) !== false) {
+				//Recupero los valores para las env-vars encontradas (si existe mas de una)
+				$recuperados = array_map(array('toba_config', 'load_from_env'), current($matches));
+				
+				//Reemplazo los valores encontrados
+				$valor = preg_replace_callback('~\$env\(.*?\)\$~', 
+						function() use (&$recuperados) {
+							return array_shift($recuperados);
+						} , $valor);
+						
+				//Si no estallo todo lo devuelvo
+				return (null !== $valor) ? $valor: false;
 			}
 		} else {
 			return $valor;
@@ -202,7 +211,7 @@ class toba_config
 	 * @param string $name
 	 * @return mixed
 	 */
-	protected function load_from_env($name)
+	static protected function load_from_env($name)
 	{
 		if (! is_null($name)) {
 			return getenv($name);
