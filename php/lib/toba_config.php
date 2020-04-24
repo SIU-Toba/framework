@@ -144,7 +144,7 @@ class toba_config
 	{
 		foreach($this->config_files as $index => $ini) {
 			if (file_exists($ini)) {
-				$contenido = $this->parse_file_content($ini,($index == 'instancia') );
+				$contenido = $this->parse_file_content($ini);
 				$this->add_config($index, parse_ini_string($contenido, true));
 			}
 		}
