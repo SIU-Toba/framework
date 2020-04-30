@@ -571,7 +571,9 @@ class toba_perfil_datos
 					}else {
 						$alias = $temp[0];			//Nombre de la tabla.
 					}
-					$tablas[$tabla] = $alias;					
+					if (!isset($tablas[$tabla])) {
+						$tablas[$tabla] = $alias;	
+					}
 				}
 				if (isset($operadores[$i])) {
 					$this->operadores_asimetricos[$tabla] = $operadores[$i];		//Guardo el operador encontrado para esta tabla

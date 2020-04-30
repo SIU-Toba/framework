@@ -241,7 +241,8 @@ class comando_instancia extends comando_toba
 	 */
 	function opcion__regenerar()
 	{
-		if ($this->get_instancia()->existe_modelo()) {
+		$param = $this->get_parametros();
+		if ($this->get_instancia()->existe_modelo() && ! isset($param['--no_exportar'])) {
 			$timestamp = $this->get_instancia()->get_fecha_exportacion_local();
 			if (isset($timestamp)) {
 				$extra = "Si responde NO, se utilizaran los exportados el ".date("D j-M-y \a \l\a\s h:m ", $timestamp);
