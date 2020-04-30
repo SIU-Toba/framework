@@ -9,7 +9,7 @@
   "dependencies": {
     "ckeditor4": "4.13",
     "jquery": "3.5",
-    "jquery-migrate": "3.0",
+    "jquery-migrate": "3.2",
     "siu-js-app-launcher": "1.0.4"
   }
 }
