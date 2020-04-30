@@ -2,7 +2,13 @@
 
 ## CHANGELOG
 
-[CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
+[CURRENT](https://github.com/SIU-Toba/framework/compare/support/v3.2...dev/v3.2)
+
+[3.2.15](https://github.com/SIU-Toba/framework/releases/tag/v3.2.15) (2020-03-27)
+- Actualizacion de seguridad de JQuery, actualiza tambien siu/js-app-launcher (merge desde develop)
+- Agrega modificador al comando ''instancia regenerar'' para evitar exportar los datos (merge desde develop)
+- Mejora en el parseo de variables de entorno en toba_config (merge desde develop)
+- Bugfix en toba_perfil_datos, se pisaba el alias cuando la tabla estaba mas de una vez involucrada como gatillo (merge desde develop)
 
 [3.2.14](https://github.com/SIU-Toba/framework/releases/tag/v3.2.14) (2020-03-27)
 - Fuerza la recarga del perfil de datos al cambiar de cuenta (merge desde develop)
