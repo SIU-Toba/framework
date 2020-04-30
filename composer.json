@@ -73,7 +73,7 @@
     ],
     "scripts": {
         "post-install-cmd": [
-            "yarn add ckeditor4@4.13 jquery@3.5 jquery-migrate@3.2 siu-js-app-launcher@1.0.4 --modules-folder www/js/packages/",
+            "yarn add ckeditor4@4.13 jquery@3.5 jquery-migrate@3.2 siu-js-app-launcher@1.0.5 --modules-folder www/js/packages/",
             "yarn ",
             "php bin/instalar_assets.php"
         ],
