@@ -4,6 +4,16 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.3.5](https://github.com/SIU-Toba/framework/releases/tag/v3.3.5) (2020-04-30)
+- Actualizacion de paquetes JS:
+   * jquery: v3.5.0
+   * jquery-migrate: v3.2.0
+   * siu-js-app-launcher: v1.0.5
+- Agrega modificador al comando *instancia regenerar* para evitar pregunta sobre exportar metadatos
+- Mejora en el parseo de variables de entorno en toba_config (credits andres-blanco)
+- Bugfix en toba_perfil_datos, se pisaba el alias cuando la tabla estaba mas de una vez involucrada como gatillo 
+- Renombra el paquete CKEditor --> CKEditor4 y actualiza a v4.13
+
 [3.3.4](https://github.com/SIU-Toba/framework/releases/tag/v3.3.4) (2020-03-30)
 - Se corrige bug al cargar el punto de montaje para los items con acciones (PHP Plano)
 - Se cambia el proveedor y version de los siguientes paquetes:

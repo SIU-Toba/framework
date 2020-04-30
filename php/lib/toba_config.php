@@ -10,6 +10,8 @@ class toba_config
                                 );
 	protected $config_files = array();
 	protected $config_values = array();
+	
+	static protected $pattern_gral = '~(\$env\()(.*?)(\)\$)~';
 
 	function __construct()
 	{
@@ -118,14 +120,16 @@ class toba_config
 			if (! is_array($ini))  {
 				$filename = $dir_start .'/'.$ini;
 				if (file_exists($filename)) {
-					$this->add_config($index, parse_ini_file($filename, true));
+					$contenido = $this->parse_file_content($filename);
+					$this->add_config($index, parse_ini_string($contenido, true));
 				}
 			} else {
 				$aux = array();
 				foreach($ini as $subindex => $ini_name) {
 					$filename = $dir_start .'/'.$ini_name;
 					if (file_exists($filename)) {
-						$aux[$subindex] = $this->parse_array_values(parse_ini_file($filename, true));
+						$contenido = $this->parse_file_content($filename);
+						$aux[$subindex] = $this->parse_array_values(parse_ini_string($contenido, true));
 					}
 				}
 				$this->add_config($index, $aux);
@@ -140,7 +144,8 @@ class toba_config
 	{
 		foreach($this->config_files as $index => $ini) {
 			if (file_exists($ini)) {
-				$this->add_config($index, parse_ini_file($ini, true));
+				$contenido = $this->parse_file_content($ini);
+				$this->add_config($index, parse_ini_string($contenido, true));
 			}
 		}
 	}
@@ -152,9 +157,7 @@ class toba_config
 	 */
 	protected function add_config($index, $value_pairs)
 	{
-		if (! is_array($value_pairs)) {
-			$this->config_values[$index]['general'] = $this->parse_val($value_pairs);
-		} else {
+		if (false !== $value_pairs) {
 			foreach($value_pairs as $key => $valores) {
 				$this->config_values[$index][$key] = $this->parse_array_values($valores);
 			}
@@ -162,7 +165,7 @@ class toba_config
 	}
 
 	/**
-	 * Recorre un arreglo parseando sus valores
+	 * Recorre un arreglo de valores parseados
 	 * @param array $arreglo
 	 * @return array
 	 */
@@ -170,44 +173,32 @@ class toba_config
 	{
 		$datos = array();
 		if (! is_array($arreglo)) {
-			$datos = $this->parse_val($arreglo);
+			$datos = $arreglo;
 		} elseif (! empty($arreglo)) {
 			foreach ($arreglo as $klave => $valor) {
-				$datos[$klave] = (is_array($valor)) ? $this->parse_array_values($valor) : $this->parse_val($valor);
+				$datos[$klave] = (is_array($valor)) ? $this->parse_array_values($valor) : $valor;
 			}
 		}
 		return $datos;
 	}
 
 	/**
-	 * Parsea un valor para verificar si hay un pedido de carga desde el entorno.
-	 * @param mixed $valor
-	 * @return mixed
+	 * Lee el archivo especificado y convierte todas las referencias a variables de entorno por sus valores
+	 * @param string $filename
+	 * @return string
 	 */
-	protected function parse_val($valor)
+	protected function parse_file_content($filename)
 	{
-		$matches=array();
-		if (substr($valor, 0, 4) == '$env' && substr($valor,-1) == '$') {
-			if (preg_match('/^\$env\((.*)\)\$$/', $valor, $matches) !== false) {
-				$var_name = (is_array($matches) && ! empty($matches)) ? $matches[1]: '';
-				return self::load_from_env($var_name);
-			}
-		} else {
-			return $valor;
-		}
-	}
-
-	/**
-	 * Levanta un valor desde el entorno devuelve false si no existe o el nombre viene null
-	 * @param string $name
-	 * @return mixed
-	 */
-	protected function load_from_env($name)
-	{
-		if (! is_null($name)) {
-			return getenv($name);
-		}
-		return false;
+		$content = file_get_contents($filename);
+		$final = preg_replace_callback(self::$pattern_gral, 
+										function($match) { //$match = array(fullmatch, '$env(', VAR_NAME, ')$');
+											if (count($match) == 4) { 
+												 return (! is_null($match[2])) ? getenv($match[2]): false;
+											}
+											return false;
+										}, 
+										$content);
+		return $final;
 	}
 }
 ?>

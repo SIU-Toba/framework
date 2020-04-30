@@ -8,11 +8,11 @@ stages:
   - dependencias
   - qa
 
-composer:php7.1:
+composer:php7.3:
   stage: dependencias
-  image: siutoba/docker-web:develop
+  image: siutoba/docker-web:1.8
   services: 
-  - postgres:9.6
+  - postgres:11
   script:
     - composer config cache-files-dir ./composer
     - composer install --prefer-dist > /dev/null
