@@ -911,5 +911,22 @@
 		$fragment = isset($parsed_url['fragment']) ? '#' . $parsed_url['fragment'] : '';
 		return "$scheme$user$pass$host$port$path$query$fragment";
 	}
+	
+	/**
+	 * Retorna un arreglo a partir de un string con un formato especifico [,,,]
+	 * @param string $string_value
+	 * @return array
+	 */
+	function parse_rest_config_str($string_value) 
+	{
+		$resultado = array();
+		$rs =\preg_match_all('~\[+(.*?)\]+~', $string_value, $matches, PREG_PATTERN_ORDER);
+		if (FALSE !== $rs) {
+			foreach($matches[1] as $linea) {
+				$resultado[] = explode(',', $linea);
+			}
+		}
+		return $resultado;
+	}
 
 ?>
