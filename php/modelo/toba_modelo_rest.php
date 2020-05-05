@@ -17,6 +17,11 @@ class toba_modelo_rest extends toba_modelo_elemento
 	const ARCHIVO_SERVER = '/servidor.ini';
 	
 	const CARPETA_REST =  '/rest';	
+	
+	const TIPO_SERVER='SERVER';
+	const TIPO_SERVER_USR='SERVER_USUARIO';
+	const TIPO_CLIENTE='CLIENTE';
+	
 	protected $proyecto;	
 	protected $db;
 
@@ -26,6 +31,26 @@ class toba_modelo_rest extends toba_modelo_elemento
 		$this->db = $this->proyecto->get_db();
 	}
 
+	static function get_path_archivo(toba_modelo_proyecto $proyecto, $tipo_archivo, $nombre_api='')
+	{
+		$archivo = '';
+		switch ($tipo_archivo) {
+			case self::TIPO_SERVER:
+				$dir = self::get_dir_proveedor($proyecto->get_dir_instalacion_proyecto(), $nombre_api);
+				$archivo = $dir. self::ARCHIVO_SERVER;
+				break;
+			case self::TIPO_SERVER_USR:
+				$dir = self::get_dir_proveedor($proyecto->get_dir_instalacion_proyecto());
+				$archivo = $dir.self::ARCHIVO_USUARIOS;
+				break;
+			case self::TIPO_CLIENTE:
+				$dir = self::get_dir_consumidor($proyecto->get_dir_instalacion_proyecto(), $nombre_api);
+				$archivo = $dir. self::ARCHIVO_CLIENTE;
+				break;
+		}
+		return $archivo;
+	}
+	
 	/**
 	 * @param toba_modelo_proyecto $proyecto
 	 * @param string $nombre_api
@@ -33,8 +58,8 @@ class toba_modelo_rest extends toba_modelo_elemento
 	 */
 	static function get_ini_server(toba_modelo_proyecto  $proyecto, $nombre_api='')
 	{
-		$directorio = self::get_dir_proveedor($proyecto->get_dir_instalacion_proyecto(), $nombre_api);
-		$ini = new toba_ini($directorio.self::ARCHIVO_SERVER);			
+		$archivo = self::get_path_archivo($proyecto, self::TIPO_SERVER, $nombre_api);
+		$ini = new toba_ini($archivo);			
 		return $ini;
 	}
 
@@ -44,8 +69,8 @@ class toba_modelo_rest extends toba_modelo_elemento
 	 */
 	static function get_ini_usuarios(toba_modelo_proyecto  $proyecto)
 	{
-		$directorio = self::get_dir_proveedor($proyecto->get_dir_instalacion_proyecto());
-		$ini = new toba_ini($directorio.self::ARCHIVO_USUARIOS);
+		$archivo = self::get_path_archivo($proyecto, self::TIPO_SERVER_USR);
+		$ini = new toba_ini($archivo);
 		return $ini;
 	}
 
@@ -57,8 +82,8 @@ class toba_modelo_rest extends toba_modelo_elemento
 	 */
 	static function get_ini_cliente(toba_modelo_proyecto  $proyecto, $nombre_api='')
 	{
-		$directorio = self::get_dir_consumidor($proyecto->get_dir_instalacion_proyecto(), $nombre_api);
-		$ini = new toba_ini($directorio. self::ARCHIVO_CLIENTE);			
+		$archivo = self::get_path_archivo($proyecto, self::TIPO_CLIENTE, $nombre_api);
+		$ini = new toba_ini($archivo);			
 		return $ini;
 	}
 	
@@ -81,8 +106,8 @@ class toba_modelo_rest extends toba_modelo_elemento
 	 */
 	static function existe_ini_server(toba_modelo_proyecto  $proyecto, $nombre_api='')
 	{
-		$directorio = self::get_dir_proveedor($proyecto->get_dir_instalacion_proyecto(), $nombre_api);
-		return file_exists($directorio . self::ARCHIVO_SERVER);
+		$archivo = self::get_path_archivo($proyecto, self::TIPO_SERVER, $nombre_api);
+		return file_exists($archivo);
 	}
 	
 	/**
@@ -92,8 +117,8 @@ class toba_modelo_rest extends toba_modelo_elemento
 	 */
 	static function existe_ini_usuarios(toba_modelo_proyecto  $proyecto, $nombre_api='')
 	{
-		$directorio = self::get_dir_proveedor($proyecto->get_dir_instalacion_proyecto());
-		return file_exists($directorio . self::ARCHIVO_USUARIOS);
+		$archivo = self::get_path_archivo($proyecto, self::TIPO_SERVER_USR);
+		return file_exists($archivo);
 	}
 	
 	/**
@@ -103,8 +128,8 @@ class toba_modelo_rest extends toba_modelo_elemento
 	 */
 	static function existe_ini_cliente(toba_modelo_proyecto  $proyecto, $nombre_api='')
 	{
-		$directorio = self::get_dir_consumidor($proyecto->get_dir_instalacion_proyecto(), $nombre_api);
-		return file_exists($directorio . self::ARCHIVO_CLIENTE);		
+		$archivo = self::get_path_archivo($proyecto, self::TIPO_CLIENTE, $nombre_api);
+		return file_exists($archivo);		
 	}
 	
 	//-----------------------------------------------------------------------------------------------------------------//
@@ -117,7 +142,9 @@ class toba_modelo_rest extends toba_modelo_elemento
 	{
 		$directorio =  self::get_dir_consumidor($proyecto->get_dir_instalacion_proyecto(), $nombre_api);
 		toba_manejador_archivos::crear_arbol_directorios($directorio);
-		copy($path_origen, $directorio. self::ARCHIVO_CLIENTE);
+		
+		$archivo = self::get_path_archivo($proyecto, self::TIPO_CLIENTE, $nombre_api);
+		copy($path_origen, $archivo);
 	}
 
 	/**
@@ -129,7 +156,9 @@ class toba_modelo_rest extends toba_modelo_elemento
 	{
 		$directorio = self::get_dir_proveedor($proyecto->get_dir_instalacion_proyecto(), $nombre_api);
 		toba_manejador_archivos::crear_arbol_directorios($directorio);
-		copy($path_origen, $directorio. self::ARCHIVO_SERVER);
+		
+		$archivo = self::get_path_archivo($proyecto, self::TIPO_SERVER, $nombre_api);
+		copy($path_origen, $archivo);
 	}
 	
 	/**
@@ -139,8 +168,8 @@ class toba_modelo_rest extends toba_modelo_elemento
 	 */	
 	static function cp_ini_usuarios($path_origen, toba_modelo_proyecto  $proyecto, $nombre_api='')
 	{
-		$directorio = self::get_dir_proveedor($proyecto->get_dir_instalacion_proyecto());
-		copy($path_origen, $directorio. self::ARCHIVO_USUARIOS);
+		$archivo = self::get_path_archivo($proyecto, self::TIPO_SERVER_USR);
+		copy($path_origen, $archivo);
 	}
 	
 	//-----------------------------------------------------------------------------------------------------------------//
@@ -182,12 +211,7 @@ class toba_modelo_rest extends toba_modelo_elemento
 	static function crear_directorio_destino($dir, $id_proyecto='')
 	{
 		$dir_base = $dir . self::CARPETA_REST_BASE;
-		/*$dir_consumidor = $dir . self::CARPETA_REST_CLIENTE;
-		$dir_proveedor = $dir . self::CARPETA_REST_PROVEEDOR;*/
-		
 		toba_manejador_archivos::crear_arbol_directorios($dir_base);
-		/*toba_manejador_archivos::crear_arbol_directorios($dir_consumidor);
-		toba_manejador_archivos::crear_arbol_directorios($dir_proveedor);*/
 	}	
 	
 	static function inicializar_archivos_config_servidor($proyecto, $id_proyecto)

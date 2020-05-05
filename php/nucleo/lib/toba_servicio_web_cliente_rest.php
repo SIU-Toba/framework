@@ -93,16 +93,22 @@ class toba_servicio_web_cliente_rest extends toba_servicio_web_cliente
 		$var_name = self::ENV_PREFIX  . $id_servicio;
 		$env_value = \getenv($var_name);
 		if (false === $env_value) {
-			$ini = toba_modelo_rest::get_ini_cliente(self::$modelo_proyecto, $id_servicio);
+			$archivo = toba_modelo_rest::get_path_archivo(self::$modelo_proyecto, toba_modelo_rest::TIPO_CLIENTE, $id_servicio);
+			toba::config()->add_config_file('rest_cliente', $archivo);
+			toba::config()->load();
+			$datos = toba::config()->get_seccion('rest_cliente');
 		} else {
-			$datos = parse_rest_config_str($env_value);
-			$ini = new toba_ini();
-			$ini->agregar_entrada('conexion', array(
-												'auth_usuario' => $datos[0][0], 
-												'auth_password' => $datos[0][1], 
-												'to' => $datos[0][2], 
+			$conf = parse_rest_config_str($env_value);
+			$datos = array('conexion' =>  array(
+												'auth_usuario' => $conf[0][0], 
+												'auth_password' => $conf[0][1], 
+												'to' => $conf[0][2], 
 												'auth_tipo' => 'basic'));
 		}
+		
+		//Devuelvo un ini para mantener contrato
+		$ini = new toba_ini();
+		$ini->set_entradas($datos);
 		return $ini;
 	}
 }

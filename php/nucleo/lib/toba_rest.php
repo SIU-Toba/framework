@@ -13,6 +13,7 @@ use SIUToba\rest\seguridad\autorizacion\autorizacion_scopes;
 class toba_rest
 {
 	const CARPETA_REST = "/rest";
+	protected $conf_ini;
 	protected $app;
 
 	static function url_rest()
@@ -167,7 +168,13 @@ class toba_rest
 	protected function get_conf($api='')
 	{
 		if (!isset($this->conf_ini)) {
-			$this->conf_ini = toba_modelo_rest::get_ini_server($this->get_modelo_proyecto(), $api);
+			$archivo = toba_modelo_rest::get_path_archivo($this->get_modelo_proyecto(), toba_modelo_rest::TIPO_SERVER, $api);
+			toba::config()->add_config_file('rest_servidor', $archivo);
+			toba::config()->load();
+			
+			//Devuelve ini para mantener contrato por ahora
+			$this->conf_ini = new toba_ini();
+			$this->conf_ini->set_entradas(toba::config()->get_seccion('rest_servidor'));
 		}
 		return $this->conf_ini;
 	}
