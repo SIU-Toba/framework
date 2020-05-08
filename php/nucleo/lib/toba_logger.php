@@ -219,7 +219,10 @@ class toba_logger
 	//-----------------------------------------------------------------------------------------------------------------//
 	//				METODOS PUBLICOS
 	//-----------------------------------------------------------------------------------------------------------------//
-	
+	public function redirect_to_stdout($redirigir)
+	{
+		$this->modo_archivo = (! $redirigir);
+	}
 	
 	function modo_debug()
 	{
@@ -289,31 +292,11 @@ class toba_logger
 	
 	protected function guardar_archivo_log($texto, $archivo)
 	{
-		$permisos = 0774;
-		//--- Asegura que el path esta creado
-		$path = $this->directorio_logs();
-		$path_completo = $path ."/".$archivo;
-		toba_manejador_archivos::crear_arbol_directorios($path, $permisos);
-
-		$es_nuevo = false;
-		if (!file_exists($path_completo)) {
-			//Caso base el archivo no existe
-			$this->anexar_a_archivo($texto, $path_completo);
-			$es_nuevo = true;
-		} else {
-			//El archivo existe, ¿Hay que ciclarlo?
-			$excede_tamanio = (filesize($path_completo) > apex_log_archivo_tamanio * 1024);
-			if (apex_log_archivo_tamanio != null && $excede_tamanio) {
-				$this->ciclar_archivos_logs($path, $archivo);
-				$es_nuevo = true;
-			}
-			$this->anexar_a_archivo($texto, $path_completo);
+		if(! isset($this->stream_handler)) {
+			$this->instanciar_handler($archivo);
 		}
 		
-		if ($es_nuevo) {
-			//Cambiar permisos
-			@toba_manejador_archivos::chmod_recursivo($path, $permisos);
-		}
+		fwrite($this->stream_handler, $texto);
 	}
 	
 	/**
@@ -328,5 +311,31 @@ class toba_logger
 		}
 	}
 	
+	protected function instanciar_handler($archivo)
+	{
+		$es_nuevo = false;
+		$dir_log = $this->directorio_logs();
+		$path_completo = realpath($dir_log) . '/' . $archivo;		
+		$stream_source = ($this->modo_archivo) ? 'file://' . $path_completo : 'php://stdout';
+		
+		if (file_exists($path_completo)) {
+			$excede_tamanio = (filesize($path_completo) > apex_log_archivo_tamanio * 1024);
+			if (apex_log_archivo_tamanio != null && $excede_tamanio) {
+				$this->ciclar_archivos_logs($dir_log, $archivo);
+				$es_nuevo = true;
+			}
+			$this->stream_handler = fopen($stream_source, 'a');
+		} elseif ($this->modo_archivo) {
+			$this->stream_handler = fopen($stream_source, 'x');
+			$es_nuevo = true;
+		} else {
+			$this->stream_handler = fopen($stream_source, 'a');
+		}
+		
+		if ($es_nuevo) {
+			//Cambiar permisos
+			toba_manejador_archivos::chmod_recursivo($dir_log, 0774);
+		}
+	}
 }
 ?>

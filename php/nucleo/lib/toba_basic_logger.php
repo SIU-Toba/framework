@@ -43,7 +43,7 @@ trait toba_basic_logger
 	protected $activo = true;
 	
 	protected $es_php_compatible = true;
-	
+	protected $modo_archivo = true;
 	
 	public function get_proyecto_actual()
 	{
