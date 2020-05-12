@@ -41,7 +41,7 @@ class toba_logger_ws extends AbstractLogger
 		$this->proyecto_actual = (isset($proyecto)) ? $proyecto : $this->get_proyecto_actual();
 		$this->mapeo_niveles = array_flip($this->get_niveles());
 		$this->id_solicitud = toba::solicitud()->get_id();
-		$this->modo_salida = toba_basic_logger::MODO_FILE;
+		$this->modo_salida = toba_basic_logger::$MODO_FILE;
 	}
 			
 	/**
@@ -52,16 +52,6 @@ class toba_logger_ws extends AbstractLogger
 	{
 		$this->stream_handler = $log_handler;
 		$this->modo_archivo = false;
-	}
-	
-	/**
-	 * Permite redirigir el log desde el archivo web_services.log hacia stderr
-	 * @param boolean $redirigir
-	 */
-	public function redirect_to_stderr($redirigir)
-	{
-		$this->modo_archivo = (! $redirigir);
-		$this->modo_salida = toba_basic_logger::MODO_ERR;
 	}
 	
 	public function log($level, $message, array $context = array())
@@ -152,13 +142,13 @@ class toba_logger_ws extends AbstractLogger
 		$dir_log = $this->directorio_logs();
 		$path_completo = realpath($dir_log) . '/' . $this->archivo_log;		
 		switch($this->modo_salida) {
-			case toba_basic_logger::MODO_ERR:
+			case toba_basic_logger::$MODO_ERR:
 					$stream_source = 'php://stderr';
 					break;
-			case toba_basic_logger::MODO_STD;
+			case toba_basic_logger::$MODO_STD;
 					$stream_source = 'php://stdout';
 					break;
-			case toba_basic_logger::MODO_FILE:
+			case toba_basic_logger::$MODO_FILE:
 			default :
 					$stream_source = 'file://' . $path_completo;
 		}

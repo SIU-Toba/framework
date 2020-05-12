@@ -322,15 +322,42 @@ trait toba_basic_logger
 	{
 		return ((1 << ($nivel + 1)) - 1);
 	}
-		
+	
+	/**
+	 * Permite redirigir el log desde el archivo web_services.log hacia stderr
+	 * @param boolean $redirigir
+	 */
+	public function redirect_to_stderr($redirigir)
+	{
+		$this->modo_archivo = (! $redirigir);
+		$this->modo_salida = ($redirigir) ? toba_basic_logger::$MODO_ERR : toba_basic_logger::$MODO_FILE;
+	}
+	
+	/**
+	 * Permite redirigir el log desde el archivo web_services.log hacia stdout
+	 * @param boolean $redirigir
+	 */
+	public function redirect_to_stdout($redirigir)
+	{
+		$this->modo_archivo = (! $redirigir);
+		$this->modo_salida = ($redirigir) ? toba_basic_logger::$MODO_STD : toba_basic_logger::$MODO_FILE;
+	}
+	
 	protected function instanciar_handler($archivo)
 	{
 		$es_nuevo = false;
 		$dir_log = $this->directorio_logs();
 		$path_completo = realpath($dir_log) . '/' . $archivo;		
-		$stream_source = ($this->modo_archivo) ? 'file://' . $path_completo : 'php://stdout';
-		if ($this->modo_stderr) {
-			$stream_source = 'php://stderr';
+		switch($this->modo_salida) {
+			case toba_basic_logger::$MODO_ERR:
+					$stream_source = 'php://stderr';
+					break;
+			case toba_basic_logger::$MODO_STD;
+					$stream_source = 'php://stdout';
+					break;
+			case toba_basic_logger::$MODO_FILE:
+			default :
+					$stream_source = 'file://' . $path_completo;
 		}
 		
 		if (file_exists($path_completo)) {
@@ -347,7 +374,7 @@ trait toba_basic_logger
 			$this->stream_handler = fopen($stream_source, 'a');
 		}
 		
-		if ($es_nuevo) {
+		if ($es_nuevo && $this->modo_archivo) {
 			//Cambiar permisos
 			toba_manejador_archivos::chmod_recursivo($dir_log, 0774);
 		}
