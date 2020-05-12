@@ -22,7 +22,6 @@ class toba_logger_ws extends AbstractLogger
 	protected $mapeo_niveles = array();
 	protected $id_solicitud;
 	
-	protected $modo_archivo = true;
 	static protected $instancia;
 			
 	/**
@@ -42,6 +41,7 @@ class toba_logger_ws extends AbstractLogger
 		$this->proyecto_actual = (isset($proyecto)) ? $proyecto : $this->get_proyecto_actual();
 		$this->mapeo_niveles = array_flip($this->get_niveles());
 		$this->id_solicitud = toba::solicitud()->get_id();
+		$this->modo_salida = toba_basic_logger::MODO_FILE;
 	}
 			
 	/**
@@ -61,6 +61,7 @@ class toba_logger_ws extends AbstractLogger
 	public function redirect_to_stderr($redirigir)
 	{
 		$this->modo_archivo = (! $redirigir);
+		$this->modo_salida = toba_basic_logger::MODO_ERR;
 	}
 	
 	public function log($level, $message, array $context = array())
@@ -150,7 +151,17 @@ class toba_logger_ws extends AbstractLogger
 	{
 		$dir_log = $this->directorio_logs();
 		$path_completo = realpath($dir_log) . '/' . $this->archivo_log;		
-		$stream_source = ($this->modo_archivo) ? 'file://' . $path_completo : 'php://stderr';
+		switch($this->modo_salida) {
+			case toba_basic_logger::MODO_ERR:
+					$stream_source = 'php://stderr';
+					break;
+			case toba_basic_logger::MODO_STD;
+					$stream_source = 'php://stdout';
+					break;
+			case toba_basic_logger::MODO_FILE:
+			default :
+					$stream_source = 'file://' . $path_completo;
+		}
 		
 		if (file_exists($path_completo)) {
 			$excede_tamanio = (filesize($path_completo) > apex_log_archivo_tamanio * 1024);

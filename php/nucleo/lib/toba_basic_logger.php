@@ -31,7 +31,10 @@ trait toba_basic_logger
 	public static $separador = "-o-o-o-o-o-";
 	public static $fin_encabezado = "==========";
 	public static $limite_mensaje = 100000; //100 KB
-
+	public static $MODO_ERR = 'stderr';
+	public static $MODO_FILE= 'file';
+	public static $MODO_STD = 'stdout';
+	
 	protected $ref_niveles = array("EMERGENCY" , "ALERT", "CRITICAL", "ERROR", "WARNING", "NOTICE", "INFO", "DEBUG");	
 	protected $mensajes = array();
 	protected $niveles = array();
@@ -44,6 +47,7 @@ trait toba_basic_logger
 	
 	protected $es_php_compatible = true;
 	protected $modo_archivo = true;
+	protected $modo_salida;
 	
 	public function get_proyecto_actual()
 	{
@@ -319,6 +323,36 @@ trait toba_basic_logger
 		return ((1 << ($nivel + 1)) - 1);
 	}
 		
+	protected function instanciar_handler($archivo)
+	{
+		$es_nuevo = false;
+		$dir_log = $this->directorio_logs();
+		$path_completo = realpath($dir_log) . '/' . $archivo;		
+		$stream_source = ($this->modo_archivo) ? 'file://' . $path_completo : 'php://stdout';
+		if ($this->modo_stderr) {
+			$stream_source = 'php://stderr';
+		}
+		
+		if (file_exists($path_completo)) {
+			$excede_tamanio = (filesize($path_completo) > apex_log_archivo_tamanio * 1024);
+			if (apex_log_archivo_tamanio != null && $excede_tamanio) {
+				$this->ciclar_archivos_logs($dir_log, $archivo);
+				$es_nuevo = true;
+			}
+			$this->stream_handler = fopen($stream_source, 'a');
+		} elseif ($this->modo_archivo) {
+			$this->stream_handler = fopen($stream_source, 'x');
+			$es_nuevo = true;
+		} else {
+			$this->stream_handler = fopen($stream_source, 'a');
+		}
+		
+		if ($es_nuevo) {
+			//Cambiar permisos
+			toba_manejador_archivos::chmod_recursivo($dir_log, 0774);
+		}
+	}
+	
 	protected function ciclar_archivos_logs($path, $archivo)
 	{
 		if (apex_log_archivo_backup_cant == 0) {
