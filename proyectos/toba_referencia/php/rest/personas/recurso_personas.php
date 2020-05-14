@@ -21,9 +21,10 @@ class recurso_personas implements SIUToba\rest\lib\modelable //esta interface es
 					'nombre' => array(	'type'     => 'string', 
 										'_validar' => array(rest_validador::OBLIGATORIO,
 															rest_validador::TIPO_LONGITUD => array('min' => 1, 'max' => 30))),
-					'fecha_nacimiento' => array('_mapeo'   => 'fecha_nac', 
+					'fecha_nacimiento' => array('_mapeo' => 'fecha_nac',
+												'type' => 'date',
 												'_validar' => array(rest_validador::TIPO_DATE => array('format' => 'Y-m-d'))),
-					'imagen' => array(	'type' => 'bytea')
+					'imagen' => array(	'type' => 'byte')
 				);
 		
 		$persona = array_merge(
@@ -50,6 +51,7 @@ class recurso_personas implements SIUToba\rest\lib\modelable //esta interface es
 	/**
 	 * Se consume en GET /personas/{id}
 	 * @summary Retorna datos de una persona. 
+	 * @param_path $id_persona integer
 	 * @param_query $con_imagen integer Retornar además la imagen de la persona, por defecto 0
 	 * @responses 200 {"$ref": "Persona"} Persona
 	 * @responses 400 No existe la persona
