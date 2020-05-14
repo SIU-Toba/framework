@@ -911,5 +911,16 @@
 		$fragment = isset($parsed_url['fragment']) ? '#' . $parsed_url['fragment'] : '';
 		return "$scheme$user$pass$host$port$path$query$fragment";
 	}
+	
+	/**
+	 * Retorna un arreglo a partir de un string con un formato especifico [,,,]
+	 * @param string $string_value
+	 * @return array
+	 */
+	function parse_rest_config_str($string_value) 
+	{
+		$resultado = json_decode($string_value, true);
+		return (NULL !== $resultado) ? $resultado: array();
+	}
 
 ?>

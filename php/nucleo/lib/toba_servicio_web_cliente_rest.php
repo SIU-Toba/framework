@@ -7,6 +7,8 @@ class toba_servicio_web_cliente_rest extends toba_servicio_web_cliente
 {
 	const HEADER_VERSION = 'API-Version';
 	const VERIFY_PEER_VAR = 'TOBA_REST_VERIFY_PEER';
+	const ENV_PREFIX = 'CREDENCIALES_API_BASIC_';
+	
 	protected $guzzle;
 	private $toba_verify_peer = true;
 	
@@ -25,7 +27,7 @@ class toba_servicio_web_cliente_rest extends toba_servicio_web_cliente
 			$proyecto = toba_editor::activado() ? toba_editor::get_proyecto_cargado() : toba::proyecto()->get_id();
 		}
 		self::get_modelo_proyecto($proyecto);
-		$ini = toba_modelo_rest::get_ini_cliente(self::$modelo_proyecto, $id_servicio);
+		$ini = self::get_datos_conexion($id_servicio);
 		$opciones_ini = $ini->get_datos_entrada('conexion');
 
 		//Convierte todos los '1' de texto en true
@@ -84,5 +86,29 @@ class toba_servicio_web_cliente_rest extends toba_servicio_web_cliente
 		} else {
 			return null;
 		}
+	}
+	
+	static function get_datos_conexion($id_servicio)
+	{
+		$var_name = self::ENV_PREFIX  . $id_servicio;
+		$env_value = \getenv($var_name);
+		if (false === $env_value) {
+			$archivo = toba_modelo_rest::get_path_archivo(self::$modelo_proyecto, toba_modelo_rest::TIPO_CLIENTE, $id_servicio);
+			toba::config()->add_config_file('rest_cliente', $archivo);
+			toba::config()->load();
+			$datos = toba::config()->get_seccion('rest_cliente');
+		} else {
+			$conf = parse_rest_config_str($env_value);
+			$datos = array('conexion' =>  array(
+												'auth_usuario' => $conf[0][0], 
+												'auth_password' => $conf[0][1], 
+												'to' => $conf[0][2], 
+												'auth_tipo' => 'basic'));
+		}
+		
+		//Devuelvo un ini para mantener contrato
+		$ini = new toba_ini();
+		$ini->set_entradas($datos);
+		return $ini;
 	}
 }

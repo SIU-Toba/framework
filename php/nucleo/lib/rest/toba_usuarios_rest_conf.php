@@ -12,6 +12,7 @@ class toba_usuarios_rest_conf implements
 {
 
 	protected $modelo_proyecto;
+	static private $env_config = 'API_BASIC_CLIENTES';
 
 	function __construct(\toba_modelo_proyecto $proyecto)
 	{
@@ -24,7 +25,7 @@ class toba_usuarios_rest_conf implements
 	 */
 	function es_valido($usuario, $password)
 	{ //se usa para basic
-		$usuarios_ini = toba_modelo_rest::get_ini_usuarios($this->modelo_proyecto);
+		$usuarios_ini = $this->get_config_usuarios($this->modelo_proyecto);
 
 		foreach ($usuarios_ini->get_entradas() as $key => $u) {
 			if ($key === $usuario) {
@@ -44,7 +45,7 @@ class toba_usuarios_rest_conf implements
 	 */
 	function get_password($usuario)
 	{ //se usa para digest, ya que se requiere el password plano
-		$usuarios_ini = toba_modelo_rest::get_ini_usuarios($this->modelo_proyecto);
+		$usuarios_ini = $this->get_config_usuarios($this->modelo_proyecto);
 
 		foreach ($usuarios_ini->get_entradas() as $key => $u) {
 			if ($key === $usuario) {
@@ -65,7 +66,7 @@ class toba_usuarios_rest_conf implements
 	 */
 	function get_usuario_api_key($api_key)
 	{
-		$usuarios_ini = toba_modelo_rest::get_ini_usuarios($this->modelo_proyecto);
+		$usuarios_ini = $this->get_config_usuarios($this->modelo_proyecto);
 
 		foreach ($usuarios_ini->get_entradas() as $username => $u) {
 			if (isset($u['api_key']) && $u['api_key'] === $api_key) {
@@ -76,5 +77,19 @@ class toba_usuarios_rest_conf implements
 		return NULL;
 	}
 
-
+	private function get_config_usuarios($modelo_proyecto)
+	{
+		$env_value = \getenv(self::$env_config);
+		if (false === $env_value) {
+			$usuarios = toba_modelo_rest::get_ini_usuarios($modelo_proyecto);
+		} else {
+			//Parse the damn thing && genera un archivo ini
+			$datos = parse_rest_config_str($env_value);
+			$usuarios = new toba_ini();
+			foreach($datos as $dato) {
+				$usuarios->agregar_entrada($dato[0], ['password' => $dato[1]]);
+			}
+		}
+		return $usuarios;
+	}
 }

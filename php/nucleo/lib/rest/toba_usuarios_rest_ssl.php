@@ -7,6 +7,8 @@ class toba_usuarios_rest_ssl implements usuarios_usuario_password
 {
 	protected $modelo_proyecto;
 
+	static private $env_config = 'API_SSL_CLIENTES';
+	
 	function __construct(\toba_modelo_proyecto $proyecto)
 	{
 		$this->modelo_proyecto = $proyecto;
@@ -29,6 +31,22 @@ class toba_usuarios_rest_ssl implements usuarios_usuario_password
 			} 
 		}		
 		return $passwords;
+	}
+	
+	
+	private function get_config_usuarios($modelo_proyecto)
+	{
+		$env_value = \getenv(self::$env_config);
+		if (false === $env_value) {
+			$usuarios = toba_modelo_rest::get_ini_usuarios($modelo_proyecto);
+		} else {
+			$datos = parse_rest_config_str($env_value);
+			$usuarios = new toba_ini();
+			foreach($datos as $dato) {
+				$usuarios->agregar_entrada($dato[0], ['fingerprint' => $dato[1]]);
+			}
+		}
+		return $usuarios;
 	}
 }
 ?>
