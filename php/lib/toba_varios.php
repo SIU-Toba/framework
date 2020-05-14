@@ -919,14 +919,8 @@
 	 */
 	function parse_rest_config_str($string_value) 
 	{
-		$resultado = array();
-		$rs =\preg_match_all('~\[+(.*?)\]+~', $string_value, $matches, PREG_PATTERN_ORDER);
-		if (FALSE !== $rs) {
-			foreach($matches[1] as $linea) {
-				$resultado[] = explode(',', $linea);
-			}
-		}
-		return $resultado;
+		$resultado = json_decode($string_value, true);
+		return (NULL !== $resultado) ? $resultado: array();
 	}
 
 ?>
