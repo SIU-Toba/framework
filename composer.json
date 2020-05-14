@@ -8,7 +8,8 @@
         }
     ],
     "require": {
-        "php": ">=7.3",
+	"php" : ">=7.3",
+        "ext-curl": "*",
         "dapphp/securimage": "~3.6",
         "guiguiboy/php-cli-progress-bar": "dev-master",
         "guzzlehttp/guzzle": "~6.5",

@@ -3091,6 +3091,8 @@ class toba_modelo_proyecto extends toba_modelo_elemento
             }
             $settings = array_merge($settings, $ini->get('settings', null, array(), false));
             //Hay que definir esto porque la libreria REST las asume siempre presentes y saca notice rompiendo el json.
+			$_SERVER['SERVER_NAME']= 'localhost';
+			$_SERVER['SERVER_PORT']= 80;
             $_SERVER['REQUEST_METHOD'] = '';
             $_SERVER['REQUEST_URI'] = '';
 
