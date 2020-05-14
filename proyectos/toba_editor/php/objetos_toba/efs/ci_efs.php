@@ -318,7 +318,7 @@ class ci_efs extends toba_ci
 		$exp = null;
 		switch($tipo) {
 			case 'mail':
-				$exp = '/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i';
+				$exp = '/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,20}$/i';
 				break;
 			case 'cuit':
 				$exp = '/^[0-9]{2}-[0-9]{8}-[0-9]$/';
