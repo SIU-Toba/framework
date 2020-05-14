@@ -63,6 +63,7 @@ class toba_logger
 	protected function __construct($proyecto = null)
 	{
 		$this->proyecto_actual = (isset($proyecto)) ? $proyecto : $this->get_proyecto_actual();
+		$this->modo_salida = toba_basic_logger::$MODO_FILE;
 	}
 	
 	/**
@@ -220,7 +221,6 @@ class toba_logger
 	//				METODOS PUBLICOS
 	//-----------------------------------------------------------------------------------------------------------------//
 	
-	
 	function modo_debug()
 	{
 		return ($this->get_nivel() == TOBA_LOG_DEBUG);
@@ -289,31 +289,11 @@ class toba_logger
 	
 	protected function guardar_archivo_log($texto, $archivo)
 	{
-		$permisos = 0774;
-		//--- Asegura que el path esta creado
-		$path = $this->directorio_logs();
-		$path_completo = $path ."/".$archivo;
-		toba_manejador_archivos::crear_arbol_directorios($path, $permisos);
-
-		$es_nuevo = false;
-		if (!file_exists($path_completo)) {
-			//Caso base el archivo no existe
-			$this->anexar_a_archivo($texto, $path_completo);
-			$es_nuevo = true;
-		} else {
-			//El archivo existe, ¿Hay que ciclarlo?
-			$excede_tamanio = (filesize($path_completo) > apex_log_archivo_tamanio * 1024);
-			if (apex_log_archivo_tamanio != null && $excede_tamanio) {
-				$this->ciclar_archivos_logs($path, $archivo);
-				$es_nuevo = true;
-			}
-			$this->anexar_a_archivo($texto, $path_completo);
+		if(! isset($this->stream_handler)) {
+			$this->instanciar_handler($archivo);
 		}
 		
-		if ($es_nuevo) {
-			//Cambiar permisos
-			@toba_manejador_archivos::chmod_recursivo($path, $permisos);
-		}
+		fwrite($this->stream_handler, $texto);
 	}
 	
 	/**
