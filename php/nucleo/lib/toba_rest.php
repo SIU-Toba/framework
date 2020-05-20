@@ -16,9 +16,12 @@ class toba_rest
 	protected $conf_ini;
 	protected $app;
 
-	static function url_rest()
+	static function url_rest($api='')
 	{
-		return toba_recurso::url_proyecto() . self::CARPETA_REST;
+		$url = toba_recurso::url_proyecto() . self::CARPETA_REST;
+		if (trim($api) != '') $url .= "/$api";
+		
+		return $url; 
 	}
 
 	static function url_api_doc()
@@ -59,8 +62,8 @@ class toba_rest
 		$ini = $this->get_conf($api);
 		$es_produccion = (boolean) toba::instalacion()->es_produccion();
 
-		$path_controladores = $this->get_path_controladores();
-		$url_base = self::url_rest();
+		$path_controladores = $this->get_path_controladores($api);
+		$url_base = self::url_rest($api);
 
 		$settings = array(
 			'path_controladores' => $path_controladores,
@@ -69,13 +72,26 @@ class toba_rest
 			'debug' => !$es_produccion,
 			'encoding' => 'latin1'
 		);
+		
 		$datos_ini_proyecto = $this->get_ini_proyecto();
-		if (!empty($datos_ini_proyecto) && isset($datos_ini_proyecto['proyecto']['version'])) {
-			$settings['api_version'] = $datos_ini_proyecto['proyecto']['version'];
+		//Busco version del proyecto para recurso info
+		if (! isset($datos_ini_proyecto['proyecto']['version'])) {
+			throw new toba_error('No esta especificada la version del sistema');
+		} else {
+			$settings['version'] = $datos_ini_proyecto['proyecto']['version'];
 		}
+		//Busca version de la API (como subconjunto major.minor) obligatorio
+		if (isset($datos_ini_proyecto['proyecto']['api_major']) && isset($datos_ini_proyecto['proyecto']['api_minor'])) {
+			$settings['api_version'] = "v{$datos_ini_proyecto['proyecto']['api_major']}.{$datos_ini_proyecto['proyecto']['api_minor']}";
+		} else {
+			throw new toba_error('No esta especificada la version de la API (major:minor)');
+		}
+		//Busca id del proyecto para mejorar el titulo de la documentacion
+        if (!empty($datos_ini_proyecto) && isset($datos_ini_proyecto['proyecto']['id'])) {
+			$settings['api_titulo'] = 'Referencia de API para ' . $datos_ini_proyecto['proyecto']['id'];
+		}
+		
 		$settings = array_merge($settings, $ini->get('settings', null, array(), false));
-
-		//        include_once 'lib/rest/rest.php';
 		$app = new SIUToba\rest\rest($settings);
 		return $app;
 	}
@@ -189,12 +205,17 @@ class toba_rest
 	/**
 	 * @return string
 	 */
-	protected function get_path_controladores()
+	protected function get_path_controladores($api='')
 	{
 		$api_base = toba_proyecto::get_path_php() . self::CARPETA_REST;
 		$api_pers = toba_proyecto::get_path_pers_php() . self::CARPETA_REST;
-
-		$path_controladores = array($api_base, $api_pers);
+		
+		$ini_server = $this->get_conf($api);
+		$path_controladores = array(
+					$ini_server->get($api, 'path_api', $api_base, FALSE),
+					$ini_server->get($api, 'path_api_pers', $api_pers, FALSE)
+		);
+		
 		return $path_controladores;
 	}
 
