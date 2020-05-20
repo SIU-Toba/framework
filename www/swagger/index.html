@@ -30,16 +30,31 @@
     </style>
   </head>
 
-  <body>
+  <body>    
     <div id="swagger-ui"></div>
 
     <script src="./swagger-ui-bundle.js"> </script>
     <script src="./swagger-ui-standalone-preset.js"> </script>
     <script>
+      function HideTopbarPlugin() {
+        // this plugin overrides the Topbar component to return nothing
+        return {
+          components: {
+            Topbar: function() { return null }
+          }
+        }
+      }
+
     window.onload = function() {
+      var url = window.location.search.match(/url=([^&]+)/);
+      if (url && url.length > 1) {
+        url = decodeURIComponent(url[1]);
+      } else {
+        url = "https://petstore.swagger.io/v2/swagger.json";
+      }
       // Begin Swagger UI call region
       const ui = SwaggerUIBundle({
-        url: "https://petstore.swagger.io/v2/swagger.json",
+        url: url,
         dom_id: '#swagger-ui',
         deepLinking: true,
         presets: [
@@ -47,9 +62,11 @@
           SwaggerUIStandalonePreset
         ],
         plugins: [
-          SwaggerUIBundle.plugins.DownloadUrl
+          SwaggerUIBundle.plugins.DownloadUrl,
+          HideTopbarPlugin
         ],
-        layout: "StandaloneLayout"
+        layout: "StandaloneLayout",
+        supportedSubmitMethods: ['get', 'post', 'put', 'delete']
       })
       // End Swagger UI call region
 
