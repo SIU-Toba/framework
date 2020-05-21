@@ -3,6 +3,14 @@
 ## CHANGELOG
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
+- Se actualiza cliente para mostrar documentacion de la api rest: 
+     * swagger-ui: v3.25.3
+- Se agregan parametros a proyecto.ini para especificar la version interna de la API que ya no va pegada a la del proyecto
+- Se agrega posibilidad de servir varias versiones de una api rest en simultaneo
+- Se vuelve obligatorio especificar una version para el sistema en proyecto.ini
+- Se incrementa el limite de caracteres en la ER para validacion de emails
+- Se agrega posibilidad de redirigir la salida del logger a stdout o stderr ademas de la tipica a archivo
+- Se agrega posibilidad de especificar autenticacion para REST via variables de entorno [Ver aqui](https://github.com/SIU-Toba/framework/wiki/Envvar-Config#caso-especial-para-web-services)
 
 [3.3.5](https://github.com/SIU-Toba/framework/releases/tag/v3.3.5) (2020-04-30)
 - Actualizacion de paquetes JS:
@@ -66,6 +74,18 @@
 - La exportacion via toba_vista_excel ahora tendra el formato xlsx
 - Se simplifica tratamiento de ef_fieldset en el formulario
 - Se pasa el paquete siu/rdi a suggested
+
+[3.2.15](https://github.com/SIU-Toba/framework/releases/tag/v3.2.15) (2020-04-30)
+- Actualizacion de seguridad de JQuery, actualiza tambien siu/js-app-launcher (merge desde develop)
+- Agrega modificador al comando ''instancia regenerar'' para evitar exportar los datos (merge desde develop)
+- Mejora en el parseo de variables de entorno en toba_config (merge desde develop)
+- Bugfix en toba_perfil_datos, se pisaba el alias cuando la tabla estaba mas de una vez involucrada como gatillo (merge desde develop)
+
+[3.2.14](https://github.com/SIU-Toba/framework/releases/tag/v3.2.14) (2020-03-27)
+- Fuerza la recarga del perfil de datos al cambiar de cuenta (merge desde develop)
+
+[3.2.13](https://github.com/SIU-Toba/framework/releases/tag/v3.2.13) (2020-03-20)
+- Actualiza autoload para reincorporar clase usada por el editor (merge desde develop)
 
 [3.2.12](https://github.com/SIU-Toba/framework/releases/tag/v3.2.12) (2020-02-19)
 - Actualiza el paquete siu/security-multitool (merge desde develop)
