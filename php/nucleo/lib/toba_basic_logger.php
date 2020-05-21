@@ -346,8 +346,8 @@ trait toba_basic_logger
 	protected function instanciar_handler($archivo)
 	{
 		$es_nuevo = false;
-		$dir_log = $this->directorio_logs();
-		$path_completo = realpath($dir_log) . '/' . $archivo;		
+		$permisos = 0754;
+		$path_completo = '';	
 		switch($this->modo_salida) {
 			case toba_basic_logger::$MODO_ERR:
 					$stream_source = 'php://stderr';
@@ -357,19 +357,24 @@ trait toba_basic_logger
 					break;
 			case toba_basic_logger::$MODO_FILE:
 			default :
+					$dir_log = $this->directorio_logs();
+					toba_manejador_archivos::crear_arbol_directorios($dir_log, $permisos);
+					$path_completo = realpath($dir_log) . '/' . $archivo;
 					$stream_source = 'file://' . $path_completo;
 		}
 		
-		if (file_exists($path_completo)) {
-			$excede_tamanio = (filesize($path_completo) > apex_log_archivo_tamanio * 1024);
-			if (apex_log_archivo_tamanio != null && $excede_tamanio) {
-				$this->ciclar_archivos_logs($dir_log, $archivo);
+		if ($this->modo_archivo) {
+			if (file_exists($path_completo)) {
+				$excede_tamanio = (filesize($path_completo) > apex_log_archivo_tamanio * 1024);
+				if (apex_log_archivo_tamanio != null && $excede_tamanio) {
+					$this->ciclar_archivos_logs($dir_log, $archivo);
+					$es_nuevo = true;
+				}
+				$this->stream_handler = fopen($stream_source, 'a');
+			} else {
+				$this->stream_handler = fopen($stream_source, 'x');
 				$es_nuevo = true;
 			}
-			$this->stream_handler = fopen($stream_source, 'a');
-		} elseif ($this->modo_archivo) {
-			$this->stream_handler = fopen($stream_source, 'x');
-			$es_nuevo = true;
 		} else {
 			$this->stream_handler = fopen($stream_source, 'a');
 		}
