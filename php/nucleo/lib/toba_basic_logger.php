@@ -346,7 +346,7 @@ trait toba_basic_logger
 	protected function instanciar_handler($archivo)
 	{
 		$es_nuevo = false;
-		$permisos = 0754;
+		$permisos = 0774;
 		$path_completo = '';	
 		switch($this->modo_salida) {
 			case toba_basic_logger::$MODO_ERR:
