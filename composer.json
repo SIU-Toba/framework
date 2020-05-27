@@ -17,7 +17,7 @@
         "nikic/php-parser": "~4.3",
         "onelogin/php-saml": "~3.4",
         "paragonie/random-lib": "~2.0",
-        "phpmailer/phpmailer": "~6.1",
+        "phpmailer/phpmailer": "6.1.6",
         "phpoffice/phpspreadsheet": "^1.0",
         "psr/log": "^1.1",
         "rospdf/pdf-php": "~0.12",
