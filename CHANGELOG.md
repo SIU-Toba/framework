@@ -3,6 +3,12 @@
 ## CHANGELOG
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
+- Se actualiza el paquete
+     * nikic/php-parser: v4.4.0
+- Se eliminan atributos innecesarios que llegan desde IDP SAML
+- Security update al paquete
+     * phpmailer/phpmailer: v6.1.6
+- Se corrige bug en toba_logger introducido al redirigir la salida
 - Se actualiza cliente para mostrar documentacion de la api rest: 
      * swagger-ui: v3.25.3
 - Se agregan parametros a proyecto.ini para especificar la version interna de la API que ya no va pegada a la del proyecto
