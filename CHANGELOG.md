@@ -3,6 +3,8 @@
 ## CHANGELOG
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
+
+[3.3.6](https://github.com/SIU-Toba/framework/releases/tag/v3.3.6) (2020-06-03)
 - Se actualizan los paquetes
      * siu-toba/rest: v2.0.4
 - Se actualiza el paquete
