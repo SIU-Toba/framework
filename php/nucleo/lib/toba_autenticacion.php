@@ -8,9 +8,13 @@ class toba_autenticacion
 	static $session_usuarios_posibles = 'userAccounts';
 	static $modo_debug=false;
 	
+	static protected $atributos_validos_usuario = [
+				'uid', 'uniqueIdentifier',
+				'appLauncherData', 'userAccounts', 
+				'defaultUserAccount'];
 	protected $parametros_url;
 	protected $atributos_usuario;
-		
+	
 	static function es_autenticacion_centralizada($id)
 	{
 		return in_array($id, self::$metodos_centralizados);
@@ -101,8 +105,9 @@ class toba_autenticacion
 	
 	protected function set_atributos_usuario($atributos_usuario)
 	{
-		$this->atributos_usuario = $atributos_usuario;
-		$_SESSION[self::$session_atributos_usuario] = $atributos_usuario;
+		$claves = \array_fill_keys(self::$atributos_validos_usuario, 1);
+		$this->atributos_usuario = array_intersect_key($atributos_usuario, $claves);
+		$_SESSION[self::$session_atributos_usuario] = $this->atributos_usuario;
 	}
 	
 	function get_atributos_usuario() 

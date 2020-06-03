@@ -37,7 +37,7 @@ class toba_solicitud_servicio_rest extends toba_solicitud
 			echo rest_encode($msg);
 			return;
 		}		
-		$nombre_api = '';	// esto esta en $this->recuperar_nombre_api();
+		$nombre_api = $this->recuperar_nombre_api();
 		if (! $this->toba_rest->es_pedido_documentacion()) {
 			$this->toba_rest->conf__inicial($nombre_api);
 			$this->app = $this->toba_rest->get_instancia_rest();

@@ -1,5 +1,5 @@
 pgdata:
-  image: postgres:9.4
+  image: postgres:9.6
   command: "true"
   volumes:
 #Comentar la siguiente linea para corregir permisos en OSX  
@@ -44,7 +44,7 @@ web:
 #   - ./:/var/local/proyecto/vendor/siu-toba/framework
 
 pg:
-  image: postgres:9.4
+  image: postgres:9.6
   environment:
     POSTGRES_USER: postgres
     POSTGRES_PASSWORD: postgres

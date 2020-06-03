@@ -10,7 +10,7 @@ stages:
 
 composer:php7.3:
   stage: dependencias
-  image: siutoba/docker-web:1.8
+  image: siutoba/docker-web:v1.8
   services: 
   - postgres:11
   script:
