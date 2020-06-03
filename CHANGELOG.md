@@ -3,8 +3,10 @@
 ## CHANGELOG
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
+- Se actualizan los paquetes
+     * siu-toba/rest: v2.0.4
 - Se actualiza el paquete
-     * nikic/php-parser: v4.4.0
+     * nikic/php-parser: v4.5.0
 - Se eliminan atributos innecesarios que llegan desde IDP SAML
 - Security update al paquete
      * phpmailer/phpmailer: v6.1.6
