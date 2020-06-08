@@ -33,7 +33,7 @@
         "siu/manejador-salida-toba": "dev-develop",
         "siu/interfaces-manejador-salida-toba": "~1.3.0",
         "siu/security-multitool": "~1.1",
-        "vlucas/phpdotenv": "~3.6"
+        "vlucas/phpdotenv": "~5.0"
     },
     "conflict": {
         "siu/arai-cli": "<3.0.0",
