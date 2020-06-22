@@ -241,7 +241,7 @@ trait toba_basic_logger
 			$pasos = debug_backtrace($opciones);
 		}
 		$html = "[TRAZA]\n";
-		$html .= "\t<ul>\n";    
+		$html .= "\t\n";    
 		foreach ($pasos as $paso) {
 			$clase = (isset($paso['class'])) ? $paso['class'] : '';
 			
@@ -251,23 +251,23 @@ trait toba_basic_logger
 					$clase .= $paso['type'];
 				}
 				
-				$html .= "\t<li><strong>$clase{$paso['function']}</strong><br />";
+				$html .= "\t$clase{$paso['function']} \n";
 				if (isset($paso['file'])) {
-					$html .= "Archivo: {$paso['file']}, línea {$paso['line']}<br />";
+					$html .= "Archivo: {$paso['file']}, línea {$paso['line']} \n";
 				}
 				if ($con_parametros && ! empty($paso['args'])) {
-					$html .= "Parámetros: <ol>";
+					$html .= "Parámetros: \n";
 					foreach ($paso['args'] as $arg) {
-						$html .= "<li>";
+						//$html .= "<li>";
 						$html .= $this->armar_parametros_traza($arg);
-						$html .= "</li>\n";
+						$html .= "\n";
 					}
-					$html .= "\t</ol>\n";
+					$html .= "\t\n";
 				} 
-				$html .= "\t</li>\n";
+				$html .= "\t\n";
 			}
 		}
-		$html .= "\t</ul>";
+		$html .= "\t\n";
 		//--- Una traza no puede exceder la mitad del limite de todo el mensaje
 		if (strlen($html) > self::$limite_mensaje / 2) {
 			$html = substr($html, 0, self::$limite_mensaje / 2).
@@ -281,7 +281,7 @@ trait toba_basic_logger
 	{
 		$html = '';
 		if (is_object($argumento)) {
-			$html .= 'Instancia de <em>'.get_class($argumento).'</em>';
+			$html .= 'Instancia de '.get_class($argumento).' ';
 		} elseif (is_array($argumento)) {
 			foreach($argumento as $arg) {
 				$html .= $this->armar_parametros_traza($arg);
