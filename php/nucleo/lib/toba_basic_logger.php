@@ -253,16 +253,15 @@ trait toba_basic_logger
 				
 				$html .= "\t$clase{$paso['function']} \n";
 				if (isset($paso['file'])) {
-					$html .= "Archivo: {$paso['file']}, línea {$paso['line']} \n";
+					$html .= "Archivo: {$paso['file']}, lInea {$paso['line']} \n";
 				}
 				if ($con_parametros && ! empty($paso['args'])) {
-					$html .= "Parámetros: \n";
+					$html .= "Parametros: \n";
 					foreach ($paso['args'] as $arg) {
-						//$html .= "<li>";
 						$html .= $this->armar_parametros_traza($arg);
-						$html .= "\n";
+						$html .= "\t\n";
 					}
-					$html .= "\t\n";
+					//$html .= "\t\n";
 				} 
 				$html .= "\t\n";
 			}
@@ -287,7 +286,7 @@ trait toba_basic_logger
 				$html .= $this->armar_parametros_traza($arg);
 			}
 		} else {
-			$html .= highlight_string(print_r($argumento, true), true);
+			$html = print_r($argumento, true) . "\t" ;
 		}		
 		return $html;
 	}
