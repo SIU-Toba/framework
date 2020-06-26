@@ -4,6 +4,10 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.3.8](https://github.com/SIU-Toba/framework/releases/tag/v3.3.8) (2020-06-24)
+- Se agregan parametros para version de Api a toba_rest (Faltante de v3.6.6)
+- Se agrega un recurso de información basico a toba_referencia a modo de ejemplo
+
 [3.3.7](https://github.com/SIU-Toba/framework/releases/tag/v3.3.7) (2020-06-23)
 - Se eliminan los tags html remanentes en la construccion del mensaje del log.
 
