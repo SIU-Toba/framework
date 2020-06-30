@@ -4,6 +4,9 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.3.9](https://github.com/SIU-Toba/framework/releases/tag/v3.3.9) (2020-06-30)
+- Se agregan metadatos_compilados faltantes del proyecto toba_usuarios
+
 [3.3.8](https://github.com/SIU-Toba/framework/releases/tag/v3.3.8) (2020-06-24)
 - Se agregan parametros para version de Api a toba_rest (Faltante de v3.6.6)
 - Se agrega un recurso de información basico a toba_referencia a modo de ejemplo
