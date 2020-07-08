@@ -28,7 +28,7 @@ class gestion_arai_usuarios
 				$datos['cuenta'] = $datos['usuario'];	
 			}
 			if (! isset($datos['usuario_arai']) && isset($datos['cuenta']) && self::verifica_version_arai_cli()) {
-				$datos['usuario_arai'] = rest_arai_usuarios::instancia()->get_identificador_x_aplicacion_cuenta(SIUToba\Framework\Arai\RegistryHooksProyectoToba::getAppUniqueId(), $datos['cuenta']);
+				$datos['usuario_arai'] = rest_arai_usuarios::instancia()->get_identificador_x_aplicacion_cuenta(self::getIdAplicacion(), $datos['cuenta']);
 			}
 		}
 		return $datos;
@@ -68,7 +68,7 @@ class gestion_arai_usuarios
 	{	
 		$resultado = true;
 		if (toba::instalacion()->vincula_arai_usuarios() && self::verifica_version_arai_cli()) {
-			$appUniqueId = SIUToba\Framework\Arai\RegistryHooksProyectoToba::getAppUniqueId();
+			$appUniqueId = self::getIdAplicacion();
 			$identificador_arai_usuarios = rest_arai_usuarios::instancia()->get_identificador_x_aplicacion_cuenta($appUniqueId, $cuenta);
 			if (!isset($identificador_arai_usuarios)) {
 				$datos_cuenta = array(
@@ -88,7 +88,7 @@ class gestion_arai_usuarios
 	{	
 		$resultado = true;
 		if (toba::instalacion()->vincula_arai_usuarios() && self::verifica_version_arai_cli()) {
-			$resultado = rest_arai_usuarios::instancia()->eliminar_cuenta(SIUToba\Framework\Arai\RegistryHooksProyectoToba::getAppUniqueId(), $cuenta);
+			$resultado = rest_arai_usuarios::instancia()->eliminar_cuenta(self::getIdAplicacion(), $cuenta);
 		}
 		return $resultado;
 	}
@@ -112,7 +112,7 @@ class gestion_arai_usuarios
 	{
 		$datos = array();
 		if (toba::instalacion()->vincula_arai_usuarios() && self::verifica_version_arai_cli()) {
-			$datos = rest_arai_usuarios::instancia()->get_usuarios($filtro, SIUToba\Framework\Arai\RegistryHooksProyectoToba::getAppUniqueId());
+			$datos = rest_arai_usuarios::instancia()->get_usuarios($filtro, self::getIdAplicacion());
 		}
 		return $datos;
 	}
@@ -149,5 +149,14 @@ class gestion_arai_usuarios
 
 		return true;
 	}	
+	
+	static private function getIdAplicacion()
+	{
+		$appID = toba::instalacion()->vincula_arai_proyecto();
+		if (null === $appID) {
+			$appID = SIUToba\Framework\Arai\RegistryHooksProyectoToba::getAppUniqueId();
+		}
+		return $appID;
+	}
 }
 ?>

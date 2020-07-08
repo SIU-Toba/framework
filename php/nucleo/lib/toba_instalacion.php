@@ -269,5 +269,13 @@ class toba_instalacion
 		}
 		return $conf;
 	}
+	
+	function vincula_arai_proyecto()
+	{
+		if (isset($this->memoria['vincula_arai_appID'])) {
+			return $this->memoria['vincula_arai_appID'];
+		} 
+		return null;
+	}
 }
 ?>
