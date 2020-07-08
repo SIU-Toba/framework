@@ -269,13 +269,21 @@ class toba_instalacion
 		return $conf;
 	}
 
-        /**
-         * Devuelve si la instalacion usa 2do Factor de Autenticacion
-         * @return boolean
-         */
-        function usa_2FA()
-        {
-            return (isset($this->memoria['usa_2do_factor']) && $this->memoria['usa_2do_factor'] == 1);
-        }
+	/**
+	 * Devuelve si la instalacion usa 2do Factor de Autenticacion
+	 * @return boolean
+	 */
+	function usa_2FA()
+	{
+		return (isset($this->memoria['usa_2do_factor']) && $this->memoria['usa_2do_factor'] == 1);
+	}
+	
+	function vincula_arai_proyecto()
+	{
+		if (isset($this->memoria['vincula_arai_appID'])) {
+			return $this->memoria['vincula_arai_appID'];
+		} 
+		return null;
+	}
 }
 ?>
