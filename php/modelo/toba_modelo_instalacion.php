@@ -1022,5 +1022,10 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 		}
 		return array($min, $max);
 	}
+	
+	function vincula_arai_proyecto()
+	{
+		return toba::config()->get_parametro('instalacion', null, 'vincula_arai_appID');
+	}
 }
 ?>
