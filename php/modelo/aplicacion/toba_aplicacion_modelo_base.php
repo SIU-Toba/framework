@@ -729,7 +729,7 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 	{
 		$appUniqueId = null;
 		if ($this->instalacion->vincula_arai_usuarios()) {
-			$appUniqueId = toba::instalacion()->vincula_arai_proyecto();
+			$appUniqueId = $this->instalacion->vincula_arai_proyecto();
 			if (null === $appUniqueId) {
 				$appUniqueId = \SIUToba\Framework\Arai\RegistryHooksProyectoToba::getAppUniqueId();
 			}
