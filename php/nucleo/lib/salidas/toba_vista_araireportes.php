@@ -147,16 +147,14 @@ class toba_vista_araireportes
     }
 
     //------------------------------------------------------------------------
-    //-- Parametros de conexion (BD/Datasource o XML)
+    //-- Parametros de conexion (Datasource o XML o JSON)
     //------------------------------------------------------------------------
     /**
      * Setea una conexion a BD/JDataSource
      * @param mixed $db
      */
     public function set_conexion($db)
-    {
-        $this->conexion = $db;			//hay que recuperar los parametros
-    }
+    {}
 
     /**
      * Setea un string xml con los datos para el reporte
@@ -272,12 +270,13 @@ class toba_vista_araireportes
             $url = 'archivos';
             $data = array('proyecto' => toba::proyecto()->get_id(), 'uri' => $this->uri);
             if ($this->modo_archivo) {
-                $data['archivo']['tipo'] = $this->formato_datos;
+                $data['archivo']['tipo'] = ($this->formato_datos == 'xml') ? 'xml' : 'txt';
                 $data['archivo']['temporal'] = 1;
                 $data['archivo']['data'] = base64_encode(file_get_contents($this->archivo_temp_path));
             }
 
             try {
+                $this->cliente->guzzle();
                 $resp = $this->cliente->guzzle()->request('POST', $url, array('json' => $data));
             } catch (RequestException $e) {
                 toba::logger()->debug($e->getMessage());
@@ -287,7 +286,8 @@ class toba_vista_araireportes
             if ($resp->getStatusCode() == 201) {
                 $result = json_decode($resp->getBody()->getContents());
                 if ($result !== false && is_object($result)) {
-                    $this->parametros['net.sf.jasperreports.xml.source'] = 'repo:' . $result->uri;
+                    $parametro = 'net.sf.jasperreports.'. $this->formato_datos . '.source';
+                    $this->parametros[$parametro] = 'repo:' . $result->uri;
                 }
             }
         }
