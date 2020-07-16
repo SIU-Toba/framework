@@ -11,7 +11,8 @@ class toba_autenticacion
 	static protected $atributos_validos_usuario = [
 				'uid', 'uniqueIdentifier',
 				'appLauncherData', 'userAccounts', 
-				'defaultUserAccount'];
+				'defaultUserAccount',
+				'employeeNumber'];
 	protected $parametros_url;
 	protected $atributos_usuario;
 	
