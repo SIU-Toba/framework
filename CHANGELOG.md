@@ -4,7 +4,10 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/support/v3.2...dev/v3.2)
 
-[3.2.15](https://github.com/SIU-Toba/framework/releases/tag/v3.2.15) (2020-03-27)
+[3.2.16](https://github.com/SIU-Toba/framework/releases/tag/v3.2.16) (2020-07-20)
+- Se agrega parametro `vincula_arai_appID` para salvaguardar la vinculacion sin registry (merge desde develop)
+
+[3.2.15](https://github.com/SIU-Toba/framework/releases/tag/v3.2.15) (2020-04-30)
 - Actualizacion de seguridad de JQuery, actualiza tambien siu/js-app-launcher (merge desde develop)
 - Agrega modificador al comando ''instancia regenerar'' para evitar exportar los datos (merge desde develop)
 - Mejora en el parseo de variables de entorno en toba_config (merge desde develop)
