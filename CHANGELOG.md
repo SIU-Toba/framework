@@ -4,6 +4,9 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.1.17](https://github.com/SIU-Toba/framework/releases/tag/v3.1.17) (2020-07-20):
+- Se agrega parametro `vincula_arai_appID` para salvaguardar la vinculacion sin registry (merge desde develop)
+
 [3.1.16](https://github.com/SIU-Toba/framework/releases/tag/v3.1.16) (2020-03-04):
 - Hotfix cambio de proveedor del paquete random-lib
 
