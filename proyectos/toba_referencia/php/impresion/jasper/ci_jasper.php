@@ -45,15 +45,18 @@ class ci_jasper extends toba_ci
 												apex_item."nombre" AS apex_item_nombre
 										   FROM
 												"desarrollo"."apex_item" apex_item');
-		
-		$xml = new SimpleXMLElement('<operaciones></operaciones>');
+		//Datos enviados en formato xml
+		/*$xml = new SimpleXMLElement('<operaciones></operaciones>');
 		foreach ($data as $linea) {
 			$renglon = $xml->addChild ('operacion');
 			foreach($linea as $key => $campo) {
 				$renglon->addChild(utf8_e_seguro($key), utf8_e_seguro($campo));
 			}
 		}	
-		$report->set_xml($xml->asXML());
+		$report->set_xml($xml->asXML());*/
+
+		//Datos enviados en formato JSON
+		//$report->set_json(rest_encode($data));
 	}	
 	
 	/**
