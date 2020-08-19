@@ -18,7 +18,6 @@ bin/validate-json
 .svn/*
 .project
 .directory
-metadatos_compilados/
 temp/
 xlib
 composer.lock
@@ -29,3 +28,4 @@ yarn.lock
 bin/arai-cli
 node_modules/
 proyectos/toba_referencia/www/siu/
+proyectos/toba_referencia/metadatos_compilados/

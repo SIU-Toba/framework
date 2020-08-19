@@ -4,6 +4,12 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.3.10](https://github.com/SIU-Toba/framework/releases/tag/v3.3.10) (2020-08-19)
+- Se agrega el versionado de API rest a pedido de documentacion
+- Se agrega el numero de empleado como atributo permitido del usuario
+- Se agrega posibilidad de enviar datos en formato JSON via toba_salida_araireportes
+- Fix interaccion toba_usuarios => Arai-Usuarios sin registry
+
 [3.3.9](https://github.com/SIU-Toba/framework/releases/tag/v3.3.9) (2020-06-30)
 - Se agregan metadatos_compilados faltantes del proyecto toba_usuarios
 
