@@ -45,7 +45,7 @@ class toba_solicitud_servicio_rest extends toba_solicitud
 				toba::contexto_ejecucion()->conf__rest($this->app);
 			}
 		}
-		$this->toba_rest->ejecutar();
+		$this->toba_rest->ejecutar($nombre_api);
 	}
 	
 	function get_app()

@@ -24,15 +24,15 @@ class toba_rest
 		return $url; 
 	}
 
-	static function url_api_doc()
+	static function url_api_doc($api='')
 	{
-		return toba_http::get_protocolo() . toba_http::get_nombre_servidor() . self::url_rest() . '/api-docs';
+		return toba_http::get_protocolo() . toba_http::get_nombre_servidor() . self::url_rest($api) . '/api-docs';
 	}
 
 
 	function conf__inicial($api='')
 	{
-		if (! $this->es_pedido_documentacion()) {
+		if (! $this->es_pedido_documentacion($api)) {
 			$this->app = $this->instanciar_libreria_rest($api);
 			$this->configurar_libreria_rest($this->app);
 		}
@@ -43,10 +43,10 @@ class toba_rest
 		return $this->app;
 	}
 
-	function ejecutar()
+	function ejecutar($api='')
 	{
-		if ($this->es_pedido_documentacion()) {
-			$this->rederigir_a_swagger();
+		if ($this->es_pedido_documentacion($api)) {
+			$this->rederigir_a_swagger($api);
 			return;
 		}
 
@@ -197,10 +197,10 @@ class toba_rest
 		return $this->conf_ini;
 	}
 
-	protected function rederigir_a_swagger()
+	protected function rederigir_a_swagger($api)
 	{
 		$swagger_ui = toba_recurso::url_toba() . '/swagger/index.html';
-		$proy = toba_rest::url_api_doc();
+		$proy = toba_rest::url_api_doc($api);
 		header('Location: ' . $swagger_ui . '?url=' . $proy);
 	}
 
@@ -224,12 +224,12 @@ class toba_rest
 	/**
 	 * @return bool
 	 */
-	public function es_pedido_documentacion()
+	public function es_pedido_documentacion($api='')
 	{
             if (! is_null($this->app)){
                 return $this->get_instancia_rest()->config('url_api') == rtrim( $_SERVER['REQUEST_URI'], '/');
             }
-            return toba_recurso::url_proyecto() . self::CARPETA_REST == rtrim( $_SERVER['REQUEST_URI'], '/');
+            return self::url_rest($api) == rtrim( $_SERVER['REQUEST_URI'], '/');
 	}
 
 	protected function get_modelo_proyecto()
