@@ -4,6 +4,10 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.3.11](https://github.com/SIU-Toba/framework/releases/tag/v3.3.11) (2020-09-01)
+- Se actualiza el paquete siu/manejador-salida-bootstrap @v1.3.4
+- Se corrige posicion de parametros actuales en toba_ei_cuadro_salida_html al llamar la generacion de salida de sumarizaciones
+
 [3.3.10](https://github.com/SIU-Toba/framework/releases/tag/v3.3.10) (2020-08-19)
 - Se agrega el versionado de API rest a pedido de documentacion
 - Se agrega el numero de empleado como atributo permitido del usuario
