@@ -180,7 +180,7 @@ class toba_editor
 	static function set_item_solicitado($item)
 	{
 		if (isset($item) && $item[0] == self::$memoria['proyecto'] &&
-				!isset(self::$ultimo_item) && self::$ultimo_item[1] != $item[1]) {
+				(!isset(self::$ultimo_item) || self::$ultimo_item[1] != $item[1])) {
 			self::$ultimo_item = $item;
 
 			$modelo = self::get_modelo_proyecto();
