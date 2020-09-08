@@ -24,7 +24,7 @@ class contexto_ejecucion extends toba_contexto_ejecucion
 		bootstrap_config::setLogoNombre(toba_recurso::imagen_proyecto('logo.gif', false));
 
 		//Instanciacion del provider bootstrap extendido (en este caso propio del proyecto)
-		$referencia_config = new referencia_factory();
+		/*$referencia_config = new referencia_factory();
 		toba::output()->registrarServicio($referencia_config);
 		referencia_config::setMainColor( '#11DD13');	*/
 	}
