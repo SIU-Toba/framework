@@ -4,6 +4,9 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/support/v3.2...dev/v3.2)
 
+[3.2.17](https://github.com/SIU-Toba/framework/releases/tag/v3.2.17) (2020-09-10)
+- Fix al archivo de entorno para prevenir fatal en phpdotenv
+
 [3.2.16](https://github.com/SIU-Toba/framework/releases/tag/v3.2.16) (2020-07-20)
 - Se agrega parametro `vincula_arai_appID` para salvaguardar la vinculacion sin registry (merge desde develop)
 
