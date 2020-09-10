@@ -4,6 +4,12 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.3.12](https://github.com/SIU-Toba/framework/releases/tag/v3.3.12) (2020-09-10)
+- Actualizacion de paquetes JS:
+   * CKEditor4: v4.15.0
+- Se actualiza el paquete siu/manejador-salida-toba @1.1.1
+- Modificacion en toba_ei_cuadro_salida_html para prevenir notice
+
 [3.3.11](https://github.com/SIU-Toba/framework/releases/tag/v3.3.11) (2020-09-01)
 - Se actualiza el paquete siu/manejador-salida-bootstrap @v1.3.4
 - Se corrige posicion de parametros actuales en toba_ei_cuadro_salida_html al llamar la generacion de salida de sumarizaciones
