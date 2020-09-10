@@ -666,7 +666,8 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 	protected function html_cuadro_inicio($nodo=null)
 	{
 		$cortes = $this->_cuadro->existen_cortes_control();
-		echo toba::output()->get('CuadroSalidaHtml')->getInicioCuadro($cortes,$this->get_nivel_css($nodo['profundidad']));
+		$nivel = (null !== $nodo) ? $this->get_nivel_css($nodo['profundidad']) : null;
+		echo toba::output()->get('CuadroSalidaHtml')->getInicioCuadro($cortes,$nivel);
 	}
 
 	/**
@@ -675,7 +676,8 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 	protected function html_cuadro_fin($nodo=null)
 	{
 		$cortes = $this->_cuadro->existen_cortes_control();
-		echo toba::output()->get('CuadroSalidaHtml')->getFinCuadro($cortes,$this->get_nivel_css($nodo['profundidad']));
+		$nivel = (null !== $nodo) ? $this->get_nivel_css($nodo['profundidad']) : null;
+		echo toba::output()->get('CuadroSalidaHtml')->getFinCuadro($cortes,$nivel);
 	}
 
 		/**
