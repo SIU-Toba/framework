@@ -4,6 +4,11 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/support/v3.2...dev/v3.2)
 
+[3.2.18](https://github.com/SIU-Toba/framework/releases/tag/v3.2.18) (2020-10-01)
+- Fix punto acceso toba_usuarios para desarrollo
+- Update de paquete:
+ * siu-toba/rest @2.0.5 
+
 [3.2.17](https://github.com/SIU-Toba/framework/releases/tag/v3.2.17) (2020-09-10)
 - Fix al archivo de entorno para prevenir fatal en phpdotenv
 
