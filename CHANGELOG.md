@@ -4,6 +4,9 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.3.13](https://github.com/SIU-Toba/framework/releases/tag/v3.3.13) (2020-10-01)
+- Bugfix en punto acceso toba_usuarios para modo desarrollo
+
 [3.3.12](https://github.com/SIU-Toba/framework/releases/tag/v3.3.12) (2020-09-10)
 - Actualizacion de paquetes JS:
    * CKEditor4: v4.15.0
