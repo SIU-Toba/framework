@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a677dc2a221d79fe20e1d7e1f6d7520a",
+    "content-hash": "56440550f9153a264b8331746c0b8349",
     "packages": [
         {
             "name": "dapphp/securimage",
@@ -2000,16 +2000,16 @@
         },
         {
             "name": "siu-toba/rest",
-            "version": "v2.0.2",
+            "version": "v2.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SIU-Toba/rest.git",
-                "reference": "6b015ee46c713920023df3615bc9b645d3ec1713"
+                "reference": "1770bb13a649c1f49398db17963a1fad4720e4f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SIU-Toba/rest/zipball/6b015ee46c713920023df3615bc9b645d3ec1713",
-                "reference": "6b015ee46c713920023df3615bc9b645d3ec1713",
+                "url": "https://api.github.com/repos/SIU-Toba/rest/zipball/1770bb13a649c1f49398db17963a1fad4720e4f3",
+                "reference": "1770bb13a649c1f49398db17963a1fad4720e4f3",
                 "shasum": ""
             },
             "require": {
@@ -2028,12 +2028,9 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "SIU"
-            ],
             "description": "Libreria para servicios REST",
             "homepage": "http://toba.siu.edu.ar",
-            "time": "2017-10-06T20:37:32+00:00"
+            "time": "2020-06-16T15:28:37+00:00"
         },
         {
             "name": "siu-toba/services_json",
@@ -2589,6 +2586,7 @@
                 "escaper",
                 "zf2"
             ],
+            "abandoned": "laminas/laminas-escaper",
             "time": "2014-03-05T17:29:35+00:00"
         },
         {
@@ -2644,6 +2642,7 @@
                 "stdlib",
                 "zf2"
             ],
+            "abandoned": "laminas/laminas-stdlib",
             "time": "2014-03-05T17:29:35+00:00"
         },
         {
@@ -2692,6 +2691,7 @@
                 "uri",
                 "zf2"
             ],
+            "abandoned": "laminas/laminas-uri",
             "time": "2014-03-05T17:29:35+00:00"
         },
         {
@@ -2756,6 +2756,7 @@
                 "validator",
                 "zf2"
             ],
+            "abandoned": "laminas/laminas-validator",
             "time": "2014-03-05T17:29:35+00:00"
         }
     ],
@@ -2976,6 +2977,7 @@
                 "selenium",
                 "webdriver"
             ],
+            "abandoned": "php-webdriver/webdriver",
             "time": "2018-05-16T17:37:13+00:00"
         },
         {
@@ -3806,5 +3808,6 @@
     "platform": {
         "php": ">=7.1"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
 }
