@@ -11,13 +11,14 @@ class referencia_cuadro_salida_html implements ICuadroSalidaHtml {
 	public function getIncioZonaColapsable($id, $clase, $estilo) {
 		return "<div $estilo id='$id' class='zona-colapzable'>"; // -- INICIO zona COLAPSABLE del cuadro completo
 	}
-	public function getCabeceraHtml($info_cuadro, $objeto_js, $exportacion_excel_plano, $filas_disponibles_selector, $total_columnas) {
+	public function getCabeceraHtml($info_cuadro, $objeto_js, $exportacion_excel_plano, $filas_disponibles_selector, $total_columnas, $usa_zona) {
 		$salida = " <div class='panel-body custom'>";
 		$salida .= "<div class='pull-left'>";
-
+		$zona = (true === $usa_zona) ? 'true': 'false';
+		
 		if (isset ( $info_cuadro ) && $info_cuadro ['exportar_pdf'] == 1) {
 			$img = \toba_recurso::imagen_toba ( 'extension_pdf.png', true );
-			$salida .= "<a href='javascript: $objeto_js.exportar_pdf()' title='Exporta el listado a formato PDF'>$img</a>";
+			$salida .= "<a href='javascript: $objeto_js.exportar_pdf($zona)' title='Exporta el listado a formato PDF'>$img</a>";
 		}
 		if (isset ( $info_cuadro ) && $info_cuadro ['exportar_xls'] == 1) {
 			// Si hay vista xls entonces se muestra el link com�n y para exportar a plano
@@ -474,4 +475,9 @@ class referencia_cuadro_salida_html implements ICuadroSalidaHtml {
 			return "<td></td>\n";
 		return '';
 	}
+	
+	public function getInicioCorte($id,$tabla_datos_es_general,$nivel){}
+
+	public function getFinCorte($tabla_datos_es_general){}
+
 }
