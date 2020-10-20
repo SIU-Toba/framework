@@ -119,7 +119,7 @@ class pant_test_dims extends toba_ei_pantalla
 			}
 		} else {
 			echo "<tr>\n";
-			echo "<td style='border: 1px solid gray; padding: 2px;' colspan='".$escapador->escapeHtmlAttr(count($fila) + 1)."'>No hay DATOS!</td>\n";
+			echo "<td style='border: 1px solid gray; padding: 2px;' colspan='1'>No hay DATOS!</td>\n";
 			echo "</tr>\n";
 		}
 		echo '</table>';
