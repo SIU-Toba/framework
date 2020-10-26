@@ -414,7 +414,7 @@ class toba_manejador_archivos
 	 */
 	static function es_writable($path)
 	{
-		if ($path{strlen($path)-1} == '/') {
+		if (substr($path, -1) == '/') {
 			return is__writable($path.uniqid(mt_rand()).'.tmp');
 		}
 		if (file_exists($path)) {
