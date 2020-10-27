@@ -31,6 +31,14 @@ class toba_db_sqlserver extends toba_db
 		}	
 		
 		return "sqlserver:host=$profile;dbname=$this->base;$ssl;$certs";
-	}	
+	}
+
+	/**
+	 * Retorna una ER para quitar comentarios de la SQL
+	 */
+	function get_separador_comentarios()
+	{
+		return "/\/\*([^'])*?\*\/|(?:-{2,}[^']*?\R)/im";
+	}
 }
 ?>

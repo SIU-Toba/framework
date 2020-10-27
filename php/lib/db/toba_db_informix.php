@@ -84,5 +84,13 @@ class toba_db_informix extends toba_db
 		}
 		return $certs;
 	}
+	
+	/**
+	 * Retorna una ER para quitar comentarios de la SQL
+	 */
+	function get_separador_comentarios()
+	{
+		return "/\/\*([^'])*?\*\/|\{([^'])*?\}|(?:-{2,}[^']*?\R)/im";
+	}
 }
 ?>

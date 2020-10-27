@@ -1245,5 +1245,13 @@ class toba_db_postgres7 extends toba_db
 	{
 		return new toba_auditoria_tablas_postgres($this, $schema_modelo, $schema_auditoria, $schema_toba);
 	}
+	
+	/**
+	 * Retorna una ER para quitar comentarios de la SQL
+	 */
+	function get_separador_comentarios()
+	{
+		return "/\/\*([^'])*?\*\/|(?:-{2,}[^']*?\R)/im";
+	}
 }
 ?>

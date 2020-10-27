@@ -1191,5 +1191,13 @@ class toba_db
 	{
 		return null;
 	}
+	
+	/**
+	 * Retorna una ER para quitar comentarios de la SQL
+	 */
+	function get_separador_comentarios()
+	{
+		return '';
+	}
 }
 ?>
