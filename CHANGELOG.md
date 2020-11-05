@@ -4,6 +4,12 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.3.14](https://github.com/SIU-Toba/framework/releases/tag/v3.3.14) (2020-11-05)
+- Indica en composer.json los paquetes a excluir de Satis (composer 2.0)
+- Fix JS en disparo de validacion ef_fecha y ef_fecha_hora 
+- Fix ER vulnerable en toba_perfil_datos
+- Fixes varios para evitar notices
+
 [3.3.13](https://github.com/SIU-Toba/framework/releases/tag/v3.3.13) (2020-10-01)
 - Bugfix en punto acceso toba_usuarios para modo desarrollo
 
