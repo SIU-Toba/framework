@@ -57,5 +57,13 @@ class toba_db_mysql extends toba_db
 		}
 		return $certs;
 	}
+	
+	/**
+	 * Retorna una ER para quitar comentarios de la SQL
+	 */
+	function get_separador_comentarios()
+	{
+		return "/\/\*([^'])*?\*\/|(?:-{2,}[^']*?\R)|(?:#[^']*?\R)/im";
+	}
 }
 ?>
