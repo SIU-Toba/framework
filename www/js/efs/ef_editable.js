@@ -475,14 +475,16 @@ ef_editable_fecha.prototype.constructor = ef_editable_fecha;
 			dateFormat: this._forma_mascara,
 			firstDay: 1,
 			changeYear: true,
-		         changeMonth: true,
+		    changeMonth: true,
  			showOn: "button",
 			buttonImage: "img/calendario.gif",
 			buttonImageOnly: true,
 			altField: this._id_form,
 			altFormat: this._forma_mascara,
 			yearRange: "-100:+20"
-		});
+		}).onClose = function(dateText, Object){
+			this.onChange();
+		};
 		var solo_lectura = this.input().readOnly;
 		this.set_solo_lectura(solo_lectura);
 	};
@@ -650,13 +652,15 @@ ef_editable_fecha_hora.prototype.constructor = ef_editable_fecha_hora;
 			dateFormat: this._forma_mascara_fecha,
 			firstDay: 1,
 			changeYear: true,
-		         changeMonth: true,
+		    changeMonth: true,
  			showOn: "button",
 			buttonImage: "img/calendario.gif",
 			buttonImageOnly: true,
 			altField: arr_inputs[0].id,
 			altFormat: this._forma_mascara_fecha
-		});
+		}).onClose = function(dateText, Object){
+			this.onChange();
+		};;
 		
 		this._mascara_hora = new mascara_generica(this._forma_mascara_hora);
 		this._mascara_hora.attach(arr_inputs[1]);
