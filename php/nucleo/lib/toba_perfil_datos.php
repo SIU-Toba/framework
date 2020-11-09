@@ -694,8 +694,7 @@ class toba_perfil_datos
 	 */
 	protected function quitar_comentarios_sql($sql)
 	{
-		//\/\*(.|[\r\n])*?\*\/|(-{2,}[\w+|\s+|\r])(.)*
-		$expresion = "/\/\*(.|[\r\n])*?\*\/|(-{2,}[\w+|\s+|\r])(.)*/im";
+		$expresion = toba::db()->get_separador_comentarios();
 		$resultado = preg_split($expresion, $sql);
 		if (! empty($resultado)) {
 			return implode(' ',$resultado);
