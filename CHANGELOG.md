@@ -4,6 +4,11 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/support/v3.2...dev/v3.2)
 
+[3.2.19](https://github.com/SIU-Toba/framework/releases/tag/v3.2.19) (2020-11-09)
+- Fix ER vulnerable en toba_perfil_datos (merge desde develop)
+- Fix disparo de procesamiento en ef_fecha (merge desde develop)
+- Se indica que no se busque el paquete `siu/rest` en repo `satis` (composer 2.0)
+
 [3.2.18](https://github.com/SIU-Toba/framework/releases/tag/v3.2.18) (2020-10-01)
 - Fix punto acceso toba_usuarios para desarrollo
 - Update de paquete:
