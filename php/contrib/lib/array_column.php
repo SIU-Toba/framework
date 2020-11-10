@@ -85,7 +85,7 @@ if (!function_exists('array_column')) {
             $key = $value = null;
             $keySet = $valueSet = false;
 
-            if ($paramsIndexKey !== null && array_key_exists($paramsIndexKey, $row)) {
+            if ($paramsIndexKey !== null && \array_key_exists($paramsIndexKey, $row)) {
                 $keySet = true;
                 $key = (string) $row[$paramsIndexKey];
             }
@@ -93,7 +93,7 @@ if (!function_exists('array_column')) {
             if ($paramsColumnKey === null) {
                 $valueSet = true;
                 $value = $row;
-            } elseif (is_array($row) && array_key_exists($paramsColumnKey, $row)) {
+            } elseif (is_array($row) && \array_key_exists($paramsColumnKey, $row)) {
                 $valueSet = true;
                 $value = $row[$paramsColumnKey];
             }

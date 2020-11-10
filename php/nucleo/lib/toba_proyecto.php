@@ -3,7 +3,7 @@
  * Brinda servicios de información sobre el proyecto actualmente cargado en el framework:
  *  - Información del archivo de configuración proyecto.ini, cacheandolo en la memoria
  *  - Información de la definición básica en el editor (e.i. los metadatos)
- * 
+ *
  * @package Centrales
  */
 class toba_proyecto
@@ -36,7 +36,7 @@ class toba_proyecto
 					} else {
 						throw new toba_error("Es necesario definir la constante 'apex_pa_proyecto'");
 					}
-				} 
+				}
 				self::$id_proyecto = apex_pa_proyecto;
 			}
 		}
@@ -49,13 +49,13 @@ class toba_proyecto
 	static function instancia()
 	{
 		if (!isset(self::$instancia)) {
-			$id_proyecto = self::get_id();			
+			$id_proyecto = self::get_id();
 			//toba::logger()->debug("TOBA PROYECTO: creando instancia de '$id_proyecto'", 'toba');
 			self::$instancia = new toba_proyecto($id_proyecto);
 		}
 		return self::$instancia;
 	}
-	
+
 	static function hay_instancia()
 	{
 		return isset(self::$instancia);
@@ -65,7 +65,7 @@ class toba_proyecto
 	{
 		self::$instancia = null;
 	}
-	
+
 	private function __construct($proyecto)
 	{
 		if (! in_array($proyecto, toba::instancia()->get_id_proyectos())) {		//El proyecto no existe o no esta cargado en la instancia
@@ -108,7 +108,7 @@ class toba_proyecto
 		} elseif (toba::config()->existe_valor('proyecto', $seccion, $parametro)) {
 			return toba::config()->get_parametro('proyecto', $seccion, $parametro);
 		} else {
-			if( array_key_exists($id, $this->memoria)) {
+			if(\array_key_exists($id, $this->memoria)) {
 				return null;
 			}else{
 				if ($obligatorio) {
@@ -117,7 +117,7 @@ class toba_proyecto
 					return null;
 				}
 			}
-		}	
+		}
 	}
 
 	/**
@@ -130,7 +130,7 @@ class toba_proyecto
 
 	//----------------------------------------------------------------
 	// DATOS
-	//----------------------------------------------------------------	
+	//----------------------------------------------------------------
 
 	/**
 	 * Retorna el número de versión propio del proyecto
@@ -138,13 +138,13 @@ class toba_proyecto
 	 */
 	function get_version()
 	{
-		if (toba::config()->existe_valor('proyecto', 'proyecto', 'version')) {			
+		if (toba::config()->existe_valor('proyecto', 'proyecto', 'version')) {
 			return new toba_version(toba::config()->get_parametro('proyecto', 'proyecto', 'version'));
 		} else {
 			//Se asume que si el proyecto no da un numero de version, se toma la del nucleo (para no mantener la de toba_referencia, usuarios, etc)
 			return toba::instalacion()->get_version();
 		}
-	}	
+	}
 	/**
 	 * Retorna la base de datos de la instancia a la que pertenece este proyecto
 	 * @return toba_db
@@ -158,7 +158,7 @@ class toba_proyecto
 			$rs = toba_proyecto_db::cargar_info_basica($proyecto);
 		}
 		if (!$rs) {
-			throw new toba_error("El proyecto '".$proyecto."' no se encuentra cargado en la instancia ".toba_instancia::get_id());	
+			throw new toba_error("El proyecto '".$proyecto."' no se encuentra cargado en la instancia ".toba_instancia::get_id());
 		}
 		return $rs;
 	}
@@ -173,14 +173,14 @@ class toba_proyecto
 		$permite = $this->get_parametro('proyecto', 'permite_cambio_perfil_funcional', false);
 		return (! is_null($permite) && $permite);
 	}
-	
+
 	function es_personalizable()
 	{
 		$rs = $this->get_parametro('extension_proyecto');
-		
+
 		return $rs;
 	}
-	
+
 	function personalizacion_activa()
 	{
 		if (! isset($this->personalizacion_iniciada)) {
@@ -209,7 +209,7 @@ class toba_proyecto
 	{
 		return self::get_path().'/'.toba_personalizacion::dir_personalizacion;
 	}
-	
+
 	/**
 	 * Retorna el flag de compilacion del proyecto
 	 */
@@ -233,7 +233,7 @@ class toba_proyecto
 	{
 		return self::get_path_pers() . '/php';
 	}
-        
+
 	/**
 	 * Retorna el path base absoluto del directorio temporal no-navegable del proyecto
 	 * (mi_proyecto/temp);
@@ -245,8 +245,8 @@ class toba_proyecto
 			mkdir($dir, 0700);
 		}
 		return $dir;
-	}	
-	
+	}
+
 	/**
 	 * Retorna path y URL de la carpeta navegable del proyecto actual
 	 * (mi_proyecto/www);
@@ -273,7 +273,7 @@ class toba_proyecto
 		return array(	"path" => $path_real,
 						"url" => $path_browser);
 	}
-	
+
 	/**
 	 * Retorna el path y url del directorio temporal navegable del proyecto (mi_proyecto/www/temp);
 	 * En caso de no existir, crea el directorio
@@ -325,7 +325,7 @@ class toba_proyecto
 	}
 
 	//--------------------  Dimensiones  ------------------------
-	
+
 	function get_info_dimension($dimension, $proyecto=null)
 	{
 		if (! isset($proyecto)) { $proyecto = $this->id;}
@@ -347,7 +347,7 @@ class toba_proyecto
 
 	//--------------------  Puntos de Control  ------------------------
 
-	function get_info_punto_control($punto_control, $proyecto=null)	
+	function get_info_punto_control($punto_control, $proyecto=null)
 	{
 		if (! isset($proyecto)) { $proyecto = $this->id;}
 		$info = array();
@@ -357,7 +357,7 @@ class toba_proyecto
 			$info['parametros'] = toba_proyecto_db::punto_control_parametros($proyecto, $punto_control);
 			$info['controles'] = toba_proyecto_db::punto_control_controles($proyecto, $punto_control);
 		}
-		return $info;	
+		return $info;
 	}
 
 	//------------------------  FUENTES  -------------------------
@@ -373,11 +373,11 @@ class toba_proyecto
 			//-- No se carga aqui la relacion entre tabla y dt por un tema de eficiencia, se hace con un lazyload en toba_fuente_datos
 		}
 		if (empty($rs)) {
-			throw new toba_error("No se puede encontrar la fuente '$id_fuente' en el proyecto '$proyecto'");	
+			throw new toba_error("No se puede encontrar la fuente '$id_fuente' en el proyecto '$proyecto'");
 		}
 		return $rs;
 	}
-	
+
 	//------------------------  Grupos de acceso & ITEMS  -------------------------
 
 	/**
@@ -393,8 +393,8 @@ class toba_proyecto
 		if (!isset($proyecto)) { $proyecto = $this->id;}
 		if (!isset($grupos_acceso)) { $grupos_acceso = toba::manejador_sesiones()->get_perfiles_funcionales_activos();}
 		if ( toba::nucleo()->utilizar_metadatos_compilados( $proyecto ) ) {
-			$rs = $this->recuperar_datos_compilados_grupo(	'toba_mc_gene__grupo_', 
-													$grupos_acceso, 
+			$rs = $this->recuperar_datos_compilados_grupo(	'toba_mc_gene__grupo_',
+													$grupos_acceso,
 													'get_items_menu',
 													true,
 													array('padre','orden'));
@@ -409,7 +409,7 @@ class toba_proyecto
 			}
 		}
 		return $res;
-	}	
+	}
 
 	function quitar_item_menu($item)
 	{
@@ -429,16 +429,16 @@ class toba_proyecto
 				///-- Metadatos compilados
 				if (! empty($grupos_acceso)) {
 					//-- Busca los items accesibles por grupo
-					$this->indice_items_accesibles = $this->recuperar_datos_compilados_grupo('toba_mc_gene__grupo_', 
-																								$grupos_acceso, 
+					$this->indice_items_accesibles = $this->recuperar_datos_compilados_grupo('toba_mc_gene__grupo_',
+																								$grupos_acceso,
 																								'get_items_accesibles',
 																								false);
 				} else {
 					//-- Si no tiene grupo, busca aquellos items que son públicos
-					$this->indice_items_accesibles = $this->recuperar_datos_compilados_grupo('toba_mc_gene__items_', 
-																								array('publicos'), 
+					$this->indice_items_accesibles = $this->recuperar_datos_compilados_grupo('toba_mc_gene__items_',
+																								array('publicos'),
 																								'get_items_accesibles',
-																								false);			
+																								false);
 				}
 			} else {
 				//-- Metadatos salen de la base
@@ -458,13 +458,13 @@ class toba_proyecto
 	{
 		if (!isset($grupos_acceso)) { $grupos_acceso = toba::manejador_sesiones()->get_perfiles_funcionales_activos();}
 		if ( toba::nucleo()->utilizar_metadatos_compilados( $this->id ) ) {
-			$rs = $this->recuperar_datos_compilados_grupo(	'toba_mc_gene__grupo_', 
+			$rs = $this->recuperar_datos_compilados_grupo(	'toba_mc_gene__grupo_',
 															$grupos_acceso,
 															'get_items_zona__'.$zona,
 															true,
 															array('orden') );
 		} else {
-			$rs = toba_proyecto_db::get_items_zona($this->id, $grupos_acceso, $zona);	
+			$rs = toba_proyecto_db::get_items_zona($this->id, $grupos_acceso, $zona);
 		}
 		return $rs;
 	}
@@ -475,16 +475,16 @@ class toba_proyecto
 		$grupos = array_map('trim',$grupos);
 		return $grupos;
 	}
-	
+
 	/**
 	 * @deprecated Desde 1.5 usar get_perfiles_funcionales_usuario_anonimo
 	 */
 	function get_grupos_acceso_usuario_anonimo()
 	{
 		return $this->get_perfiles_funcionales_usuario_anonimo();
-	}	
-	
-	
+	}
+
+
 	function get_perfiles_funcionales_asociados($perfil)
 	{
 		if ( toba::nucleo()->utilizar_metadatos_compilados( $this->id ) ) {
@@ -494,13 +494,13 @@ class toba_proyecto
 				$perfiles = array_merge($perfiles, $this->get_perfiles_funcionales_asociados($perfil_miembro));
 			}
 		} else {
-			$perfiles = toba_proyecto_db::get_perfiles_funcionales_asociados($this->id, $perfil);	
+			$perfiles = toba_proyecto_db::get_perfiles_funcionales_asociados($this->id, $perfil);
 		}
-		return $perfiles;		
+		return $perfiles;
 	}
 
 	//------------------------  Permisos  -------------------------
-	
+
 	/**
 	 * Retorna la lista de permisos globales (tambien llamados derechos) de un grupo de acceso en el proyecto actual
 	 */
@@ -514,7 +514,7 @@ class toba_proyecto
 		}
 		return $rs;
 	}
-	
+
 	/**
 	 * Retorna la descripción asociada a un permiso global particular del proy. actual
 	 */
@@ -538,14 +538,14 @@ class toba_proyecto
 			if ( $this->existe_dato_compilado($clase, $metodo) ) {
 				$rs = $this->recuperar_datos_compilados($clase, $metodo);
 			} else {
-				$rs = array();	
+				$rs = array();
 			}
 		} else {
-			$rs = toba_proyecto_db::get_mensaje_toba($indice);	
+			$rs = toba_proyecto_db::get_mensaje_toba($indice);
 		}
 		return $rs;
 	}
-	
+
 	function get_mensaje_proyecto($indice)
 	{
 		if ( toba::nucleo()->utilizar_metadatos_compilados( $this->id ) ) {
@@ -554,7 +554,7 @@ class toba_proyecto
 			if ( $this->existe_dato_compilado($clase, $metodo) ) {
 				$rs = $this->recuperar_datos_compilados($clase, $metodo);
 			} else {
-				$rs = array();	
+				$rs = array();
 			}
 		} else {
 			$rs = toba_proyecto_db::get_mensaje_proyecto($this->id, $indice);
@@ -573,7 +573,7 @@ class toba_proyecto
 				$rs = false;	//Para ser coherentes en la respuesta con el else
 			}
 		} else {
-			$rs = toba_proyecto_db::get_mensaje_objeto($this->id, $objeto, $indice);	
+			$rs = toba_proyecto_db::get_mensaje_objeto($this->id, $objeto, $indice);
 		}
 		return $rs;
 	}
@@ -589,7 +589,7 @@ class toba_proyecto
 			$rs = toba_proyecto_db::get_consulta_php($proyecto, $clase);
 		}
 		if (empty($rs)) {
-			throw new toba_error("No se puede encontrar la consulta PHP '$clase' en el proyecto '$proyecto'");	
+			throw new toba_error("No se puede encontrar la consulta PHP '$clase' en el proyecto '$proyecto'");
 		}
 		return $rs;
 	}
@@ -605,10 +605,10 @@ class toba_proyecto
 			$rs = toba_proyecto_db::get_info_servicio_web($proyecto, $id);
 		}
 		if (empty($rs)) {
-			throw new toba_error("No se puede encontrar la definición del Servicio Web '$id' en el proyecto '$proyecto'");	
+			throw new toba_error("No se puede encontrar la definición del Servicio Web '$id' en el proyecto '$proyecto'");
 		}
 		return $rs;
-	}	
+	}
 
 	//------------------------  PUNTOS DE MONTAJE  -------------------------
 
@@ -627,7 +627,7 @@ class toba_proyecto
 		return $rs;
 	}
 
-	
+
 	//------------------------  GADGETS  -------------------------
 	/**
 	 * Recupera los gadgets disponibles en la base de datos
@@ -664,7 +664,7 @@ class toba_proyecto
 								$objeto->set_gadget_url($info['gadget_url']);
 								break;
 			case apex_tipo_gadget_interno:
-				
+
 							if (! isset($info['subclase']) || ! isset($info['subclase_archivo'])) {
 								throw new toba_error_def('La definición de subclase para el gadget esta incompleta');
 							} else {
@@ -686,12 +686,12 @@ class toba_proyecto
 	}
 
 	//-- Soporte a la compilacion ----------------------
-	
+
 	static function existe_dato_compilado($clase, $metodo)
 	{
 		return in_array($metodo, get_class_methods($clase));
 	}
-	
+
 	static function recuperar_datos_compilados($clase, $metodo)
 	{
 		return call_user_func(array($clase, $metodo));
@@ -705,14 +705,14 @@ class toba_proyecto
 			$temp = array_merge($temp, call_user_func(array($clase, $metodo)));
 		}
 		if($reindexar) {
-			$temp = array_values($temp);	
-		}					
+			$temp = array_values($temp);
+		}
 		if(isset($orden)){
 			$temp = rs_ordenar_por_columnas($temp, $orden);
 		}
 		return $temp;
 	}
-	
+
 	//-- Configuracion minima del logger de proyecto -------------------
 	function configurar_logger()
 	{
@@ -726,7 +726,7 @@ class toba_proyecto
 			toba::logger()->desactivar();
 		}
 	}
-	
+
 	function configurar_logger_ws()
 	{
 		if (defined('apex_pa_log_archivo_nivel')) {
@@ -737,7 +737,7 @@ class toba_proyecto
 		if ((!defined('apex_pa_log_archivo') && !$this->memoria['log_archivo'])
 				|| (defined('apex_pa_log_archivo') && !apex_pa_log_archivo)) {
 			toba::logger_ws()->desactivar();
-		}	
+		}
 	}
 }
 ?>

@@ -534,9 +534,7 @@
 			$archivo = "$dir/.svn/entries";
 			if(file_exists($archivo))
 			{
-				//$fd = fopen($archivo, "r");
-		   		//$contenido = fread($fd, filesize($archivo));
-				$contenido = file_get_contents ( $archivo );
+				$contenido = file_get_contents($archivo);
 				$captura = array();
 				if(preg_match("/revision=\"(.*)\"/", $contenido, $captura)){
 					//ei_arbol($captura);

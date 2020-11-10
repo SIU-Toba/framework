@@ -7,7 +7,7 @@ class toba_manejador_archivos
 {
 	static private $caracteres_invalidos = array('*', '?', '/', '>', '<', '"', "'", ':', '|');
 	static private $caracteres_reemplazo = array('%', '$', '_', ')', '(', '-',  '.', ';', ',');
-	
+
 	/**
 	 *  Crea el arbol de directorios indicado
 	 * @param string $path Ruta a crear
@@ -17,7 +17,7 @@ class toba_manejador_archivos
 	static function crear_arbol_directorios($path, $modo=0777)
 	{
 		if (self::es_windows()) {
-			$path = self::path_a_windows($path, false);	
+			$path = self::path_a_windows($path, false);
 		}
 		if (!file_exists($path)) {
 			if (!mkdir($path, $modo, true)) {
@@ -25,7 +25,7 @@ class toba_manejador_archivos
 			}
 		}
 	}
-	
+
 	/**
 	 * Genera un archivo con el nombre especificado y le inserta los datos.
 	 * @param string $nombre
@@ -36,9 +36,9 @@ class toba_manejador_archivos
 		if (! file_exists($nombre)) {
 			self::crear_arbol_directorios(dirname($nombre));
 		}
-		file_put_contents($nombre, $datos);		
+		file_put_contents($nombre, $datos);
 	}
-	
+
 	/**
 	 * Retorna si el sistema en cuestion es windows o no
 	 * @return boolean
@@ -46,22 +46,22 @@ class toba_manejador_archivos
 	static function es_windows()
 	{
 		return (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN');
-	}	
-	
+	}
+
 	/**
 	 * Ejecuta un comando dado (deprecated)
 	 * @param string $cmd
 	 * @param mixed $stdout
 	 * @param mixed $stderr
 	 * @return integer
-	 * @deprecated since version 3.0.0 
+	 * @deprecated since version 3.0.0
 	 * @use toba_manejador_procesos::ejecutar
 	 */
 	static function ejecutar($cmd, &$stdout, &$stderr)
 	{
 		return toba_manejador_procesos::ejecutar($cmd, $stdout, $stderr);
-	}		
-	
+	}
+
 	/**
 	 * Similar al file_exists de php pero incluye al include_path en la búsqueda
 	 * @param string $file
@@ -74,7 +74,7 @@ class toba_manejador_archivos
 		@fclose($fp);
 		return $ok;
 	}
-	
+
 	/**
 	 * Transforma un path a su version en windows
 	 * @param string $nombre
@@ -83,7 +83,7 @@ class toba_manejador_archivos
 	 */
 	static function path_a_windows($nombre, $encomillar_espacios=true)
 	{
-		$nombre = str_replace('/', "\\", $nombre);	
+		$nombre = str_replace('/', "\\", $nombre);
 		//Si algun segmento del PATH tiene espacios, hay que ponerlo entre comillas.
 		if($encomillar_espacios && strpos($nombre,' ')){
 			$segmentos = explode("\\",$nombre);
@@ -104,9 +104,9 @@ class toba_manejador_archivos
 	 */
 	static function path_a_unix($nombre)
 	{
-		return str_replace('\\', "/", $nombre);	
-	}	
-	
+		return str_replace('\\', "/", $nombre);
+	}
+
 	/**
 	 * Retorna un nombre de archivo valido
 	 * @param string $path
@@ -117,10 +117,10 @@ class toba_manejador_archivos
 		if (self::es_windows()) {
 			return self::path_a_windows($path);
 		} else {
-			return self::path_a_unix($path);		
+			return self::path_a_unix($path);
 		}
 	}
-	
+
 	/**
 	 * Retorna un path convertido a la plataforma actual de ejecución (unix o windows)
 	 * @param string $candidato
@@ -159,7 +159,7 @@ class toba_manejador_archivos
 						$archivos_ok[] = $directorio . '/' . $archivo;
 			   		}
 				}
-			   closedir($dir); 
+			   closedir($dir);
 			}
 		} else {
 			$archivos_ok = self::buscar_archivos_directorio_recursivo( $directorio, $exclude_dirs);
@@ -188,7 +188,7 @@ class toba_manejador_archivos
 	{
 		if( ! is_dir( $directorio ) ) {
 			throw new toba_error("BUSCAR ARCHIVOS: El directorio '$directorio' es INVALIDO");
-		} 
+		}
 		$archivos = array();
 		$d = dir( $directorio );
 
@@ -209,7 +209,7 @@ class toba_manejador_archivos
 		$d->close();
 		return $archivos;
 	}
-	
+
 	/**
 	 * Devuelve la lista de subdirectorios de un directorio
 	 * @param string $directorio
@@ -221,22 +221,22 @@ class toba_manejador_archivos
 		$dirs = array();
 		if( ! is_dir( $directorio ) ) {
 			throw new toba_error("BUSCAR SUBDIRECTORIOS: El directorio '$directorio' es INVALIDO");
-		} 
+		}
 		$dir = opendir($directorio);
-		if ($dir !== false) {	
-		   while (false	!==	( $archivo = readdir( $dir ) ) )	{ 
+		if ($dir !== false) {
+		   while (false	!==	( $archivo = readdir( $dir ) ) )	{
 				if( ( $archivo != '.' ) && ( $archivo != '..' ) && ( $archivo != '.svn' ) ) {
 					$path = $directorio . '/' . $archivo;
 					if ( is_dir( $path ) ) {
 						$dirs[] = $path;
 					}
 				}
-		   } 
+		   }
 		   closedir( $dir );
 		}
 		return $dirs;
 	}
-	
+
 	/**
 	 * Copia el contenido de un directorio a otro.
 	 * No copia las carpetas SVN
@@ -256,7 +256,7 @@ class toba_manejador_archivos
 		$ok = true;
 		if( ! is_dir( $destino ) ) {
 			$ok = mkdir($destino) && $ok;
-		} 
+		}
 		//Busco los archivos del directorio
 		$lista_archivos = array();
 		$dir = opendir($origen);
@@ -272,8 +272,8 @@ class toba_manejador_archivos
 		foreach ( $lista_archivos as $archivo ) {
 			$x_origen = $origen . '/' . $archivo;
 			$x_destino = $destino . '/' . $archivo;
-			//Evito excepciones			
-			if (! in_array($x_origen, $excepciones) && ($copiar_ocultos || substr($archivo, 0, 1) != '.')) {			
+			//Evito excepciones
+			if (! in_array($x_origen, $excepciones) && ($copiar_ocultos || substr($archivo, 0, 1) != '.')) {
 				if ( is_dir( $x_origen )) {
 					if (isset($manejador_interface)) {
 						$manejador_interface->progreso_avanzar();
@@ -286,7 +286,7 @@ class toba_manejador_archivos
 		}
 		return $ok;
 	}
-	
+
 	/**
 	 * Elimina un directorio con contenido
 	 * @param string $directorio
@@ -313,15 +313,15 @@ class toba_manejador_archivos
 		closedir( $dir );
 		$ok = rmdir($directorio) && $ok;
 		return $ok;
-	}	
-	
+	}
+
 	/**
 	 * Cambia los permisos de un path de manera recursiva
 	 * @param string $path
 	 * @param integer $filemode
 	 * @return boolean
 	 */
-	static function chmod_recursivo($path, $filemode) 
+	static function chmod_recursivo($path, $filemode)
 	{
 		if (!is_dir($path)) {
 			return chmod($path, $filemode);
@@ -331,7 +331,7 @@ class toba_manejador_archivos
 			if($file != '.' && $file != '..') {
 				$fullpath = $path.'/'.$file;
 				if(!is_dir($fullpath)) {
-					if (!chmod($fullpath, $filemode)) {						
+					if (!chmod($fullpath, $filemode)) {
 						return FALSE;
 					}
 				} else {
@@ -348,7 +348,7 @@ class toba_manejador_archivos
 			return FALSE;
 		}
 	}
-	
+
 	/**
 	 * Comprime un archivo con gzip a un nivel dado en una carpeta destino
 	 * @param string $src
@@ -371,7 +371,9 @@ class toba_manejador_archivos
 				$dst_handle = gzopen($dst, "w$level");
 				while(!feof($src_handle)){
 					$chunk = fread($src_handle, 2048);
-					gzwrite($dst_handle, $chunk);
+                                        if (false !== $chunk) {
+                                            gzwrite($dst_handle, $chunk);
+                                        }
 				}
 				fclose($src_handle);
 				gzclose($dst_handle);
@@ -380,11 +382,11 @@ class toba_manejador_archivos
 				toba::logger()->error("Comprimir archivo: $dst ya existe");
 			}
 		} else {
-			toba::logger()->error("Comprimir archivo: $src no existe");	    	
+			toba::logger()->error("Comprimir archivo: $src no existe");
 		}
 		return false;
-	 }	
-	 
+	 }
+
 	 /**
 	  * Devuelve si un directorio esta vacio o no
 	  * @param string $dir

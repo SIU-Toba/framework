@@ -283,7 +283,7 @@ class ci_subclases_generacion extends toba_ci
 				throw new toba_error('No se invoco correctamente en el visor de archivos PHP');
 			}
 			$clase_php = new toba_clase_php($archivo_php, $this->controlador()->get_metaclase());
-			$codigo = $clase_php->get_codigo($metodos, $opciones['incluir_comentarios'], $opciones['incluir_separadores']);
+			$codigo = $clase_php->get_codigo($metodos, $opciones['incluir_comentarios']??true, $opciones['incluir_separadores']??true);
 			$codigo = "\n".$codigo."\n";
 			return $codigo;
 		} else {

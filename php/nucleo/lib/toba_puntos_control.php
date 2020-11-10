@@ -3,7 +3,7 @@
  * Clase base de los Controles
  * @package Centrales
  */
-abstract class toba_control 
+abstract class toba_control
 {
 	private $mensaje = 'Ok !';
 	private $actua_como = 'M';
@@ -44,7 +44,7 @@ abstract class toba_control
 
   /**
    * Brinda servicios de información sobre el estado de los puntos de control
-   * 
+   *
    * @package Centrales
    */
 class toba_puntos_control
@@ -56,13 +56,13 @@ class toba_puntos_control
 	// ------------------------------------------------------------------------------------
 
 	/**
-	 * @ignore. 
+	 * @ignore.
 	 * @return toba_puntos_control
 	 */
 	static function instancia()
 	{
 		if (!isset(self::$instancia)) {
-		  self::$instancia = new toba_puntos_control();	
+		  self::$instancia = new toba_puntos_control();
 		}
 		return self::$instancia;
 	}
@@ -86,11 +86,11 @@ class toba_puntos_control
 	{
 		$data =& $this->get_bloque();
 
-		if (!array_key_exists($punto_control, $data)) {
+		if (! \array_key_exists($punto_control, $data)) {
 			throw new toba_error("El punto de control '$punto_control' no está definido.");
 		 }
 
-		if (!array_key_exists($parametro, $data[$punto_control]['parametros'])) {
+		if (! \array_key_exists($parametro, $data[$punto_control]['parametros'])) {
 			throw new toba_error("El parametro '$parametro' del punto de control '$punto_control' no está definido.");
 		}
 		$data[$punto_control]['parametros'][$parametro] = $valor;
@@ -106,7 +106,7 @@ class toba_puntos_control
 		// Recupero, si existe, el ultimo punto de control.
 		$punto_anterior = $this->get_ultimo_punto();
 		// Si el punto de control no existe: lo creo.
-		if (!array_key_exists($punto_control, $data)) {
+		if (! \array_key_exists($punto_control, $data)) {
 			// Creo el nuevo punto de control
 			$data[$punto_control] = array( 'parametros' => array(), 'controles' => array());
 
@@ -131,7 +131,7 @@ class toba_puntos_control
 				continue;
 			}
 
-			$values = array();		
+			$values = array();
 			//  1) El valor seteado en el ultimo punto de control ejecutado (si hubiera)
 			if (isset($punto_anterior) && $this->parametro_tiene_valor($punto_anterior, $parametro)) {
 				foreach ($this->get_valor_punto($punto_anterior, $parametro) as $key => $value) {
@@ -140,11 +140,11 @@ class toba_puntos_control
 			 }
 			//  2) Valores de los ef o las columnas de un objeto toba
 			foreach ($valores_item as $key => $value) {
-				if (array_key_exists($parametro, $value)) {
+				if (\array_key_exists($parametro, $value)) {
 					$values[] = $value[$parametro];
 				}
 			}
-			 // 3) Otro origen ? 
+			 // 3) Otro origen ?
 			$this->set_valor($punto_control, $parametro, $values);
 		}
 	}
@@ -155,29 +155,29 @@ class toba_puntos_control
 	private function &get_controles($punto_control)
 	{
 		$data =& $this->get_bloque();
-		if (! array_key_exists($punto_control, $data)) {
+		if (! \array_key_exists($punto_control, $data)) {
 			throw new toba_error("El punto de control '$punto_control' no está definido.");
 		}
 		return $data[$punto_control]['controles'];
 	}
 
 	/**
-	 * @ignore. Ejecuta un control de un punto de control. 
+	 * @ignore. Ejecuta un control de un punto de control.
 	 */
 	private function ejecutar_control($componente, $punto_control, $control)
 	{
 		//Ejecuto el control
 		$var = $this->get_valores_punto($punto_control);
-		$control->ejecutar($var);  
+		$control->ejecutar($var);
 		$control->set_actua_como($this->get_actua_como_control($punto_control, get_class($control)));
 		$resultado = $control->get_resultado();
-		
+
 		// Si falló invoco al CI
 		if ($resultado === false || $resultado < 0) {
 			$componente->controlador()->evt__falla_punto_control($punto_control, $control);
 		}
-		// Seteo el resultado  
-		$this->set_resultado_control($punto_control, $control);  
+		// Seteo el resultado
+		$this->set_resultado_control($punto_control, $control);
 	}
 
 	/**
@@ -186,10 +186,10 @@ class toba_puntos_control
 	private function set_resultado_control($punto_control, $control)
 	{
 		$data =& $this->get_bloque();
-		if (!array_key_exists($punto_control, $data)) {
+		if (! \array_key_exists($punto_control, $data)) {
 			throw new toba_error("El punto de control '$punto_control' no está definido.");
 		}
-		if (!array_key_exists(get_class($control), $data[$punto_control]['controles'])) {
+		if (! \array_key_exists(get_class($control), $data[$punto_control]['controles'])) {
 			throw new toba_error("El control '$control' no está definido en el punto de control '$punto_control' .");
 		}
 		$data[$punto_control]['controles'][get_class($control)]['resultado'] = $control->get_resultado();
@@ -205,7 +205,7 @@ class toba_puntos_control
 		$data =& $this->get_bloque();
 		$resultado = $control->get_resultado();
 
-		// Si el control falla entonces el punto de control queda 
+		// Si el control falla entonces el punto de control queda
 		// marcado como fallado
 		if ($resultado === false || $resultado < 0) {
 			$data["resultado"] = $resultado;
@@ -240,7 +240,7 @@ class toba_puntos_control
 	{
 		$data = $this->get_bloque();
 		if(isset($data)) return $data;
-	}  
+	}
 
 	/**
 	 * Retorna el id del ultimo punto de control ejecutado
@@ -249,7 +249,7 @@ class toba_puntos_control
 	{
 		// Recupero bloque de datos
 		$data =& $this->get_bloque();
-		foreach ($data as $key => $value) 
+		foreach ($data as $key => $value)
 		{
 			if ($key == 'actua_como' || $key == 'mensaje' || $key == 'resultado') {
 				continue;
@@ -268,7 +268,7 @@ class toba_puntos_control
 	{
 		// Recupero bloque de datos
 		$data =& $this->get_bloque();
-		if (!array_key_exists($punto_control, $data)) {
+		if (! \array_key_exists($punto_control, $data)) {
 			throw new toba_error("El punto de control '$punto_control' no está definido.");
 		}
 		if (!is_array($data[$punto_control]['parametros'])) {
@@ -283,7 +283,7 @@ class toba_puntos_control
 	public function parametro_tiene_valor($punto_control, $parametro)
 	{
 		$valores = $this->get_valores_punto($punto_control);
-		return array_key_exists($parametro, $valores);
+		return \array_key_exists($parametro, $valores);
 	}
 
 	/**
@@ -296,17 +296,17 @@ class toba_puntos_control
 	}
 
 	/**
-	 * Retorna si un control actua como mensaje o como advertencia. 
+	 * Retorna si un control actua como mensaje o como advertencia.
 	 * Los parametros son:
 	 */
 	public function get_actua_como_control($punto_control, $control)
 	{
 		// Recupero bloque de datos
 		$data =& $this->get_bloque();
-		if (!array_key_exists($punto_control, $data)) {
+		if (! \array_key_exists($punto_control, $data)) {
 			throw new toba_error("El punto de control '$punto_control' no está definido.");
 		 }
-		if (!array_key_exists($control, $data[$punto_control]['controles'])) {
+		if (! \array_key_exists($control, $data[$punto_control]['controles'])) {
 			throw new toba_error("El control '$control' no está definido en el punto de control '$punto_control' .");
 		}
 		return $data[$punto_control]['controles'][$control]['actua_como'];
@@ -316,7 +316,7 @@ class toba_puntos_control
 	{
 		// Recupero bloque de datos
 		$data =& $this->get_bloque();
-		if (array_key_exists("mensaje", $data)) {
+		if (\array_key_exists("mensaje", $data)) {
 			return $data["mensaje"];
 		}
 		return null;
@@ -326,7 +326,7 @@ class toba_puntos_control
 	{
 		// Recupero bloque de datos
 		$data =& $this->get_bloque();
-		if (array_key_exists("resultado", $data)) {
+		if (\array_key_exists("resultado", $data)) {
 			return $data["resultado"];
 		 }
 		return null;
@@ -336,7 +336,7 @@ class toba_puntos_control
 	{
 		// Recupero bloque de datos
 		$data =& $this->get_bloque();
-		if (array_key_exists("actua_como", $data)) {
+		if (\array_key_exists("actua_como", $data)) {
 			return $data["actua_como"];
 		 }
 		return null;
@@ -344,7 +344,7 @@ class toba_puntos_control
 
 	/**
 	 * Ejecuta los puntos de control de un ci sobre un componente para un evento especifico.
-	 * @param $id del ci en ejecucion (Se utiliza para determinar si debo retener o no los resultados.). 
+	 * @param $id del ci en ejecucion (Se utiliza para determinar si debo retener o no los resultados.).
 	 * @param $componente sobre el que se produce el evento.
 	 * @param $evento disparado.
 	 * @param $parametros del componente (Se utilizan para enviar como dato a cada uno de los controles).

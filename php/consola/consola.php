@@ -7,10 +7,10 @@ require_once('nucleo/toba_nucleo.php');
 
 /**
  * Clase que implementa un entorno para interactuar con la consola
- * 
+ *
  * TODO - interprete de comandos
  * TODO  - nombre abreviado de comandos
- * 
+ *
  * @package consola
  */
 class consola implements toba_proceso_gui
@@ -21,7 +21,7 @@ class consola implements toba_proceso_gui
 	protected 	$ubicacion_comandos;
 	protected	$menu;
 	protected $verbose = true;
-	
+
 	function __construct( $ubicacion_comandos, $clase_menu )
 	{
 		toba_nucleo::instancia();
@@ -42,7 +42,7 @@ class consola implements toba_proceso_gui
 
 	function get_ubicacion_comandos()
 	{
-		return $this->ubicacion_comandos;	
+		return $this->ubicacion_comandos;
 	}
 
 	function run( $argumentos )
@@ -54,7 +54,7 @@ class consola implements toba_proceso_gui
 				array_shift( $argumentos );
 				$this->invocar_comando( $comando, $argumentos );
 			} catch (toba_error $e ) {
-				$this->mensaje( $e->get_mensaje() );	
+				$this->mensaje( $e->get_mensaje() );
 				toba_logger::instancia()->error($e);
 			}
 		} else {
@@ -74,32 +74,18 @@ class consola implements toba_proceso_gui
 		if ( file_exists( $archivo ) ) {
 			require_once( $this->ubicacion_comandos .'/'.$clase_comando.'.php');
 			$comando = new $clase_comando( $this );
-			$comando->set_argumentos( $argumentos );			
+			$comando->set_argumentos( $argumentos );
 			$comando->procesar();
 		} else {
 			throw new toba_error("ERROR: El COMANDO '$nombre_comando' no existe.");
 		}
 	}
-	
+
 	function set_verbose($verbose)
 	{
 		$this->verbose = $verbose;
 	}
-	
-/*
-	function interprete()
-	{
-		fwrite(STDOUT, "Enter 'q' to quit\n");
-		do {
-		   do {	
-			   $selection =	fgetc(STDIN);
-		   } while ( trim($selection) == ''	);
-			echo $selection;
-		} while	( $selection !=	'q'	);
-		
-		exit(0); 
-	}
-*/
+
 	//-------------------------------------------------------------------------
 	// Primitivas de display
 	//-------------------------------------------------------------------------
@@ -115,7 +101,7 @@ class consola implements toba_proceso_gui
 			echo $texto;
 		}
 	}
-	
+
 	function separador( $texto='', $caracter='-' )
 	{
 		if($texto!='') $texto = "--  $texto  ";
@@ -132,7 +118,7 @@ class consola implements toba_proceso_gui
 		$this->linea_completa( null, '-' );
 		$this->imprimir("\n");
 	}
-	
+
 	function subtitulo( $texto )
 	{
 		$this->imprimir(self::display_prefijo_linea . $texto . "\n");
@@ -152,20 +138,20 @@ class consola implements toba_proceso_gui
 			$this->imprimir(self::display_prefijo_linea . $lineas[$i] . $extra);
 		}
 	}
-	
+
 	function progreso_avanzar()
 	{
-		$this->imprimir('.');	
+		$this->imprimir('.');
 	}
-	
+
 	function progreso_fin()
 	{
-		$this->imprimir("OK\n");	
-	}	
-	
+		$this->imprimir("OK\n");
+	}
+
 	function enter()
 	{
-		$this->imprimir("\n");	
+		$this->imprimir("\n");
 	}
 
 	/*
@@ -176,7 +162,9 @@ class consola implements toba_proceso_gui
 		toba_logger::instancia()->error($texto);
 		$lineas = toba_texto::separar_texto_lineas( $texto, self::$display_ancho );
 		foreach( $lineas as $linea ) {
-			fwrite( STDERR, self::display_prefijo_linea . $linea . "\n" );
+			if (false === fwrite( STDERR, self::display_prefijo_linea . $linea . "\n" )) {
+                            throw new Exception('No se pudo escribir en stderr');
+                        }
 		}
 	}
 
@@ -186,13 +174,13 @@ class consola implements toba_proceso_gui
 	*/
 	function coleccion( $coleccion )
 	{
-		$espacio_descripcion = self::$display_ancho - self::display_coleccion_espacio_nombre 
+		$espacio_descripcion = self::$display_ancho - self::display_coleccion_espacio_nombre
 								- strlen( self::display_prefijo_linea );
 		foreach( $coleccion as $nombre => $descripcion ) {
 			$lineas = toba_texto::separar_texto_lineas( $descripcion, $espacio_descripcion );
 			$this->mensaje( str_pad( $nombre, self::display_coleccion_espacio_nombre, ' ' ) . array_shift( $lineas ) );
 			foreach( $lineas as $linea ) {
-				$this->mensaje( str_repeat(' ', self::display_coleccion_espacio_nombre ) . $linea );	
+				$this->mensaje( str_repeat(' ', self::display_coleccion_espacio_nombre ) . $linea );
 			}
 		}
 	}
@@ -206,7 +194,7 @@ class consola implements toba_proceso_gui
 		$this->subtitulo( $titulo );
 		print_r( $arbol );
 	}
-	
+
 	/*
 	* Genera la salida de una linea completando el espacio faltante del display con un caracter
 	*/
@@ -229,10 +217,10 @@ class consola implements toba_proceso_gui
 				$datos[$i][0] = $l;
 				$i++;
 			}
-			$this->imprimir(Console_Table::fromArray( array( $titulo ), $datos ));	
+			$this->imprimir(Console_Table::fromArray( array( $titulo ), $datos ));
 		}
 	}
-	
+
 	function lista_asociativa( $lista, $titulo = null )
 	{
 		if( count( $lista ) > 0 ) {
@@ -243,11 +231,11 @@ class consola implements toba_proceso_gui
 				$i++;
 			}
 			if ( ! isset( $titulo ) ) {
-				$titulo = array( 'ID', 'Valor' );	
+				$titulo = array( 'ID', 'Valor' );
 			} else {
 				if ( ! is_array( $titulo ) ) $titulo = array( $titulo );
 			}
-			$this->imprimir(Console_Table::fromArray( $titulo, $datos ));	
+			$this->imprimir(Console_Table::fromArray( $titulo, $datos ));
 		}
 	}
 
@@ -256,10 +244,10 @@ class consola implements toba_proceso_gui
 		if ( count( $tabla ) > 0 ) {
 			$this->imprimir(Console_Table::fromArray( $titulos, $tabla ));
 		} else {
-			self::mensaje('...No hay DATOS!');	
+			self::mensaje('...No hay DATOS!');
 		}
 	}
-	
+
 	//------------------------------------------------------------------------
 	// Interaccion con el usuario
 	//------------------------------------------------------------------------
@@ -268,11 +256,11 @@ class consola implements toba_proceso_gui
 	{
 		$this->imprimir("$texto (Si o No)\n");
 		if (isset($extra)) {
-			$this->imprimir($extra);		
-		}		
+			$this->imprimir($extra);
+		}
 		do {
 			$this->imprimir("(s/n):");
-		
+
 			$respuesta = trim( fgets( STDIN ) );
 			if (isset($defecto) && $respuesta == '') {
 				$respuesta = ($defecto) ? 's' : 'n';
@@ -281,7 +269,7 @@ class consola implements toba_proceso_gui
 		} while ( ! $ok );
 		if( $respuesta == 's') return true;
 		return false;
-	}	
+	}
 
 	function dialogo_ingresar_texto( $categoria, $obligatorio = true )
 	{
@@ -297,8 +285,8 @@ class consola implements toba_proceso_gui
 	*	Muestra una lista de opciones y espera que el usuario seleccione.
 	*		Soporta: multiple selecciones, seleccion no obligaroria (--) y seleccion por defecto (vacio).
 	*/
-	function dialogo_lista_opciones( $opciones, $texto, $multiple_seleccion = false, 
-									$titulo = 'VALORES', $obligatorio = true, 
+	function dialogo_lista_opciones( $opciones, $texto, $multiple_seleccion = false,
+									$titulo = 'VALORES', $obligatorio = true,
 									$defecto = null, $defecto_texto = '' )
 	{
 		self::subtitulo( $texto );
@@ -325,9 +313,9 @@ class consola implements toba_proceso_gui
 			$respuesta = trim( fgets( STDIN ) );
 			if (isset($defecto) && $respuesta == '') {
 				return $defecto;
-			}	
+			}
 			if ( ! $obligatorio && $respuesta == '--' ) {	// Salida para opcionales
-				return ($multiple_seleccion) ? array() : null;				
+				return ($multiple_seleccion) ? array() : null;
 			}
 			if ( $multiple_seleccion ) {
 				$ok = true;
@@ -347,7 +335,7 @@ class consola implements toba_proceso_gui
 			}
 		} while ( true );
 	}
-	
+
 	function get_formulario( $titulo )
 	{
 		return new formulario_consola( $this, $titulo );

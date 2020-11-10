@@ -3,14 +3,14 @@ abstract class test_toba extends UnitTestCase
 {
 	function tearDown()
 	{
-		$this->restaurar_estado($this->sentencias_restauracion());	
+		$this->restaurar_estado($this->sentencias_restauracion());
 	}
 
 	protected function sentencias_restauracion()
 	{
 		return array();
 	}
-	
+
 	protected function restaurar_estado($sentencias)
 	{
 		foreach ($sentencias as $sql) {
@@ -19,45 +19,45 @@ abstract class test_toba extends UnitTestCase
 			}catch(toba_error_db $e){
 				$this->Fail("Error restaurando estado:\n$sql\n". $e->getMessage());
 			}
-		}	
+		}
 	}
-	
+
 	function run(&$reporter)
     {
 		$this->pre_run();
 		parent::run($reporter);
 		$this->post_run();
     }
-       
+
     function pre_run()
     {
     	toba_constructor::set_refresco_forzado(true);
     }
-    
+
     function post_run(){}
-    
+
 	///---------- MOCK del HILO
 	function mentir_hilo()
 	{
 		global $solicitud;
 		$this->hilo_orig = $solicitud->hilo;
-		$solicitud->hilo = new hilo_version_test();	
-	}	
-	
+		$solicitud->hilo = new hilo_version_test();
+	}
+
 	function restaurar_hilo()
 	{
 		global $solicitud;
-		$solicitud->hilo = $this->hilo_orig;	
+		$solicitud->hilo = $this->hilo_orig;
 	}
-	
-	
+
+
     function assertEqualArray($first, $second, $message = "%s") {
         return $this->assertExpectation(
                 new EqualArrayExpectation($first),
                 $second,
                 $message);
     }
-	
+
 	abstract function get_descripcion();
 }
 
@@ -73,7 +73,7 @@ class EqualArrayExpectation extends SimpleExpectation
 
     function es_igual($array1, $array2, $component)
     {
-        if (array_key_exists($component,$array1) AND array_key_exists($component,$array2)){
+        if (\array_key_exists($component,$array1) AND \array_key_exists($component,$array2)){
 
             if (($array2[$component] === NULL) AND ($array1[$component] === NULL)){
                 return true;}
