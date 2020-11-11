@@ -4,6 +4,10 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.3.15](https://github.com/SIU-Toba/framework/releases/tag/v3.3.15) (2020-11-11)
+- Mejora fix JS en ef_fecha
+- Fixes varios relacionados a PHP 7.4
+
 [3.3.14](https://github.com/SIU-Toba/framework/releases/tag/v3.3.14) (2020-11-05)
 - Indica en composer.json los paquetes a excluir de Satis (composer 2.0)
 - Fix JS en disparo de validacion ef_fecha y ef_fecha_hora 
