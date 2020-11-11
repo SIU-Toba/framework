@@ -6,7 +6,7 @@ class toba_analizador_logger_fs
 	protected $filtros;
 	protected $ultimo_lugar;
 	protected $procesar_entidades_html = true;
-	
+
 	function __construct($archivo)
 	{
 		$this->archivo = $archivo;
@@ -16,7 +16,7 @@ class toba_analizador_logger_fs
 	{
 		$this->procesar_entidades_html = $activar;
 	}
-		
+
 	function analizar_cuerpo($log)
 	{
 		$cuerpo = array();
@@ -25,7 +25,7 @@ class toba_analizador_logger_fs
 		$patron = "/\[(";
 		$patron .= implode("|", $niveles);
 		$patron .= ")\]/";
-		
+
 		$res = preg_split($patron, $texto, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
 		//Se mezclan el nivel y el mensaje en un arreglo
 		for ($i = 0; $i < count($res); $i+=2) {
@@ -34,11 +34,11 @@ class toba_analizador_logger_fs
 			$proy = substr($mensaje, 1, $bracket_cierra-1);
 			$mens = trim(substr($mensaje, $bracket_cierra+1));
 			$cuerpo[] = array('nivel' => $res[$i], 'proyecto'=>$proy, 'mensaje' => $mens);
-			
+
 		}
 		return $cuerpo;
 	}
-	
+
 	function analizar_encabezado($log)
 	{
 		$encabezado = substr($log, 0, strpos($log, toba_logger::$fin_encabezado));
@@ -51,8 +51,8 @@ class toba_analizador_logger_fs
 			$basicos[strtolower(trim($clave))] = trim($valor);
 		}
 		return $basicos;
-	}	
-		
+	}
+
 
 	function get_pedido($seleccion)
 	{
@@ -72,7 +72,7 @@ class toba_analizador_logger_fs
 		$logs = $this->get_logs_archivo();
 		return $logs[$seleccion-1];
 	}
-	
+
 	/**
 	 * Recorre en inversa el archivo tratando de encontrar el limite de la ultima seccion
 	 * @return array Texto del ultimo pedido, ¿Queda algo antes?
@@ -91,29 +91,31 @@ class toba_analizador_logger_fs
 			fseek($fp, $pos, SEEK_END);
 			$hay_mas_para_leer = (abs($pos) < $total);
 			$acumulado = fread($fp, $franja_acum);
-			$ocurrencia = strrpos($acumulado, toba_logger::$separador);
-			if ($ocurrencia !== false) {
-				//Se encontro el separador, una parte del acumulado pertenece a este pedido
-				$encontrado = true;
-				$acumulado = substr($acumulado, $ocurrencia + strlen(toba_logger::$separador));
-				$hay_algo_antes =  $hay_mas_para_leer || ($ocurrencia !== 0);
-			}
-			$franja_acum += $franja;
+                        if ($acumulado !== false) {
+                            $ocurrencia = strrpos($acumulado, toba_logger::$separador);
+                            if ($ocurrencia !== false) {
+                                    //Se encontro el separador, una parte del acumulado pertenece a este pedido
+                                    $encontrado = true;
+                                    $acumulado = substr($acumulado, $ocurrencia + strlen(toba_logger::$separador));
+                                    $hay_algo_antes =  $hay_mas_para_leer || ($ocurrencia !== 0);
+                            }
+                            $franja_acum += $franja;
+                        }
 		} while (!$encontrado && $hay_mas_para_leer);
-		
+
 		fclose($fp);
 		if (isset($this->filtros) && (!empty($this->filtros))){
 			if (! $this->cumple_criterio_filtro($acumulado)){
 					return null;
 			}
-		}		
+		}
 		return $acumulado;
 	}
-	
+
 	function get_logs_archivo()
 	{
 		if (!file_exists($this->archivo)) {
-			return array();	
+			return array();
 		}
 		$texto = trim(file_get_contents($this->archivo));
 		$logs = explode(toba_logger::$separador , $texto);
@@ -138,20 +140,20 @@ class toba_analizador_logger_fs
 		}
 		if (isset($this->filtros) && (!empty($this->filtros))){
 					$logs = $logs_filtrados;
-		}				
+		}
 		return $logs;
 	}
-	
+
 	function get_cantidad_pedidos()
 	{
 		$logs = $this->get_logs_archivo();
 		$this->ultimo_lugar = count($logs);
 		return $this->ultimo_lugar;
 	}
-	
+
 	function get_archivo_nombre()
 	{
-		return $this->archivo;	
+		return $this->archivo;
 	}
 
 	function set_filtro($filtro)

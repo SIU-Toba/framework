@@ -2,35 +2,35 @@
 class toba_test extends UnitTestCase
 {
 	protected $separar_pruebas=false;
-	
+
 	function separar_pruebas($estado=false)
 	{
 		$this->separar_pruebas = $estado;
 	}
-	
+
 	function tearDown()
 	{
-		$this->restaurar_estado($this->sentencias_restauracion());	
+		$this->restaurar_estado($this->sentencias_restauracion());
 	}
 
 	protected function sentencias_restauracion()
 	{
 		return array();
 	}
-	
+
 	protected function restaurar_estado($sentencias)
 	{
 		foreach ($sentencias as $sql) {
 			$rs = toba_contexto_info::get_db()->ejecutar($sql);
 			if (!$rs)
 			    $this->Fail("Error restaurando estado:\n$sql\n".toba_contexto_info::get_db()->ErrorMsg());
-		}	
+		}
 	}
 
 	/*
 	*	Crea un runner customizado por toba (agrega separaciones en el LOG por test)
 	*/
-	function &_createRunner(&$reporter) 
+	function &_createRunner(&$reporter)
 	{
 		$runner = new toba_test_runner($this, $reporter);
 		if($this->separar_pruebas) {
@@ -38,43 +38,43 @@ class toba_test extends UnitTestCase
 		}
 		return $runner;
 	}
-	
+
 	function run($reporter)
 	{
 		$this->pre_run();
 		parent::run($reporter);
 		$this->post_run();
 	}
-       
+
 	function pre_run()
 	{
 		toba_constructor::set_refresco_forzado(true);
 	}
-    
+
 	function post_run(){}
-    
+
 	///---------- MOCK del HILO
 	function mentir_hilo()
 	{
 		global $solicitud;
 		$this->hilo_orig = $solicitud->hilo;
-		$solicitud->hilo = new hilo_version_test();	
-	}	
-	
+		$solicitud->hilo = new hilo_version_test();
+	}
+
 	function restaurar_hilo()
 	{
 		global $solicitud;
-		$solicitud->hilo = $this->hilo_orig;	
+		$solicitud->hilo = $this->hilo_orig;
 	}
-	
-	
+
+
 	function assertEqualArray($first, $second, $message = "%s") {
 		return $this->assertExpectation(
 				new EqualArrayExpectation($first),
 				$second,
 				$message);
 	}
-	
+
 	function get_proyecto() {
 		return toba_editor::activado() ? toba_editor::get_proyecto_cargado() : toba::proyecto()->get_id();
 	}
@@ -95,7 +95,7 @@ class EqualArrayExpectation extends SimpleExpectation
 
     function es_igual($array1, $array2, $component)
     {
-        if (array_key_exists($component,$array1) AND array_key_exists($component,$array2)){
+        if (\array_key_exists($component,$array1) AND \array_key_exists($component,$array2)){
 
             if (($array2[$component] === NULL) AND ($array1[$component] === NULL)){
                 return true;}

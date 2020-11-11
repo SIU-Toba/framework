@@ -13,7 +13,7 @@
 
 /**
  * Base BigMath class which will be extended by a big-integer math library
- * such as bcmath or gmp. 
+ * such as bcmath or gmp.
  */
 abstract class BigMath {
 
@@ -29,10 +29,10 @@ abstract class BigMath {
   /**
    * Converts the specified positive integer to the shortest possible
    * big-endian, two's complement representation.
-   * 
+   *
    * @param long The integer to be converted
    * @return the btwoc representation of the integer
-   */    
+   */
   public function btwoc($long) {
     $cmp = $this->cmp($long, 0);
 
@@ -68,7 +68,7 @@ abstract class BigMath {
    * original integer.
    *
    * @param str The btwoc representation to be "undone"
-   * @return The corresponding integer 
+   * @return The corresponding integer
    */
   public function btwoc_undo($str) {
     if ($str == null) {
@@ -95,13 +95,13 @@ abstract class BigMath {
    * Returns a random number up to the specified maximum.
    *
    * @param max The maximum value to return
-   * @return A random number between 0 and the specified max 
+   * @return A random number between 0 and the specified max
    */
   public function rand($max) {
     // Used as the key for the duplicate cache
     $rbytes = $this->btwoc($max);
 
-    if (array_key_exists($rbytes, $this->duplicate_cache)) {
+    if (\array_key_exists($rbytes, $this->duplicate_cache)) {
       list($duplicate, $nbytes) = $this->duplicate_cache[$rbytes];
     } else {
       if ($rbytes[0] == "\x00") {
@@ -156,7 +156,7 @@ abstract class BigMath {
         $bytes .= pack('L', mt_rand());
       }
       return substr($bytes, 0, $num_bytes);
-    }      
+    }
   }
 
   public abstract function init($number, $base = 10);
@@ -217,7 +217,7 @@ abstract class BigMath {
 
   /**
    * Returns a singleton instance of the best possible BigMath class.
-   * 
+   *
    * @return A singleton instance to a BigMath class.
    */
   public static function &getBigMath() {

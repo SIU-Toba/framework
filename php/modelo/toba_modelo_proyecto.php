@@ -1430,7 +1430,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			if (! empty($errores)) {
 				foreach (array_keys($errores) as $clave) {
 					$id_item = (isset($errores[$clave]['datos']['item']))?  $errores[$clave]['datos']['item'] : null;
-					if ($errores[$clave]['tabla'] == 'apex_usuario_grupo_acc_item' && array_key_exists($id_item, $items)) {
+					if ($errores[$clave]['tabla'] == 'apex_usuario_grupo_acc_item' && \array_key_exists($id_item, $items)) {
 						if (! is_null($id_item) && isset($items[$id_item])) {
 							$errores[$clave]['extras'] = $items[$id_item];
 						} else {

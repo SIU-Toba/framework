@@ -1030,7 +1030,7 @@ class CAS_Client
     public function hasAttribute($key)
     {
         return (is_array($this->_attributes)
-            && array_key_exists($key, $this->_attributes));
+            && \array_key_exists($key, $this->_attributes));
     }
 
     /**

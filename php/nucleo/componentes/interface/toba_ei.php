@@ -30,7 +30,7 @@ abstract class toba_ei extends toba_componente
 	protected $_nombre_formulario;
 	protected $_posicion_botonera;
 	protected static $refresh_ejecuta_eventos = false;
-	protected $_notificaciones = array();	
+	protected $_notificaciones = array();
 	protected $_mostrar_barra_superior = true;			// Indica si se muestra o no la barra superior
 	protected $xml_ns = '';
 	protected $xml_ns_url = '';
@@ -46,7 +46,7 @@ abstract class toba_ei extends toba_componente
 	protected $xml_alto_cabecera;
 	protected $xml_copia;
 	protected $xml_margenes=array("sup"=>false,"inf"=>false, "izq"=>false, "der"=>false);
-	
+
 	function __construct($definicion)
 	{
 		parent::__construct($definicion);
@@ -63,18 +63,18 @@ abstract class toba_ei extends toba_componente
 	static function set_refresh_ejecuta_eventos($activado=true)
 	{
 		self::$refresh_ejecuta_eventos = $activado;
-	}	
+	}
 
 	/**
 	 * Extensión de la construcción del componente
 	 * No recomendado como ventana de extensión, salvo que se asegure llamar al padre
-	 * @ignore 
+	 * @ignore
 	 */
 	protected function preparar_componente()
 	{
-		$this->cargar_lista_eventos();	
+		$this->cargar_lista_eventos();
 	}
-	
+
 	/**
 	 * Destructor del componente
 	 */
@@ -94,18 +94,18 @@ abstract class toba_ei extends toba_componente
 					if($evento->maneja_datos()){
 						$val = apex_ei_evt_maneja_datos;
 					}else{
-						$val = apex_ei_evt_no_maneja_datos;	
+						$val = apex_ei_evt_no_maneja_datos;
 					}
 					$this->_memoria['eventos'][$id] = $val;
 				}
 			}
 		}
 		parent::destruir();
-	}	
-	
+	}
+
 	/**
 	 * Espacio donde el componente deja su estado interno listo para la configuración del componente
-	 * @ignore 
+	 * @ignore
 	 */
 	function pre_configurar()
 	{
@@ -113,17 +113,17 @@ abstract class toba_ei extends toba_componente
 
 	/**
 	 * Espacio donde el componente cierra su configuración
-	 * @ignore 
+	 * @ignore
 	 */
 	function post_configurar()
 	{
 		$this->filtrar_eventos();
 		$this->aplicar_restricciones_funcionales();
 	}
-	
+
 	/**
 	 * Se aplican las restricciones funcionales posibles para este componente
-	 * @ignore 
+	 * @ignore
 	 */
 	protected function aplicar_restricciones_funcionales()
 	{
@@ -137,9 +137,9 @@ abstract class toba_ei extends toba_componente
 				}
 			}
 		}
-		//--------------------------------------------------		
+		//--------------------------------------------------
 	}
-	
+
 	//--------------------------------------------------------------------
 	//--  EVENTOS   ------------------------------------------------------
 	//--------------------------------------------------------------------
@@ -171,9 +171,9 @@ abstract class toba_ei extends toba_componente
 		if(isset($this->_eventos_usuario[ $id ])){
 			$this->_eventos_usuario_utilizados[ $id ] = $this->_eventos_usuario[ $id ];
 		} else {
-			throw new toba_error_def($this->get_txt(). 
+			throw new toba_error_def($this->get_txt().
 					" Se quiere agregar el EVENTO '$id', pero no está definido.");
-		}		
+		}
 	}
 
 	/**
@@ -188,7 +188,7 @@ abstract class toba_ei extends toba_componente
 				$existe = true;
 			}//if
 		}//if
-		
+
 		return $existe;
 	}
 
@@ -200,33 +200,33 @@ abstract class toba_ei extends toba_componente
 	{
 		if(isset($this->_eventos_usuario[ $id ])){
 			if(isset($this->_eventos_usuario_utilizados[ $id ])){
-				if (isset($this->_evento_implicito) && 
+				if (isset($this->_evento_implicito) &&
 						$this->_evento_implicito === $this->_eventos_usuario_utilizados[ $id ]) {
 					unset($this->_evento_implicito);
 				}
 				unset($this->_eventos_usuario_utilizados[ $id ]);
 				toba::logger()->debug("Se elimino el evento: $id", 'toba');
-			}		
+			}
 		} else {
-			throw new toba_error_def($this->get_txt(). 
+			throw new toba_error_def($this->get_txt().
 					" Se quiere eliminar el EVENTO '$id', pero no está definido.");
-		}		
+		}
 	}
 
 	/**
 	 * Especifica si el disparo de los eventos implicitos debe estar asociado al cambio de datos o no
-	 * @param boolean $disparo 
+	 * @param boolean $disparo
 	 */
 	function set_disparo_eventos_condicionado_datos($disparo = true)
 	{
-		$this->_disparo_evento_condicionado_a_datos = $disparo;		
+		$this->_disparo_evento_condicionado_a_datos = $disparo;
 	}
-	
+
 	//--- Manejo interno --------------------------------------
-	
+
 	/**
 	 * Carga la lista de eventos definidos desde el editor
-	 * @ignore 
+	 * @ignore
 	 */
 	protected function cargar_lista_eventos()
 	{
@@ -257,11 +257,11 @@ abstract class toba_ei extends toba_componente
 		}
 		return $this->_eventos_usuario_utilizados_sobre_fila;
 	}
-	
+
 	/**
 	 * Retorna la cantidad de eventos que fueron definidos a nivel de fila
 	 * @return integer
-	 */	
+	 */
 	function cant_eventos_sobre_fila()
 	{
 		return count( $this->get_eventos_sobre_fila() );
@@ -269,13 +269,13 @@ abstract class toba_ei extends toba_componente
 
 	/**
 	 * Inicia la etapa de eventos en este componente
-	 * @ignore 
+	 * @ignore
 	 */
 	function disparar_eventos(){}
 
 	/**
 	 * Borra los eventos ejecutados de la memoria para que no se vuelvan a reejecutar con un REFRESH
-	 * @ignore 
+	 * @ignore
 	 */
 	function borrar_memoria_eventos_atendidos()
 	{
@@ -285,7 +285,7 @@ abstract class toba_ei extends toba_componente
 			}
 		}
 	}
-		
+
 	/**
 	 * Reporta un evento en el componente controlador
 	 * Puede recibir N parametros adicionales (ej <pre>$this->reportar_evento('modificacion', $datos, $fila,...)</pre>)
@@ -308,10 +308,10 @@ abstract class toba_ei extends toba_componente
 			$parametros = func_get_args();
 			$parametros	= array_merge(array($this->_id_en_controlador), $parametros);
 			return call_user_func_array( array($this->controlador, 'registrar_evento_interno'), $parametros);
-		}		
+		}
 	}
-	
-	
+
+
 	/**
 	 * Retorna todos los eventos definidos por el usuario, excluyendo los internos del componente
 	 * @return array(toba_evento_usuario)
@@ -324,7 +324,7 @@ abstract class toba_ei extends toba_componente
 	/**
 	 * Retorna todos los eventos definidos por el componente (llamados internos), excluyendo los definidos por el usuario
 	 * @return array(toba_evento_usuario)
-	 */	
+	 */
 	function get_lista_eventos_internos()
 	{
 		return $this->_eventos;
@@ -379,7 +379,7 @@ abstract class toba_ei extends toba_componente
 	}
 
 	//--- Manejo de grupos de eventos --------------------------------------
-	
+
 	/**
 	 * Activa un grupo de eventos, excluyendo a aquellos eventos que no pertenecen al mismo
 	 * @param string $grupo Id del grupo de eventos
@@ -388,19 +388,19 @@ abstract class toba_ei extends toba_componente
 	{
 		$this->_grupo_eventos_activo = $grupo;
 	}
-	
+
 	/**
 	 * Retorna el grupo de eventos activos
 	 * @return string
 	 */
 	function get_grupo_eventos_activo()
 	{
-		return $this->_grupo_eventos_activo;	
+		return $this->_grupo_eventos_activo;
 	}
 
 	/**
 	 * Dispara el filtrado de eventos en base a grupos y a restricciones funcionales
-	 * @ignore 
+	 * @ignore
 	 */
 	protected function filtrar_eventos()
 	{
@@ -408,7 +408,7 @@ abstract class toba_ei extends toba_componente
 		$keys_evt = array_keys($this->_eventos_usuario_utilizados);
 		foreach($keys_evt as $id) {
 			if ($this->_eventos_usuario_utilizados[$id]->posee_grupo_asociado()) {
-				if(!isset($grupo)){ 
+				if(!isset($grupo)){
 					//No hay un grupo activo, no lo muestro
 					unset($this->_eventos_usuario_utilizados[$id]);
 					toba::logger()->debug("Se filtro el evento: $id", 'toba');
@@ -421,7 +421,7 @@ abstract class toba_ei extends toba_componente
 				}
 			}
 		}
-		
+
 	}
 
 	//--- BOTONES -------------------------------------------------
@@ -447,17 +447,17 @@ abstract class toba_ei extends toba_componente
 	 * Retorna true si alguno de los eventos definidos por el usuario se va a graficar en la botonera del componente
 	 * @return boolean
 	 */
-	function hay_botones() 
+	function hay_botones()
 	{
-		foreach ($this->_eventos_usuario_utilizados as $evento) {	
+		foreach ($this->_eventos_usuario_utilizados as $evento) {
 			if ( $evento->esta_en_botonera() ) {
 				if( !in_array($evento->get_id(), $this->_botones_graficados_ad_hoc ) ) {
 					return true;
-				}				
+				}
 			}
 		}
 		return false;
-	}	
+	}
 
 	/**
 	 * Genera la botonera del componente
@@ -473,8 +473,8 @@ abstract class toba_ei extends toba_componente
 		} elseif ($extra != '') {
 			echo $extra;
 		}
-	}	
-	
+	}
+
 	/**
 	 * Genera los botones de todos los eventos marcados para aparecer en la botonera.
 	 */
@@ -503,7 +503,7 @@ abstract class toba_ei extends toba_componente
 		}
 		//--- Utilidades de impresion
 		if ( $evento->posee_accion_imprimir() ) {
-			$this->_utilizar_impresion_html = true;					
+			$this->_utilizar_impresion_html = true;
 		}
 		if( ! $evento->esta_anulado() ) {
 			$salida .= $evento->get_html($this->_submit, $this->objeto_js, $this->_id);
@@ -530,15 +530,15 @@ abstract class toba_ei extends toba_componente
 			return $salida;
 		} else {
 			echo $salida;
-		}		
+		}
 	}
 
 	//--------------------------------------------------------------------
 	//--  PUNTOS DE CONTROL ----------------------------------------------
 	//--------------------------------------------------------------------
-	
+
 	/**
-	 * Determina si el componente tiene algún punto de control asignado para un evento 
+	 * Determina si el componente tiene algún punto de control asignado para un evento
 	 * @param string $evento Id. del evento
 	 * @see toba_puntos_control
 	 * @return boolean
@@ -577,9 +577,9 @@ abstract class toba_ei extends toba_componente
 	 */
 	function agregar_notificacion($mensaje, $tipo='info')
 	{
-		$this->_notificaciones[] = array('mensaje' => $mensaje, 'tipo' => $tipo);		
-	}	
-	
+		$this->_notificaciones[] = array('mensaje' => $mensaje, 'tipo' => $tipo);
+	}
+
 	/**
 	 * Fuerza a que el componente se grafique colpsado, pudiendo el usuario descolapsarlo posteriormente
 	 */
@@ -588,15 +588,15 @@ abstract class toba_ei extends toba_componente
 		$this->_colapsado = true;
 		$this->_info['colapsable'] = true;
 	}
-	
+
 	/**
 	 * Fuerza a que el componente se grafique descolapsado, pudiendo el usuario colapsarlo posteriormente
 	 */
 	function descolapsar()
 	{
 		$this->colapsado = false;
-	} 	
-	
+	}
+
 	/**
 	 * Determina si el componente podra ser colapsado/descolapsado por el usuario
 	 * @param boolean $colapsable Si o no se permite colapsar
@@ -617,18 +617,18 @@ abstract class toba_ei extends toba_componente
 	{
 		$this->_info['titulo'] = $titulo;
 	}
-	
+
 	/**
 	 * Cambia la descripción del componente para el servicio actual
 	 * @param string $desc
 	 * @param string $tipo Puede ser 'info', 'warning', 'error'
-	 */	
+	 */
 	function set_descripcion($desc, $tipo='info')
 	{
 		$this->_info["descripcion"] = $desc;
 		$this->_info["descripcion_tipo"] = $tipo;
 	}
-	
+
 	/**
 	 * Cambia el modo en el que se muestra la descripción del componente (por defecto con un tooltip)
 	 * @param boolean $tooltip Si es false la descripción se muestra como una barra aparte
@@ -637,7 +637,7 @@ abstract class toba_ei extends toba_componente
 	{
 		$this->_modo_descripcion_tooltip = $tooltip;
 	}
-		
+
 	/**
 	 * Genera la barra con el título y los íconos
 	 *
@@ -648,10 +648,10 @@ abstract class toba_ei extends toba_componente
 	function generar_html_barra_sup($titulo=null, $control_titulo_vacio=false, $estilo="")
 	{
 		if ($this->_mostrar_barra_superior) {
-			
+
 			$botonera_en_item = false;
 			if (isset($this->_info_ci['botonera_barra_item']) && $this->_info_ci['botonera_barra_item']) {
-				$botonera_en_item = true;	 			
+				$botonera_en_item = true;
 			}
 			$botonera_sup = $this->hay_botones() && isset($this->_posicion_botonera) && ($this->_posicion_botonera == "arriba" ||
 					 $this->_posicion_botonera == "ambos") && ! $botonera_en_item;
@@ -659,36 +659,36 @@ abstract class toba_ei extends toba_componente
 			$fuerza_titulo = (isset($this->_info_cuadro) && $this->_info_cuadro['siempre_con_titulo'] == '1');
 			if ($botonera_sup || !$control_titulo_vacio || $tiene_titulo || $fuerza_titulo) {
 				if (!isset($titulo)) {
-					$titulo = $this->_info["titulo"];	
+					$titulo = $this->_info["titulo"];
 				}
-				
+
 				//---Barra de colapsado
 				$colapsado = "";
 				// Se colapsa cuando no hay botones o cuando hay pero no esta la botonera arriba
-				$colapsado_coherente = (! $this->hay_botones() || ($this->hay_botones() && !$this->botonera_arriba()));	
+				$colapsado_coherente = (! $this->hay_botones() || ($this->hay_botones() && !$this->botonera_arriba()));
 				if ($this->_info['colapsable'] && isset($this->objeto_js) && $colapsado_coherente) {
 					$colapsado = "style='cursor: pointer; cursor: hand;' onclick=\"{$this->objeto_js}.cambiar_colapsado();\" title='Mostrar / Ocultar'";
 				}
-				
+
 				echo toba::output()->get('ElementoInterfaz')->getInicioBarraSuperior($tiene_titulo, $botonera_sup, $estilo, $colapsado);
-				
+
 				//--> Botonera
 				if ($botonera_sup) {
 					$this->generar_botones();
-				}						
-			
+				}
+
 				echo toba::output()->get('ElementoInterfaz')->getContenidoBarraSuperior($titulo, $this->_info["descripcion"], $this->_modo_descripcion_tooltip, $this->_info['colapsable'], $colapsado_coherente, $this->objeto_js,$colapsado);
-				//---Titulo			
+				//---Titulo
 				echo toba::output()->get('ElementoInterfaz')->getFinBarraSuperior();
-				
+
 				//echo ei_barra_fin();
 			}
-			
+
 			//--- Descripcion con barra. Muestra una barra en lugar de un tooltip
 			if(trim($this->_info["descripcion"])!="" &&  !$this->_modo_descripcion_tooltip){
 				$tipo = isset($this->_info['descripcion_tipo']) ? $this->_info['descripcion_tipo'] : null;
 				$this->generar_html_descripcion($this->_info['descripcion'], $tipo);
-			}		
+			}
 			echo "<div id='{$this->_submit}_notificacion'>";
 			foreach ($this->_notificaciones as $notificacion){
 				$this->generar_html_descripcion($notificacion['mensaje'], $notificacion['tipo']);
@@ -696,19 +696,19 @@ abstract class toba_ei extends toba_componente
 			echo "</div>";
 			$this->_notificaciones = array();
 		}
-		
+
 	}
-	
+
 	/**
 	 * Configura la visibilidad de la barra superior
- 	 * 
+ 	 *
 	 */
 	function mostrar_barra_superior($estado=true)
 	{
 		$this->_mostrar_barra_superior = $estado;
 	}
 
-	
+
 	/**
 	 * Genera una descripcion HTML para informar la ocurrencia de algun evento
 	 * @ignore
@@ -717,58 +717,58 @@ abstract class toba_ei extends toba_componente
 	{
 		echo toba::output()->get("ElementoInterfaz")->getHtmlDescripcion($mensaje, $tipo);
 	}
-	
+
 	/**
-	 * @ignore 
+	 * @ignore
 	 */
 	function get_nombre_clase()
 	{
 		return str_replace('objeto', 'toba', $this->_info['clase']);
-	}	
+	}
 
 	/**
-	 * @ignore 
+	 * @ignore
 	 */
 	function get_html_barra_editor()
 	{
 		$salida = '';
 		$servicio = toba::memoria()->get_servicio_solicitado();
-		if( toba_editor::modo_prueba() && ($servicio == 'generar_html' || $servicio == 'html_parcial') ){ 
+		if( toba_editor::modo_prueba() && ($servicio == 'generar_html' || $servicio == 'html_parcial') ){
 			$salida .= "<div class='div-editor'>";
 			$salida .= toba_editor::generar_zona_vinculos_componente($this->_id, $this->_info['clase_editor_item'], $this->_info['clase'],
 										$this->_info['subclase'] != '');
 			$id_dep = ($this->_id_en_controlador)? '&nbsp;<strong>'.$this->_id_en_controlador.'</strong>&nbsp;-' : '';
 			$salida .= $id_dep . '&nbsp;[' .$this->_info['objeto'] . ']&nbsp;' . $this->_info["nombre"];
 			$salida .= "</div>";
-		}		
+		}
 		return $salida;
 	}
-	
+
 	/**
 	 * Retorna el identificador base para los campos HTML
 	 * @return string
 	 */
 	function get_id_form()
 	{
-		return $this->_submit;	
-	}	
-	
+		return $this->_submit;
+	}
+
 	//-----------------------------------------
 	//--  JAVASCRIPT --------------------------
 	//-----------------------------------------
-	
+
 	/**
 	 * @return array Liberias js a utilizar, se especifican con el path relativo a www/js sin la extension .js
-	 * @ignore 
+	 * @ignore
 	 */
 	function get_consumo_javascript()
 	{
 		return array('componentes/ei');
 	}
-	
+
 	/**
 	 * Sentencias de creacion, extensión e inicialización en js del objeto js que controla este componente
-	 * @ignore 
+	 * @ignore
 	 */
 	function generar_js()
 	{
@@ -778,7 +778,7 @@ abstract class toba_ei extends toba_componente
 		$this->extender_objeto_js();
 		echo "\n";
 		$this->iniciar_objeto_js();
-		echo "$identado//-----------------------------------------------------------------  \n";		
+		echo "$identado//-----------------------------------------------------------------  \n";
 		return $this->objeto_js;
 	}
 
@@ -793,29 +793,29 @@ abstract class toba_ei extends toba_componente
 
 	/**
 	 * Sentencia de creacion del componente en javascript
-	 * @ignore 
-	 */	
+	 * @ignore
+	 */
 	protected function crear_objeto_js()
 	{
 		$identado = toba_js::instancia()->identado();
 		echo $identado."window.{$this->objeto_js} = new ei('{$this->objeto_js}','{$this->_submit}');\n";
 	}
-	
+
 	/**
 	 * Ventana de extensión javascript del componente
 	 * @ventana
 	 */
 	protected function extender_objeto_js()
 	{}
-	
+
 	function get_objeto_js()
 	{
 		return $this->objeto_js;
-	}	
+	}
 
 	/**
 	 * Termina la construcción del objeto javascript asociado al componente
-	 * @ignore 
+	 * @ignore
 	 */
 	protected function iniciar_objeto_js()
 	{
@@ -829,10 +829,10 @@ abstract class toba_ei extends toba_componente
 			echo $identado."window.{$this->objeto_js}.colapsar();\n";
 		}
 		//Se agrega al objeto al singleton toba
-		echo $identado."toba.agregar_objeto(window.{$this->objeto_js});\n";		
+		echo $identado."toba.agregar_objeto(window.{$this->objeto_js});\n";
 	}
-	
-	
+
+
 	//---------------------------------------------------------------
 	//----------------------  SALIDA Impresion  ---------------------
 	//---------------------------------------------------------------
@@ -844,7 +844,7 @@ abstract class toba_ei extends toba_componente
 	function vista_impresion( toba_impresion $salida )
 	{
 		if ( $salida instanceof toba_impr_html ) {
-			$this->vista_impresion_html( $salida );	
+			$this->vista_impresion_html( $salida );
 		}
 	}
 
@@ -856,59 +856,59 @@ abstract class toba_ei extends toba_componente
 	{
 		$salida->titulo( $this->get_nombre() );
 	}
-	
+
 	//---------------------------------------------------------------
 	//----------------------  SALIDA XML  ---------------------------
 	//---------------------------------------------------------------
-	
+
 	/**
 	 * Define la orientación de la página
-	 * 
+	 *
 	 * @param string $orientacion Soporta los valores 'landscape' o 'portrait' (default).
 	 */
-	function xml_set_orientacion($orientacion='portrait') 
+	function xml_set_orientacion($orientacion='portrait')
 	{
 		$this->xml_orientacion = ($orientacion == 'landscape')?'landscape':'portrait';
 	}
-	
+
 	/**
 	 * Define el logo de la institución a utilizar en la cabecera del pdf
-	 * 
+	 *
 	 * @param string $logo Path a la imagen
 	 */
 	function xml_set_logo($logo)
 	{
 		$this->xml_logo = $logo;
 	}
-	
+
 	/**
 	 * Define el titulo a utilizar en la cabecera del pdf
-	 * 
+	 *
 	 * @param string $titulo
 	 */
-	
-	function xml_set_titulo($titulo) 
+
+	function xml_set_titulo($titulo)
 	{
 		$this->xml_titulo = $titulo;
 	}
-	
+
 	/**
 	 * Define el subtítulo a utilizar en la cabecera del pdf
-	 *  
+	 *
 	 * @param $subtitulo
 	 * @return unknown_type
 	 */
-	function xml_set_subtitulo($subtitulo) 
+	function xml_set_subtitulo($subtitulo)
 	{
 		$this->xml_subtitulo = $subtitulo;
 	}
-	
+
 	/**
 	 * Define las dimensiones de la página
-	 * 
+	 *
 	 * @param string $ancho
 	 * @param string $alto
-	 */	
+	 */
 	function xml_set_dim_pagina($ancho=false, $alto=false) {
 		$this->xml_ancho = $ancho;
 		$this->xml_alto = $alto;
@@ -916,83 +916,83 @@ abstract class toba_ei extends toba_componente
 
 	/**
 	 * Define si se crea el pié de página.
-	 * 
+	 *
 	 * @param boolean $incluir default true
 	 */
 	function xml_set_incluir_pie($incluir=true) {
-		$this->xml_incluir_pie = $incluir;	
+		$this->xml_incluir_pie = $incluir;
 	}
-	
+
 	/**
-	 * Define el pié de página. 
+	 * Define el pié de página.
 	 * El parámetro $pie debe ser un xml creado con las funciones xml_imagen, xml_texto o xml_tabla.
 	 * Para mostrar el número de página actual, incluir '[[actual]]' dentro del texto.
 	 * Para mostrar el total de páginas, incluir '[[total]]' dentro del texto.
 	 * Por ejemplo, si se quiere mostrar pág 1 de 10, se debe incluir el texto 'pág [[actual]] de [[total]]'.
-	 * 
+	 *
 	 * @param string $pie
 	 */
 	function xml_set_pie($pie=false) {
-		$this->xml_pie = !$pie?false:'<pie>'.str_replace(array('[[actual]]', '[[total]]'), array('<pagina-actual/>', '<pagina-total/>'), $pie).'</pie>';	
-	}
-	
-	/**
-	 * Define el alto del pié de página. 
-	 * @param string $alto
-	 */
-	function xml_set_alto_pie($alto=false) {
-		$this->xml_alto_pie = $alto;	
-	}
-	
-	/**
-	 * Define si se crea la cabecera de la página.
-	 * 
-	 * @param boolean $incluir default true
-	 */
-	function xml_set_incluir_cabecera($incluir=true) {
-		$this->xml_incluir_cabecera = $incluir;	
+		$this->xml_pie = !$pie?false:'<pie>'.str_replace(array('[[actual]]', '[[total]]'), array('<pagina-actual/>', '<pagina-total/>'), $pie).'</pie>';
 	}
 
 	/**
-	 * Define la cabecera de página. 
+	 * Define el alto del pié de página.
+	 * @param string $alto
+	 */
+	function xml_set_alto_pie($alto=false) {
+		$this->xml_alto_pie = $alto;
+	}
+
+	/**
+	 * Define si se crea la cabecera de la página.
+	 *
+	 * @param boolean $incluir default true
+	 */
+	function xml_set_incluir_cabecera($incluir=true) {
+		$this->xml_incluir_cabecera = $incluir;
+	}
+
+	/**
+	 * Define la cabecera de página.
 	 * El parámetro $cabecera debe ser un xml creado con las funciones xml_imagen, xml_texto o xml_tabla.
 	 * Para mostrar el número de página actual, incluir '[[actual]]' dentro del texto.
 	 * Para mostrar el total de páginas, incluir '[[total]]' dentro del texto.
 	 * Por ejemplo, si se quiere mostrar pág 1 de 10, se debe incluir el texto 'pág [[actual]] de [[total]]'.
-	 * 
+	 *
 	 * @param string $cabecera
 	 */
 	function xml_set_cabecera($cabecera=false) {
-		$this->xml_cabecera = !$cabecera?false:'<cabecera>'.str_replace(array('[[actual]]', '[[total]]'), array('<pagina-actual/>', '<pagina-total/>'),$cabecera).'</cabecera>';	
+		$this->xml_cabecera = !$cabecera?false:'<cabecera>'.str_replace(array('[[actual]]', '[[total]]'), array('<pagina-actual/>', '<pagina-total/>'),$cabecera).'</cabecera>';
 	}
 
 	/**
-	 * Define el alto de la cabecera de página. 
+	 * Define el alto de la cabecera de página.
 	 * @param string $alto
 	 */
 	function xml_set_alto_cabecera($alto=false) {
-		$this->xml_alto_cabecera = $alto;	
+		$this->xml_alto_cabecera = $alto;
 	}
-	
+
 	/**
-	 * Define los márgenes de la página. $margenes debe ser un array de tipo 'nombre'=>'valor', 
-	 * donde 'sup', 'inf', 'izq' y 'der' son los nombres para definir los márgenes superior, 
+	 * Define los márgenes de la página. $margenes debe ser un array de tipo 'nombre'=>'valor',
+	 * donde 'sup', 'inf', 'izq' y 'der' son los nombres para definir los márgenes superior,
 	 * inferior, izquierdo y derecho respectivamente.
-	 * 
-	 * @param array $margenes 
+	 *
+	 * @param array $margenes
 	 */
 	function xml_set_margenes($margenes=array()) {
 		foreach($margenes as $k=>$m) {
 			if(isset($this->xml_margenes[$k])) {
-				$this->xml_margenes[$k] = $m;			
+				$this->xml_margenes[$k] = $m;
 			}
 		}
 	}
-	
+
 	/**
 	 * Forma genérica de definir parámetros de usuario. El parámetro $atts debe ser un array de tipo
 	 * "nombre"=>"valor".
-	 * 
+	 *
 	 * @param array $atts
 	 */
 	function xml_set_atts_ei($atts=array()) {
@@ -1003,17 +1003,17 @@ abstract class toba_ei extends toba_componente
 
 	/**
 	 * Define el numero de copias que deben aparecer en el pdf.
-	 * 
+	 *
 	 * @param int $copias
 	 */
 	function xml_set_nro_copias($copias=1) {
-		$this->xml_copia = $copias;	
+		$this->xml_copia = $copias;
 	}
-	
+
 	/**
 	 * Retorna los atributos que pueden ser incluidos en cualquier tag, y que definen propiedades del documento pdf.
-	 * 
-	 * @return string con atributos a incluir en un tag xml 
+	 *
+	 * @return string con atributos a incluir en un tag xml
 	 */
 	function xml_get_att_comunes() {
 		$xml = '';
@@ -1060,7 +1060,7 @@ abstract class toba_ei extends toba_componente
 
 	/**
 	 * Retorna los elementos que pueden ser incluidos en cualquier tag, y que definen propiedades del documento pdf, como la cabecera y el pié.
-	 * 
+	 *
 	 * @return string con xml de los elementos a incluir.
 	 */
 	function xml_get_elem_comunes() {
@@ -1073,12 +1073,12 @@ abstract class toba_ei extends toba_componente
 		}
 		return $xml;
 	}
-	
+
 	/**
 	 * Devuelve un string con el xml de un texto y sus atributos a incluir
-	 *  
+	 *
 	 * @param string $texto
-	 * @param array $atts Array de tipo 'nombre'=>'valor' 
+	 * @param array $atts Array de tipo 'nombre'=>'valor'
 	 * @return string
 	 */
 	function xml_texto($texto, $atts=array())
@@ -1087,23 +1087,23 @@ abstract class toba_ei extends toba_componente
 		foreach($atts as $k=>$att) {
 			$xml .= ' '.$k.'="'.$att.'"';
 		}
-		if(!array_key_exists('font-size',$atts)) {
+		if(! \array_key_exists('font-size',$atts)) {
 			$xml .= ' font-size="8pt"';
 		}
 		$xml .= '>'.$texto.'</'.$this->xml_ns.'texto>';
 		return $xml;
 	}
-	
+
 	/**
-	 * Devuelve un string con el xml de una tabla a incluir. $datos es un array cuyo primer nivel representan las 
-	 * filas, y el segundo nivel representan las columnas dentro de una fila. Es decir $datos[0] representa la 
+	 * Devuelve un string con el xml de una tabla a incluir. $datos es un array cuyo primer nivel representan las
+	 * filas, y el segundo nivel representan las columnas dentro de una fila. Es decir $datos[0] representa la
 	 * primer fila, y $datos[0][0] representa la primer columna de la primer fila. $datos[n][m] a su vez, puede ser
 	 * tanto un string como un array. Si es un string, se toma este como valor de la celda. Si es un array, debe ser de
-	 * tipo 'key'=>'value' donde 'key' represente un atributo de la celda de la tabla (atributos del elemento table-cell 
-	 * de xsl-fo). Si existe $datos[n][m]['valor'], entonces no es tomado como atributo, sino como el valor de la celda. 
+	 * tipo 'key'=>'value' donde 'key' represente un atributo de la celda de la tabla (atributos del elemento table-cell
+	 * de xsl-fo). Si existe $datos[n][m]['valor'], entonces no es tomado como atributo, sino como el valor de la celda.
 	 * $datos[n][m]['valor'] puede ser tanto un array como un string. Si es string, se incluye diréctamente. Si es array,
-	 * se concatenan todos los valores y se incluye el string resultante. Como valor de una celda se puede incluir otro xml.   
-	 * 
+	 * se concatenan todos los valores y se incluye el string resultante. Como valor de una celda se puede incluir otro xml.
+	 *
 	 * @param array $datos
 	 * @param boolean $es_formulario Indica que cuando el array tiene una fila se deba tratar como un formulario.
 	 * @return string
@@ -1142,10 +1142,10 @@ abstract class toba_ei extends toba_componente
 		}
 		return $xml;
 	}
-	
+
 	/**
 	 * Devuelve un string con el xml de una imagen a incluir.
-	 * 
+	 *
 	 * @param string $src Path al archivo de la imagen
 	 * @param string $tipo 'svg' o 'jpg' (default)
 	 * @param string $titulo
@@ -1175,11 +1175,11 @@ abstract class toba_ei extends toba_componente
 		}
 		return $xml;
 	}
-	
+
 	/**
-	 * Define atributos comunes a columnas de una tabla (atributos del elemento table-column 
+	 * Define atributos comunes a columnas de una tabla (atributos del elemento table-column
 	 * de xsl-fo).
-	 *  
+	 *
 	 * @param array $cols Array de tipo 'nombre'=>'valor'
 	 */
 	function xml_set_tabla_cols($cols=array()) {
@@ -1195,12 +1195,12 @@ abstract class toba_ei extends toba_componente
 			$this->xml_tabla_cols = '';
 		}
 	}
-	
+
 	/**
 	 * Define un namespace a utilizar con los elementos xml.
-	 * 
+	 *
 	 * @param string $xmlns El namespace propiamente dicho
-	 * @param string $url un url del namespace 
+	 * @param string $url un url del namespace
 	 * @param boolean $usar Usar el namespace en este elemento o sólo declararlo.
 	 */
 	function xml_set_ns($xmlns, $url='', $usar=true)
