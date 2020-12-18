@@ -562,11 +562,13 @@ ef_editable_fecha.prototype.constructor = ef_editable_fecha;
 	 * Cambia el estado del ef en base a un objeto Date de javascript
 	 */
 	ef_editable_fecha.prototype.set_fecha = function(fecha) {	
-		this.set_estado(fecha.getDate() + '/' + (fecha.getMonth()+1) + '/' + fecha.getFullYear());
+		//this.set_estado(fecha.getDate() + '/' + (fecha.getMonth()+1) + '/' + fecha.getFullYear());
+		this.get_input_jq().datepicker('setDate', fecha);
 	};
 	
-	ef_editable_fecha.prototype.set_estado = function(fecha) {	
-		 this.get_input_jq().datepicker('setDate', fecha);
+	ef_editable_fecha.prototype.set_estado = function(fecha) {		
+		var objFecha = new Date(fecha.replace(/[-]/g, '\/'));
+		this.get_input_jq().datepicker('setDate', objFecha);
 	};
 	
 	ef_editable_fecha.prototype.validar = function() {
@@ -792,7 +794,8 @@ ef_editable_fecha_hora.prototype.constructor = ef_editable_fecha_hora;
 
 		//Seteo la componente Fecha
 		if (isset(nuevo[0])) {
-			this.get_input_jq().datepicker('setDate', nuevo[0]);
+			var objFecha = new Date(nuevo[0].replace(/[-]/g, '\/'));
+			this.get_input_jq().datepicker('setDate', objFecha);
 		}else {
 			//componentes[0].value = null;
 			this.get_input_jq().datepicker('setDate', null);
