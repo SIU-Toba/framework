@@ -18,7 +18,7 @@ class toba_ei_calendario extends toba_ei
 	protected $_dia_seleccionado;
 	protected $_mes_actual;
 	protected $_ver_contenidos;
-	protected $_rango_anios = array(2000, 2020);
+	protected $_rango_anios = array(2010, 2030);
 
 	final function __construct($id)
 	{

@@ -90,7 +90,7 @@ class toba_servicio_web_cliente_rest extends toba_servicio_web_cliente
 	
 	static function get_datos_conexion($id_servicio)
 	{
-		$var_name = self::ENV_PREFIX  . $id_servicio;
+		$var_name = self::ENV_PREFIX  . strtoupper($id_servicio);
 		$env_value = \getenv($var_name);
 		if (false === $env_value) {
 			$archivo = toba_modelo_rest::get_path_archivo(self::$modelo_proyecto, toba_modelo_rest::TIPO_CLIENTE, $id_servicio);
