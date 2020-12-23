@@ -4,6 +4,14 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.3.16](https://github.com/SIU-Toba/framework/releases/tag/v3.3.16) (2020-12-23)
+- Bugfix al levantar la configuracion de cliente rest de variable de entorno (#94)
+- Actualizacion de paquetes JS:
+     * siu-js-app-launcher: v1.0.6
+- Se actualizan los paquetes
+     * phpmailer/phpmailer: v6.1.8
+- Se actualiza el rango de años por defecto en ei_calendario
+
 [3.3.15](https://github.com/SIU-Toba/framework/releases/tag/v3.3.15) (2020-11-11)
 - Mejora fix JS en ef_fecha
 - Fixes varios relacionados a PHP 7.4
