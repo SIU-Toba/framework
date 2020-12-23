@@ -4,6 +4,10 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/support/v3.2...dev/v3.2)
 
+[3.2.20](https://github.com/SIU-Toba/framework/releases/tag/v3.2.20) (2020-12-23)
+- Se actualiza el rango de años por defecto del ei_calendario
+- Mejora a cambio en ef_fecha (merge desde develop)
+
 [3.2.19](https://github.com/SIU-Toba/framework/releases/tag/v3.2.19) (2020-11-09)
 - Fix ER vulnerable en toba_perfil_datos (merge desde develop)
 - Fix disparo de procesamiento en ef_fecha (merge desde develop)
