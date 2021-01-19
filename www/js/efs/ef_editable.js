@@ -482,6 +482,9 @@ ef_editable_fecha.prototype.constructor = ef_editable_fecha;
 			altField: this._id_form,
 			altFormat: this._forma_mascara,
 			yearRange: "-100:+20",
+			showOtherMonths: true,
+			selectOtherMonths: true,
+			showButtonPanel: true,
 			onSelect : function(dateText, Object){
 				document.getElementById(this.id).value = dateText;
 				if (this.onchange) {
@@ -665,6 +668,9 @@ ef_editable_fecha_hora.prototype.constructor = ef_editable_fecha_hora;
 			buttonImageOnly: true,
 			altField: arr_inputs[0].id,
 			altFormat: this._forma_mascara_fecha,
+			showOtherMonths: true,
+			selectOtherMonths: true,
+			showButtonPanel: true,
 			onSelect : function(dateText, Object){
 				document.getElementById(this.id).value = dateText;
 				if (this.onchange) {
