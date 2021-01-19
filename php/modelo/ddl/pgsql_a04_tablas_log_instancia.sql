@@ -53,7 +53,7 @@ CREATE TABLE apex_sesion_browser
 	egreso						timestamp(0) 	without time zone		NULL,
 	observaciones				TEXT	NULL,
 	php_id						TEXT	NOT NULL,
-	ip							varchar(20)		NULL,
+	ip							TEXT	NULL,
 	punto_acceso				varchar(80) 	NULL,
 	CONSTRAINT	"apex_ses_brw_pk" PRIMARY KEY ("sesion_browser", "proyecto") 
 	--CONSTRAINT	"apex_log_sol_fk_proy" FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
@@ -74,7 +74,7 @@ CREATE TABLE apex_solicitud_browser
 	sesion_browser				int8			NOT NULL,
 	solicitud_proyecto			varchar(15)		NULL,		-- NOT!
 	solicitud_browser			int8			NOT NULL, 
-	ip							varchar(20)		NULL,
+	ip							TEXT			NULL,
 	CONSTRAINT	"apex_sol_brw_pk" PRIMARY KEY ("solicitud_proyecto", "solicitud_browser"),
 	CONSTRAINT	"apex_sol_brw_fk_sol" FOREIGN KEY ("solicitud_browser", "solicitud_proyecto") REFERENCES "apex_solicitud" ("solicitud", "proyecto") ON DELETE CASCADE ON UPDATE CASCADE  DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT	"apex_sol_brw_fk_sesion" FOREIGN KEY ("sesion_browser","proyecto") REFERENCES "apex_sesion_browser" ("sesion_browser","proyecto") ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE
@@ -95,7 +95,7 @@ CREATE TABLE apex_solicitud_consola
 	proyecto					varchar(15)			NULL,		-- NOT!
 	solicitud_consola			int8				NOT NULL, 
 	usuario						varchar(60)			NOT NULL,
-	ip							varchar(20)			NULL,
+	ip							TEXT				NULL,
 	llamada						TEXT				NULL,
 	entorno						text				NULL,
 	CONSTRAINT	"apex_sol_consola_pk" PRIMARY KEY ("solicitud_consola", "proyecto"),
@@ -211,7 +211,7 @@ CREATE TABLE apex_log_ip_rechazada
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
 (
-	ip							varchar(255)											NOT NULL,
+	ip							TEXT	NOT NULL,
 	momento						timestamp(0) without time zone	DEFAULT current_timestamp NOT NULL,
 	CONSTRAINT	"apex_ip_rechazada_pk" PRIMARY KEY ("ip")
 );
@@ -282,9 +282,9 @@ CREATE TABLE apex_solicitud_web_service
 ---------------------------------------------------------------------------------------------------
 (
    proyecto			VARCHAR(15) NOT NULL, 
-   solicitud			BIGINT	NOT NULL, 
+   solicitud		BIGINT	NOT NULL, 
    metodo			TEXT	NULL, 
-   ip				VARCHAR(20)	NULL, 
+   ip				TEXT	NULL, 
    CONSTRAINT "apex_solicitud_web_service_pk" PRIMARY KEY ("solicitud","proyecto" ), 
    CONSTRAINT "apex_sol_web_service_solicitud_fk" FOREIGN KEY ("solicitud","proyecto" ) REFERENCES "apex_solicitud" ( "solicitud","proyecto") ON UPDATE NO ACTION ON DELETE NO ACTION DEFERRABLE
 ); 
