@@ -7,44 +7,7 @@ class pant_vista_previa extends toba_ei_pantalla
 		echo "<div class='editor-vista-previa'>".$this->controlador()->get_info_archivo();
 		echo '<div>';
 		$this->generar_botones_eventos(true);
-		echo '</div></div>';
-
-		//--- Barra de convenciones
-		/*$mensajes_linea = array();
-		$modelo = toba_editor::get_modelo_proyecto();
-		$estandar = $modelo->get_estandar_convenciones();
-		$path = $this->controlador()->get_path_archivo();
-		if (file_exists($path)) {
-			$resultado = $estandar->validar(array($path));
-			$titulo = '<strong>Convenciones</strong>';
-			$cant_errores = $resultado['totals']['errors'];
-			$cant_warnings = $resultado['totals']['warnings'];
-			$extra = '';
-			if ($cant_errores === 0 && $cant_warnings === 0) {
-				$nivel = 'info';
-				$salida = 'Ok!';
-			} else {
-				$nivel = ($cant_errores !== 0) ? 'error' : 'warning';
-				$salida = "$cant_errores ";
-				$salida .= ($cant_errores !== 1) ? 'errores' : 'error';
-				$salida .= " / $cant_warnings ";
-				$salida .= ($cant_warnings !== 1) ? 'avisos' : 'aviso';
-				foreach ($resultado['files'][$path]['messages'] as $linea => $columnas) {
-					$textos = array();
-					foreach ($columnas as $column => $mensajes) {
-						foreach ($mensajes as $mensaje) {
-							//$extra .= "<strong>$linea</strong>:{$mensaje['message']}";
-							$imagen = ($mensaje['type'] == 'ERROR') ? 'error.gif' : 'warning.gif';
-							$textos[] = $estandar->parsear_mensaje($mensaje['message']);	//Cambia el id de la convencion por una url
-						}
-					}
-					$ayuda = implode('<br><br>', $textos);
-					$ayuda = str_replace("'", "`", $ayuda);
-					$mensajes_linea[$linea] = toba_recurso::imagen_toba($imagen, true, null, null, $ayuda);
-				}
-			}
-			$this->generar_html_descripcion("$titulo: $salida $extra", $nivel);
-		}*/
+		echo '</div></div>';		
 
 		//-- Vista previa		
 		//echo '<link rel="stylesheet" href="'. toba_recurso::url_proyecto('toba_editor') . '/js/packages/highlight.js/styles/default.css"'. '>';
