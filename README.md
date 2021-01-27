@@ -17,7 +17,7 @@ A continuación editamos el archivo ``composer.json`` para definir el nombre del
 ```shell
 composer install
 ```
-Luego de ello, proseguir con la instalación de SIU-Toba como se especifica anteriormente.
+Luego de ello, proseguir con la instalación de SIU-Toba como se especifica debajo.
 
 El paso final es la creación del proyecto propiamente dicho mediante el comando
 
@@ -33,9 +33,9 @@ Para pasar un proyecto existente al nuevo mecanismo de instalación de SIU-Toba 
 *  Seguir el procedimiento para la creación de un proyecto de cero y luego sobreescribir con el contenido actual del proyecto.
 *  Otra alternativa es realizar los siguientes pasos:
 
-Crear dentro del directorio del proyecto un archivo ``composer.json``, dentro del cual se especificarán los datos del mismo y luego continuar con los pasos mencionados para incorporar el repositorio necesario.
+Crear dentro del directorio del proyecto un archivo ``composer.json``, dentro del cual se especificarán los datos del mismo y luego continuar con los pasos mencionados debajo para incorporar el repositorio necesario.
 
-Luego de ello se realiza la instalación de SIU-Toba como se menciona anteriormente y se procede a la carga del proyecto con el comando:
+Luego de ello se realiza la instalación de SIU-Toba como se menciona  y se procede a la carga del proyecto con el comando:
 ```shell
 toba proyecto cargar -p nombre_proyecto -d `pwd`
 ```
@@ -47,7 +47,8 @@ La descarga de SIU-Toba a partir de la version 3.0 se lleva a cabo enteramente v
 "repositories": [
         {
             "type": "composer",
-            "url": "https://satis.siu.edu.ar"
+            "url": "https://satis.siu.edu.ar",
+            "exclude": ["siu-toba/rest"]
         }
     ],
     "require": {
