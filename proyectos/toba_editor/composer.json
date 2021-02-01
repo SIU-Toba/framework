@@ -20,10 +20,7 @@
     },
   "scripts": {
      "post-install-cmd": [
-           "composer run-script post-install-cmd -d ./vendor/siu-toba/framework/"
-     ],
-     "post-update-cmd": [
-            "composer run-script post-install-cmd -d ./vendor/siu-toba/framework/"
+		   "yarn add @highlightjs/cdn-assets  --modules-folder www/js/packages/"
      ]
   },
   "minimum-stability": "dev",
