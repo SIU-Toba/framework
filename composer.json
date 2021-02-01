@@ -41,7 +41,6 @@
         "greenlion/php-sql-parser": "@dev",
         "php-webdriver/webdriver": "~1.8",
         "simpletest/simpletest": "~1.2",
-        "siu-toba/text_highlighter": "~0.8",
         "siu/arai-cli": "*",
         "siu/arai-crypto": "*",
         "siu/arai-json-parser": "*",
