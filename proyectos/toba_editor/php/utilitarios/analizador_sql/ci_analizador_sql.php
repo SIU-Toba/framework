@@ -19,8 +19,6 @@ class ci_analizador_sql extends toba_ci
 			throw new toba_error('No se encontró información de consultas ejecutadas');
 		}
 		$datos = $info['datos'];
-		$high = new Text_Highlighter();
-		$hlSQL = $high->factory('SQL');
 		$i = 1;
 		foreach (array_keys($datos) as $id) {
 			$datos[$id]['numero'] = $i;
@@ -30,7 +28,7 @@ class ci_analizador_sql extends toba_ci
 			} else {
 				$datos[$id]['tiempo'] = 0;
 			}
-			$datos[$id]['sql'] = $hlSQL->highlight($datos[$id]['sql']);
+			$datos[$id]['sql'] = '<pre><code class="sql">' . $datos[$id]['sql'] . '</code></pre>';
 			$i++; 
 		}
 		if ($this->s__formateado) {
@@ -67,12 +65,15 @@ class ci_analizador_sql extends toba_ci
 		}
 	}
 	
-	function generar_html()
+	function extender_objeto_js()
 	{
-		echo toba_recurso::link_css('highlighter', null, true);		
-		parent::generar_html();
+		echo "
+			var nodos = document.getElementsByTagName('code');
+			for (i = 0; i < nodos.length; i++) {
+				hljs.highlightBlock(nodos[i]);
+			}
+		"; 
 	}
-
 }
 
 ?>
