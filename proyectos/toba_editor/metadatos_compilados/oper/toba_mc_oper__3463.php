@@ -28,9 +28,9 @@ class toba_mc_item__3463
     'item_imagen_recurso_origen' => 'apex',
     'item_imagen' => NULL,
     'punto_montaje' => 12,
-    'tipo_pagina_punto_montaje' => NULL,
-    'tipo_pagina_clase' => 'toba_tp_basico_titulo',
-    'tipo_pagina_archivo' => '',
+    'tipo_pagina_punto_montaje' => 12,
+    'tipo_pagina_clase' => 'tp_editor_highlight',
+    'tipo_pagina_archivo' => 'extension_toba/tp_editor_highlight.php',
     'item_include_arriba' => NULL,
     'item_include_abajo' => NULL,
     'item_zona_proyecto' => 'toba_editor',
@@ -273,13 +273,13 @@ class toba_mc_comp__2286
   array (
     0 => 
     array (
-      'pantalla' => 1181,
+      'pantalla' => 1183,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 2286,
-      'dep_id' => 1169,
+      'dep_id' => 1176,
       'orden' => 1,
-      'identificador_pantalla' => 'pant_ubicacion',
-      'identificador_dep' => 'carpetas',
+      'identificador_pantalla' => 'pant_generacion',
+      'identificador_dep' => 'ci_generacion',
     ),
     1 => 
     array (
@@ -293,13 +293,13 @@ class toba_mc_comp__2286
     ),
     2 => 
     array (
-      'pantalla' => 1183,
+      'pantalla' => 1181,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 2286,
-      'dep_id' => 1176,
+      'dep_id' => 1169,
       'orden' => 1,
-      'identificador_pantalla' => 'pant_generacion',
-      'identificador_dep' => 'ci_generacion',
+      'identificador_pantalla' => 'pant_ubicacion',
+      'identificador_dep' => 'carpetas',
     ),
     3 => 
     array (
@@ -337,19 +337,6 @@ class toba_mc_comp__2286
   array (
     0 => 
     array (
-      'identificador' => 'base',
-      'proyecto' => 'toba_editor',
-      'objeto' => 1501,
-      'clase' => 'toba_datos_tabla',
-      'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_tabla.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
-      'fuente' => 'instancia',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    1 => 
-    array (
       'identificador' => 'archivos',
       'proyecto' => 'toba_editor',
       'objeto' => 30000021,
@@ -358,6 +345,19 @@ class toba_mc_comp__2286
       'subclase' => 'archivos_nombre',
       'subclase_archivo' => 'objetos_toba/subclases/archivos_nombre.php',
       'fuente' => NULL,
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    1 => 
+    array (
+      'identificador' => 'base',
+      'proyecto' => 'toba_editor',
+      'objeto' => 1501,
+      'clase' => 'toba_datos_tabla',
+      'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_tabla.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
+      'fuente' => 'instancia',
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
@@ -1563,19 +1563,6 @@ class toba_mc_comp__2296
     ),
     1 => 
     array (
-      'identificador' => 'form_opciones',
-      'proyecto' => 'toba_editor',
-      'objeto' => 2295,
-      'clase' => 'toba_ei_formulario',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
-      'fuente' => 'instancia',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    2 => 
-    array (
       'identificador' => 'form_metodos',
       'proyecto' => 'toba_editor',
       'objeto' => 2291,
@@ -1583,6 +1570,19 @@ class toba_mc_comp__2296
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
       'subclase' => 'form_metodos',
       'subclase_archivo' => 'objetos_toba/subclases/form_metodos.php',
+      'fuente' => 'instancia',
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    2 => 
+    array (
+      'identificador' => 'form_opciones',
+      'proyecto' => 'toba_editor',
+      'objeto' => 2295,
+      'clase' => 'toba_ei_formulario',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
       'fuente' => 'instancia',
       'parametros_a' => NULL,
       'parametros_b' => NULL,
