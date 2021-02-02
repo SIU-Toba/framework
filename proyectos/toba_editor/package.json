@@ -1,0 +1,12 @@
+{
+  "name": "@siu-toba/toba_editor",
+  "version": "3.3.16",
+  "description": "Framework para desarrollo rapido de aplicaciones web",
+  "license": "SEE LICENSE IN licencia.txt",
+  "repository": "https://github.com/SIU-Toba/framework.git",
+  "author": "enfoqueNativo <rdalinger@siu.edu.ar>",
+  "private": false,
+  "dependencies": {
+    "@highlightjs/cdn-assets": "^10.5.0"
+  }
+}

@@ -20,7 +20,7 @@
     },
   "scripts": {
      "post-install-cmd": [
-		   "yarn add @highlightjs/cdn-assets  --modules-folder www/js/packages/"
+		"yarn add @highlightjs/cdn-assets --no-lockfile --no-default-rc --modules-folder www/js/packages/"
      ]
   },
   "minimum-stability": "dev",
