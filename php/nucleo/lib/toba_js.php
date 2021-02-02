@@ -117,8 +117,7 @@ class toba_js
                         $consumos_lib = array(
                                             'packages/jquery/dist/jquery.min',
                                             'packages/jquery-migrate/dist/jquery-migrate.min',
-                                            'utilidades/jquery-ui/jquery-ui.min',
-											'packages/@highlightjs/cdn-assets/highlight.min'
+                                            'utilidades/jquery-ui/jquery-ui.min'
                                         );
 			if (toba::proyecto()->get_parametro('es_css3')) {
 				$consumos_lib[] = 'formalize/javascripts/jquery.formalize.min';
@@ -210,7 +209,6 @@ class toba_js
 						<script src='$url'></script>
 					<![endif]-->\n";
 			echo '<link rel="stylesheet" href="'. toba_recurso::url_toba().'/js/utilidades/jquery-ui/jquery-ui.min.css"> ';
-			echo '<link rel="stylesheet" href="'. toba_recurso::url_toba().'/js/packages/@highlightjs/cdn-assets/styles/github.min.css"> ';
 			self::$basicos_cargados = true;
 		}
 	}
