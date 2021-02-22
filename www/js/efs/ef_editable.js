@@ -479,9 +479,12 @@ ef_editable_fecha.prototype.constructor = ef_editable_fecha;
  			showOn: "button",
 			buttonImage: "img/calendario.gif",
 			buttonImageOnly: true,
-			altField: this._id_form,
-			altFormat: this._forma_mascara,
+			/*altField: this._id_form,
+			altFormat: this._forma_mascara,*/
 			yearRange: "-100:+20",
+			showOtherMonths: true,
+			selectOtherMonths: true,
+			showButtonPanel: true,
 			onSelect : function(dateText, Object){
 				document.getElementById(this.id).value = dateText;
 				if (this.onchange) {
@@ -565,9 +568,10 @@ ef_editable_fecha.prototype.constructor = ef_editable_fecha;
 		this.set_estado(fecha.getDate() + '/' + (fecha.getMonth()+1) + '/' + fecha.getFullYear());
 	};
 	
-	ef_editable_fecha.prototype.set_estado = function(fecha) {	
-		 this.get_input_jq().datepicker('setDate', fecha);
-	};
+	/*ef_editable_fecha.prototype.set_estado = function(fecha) {	
+		//Quizas quede para convertir guiones a barras
+		this.input().value = fecha.replace(/[-]/g, '\/');
+	};*/
 	
 	ef_editable_fecha.prototype.validar = function() {
 		if (! ef_editable.prototype.validar.call(this)) {
@@ -663,8 +667,11 @@ ef_editable_fecha_hora.prototype.constructor = ef_editable_fecha_hora;
  			showOn: "button",
 			buttonImage: "img/calendario.gif",
 			buttonImageOnly: true,
-			altField: arr_inputs[0].id,
-			altFormat: this._forma_mascara_fecha,
+			/*altField: arr_inputs[0].id,
+			altFormat: this._forma_mascara_fecha,*/
+			showOtherMonths: true,
+			selectOtherMonths: true,
+			showButtonPanel: true,
 			onSelect : function(dateText, Object){
 				document.getElementById(this.id).value = dateText;
 				if (this.onchange) {
@@ -792,10 +799,16 @@ ef_editable_fecha_hora.prototype.constructor = ef_editable_fecha_hora;
 
 		//Seteo la componente Fecha
 		if (isset(nuevo[0])) {
-			this.get_input_jq().datepicker('setDate', nuevo[0]);
+			if (this._mascara_fecha) {
+				var valor_f = this._mascara_fecha.format(nuevo[0], false, true);
+				componentes[0].value = valor_f;
+				var desc_f = document.getElementById(this._id_form + '_desc');
+				if (desc_f) {
+					desc_f.value = valor_f;
+				}
+			}
 		}else {
-			//componentes[0].value = null;
-			this.get_input_jq().datepicker('setDate', null);
+			componentes[0].value = null;
 			hay_estado = false;
 		}
 

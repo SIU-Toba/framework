@@ -1388,7 +1388,13 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 					toba::logger()->error($datos, 'toba');
 					throw new toba_error_def('AP_TABLA_DB: ERROR en la carga de una columna externa.');
 				}
-				$valores_recuperados[$clave_destino] = (isset($datos[$clave_buscada])) ? $datos[$clave_buscada]: $datos_recordset[$clave_buscada];
+				
+				if (isset($datos[$clave_buscada])) { //Posible conversion a match en PHP 8.
+					$valores_recuperados[$clave_destino] = $datos[$clave_buscada];
+				} elseif (is_array($datos_recordset) && isset($datos_recordset[$clave_buscada])) {
+					$valores_recuperados[$clave_destino] = $datos_recordset[$clave_buscada];
+				}
+				
 			}//fe
 		}
 		return $valores_recuperados;

@@ -9,14 +9,46 @@ Framework para desarrollo rápido de aplicaciones web
  * Hay que tener instalado [Composer](https://getcomposer.org/)
  * Hay que tener instalado [Yarn](https://yarnpkg.com/) 
 
-## Instalando SIU-Toba
 
-La descarga de SIU-Toba a partir de la version 3.0 se lleva a cabo enteramente via composer, para ello se deben agregar al archivo ``composer.json``  las siguientes lineas
+## Creando un proyecto de cero
+
+Para crear un proyecto de cero usando SIU-Toba utilizaremos el template del proyecto vacio que se encuentra en github, se recomienda bajar el zip directamente desde ``https://github.com/SIU-Toba/template-proyecto-toba`` tener en cuenta el numero de versión.
+A continuación editamos el archivo ``composer.json`` para definir el nombre del paquete que contendra el proyecto y agregar o modificar opciones sobre los paquetes requeridos por el mismo. Una vez completado este paso, ejecutamos:
+```shell
+composer install
+```
+Luego de ello, proseguir con la instalación de SIU-Toba como se especifica debajo.
+
+El paso final es la creación del proyecto propiamente dicho mediante el comando
+
+```shell
+toba proyecto crear -p nombre_proyecto -d `pwd`
+```
+Una vez finalizado este paso y luego de reiniciar el web server, dirigirse con el browser a ``http://localhost/toba_editor/$nro_version$``  y comenzar a construir el proyecto.
+
+## Pasando un proyecto existente a la instalación via composer
+
+Para pasar un proyecto existente al nuevo mecanismo de instalación de SIU-Toba se pueden tomar dos caminos: 
+
+*  Seguir el procedimiento para la creación de un proyecto de cero y luego sobreescribir con el contenido actual del proyecto.
+*  Otra alternativa es realizar los siguientes pasos:
+
+Crear dentro del directorio del proyecto un archivo ``composer.json``, dentro del cual se especificarán los datos del mismo y luego continuar con los pasos mencionados debajo para incorporar el repositorio necesario.
+
+Luego de ello se realiza la instalación de SIU-Toba como se menciona  y se procede a la carga del proyecto con el comando:
+```shell
+toba proyecto cargar -p nombre_proyecto -d `pwd`
+```
+
+### Instalando SIU-Toba
+
+La descarga de SIU-Toba a partir de la version 3.0 se lleva a cabo enteramente via composer, para ello se deben agregar al archivo ``composer.json``  de su proyecto las siguientes lineas
 ```json
 "repositories": [
         {
             "type": "composer",
-            "url": "https://satis.siu.edu.ar"
+            "url": "https://satis.siu.edu.ar",
+            "exclude": ["siu-toba/rest"]
         }
     ],
     "require": {
@@ -64,37 +96,6 @@ toba instalacion_silenciosa instalar [--archivo_configuracion parameters.yml]
 Que permite realizar una instalacion de manera totalmente desatendida, con la configuración residente en un archivo YAML, salvo las claves para la base de datos y el administrador de sistema que se proveen via sendos archivos de texto.
 Este tipo de instalacion, no carga ningun proyecto en la instancia, con lo cual para poder hacer uso de toba_editor y de toba_usuario se requiere de pasos extra.
 Sin embargo puede ser una buena manera de realizar instalaciones ''manuales'' de producción, ya que permitiria generar clones con la misma configuración.
-
-### Creando un proyecto de cero
-
-
-Para crear un proyecto de cero usando SIU-Toba utilizaremos el template del proyecto vacio que se encuentra en github, se recomienda bajar el zip directamente desde ``https://github.com/SIU-Toba/template-proyecto-toba`` tener en cuenta el numero de versión.
-A continuación editamos el archivo ``composer.json`` para definir el nombre del paquete que contendra el proyecto y agregar o modificar opciones sobre los paquetes requeridos por el mismo. Una vez completado este paso, ejecutamos:
-```shell
-composer install
-```
-Luego de ello, proseguir con la instalación de SIU-Toba como se especifica anteriormente.
-
-El paso final es la creación del proyecto propiamente dicho mediante el comando
-
-```shell
-toba proyecto crear -p nombre_proyecto -d `pwd`
-```
-Una vez finalizado este paso y luego de reiniciar el web server, dirigirse con el browser a ``http://localhost/toba_editor/$nro_version$``  y comenzar a construir el proyecto.
-
-### Pasando un proyecto existente a la instalación via composer
-
-Para pasar un proyecto existente al nuevo mecanismo de instalación de SIU-Toba se pueden tomar dos caminos: 
-
-*  Seguir el procedimiento para la creación de un proyecto de cero y luego sobreescribir con el contenido actual del proyecto.
-*  Otra alternativa es realizar los siguientes pasos:
-
-Crear dentro del directorio del proyecto un archivo ``composer.json``, dentro del cual se especificarán los datos del mismo y luego continuar con los pasos mencionados para incorporar el repositorio necesario.
-
-Luego de ello se realiza la instalación de SIU-Toba como se menciona anteriormente y se procede a la carga del proyecto con el comando:
-```shell
-toba proyecto cargar -p nombre_proyecto -d `pwd`
-```
 
 ## Migrando un proyecto a la nueva versión
 
