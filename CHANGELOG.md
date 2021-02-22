@@ -4,6 +4,13 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.3.17](https://github.com/SIU-Toba/framework/releases/tag/v3.3.17) (2021-02-22)
+- Bugfix JS ef_fecha con asignacion de estado por codigo entre distintas instancias
+- Se evita notice en el administrador de persistencia de tablas cuando se usan campos externos
+- Se incorpora configuracion en `composer.json` para hacer viables instalaciones con `composer 2.0`
+- Se actualizan las versiones minimas de los manejador-salida que utiliza Toba
+- Se reincorpora la seleccion de meses contiguos y link al dia actual en ef_fecha
+
 [3.3.16](https://github.com/SIU-Toba/framework/releases/tag/v3.3.16) (2020-12-23)
 - Bugfix al levantar la configuracion de cliente rest de variable de entorno (#94)
 - Actualizacion de paquetes JS:
@@ -131,6 +138,26 @@
 - La exportacion via toba_vista_excel ahora tendra el formato xlsx
 - Se simplifica tratamiento de ef_fieldset en el formulario
 - Se pasa el paquete siu/rdi a suggested
+
+[3.2.20](https://github.com/SIU-Toba/framework/releases/tag/v3.2.20) (2020-12-23)
+- Se actualiza el rango de años por defecto del ei_calendario
+- Mejora a cambio en ef_fecha (merge desde develop)
+
+[3.2.19](https://github.com/SIU-Toba/framework/releases/tag/v3.2.19) (2020-11-09)
+- Fix ER vulnerable en toba_perfil_datos (merge desde develop)
+- Fix disparo de procesamiento en ef_fecha (merge desde develop)
+- Se indica que no se busque el paquete `siu/rest` en repo `satis` (composer 2.0)
+
+[3.2.18](https://github.com/SIU-Toba/framework/releases/tag/v3.2.18) (2020-10-01)
+- Fix punto acceso toba_usuarios para desarrollo
+- Update de paquete:
+ * siu-toba/rest @2.0.5 
+
+[3.2.17](https://github.com/SIU-Toba/framework/releases/tag/v3.2.17) (2020-09-10)
+- Fix al archivo de entorno para prevenir fatal en phpdotenv
+
+[3.2.16](https://github.com/SIU-Toba/framework/releases/tag/v3.2.16) (2020-07-20)
+- Se agrega parametro `vincula_arai_appID` para salvaguardar la vinculacion sin registry (merge desde develop)
 
 [3.2.15](https://github.com/SIU-Toba/framework/releases/tag/v3.2.15) (2020-04-30)
 - Actualizacion de seguridad de JQuery, actualiza tambien siu/js-app-launcher (merge desde develop)
