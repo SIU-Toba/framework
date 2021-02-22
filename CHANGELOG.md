@@ -4,6 +4,9 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/support/v3.2...dev/v3.2)
 
+[3.2.21](https://github.com/SIU-Toba/framework/releases/tag/v3.2.21) (2021-02-22)
+- Fix ef_fecha con asignacion de estado por codigo entre multiples instancias
+
 [3.2.20](https://github.com/SIU-Toba/framework/releases/tag/v3.2.20) (2020-12-23)
 - Se actualiza el rango de años por defecto del ei_calendario
 - Mejora a cambio en ef_fecha (merge desde develop)
