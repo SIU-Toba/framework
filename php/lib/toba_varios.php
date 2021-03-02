@@ -774,7 +774,7 @@
 		} else {
 			$sal = substr($sal, 0, 10);
 		}
-		return $sal . hash($metodo, $sal . $clave);		
+		return ($metodo != 'bcrypt') ? $sal . hash($metodo, $sal . $clave): hash('sha256', get_salt().$resultado);
 	}
 	
 	/**
