@@ -771,8 +771,9 @@
 			$sal = get_salt();
 		} else {
 			$sal = substr($sal, 0, 10);
-		}
-		return $sal . hash($metodo, $sal . $clave);
+		}		
+		//Si el mecanismo es bcrypt no deberia haber llegado hasta aquí, por lo tanto la respuesta tiene que garantizar que falle
+		return ($metodo != 'bcrypt') ? $sal . hash($metodo, $sal . $clave): hash('sha256', get_salt().$resultado);
 	}
 
 	/**
