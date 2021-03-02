@@ -4,6 +4,9 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/support/v3.2...dev/v3.2)
 
+[3.2.22](https://github.com/SIU-Toba/framework/releases/tag/v3.2.22) (2021-03-02)
+- Bugfix en toba_varios::encriptar_con_sal() que permitia exploit con clave sin encriptar (merge desde develop)
+
 [3.2.21](https://github.com/SIU-Toba/framework/releases/tag/v3.2.21) (2021-02-22)
 - Fix ef_fecha con asignacion de estado por codigo entre multiples instancias
 
