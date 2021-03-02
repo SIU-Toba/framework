@@ -4,6 +4,9 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.3.18](https://github.com/SIU-Toba/framework/releases/tag/v3.3.18) (2021-03-02)
+- Bugfix en toba_varios::encriptar_con_sal() que permitia exploit con clave sin hashear
+
 [3.3.17](https://github.com/SIU-Toba/framework/releases/tag/v3.3.17) (2021-02-22)
 - Bugfix JS ef_fecha con asignacion de estado por codigo entre distintas instancias
 - Se evita notice en el administrador de persistencia de tablas cuando se usan campos externos
