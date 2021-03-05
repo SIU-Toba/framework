@@ -4,6 +4,9 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.1.18](https://github.com/SIU-Toba/framework/releases/tag/v3.1.18) (2021-03-05):
+- Backport de bugfix en toba_varios::encriptar_con_sal()
+
 [3.1.17](https://github.com/SIU-Toba/framework/releases/tag/v3.1.17) (2020-07-20):
 - Se agrega parametro `vincula_arai_appID` para salvaguardar la vinculacion sin registry (merge desde develop)
 
