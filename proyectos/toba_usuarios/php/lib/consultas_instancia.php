@@ -5,36 +5,36 @@ class consultas_instancia
 	static function get_lista_proyectos()
 	{
 		$sql = "SELECT proyecto FROM apex_proyecto WHERE proyecto <> 'toba' ORDER BY proyecto;";
-		return toba::db()->consultar($sql);
+		return toba::db('usuarios')->consultar($sql);
 	}
 
 	static function get_datos_proyecto($proyecto)
 	{
 		$proyecto = quote($proyecto);
 		$sql = "SELECT * FROM apex_proyecto WHERE proyecto = $proyecto";
-		$rs = toba::db()->consultar($sql);
+		$rs = toba::db('usuarios')->consultar($sql);
 		return $rs[0];
 	}
 
 	static function get_cantidad_ips_rechazadas()
 	{
-		$schema_logs = toba::db()->get_schema(). '_logs';
+		$schema_logs = toba::db('usuarios')->get_schema(). '_logs';
 		$sql = "SELECT count(*) as cantidad FROM $schema_logs.apex_log_ip_rechazada;";
-		$rs = toba::db()->consultar($sql);
+		$rs = toba::db('usuarios')->consultar($sql);
 		return $rs[0]['cantidad'];
 	}
 	
 	static function get_cantidad_usuarios_bloqueados()
 	{
 		$sql = 'SELECT count(*) as cantidad FROM apex_usuario WHERE bloqueado = 1;';
-		$rs = toba::db()->consultar($sql);
+		$rs = toba::db('usuarios')->consultar($sql);
 		return $rs[0]['cantidad'];
 	}
 	
 	static function get_cantidad_usuarios_desbloqueados()
 	{
 		$sql = 'SELECT count(*) as cantidad FROM apex_usuario WHERE bloqueado = 0;';
-		$rs = toba::db()->consultar($sql);
+		$rs = toba::db('usuarios')->consultar($sql);
 		return $rs[0]['cantidad'];
 	}
 	
@@ -45,9 +45,9 @@ class consultas_instancia
 	static function get_cantidad_sesiones_proyecto($proyecto)
 	{
 		$proyecto = quote($proyecto);
-		$schema_logs = toba::db()->get_schema(). '_logs';
+		$schema_logs = toba::db('usuarios')->get_schema(). '_logs';
 		$sql = "SELECT count(*) as cantidad FROM $schema_logs.apex_sesion_browser WHERE proyecto = $proyecto;";
-		$rs = toba::db()->consultar($sql);
+		$rs = toba::db('usuarios')->consultar($sql);
 		return $rs[0]['cantidad'];
 	}
 
@@ -56,7 +56,7 @@ class consultas_instancia
 		$proyecto = quote($proyecto);
 		$where = '';
 		$filtro_sano = quote($filtro);
-		$schema_logs = toba::db()->get_schema(). '_logs';
+		$schema_logs = toba::db('usuarios')->get_schema(). '_logs';
 		
 		if (isset($filtro['sesion'])) {
 			$where .= " AND se.sesion_browser = {$filtro_sano['sesion']} ";
@@ -96,19 +96,19 @@ class consultas_instancia
 					GROUP BY 1,2,3,4,5
 					ORDER BY ingreso DESC;";
 		toba::logger()->debug($sql);
-		return toba::db()->consultar($sql);		
+		return toba::db('usuarios')->consultar($sql);		
 	}
 	
 	static function get_id_sesion($id_solicitud)
 	{
 		$id_solicitud = quote($id_solicitud);
-		$schema_logs = toba::db()->get_schema(). '_logs';
+		$schema_logs = toba::db('usuarios')->get_schema(). '_logs';
 		$sql = "
 				SELECT	sesion_browser as id
 				FROM $schema_logs.apex_solicitud_browser
 				WHERE solicitud_browser = $id_solicitud
 		";
-		$fila = toba::db()->consultar_fila($sql);
+		$fila = toba::db('usuarios')->consultar_fila($sql);
 		if (isset($fila['id'])) {
 			return $fila['id'];
 		} else {
@@ -125,7 +125,7 @@ class consultas_instancia
 			$extra = "AND sb.solicitud_browser = $id_solicitud";
 		}
 		$sesion = quote($sesion);
-		$schema_logs = toba::db()->get_schema(). '_logs';
+		$schema_logs = toba::db('usuarios')->get_schema(). '_logs';
 		$sql = "
 				SELECT	s.solicitud as id,
 						s.item_proyecto as item_proyecto,
@@ -148,13 +148,13 @@ class consultas_instancia
 				$extra
 				GROUP BY 1,2,3,4,5,6
 				ORDER BY s.momento DESC;";
-		return toba::db()->consultar($sql);		
+		return toba::db('usuarios')->consultar($sql);		
 	}
 	
 	static function get_solicitud_observaciones($solicitud)
 	{
 		$solicitud = quote($solicitud);
-		$schema_logs = toba::db()->get_schema(). '_logs';
+		$schema_logs = toba::db('usuarios')->get_schema(). '_logs';
 		$sql = "
 				SELECT 	solicitud_observacion,
 						observacion,
@@ -165,13 +165,13 @@ class consultas_instancia
 						AND ot.proyecto = o.solicitud_obs_tipo_proyecto
 				WHERE o.solicitud = $solicitud
 				ORDER BY 1;";
-		return toba::db()->consultar($sql);
+		return toba::db('usuarios')->consultar($sql);
 	}
 	
 	static function get_solicitudes_consola($proyecto, $filtro)
 	{
 		$proyecto = quote($proyecto);
-		$schema_logs = toba::db()->get_schema(). '_logs';
+		$schema_logs = toba::db('usuarios')->get_schema(). '_logs';
 		$sql = "		
 				SELECT	s.solicitud as id,
 						s.momento as momento,
@@ -185,7 +185,7 @@ class consultas_instancia
 				WHERE	s.proyecto = sc.proyecto
 				AND	s.solicitud = sc.solicitud_consola
 				AND	s.proyecto = $proyecto;";
-		return toba::db()->consultar($sql);		
+		return toba::db('usuarios')->consultar($sql);		
 	}
 	
 	static function get_solicitudes_web_service($filtro=array())
@@ -196,7 +196,7 @@ class consultas_instancia
 		if (isset($filtro['metodo'])) { $where[] = 'sws.metodo ILIKE  ' . quote("{$filtro['metodo']}%");}
 		if (isset($filtro['ip'])) { $where[] = 'sws.ip =' .quote($filtro['ip']);}
 		if (isset($filtro['solicitud'])) { $where[] = 's.solicitud = ' .quote($filtro['solicitud']);}
-		$schema_logs = toba::db()->get_schema(). '_logs';
+		$schema_logs = toba::db('usuarios')->get_schema(). '_logs';
 		$sql = "
 				SELECT	s.solicitud as id, 
 						s.momento as momento, 
@@ -214,7 +214,7 @@ class consultas_instancia
 		if (! empty($where)) {
 			$sql = sql_concatenar_where($sql, $where);
 		}			
-		return toba::db()->consultar($sql);
+		return toba::db('usuarios')->consultar($sql);
 	}
 
 	//---------------------------------------------------------------------
@@ -250,7 +250,7 @@ class consultas_instancia
 	static function get_cantidad_usuarios()
 	{
 		$sql = 'SELECT count(usuario) as cantidad FROM apex_usuario;';
-		$rs = toba::db()->consultar_fila($sql);
+		$rs = toba::db('usuarios')->consultar_fila($sql);
 		return ($rs !== false) ? $rs['cantidad'] : 0;
 	}
 
@@ -258,7 +258,7 @@ class consultas_instancia
 	{
 		$proyecto = quote($proyecto);
 		$sql = "SELECT count(usuario) as cantidad FROM apex_usuario_proyecto WHERE proyecto = $proyecto";
-		$rs = toba::db()->consultar_fila($sql);
+		$rs = toba::db('usuarios')->consultar_fila($sql);
 		return ($rs !== false) ? $rs['cantidad'] : 0; 
 	}
 
@@ -268,7 +268,7 @@ class consultas_instancia
 		$sql = 'SELECT count(usuario) as cantidad 
 			    FROM apex_usuario 
 			    WHERE usuario NOT IN (SELECT up.usuario FROM apex_usuario_proyecto up '. $where_proyecto. ' );';		
-		$rs = toba::db()->consultar_fila($sql);
+		$rs = toba::db('usuarios')->consultar_fila($sql);
 		return ($rs !== false) ? $rs['cantidad'] : 0;
 	}
 	
@@ -286,7 +286,7 @@ class consultas_instancia
 				$where
 				ORDER BY usuario 
 				$limit;";
-		return toba::db()->consultar($sql);		
+		return toba::db('usuarios')->consultar($sql);		
 	}
 	
 	static function get_usuarios_no_vinculados($filtro=null)
@@ -302,7 +302,7 @@ class consultas_instancia
 				FROM 	apex_usuario u 				
 				$where ;";
 		
-		return toba::db()->consultar($sql);
+		return toba::db('usuarios')->consultar($sql);
 	}
 	
 	static function get_usuarios_vinculados_proyecto($proyecto, $filtro=null,  $tamanio=null, $pagina=null)
@@ -329,7 +329,7 @@ class consultas_instancia
 				ORDER BY usuario
 				$limit
 				";
-		$datos = toba::db()->consultar($sql);
+		$datos = toba::db('usuarios')->consultar($sql);
 		$temp = array();
 		foreach ($datos as $dato) {
 			$temp[$dato['usuario']]['proyecto'] = $dato['proyecto'];
@@ -363,14 +363,14 @@ class consultas_instancia
 					$where
 				ORDER BY usuario 
 				$limit;";
-		return toba::db()->consultar($sql);
+		return toba::db('usuarios')->consultar($sql);
 	}
 	
 	static function get_existe_usuario($usuario)
 	{
 		$usuario = quote($usuario);
 		$sql = "SELECT count(*) as cantidad FROM apex_usuario WHERE usuario = $usuario;";
-		$rs = toba::db()->consultar_fila($sql);
+		$rs = toba::db('usuarios')->consultar_fila($sql);
 		if (isset($rs) && !empty($rs) && intval($rs['cantidad']) > 0) {
 			return true;
 		} else {
@@ -393,8 +393,8 @@ class consultas_instancia
 									AND up.usuario_grupo_acc = :perfil 
 									'. $extra . ');';
 		
-		$id = toba::db()->sentencia_preparar($sql);
-		return toba::db()->sentencia_ejecutar($id, $params);
+		$id = toba::db('usuarios')->sentencia_preparar($sql);
+		return toba::db('usuarios')->sentencia_ejecutar($id, $params);
 	}
 	
 	//---------------------------------------------------------------------
@@ -410,7 +410,7 @@ class consultas_instancia
 				WHERE 		proyecto = $proyecto
 						AND	usuario = $usuario
 				;";
-		return toba::db()->consultar($sql);
+		return toba::db('usuarios')->consultar($sql);
 	}
 
 	static function get_lista_grupos_acceso($filtro)
@@ -429,7 +429,7 @@ class consultas_instancia
 			$sql = sql_concatenar_where($sql, $where);
 		}
 		toba::logger()->debug($sql);
-		return toba::db()->consultar($sql);	
+		return toba::db('usuarios')->consultar($sql);	
 	}
 	
 	static function get_usuarios_con_grupo_acceso_unico($proyecto, $perfil)
@@ -444,7 +444,7 @@ class consultas_instancia
 								GROUP BY up.usuario
 								HAVING count(up.usuario_grupo_acc) > 1
 								);';
-		return toba::db()->consultar($sql);
+		return toba::db('usuarios')->consultar($sql);
 	}
 	
 //	static function get_lista_grupos_acceso_con_segundo_factor($filtro)
@@ -480,7 +480,7 @@ class consultas_instancia
 //		//Hago el union entre ambos
 //		$sql = "($sql_nofa)". PHP_EOL . ' UNION '. PHP_EOL . "($sql_2fa)";
 //		toba::logger()->debug($sql);
-//		return toba::db()->consultar($sql);	
+//		return toba::db('usuarios')->consultar($sql);	
 //	}
 	
 	static function get_lista_grupos_acceso_proyecto($proyecto)
@@ -497,7 +497,7 @@ class consultas_instancia
 				FROM 	apex_usuario_grupo_acc
 				WHERE 	proyecto = $proyecto
 				AND 	usuario_grupo_acc = $grupo";
-		return toba::db()->consultar($sql);
+		return toba::db('usuarios')->consultar($sql);
 	}
 	
 	static function get_descripcion_perfil_datos($proyecto, $perfil)
@@ -509,7 +509,7 @@ class consultas_instancia
 				FROM 	apex_usuario_perfil_datos
 				WHERE 	proyecto = $proyecto
 				AND 	usuario_perfil_datos = $perfil";
-		return toba::db()->consultar($sql);
+		return toba::db('usuarios')->consultar($sql);
 	}
 
 	//---------------------------------------------------------------------
@@ -529,7 +529,7 @@ class consultas_instancia
 		if (! empty($where)) {
 			$sql = sql_concatenar_where($sql, $where);			
 		}
-		return toba::db()->consultar($sql);		
+		return toba::db('usuarios')->consultar($sql);		
 	}
 	
 	static function get_menus_existentes($proyecto) 
@@ -546,7 +546,7 @@ class consultas_instancia
 		if (! empty($where)) {
 			$sql = sql_concatenar_where($sql, $where);			
 		}
-		return toba::db()->consultar($sql);
+		return toba::db('usuarios')->consultar($sql);
 	}
 	
 	static function get_items_combo($proyecto)
@@ -567,7 +567,7 @@ class consultas_instancia
 						descripcion						
 				FROM 	apex_usuario_perfil_datos 
 				WHERE	proyecto = $proyecto";
-		$datos = toba::db()->consultar($sql);
+		$datos = toba::db('usuarios')->consultar($sql);
 		return $datos;
 	}
 	
@@ -588,7 +588,7 @@ class consultas_instancia
 		if (! empty($where_filtro)) {
 			$sql = sql_concatenar_where($sql, $where_filtro);
 		}
-		return toba::db()->consultar($sql);		
+		return toba::db('usuarios')->consultar($sql);		
 	}
 }
 ?>

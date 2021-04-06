@@ -28,12 +28,12 @@ class ci_2fa_por_perfil extends toba_ci
 	function evt__cuadro__segundo_factor_mas($seleccion)
 	{
 		try {
-			toba::db()->abrir_transaccion();
+			toba::db('usuarios')->abrir_transaccion();
 			$membresias = $this->buscar_membresias($seleccion);
 			$this->marcar_usuarios_perfil($membresias);
-			toba::db()->cerrar_transaccion();
+			toba::db('usuarios')->cerrar_transaccion();
 		}catch (\toba_error_db $e) {
-			toba::db()->abortar_transaccion();
+			toba::db('usuarios')->abortar_transaccion();
 			throw $e;
 		}
 	}
@@ -42,14 +42,14 @@ class ci_2fa_por_perfil extends toba_ci
 	function evt__cuadro__segundo_factor_menos($seleccion)
 	{
 		try {
-			toba::db()->abrir_transaccion();
+			toba::db('usuarios')->abrir_transaccion();
 			$membresias = $this->buscar_membresias($seleccion);
 			if (count($membresias) == 1) {		//No desactivo cuando hay mas de un perfil funcional involucrado
 				$this->desmarcar_usuarios_perfil($membresias);
 			}
-			toba::db()->cerrar_transaccion();
+			toba::db('usuarios')->cerrar_transaccion();
 		}catch (\toba_error_db $e) {
-			toba::db()->abortar_transaccion();
+			toba::db('usuarios')->abortar_transaccion();
 			throw $e;
 		}
 	}

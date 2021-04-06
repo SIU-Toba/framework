@@ -21,10 +21,10 @@ class ci_restricciones_funcionales extends toba_ci
 			$alta = true;
 		}
 		$this->dep('restricciones')->persistidor()->desactivar_transaccion();
-		toba::db()->abrir_transaccion();
+		toba::db('usuarios')->abrir_transaccion();
 		$this->dep('restricciones')->sincronizar();
 		if ($alta) {
-			$restriccion = toba::db()->recuperar_secuencia('apex_restriccion_funcional_seq');	
+			$restriccion = toba::db('usuarios')->recuperar_secuencia('apex_restriccion_funcional_seq');	
 		}		
 		foreach ($raices as $raiz) {
 			if ($alta) {
@@ -32,7 +32,7 @@ class ci_restricciones_funcionales extends toba_ci
 			}
 			$raiz->sincronizar();	
 		}
-		toba::db()->cerrar_transaccion();
+		toba::db('usuarios')->cerrar_transaccion();
 		$this->dep('restricciones')->resetear();
 		$this->cortar_arbol();
 		$this->set_pantalla('seleccion');
@@ -56,7 +56,7 @@ class ci_restricciones_funcionales extends toba_ci
 		
 		$this->dep('restricciones')->persistidor()->desactivar_transaccion();
 		
-		toba::db()->abrir_transaccion();
+		toba::db('usuarios')->abrir_transaccion();
 		
 		$sql = array();
 		$sql[] = "DELETE FROM apex_restriccion_funcional_ef WHERE restriccion_funcional = '$this->s__restriccion' and proyecto = '$proyecto';";
@@ -65,12 +65,12 @@ class ci_restricciones_funcionales extends toba_ci
 		$sql[] = "DELETE FROM apex_restriccion_funcional_ei WHERE restriccion_funcional = '$this->s__restriccion' and proyecto = '$proyecto';";
 		$sql[] = "DELETE FROM apex_restriccion_funcional_cols WHERE restriccion_funcional = '$this->s__restriccion' and proyecto = '$proyecto';";
 		
-		toba::db()->ejecutar($sql);
+		toba::db('usuarios')->ejecutar($sql);
 		
 		$this->dep('restricciones')->eliminar_fila($this->dep('restricciones')->get_cursor());
 		$this->dep('restricciones')->sincronizar();
 		
-		toba::db()->cerrar_transaccion();
+		toba::db('usuarios')->cerrar_transaccion();
 		
 		$this->cortar_arbol();
 		$this->set_pantalla('seleccion');

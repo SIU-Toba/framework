@@ -55,7 +55,7 @@ class ci_navegacion_perfiles extends toba_ci
 		
 		if ($usa_permisos_por_tabla) {
 			$modelo = toba_modelo_catalogo::instanciacion();	
-			$modelo->set_db(toba::db());	
+			$modelo->set_db(toba::db('usuarios'));	
 			$proyecto = $modelo->get_proyecto(toba::instancia()->get_id(), $this->s__filtro['proyecto']);
 			$dir = $proyecto->get_dir(). '/';
 			try {			
@@ -71,7 +71,7 @@ class ci_navegacion_perfiles extends toba_ci
 	function evt__guardar()
 	{
 		$this->dep('datos')->persistidor()->desactivar_transaccion();
-		$db = toba::db();		
+		$db = toba::db('usuarios');		
 		$db->abrir_transaccion();
 		$db->retrasar_constraints(true);
 		//- Sincronizar la relacion
@@ -119,7 +119,7 @@ class ci_navegacion_perfiles extends toba_ci
 		}
 		
 		$this->dep('datos')->persistidor()->desactivar_transaccion();
-		toba::db()->abrir_transaccion();
+		toba::db('usuarios')->abrir_transaccion();
 		$this->dep('datos')->eliminar();
 		$this->dep('datos')->resetear();
 		//- Elimino el acceso a los items
@@ -128,8 +128,8 @@ class ci_navegacion_perfiles extends toba_ci
 				WHERE 
 						usuario_grupo_acc = '{$datos['usuario_grupo_acc']}'
 					AND proyecto = '{$datos['proyecto']}';";
-		toba::db()->ejecutar($sql);
-		toba::db()->cerrar_transaccion();
+		toba::db('usuarios')->ejecutar($sql);
+		toba::db('usuarios')->cerrar_transaccion();
 		
 		//-- Si estamos en produccion guardamos un flag indicando que cambiaron los perfiles y ahora se encarga el proyecto de manejarlos
 		$this->actualizar_info_ini();
@@ -251,7 +251,7 @@ class ci_navegacion_perfiles extends toba_ci
 		//Relaciones
 		foreach ($perfiles as $perfil) {
 			//Necesita pasarle la conexion porque aun no termino la transacción
-			$miembros = toba_info_permisos::get_perfiles_funcionales_miembros($perfil['proyecto'], $perfil['usuario_grupo_acc'], toba::db());
+			$miembros = toba_info_permisos::get_perfiles_funcionales_miembros($perfil['proyecto'], $perfil['usuario_grupo_acc'], toba::db('usuarios'));
 			foreach ($miembros as $miembro) {
 				$nodos[$perfil['usuario_grupo_acc']]->connectTo($nodos[$miembro['usuario_grupo_acc_pertenece']]);
 			}
