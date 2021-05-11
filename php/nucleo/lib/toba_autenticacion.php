@@ -106,7 +106,7 @@ class toba_autenticacion
 	
 	protected function set_atributos_usuario($atributos_usuario)
 	{
-		$claves = \array_fill_keys(self::$atributos_validos_usuario, 1);
+		$claves = \array_fill_keys($this->get_atributos_validos_usuario(), 1);
 		$this->atributos_usuario = array_intersect_key($atributos_usuario, $claves);
 		$_SESSION[self::$session_atributos_usuario] = $this->atributos_usuario;
 	}
@@ -138,6 +138,18 @@ class toba_autenticacion
 		if (isset($atributos['uniqueIdentifier']) && ! empty($atributos['uniqueIdentifier'])) {
 			return  utf8_d_seguro($atributos['uniqueIdentifier'][0]);
 		}
-	}	
+	}
+
+	private function get_atributos_validos_usuario()
+	{		
+		$final = self::$atributos_validos_usuario;
+		$extra = toba::config()->get_parametro('instalacion', null, 'token_atributos_extra');
+		$data = (null !== $extra) ? explode(',', $extra) : [];
+		if (is_array($data)) {
+			$final = array_merge(self::$atributos_validos_usuario, $data);
+		}
+		
+		return $final;
+	}
 }
 ?>

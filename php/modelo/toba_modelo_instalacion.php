@@ -660,6 +660,7 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 		$ini->agregar_entrada( 'es_produccion', $es_produccion);
 		$ini->agregar_entrada( ';autenticacion', 'toba|openid|ldap|cas|saml|saml_onelogin');
 		$ini->agregar_entrada( ';session_name', 'TOBA_SESSID');
+		$ini->agregar_entrada( ';token_atributos_extra', 'Campos separados por coma');
 		if (!toba_manejador_archivos::es_windows()) {
 			$ini->agregar_entrada(';fonts_path', '/usr/share/fonts/truetype/');
 		}
