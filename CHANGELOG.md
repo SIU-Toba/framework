@@ -4,6 +4,16 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.3.19](https://github.com/SIU-Toba/framework/releases/tag/v3.3.19) (2021-05-18)
+- Agrega posibilidad de parametrizar exposicion de atributos SAML via `instalacion.ini`
+- Actualizacion de seguridad de paquetes JS:
+     * CKEditor4: v4.16.0
+     * JQuery: v3.6.0
+     * JQuery-migrate: v3.3.0
+- Se actualizan los paquetes por seguridad
+     * phpmailer/phpmailer: v6.4.1
+     * phpoffice/phpspreadsheet: v1.17.1
+
 [3.3.18](https://github.com/SIU-Toba/framework/releases/tag/v3.3.18) (2021-03-02)
 - Bugfix en toba_varios::encriptar_con_sal() que permitia exploit con clave sin hashear
 

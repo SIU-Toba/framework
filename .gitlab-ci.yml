@@ -1,30 +1,57 @@
-cache:
-  key: "$CI_COMMIT_REF_SLUG"
-  paths:
-    - ./vendor/
-    - ./composer
-
 stages:
   - dependencias
-  - qa
+  - quality
 
-composer:php7.3:
+variables:
+  COMPOSER_CACHE_DIR: ./composer-cache
+  DOCKER_DRIVER: overlay2
+  DOCKER_TLS_CERTDIR: ""
+
+cache:
+  key: $CI_COMMIT_REF_SLUG
+  paths:
+    - $COMPOSER_CACHE_DIR
+  
+.docker:
+  # https://gitlab.com/gitlab-com/support-forum/issues/4416#note_199451215
+  image: docker:18.09.7
+  services:
+    - docker:18.09.7-dind
+  tags:
+    - docker
+  variables:
+    # si tag:kubernetes -> DOCKER_HOST: localhost
+    # si tag:docker -> NO definir DOCKER_HOST
+    DOCKER_DRIVER: overlay2
+    DOCKER_BUILDKIT: "1"
+  before_script:
+    - echo -n $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
+
+    
+dockercomposer:
   stage: dependencias
-  image: siutoba/docker-web:v1.8
-  services: 
-  - postgres:11
+  extends: 
+    - .docker
   script:
-    - composer config cache-files-dir ./composer
-    - composer install --prefer-dist > /dev/null
+    - docker pull composer:2.0 || true
+    - >
+      docker run --rm      
+      --env COMPOSER_CACHE_DIR 
+      --volume $COMPOSER_CACHE_DIR:$COMPOSER_CACHE_DIR 
+      --volume $PWD:/app 
+      composer:2.0 install --no-scripts --prefer-dist --ignore-platform-reqs
   artifacts:
+    expire_in: 1 month
     paths:
       - ./vendor/
-      - ./bin
-    expire_in: 1 day
-    
-sonar:
-  stage: qa
+      
+sonarqube:
+  stage: quality
+  tags:
+    - docker
   image: zaquestion/sonarqube-scanner
-  script: 
+  script:
     - sonar-scanner -Dsonar.projectBaseDir=./ -Dsonar.login=$SONAR_TOKEN
   allow_failure: true
+  dependencies: []
+
