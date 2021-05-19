@@ -6,6 +6,9 @@ define('apex_pa_proyecto', '__proyecto__');
 # Ejecuta con metadatos compilados
 define('apex_pa_metadatos_compilados', 1);
 
+# Recupera directamente los permisos desde bd, util entornos dockerizados
+#define('apex_pa_permisos_compilados', 0);
+
 # Deshabilita el autologin
 define('apex_pa_validacion_debug', 0);
 
