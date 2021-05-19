@@ -153,6 +153,14 @@ class toba_instancia
 		return null;
 	}
 
+	function get_directiva_compilacion_perfiles($proyecto)
+	{
+		if (isset($this->memoria[$proyecto]['perfiles_compilados'])) {
+			return $this->memoria[$proyecto]['perfiles_compilados'];
+		}
+		return null;
+	}
+	
 	function get_largo_minimo_password()
 	{
 		if (isset($this->memoria['pwd_largo_minimo'])) {
