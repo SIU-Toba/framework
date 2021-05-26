@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * @package Seguridad
+ * @subpackage autenticacion
+ */
 class toba_autenticacion_saml  extends toba_autenticacion implements  toba_autenticable
 {
 	protected $auth_source = "default-sp";

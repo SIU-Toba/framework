@@ -1,4 +1,8 @@
 <?php	
+/**
+ * @package Seguridad
+ * @subpackage autenticacion
+ */
 class toba_autenticacion_basica extends toba_autenticacion implements toba_autenticable	
 {
 	function autenticar($id_usuario, $clave, $datos_iniciales=null)

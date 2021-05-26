@@ -1,7 +1,9 @@
 <?php
 /**
  * Description of toba_ef_cbu
- *
+ * @package Componentes
+ * @subpackage Efs
+ * @jsdoc ef_cbu ef_cbu
  * @author jpiazza
  */
 class toba_ef_cbu extends toba_ef_editable {
