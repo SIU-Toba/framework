@@ -2,7 +2,10 @@
 
 use OneLogin\Saml2\Auth;
 use OneLogin\Saml2\Utils;
-
+/**
+ * @package Seguridad
+ * @subpackage autenticacion
+ */
 class toba_autenticacion_saml_onelogin extends toba_autenticacion implements toba_autenticable
 {
 	protected $auth_source = "default-sp";

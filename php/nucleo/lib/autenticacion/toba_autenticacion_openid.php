@@ -1,6 +1,7 @@
 <?php
 /**
- * @package Centrales
+ * @package Seguridad
+ * @subpackage autenticacion
  */
 class toba_autenticacion_openid  extends toba_autenticacion implements toba_autenticable
 {

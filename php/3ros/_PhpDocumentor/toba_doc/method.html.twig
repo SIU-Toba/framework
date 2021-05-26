@@ -1,7 +1,7 @@
 <a name='method_detail'></a>
 {%for method in methods|sort_asc%}
     {%if method.static%}
-    <a name="method{{method.name}}" id="{{method.name}}"><!-- --></a>
+    <a name="method{{method.name}}" id="{{method.name}}" href="{{ link(method) }}"><!-- --></a>
     <div class="{{cycle(["evenrow", "oddrow"], loop.index0)}}">
     <div class="method-header">
         {%if method.visibility == "protected"%}
@@ -94,7 +94,7 @@
 
 {%for method in methods|sort_asc%}
     {%if not method.static%}
-    <a name="method{{method.name}}" id="{{method.name}}"><!-- --></a>
+    <a name="method{{method.name}}" id="{{method.name}}" href="{{ link(method) }}"><!-- --></a>
     <div class="{{cycle(["evenrow", "oddrow"], loop.index0)}}">
     <div class="method-header">	    
             {% if method.visibility == "protected"%}

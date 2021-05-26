@@ -1,5 +1,8 @@
 <?php 
-
+/**
+ * @package Seguridad
+ * @subpackage autenticacion
+ */
 class toba_autenticacion_ldap extends toba_autenticacion implements toba_autenticable
 {
 	protected $server;

@@ -1,4 +1,8 @@
 <?php
+/**
+ * @package Seguridad
+ * @subpackage autenticacion
+ */
 class toba_autenticacion
 {
 	static $marca_login_basico = 'uso_login_basico';

@@ -26,6 +26,9 @@ if (!defined('apex_log_error_log_nivel')) {
 	define('apex_log_error_log_nivel', TOBA_LOG_ERROR); 
 }
 
+/**
+  * @package Debug
+ */
 trait toba_basic_logger 
 {	
 	public static $separador = "-o-o-o-o-o-";
