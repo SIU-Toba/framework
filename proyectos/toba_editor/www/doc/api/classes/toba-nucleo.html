@@ -1,0 +1,1888 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>API PHP</title>
+<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
+
+   <link href="../css/style.css" rel="stylesheet" media="all"/>
+  
+</head>
+<body>
+    <table border="0" cellspacing="0" cellpadding="0" height="48" width="100%">
+        <tr>
+            <td class="header-top-left">
+                <img src="../img/logo.png" border="0" />
+            </td>
+            <td class="header-top-center">
+                    <div class="package">
+                    <a href="../packages/Centrales.html">Centrales</a>&nbsp;|&nbsp;
+                    <a href="../packages/Componentes.html">Componentes</a>&nbsp;|&nbsp;
+                    <a href="../packages/consola.html">consola</a>&nbsp;|&nbsp;
+                    <a href="../packages/Debug.html">Debug</a>&nbsp;|&nbsp;
+                    <a href="../packages/Default.html">Default</a>&nbsp;|&nbsp;
+                    <a href="../packages/Fuentes.html">Fuentes</a>&nbsp;|&nbsp;
+                    <a href="../packages/SalidaGrafica.html">SalidaGrafica</a>&nbsp;|&nbsp;
+                    <a href="../packages/Seguridad.html">Seguridad</a>&nbsp;|&nbsp;
+                    <a href="../packages/SIUToba.html">SIUToba</a>&nbsp;|&nbsp;
+                    <a href="../packages/Varios.html">Varios</a>&nbsp;|&nbsp;
+                <a href="../deprecated.html">Deprecated</a>
+    </div>
+
+ 
+                
+            </td> 
+            <td class="header-top-right">
+                                <a href="../../docs/intro" title="Navegar hacia la documentación">
+                    <img border='0' style='vertical-align: middle' src="../img/wiki-small.png" />
+    		</a>    		
+                <img height=64 border='0' style='vertical-align: middle' src="../img/php.png" />                  
+                <a href="../../api_js/index.html"  title="Navegar hacia la documentación JAVASCRIPT">
+                    <img border='0' style='vertical-align: middle' src="../img/javascript-small.png" />
+    		</a>                
+                                
+            </td>        
+        </tr>
+        <tr>
+            <td colspan="3" class="header-line">
+                <img src="../img/empty.png" width="1" height="1" border="0" alt=""  />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" class="header-menu">
+                <img src="../img/empty.png" width="1" height="10" border="0" alt=""  />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" class="header-line">
+                <img src="../img/empty.png" width="1" height="1" border="0" alt=""  />
+            </td>
+        </tr>
+    </table>
+    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr valign="top">
+            <td class="menu" width="200" >
+                    
+    <div class="package-title">Centrales</div></br>
+        <div class="subpackage-title">Centrales</div>
+    <div class="package-details">
+        <ul>           
+                            <li class="interface"><a href="../classes/toba-interface-contexto-ejecucion.html"><abbr title="\toba_interface_contexto_ejecucion">toba_interface_contexto_ejecucion</abbr></a></li>
+                            <li class="interface"><a href="../classes/toba-interface-sesion.html"><abbr title="\toba_interface_sesion">toba_interface_sesion</abbr></a></li>
+                            <li class="interface"><a href="../classes/toba-interface-usuario.html"><abbr title="\toba_interface_usuario">toba_interface_usuario</abbr></a></li>
+                            <li class="interface"><a href="../classes/toba-meta-clase.html"><abbr title="\toba_meta_clase">toba_meta_clase</abbr></a></li>
+                            <li class="interface"><a href="../classes/toba-tarea.html"><abbr title="\toba_tarea">toba_tarea</abbr></a></li>
+                                                    <li class="class"><a href="../classes/mock-autenticador.html"><abbr title="\mock_autenticador">mock_autenticador</abbr></a></li>
+                            <li class="class"><a href="../classes/mock-request.html"><abbr title="\mock_request">mock_request</abbr></a></li>
+                            <li class="class"><a href="../classes/toba.html"><abbr title="\toba">toba</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-cliente-rdi.html"><abbr title="\toba_cliente_rdi">toba_cliente_rdi</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-contenedor-gadgets.html"><abbr title="\toba_contenedor_gadgets">toba_contenedor_gadgets</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-contexto-ejecucion.html"><abbr title="\toba_contexto_ejecucion">toba_contexto_ejecucion</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-error-servicio-web.html"><abbr title="\toba_error_servicio_web">toba_error_servicio_web</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-instalacion.html"><abbr title="\toba_instalacion">toba_instalacion</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-instancia.html"><abbr title="\toba_instancia">toba_instancia</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-mail.html"><abbr title="\toba_mail">toba_mail</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-memoria.html"><abbr title="\toba_memoria">toba_memoria</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-nucleo.html"><abbr title="\toba_nucleo">toba_nucleo</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-parametros.html"><abbr title="\toba_parametros">toba_parametros</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-planificador-tareas.html"><abbr title="\toba_planificador_tareas">toba_planificador_tareas</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-pms.html"><abbr title="\toba_pms">toba_pms</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-proyecto-db.html"><abbr title="\toba_proyecto_db">toba_proyecto_db</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-reset-nucleo.html"><abbr title="\toba_reset_nucleo">toba_reset_nucleo</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-rest.html"><abbr title="\toba_rest">toba_rest</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-servicio-web-cliente-rest.html"><abbr title="\toba_servicio_web_cliente_rest">toba_servicio_web_cliente_rest</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-servicio-web-cliente-soap.html"><abbr title="\toba_servicio_web_cliente_soap">toba_servicio_web_cliente_soap</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-sesion.html"><abbr title="\toba_sesion">toba_sesion</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-solicitud.html"><abbr title="\toba_solicitud">toba_solicitud</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-solicitud-accion.html"><abbr title="\toba_solicitud_accion">toba_solicitud_accion</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-solicitud-consola.html"><abbr title="\toba_solicitud_consola">toba_solicitud_consola</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-solicitud-servicio-rest.html"><abbr title="\toba_solicitud_servicio_rest">toba_solicitud_servicio_rest</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-solicitud-servicio-web.html"><abbr title="\toba_solicitud_servicio_web">toba_solicitud_servicio_web</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-tarea-php.html"><abbr title="\toba_tarea_php">toba_tarea_php</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-validaciones.html"><abbr title="\toba_validaciones">toba_validaciones</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-version.html"><abbr title="\toba_version">toba_version</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-vinculo.html"><abbr title="\toba_vinculo">toba_vinculo</abbr></a></li>
+                    </ul>
+    </div>
+    
+                         
+                    <div class="subpackage-title">Errores</div>
+    <div class="package-details">
+        <ul>           
+                                                    <li class="class"><a href="../classes/toba-error.html"><abbr title="\toba_error">toba_error</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-error-autenticacion.html"><abbr title="\toba_error_autenticacion">toba_error_autenticacion</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-error-autenticacion-intentos.html"><abbr title="\toba_error_autenticacion_intentos">toba_error_autenticacion_intentos</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-error-autorizacion.html"><abbr title="\toba_error_autorizacion">toba_error_autorizacion</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-error-comunicacion.html"><abbr title="\toba_error_comunicacion">toba_error_comunicacion</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-error-db.html"><abbr title="\toba_error_db">toba_error_db</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-error-def.html"><abbr title="\toba_error_def">toba_error_def</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-error-firma-digital.html"><abbr title="\toba_error_firma_digital">toba_error_firma_digital</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-error-ini-sesion.html"><abbr title="\toba_error_ini_sesion">toba_error_ini_sesion</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-error-login-contrasenia-vencida.html"><abbr title="\toba_error_login_contrasenia_vencida">toba_error_login_contrasenia_vencida</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-error-permisos.html"><abbr title="\toba_error_permisos">toba_error_permisos</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-error-pwd-conformacion-invalida.html"><abbr title="\toba_error_pwd_conformacion_invalida">toba_error_pwd_conformacion_invalida</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-error-seguridad.html"><abbr title="\toba_error_seguridad">toba_error_seguridad</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-error-usuario.html"><abbr title="\toba_error_usuario">toba_error_usuario</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-error-validacion.html"><abbr title="\toba_error_validacion">toba_error_validacion</abbr></a></li>
+                    </ul>
+    </div>
+     
+                     
+                    <div class="subpackage-title">Modelo</div>
+    <div class="package-details">
+        <ul>           
+                            <li class="interface"><a href="../classes/toba-aplicacion-comando.html"><abbr title="\toba_aplicacion_comando">toba_aplicacion_comando</abbr></a></li>
+                            <li class="interface"><a href="../classes/toba-aplicacion-modelo.html"><abbr title="\toba_aplicacion_modelo">toba_aplicacion_modelo</abbr></a></li>
+                                                    <li class="class"><a href="../classes/toba-aplicacion-comando-base.html"><abbr title="\toba_aplicacion_comando_base">toba_aplicacion_comando_base</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-aplicacion-modelo-base.html"><abbr title="\toba_aplicacion_modelo_base">toba_aplicacion_modelo_base</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-modelo-catalogo.html"><abbr title="\toba_modelo_catalogo">toba_modelo_catalogo</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-modelo-instalacion.html"><abbr title="\toba_modelo_instalacion">toba_modelo_instalacion</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-modelo-instancia.html"><abbr title="\toba_modelo_instancia">toba_modelo_instancia</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-modelo-pms.html"><abbr title="\toba_modelo_pms">toba_modelo_pms</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-modelo-proyecto.html"><abbr title="\toba_modelo_proyecto">toba_modelo_proyecto</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-modelo-rest.html"><abbr title="\toba_modelo_rest">toba_modelo_rest</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-modelo-servicio-web.html"><abbr title="\toba_modelo_servicio_web">toba_modelo_servicio_web</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-modelo-soap.html"><abbr title="\toba_modelo_soap">toba_modelo_soap</abbr></a></li>
+                    </ul>
+    </div>
+     
+                     
+                    <div class="subpackage-title">Personalizacion</div>
+    <div class="package-details">
+        <ul>           
+                                                    <li class="class"><a href="../classes/toba-importador.html"><abbr title="\toba_importador">toba_importador</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-importador-componentes.html"><abbr title="\toba_importador_componentes">toba_importador_componentes</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-importador-plan.html"><abbr title="\toba_importador_plan">toba_importador_plan</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-importador-plan-item.html"><abbr title="\toba_importador_plan_item">toba_importador_plan_item</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-importador-tablas.html"><abbr title="\toba_importador_tablas">toba_importador_tablas</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-pers-caso-test.html"><abbr title="\toba_pers_caso_test">toba_pers_caso_test</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-pers-xml-generador.html"><abbr title="\toba_pers_xml_generador">toba_pers_xml_generador</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-pers-xml-generador-tablas.html"><abbr title="\toba_pers_xml_generador_tablas">toba_pers_xml_generador_tablas</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-personalizacion.html"><abbr title="\toba_personalizacion">toba_personalizacion</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-recuperador.html"><abbr title="\toba_recuperador">toba_recuperador</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-recuperador-componentes.html"><abbr title="\toba_recuperador_componentes">toba_recuperador_componentes</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-recuperador-data.html"><abbr title="\toba_recuperador_data">toba_recuperador_data</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-recuperador-tablas.html"><abbr title="\toba_recuperador_tablas">toba_recuperador_tablas</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-recuperador-utildb-componentes.html"><abbr title="\toba_recuperador_utildb_componentes">toba_recuperador_utildb_componentes</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-recuperador-utildb-tablas.html"><abbr title="\toba_recuperador_utildb_tablas">toba_recuperador_utildb_tablas</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-registro-con-clave.html"><abbr title="\toba_registro_con_clave">toba_registro_con_clave</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-registro-conflictos.html"><abbr title="\toba_registro_conflictos">toba_registro_conflictos</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-registro-delete.html"><abbr title="\toba_registro_delete">toba_registro_delete</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-registro-insert.html"><abbr title="\toba_registro_insert">toba_registro_insert</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-registro-update.html"><abbr title="\toba_registro_update">toba_registro_update</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-registro-xml-factory.html"><abbr title="\toba_registro_xml_factory">toba_registro_xml_factory</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-tarea-componente.html"><abbr title="\toba_tarea_componente">toba_tarea_componente</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-tarea-datos.html"><abbr title="\toba_tarea_datos">toba_tarea_datos</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-tarea-pers.html"><abbr title="\toba_tarea_pers">toba_tarea_pers</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-tarea-tabla.html"><abbr title="\toba_tarea_tabla">toba_tarea_tabla</abbr></a></li>
+                    </ul>
+    </div>
+     
+                     
+                    <div class="subpackage-title">PuntoMontaje</div>
+    <div class="package-details">
+        <ul>           
+                                                    <li class="class"><a href="../classes/toba-pm-a-registro.html"><abbr title="\toba_pm_a_registro">toba_pm_a_registro</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-punto-montaje.html"><abbr title="\toba_punto_montaje">toba_punto_montaje</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-punto-montaje-autoload.html"><abbr title="\toba_punto_montaje_autoload">toba_punto_montaje_autoload</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-punto-montaje-factory.html"><abbr title="\toba_punto_montaje_factory">toba_punto_montaje_factory</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-punto-montaje-pers.html"><abbr title="\toba_punto_montaje_pers">toba_punto_montaje_pers</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-punto-montaje-proyecto.html"><abbr title="\toba_punto_montaje_proyecto">toba_punto_montaje_proyecto</abbr></a></li>
+                    </ul>
+    </div>
+     
+                </div>
+   <div id="topdiv">
+     <p><a href="javascript:scroll(0,0)">[ Top ]</a></p>
+   </div>
+            </td>
+            <td>
+                       
+ <a name="sec-description"></a>
+<h1>toba_nucleo</h1>
+<div class="info-box">
+    <div class="nav-bar">                
+                    <span class="disabled">Resúmen de la Clase</span> |
+                                            <a href="#sec-method-summary">Métodos Propios</a>
+        		
+    </div>
+    <div class="info-box-body">
+        <table width="100%" border="0" paddingtop="2px">
+        <tr><td valign="top" width="60%" class="class-overview">
+                                    
+                                                                <div class="description">toba_nucleo</div>
+            <p class="notes">
+                    Ubicada en php/nucleo/toba_nucleo.php [<span class="field">line 24</span>]
+            </p>
+            <table border="0" cellspacing="0" cellpadding="0">
+</table>
+<br>
+<table border="0" cellspacing="0" cellpadding="0">
+ </table>
+<br />
+
+        </td>
+        </tr>
+        </table>
+    </div>
+</div>
+
+   
+   
+
+        <a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Métodos Propios</div>
+		<div class="info-box-body">
+			<div class="method-summary">
+                            <table border="0" cellspacing="5" cellpadding="0" class="method-summary">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <tr><td></td><td class="method-definition" nowrap>static
+                                                                            <span class="method-result">mixed</span>&nbsp;&nbsp;
+                                                                        </td>
+                                    <td class="method-definition">
+                                        <a href='#mixed' title="details" class="method-name">
+                                        cargador_clases</a>()&nbsp;&nbsp;
+                                    </td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr><td></td><td class="method-definition" nowrap>static
+                                                                            <span class="method-result">mixed</span>&nbsp;&nbsp;
+                                                                        </td>
+                                    <td class="method-definition">
+                                        <a href='#mixed' title="details" class="method-name">
+                                        cargar_autoload_composer</a>()&nbsp;&nbsp;
+                                    </td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <tr><td></td><td class="method-definition" nowrap>static
+                                                                            <span class="method-result">mixed</span>&nbsp;&nbsp;
+                                                                        </td>
+                                    <td class="method-definition">
+                                        <a href='#mixed' title="details" class="method-name">
+                                        get_directorio_compilacion</a>()&nbsp;&nbsp;
+                                    </td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                                                                            <tr><td></td><td class="method-definition" nowrap>static
+                                                                            <span class="method-result">mixed</span>&nbsp;&nbsp;
+                                                                        </td>
+                                    <td class="method-definition">
+                                        <a href='#mixed' title="details" class="method-name">
+                                        get_indice_archivos</a>()&nbsp;&nbsp;
+                                    </td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <tr><td></td><td class="method-definition" nowrap>static
+                                                                            <span class="method-result">mixed</span>&nbsp;&nbsp;
+                                                                        </td>
+                                    <td class="method-definition">
+                                        <a href='#mixed' title="details" class="method-name">
+                                        instancia</a>()&nbsp;&nbsp;
+                                    </td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                                                                                                                                                                                                    <tr><td></td><td class="method-definition" nowrap>static
+                                                                            <span class="method-result">mixed</span>&nbsp;&nbsp;
+                                                                        </td>
+                                    <td class="method-definition">
+                                        <a href='#mixed' title="details" class="method-name">
+                                        toba_dir</a>()&nbsp;&nbsp;
+                                    </td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr><td></td><td class="method-definition" nowrap>static
+                                                                            <span class="method-result">mixed</span>&nbsp;&nbsp;
+                                                                        </td>
+                                    <td class="method-definition">
+                                        <a href='#mixed' title="details" class="method-name">
+                                        toba_instalacion_dir</a>()&nbsp;&nbsp;
+                                    </td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                                                                                                                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#__construct' title="details" class="method-name">__construct
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#acceso_consola' title="details" class="method-name">acceso_consola
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#acceso_rest' title="details" class="method-name">acceso_rest
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#acceso_servicio' title="details" class="method-name">acceso_servicio
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#acceso_web' title="details" class="method-name">acceso_web
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+                                                                                </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#agregar_paths' title="details" class="method-name">agregar_paths
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+                                                                                </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#autorizar_acceso_item' title="details" class="method-name">autorizar_acceso_item
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                                                                                                                                        <tr>
+                                    <td nowrap align="right">
+                                                                                                                                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+                                                                                </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#cargar_includes_basicos' title="details" class="method-name">cargar_includes_basicos
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#cargar_solicitud_web' title="details" class="method-name">cargar_solicitud_web
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#controlar_requisitos_basicos' title="details" class="method-name">controlar_requisitos_basicos
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#es_acceso_rest' title="details" class="method-name">es_acceso_rest
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+                                                                                </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#finalizar_contexto_ejecucion' title="details" class="method-name">finalizar_contexto_ejecucion
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#finalizar_contexto_rest' title="details" class="method-name">finalizar_contexto_rest
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+                                                                                </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_archivos_autoload' title="details" class="method-name">get_archivos_autoload
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                                                                            <tr>
+                                    <td nowrap align="right">
+                                                                                                                                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+                                                                                </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_id_item' title="details" class="method-name">get_id_item
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                                                                            <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">\solicitud</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_solicitud' title="details" class="method-name">get_solicitud
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+                                                                                </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#iniciar_contexto_consola' title="details" class="method-name">iniciar_contexto_consola
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#iniciar_contexto_desde_consola' title="details" class="method-name">iniciar_contexto_desde_consola
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+                                                                                </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#iniciar_contexto_ejecucion' title="details" class="method-name">iniciar_contexto_ejecucion
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+                                                                                </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#iniciar_contexto_rest' title="details" class="method-name">iniciar_contexto_rest
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+                                                                                </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#iniciar_contexto_soap' title="details" class="method-name">iniciar_contexto_soap
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                                                                            <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#recuperar_revision_recursos' title="details" class="method-name">recuperar_revision_recursos
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+                                                                                </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#registrar_autoloaders_proyecto' title="details" class="method-name">registrar_autoloaders_proyecto
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#solicitud_en_proceso' title="details" class="method-name">solicitud_en_proceso
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                                                                                                                                        <tr>
+                                    <td nowrap align="right">
+                                                                                                                                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+                                                                                </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">array</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#verifica_cambio_2FA' title="details" class="method-name">verifica_cambio_2FA
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">bool</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#verifica_necesidad_2FA' title="details" class="method-name">verifica_necesidad_2FA
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#verificar_pedido_post' title="details" class="method-name">verificar_pedido_post
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                        </table>
+			</div>
+			<br />
+		</div>
+	</div>
+
+
+
+
+
+
+    <a name="sec-methods"></a>
+    <div class="info-box">
+        <div class="info-box-body">
+                <a name='method_detail'></a>
+                                    <a name="methodcargador_clases" id="cargador_clases" href="../classes/toba-nucleo.html#method_cargador_clases"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">
+        	<span class="method-title">static method cargador_clases</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea  510]
+	</span>
+    </div>
+<br />
+
+<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+    <tr><td class="code-border">
+        <table width="100%" border="0" cellspacing="0" cellpadding="2">
+        <tr><td class="code">&nbsp;
+            <code>static mixed cargador_clases(
+                                                
+                     mixed
+                    clase                                                 )
+            </code>
+        </td></tr>
+        </table>
+    </td></tr>
+    </table>
+    <br/>
+</div>
+    
+        
+    Parámetros:<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+            <tr><td class="indent">
+            <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+            <td>
+            <span class="var-name">clase:&nbsp;</span></td>
+            <td>
+                    </td></tr>
+        </table>
+    
+<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+    
+                <br />
+</div>    
+        <a name="methodcargar_autoload_composer" id="cargar_autoload_composer" href="../classes/toba-nucleo.html#method_cargar_autoload_composer"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">
+        	<span class="method-title">static method cargar_autoload_composer</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea  53]
+	</span>
+    </div>
+<br />
+
+<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+    <tr><td class="code-border">
+        <table width="100%" border="0" cellspacing="0" cellpadding="2">
+        <tr><td class="code">&nbsp;
+            <code>static mixed cargar_autoload_composer(
+            )
+            </code>
+        </td></tr>
+        </table>
+    </td></tr>
+    </table>
+    <br/>
+</div>
+    
+        
+    
+<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+    
+                <br />
+</div>    
+                                    <a name="methodget_directorio_compilacion" id="get_directorio_compilacion" href="../classes/toba-nucleo.html#method_get_directorio_compilacion"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">
+        	<span class="method-title">static method get_directorio_compilacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea  504]
+	</span>
+    </div>
+<br />
+
+<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+    <tr><td class="code-border">
+        <table width="100%" border="0" cellspacing="0" cellpadding="2">
+        <tr><td class="code">&nbsp;
+            <code>static mixed get_directorio_compilacion(
+            )
+            </code>
+        </td></tr>
+        </table>
+    </td></tr>
+    </table>
+    <br/>
+</div>
+    
+        
+    
+<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+    
+                <br />
+</div>    
+            <a name="methodget_indice_archivos" id="get_indice_archivos" href="../classes/toba-nucleo.html#method_get_indice_archivos"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">
+        	<span class="method-title">static method get_indice_archivos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea  45]
+	</span>
+    </div>
+<br />
+
+<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+    <tr><td class="code-border">
+        <table width="100%" border="0" cellspacing="0" cellpadding="2">
+        <tr><td class="code">&nbsp;
+            <code>static mixed get_indice_archivos(
+            )
+            </code>
+        </td></tr>
+        </table>
+    </td></tr>
+    </table>
+    <br/>
+</div>
+    
+        
+    
+<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+    
+                <br />
+</div>    
+                                <a name="methodinstancia" id="instancia" href="../classes/toba-nucleo.html#method_instancia"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">
+        	<span class="method-title">static method instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea  37]
+	</span>
+    </div>
+<br />
+
+<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+    <tr><td class="code-border">
+        <table width="100%" border="0" cellspacing="0" cellpadding="2">
+        <tr><td class="code">&nbsp;
+            <code>static mixed instancia(
+            )
+            </code>
+        </td></tr>
+        </table>
+    </td></tr>
+    </table>
+    <br/>
+</div>
+    
+        
+    
+<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+    
+                <br />
+</div>    
+                    <a name="methodtoba_dir" id="toba_dir" href="../classes/toba-nucleo.html#method_toba_dir"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">
+        	<span class="method-title">static method toba_dir</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea  422]
+	</span>
+    </div>
+<br />
+
+<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+    <tr><td class="code-border">
+        <table width="100%" border="0" cellspacing="0" cellpadding="2">
+        <tr><td class="code">&nbsp;
+            <code>static mixed toba_dir(
+            )
+            </code>
+        </td></tr>
+        </table>
+    </td></tr>
+    </table>
+    <br/>
+</div>
+    
+        
+    
+<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+    
+                <br />
+</div>    
+        <a name="methodtoba_instalacion_dir" id="toba_instalacion_dir" href="../classes/toba-nucleo.html#method_toba_instalacion_dir"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">
+        	<span class="method-title">static method toba_instalacion_dir</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea  431]
+	</span>
+    </div>
+<br />
+
+<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+    <tr><td class="code-border">
+        <table width="100%" border="0" cellspacing="0" cellpadding="2">
+        <tr><td class="code">&nbsp;
+            <code>static mixed toba_instalacion_dir(
+            )
+            </code>
+        </td></tr>
+        </table>
+    </td></tr>
+    </table>
+    <br/>
+</div>
+    
+        
+    
+<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+    
+                <br />
+</div>    
+            
+
+        <a name="method__construct" id="__construct" href="../classes/toba-nucleo.html#method___construct"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		__construct</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 69]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed __construct(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodacceso_consola" id="acceso_consola" href="../classes/toba-nucleo.html#method_acceso_consola"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		acceso_consola</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 204]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed acceso_consola(
+                                    
+                mixed
+                instancia                ,                             
+                mixed
+                proyecto                ,                             
+                mixed
+                item                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Punto de entrada desde la consola al nucleo</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">instancia:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">proyecto:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">item:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodacceso_rest" id="acceso_rest" href="../classes/toba-nucleo.html#method_acceso_rest"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		acceso_rest</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 176]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed acceso_rest(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Punto de entrada http-REST al nucleo</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodacceso_servicio" id="acceso_servicio" href="../classes/toba-nucleo.html#method_acceso_servicio"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		acceso_servicio</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 128]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed acceso_servicio(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Punto de entrada http al nucleo</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodacceso_web" id="acceso_web" href="../classes/toba-nucleo.html#method_acceso_web"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		acceso_web</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 87]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed acceso_web(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Punto de entrada http al nucleo</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodagregar_paths" id="agregar_paths" href="../classes/toba-nucleo.html#method_agregar_paths"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+            		    			
+	<span class="method-title">
+		agregar_paths</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 365]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed agregar_paths(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodautorizar_acceso_item" id="autorizar_acceso_item" href="../classes/toba-nucleo.html#method_autorizar_acceso_item"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+            		    		    			
+	<span class="method-title">
+		autorizar_acceso_item</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 309]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed autorizar_acceso_item(
+                                    
+                mixed
+                item                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">item:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+                <a name="methodcargar_includes_basicos" id="cargar_includes_basicos" href="../classes/toba-nucleo.html#method_cargar_includes_basicos"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+            		    			
+	<span class="method-title">
+		cargar_includes_basicos</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 443]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed cargar_includes_basicos(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Carga de includes basicos</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodcargar_solicitud_web" id="cargar_solicitud_web" href="../classes/toba-nucleo.html#method_cargar_solicitud_web"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		cargar_solicitud_web</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 246]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed cargar_solicitud_web(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Carga la SOLICITUD actual. Se determina el item y se controla el acceso al mismo</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodcontrolar_requisitos_basicos" id="controlar_requisitos_basicos" href="../classes/toba-nucleo.html#method_controlar_requisitos_basicos"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		controlar_requisitos_basicos</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 406]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed controlar_requisitos_basicos(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodes_acceso_rest" id="es_acceso_rest" href="../classes/toba-nucleo.html#method_es_acceso_rest"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		es_acceso_rest</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 413]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed es_acceso_rest(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodfinalizar_contexto_ejecucion" id="finalizar_contexto_ejecucion" href="../classes/toba-nucleo.html#method_finalizar_contexto_ejecucion"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+            		    			
+	<span class="method-title">
+		finalizar_contexto_ejecucion</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 389]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed finalizar_contexto_ejecucion(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodfinalizar_contexto_rest" id="finalizar_contexto_rest" href="../classes/toba-nucleo.html#method_finalizar_contexto_rest"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		finalizar_contexto_rest</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 398]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed finalizar_contexto_rest(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodget_archivos_autoload" id="get_archivos_autoload" href="../classes/toba-nucleo.html#method_get_archivos_autoload"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+            		    			
+	<span class="method-title">
+		get_archivos_autoload</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 384]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed get_archivos_autoload(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+            <a name="methodget_id_item" id="get_id_item" href="../classes/toba-nucleo.html#method_get_id_item"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+            		    		    			
+	<span class="method-title">
+		get_id_item</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 292]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed get_id_item(
+                                    
+                [mixed
+                predefinido = null ]                ,                             
+                [mixed
+                forzar_predefinido = false ]                ,                             
+                [mixed
+                evitar_pre_sesion = false ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Averigua el ITEM ACTUAL. Si no existe y puede busca el ITEM PREDEFINIDO pasado como parametro</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">predefinido:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">forzar_predefinido:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">evitar_pre_sesion:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+            <a name="methodget_solicitud" id="get_solicitud" href="../classes/toba-nucleo.html#method_get_solicitud"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		get_solicitud</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 79]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>\solicitud get_solicitud(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodiniciar_contexto_consola" id="iniciar_contexto_consola" href="../classes/toba-nucleo.html#method_iniciar_contexto_consola"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+            		    			
+	<span class="method-title">
+		iniciar_contexto_consola</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 334]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed iniciar_contexto_consola(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodiniciar_contexto_desde_consola" id="iniciar_contexto_desde_consola" href="../classes/toba-nucleo.html#method_iniciar_contexto_desde_consola"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		iniciar_contexto_desde_consola</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 230]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed iniciar_contexto_desde_consola(
+                                    
+                mixed
+                instancia                ,                             
+                mixed
+                proyecto                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">instancia:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">proyecto:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodiniciar_contexto_ejecucion" id="iniciar_contexto_ejecucion" href="../classes/toba-nucleo.html#method_iniciar_contexto_ejecucion"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+            		    			
+	<span class="method-title">
+		iniciar_contexto_ejecucion</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 320]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed iniciar_contexto_ejecucion(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodiniciar_contexto_rest" id="iniciar_contexto_rest" href="../classes/toba-nucleo.html#method_iniciar_contexto_rest"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+            		    			
+	<span class="method-title">
+		iniciar_contexto_rest</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 353]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed iniciar_contexto_rest(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodiniciar_contexto_soap" id="iniciar_contexto_soap" href="../classes/toba-nucleo.html#method_iniciar_contexto_soap"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+            		    			
+	<span class="method-title">
+		iniciar_contexto_soap</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 348]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed iniciar_contexto_soap(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+            <a name="methodrecuperar_revision_recursos" id="recuperar_revision_recursos" href="../classes/toba-nucleo.html#method_recuperar_revision_recursos"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		recuperar_revision_recursos</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 541]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed recuperar_revision_recursos(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodregistrar_autoloaders_proyecto" id="registrar_autoloaders_proyecto" href="../classes/toba-nucleo.html#method_registrar_autoloaders_proyecto"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+            		    			
+	<span class="method-title">
+		registrar_autoloaders_proyecto</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 373]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed registrar_autoloaders_proyecto(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodsolicitud_en_proceso" id="solicitud_en_proceso" href="../classes/toba-nucleo.html#method_solicitud_en_proceso"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		solicitud_en_proceso</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 238]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed solicitud_en_proceso(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+                <a name="methodverifica_cambio_2FA" id="verifica_cambio_2FA" href="../classes/toba-nucleo.html#method_verifica_cambio_2FA"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+            		    		    			
+	<span class="method-title">
+		verifica_cambio_2FA</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 599]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>array verifica_cambio_2FA(
+                                    
+                array
+                item                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Devuelve el item original o el de login en caso de necesitarse un 2FA</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">array</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">item:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodverifica_necesidad_2FA" id="verifica_necesidad_2FA" href="../classes/toba-nucleo.html#method_verifica_necesidad_2FA"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		verifica_necesidad_2FA</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 585]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>bool verifica_necesidad_2FA(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Devuelve si es necesario pedir un 2FA</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodverificar_pedido_post" id="verificar_pedido_post" href="../classes/toba-nucleo.html#method_verificar_pedido_post"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		verificar_pedido_post</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 568]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed verificar_pedido_post(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        </div>
+    </div>
+            </td>
+        </tr>
+    </table>    
+            <div class="credit">
+	   <hr class="separator" />
+            Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
+	<br />
+            Documentación generada con <a href="">phpDocumentor</a>
+	</div>
+    </body>
+</html>
