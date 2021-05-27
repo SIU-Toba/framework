@@ -1,0 +1,1437 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>API PHP</title>
+<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
+
+   <link href="../css/style.css" rel="stylesheet" media="all"/>
+  
+</head>
+<body>
+    <table border="0" cellspacing="0" cellpadding="0" height="48" width="100%">
+        <tr>
+            <td class="header-top-left">
+                <img src="../img/logo.png" border="0" />
+            </td>
+            <td class="header-top-center">
+                    <div class="package">
+                    <a href="../packages/Centrales.html">Centrales</a>&nbsp;|&nbsp;
+                    <a href="../packages/Componentes.html">Componentes</a>&nbsp;|&nbsp;
+                    <a href="../packages/consola.html">consola</a>&nbsp;|&nbsp;
+                    <a href="../packages/Debug.html">Debug</a>&nbsp;|&nbsp;
+                    <a href="../packages/Default.html">Default</a>&nbsp;|&nbsp;
+                    <a href="../packages/Fuentes.html">Fuentes</a>&nbsp;|&nbsp;
+                    <a href="../packages/SalidaGrafica.html">SalidaGrafica</a>&nbsp;|&nbsp;
+                    <a href="../packages/Seguridad.html">Seguridad</a>&nbsp;|&nbsp;
+                    <a href="../packages/SIUToba.html">SIUToba</a>&nbsp;|&nbsp;
+                    <a href="../packages/Varios.html">Varios</a>&nbsp;|&nbsp;
+                <a href="../deprecated.html">Deprecated</a>
+    </div>
+
+ 
+                
+            </td> 
+            <td class="header-top-right">
+                                <a href="../../docs/intro" title="Navegar hacia la documentación">
+                    <img border='0' style='vertical-align: middle' src="../img/wiki-small.png" />
+    		</a>    		
+                <img height=64 border='0' style='vertical-align: middle' src="../img/php.png" />                  
+                <a href="../../api_js/index.html"  title="Navegar hacia la documentación JAVASCRIPT">
+                    <img border='0' style='vertical-align: middle' src="../img/javascript-small.png" />
+    		</a>                
+                                
+            </td>        
+        </tr>
+        <tr>
+            <td colspan="3" class="header-line">
+                <img src="../img/empty.png" width="1" height="1" border="0" alt=""  />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" class="header-menu">
+                <img src="../img/empty.png" width="1" height="10" border="0" alt=""  />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" class="header-line">
+                <img src="../img/empty.png" width="1" height="1" border="0" alt=""  />
+            </td>
+        </tr>
+    </table>
+    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr valign="top">
+            <td class="menu" width="200" >
+                    
+    <div class="package-title">SalidaGrafica</div></br>
+        <div class="subpackage-title">SalidaGrafica</div>
+    <div class="package-details">
+        <ul>           
+                            <li class="interface"><a href="../classes/toba-impresion.html"><abbr title="\toba_impresion">toba_impresion</abbr></a></li>
+                            <li class="interface"><a href="../classes/toba-vista-xslfo-callback-generacion.html"><abbr title="\toba_vista_xslfo_callback_generacion">toba_vista_xslfo_callback_generacion</abbr></a></li>
+                                                    <li class="class"><a href="../classes/toba-acciones-js.html"><abbr title="\toba_acciones_js">toba_acciones_js</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-app-launcher.html"><abbr title="\toba_app_launcher">toba_app_launcher</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-form.html"><abbr title="\toba_form">toba_form</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-formateo.html"><abbr title="\toba_formateo">toba_formateo</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-gadget.html"><abbr title="\toba_gadget">toba_gadget</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-gadget-shindig.html"><abbr title="\toba_gadget_shindig">toba_gadget_shindig</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-http.html"><abbr title="\toba_http">toba_http</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-impr-html.html"><abbr title="\toba_impr_html">toba_impr_html</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-js.html"><abbr title="\toba_js">toba_js</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-menu.html"><abbr title="\toba_menu">toba_menu</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-menu-css.html"><abbr title="\toba_menu_css">toba_menu_css</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-menu-libmenu.html"><abbr title="\toba_menu_libmenu">toba_menu_libmenu</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-notificacion.html"><abbr title="\toba_notificacion">toba_notificacion</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-recurso.html"><abbr title="\toba_recurso">toba_recurso</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-tipo-pagina.html"><abbr title="\toba_tipo_pagina">toba_tipo_pagina</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-tp-basico.html"><abbr title="\toba_tp_basico">toba_tp_basico</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-tp-basico-titulo.html"><abbr title="\toba_tp_basico_titulo">toba_tp_basico_titulo</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-tp-logon.html"><abbr title="\toba_tp_logon">toba_tp_logon</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-tp-normal.html"><abbr title="\toba_tp_normal">toba_tp_normal</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-tp-popup.html"><abbr title="\toba_tp_popup">toba_tp_popup</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-vista-araireportes.html"><abbr title="\toba_vista_araireportes">toba_vista_araireportes</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-vista-excel.html"><abbr title="\toba_vista_excel">toba_vista_excel</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-vista-jasperreports.html"><abbr title="\toba_vista_jasperreports">toba_vista_jasperreports</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-vista-pdf.html"><abbr title="\toba_vista_pdf">toba_vista_pdf</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-vista-xml.html"><abbr title="\toba_vista_xml">toba_vista_xml</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-vista-xslfo.html"><abbr title="\toba_vista_xslfo">toba_vista_xslfo</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-zona.html"><abbr title="\toba_zona">toba_zona</abbr></a></li>
+                    </ul>
+    </div>
+    
+       </div>
+   <div id="topdiv">
+     <p><a href="javascript:scroll(0,0)">[ Top ]</a></p>
+   </div>
+            </td>
+            <td>
+                       
+ <a name="sec-description"></a>
+<h1>toba_vista_pdf</h1>
+<div class="info-box">
+    <div class="nav-bar">                
+                    <span class="disabled">Resúmen de la Clase</span> |
+                                            <a href="#sec-method-summary">Métodos Propios</a>
+        		
+    </div>
+    <div class="info-box-body">
+        <table width="100%" border="0" paddingtop="2px">
+        <tr><td valign="top" width="60%" class="class-overview">
+                                    
+                                                                <div class="description">toba_vista_pdf</div>
+            <p class="notes">
+                    Ubicada en php/nucleo/lib/salidas/toba_vista_pdf.php [<span class="field">line 11</span>]
+            </p>
+            <table border="0" cellspacing="0" cellpadding="0">
+</table>
+<br>
+<table border="0" cellspacing="0" cellpadding="0">
+  </table>
+<br />
+
+        </td>
+        </tr>
+        </table>
+    </div>
+</div>
+
+   
+   
+
+        <a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Métodos Propios</div>
+		<div class="info-box-body">
+			<div class="method-summary">
+                            <table border="0" cellspacing="5" cellpadding="0" class="method-summary">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#__construct' title="details" class="method-name">__construct
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+                                                                                </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#cabecera_http' title="details" class="method-name">cabecera_http
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+                                                                                </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#crear_pdf' title="details" class="method-name">crear_pdf
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+                                                                                </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#generar_pdf_encabezado_pie' title="details" class="method-name">generar_pdf_encabezado_pie
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_ancho' title="details" class="method-name">get_ancho
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">\Cezpdf</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_pdf' title="details" class="method-name">get_pdf
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#inicializar' title="details" class="method-name">inicializar
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#insertar_imagen' title="details" class="method-name">insertar_imagen
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#mensaje' title="details" class="method-name">mensaje
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#numerar_paginas' title="details" class="method-name">numerar_paginas
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#parar_numeracion_paginas' title="details" class="method-name">parar_numeracion_paginas
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#salto_linea' title="details" class="method-name">salto_linea
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#salto_pagina' title="details" class="method-name">salto_pagina
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#separacion' title="details" class="method-name">separacion
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#set_nombre_archivo' title="details" class="method-name">set_nombre_archivo
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#set_papel_orientacion' title="details" class="method-name">set_papel_orientacion
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#set_papel_tamanio' title="details" class="method-name">set_papel_tamanio
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#set_pdf_fuente' title="details" class="method-name">set_pdf_fuente
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#set_tipo_descarga' title="details" class="method-name">set_tipo_descarga
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#subtitulo' title="details" class="method-name">subtitulo
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#tabla' title="details" class="method-name">tabla
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#texto' title="details" class="method-name">texto
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#titulo' title="details" class="method-name">titulo
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                        </table>
+			</div>
+			<br />
+		</div>
+	</div>
+
+
+
+
+
+
+    <a name="sec-methods"></a>
+    <div class="info-box">
+        <div class="info-box-body">
+                <a name='method_detail'></a>
+                                                                                            
+
+        <a name="method__construct" id="__construct" href="../classes/toba-vista-pdf.html#method___construct"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		__construct</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 25]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed __construct(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodcabecera_http" id="cabecera_http" href="../classes/toba-vista-pdf.html#method_cabecera_http"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+            		    		    			
+	<span class="method-title">
+		cabecera_http</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 174]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed cabecera_http(
+                                    
+                mixed
+                longitud                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">longitud:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodcrear_pdf" id="crear_pdf" href="../classes/toba-vista-pdf.html#method_crear_pdf"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+            		    			
+	<span class="method-title">
+		crear_pdf</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 159]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed crear_pdf(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodgenerar_pdf_encabezado_pie" id="generar_pdf_encabezado_pie" href="../classes/toba-vista-pdf.html#method_generar_pdf_encabezado_pie"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+            		    		    			
+	<span class="method-title">
+		generar_pdf_encabezado_pie</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 55]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed generar_pdf_encabezado_pie(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Genera el encabezado y pie del pdf</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodget_ancho" id="get_ancho" href="../classes/toba-vista-pdf.html#method_get_ancho"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		get_ancho</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 187]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed get_ancho(
+                                    
+                int
+                porcentaje                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Dado un porcentaje, retorna el valor absoluto del ancho de la pagina segun sus medidas actuales</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">int</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">porcentaje:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodget_pdf" id="get_pdf" href="../classes/toba-vista-pdf.html#method_get_pdf"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		get_pdf</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 137]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>\Cezpdf get_pdf(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Devuelve el objeto pdf para manipular a gusto y piachere.</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodinicializar" id="inicializar" href="../classes/toba-vista-pdf.html#method_inicializar"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		inicializar</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 33]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed inicializar(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodinsertar_imagen" id="insertar_imagen" href="../classes/toba-vista-pdf.html#method_insertar_imagen"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    		    			
+	<span class="method-title">
+		insertar_imagen</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 235]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed insertar_imagen(
+                                    
+                string
+                archivo                ,                             
+                [mixed
+                pad = 5 ]                ,                             
+                mixed
+                width                ,                             
+                [string
+                alineacion = &#039;left&#039; ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Inserta una imagen siguiendo el flujo del texto en el documento.</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">archivo:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">pad:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">width:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">alineacion:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+            </table>
+	
+		
+		<br />
+</div>
+        <a name="methodmensaje" id="mensaje" href="../classes/toba-vista-pdf.html#method_mensaje"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		mensaje</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 218]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed mensaje(
+                                    
+                mixed
+                texto                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">texto:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodnumerar_paginas" id="numerar_paginas" href="../classes/toba-vista-pdf.html#method_numerar_paginas"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		numerar_paginas</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 149]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed numerar_paginas(
+                                    
+                [string
+                posicion = &#039;right&#039; ]                ,                             
+                [string
+                formato = &#039;{PAGENUM} de {TOTALPAGENUM}&#039; ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Indica el momento en el que se comienzan a numerar las páginas.</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">posicion:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">formato:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodparar_numeracion_paginas" id="parar_numeracion_paginas" href="../classes/toba-vista-pdf.html#method_parar_numeracion_paginas"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		parar_numeracion_paginas</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 154]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed parar_numeracion_paginas(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodsalto_linea" id="salto_linea" href="../classes/toba-vista-pdf.html#method_salto_linea"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		salto_linea</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 193]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed salto_linea(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodsalto_pagina" id="salto_pagina" href="../classes/toba-vista-pdf.html#method_salto_pagina"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		salto_pagina</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 203]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed salto_pagina(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodseparacion" id="separacion" href="../classes/toba-vista-pdf.html#method_separacion"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		separacion</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 198]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed separacion(
+                                    
+                [mixed
+                espacio = 6 ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">espacio:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodset_nombre_archivo" id="set_nombre_archivo" href="../classes/toba-vista-pdf.html#method_set_nombre_archivo"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		set_nombre_archivo</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 71]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed set_nombre_archivo(
+                                    
+                string
+                nombre                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">nombre:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodset_papel_orientacion" id="set_papel_orientacion" href="../classes/toba-vista-pdf.html#method_set_papel_orientacion"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		set_papel_orientacion</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 100]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed set_papel_orientacion(
+                                    
+                string
+                orientacion                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Cambia la orientacion del papel, se debe llamar a un inicializar
+para que tenga efecto sobre una hoja ya creada (la inicial por ejemplo)</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">orientacion:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodset_papel_tamanio" id="set_papel_tamanio" href="../classes/toba-vista-pdf.html#method_set_papel_tamanio"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		set_papel_tamanio</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 90]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed set_papel_tamanio(
+                                    
+                string
+                tamanio                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Cambia el tamaño del papel, se debe llamar a un inicializar
+para que tenga efecto sobre una hoja ya creada (la inicial por ejemplo)</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">tamanio:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodset_pdf_fuente" id="set_pdf_fuente" href="../classes/toba-vista-pdf.html#method_set_pdf_fuente"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		set_pdf_fuente</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 109]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed set_pdf_fuente(
+                                    
+                [string
+                fuente = &#039;Helvetica.afm&#039; ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Cambia la fuente para futuras inserciones de texto</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">fuente:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodset_tipo_descarga" id="set_tipo_descarga" href="../classes/toba-vista-pdf.html#method_set_tipo_descarga"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		set_tipo_descarga</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 80]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed set_tipo_descarga(
+                                    
+                string
+                tipo                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Permite setear el tipo de descarga pdf desde el browser, inline o attachment</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">tipo:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodsubtitulo" id="subtitulo" href="../classes/toba-vista-pdf.html#method_subtitulo"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		subtitulo</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 213]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed subtitulo(
+                                    
+                mixed
+                texto                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">texto:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodtabla" id="tabla" href="../classes/toba-vista-pdf.html#method_tabla"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		tabla</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 251]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed tabla(
+                                    
+                array
+                datos                ,                             
+                [bool
+                ver_titulos_col = false ]                ,                             
+                [int
+                tamanio = 8 ]                ,                             
+                [array
+                opciones = array() ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Genera una tabla para impresion en pdf</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">array</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">datos:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">bool</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">ver_titulos_col:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">int</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">tamanio:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">array</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">opciones:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodtexto" id="texto" href="../classes/toba-vista-pdf.html#method_texto"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		texto</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 223]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed texto(
+                                    
+                mixed
+                texto                ,                             
+                [mixed
+                tamanio = 8 ]                ,                             
+                [mixed
+                opciones = array(&#039;justification&#039; =&gt; &#039;left&#039;) ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">texto:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">tamanio:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">opciones:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodtitulo" id="titulo" href="../classes/toba-vista-pdf.html#method_titulo"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		titulo</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 208]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed titulo(
+                                    
+                mixed
+                texto                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">texto:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        </div>
+    </div>
+            </td>
+        </tr>
+    </table>    
+            <div class="credit">
+	   <hr class="separator" />
+            Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
+	<br />
+            Documentación generada con <a href="">phpDocumentor</a>
+	</div>
+    </body>
+</html>

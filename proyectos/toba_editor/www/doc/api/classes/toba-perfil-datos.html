@@ -1,0 +1,1975 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>API PHP</title>
+<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
+
+   <link href="../css/style.css" rel="stylesheet" media="all"/>
+  
+</head>
+<body>
+    <table border="0" cellspacing="0" cellpadding="0" height="48" width="100%">
+        <tr>
+            <td class="header-top-left">
+                <img src="../img/logo.png" border="0" />
+            </td>
+            <td class="header-top-center">
+                    <div class="package">
+                    <a href="../packages/Centrales.html">Centrales</a>&nbsp;|&nbsp;
+                    <a href="../packages/Componentes.html">Componentes</a>&nbsp;|&nbsp;
+                    <a href="../packages/consola.html">consola</a>&nbsp;|&nbsp;
+                    <a href="../packages/Debug.html">Debug</a>&nbsp;|&nbsp;
+                    <a href="../packages/Default.html">Default</a>&nbsp;|&nbsp;
+                    <a href="../packages/Fuentes.html">Fuentes</a>&nbsp;|&nbsp;
+                    <a href="../packages/SalidaGrafica.html">SalidaGrafica</a>&nbsp;|&nbsp;
+                    <a href="../packages/Seguridad.html">Seguridad</a>&nbsp;|&nbsp;
+                    <a href="../packages/SIUToba.html">SIUToba</a>&nbsp;|&nbsp;
+                    <a href="../packages/Varios.html">Varios</a>&nbsp;|&nbsp;
+                <a href="../deprecated.html">Deprecated</a>
+    </div>
+
+ 
+                
+            </td> 
+            <td class="header-top-right">
+                                <a href="../../docs/intro" title="Navegar hacia la documentación">
+                    <img border='0' style='vertical-align: middle' src="../img/wiki-small.png" />
+    		</a>    		
+                <img height=64 border='0' style='vertical-align: middle' src="../img/php.png" />                  
+                <a href="../../api_js/index.html"  title="Navegar hacia la documentación JAVASCRIPT">
+                    <img border='0' style='vertical-align: middle' src="../img/javascript-small.png" />
+    		</a>                
+                                
+            </td>        
+        </tr>
+        <tr>
+            <td colspan="3" class="header-line">
+                <img src="../img/empty.png" width="1" height="1" border="0" alt=""  />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" class="header-menu">
+                <img src="../img/empty.png" width="1" height="10" border="0" alt=""  />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" class="header-line">
+                <img src="../img/empty.png" width="1" height="1" border="0" alt=""  />
+            </td>
+        </tr>
+    </table>
+    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr valign="top">
+            <td class="menu" width="200" >
+                    
+    <div class="package-title">Seguridad</div></br>
+        <div class="subpackage-title">Seguridad</div>
+    <div class="package-details">
+        <ul>           
+                                                    <li class="class"><a href="../classes/toba-derechos.html"><abbr title="\toba_derechos">toba_derechos</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-escapador.html"><abbr title="\toba_escapador">toba_escapador</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-hash.html"><abbr title="\toba_hash">toba_hash</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-manejador-sesiones.html"><abbr title="\toba_manejador_sesiones">toba_manejador_sesiones</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-perfil-datos.html"><abbr title="\toba_perfil_datos">toba_perfil_datos</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-perfil-funcional.html"><abbr title="\toba_perfil_funcional">toba_perfil_funcional</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-usuario.html"><abbr title="\toba_usuario">toba_usuario</abbr></a></li>
+                    </ul>
+    </div>
+    
+                         
+                    <div class="subpackage-title">autenticacion</div>
+    <div class="package-details">
+        <ul>           
+                            <li class="interface"><a href="../classes/toba-autenticable.html"><abbr title="\toba_autenticable">toba_autenticable</abbr></a></li>
+                                                    <li class="class"><a href="../classes/toba-autenticacion.html"><abbr title="\toba_autenticacion">toba_autenticacion</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-autenticacion-basica.html"><abbr title="\toba_autenticacion_basica">toba_autenticacion_basica</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-autenticacion-cas.html"><abbr title="\toba_autenticacion_cas">toba_autenticacion_cas</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-autenticacion-ldap.html"><abbr title="\toba_autenticacion_ldap">toba_autenticacion_ldap</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-autenticacion-openid.html"><abbr title="\toba_autenticacion_openid">toba_autenticacion_openid</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-autenticacion-saml.html"><abbr title="\toba_autenticacion_saml">toba_autenticacion_saml</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-autenticacion-saml-onelogin.html"><abbr title="\toba_autenticacion_saml_onelogin">toba_autenticacion_saml_onelogin</abbr></a></li>
+                    </ul>
+    </div>
+     
+                     
+                    <div class="subpackage-title">TiposUsuario</div>
+    <div class="package-details">
+        <ul>           
+                                                    <li class="class"><a href="../classes/toba-usuario-anonimo.html"><abbr title="\toba_usuario_anonimo">toba_usuario_anonimo</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-usuario-basico.html"><abbr title="\toba_usuario_basico">toba_usuario_basico</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-usuario-no-autenticado.html"><abbr title="\toba_usuario_no_autenticado">toba_usuario_no_autenticado</abbr></a></li>
+                    </ul>
+    </div>
+     
+                </div>
+   <div id="topdiv">
+     <p><a href="javascript:scroll(0,0)">[ Top ]</a></p>
+   </div>
+            </td>
+            <td>
+                       
+ <a name="sec-description"></a>
+<h1>toba_perfil_datos</h1>
+<div class="info-box">
+    <div class="nav-bar">                
+                    <span class="disabled">Resúmen de la Clase</span> |
+                                            <a href="#sec-method-summary">Métodos Propios</a>
+        		
+    </div>
+    <div class="info-box-body">
+        <table width="100%" border="0" paddingtop="2px">
+        <tr><td valign="top" width="60%" class="class-overview">
+                                    
+                                                                <div class="description">toba_perfil_datos</div>
+            <p class="notes">
+                    Ubicada en php/nucleo/lib/toba_perfil_datos.php [<span class="field">line 16</span>]
+            </p>
+            <table border="0" cellspacing="0" cellpadding="0">
+</table>
+<br>
+<table border="0" cellspacing="0" cellpadding="0">
+ </table>
+<br />
+
+        </td>
+        </tr>
+        </table>
+    </div>
+</div>
+
+   
+   
+
+        <a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Métodos Propios</div>
+		<div class="info-box-body">
+			<div class="method-summary">
+                            <table border="0" cellspacing="5" cellpadding="0" class="method-summary">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <tr><td></td><td class="method-definition" nowrap>static
+                                                                            <span class="method-result">mixed</span>&nbsp;&nbsp;
+                                                                        </td>
+                                    <td class="method-definition">
+                                        <a href='#mixed' title="details" class="method-name">
+                                        get_restricciones_usuario</a>()&nbsp;&nbsp;
+                                    </td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#__construct' title="details" class="method-name">__construct
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#buscar_gatillos_from' title="details" class="method-name">buscar_gatillos_from
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#buscar_operadores_asimetricos' title="details" class="method-name">buscar_operadores_asimetricos
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#buscar_tablas_gatillo_en_sql' title="details" class="method-name">buscar_tablas_gatillo_en_sql
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#cargar_info_dimensiones' title="details" class="method-name">cargar_info_dimensiones
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#cargar_info_restricciones' title="details" class="method-name">cargar_info_restricciones
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#filtrar' title="details" class="method-name">filtrar
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#filtrar_sql' title="details" class="method-name">filtrar_sql
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_alias_unico' title="details" class="method-name">get_alias_unico
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_clausula_from' title="details" class="method-name">get_clausula_from
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_gatillos_activos' title="details" class="method-name">get_gatillos_activos
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_id' title="details" class="method-name">get_id
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_ids' title="details" class="method-name">get_ids
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_info' title="details" class="method-name">get_info
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_lista_columnas_sql' title="details" class="method-name">get_lista_columnas_sql
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_lista_dimensiones_restringidas' title="details" class="method-name">get_lista_dimensiones_restringidas
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_restricciones' title="details" class="method-name">get_restricciones
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">array</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_restricciones_dimension' title="details" class="method-name">get_restricciones_dimension
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">array</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_restricciones_dimension_agrupado_perfil' title="details" class="method-name">get_restricciones_dimension_agrupado_perfil
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                                                                            <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_where_aplicacion_restriccion' title="details" class="method-name">get_where_aplicacion_restriccion
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_where_dimension_gatillo' title="details" class="method-name">get_where_dimension_gatillo
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#hay_combinaciones_de_querys' title="details" class="method-name">hay_combinaciones_de_querys
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#indexar_gatillos' title="details" class="method-name">indexar_gatillos
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#inicializar' title="details" class="method-name">inicializar
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#posee_dimension' title="details" class="method-name">posee_dimension
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#posee_restricciones' title="details" class="method-name">posee_restricciones
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#probar_sqls' title="details" class="method-name">probar_sqls
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+                                                                                </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">string</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#quitar_comentarios_sql' title="details" class="method-name">quitar_comentarios_sql
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"> @param string $sql  Sentencia a la que se le quiere quitar los comentarios</td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#reconocer_dimensiones_implicadas' title="details" class="method-name">reconocer_dimensiones_implicadas
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                        </table>
+			</div>
+			<br />
+		</div>
+	</div>
+
+
+
+
+
+
+    <a name="sec-methods"></a>
+    <div class="info-box">
+        <div class="info-box-body">
+                <a name='method_detail'></a>
+                                                                                    <a name="methodget_restricciones_usuario" id="get_restricciones_usuario" href="../classes/toba-perfil-datos.html#method_get_restricciones_usuario"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">
+        	<span class="method-title">static method get_restricciones_usuario</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea  262]
+	</span>
+    </div>
+<br />
+
+<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+    <tr><td class="code-border">
+        <table width="100%" border="0" cellspacing="0" cellpadding="2">
+        <tr><td class="code">&nbsp;
+            <code>static mixed get_restricciones_usuario(
+                                                
+                     mixed
+                    usuario                     ,                                     
+                     mixed
+                    proyecto                                                 )
+            </code>
+        </td></tr>
+        </table>
+    </td></tr>
+    </table>
+    <br/>
+</div>
+    
+        
+    Parámetros:<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+            <tr><td class="indent">
+            <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+            <td>
+            <span class="var-name">usuario:&nbsp;</span></td>
+            <td>
+                    </td></tr>
+            <tr><td class="indent">
+            <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+            <td>
+            <span class="var-name">proyecto:&nbsp;</span></td>
+            <td>
+                    </td></tr>
+        </table>
+    
+<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+    
+                <br />
+</div>    
+                                        
+
+        <a name="method__construct" id="__construct" href="../classes/toba-perfil-datos.html#method___construct"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		__construct</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 39]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed __construct(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodbuscar_gatillos_from" id="buscar_gatillos_from" href="../classes/toba-perfil-datos.html#method_buscar_gatillos_from"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		buscar_gatillos_from</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 550]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed buscar_gatillos_from(
+                                    
+                mixed
+                sql_from                ,                             
+                mixed
+                fuente_datos                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">sql_from:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">fuente_datos:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodbuscar_operadores_asimetricos" id="buscar_operadores_asimetricos" href="../classes/toba-perfil-datos.html#method_buscar_operadores_asimetricos"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		buscar_operadores_asimetricos</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 587]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed buscar_operadores_asimetricos(
+                                    
+                mixed
+                sql_from                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">sql_from:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodbuscar_tablas_gatillo_en_sql" id="buscar_tablas_gatillo_en_sql" href="../classes/toba-perfil-datos.html#method_buscar_tablas_gatillo_en_sql"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		buscar_tablas_gatillo_en_sql</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 496]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed buscar_tablas_gatillo_en_sql(
+                                    
+                mixed
+                sql                ,                             
+                mixed
+                fuente_datos                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">sql:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">fuente_datos:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodcargar_info_dimensiones" id="cargar_info_dimensiones" href="../classes/toba-perfil-datos.html#method_cargar_info_dimensiones"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		cargar_info_dimensiones</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 94]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed cargar_info_dimensiones(
+                                    
+                mixed
+                fuente                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">fuente:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodcargar_info_restricciones" id="cargar_info_restricciones" href="../classes/toba-perfil-datos.html#method_cargar_info_restricciones"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		cargar_info_restricciones</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 83]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed cargar_info_restricciones(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodfiltrar" id="filtrar" href="../classes/toba-perfil-datos.html#method_filtrar"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		filtrar</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 281]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed filtrar(
+                                    
+                mixed
+                sql                ,                             
+                [mixed
+                fuente_datos = null ]                ,                             
+                [mixed
+                dimensiones_desactivar = null ]                ,                             
+                [mixed
+                gatillos_exclusivos = array() ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Agrega clausulas WHERE en un SQl de acuerdo al perfil de datos del usuario actual</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">sql:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">fuente_datos:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">dimensiones_desactivar:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">gatillos_exclusivos:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodfiltrar_sql" id="filtrar_sql" href="../classes/toba-perfil-datos.html#method_filtrar_sql"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		filtrar_sql</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 306]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed filtrar_sql(
+                                    
+                mixed
+                sql                ,                             
+                [mixed
+                fuente_datos = null ]                ,                             
+                [mixed
+                dimensiones_desactivar = null ]                ,                             
+                [mixed
+                gatillos_exclusivos = array() ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">sql:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">fuente_datos:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">dimensiones_desactivar:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">gatillos_exclusivos:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodget_alias_unico" id="get_alias_unico" href="../classes/toba-perfil-datos.html#method_get_alias_unico"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		get_alias_unico</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 471]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed get_alias_unico(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Provee alias de tablas unicos para la construccion de subquerys anidados.</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodget_clausula_from" id="get_clausula_from" href="../classes/toba-perfil-datos.html#method_get_clausula_from"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		get_clausula_from</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 507]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed get_clausula_from(
+                                    
+                mixed
+                sql                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">sql:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodget_gatillos_activos" id="get_gatillos_activos" href="../classes/toba-perfil-datos.html#method_get_gatillos_activos"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		get_gatillos_activos</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 253]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed get_gatillos_activos(
+                                    
+                mixed
+                fuente                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Devuelve la lista de gatillos que esta utilizando el esquema para filtrar SQLs</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">fuente:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodget_id" id="get_id" href="../classes/toba-perfil-datos.html#method_get_id"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		get_id</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 122]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed get_id(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> retorna el perfil de datos del usuario</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodget_ids" id="get_ids" href="../classes/toba-perfil-datos.html#method_get_ids"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		get_ids</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 133]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed get_ids(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> retorna un arreglo con los perfiles de datos del usuario</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodget_info" id="get_info" href="../classes/toba-perfil-datos.html#method_get_info"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		get_info</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 616]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed get_info(
+                                    
+                mixed
+                fuente_datos                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Estado del sistema de perfiles de datos para el usuario actual</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">fuente_datos:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodget_lista_columnas_sql" id="get_lista_columnas_sql" href="../classes/toba-perfil-datos.html#method_get_lista_columnas_sql"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		get_lista_columnas_sql</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 477]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed get_lista_columnas_sql(
+                                    
+                mixed
+                columnas                ,                             
+                mixed
+                alias                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">columnas:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">alias:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodget_lista_dimensiones_restringidas" id="get_lista_dimensiones_restringidas" href="../classes/toba-perfil-datos.html#method_get_lista_dimensiones_restringidas"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		get_lista_dimensiones_restringidas</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 243]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed get_lista_dimensiones_restringidas(
+                                    
+                mixed
+                fuente                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Retorna un array con las dimensiones sobre las que se establecieron restricciones</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">fuente:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodget_restricciones" id="get_restricciones" href="../classes/toba-perfil-datos.html#method_get_restricciones"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		get_restricciones</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 155]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed get_restricciones(
+                                    
+                mixed
+                fuente                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Retorna un array con las restricciones aplicadas sobre las dimensiones</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">fuente:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodget_restricciones_dimension" id="get_restricciones_dimension" href="../classes/toba-perfil-datos.html#method_get_restricciones_dimension"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		get_restricciones_dimension</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 190]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>array get_restricciones_dimension(
+                                    
+                mixed
+                fuente                ,                             
+                string
+                nombre                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Retorna las restricciones aplicadas sobre una dimensión específica</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">fuente:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">nombre:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodget_restricciones_dimension_agrupado_perfil" id="get_restricciones_dimension_agrupado_perfil" href="../classes/toba-perfil-datos.html#method_get_restricciones_dimension_agrupado_perfil"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		get_restricciones_dimension_agrupado_perfil</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 215]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>array get_restricciones_dimension_agrupado_perfil(
+                                    
+                mixed
+                fuente                ,                             
+                string
+                nombre                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Retorna las restricciones aplicadas sobre una dimensión específica agrupadas por perfil de datos</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">fuente:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">nombre:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+            <a name="methodget_where_aplicacion_restriccion" id="get_where_aplicacion_restriccion" href="../classes/toba-perfil-datos.html#method_get_where_aplicacion_restriccion"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		get_where_aplicacion_restriccion</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 440]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed get_where_aplicacion_restriccion(
+                                    
+                mixed
+                fuente_datos                ,                             
+                mixed
+                dimension                ,                             
+                mixed
+                columnas_aplicacion_restriccion                ,                             
+                mixed
+                alias_tabla                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">fuente_datos:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">dimension:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">columnas_aplicacion_restriccion:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">alias_tabla:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodget_where_dimension_gatillo" id="get_where_dimension_gatillo" href="../classes/toba-perfil-datos.html#method_get_where_dimension_gatillo"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		get_where_dimension_gatillo</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 381]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed get_where_dimension_gatillo(
+                                    
+                mixed
+                fuente_datos                ,                             
+                mixed
+                dimension                ,                             
+                mixed
+                tabla_gatillo                ,                             
+                mixed
+                alias_tabla                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Devuelve el WHERE correspondiente a un gatillo para una dimension particular</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">fuente_datos:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">dimension:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">tabla_gatillo:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">alias_tabla:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodhay_combinaciones_de_querys" id="hay_combinaciones_de_querys" href="../classes/toba-perfil-datos.html#method_hay_combinaciones_de_querys"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		hay_combinaciones_de_querys</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 596]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed hay_combinaciones_de_querys(
+                                    
+                mixed
+                sql                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">sql:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodindexar_gatillos" id="indexar_gatillos" href="../classes/toba-perfil-datos.html#method_indexar_gatillos"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		indexar_gatillos</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 101]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed indexar_gatillos(
+                                    
+                mixed
+                fuente                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">fuente:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodinicializar" id="inicializar" href="../classes/toba-perfil-datos.html#method_inicializar"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		inicializar</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 58]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed inicializar(
+                                    
+                mixed
+                proyecto                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">proyecto:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodposee_dimension" id="posee_dimension" href="../classes/toba-perfil-datos.html#method_posee_dimension"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		posee_dimension</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 169]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed posee_dimension(
+                                    
+                \varchar
+                dimension                ,                             
+                [\unknown_type
+                fuente_datos = null ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Indica si el perfil de datos del usuario posee una dimension en particular para una fuente datos dada.</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">\varchar</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">dimension:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">\unknown_type</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">fuente_datos:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodposee_restricciones" id="posee_restricciones" href="../classes/toba-perfil-datos.html#method_posee_restricciones"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		posee_restricciones</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 142]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed posee_restricciones(
+                                    
+                mixed
+                fuente                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Indica si el perfil de datos del usuario posee restricciones</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">fuente:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodprobar_sqls" id="probar_sqls" href="../classes/toba-perfil-datos.html#method_probar_sqls"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		probar_sqls</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 636]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed probar_sqls(
+                                    
+                mixed
+                fuente_datos                ,                             
+                mixed
+                sqls                ,                             
+                [mixed
+                contar_filas = false ]                ,                             
+                [mixed
+                mostrar_filas = false ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Ejecuta el filtrado de SQL sobre un conjunto de SQLs</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">fuente_datos:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">sqls:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">contar_filas:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">mostrar_filas:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodquitar_comentarios_sql" id="quitar_comentarios_sql" href="../classes/toba-perfil-datos.html#method_quitar_comentarios_sql"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+            		    		    			
+	<span class="method-title">
+		quitar_comentarios_sql</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 695]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>string quitar_comentarios_sql(
+                                    
+                mixed
+                sql                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Quita los comentarios de la sentencia SQL con formato -- o el tipico formato /* * /</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">sql:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodreconocer_dimensiones_implicadas" id="reconocer_dimensiones_implicadas" href="../classes/toba-perfil-datos.html#method_reconocer_dimensiones_implicadas"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		reconocer_dimensiones_implicadas</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 354]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed reconocer_dimensiones_implicadas(
+                                    
+                mixed
+                tablas_encontradas                ,                             
+                mixed
+                fuente_datos                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Arma la lista de dimensiones implicadas y el gatillo a utilizar por cada una
+	(Los gatillos tienen un orden de preferencia -el orden viene del sql de gatillos-,
+		y no debe utilizarse mas de uno por dimension)
+	(Un gatillo puede pertenecer a mas de una dimension)</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">tablas_encontradas:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">fuente_datos:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        </div>
+    </div>
+            </td>
+        </tr>
+    </table>    
+            <div class="credit">
+	   <hr class="separator" />
+            Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
+	<br />
+            Documentación generada con <a href="">phpDocumentor</a>
+	</div>
+    </body>
+</html>

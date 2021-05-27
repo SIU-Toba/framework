@@ -1,0 +1,1691 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>API PHP</title>
+<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
+
+   <link href="../css/style.css" rel="stylesheet" media="all"/>
+  
+</head>
+<body>
+    <table border="0" cellspacing="0" cellpadding="0" height="48" width="100%">
+        <tr>
+            <td class="header-top-left">
+                <img src="../img/logo.png" border="0" />
+            </td>
+            <td class="header-top-center">
+                    <div class="package">
+                    <a href="../packages/Centrales.html">Centrales</a>&nbsp;|&nbsp;
+                    <a href="../packages/Componentes.html">Componentes</a>&nbsp;|&nbsp;
+                    <a href="../packages/consola.html">consola</a>&nbsp;|&nbsp;
+                    <a href="../packages/Debug.html">Debug</a>&nbsp;|&nbsp;
+                    <a href="../packages/Default.html">Default</a>&nbsp;|&nbsp;
+                    <a href="../packages/Fuentes.html">Fuentes</a>&nbsp;|&nbsp;
+                    <a href="../packages/SalidaGrafica.html">SalidaGrafica</a>&nbsp;|&nbsp;
+                    <a href="../packages/Seguridad.html">Seguridad</a>&nbsp;|&nbsp;
+                    <a href="../packages/SIUToba.html">SIUToba</a>&nbsp;|&nbsp;
+                    <a href="../packages/Varios.html">Varios</a>&nbsp;|&nbsp;
+                <a href="../deprecated.html">Deprecated</a>
+    </div>
+
+ 
+                
+            </td> 
+            <td class="header-top-right">
+                                <a href="../../docs/intro" title="Navegar hacia la documentación">
+                    <img border='0' style='vertical-align: middle' src="../img/wiki-small.png" />
+    		</a>    		
+                <img height=64 border='0' style='vertical-align: middle' src="../img/php.png" />                  
+                <a href="../../api_js/index.html"  title="Navegar hacia la documentación JAVASCRIPT">
+                    <img border='0' style='vertical-align: middle' src="../img/javascript-small.png" />
+    		</a>                
+                                
+            </td>        
+        </tr>
+        <tr>
+            <td colspan="3" class="header-line">
+                <img src="../img/empty.png" width="1" height="1" border="0" alt=""  />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" class="header-menu">
+                <img src="../img/empty.png" width="1" height="10" border="0" alt=""  />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" class="header-line">
+                <img src="../img/empty.png" width="1" height="1" border="0" alt=""  />
+            </td>
+        </tr>
+    </table>
+    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr valign="top">
+            <td class="menu" width="200" >
+                    
+    <div class="package-title">Modelo</div></br>
+        <div class="subpackage-title">Modelo</div>
+    <div class="package-details">
+        <ul>           
+                            <li class="interface"><a href="../classes/toba-aplicacion-comando.html"><abbr title="\toba_aplicacion_comando">toba_aplicacion_comando</abbr></a></li>
+                            <li class="interface"><a href="../classes/toba-aplicacion-modelo.html"><abbr title="\toba_aplicacion_modelo">toba_aplicacion_modelo</abbr></a></li>
+                                                    <li class="class"><a href="../classes/toba-aplicacion-comando-base.html"><abbr title="\toba_aplicacion_comando_base">toba_aplicacion_comando_base</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-aplicacion-modelo-base.html"><abbr title="\toba_aplicacion_modelo_base">toba_aplicacion_modelo_base</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-modelo-catalogo.html"><abbr title="\toba_modelo_catalogo">toba_modelo_catalogo</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-modelo-instalacion.html"><abbr title="\toba_modelo_instalacion">toba_modelo_instalacion</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-modelo-instancia.html"><abbr title="\toba_modelo_instancia">toba_modelo_instancia</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-modelo-pms.html"><abbr title="\toba_modelo_pms">toba_modelo_pms</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-modelo-proyecto.html"><abbr title="\toba_modelo_proyecto">toba_modelo_proyecto</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-modelo-rest.html"><abbr title="\toba_modelo_rest">toba_modelo_rest</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-modelo-servicio-web.html"><abbr title="\toba_modelo_servicio_web">toba_modelo_servicio_web</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-modelo-soap.html"><abbr title="\toba_modelo_soap">toba_modelo_soap</abbr></a></li>
+                    </ul>
+    </div>
+    
+       </div>
+   <div id="topdiv">
+     <p><a href="javascript:scroll(0,0)">[ Top ]</a></p>
+   </div>
+            </td>
+            <td>
+                       
+ <a name="sec-description"></a>
+<h1>toba_modelo_rest</h1>
+<div class="info-box">
+    <div class="nav-bar">                
+                    <span class="disabled">Resúmen de la Clase</span> |
+                                    <a href="#sec-inherited">Métodos Heredados</a>
+            |                            <a href="#sec-method-summary">Métodos Propios</a>
+        		
+    </div>
+    <div class="info-box-body">
+        <table width="100%" border="0" paddingtop="2px">
+        <tr><td valign="top" width="60%" class="class-overview">
+                                    
+                                                                                                                                
+                    <div class="classtree"><a href="../classes/toba-modelo-elemento.html"><abbr title="\toba_modelo_elemento">toba_modelo_elemento</abbr></a><br/>&nbsp;&nbsp;&nbsp;|</div>
+                                        <div class="description">toba_modelo_rest</div>
+            <p class="notes">
+                    Ubicada en php/modelo/toba_modelo_rest.php [<span class="field">line 9</span>]
+            </p>
+            <table border="0" cellspacing="0" cellpadding="0">
+</table>
+<br>
+<table border="0" cellspacing="0" cellpadding="0">
+  </table>
+<br />
+
+        </td>
+        </tr>
+        </table>
+    </div>
+</div>
+
+   
+    <a name="sec-inherited"></a>
+    <div class="info-box">
+        <div class="info-box-title">Métodos Heredados</div>
+        <div class="info-box-body">
+            <table cellpadding="2" cellspacing="0" class="class-table">
+            <tr>
+                <td width="100%">
+                    <p>Heredado de <span class="classname"><strong>toba_modelo_elemento</strong></span></p>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-modelo-elemento.html#method_set_manejador_interface"><abbr title="\toba_modelo_elemento::set_manejador_interface()">toba_modelo_elemento::set_manejador_interface()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-modelo-elemento.html#method_get_manejador_interface"><abbr title="\toba_modelo_elemento::get_manejador_interface()">toba_modelo_elemento::get_manejador_interface()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-modelo-elemento.html#method_migrar_rango_versiones"><abbr title="\toba_modelo_elemento::migrar_rango_versiones()">toba_modelo_elemento::migrar_rango_versiones()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                    </td>
+            </tr>
+            </table>
+            <br />
+        </div>
+    </div>
+   
+
+        <a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Métodos Propios</div>
+		<div class="info-box-body">
+			<div class="method-summary">
+                            <table border="0" cellspacing="5" cellpadding="0" class="method-summary">
+                                                                                                                                                            <tr><td></td><td class="method-definition" nowrap>static
+                                                                            <span class="method-result">mixed</span>&nbsp;&nbsp;
+                                                                        </td>
+                                    <td class="method-definition">
+                                        <a href='#mixed' title="details" class="method-name">
+                                        cp_ini_cliente</a>()&nbsp;&nbsp;
+                                    </td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr><td></td><td class="method-definition" nowrap>static
+                                                                            <span class="method-result">mixed</span>&nbsp;&nbsp;
+                                                                        </td>
+                                    <td class="method-definition">
+                                        <a href='#mixed' title="details" class="method-name">
+                                        cp_ini_server</a>()&nbsp;&nbsp;
+                                    </td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr><td></td><td class="method-definition" nowrap>static
+                                                                            <span class="method-result">mixed</span>&nbsp;&nbsp;
+                                                                        </td>
+                                    <td class="method-definition">
+                                        <a href='#mixed' title="details" class="method-name">
+                                        cp_ini_usuarios</a>()&nbsp;&nbsp;
+                                    </td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr><td></td><td class="method-definition" nowrap>static
+                                                                            <span class="method-result">mixed</span>&nbsp;&nbsp;
+                                                                        </td>
+                                    <td class="method-definition">
+                                        <a href='#mixed' title="details" class="method-name">
+                                        crear_directorio_destino</a>()&nbsp;&nbsp;
+                                    </td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr><td></td><td class="method-definition" nowrap>static
+                                                                            <span class="method-result">bool</span>&nbsp;&nbsp;
+                                                                        </td>
+                                    <td class="method-definition">
+                                        <a href='#bool' title="details" class="method-name">
+                                        existe_ini_cliente</a>()&nbsp;&nbsp;
+                                    </td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr><td></td><td class="method-definition" nowrap>static
+                                                                            <span class="method-result">bool</span>&nbsp;&nbsp;
+                                                                        </td>
+                                    <td class="method-definition">
+                                        <a href='#bool' title="details" class="method-name">
+                                        existe_ini_server</a>()&nbsp;&nbsp;
+                                    </td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr><td></td><td class="method-definition" nowrap>static
+                                                                            <span class="method-result">bool</span>&nbsp;&nbsp;
+                                                                        </td>
+                                    <td class="method-definition">
+                                        <a href='#bool' title="details" class="method-name">
+                                        existe_ini_usuarios</a>()&nbsp;&nbsp;
+                                    </td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                                                                                                                                        <tr><td></td><td class="method-definition" nowrap>static
+                                                                            <span class="method-result">string</span>&nbsp;&nbsp;
+                                                                        </td>
+                                    <td class="method-definition">
+                                        <a href='#string' title="details" class="method-name">
+                                        get_dir_api_base</a>()&nbsp;&nbsp;
+                                    </td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr><td></td><td class="method-definition" nowrap>static
+                                                                            <span class="method-result">string</span>&nbsp;&nbsp;
+                                                                        </td>
+                                    <td class="method-definition">
+                                        <a href='#string' title="details" class="method-name">
+                                        get_dir_api_personalizacion</a>()&nbsp;&nbsp;
+                                    </td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr><td></td><td class="method-definition" nowrap>static
+                                                                            <span class="method-result">string</span>&nbsp;&nbsp;
+                                                                        </td>
+                                    <td class="method-definition">
+                                        <a href='#string' title="details" class="method-name">
+                                        get_dir_consumidor</a>()&nbsp;&nbsp;
+                                    </td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr><td></td><td class="method-definition" nowrap>static
+                                                                            <span class="method-result">string</span>&nbsp;&nbsp;
+                                                                        </td>
+                                    <td class="method-definition">
+                                        <a href='#string' title="details" class="method-name">
+                                        get_dir_proveedor</a>()&nbsp;&nbsp;
+                                    </td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr><td></td><td class="method-definition" nowrap>static
+                                                                            <span class="method-result">\toba_ini</span>&nbsp;&nbsp;
+                                                                        </td>
+                                    <td class="method-definition">
+                                        <a href='#\toba_ini' title="details" class="method-name">
+                                        get_ini_cliente</a>()&nbsp;&nbsp;
+                                    </td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr><td></td><td class="method-definition" nowrap>static
+                                                                            <span class="method-result">\toba_ini</span>&nbsp;&nbsp;
+                                                                        </td>
+                                    <td class="method-definition">
+                                        <a href='#\toba_ini' title="details" class="method-name">
+                                        get_ini_server</a>()&nbsp;&nbsp;
+                                    </td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr><td></td><td class="method-definition" nowrap>static
+                                                                            <span class="method-result">\toba_ini</span>&nbsp;&nbsp;
+                                                                        </td>
+                                    <td class="method-definition">
+                                        <a href='#\toba_ini' title="details" class="method-name">
+                                        get_ini_usuarios</a>()&nbsp;&nbsp;
+                                    </td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr><td></td><td class="method-definition" nowrap>static
+                                                                            <span class="method-result">array</span>&nbsp;&nbsp;
+                                                                        </td>
+                                    <td class="method-definition">
+                                        <a href='#array' title="details" class="method-name">
+                                        get_lista_servicios_consumibles</a>()&nbsp;&nbsp;
+                                    </td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr><td></td><td class="method-definition" nowrap>static
+                                                                            <span class="method-result">mixed</span>&nbsp;&nbsp;
+                                                                        </td>
+                                    <td class="method-definition">
+                                        <a href='#mixed' title="details" class="method-name">
+                                        get_path_archivo</a>()&nbsp;&nbsp;
+                                    </td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr><td></td><td class="method-definition" nowrap>static
+                                                                            <span class="method-result">string</span>&nbsp;&nbsp;
+                                                                        </td>
+                                    <td class="method-definition">
+                                        <a href='#string' title="details" class="method-name">
+                                        get_url_base</a>()&nbsp;&nbsp;
+                                    </td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr><td></td><td class="method-definition" nowrap>static
+                                                                            <span class="method-result">mixed</span>&nbsp;&nbsp;
+                                                                        </td>
+                                    <td class="method-definition">
+                                        <a href='#mixed' title="details" class="method-name">
+                                        inicializar_archivos_config_cliente</a>()&nbsp;&nbsp;
+                                    </td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr><td></td><td class="method-definition" nowrap>static
+                                                                            <span class="method-result">mixed</span>&nbsp;&nbsp;
+                                                                        </td>
+                                    <td class="method-definition">
+                                        <a href='#mixed' title="details" class="method-name">
+                                        inicializar_archivos_config_servidor</a>()&nbsp;&nbsp;
+                                    </td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                                            <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#__construct' title="details" class="method-name">__construct
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#generar_configuracion_cliente' title="details" class="method-name">generar_configuracion_cliente
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#generar_configuracion_servidor' title="details" class="method-name">generar_configuracion_servidor
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </table>
+			</div>
+			<br />
+		</div>
+	</div>
+
+
+
+
+
+
+    <a name="sec-methods"></a>
+    <div class="info-box">
+        <div class="info-box-body">
+                <a name='method_detail'></a>
+            <a name="methodcp_ini_cliente" id="cp_ini_cliente" href="../classes/toba-modelo-rest.html#method_cp_ini_cliente"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">
+        	<span class="method-title">static method cp_ini_cliente</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea  141]
+	</span>
+    </div>
+<br />
+
+<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+    <tr><td class="code-border">
+        <table width="100%" border="0" cellspacing="0" cellpadding="2">
+        <tr><td class="code">&nbsp;
+            <code>static mixed cp_ini_cliente(
+                                                
+                     string
+                    path_origen                     ,                                     
+                     \toba_modelo_proyecto
+                    proyecto                     ,                                     
+                     string
+                    nombre_api  = &#039;&#039; ]                                                )
+            </code>
+        </td></tr>
+        </table>
+    </td></tr>
+    </table>
+    <br/>
+</div>
+    
+        
+    Parámetros:<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+            <tr><td class="indent">
+            <span class="var-type">string</span>&nbsp;&nbsp;</td>
+            <td>
+            <span class="var-name">path_origen:&nbsp;</span></td>
+            <td>
+                    </td></tr>
+            <tr><td class="indent">
+            <span class="var-type">\toba_modelo_proyecto</span>&nbsp;&nbsp;</td>
+            <td>
+            <span class="var-name">proyecto:&nbsp;</span></td>
+            <td>
+                    </td></tr>
+            <tr><td class="indent">
+            <span class="var-type">string</span>&nbsp;&nbsp;</td>
+            <td>
+            <span class="var-name">nombre_api:&nbsp;</span></td>
+            <td>
+                    </td></tr>
+        </table>
+    
+<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+    
+                <br />
+</div>    
+        <a name="methodcp_ini_server" id="cp_ini_server" href="../classes/toba-modelo-rest.html#method_cp_ini_server"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">
+        	<span class="method-title">static method cp_ini_server</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea  155]
+	</span>
+    </div>
+<br />
+
+<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+    <tr><td class="code-border">
+        <table width="100%" border="0" cellspacing="0" cellpadding="2">
+        <tr><td class="code">&nbsp;
+            <code>static mixed cp_ini_server(
+                                                
+                     string
+                    path_origen                     ,                                     
+                     \toba_modelo_proyecto
+                    proyecto                     ,                                     
+                     string
+                    nombre_api  = &#039;&#039; ]                                                )
+            </code>
+        </td></tr>
+        </table>
+    </td></tr>
+    </table>
+    <br/>
+</div>
+    
+        
+    Parámetros:<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+            <tr><td class="indent">
+            <span class="var-type">string</span>&nbsp;&nbsp;</td>
+            <td>
+            <span class="var-name">path_origen:&nbsp;</span></td>
+            <td>
+                    </td></tr>
+            <tr><td class="indent">
+            <span class="var-type">\toba_modelo_proyecto</span>&nbsp;&nbsp;</td>
+            <td>
+            <span class="var-name">proyecto:&nbsp;</span></td>
+            <td>
+                    </td></tr>
+            <tr><td class="indent">
+            <span class="var-type">string</span>&nbsp;&nbsp;</td>
+            <td>
+            <span class="var-name">nombre_api:&nbsp;</span></td>
+            <td>
+                    </td></tr>
+        </table>
+    
+<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+    
+                <br />
+</div>    
+        <a name="methodcp_ini_usuarios" id="cp_ini_usuarios" href="../classes/toba-modelo-rest.html#method_cp_ini_usuarios"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">
+        	<span class="method-title">static method cp_ini_usuarios</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea  169]
+	</span>
+    </div>
+<br />
+
+<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+    <tr><td class="code-border">
+        <table width="100%" border="0" cellspacing="0" cellpadding="2">
+        <tr><td class="code">&nbsp;
+            <code>static mixed cp_ini_usuarios(
+                                                
+                     string
+                    path_origen                     ,                                     
+                     \toba_modelo_proyecto
+                    proyecto                     ,                                     
+                     string
+                    nombre_api  = &#039;&#039; ]                                                )
+            </code>
+        </td></tr>
+        </table>
+    </td></tr>
+    </table>
+    <br/>
+</div>
+    
+        
+    Parámetros:<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+            <tr><td class="indent">
+            <span class="var-type">string</span>&nbsp;&nbsp;</td>
+            <td>
+            <span class="var-name">path_origen:&nbsp;</span></td>
+            <td>
+                    </td></tr>
+            <tr><td class="indent">
+            <span class="var-type">\toba_modelo_proyecto</span>&nbsp;&nbsp;</td>
+            <td>
+            <span class="var-name">proyecto:&nbsp;</span></td>
+            <td>
+                    </td></tr>
+            <tr><td class="indent">
+            <span class="var-type">string</span>&nbsp;&nbsp;</td>
+            <td>
+            <span class="var-name">nombre_api:&nbsp;</span></td>
+            <td>
+                    </td></tr>
+        </table>
+    
+<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+    
+                <br />
+</div>    
+        <a name="methodcrear_directorio_destino" id="crear_directorio_destino" href="../classes/toba-modelo-rest.html#method_crear_directorio_destino"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">
+        	<span class="method-title">static method crear_directorio_destino</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea  211]
+	</span>
+    </div>
+<br />
+
+<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+    <tr><td class="code-border">
+        <table width="100%" border="0" cellspacing="0" cellpadding="2">
+        <tr><td class="code">&nbsp;
+            <code>static mixed crear_directorio_destino(
+                                                
+                     string
+                    dir                     ,                                     
+                     mixed
+                    id_proyecto  = &#039;&#039; ]                                                )
+            </code>
+        </td></tr>
+        </table>
+    </td></tr>
+    </table>
+    <br/>
+</div>
+    
+        
+    Parámetros:<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+            <tr><td class="indent">
+            <span class="var-type">string</span>&nbsp;&nbsp;</td>
+            <td>
+            <span class="var-name">dir:&nbsp;</span></td>
+            <td>
+                    </td></tr>
+            <tr><td class="indent">
+            <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+            <td>
+            <span class="var-name">id_proyecto:&nbsp;</span></td>
+            <td>
+                    </td></tr>
+        </table>
+    
+<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+    
+                <br />
+</div>    
+        <a name="methodexiste_ini_cliente" id="existe_ini_cliente" href="../classes/toba-modelo-rest.html#method_existe_ini_cliente"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">
+        	<span class="method-title">static method existe_ini_cliente</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea  129]
+	</span>
+    </div>
+<br />
+
+<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+    <tr><td class="code-border">
+        <table width="100%" border="0" cellspacing="0" cellpadding="2">
+        <tr><td class="code">&nbsp;
+            <code>static bool existe_ini_cliente(
+                                                
+                     \toba_modelo_proyecto
+                    proyecto                     ,                                     
+                     string
+                    nombre_api  = &#039;&#039; ]                                                )
+            </code>
+        </td></tr>
+        </table>
+    </td></tr>
+    </table>
+    <br/>
+</div>
+    
+        
+    Parámetros:<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+            <tr><td class="indent">
+            <span class="var-type">\toba_modelo_proyecto</span>&nbsp;&nbsp;</td>
+            <td>
+            <span class="var-name">proyecto:&nbsp;</span></td>
+            <td>
+                    </td></tr>
+            <tr><td class="indent">
+            <span class="var-type">string</span>&nbsp;&nbsp;</td>
+            <td>
+            <span class="var-name">nombre_api:&nbsp;</span></td>
+            <td>
+                    </td></tr>
+        </table>
+    
+<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+    
+                <br />
+</div>    
+        <a name="methodexiste_ini_server" id="existe_ini_server" href="../classes/toba-modelo-rest.html#method_existe_ini_server"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">
+        	<span class="method-title">static method existe_ini_server</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea  107]
+	</span>
+    </div>
+<br />
+
+<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+    <tr><td class="code-border">
+        <table width="100%" border="0" cellspacing="0" cellpadding="2">
+        <tr><td class="code">&nbsp;
+            <code>static bool existe_ini_server(
+                                                
+                     \toba_modelo_proyecto
+                    proyecto                     ,                                     
+                     string
+                    nombre_api  = &#039;&#039; ]                                                )
+            </code>
+        </td></tr>
+        </table>
+    </td></tr>
+    </table>
+    <br/>
+</div>
+    
+        
+    Parámetros:<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+            <tr><td class="indent">
+            <span class="var-type">\toba_modelo_proyecto</span>&nbsp;&nbsp;</td>
+            <td>
+            <span class="var-name">proyecto:&nbsp;</span></td>
+            <td>
+                    </td></tr>
+            <tr><td class="indent">
+            <span class="var-type">string</span>&nbsp;&nbsp;</td>
+            <td>
+            <span class="var-name">nombre_api:&nbsp;</span></td>
+            <td>
+                    </td></tr>
+        </table>
+    
+<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+    
+                <br />
+</div>    
+        <a name="methodexiste_ini_usuarios" id="existe_ini_usuarios" href="../classes/toba-modelo-rest.html#method_existe_ini_usuarios"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">
+        	<span class="method-title">static method existe_ini_usuarios</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea  118]
+	</span>
+    </div>
+<br />
+
+<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+    <tr><td class="code-border">
+        <table width="100%" border="0" cellspacing="0" cellpadding="2">
+        <tr><td class="code">&nbsp;
+            <code>static bool existe_ini_usuarios(
+                                                
+                     \toba_modelo_proyecto
+                    proyecto                     ,                                     
+                     string
+                    nombre_api  = &#039;&#039; ]                                                )
+            </code>
+        </td></tr>
+        </table>
+    </td></tr>
+    </table>
+    <br/>
+</div>
+    
+        
+    Parámetros:<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+            <tr><td class="indent">
+            <span class="var-type">\toba_modelo_proyecto</span>&nbsp;&nbsp;</td>
+            <td>
+            <span class="var-name">proyecto:&nbsp;</span></td>
+            <td>
+                    </td></tr>
+            <tr><td class="indent">
+            <span class="var-type">string</span>&nbsp;&nbsp;</td>
+            <td>
+            <span class="var-name">nombre_api:&nbsp;</span></td>
+            <td>
+                    </td></tr>
+        </table>
+    
+<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+    
+                <br />
+</div>    
+                <a name="methodget_dir_api_base" id="get_dir_api_base" href="../classes/toba-modelo-rest.html#method_get_dir_api_base"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">
+        	<span class="method-title">static method get_dir_api_base</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea  250]
+	</span>
+    </div>
+<br />
+
+<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+    <tr><td class="code-border">
+        <table width="100%" border="0" cellspacing="0" cellpadding="2">
+        <tr><td class="code">&nbsp;
+            <code>static string get_dir_api_base(
+                                                
+                     \toba_modelo_proyecto
+                    proyecto                                                 )
+            </code>
+        </td></tr>
+        </table>
+    </td></tr>
+    </table>
+    <br/>
+</div>
+    
+    <div class="description"> Devuelve el path donde esta la api rest del proyecto pasado por parametro</div>
+    
+    Parámetros:<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+            <tr><td class="indent">
+            <span class="var-type">\toba_modelo_proyecto</span>&nbsp;&nbsp;</td>
+            <td>
+            <span class="var-name">proyecto:&nbsp;</span></td>
+            <td>
+                    </td></tr>
+        </table>
+    
+<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+    
+                <br />
+</div>    
+        <a name="methodget_dir_api_personalizacion" id="get_dir_api_personalizacion" href="../classes/toba-modelo-rest.html#method_get_dir_api_personalizacion"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">
+        	<span class="method-title">static method get_dir_api_personalizacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea  260]
+	</span>
+    </div>
+<br />
+
+<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+    <tr><td class="code-border">
+        <table width="100%" border="0" cellspacing="0" cellpadding="2">
+        <tr><td class="code">&nbsp;
+            <code>static string get_dir_api_personalizacion(
+                                                
+                     \toba_modelo_proyecto
+                    proyecto                                                 )
+            </code>
+        </td></tr>
+        </table>
+    </td></tr>
+    </table>
+    <br/>
+</div>
+    
+    <div class="description"> Devuelve el path donde esta la extension/personalizacion de api rest del proyecto pasado por parametro</div>
+    
+    Parámetros:<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+            <tr><td class="indent">
+            <span class="var-type">\toba_modelo_proyecto</span>&nbsp;&nbsp;</td>
+            <td>
+            <span class="var-name">proyecto:&nbsp;</span></td>
+            <td>
+                    </td></tr>
+        </table>
+    
+<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+    
+                <br />
+</div>    
+        <a name="methodget_dir_consumidor" id="get_dir_consumidor" href="../classes/toba-modelo-rest.html#method_get_dir_consumidor"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">
+        	<span class="method-title">static method get_dir_consumidor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea  196]
+	</span>
+    </div>
+<br />
+
+<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+    <tr><td class="code-border">
+        <table width="100%" border="0" cellspacing="0" cellpadding="2">
+        <tr><td class="code">&nbsp;
+            <code>static string get_dir_consumidor(
+                                                
+                     string
+                    path                     ,                                     
+                     string
+                    nombre_api  = &#039;&#039; ]                                                )
+            </code>
+        </td></tr>
+        </table>
+    </td></tr>
+    </table>
+    <br/>
+</div>
+    
+        
+    Parámetros:<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+            <tr><td class="indent">
+            <span class="var-type">string</span>&nbsp;&nbsp;</td>
+            <td>
+            <span class="var-name">path:&nbsp;</span></td>
+            <td>
+                    </td></tr>
+            <tr><td class="indent">
+            <span class="var-type">string</span>&nbsp;&nbsp;</td>
+            <td>
+            <span class="var-name">nombre_api:&nbsp;</span></td>
+            <td>
+                    </td></tr>
+        </table>
+    
+<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+    
+                <br />
+</div>    
+        <a name="methodget_dir_proveedor" id="get_dir_proveedor" href="../classes/toba-modelo-rest.html#method_get_dir_proveedor"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">
+        	<span class="method-title">static method get_dir_proveedor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea  181]
+	</span>
+    </div>
+<br />
+
+<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+    <tr><td class="code-border">
+        <table width="100%" border="0" cellspacing="0" cellpadding="2">
+        <tr><td class="code">&nbsp;
+            <code>static string get_dir_proveedor(
+                                                
+                     string
+                    path                     ,                                     
+                     string
+                    nombre_api  = &#039;&#039; ]                                                )
+            </code>
+        </td></tr>
+        </table>
+    </td></tr>
+    </table>
+    <br/>
+</div>
+    
+        
+    Parámetros:<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+            <tr><td class="indent">
+            <span class="var-type">string</span>&nbsp;&nbsp;</td>
+            <td>
+            <span class="var-name">path:&nbsp;</span></td>
+            <td>
+                    </td></tr>
+            <tr><td class="indent">
+            <span class="var-type">string</span>&nbsp;&nbsp;</td>
+            <td>
+            <span class="var-name">nombre_api:&nbsp;</span></td>
+            <td>
+                    </td></tr>
+        </table>
+    
+<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+    
+                <br />
+</div>    
+        <a name="methodget_ini_cliente" id="get_ini_cliente" href="../classes/toba-modelo-rest.html#method_get_ini_cliente"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">
+        	<span class="method-title">static method get_ini_cliente</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea  83]
+	</span>
+    </div>
+<br />
+
+<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+    <tr><td class="code-border">
+        <table width="100%" border="0" cellspacing="0" cellpadding="2">
+        <tr><td class="code">&nbsp;
+            <code>static \toba_ini get_ini_cliente(
+                                                
+                     \toba_modelo_proyecto
+                    proyecto                     ,                                     
+                     string
+                    nombre_api  = &#039;&#039; ]                                                )
+            </code>
+        </td></tr>
+        </table>
+    </td></tr>
+    </table>
+    <br/>
+</div>
+    
+        
+    Parámetros:<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+            <tr><td class="indent">
+            <span class="var-type">\toba_modelo_proyecto</span>&nbsp;&nbsp;</td>
+            <td>
+            <span class="var-name">proyecto:&nbsp;</span></td>
+            <td>
+                    </td></tr>
+            <tr><td class="indent">
+            <span class="var-type">string</span>&nbsp;&nbsp;</td>
+            <td>
+            <span class="var-name">nombre_api:&nbsp;</span></td>
+            <td>
+                    </td></tr>
+        </table>
+    
+<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+    
+                <br />
+</div>    
+        <a name="methodget_ini_server" id="get_ini_server" href="../classes/toba-modelo-rest.html#method_get_ini_server"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">
+        	<span class="method-title">static method get_ini_server</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea  59]
+	</span>
+    </div>
+<br />
+
+<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+    <tr><td class="code-border">
+        <table width="100%" border="0" cellspacing="0" cellpadding="2">
+        <tr><td class="code">&nbsp;
+            <code>static \toba_ini get_ini_server(
+                                                
+                     \toba_modelo_proyecto
+                    proyecto                     ,                                     
+                     string
+                    nombre_api  = &#039;&#039; ]                                                )
+            </code>
+        </td></tr>
+        </table>
+    </td></tr>
+    </table>
+    <br/>
+</div>
+    
+        
+    Parámetros:<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+            <tr><td class="indent">
+            <span class="var-type">\toba_modelo_proyecto</span>&nbsp;&nbsp;</td>
+            <td>
+            <span class="var-name">proyecto:&nbsp;</span></td>
+            <td>
+                    </td></tr>
+            <tr><td class="indent">
+            <span class="var-type">string</span>&nbsp;&nbsp;</td>
+            <td>
+            <span class="var-name">nombre_api:&nbsp;</span></td>
+            <td>
+                    </td></tr>
+        </table>
+    
+<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+    
+                <br />
+</div>    
+        <a name="methodget_ini_usuarios" id="get_ini_usuarios" href="../classes/toba-modelo-rest.html#method_get_ini_usuarios"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">
+        	<span class="method-title">static method get_ini_usuarios</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea  70]
+	</span>
+    </div>
+<br />
+
+<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+    <tr><td class="code-border">
+        <table width="100%" border="0" cellspacing="0" cellpadding="2">
+        <tr><td class="code">&nbsp;
+            <code>static \toba_ini get_ini_usuarios(
+                                                
+                     \toba_modelo_proyecto
+                    proyecto                                                 )
+            </code>
+        </td></tr>
+        </table>
+    </td></tr>
+    </table>
+    <br/>
+</div>
+    
+        
+    Parámetros:<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+            <tr><td class="indent">
+            <span class="var-type">\toba_modelo_proyecto</span>&nbsp;&nbsp;</td>
+            <td>
+            <span class="var-name">proyecto:&nbsp;</span></td>
+            <td>
+                    </td></tr>
+        </table>
+    
+<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+    
+                <br />
+</div>    
+        <a name="methodget_lista_servicios_consumibles" id="get_lista_servicios_consumibles" href="../classes/toba-modelo-rest.html#method_get_lista_servicios_consumibles"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">
+        	<span class="method-title">static method get_lista_servicios_consumibles</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea  95]
+	</span>
+    </div>
+<br />
+
+<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+    <tr><td class="code-border">
+        <table width="100%" border="0" cellspacing="0" cellpadding="2">
+        <tr><td class="code">&nbsp;
+            <code>static array get_lista_servicios_consumibles(
+                                                
+                     \toba_modelo_proyecto
+                    proyecto                                                 )
+            </code>
+        </td></tr>
+        </table>
+    </td></tr>
+    </table>
+    <br/>
+</div>
+    
+    <div class="description"> Devuelve un listado de los servicios rest consumibles</div>
+    
+    Parámetros:<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+            <tr><td class="indent">
+            <span class="var-type">\toba_modelo_proyecto</span>&nbsp;&nbsp;</td>
+            <td>
+            <span class="var-name">proyecto:&nbsp;</span></td>
+            <td>
+                    </td></tr>
+        </table>
+    
+<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+    
+                <br />
+</div>    
+        <a name="methodget_path_archivo" id="get_path_archivo" href="../classes/toba-modelo-rest.html#method_get_path_archivo"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">
+        	<span class="method-title">static method get_path_archivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea  34]
+	</span>
+    </div>
+<br />
+
+<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+    <tr><td class="code-border">
+        <table width="100%" border="0" cellspacing="0" cellpadding="2">
+        <tr><td class="code">&nbsp;
+            <code>static mixed get_path_archivo(
+                                                
+                     \toba_modelo_proyecto
+                    proyecto                     ,                                     
+                     mixed
+                    tipo_archivo                     ,                                     
+                     mixed
+                    nombre_api  = &#039;&#039; ]                                                )
+            </code>
+        </td></tr>
+        </table>
+    </td></tr>
+    </table>
+    <br/>
+</div>
+    
+        
+    Parámetros:<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+            <tr><td class="indent">
+            <span class="var-type">\toba_modelo_proyecto</span>&nbsp;&nbsp;</td>
+            <td>
+            <span class="var-name">proyecto:&nbsp;</span></td>
+            <td>
+                    </td></tr>
+            <tr><td class="indent">
+            <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+            <td>
+            <span class="var-name">tipo_archivo:&nbsp;</span></td>
+            <td>
+                    </td></tr>
+            <tr><td class="indent">
+            <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+            <td>
+            <span class="var-name">nombre_api:&nbsp;</span></td>
+            <td>
+                    </td></tr>
+        </table>
+    
+<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+    
+                <br />
+</div>    
+        <a name="methodget_url_base" id="get_url_base" href="../classes/toba-modelo-rest.html#method_get_url_base"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">
+        	<span class="method-title">static method get_url_base</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea  240]
+	</span>
+    </div>
+<br />
+
+<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+    <tr><td class="code-border">
+        <table width="100%" border="0" cellspacing="0" cellpadding="2">
+        <tr><td class="code">&nbsp;
+            <code>static string get_url_base(
+                                                
+                     \toba_modelo_proyecto
+                    proyecto                                                 )
+            </code>
+        </td></tr>
+        </table>
+    </td></tr>
+    </table>
+    <br/>
+</div>
+    
+    <div class="description"> Devuelve la URL basica de la api rest para el proyecto pasado por parametro</div>
+    
+    Parámetros:<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+            <tr><td class="indent">
+            <span class="var-type">\toba_modelo_proyecto</span>&nbsp;&nbsp;</td>
+            <td>
+            <span class="var-name">proyecto:&nbsp;</span></td>
+            <td>
+                    </td></tr>
+        </table>
+    
+<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+    
+                <br />
+</div>    
+        <a name="methodinicializar_archivos_config_cliente" id="inicializar_archivos_config_cliente" href="../classes/toba-modelo-rest.html#method_inicializar_archivos_config_cliente"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">
+        	<span class="method-title">static method inicializar_archivos_config_cliente</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea  227]
+	</span>
+    </div>
+<br />
+
+<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+    <tr><td class="code-border">
+        <table width="100%" border="0" cellspacing="0" cellpadding="2">
+        <tr><td class="code">&nbsp;
+            <code>static mixed inicializar_archivos_config_cliente(
+                                                
+                     mixed
+                    proyecto                     ,                                     
+                     mixed
+                    id_servicio                                                 )
+            </code>
+        </td></tr>
+        </table>
+    </td></tr>
+    </table>
+    <br/>
+</div>
+    
+        
+    Parámetros:<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+            <tr><td class="indent">
+            <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+            <td>
+            <span class="var-name">proyecto:&nbsp;</span></td>
+            <td>
+                    </td></tr>
+            <tr><td class="indent">
+            <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+            <td>
+            <span class="var-name">id_servicio:&nbsp;</span></td>
+            <td>
+                    </td></tr>
+        </table>
+    
+<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+    
+                <br />
+</div>    
+        <a name="methodinicializar_archivos_config_servidor" id="inicializar_archivos_config_servidor" href="../classes/toba-modelo-rest.html#method_inicializar_archivos_config_servidor"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">
+        	<span class="method-title">static method inicializar_archivos_config_servidor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea  217]
+	</span>
+    </div>
+<br />
+
+<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+    <tr><td class="code-border">
+        <table width="100%" border="0" cellspacing="0" cellpadding="2">
+        <tr><td class="code">&nbsp;
+            <code>static mixed inicializar_archivos_config_servidor(
+                                                
+                     mixed
+                    proyecto                     ,                                     
+                     mixed
+                    id_proyecto                                                 )
+            </code>
+        </td></tr>
+        </table>
+    </td></tr>
+    </table>
+    <br/>
+</div>
+    
+        
+    Parámetros:<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+            <tr><td class="indent">
+            <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+            <td>
+            <span class="var-name">proyecto:&nbsp;</span></td>
+            <td>
+                    </td></tr>
+            <tr><td class="indent">
+            <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+            <td>
+            <span class="var-name">id_proyecto:&nbsp;</span></td>
+            <td>
+                    </td></tr>
+        </table>
+    
+<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+    
+                <br />
+</div>    
+
+
+        <a name="method__construct" id="__construct" href="../classes/toba-modelo-rest.html#method___construct"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		__construct</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 28]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed __construct(
+                                    
+                \toba_modelo_proyecto
+                proyecto                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">\toba_modelo_proyecto</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">proyecto:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+                                    <a name="methodgenerar_configuracion_cliente" id="generar_configuracion_cliente" href="../classes/toba-modelo-rest.html#method_generar_configuracion_cliente"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		generar_configuracion_cliente</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 265]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed generar_configuracion_cliente(
+                                    
+                mixed
+                id_servicio                ,                             
+                mixed
+                cert_CA                ,                             
+                mixed
+                url                ,                             
+                mixed
+                cert_cli                ,                             
+                mixed
+                key_cli                ,                             
+                mixed
+                cert_pwd                ,                             
+                mixed
+                usr                ,                             
+                mixed
+                usr_pwd                ,                             
+                mixed
+                tipo_auth                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">id_servicio:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">cert_CA:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">url:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">cert_cli:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">key_cli:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">cert_pwd:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">usr:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">usr_pwd:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">tipo_auth:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodgenerar_configuracion_servidor" id="generar_configuracion_servidor" href="../classes/toba-modelo-rest.html#method_generar_configuracion_servidor"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		generar_configuracion_servidor</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 320]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed generar_configuracion_servidor(
+                                    
+                mixed
+                usr                ,                             
+                mixed
+                usr_pwd                ,                             
+                [mixed
+                cert_file = null ]                ,                             
+                [mixed
+                tipo_auth = &#039;digest&#039; ]                ,                             
+                [mixed
+                encoding = &#039;utf-8&#039; ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">usr:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">usr_pwd:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">cert_file:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">tipo_auth:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">encoding:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+                                                        </div>
+    </div>
+            </td>
+        </tr>
+    </table>    
+            <div class="credit">
+	   <hr class="separator" />
+            Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
+	<br />
+            Documentación generada con <a href="">phpDocumentor</a>
+	</div>
+    </body>
+</html>

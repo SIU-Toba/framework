@@ -1,0 +1,3674 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>API PHP</title>
+<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
+
+   <link href="../css/style.css" rel="stylesheet" media="all"/>
+  
+</head>
+<body>
+    <table border="0" cellspacing="0" cellpadding="0" height="48" width="100%">
+        <tr>
+            <td class="header-top-left">
+                <img src="../img/logo.png" border="0" />
+            </td>
+            <td class="header-top-center">
+                    <div class="package">
+                    <a href="../packages/Centrales.html">Centrales</a>&nbsp;|&nbsp;
+                    <a href="../packages/Componentes.html">Componentes</a>&nbsp;|&nbsp;
+                    <a href="../packages/consola.html">consola</a>&nbsp;|&nbsp;
+                    <a href="../packages/Debug.html">Debug</a>&nbsp;|&nbsp;
+                    <a href="../packages/Default.html">Default</a>&nbsp;|&nbsp;
+                    <a href="../packages/Fuentes.html">Fuentes</a>&nbsp;|&nbsp;
+                    <a href="../packages/SalidaGrafica.html">SalidaGrafica</a>&nbsp;|&nbsp;
+                    <a href="../packages/Seguridad.html">Seguridad</a>&nbsp;|&nbsp;
+                    <a href="../packages/SIUToba.html">SIUToba</a>&nbsp;|&nbsp;
+                    <a href="../packages/Varios.html">Varios</a>&nbsp;|&nbsp;
+                <a href="../deprecated.html">Deprecated</a>
+    </div>
+
+ 
+                
+            </td> 
+            <td class="header-top-right">
+                                <a href="../../docs/intro" title="Navegar hacia la documentación">
+                    <img border='0' style='vertical-align: middle' src="../img/wiki-small.png" />
+    		</a>    		
+                <img height=64 border='0' style='vertical-align: middle' src="../img/php.png" />                  
+                <a href="../../api_js/index.html"  title="Navegar hacia la documentación JAVASCRIPT">
+                    <img border='0' style='vertical-align: middle' src="../img/javascript-small.png" />
+    		</a>                
+                                
+            </td>        
+        </tr>
+        <tr>
+            <td colspan="3" class="header-line">
+                <img src="../img/empty.png" width="1" height="1" border="0" alt=""  />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" class="header-menu">
+                <img src="../img/empty.png" width="1" height="10" border="0" alt=""  />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" class="header-line">
+                <img src="../img/empty.png" width="1" height="1" border="0" alt=""  />
+            </td>
+        </tr>
+    </table>
+    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr valign="top">
+            <td class="menu" width="200" >
+                    
+    <div class="package-title">Centrales</div></br>
+        <div class="subpackage-title">Centrales</div>
+    <div class="package-details">
+        <ul>           
+                            <li class="interface"><a href="../classes/toba-interface-contexto-ejecucion.html"><abbr title="\toba_interface_contexto_ejecucion">toba_interface_contexto_ejecucion</abbr></a></li>
+                            <li class="interface"><a href="../classes/toba-interface-sesion.html"><abbr title="\toba_interface_sesion">toba_interface_sesion</abbr></a></li>
+                            <li class="interface"><a href="../classes/toba-interface-usuario.html"><abbr title="\toba_interface_usuario">toba_interface_usuario</abbr></a></li>
+                            <li class="interface"><a href="../classes/toba-meta-clase.html"><abbr title="\toba_meta_clase">toba_meta_clase</abbr></a></li>
+                            <li class="interface"><a href="../classes/toba-tarea.html"><abbr title="\toba_tarea">toba_tarea</abbr></a></li>
+                                                    <li class="class"><a href="../classes/mock-autenticador.html"><abbr title="\mock_autenticador">mock_autenticador</abbr></a></li>
+                            <li class="class"><a href="../classes/mock-request.html"><abbr title="\mock_request">mock_request</abbr></a></li>
+                            <li class="class"><a href="../classes/toba.html"><abbr title="\toba">toba</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-cliente-rdi.html"><abbr title="\toba_cliente_rdi">toba_cliente_rdi</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-contenedor-gadgets.html"><abbr title="\toba_contenedor_gadgets">toba_contenedor_gadgets</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-contexto-ejecucion.html"><abbr title="\toba_contexto_ejecucion">toba_contexto_ejecucion</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-error-servicio-web.html"><abbr title="\toba_error_servicio_web">toba_error_servicio_web</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-instalacion.html"><abbr title="\toba_instalacion">toba_instalacion</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-instancia.html"><abbr title="\toba_instancia">toba_instancia</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-mail.html"><abbr title="\toba_mail">toba_mail</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-memoria.html"><abbr title="\toba_memoria">toba_memoria</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-nucleo.html"><abbr title="\toba_nucleo">toba_nucleo</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-parametros.html"><abbr title="\toba_parametros">toba_parametros</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-planificador-tareas.html"><abbr title="\toba_planificador_tareas">toba_planificador_tareas</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-pms.html"><abbr title="\toba_pms">toba_pms</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-proyecto-db.html"><abbr title="\toba_proyecto_db">toba_proyecto_db</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-reset-nucleo.html"><abbr title="\toba_reset_nucleo">toba_reset_nucleo</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-rest.html"><abbr title="\toba_rest">toba_rest</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-servicio-web-cliente-rest.html"><abbr title="\toba_servicio_web_cliente_rest">toba_servicio_web_cliente_rest</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-servicio-web-cliente-soap.html"><abbr title="\toba_servicio_web_cliente_soap">toba_servicio_web_cliente_soap</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-sesion.html"><abbr title="\toba_sesion">toba_sesion</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-solicitud.html"><abbr title="\toba_solicitud">toba_solicitud</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-solicitud-accion.html"><abbr title="\toba_solicitud_accion">toba_solicitud_accion</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-solicitud-consola.html"><abbr title="\toba_solicitud_consola">toba_solicitud_consola</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-solicitud-servicio-rest.html"><abbr title="\toba_solicitud_servicio_rest">toba_solicitud_servicio_rest</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-solicitud-servicio-web.html"><abbr title="\toba_solicitud_servicio_web">toba_solicitud_servicio_web</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-tarea-php.html"><abbr title="\toba_tarea_php">toba_tarea_php</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-validaciones.html"><abbr title="\toba_validaciones">toba_validaciones</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-version.html"><abbr title="\toba_version">toba_version</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-vinculo.html"><abbr title="\toba_vinculo">toba_vinculo</abbr></a></li>
+                    </ul>
+    </div>
+    
+                         
+                    <div class="subpackage-title">Errores</div>
+    <div class="package-details">
+        <ul>           
+                                                    <li class="class"><a href="../classes/toba-error.html"><abbr title="\toba_error">toba_error</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-error-autenticacion.html"><abbr title="\toba_error_autenticacion">toba_error_autenticacion</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-error-autenticacion-intentos.html"><abbr title="\toba_error_autenticacion_intentos">toba_error_autenticacion_intentos</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-error-autorizacion.html"><abbr title="\toba_error_autorizacion">toba_error_autorizacion</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-error-comunicacion.html"><abbr title="\toba_error_comunicacion">toba_error_comunicacion</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-error-db.html"><abbr title="\toba_error_db">toba_error_db</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-error-def.html"><abbr title="\toba_error_def">toba_error_def</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-error-firma-digital.html"><abbr title="\toba_error_firma_digital">toba_error_firma_digital</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-error-ini-sesion.html"><abbr title="\toba_error_ini_sesion">toba_error_ini_sesion</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-error-login-contrasenia-vencida.html"><abbr title="\toba_error_login_contrasenia_vencida">toba_error_login_contrasenia_vencida</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-error-permisos.html"><abbr title="\toba_error_permisos">toba_error_permisos</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-error-pwd-conformacion-invalida.html"><abbr title="\toba_error_pwd_conformacion_invalida">toba_error_pwd_conformacion_invalida</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-error-seguridad.html"><abbr title="\toba_error_seguridad">toba_error_seguridad</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-error-usuario.html"><abbr title="\toba_error_usuario">toba_error_usuario</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-error-validacion.html"><abbr title="\toba_error_validacion">toba_error_validacion</abbr></a></li>
+                    </ul>
+    </div>
+     
+                     
+                    <div class="subpackage-title">Modelo</div>
+    <div class="package-details">
+        <ul>           
+                            <li class="interface"><a href="../classes/toba-aplicacion-comando.html"><abbr title="\toba_aplicacion_comando">toba_aplicacion_comando</abbr></a></li>
+                            <li class="interface"><a href="../classes/toba-aplicacion-modelo.html"><abbr title="\toba_aplicacion_modelo">toba_aplicacion_modelo</abbr></a></li>
+                                                    <li class="class"><a href="../classes/toba-aplicacion-comando-base.html"><abbr title="\toba_aplicacion_comando_base">toba_aplicacion_comando_base</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-aplicacion-modelo-base.html"><abbr title="\toba_aplicacion_modelo_base">toba_aplicacion_modelo_base</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-modelo-catalogo.html"><abbr title="\toba_modelo_catalogo">toba_modelo_catalogo</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-modelo-instalacion.html"><abbr title="\toba_modelo_instalacion">toba_modelo_instalacion</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-modelo-instancia.html"><abbr title="\toba_modelo_instancia">toba_modelo_instancia</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-modelo-pms.html"><abbr title="\toba_modelo_pms">toba_modelo_pms</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-modelo-proyecto.html"><abbr title="\toba_modelo_proyecto">toba_modelo_proyecto</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-modelo-rest.html"><abbr title="\toba_modelo_rest">toba_modelo_rest</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-modelo-servicio-web.html"><abbr title="\toba_modelo_servicio_web">toba_modelo_servicio_web</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-modelo-soap.html"><abbr title="\toba_modelo_soap">toba_modelo_soap</abbr></a></li>
+                    </ul>
+    </div>
+     
+                     
+                    <div class="subpackage-title">Personalizacion</div>
+    <div class="package-details">
+        <ul>           
+                                                    <li class="class"><a href="../classes/toba-importador.html"><abbr title="\toba_importador">toba_importador</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-importador-componentes.html"><abbr title="\toba_importador_componentes">toba_importador_componentes</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-importador-plan.html"><abbr title="\toba_importador_plan">toba_importador_plan</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-importador-plan-item.html"><abbr title="\toba_importador_plan_item">toba_importador_plan_item</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-importador-tablas.html"><abbr title="\toba_importador_tablas">toba_importador_tablas</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-pers-caso-test.html"><abbr title="\toba_pers_caso_test">toba_pers_caso_test</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-pers-xml-generador.html"><abbr title="\toba_pers_xml_generador">toba_pers_xml_generador</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-pers-xml-generador-tablas.html"><abbr title="\toba_pers_xml_generador_tablas">toba_pers_xml_generador_tablas</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-personalizacion.html"><abbr title="\toba_personalizacion">toba_personalizacion</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-recuperador.html"><abbr title="\toba_recuperador">toba_recuperador</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-recuperador-componentes.html"><abbr title="\toba_recuperador_componentes">toba_recuperador_componentes</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-recuperador-data.html"><abbr title="\toba_recuperador_data">toba_recuperador_data</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-recuperador-tablas.html"><abbr title="\toba_recuperador_tablas">toba_recuperador_tablas</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-recuperador-utildb-componentes.html"><abbr title="\toba_recuperador_utildb_componentes">toba_recuperador_utildb_componentes</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-recuperador-utildb-tablas.html"><abbr title="\toba_recuperador_utildb_tablas">toba_recuperador_utildb_tablas</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-registro-con-clave.html"><abbr title="\toba_registro_con_clave">toba_registro_con_clave</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-registro-conflictos.html"><abbr title="\toba_registro_conflictos">toba_registro_conflictos</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-registro-delete.html"><abbr title="\toba_registro_delete">toba_registro_delete</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-registro-insert.html"><abbr title="\toba_registro_insert">toba_registro_insert</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-registro-update.html"><abbr title="\toba_registro_update">toba_registro_update</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-registro-xml-factory.html"><abbr title="\toba_registro_xml_factory">toba_registro_xml_factory</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-tarea-componente.html"><abbr title="\toba_tarea_componente">toba_tarea_componente</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-tarea-datos.html"><abbr title="\toba_tarea_datos">toba_tarea_datos</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-tarea-pers.html"><abbr title="\toba_tarea_pers">toba_tarea_pers</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-tarea-tabla.html"><abbr title="\toba_tarea_tabla">toba_tarea_tabla</abbr></a></li>
+                    </ul>
+    </div>
+     
+                     
+                    <div class="subpackage-title">PuntoMontaje</div>
+    <div class="package-details">
+        <ul>           
+                                                    <li class="class"><a href="../classes/toba-pm-a-registro.html"><abbr title="\toba_pm_a_registro">toba_pm_a_registro</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-punto-montaje.html"><abbr title="\toba_punto_montaje">toba_punto_montaje</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-punto-montaje-autoload.html"><abbr title="\toba_punto_montaje_autoload">toba_punto_montaje_autoload</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-punto-montaje-factory.html"><abbr title="\toba_punto_montaje_factory">toba_punto_montaje_factory</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-punto-montaje-pers.html"><abbr title="\toba_punto_montaje_pers">toba_punto_montaje_pers</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-punto-montaje-proyecto.html"><abbr title="\toba_punto_montaje_proyecto">toba_punto_montaje_proyecto</abbr></a></li>
+                    </ul>
+    </div>
+     
+                </div>
+   <div id="topdiv">
+     <p><a href="javascript:scroll(0,0)">[ Top ]</a></p>
+   </div>
+            </td>
+            <td>
+                       
+ <a name="sec-description"></a>
+<h1>toba_memoria</h1>
+<div class="info-box">
+    <div class="nav-bar">                
+                    <span class="disabled">Resúmen de la Clase</span> |
+                                            <a href="#sec-method-summary">Métodos Propios</a>
+        		
+    </div>
+    <div class="info-box-body">
+        <table width="100%" border="0" paddingtop="2px">
+        <tr><td valign="top" width="60%" class="class-overview">
+                                    
+                                                                <div class="description">toba_memoria</div>
+            <p class="notes">
+                    Ubicada en php/nucleo/lib/toba_memoria.php [<span class="field">line 48</span>]
+            </p>
+            <table border="0" cellspacing="0" cellpadding="0">
+</table>
+<br>
+<table border="0" cellspacing="0" cellpadding="0">
+ </table>
+<br />
+
+        </td>
+        </tr>
+        </table>
+    </div>
+</div>
+
+   
+   
+
+        <a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Métodos Propios</div>
+		<div class="info-box-body">
+			<div class="method-summary">
+                            <table border="0" cellspacing="5" cellpadding="0" class="method-summary">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <tr><td></td><td class="method-definition" nowrap>static
+                                                                            <span class="method-result">mixed</span>&nbsp;&nbsp;
+                                                                        </td>
+                                    <td class="method-definition">
+                                        <a href='#mixed' title="details" class="method-name">
+                                        eliminar_instancia</a>()&nbsp;&nbsp;
+                                    </td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <tr><td></td><td class="method-definition" nowrap>static
+                                                                            <span class="method-result">array</span>&nbsp;&nbsp;
+                                                                        </td>
+                                    <td class="method-definition">
+                                        <a href='#array' title="details" class="method-name">
+                                        get_item_solicitado_original</a>()&nbsp;&nbsp;
+                                    </td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                                                                                                                                                                                                                                                                                                                            <tr><td></td><td class="method-definition" nowrap>static
+                                                                            <span class="method-result">mixed</span>&nbsp;&nbsp;
+                                                                        </td>
+                                    <td class="method-definition">
+                                        <a href='#mixed' title="details" class="method-name">
+                                        get_valor_verificado</a>()&nbsp;&nbsp;
+                                    </td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                                                                                                                                        <tr><td></td><td class="method-definition" nowrap>static
+                                                                            <span class="method-result">mixed</span>&nbsp;&nbsp;
+                                                                        </td>
+                                    <td class="method-definition">
+                                        <a href='#mixed' title="details" class="method-name">
+                                        instancia</a>()&nbsp;&nbsp;
+                                    </td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <tr><td></td><td class="method-definition" nowrap>static
+                                                                            <span class="method-result">mixed</span>&nbsp;&nbsp;
+                                                                        </td>
+                                    <td class="method-definition">
+                                        <a href='#mixed' title="details" class="method-name">
+                                        validar_id_item_enviado</a>()&nbsp;&nbsp;
+                                    </td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                                                                                                                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#__construct' title="details" class="method-name">__construct
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#acceso_a_dato_global' title="details" class="method-name">acceso_a_dato_global
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#agregar_dato_global_reciclable' title="details" class="method-name">agregar_dato_global_reciclable
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#dato_global_activo' title="details" class="method-name">dato_global_activo
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#desactivar_reciclado' title="details" class="method-name">desactivar_reciclado
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#destruir' title="details" class="method-name">destruir
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#dump' title="details" class="method-name">dump
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#eliminar_archivos_temporales' title="details" class="method-name">eliminar_archivos_temporales
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#eliminar_dato' title="details" class="method-name">eliminar_dato
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#eliminar_dato_instancia' title="details" class="method-name">eliminar_dato_instancia
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#eliminar_dato_operacion' title="details" class="method-name">eliminar_dato_operacion
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#eliminar_dato_sincronizado' title="details" class="method-name">eliminar_dato_sincronizado
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#eliminar_informacion_reciclado' title="details" class="method-name">eliminar_informacion_reciclado
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                                                                            <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#en_array_operacion' title="details" class="method-name">en_array_operacion
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#existe_dato' title="details" class="method-name">existe_dato
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#existe_dato_instancia' title="details" class="method-name">existe_dato_instancia
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#existe_dato_operacion' title="details" class="method-name">existe_dato_operacion
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#existe_dato_reciclable' title="details" class="method-name">existe_dato_reciclable
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#fijar_csrf_token' title="details" class="method-name">fijar_csrf_token
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#finalizar' title="details" class="method-name">finalizar
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+                                                                                </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#generar_unique_cripto' title="details" class="method-name">generar_unique_cripto
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_array_operacion' title="details" class="method-name">get_array_operacion
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_celda_memoria_actual_id' title="details" class="method-name">get_celda_memoria_actual_id
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_dato' title="details" class="method-name">get_dato
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_dato_instancia' title="details" class="method-name">get_dato_instancia
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_dato_operacion' title="details" class="method-name">get_dato_operacion
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_dato_sincronizado' title="details" class="method-name">get_dato_sincronizado
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_id' title="details" class="method-name">get_id
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_id_objetos_destino' title="details" class="method-name">get_id_objetos_destino
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">array</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_item_solicitado' title="details" class="method-name">get_item_solicitado
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                                                                            <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">string</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_parametro' title="details" class="method-name">get_parametro
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">array</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_parametros' title="details" class="method-name">get_parametros
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">array</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_parametros_item_original' title="details" class="method-name">get_parametros_item_original
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_servicio_solicitado' title="details" class="method-name">get_servicio_solicitado
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_url_solicitud' title="details" class="method-name">get_url_solicitud
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                                                                            <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#inicializar_memoria' title="details" class="method-name">inicializar_memoria
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#inicializar_reciclaje_global' title="details" class="method-name">inicializar_reciclaje_global
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                                                                            <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#limpiar_array_operacion' title="details" class="method-name">limpiar_array_operacion
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#limpiar_datos' title="details" class="method-name">limpiar_datos
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#limpiar_datos_instancia' title="details" class="method-name">limpiar_datos_instancia
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#limpiar_datos_operacion' title="details" class="method-name">limpiar_datos_operacion
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#limpiar_datos_reciclable' title="details" class="method-name">limpiar_datos_reciclable
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#limpiar_memoria' title="details" class="method-name">limpiar_memoria
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#limpiar_memoria_sincronizada' title="details" class="method-name">limpiar_memoria_sincronizada
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#prefijo_vinculo' title="details" class="method-name">prefijo_vinculo
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#reciclar_datos_globales_acceso' title="details" class="method-name">reciclar_datos_globales_acceso
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#reciclar_datos_globales_item' title="details" class="method-name">reciclar_datos_globales_item
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition">Se debe ejecutar cuando se inicia el request
+(Si el item de la celda actual cambio, eliminar el contenido)</td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#reciclar_datos_sincronizados' title="details" class="method-name">reciclar_datos_sincronizados
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#registrar_archivo_temporal' title="details" class="method-name">registrar_archivo_temporal
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#set_array_operacion' title="details" class="method-name">set_array_operacion
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition">Se elimina cuando se cambia de operación</td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#set_dato' title="details" class="method-name">set_dato
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#set_dato_instancia' title="details" class="method-name">set_dato_instancia
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition">Este mecanismo aporta un canal para la comunicacion entre proyectos que se ejecutan simultaneamente.</td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#set_dato_operacion' title="details" class="method-name">set_dato_operacion
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition">Se elimina cuando se cambia de operación</td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#set_dato_sincronizado' title="details" class="method-name">set_dato_sincronizado
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition">La memoria sincronizada guarda datos macheados contra el request que los produjo.
+Por ejemplo en el request 65 el indice &#039;cantidad de tabs&#039;  tiene el valor 8
+Al hacer el get_dato_sincronizado se chequea en que request se encuentra actualmente y retorna el valor asociado
+Esto permite que al hacer BACK con el browser se vuelva a las variables de sesion de las antiguas paginas
+No es una buena opción para guardar información de la aplicación sino mas bien cosas relacionadas con la seguridad
+y funcioanmiento interno del framework</td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#set_item_solicitado' title="details" class="method-name">set_item_solicitado
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#set_servicio_solicitado' title="details" class="method-name">set_servicio_solicitado
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#set_url_original' title="details" class="method-name">set_url_original
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#usuario_solicita_cronometrar' title="details" class="method-name">usuario_solicita_cronometrar
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                                                                            <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#validar_pedido_pagina' title="details" class="method-name">validar_pedido_pagina
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#verificar_acceso_menu' title="details" class="method-name">verificar_acceso_menu
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">bool</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#verificar_acceso_popup' title="details" class="method-name">verificar_acceso_popup
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                        </table>
+			</div>
+			<br />
+		</div>
+	</div>
+
+
+
+
+
+
+    <a name="sec-methods"></a>
+    <div class="info-box">
+        <div class="info-box-body">
+                <a name='method_detail'></a>
+                                                            <a name="methodeliminar_instancia" id="eliminar_instancia" href="../classes/toba-memoria.html#method_eliminar_instancia"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">
+        	<span class="method-title">static method eliminar_instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea  78]
+	</span>
+    </div>
+<br />
+
+<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+    <tr><td class="code-border">
+        <table width="100%" border="0" cellspacing="0" cellpadding="2">
+        <tr><td class="code">&nbsp;
+            <code>static mixed eliminar_instancia(
+            )
+            </code>
+        </td></tr>
+        </table>
+    </td></tr>
+    </table>
+    <br/>
+</div>
+    
+        
+    
+<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+    
+                <br />
+</div>    
+                                                                            <a name="methodget_item_solicitado_original" id="get_item_solicitado_original" href="../classes/toba-memoria.html#method_get_item_solicitado_original"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">
+        	<span class="method-title">static method get_item_solicitado_original</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea  318]
+	</span>
+    </div>
+<br />
+
+<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+    <tr><td class="code-border">
+        <table width="100%" border="0" cellspacing="0" cellpadding="2">
+        <tr><td class="code">&nbsp;
+            <code>static array get_item_solicitado_original(
+            )
+            </code>
+        </td></tr>
+        </table>
+    </td></tr>
+    </table>
+    <br/>
+</div>
+    
+    <div class="description"> Retorna la operación requerida originalmente por el usuario en este pedido de página
+Puede diferir de la operación actual ya que se pudo hacer una redirección</div>
+    
+    
+<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+    
+                <br />
+</div>    
+                            <a name="methodget_valor_verificado" id="get_valor_verificado" href="../classes/toba-memoria.html#method_get_valor_verificado"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">
+        	<span class="method-title">static method get_valor_verificado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea  923]
+	</span>
+    </div>
+<br />
+
+<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+    <tr><td class="code-border">
+        <table width="100%" border="0" cellspacing="0" cellpadding="2">
+        <tr><td class="code">&nbsp;
+            <code>static mixed get_valor_verificado(
+                                                
+                     mixed
+                    param                     ,                                     
+                     mixed
+                    valor_defecto                                                 )
+            </code>
+        </td></tr>
+        </table>
+    </td></tr>
+    </table>
+    <br/>
+</div>
+    
+    <div class="description"> Intenta devolver la parte correcta de un parametro o falso sino</div>
+    
+    Parámetros:<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+            <tr><td class="indent">
+            <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+            <td>
+            <span class="var-name">param:&nbsp;</span></td>
+            <td>
+                    </td></tr>
+            <tr><td class="indent">
+            <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+            <td>
+            <span class="var-name">valor_defecto:&nbsp;</span></td>
+            <td>
+                    </td></tr>
+        </table>
+    
+<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+    
+                <br />
+</div>    
+                <a name="methodinstancia" id="instancia" href="../classes/toba-memoria.html#method_instancia"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">
+        	<span class="method-title">static method instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea  70]
+	</span>
+    </div>
+<br />
+
+<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+    <tr><td class="code-border">
+        <table width="100%" border="0" cellspacing="0" cellpadding="2">
+        <tr><td class="code">&nbsp;
+            <code>static mixed instancia(
+            )
+            </code>
+        </td></tr>
+        </table>
+    </td></tr>
+    </table>
+    <br/>
+</div>
+    
+        
+    
+<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+    
+                <br />
+</div>    
+                                                                                            <a name="methodvalidar_id_item_enviado" id="validar_id_item_enviado" href="../classes/toba-memoria.html#method_validar_id_item_enviado"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">
+                    <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+        	<span class="method-title">static method validar_id_item_enviado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea  960]
+	</span>
+    </div>
+<br />
+
+<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+    <tr><td class="code-border">
+        <table width="100%" border="0" cellspacing="0" cellpadding="2">
+        <tr><td class="code">&nbsp;
+            <code>static mixed validar_id_item_enviado(
+                                                
+                     mixed
+                    item                                                 )
+            </code>
+        </td></tr>
+        </table>
+    </td></tr>
+    </table>
+    <br/>
+</div>
+    
+        
+    Parámetros:<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+            <tr><td class="indent">
+            <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+            <td>
+            <span class="var-name">item:&nbsp;</span></td>
+            <td>
+                    </td></tr>
+        </table>
+    
+<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+    
+                <br />
+</div>    
+            
+
+        <a name="method__construct" id="__construct" href="../classes/toba-memoria.html#method___construct"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		__construct</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 83]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed __construct(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodacceso_a_dato_global" id="acceso_a_dato_global" href="../classes/toba-memoria.html#method_acceso_a_dato_global"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		acceso_a_dato_global</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 764]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed acceso_a_dato_global(
+                                    
+                mixed
+                indice                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Registra el acceso a datos globales para el esquema de reciclado por conteo de accesos</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">indice:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodagregar_dato_global_reciclable" id="agregar_dato_global_reciclable" href="../classes/toba-memoria.html#method_agregar_dato_global_reciclable"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		agregar_dato_global_reciclable</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 745]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed agregar_dato_global_reciclable(
+                                    
+                mixed
+                indice                ,                             
+                mixed
+                tipo_reciclado                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Se marca un dato global como reciclable</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">indice:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">tipo_reciclado:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methoddato_global_activo" id="dato_global_activo" href="../classes/toba-memoria.html#method_dato_global_activo"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		dato_global_activo</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 777]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed dato_global_activo(
+                                    
+                mixed
+                indice                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Setea un dato reciclable como activo en el esquema de reciclado por conteo de accesos</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">indice:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methoddesactivar_reciclado" id="desactivar_reciclado" href="../classes/toba-memoria.html#method_desactivar_reciclado"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		desactivar_reciclado</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 715]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed desactivar_reciclado(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Desactiva el reciclado</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methoddestruir" id="destruir" href="../classes/toba-memoria.html#method_destruir"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		destruir</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 204]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed destruir(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Destructor de la memoria, no sirve para borrar la memoria, sino es parte del proceso de apagado del framework</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methoddump" id="dump" href="../classes/toba-memoria.html#method_dump"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		dump</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 401]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed dump(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodeliminar_archivos_temporales" id="eliminar_archivos_temporales" href="../classes/toba-memoria.html#method_eliminar_archivos_temporales"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		eliminar_archivos_temporales</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 904]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed eliminar_archivos_temporales(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodeliminar_dato" id="eliminar_dato" href="../classes/toba-memoria.html#method_eliminar_dato"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		eliminar_dato</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 510]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed eliminar_dato(
+                                    
+                mixed
+                indice                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Elimina un dato de la memoria</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">indice:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodeliminar_dato_instancia" id="eliminar_dato_instancia" href="../classes/toba-memoria.html#method_eliminar_dato_instancia"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		eliminar_dato_instancia</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 459]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed eliminar_dato_instancia(
+                                    
+                mixed
+                indice                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Elimina un dato de la memoria de la instancia</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">indice:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodeliminar_dato_operacion" id="eliminar_dato_operacion" href="../classes/toba-memoria.html#method_eliminar_dato_operacion"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		eliminar_dato_operacion</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 569]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed eliminar_dato_operacion(
+                                    
+                mixed
+                indice                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Elimina un dato de la memoria de la operacion</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">indice:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodeliminar_dato_sincronizado" id="eliminar_dato_sincronizado" href="../classes/toba-memoria.html#method_eliminar_dato_sincronizado"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		eliminar_dato_sincronizado</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 674]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed eliminar_dato_sincronizado(
+                                    
+                mixed
+                indice                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">indice:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodeliminar_informacion_reciclado" id="eliminar_informacion_reciclado" href="../classes/toba-memoria.html#method_eliminar_informacion_reciclado"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		eliminar_informacion_reciclado</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 852]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed eliminar_informacion_reciclado(
+                                    
+                mixed
+                indice                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Elimina la informacion asociada al reciclado de un dato</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">indice:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+            <a name="methoden_array_operacion" id="en_array_operacion" href="../classes/toba-memoria.html#method_en_array_operacion"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		en_array_operacion</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 609]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed en_array_operacion(
+                                    
+                mixed
+                indice                ,                             
+                mixed
+                dato                ,                             
+                [mixed
+                tira_excepcion = true ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Controla que exista un dato en un array almacenado para la operacion actual.</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">indice:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">dato:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">tira_excepcion:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodexiste_dato" id="existe_dato" href="../classes/toba-memoria.html#method_existe_dato"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		existe_dato</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 520]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed existe_dato(
+                                    
+                mixed
+                indice                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Determina si un dato esta disponible en la memoria</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">indice:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodexiste_dato_instancia" id="existe_dato_instancia" href="../classes/toba-memoria.html#method_existe_dato_instancia"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		existe_dato_instancia</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 469]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed existe_dato_instancia(
+                                    
+                mixed
+                indice                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Determina si un dato esta disponible en la memoria de la instancia</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">indice:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodexiste_dato_operacion" id="existe_dato_operacion" href="../classes/toba-memoria.html#method_existe_dato_operacion"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		existe_dato_operacion</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 580]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed existe_dato_operacion(
+                                    
+                mixed
+                indice                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Determina si un dato esta disponible en la memoria de la operacion</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">indice:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodexiste_dato_reciclable" id="existe_dato_reciclable" href="../classes/toba-memoria.html#method_existe_dato_reciclable"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		existe_dato_reciclable</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 829]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed existe_dato_reciclable(
+                                    
+                mixed
+                indice                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Controla si existe un dato reciclabe</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">indice:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodfijar_csrf_token" id="fijar_csrf_token" href="../classes/toba-memoria.html#method_fijar_csrf_token"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		fijar_csrf_token</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 935]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed fijar_csrf_token(
+                                    
+                [mixed
+                forzar = false ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">forzar:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodfinalizar" id="finalizar" href="../classes/toba-memoria.html#method_finalizar"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		finalizar</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 880]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed finalizar(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodgenerar_unique_cripto" id="generar_unique_cripto" href="../classes/toba-memoria.html#method_generar_unique_cripto"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+            		    			
+	<span class="method-title">
+		generar_unique_cripto</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 953]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed generar_unique_cripto(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodget_array_operacion" id="get_array_operacion" href="../classes/toba-memoria.html#method_get_array_operacion"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		get_array_operacion</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 622]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed get_array_operacion(
+                                    
+                mixed
+                indice                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Recupera un array almacenado durante la operacion</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">indice:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodget_celda_memoria_actual_id" id="get_celda_memoria_actual_id" href="../classes/toba-memoria.html#method_get_celda_memoria_actual_id"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		get_celda_memoria_actual_id</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 215]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed get_celda_memoria_actual_id(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodget_dato" id="get_dato" href="../classes/toba-memoria.html#method_get_dato"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		get_dato</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 498]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed get_dato(
+                                    
+                mixed
+                indice                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Recupera un dato almacenado con set_dato</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">indice:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodget_dato_instancia" id="get_dato_instancia" href="../classes/toba-memoria.html#method_get_dato_instancia"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		get_dato_instancia</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 443]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed get_dato_instancia(
+                                    
+                mixed
+                indice                ,                             
+                [mixed
+                eliminar_dato = false ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Recupera un dato almacenado con set_dato_instancia</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">indice:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">eliminar_dato:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodget_dato_operacion" id="get_dato_operacion" href="../classes/toba-memoria.html#method_get_dato_operacion"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		get_dato_operacion</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 555]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed get_dato_operacion(
+                                    
+                mixed
+                indice                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Recupera un dato almacenado durante la operacion</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">indice:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodget_dato_sincronizado" id="get_dato_sincronizado" href="../classes/toba-memoria.html#method_get_dato_sincronizado"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		get_dato_sincronizado</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 660]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed get_dato_sincronizado(
+                                    
+                mixed
+                indice                ,                             
+                [mixed
+                celda = null ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Recupera un dato de la memoria sincronizada, macheandolo con el id actual del hilo</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">indice:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">celda:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodget_id" id="get_id" href="../classes/toba-memoria.html#method_get_id"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		get_id</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 244]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed get_id(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Retorna el id que identifica univocamente este request</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodget_id_objetos_destino" id="get_id_objetos_destino" href="../classes/toba-memoria.html#method_get_id_objetos_destino"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		get_id_objetos_destino</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 270]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed get_id_objetos_destino(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Retorna la referencia a aquellos objetos destino del servicio solicitado</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodget_item_solicitado" id="get_item_solicitado" href="../classes/toba-memoria.html#method_get_item_solicitado"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		get_item_solicitado</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 305]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>array get_item_solicitado(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Retorna el item requerido en este pedido de página</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+            <a name="methodget_parametro" id="get_parametro" href="../classes/toba-memoria.html#method_get_parametro"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		get_parametro</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 281]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>string get_parametro(
+                                    
+                string
+                canal                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Retorna el valor de un parámetro enviado en la URL por el vinculador</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">canal:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodget_parametros" id="get_parametros" href="../classes/toba-memoria.html#method_get_parametros"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		get_parametros</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 294]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>array get_parametros(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Retorna todos los parámetros enviados en la URL por el vinculador</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodget_parametros_item_original" id="get_parametros_item_original" href="../classes/toba-memoria.html#method_get_parametros_item_original"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		get_parametros_item_original</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 331]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>array get_parametros_item_original(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Retorna los parametros del item requerido originalmente, la lectura es destructiva del dato</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodget_servicio_solicitado" id="get_servicio_solicitado" href="../classes/toba-memoria.html#method_get_servicio_solicitado"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		get_servicio_solicitado</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 256]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed get_servicio_solicitado(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Retorna el servicio solicitado por la URL</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodget_url_solicitud" id="get_url_solicitud" href="../classes/toba-memoria.html#method_get_url_solicitud"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		get_url_solicitud</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 360]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed get_url_solicitud(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+            <a name="methodinicializar_memoria" id="inicializar_memoria" href="../classes/toba-memoria.html#method_inicializar_memoria"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		inicializar_memoria</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 378]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed inicializar_memoria(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Inicializa la memoria</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodinicializar_reciclaje_global" id="inicializar_reciclaje_global" href="../classes/toba-memoria.html#method_inicializar_reciclaje_global"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		inicializar_reciclaje_global</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 723]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed inicializar_reciclaje_global(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Inicializa el esquema de reciclado global</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+            <a name="methodlimpiar_array_operacion" id="limpiar_array_operacion" href="../classes/toba-memoria.html#method_limpiar_array_operacion"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		limpiar_array_operacion</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 630]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed limpiar_array_operacion(
+                                    
+                mixed
+                indice                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Elimina un array de la memoria de la operacion</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">indice:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodlimpiar_datos" id="limpiar_datos" href="../classes/toba-memoria.html#method_limpiar_datos"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		limpiar_datos</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 528]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed limpiar_datos(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Limpia la memoria global del proyecto</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodlimpiar_datos_instancia" id="limpiar_datos_instancia" href="../classes/toba-memoria.html#method_limpiar_datos_instancia"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		limpiar_datos_instancia</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 477]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed limpiar_datos_instancia(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Limpia la memoria de la instancia</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodlimpiar_datos_operacion" id="limpiar_datos_operacion" href="../classes/toba-memoria.html#method_limpiar_datos_operacion"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		limpiar_datos_operacion</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 588]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed limpiar_datos_operacion(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Limpia la memoria de la operacion</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodlimpiar_datos_reciclable" id="limpiar_datos_reciclable" href="../classes/toba-memoria.html#method_limpiar_datos_reciclable"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		limpiar_datos_reciclable</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 837]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed limpiar_datos_reciclable(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Limpia toda la memoria reciclable</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodlimpiar_memoria" id="limpiar_memoria" href="../classes/toba-memoria.html#method_limpiar_memoria"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		limpiar_memoria</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 395]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed limpiar_memoria(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodlimpiar_memoria_sincronizada" id="limpiar_memoria_sincronizada" href="../classes/toba-memoria.html#method_limpiar_memoria_sincronizada"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		limpiar_memoria_sincronizada</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 681]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed limpiar_memoria_sincronizada(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodprefijo_vinculo" id="prefijo_vinculo" href="../classes/toba-memoria.html#method_prefijo_vinculo"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		prefijo_vinculo</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 236]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed prefijo_vinculo(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Genera la primera porcion de todas las URLs</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodreciclar_datos_globales_acceso" id="reciclar_datos_globales_acceso" href="../classes/toba-memoria.html#method_reciclar_datos_globales_acceso"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		reciclar_datos_globales_acceso</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 813]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed reciclar_datos_globales_acceso(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Reciclado por control de acceso a los datos guardados
+Se debe ejecutar cuando termina el request
+(Si un dato no fue accedido, borrarlo)</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodreciclar_datos_globales_item" id="reciclar_datos_globales_item" href="../classes/toba-memoria.html#method_reciclar_datos_globales_item"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		reciclar_datos_globales_item</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 793]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed reciclar_datos_globales_item(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Reciclado de datos globales por cambio de item.</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodreciclar_datos_sincronizados" id="reciclar_datos_sincronizados" href="../classes/toba-memoria.html#method_reciclar_datos_sincronizados"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		reciclar_datos_sincronizados</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 686]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed reciclar_datos_sincronizados(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodregistrar_archivo_temporal" id="registrar_archivo_temporal" href="../classes/toba-memoria.html#method_registrar_archivo_temporal"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		registrar_archivo_temporal</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 897]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed registrar_archivo_temporal(
+                                    
+                mixed
+                archivo                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">archivo:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodset_array_operacion" id="set_array_operacion" href="../classes/toba-memoria.html#method_set_array_operacion"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		set_array_operacion</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 601]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed set_array_operacion(
+                                    
+                mixed
+                indice                ,                             
+                mixed
+                datos                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Almacena un array de la operacion actual en la sesión.</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">indice:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">datos:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodset_dato" id="set_dato" href="../classes/toba-memoria.html#method_set_dato"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		set_dato</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 489]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed set_dato(
+                                    
+                mixed
+                indice                ,                             
+                mixed
+                datos                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Almacena un dato en la sesion del proyecto y perdura durante toda la sesión
+Similar al manejo normal del $_SESSION en una aplicacion ad-hoc</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">indice:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">datos:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodset_dato_instancia" id="set_dato_instancia" href="../classes/toba-memoria.html#method_set_dato_instancia"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		set_dato_instancia</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 434]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed set_dato_instancia(
+                                    
+                mixed
+                indice                ,                             
+                mixed
+                datos                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Almacena un dato en la instancia.</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">indice:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">datos:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodset_dato_operacion" id="set_dato_operacion" href="../classes/toba-memoria.html#method_set_dato_operacion"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		set_dato_operacion</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 545]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed set_dato_operacion(
+                                    
+                mixed
+                indice                ,                             
+                mixed
+                datos                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Almacena un dato de la operacion actual en la sesión.</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">indice:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">datos:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodset_dato_sincronizado" id="set_dato_sincronizado" href="../classes/toba-memoria.html#method_set_dato_sincronizado"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		set_dato_sincronizado</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 647]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed set_dato_sincronizado(
+                                    
+                mixed
+                indice                ,                             
+                mixed
+                datos                ,                             
+                [mixed
+                celda = null ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Guarda un dato en la memoria sincronizada.</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">indice:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">datos:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">celda:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodset_item_solicitado" id="set_item_solicitado" href="../classes/toba-memoria.html#method_set_item_solicitado"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		set_item_solicitado</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 220]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed set_item_solicitado(
+                                    
+                mixed
+                item                ,                             
+                [mixed
+                genera_csrf_token = true ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">item:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">genera_csrf_token:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodset_servicio_solicitado" id="set_servicio_solicitado" href="../classes/toba-memoria.html#method_set_servicio_solicitado"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		set_servicio_solicitado</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 261]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed set_servicio_solicitado(
+                                    
+                mixed
+                servicio                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">servicio:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodset_url_original" id="set_url_original" href="../classes/toba-memoria.html#method_set_url_original"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		set_url_original</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 352]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed set_url_original(
+                                    
+                mixed
+                param                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">param:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodusuario_solicita_cronometrar" id="usuario_solicita_cronometrar" href="../classes/toba-memoria.html#method_usuario_solicita_cronometrar"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		usuario_solicita_cronometrar</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 343]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed usuario_solicita_cronometrar(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+            <a name="methodvalidar_pedido_pagina" id="validar_pedido_pagina" href="../classes/toba-memoria.html#method_validar_pedido_pagina"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		validar_pedido_pagina</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 943]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed validar_pedido_pagina(
+                                    
+                mixed
+                valor_form                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">valor_form:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodverificar_acceso_menu" id="verificar_acceso_menu" href="../classes/toba-memoria.html#method_verificar_acceso_menu"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		verificar_acceso_menu</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 412]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed verificar_acceso_menu(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Indica si se accedio por el menu</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodverificar_acceso_popup" id="verificar_acceso_popup" href="../classes/toba-memoria.html#method_verificar_acceso_popup"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		verificar_acceso_popup</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 421]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>bool verificar_acceso_popup(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Indica si se lanzo la solicitud por medio de un ef_popup.</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        </div>
+    </div>
+            </td>
+        </tr>
+    </table>    
+            <div class="credit">
+	   <hr class="separator" />
+            Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
+	<br />
+            Documentación generada con <a href="">phpDocumentor</a>
+	</div>
+    </body>
+</html>

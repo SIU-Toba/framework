@@ -1,0 +1,2383 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>API PHP</title>
+<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
+
+   <link href="../css/style.css" rel="stylesheet" media="all"/>
+  
+</head>
+<body>
+    <table border="0" cellspacing="0" cellpadding="0" height="48" width="100%">
+        <tr>
+            <td class="header-top-left">
+                <img src="../img/logo.png" border="0" />
+            </td>
+            <td class="header-top-center">
+                    <div class="package">
+                    <a href="../packages/Centrales.html">Centrales</a>&nbsp;|&nbsp;
+                    <a href="../packages/Componentes.html">Componentes</a>&nbsp;|&nbsp;
+                    <a href="../packages/consola.html">consola</a>&nbsp;|&nbsp;
+                    <a href="../packages/Debug.html">Debug</a>&nbsp;|&nbsp;
+                    <a href="../packages/Default.html">Default</a>&nbsp;|&nbsp;
+                    <a href="../packages/Fuentes.html">Fuentes</a>&nbsp;|&nbsp;
+                    <a href="../packages/SalidaGrafica.html">SalidaGrafica</a>&nbsp;|&nbsp;
+                    <a href="../packages/Seguridad.html">Seguridad</a>&nbsp;|&nbsp;
+                    <a href="../packages/SIUToba.html">SIUToba</a>&nbsp;|&nbsp;
+                    <a href="../packages/Varios.html">Varios</a>&nbsp;|&nbsp;
+                <a href="../deprecated.html">Deprecated</a>
+    </div>
+
+ 
+                
+            </td> 
+            <td class="header-top-right">
+                                <a href="../../docs/intro" title="Navegar hacia la documentación">
+                    <img border='0' style='vertical-align: middle' src="../img/wiki-small.png" />
+    		</a>    		
+                <img height=64 border='0' style='vertical-align: middle' src="../img/php.png" />                  
+                <a href="../../api_js/index.html"  title="Navegar hacia la documentación JAVASCRIPT">
+                    <img border='0' style='vertical-align: middle' src="../img/javascript-small.png" />
+    		</a>                
+                                
+            </td>        
+        </tr>
+        <tr>
+            <td colspan="3" class="header-line">
+                <img src="../img/empty.png" width="1" height="1" border="0" alt=""  />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" class="header-menu">
+                <img src="../img/empty.png" width="1" height="10" border="0" alt=""  />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" class="header-line">
+                <img src="../img/empty.png" width="1" height="1" border="0" alt=""  />
+            </td>
+        </tr>
+    </table>
+    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr valign="top">
+            <td class="menu" width="200" >
+                    
+    <div class="package-title">Fuentes</div></br>
+        <div class="subpackage-title">Fuentes</div>
+    <div class="package-details">
+        <ul>           
+                                                    <li class="class"><a href="../classes/toba-admin-fuentes.html"><abbr title="\toba_admin_fuentes">toba_admin_fuentes</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-auditoria-tablas-postgres.html"><abbr title="\toba_auditoria_tablas_postgres">toba_auditoria_tablas_postgres</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-db.html"><abbr title="\toba_db">toba_db</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-fuente-datos.html"><abbr title="\toba_fuente_datos">toba_fuente_datos</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-info-relacion-entre-tablas.html"><abbr title="\toba_info_relacion_entre_tablas">toba_info_relacion_entre_tablas</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-mensajes.html"><abbr title="\toba_mensajes">toba_mensajes</abbr></a></li>
+                    </ul>
+    </div>
+    
+                         
+                    <div class="subpackage-title">Drivers</div>
+    <div class="package-details">
+        <ul>           
+                                                    <li class="class"><a href="../classes/toba-db-informix.html"><abbr title="\toba_db_informix">toba_db_informix</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-db-mysql.html"><abbr title="\toba_db_mysql">toba_db_mysql</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-db-odbc.html"><abbr title="\toba_db_odbc">toba_db_odbc</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-db-postgres7.html"><abbr title="\toba_db_postgres7">toba_db_postgres7</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-db-sqlserver.html"><abbr title="\toba_db_sqlserver">toba_db_sqlserver</abbr></a></li>
+                    </ul>
+    </div>
+     
+                     
+                    <div class="subpackage-title">ParsersErrores</div>
+    <div class="package-details">
+        <ul>           
+                                                    <li class="class"><a href="../classes/toba-parser-error-db.html"><abbr title="\toba_parser_error_db">toba_parser_error_db</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-parser-error-db-postgres7.html"><abbr title="\toba_parser_error_db_postgres7">toba_parser_error_db_postgres7</abbr></a></li>
+                    </ul>
+    </div>
+     
+                </div>
+   <div id="topdiv">
+     <p><a href="javascript:scroll(0,0)">[ Top ]</a></p>
+   </div>
+            </td>
+            <td>
+                       
+ <a name="sec-description"></a>
+<h1>toba_auditoria_tablas_postgres</h1>
+<div class="info-box">
+    <div class="nav-bar">                
+                    <span class="disabled">Resúmen de la Clase</span> |
+                                            <a href="#sec-method-summary">Métodos Propios</a>
+        		
+    </div>
+    <div class="info-box-body">
+        <table width="100%" border="0" paddingtop="2px">
+        <tr><td valign="top" width="60%" class="class-overview">
+                                    
+                                                                <div class="description">toba_auditoria_tablas_postgres</div>
+            <p class="notes">
+                    Ubicada en php/modelo/lib/toba_auditoria_tablas_postgres.php [<span class="field">line 7</span>]
+            </p>
+            <table border="0" cellspacing="0" cellpadding="0">
+</table>
+<br>
+<table border="0" cellspacing="0" cellpadding="0">
+ </table>
+<br />
+
+        </td>
+        </tr>
+        </table>
+    </div>
+</div>
+
+   
+   
+
+        <a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Métodos Propios</div>
+		<div class="info-box-body">
+			<div class="method-summary">
+                            <table border="0" cellspacing="5" cellpadding="0" class="method-summary">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <tr><td></td><td class="method-definition" nowrap>static
+                                                                            <span class="method-result">mixed</span>&nbsp;&nbsp;
+                                                                        </td>
+                                    <td class="method-definition">
+                                        <a href='#mixed' title="details" class="method-name">
+                                        get_campos_propios</a>()&nbsp;&nbsp;
+                                    </td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#__construct' title="details" class="method-name">__construct
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#activar' title="details" class="method-name">activar
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#activar_triggers_auditoria' title="details" class="method-name">activar_triggers_auditoria
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+                                                                                </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#actualizar_tabla' title="details" class="method-name">actualizar_tabla
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#agregar_tabla' title="details" class="method-name">agregar_tabla
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#agregar_tablas' title="details" class="method-name">agregar_tablas
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#crear' title="details" class="method-name">crear
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+                                                                                </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#crear_funciones' title="details" class="method-name">crear_funciones
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+                                                                                </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#crear_lenguaje' title="details" class="method-name">crear_lenguaje
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+                                                                                </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#crear_schema' title="details" class="method-name">crear_schema
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+                                                                                </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#crear_sp' title="details" class="method-name">crear_sp
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+                                                                                </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#crear_tabla' title="details" class="method-name">crear_tabla
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+                                                                                </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#crear_triggers' title="details" class="method-name">crear_triggers
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#desactivar' title="details" class="method-name">desactivar
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#desactivar_triggers_auditoria' title="details" class="method-name">desactivar_triggers_auditoria
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#eliminar' title="details" class="method-name">eliminar
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+                                                                                </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#eliminar_schema' title="details" class="method-name">eliminar_schema
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+                                                                                </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#eliminar_sp' title="details" class="method-name">eliminar_sp
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+                                                                                </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#eliminar_triggers' title="details" class="method-name">eliminar_triggers
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+                                                                                </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#eliminar_triggers_especificos' title="details" class="method-name">eliminar_triggers_especificos
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#existe' title="details" class="method-name">existe
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition">False en caso contrario.</td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_campos_claves' title="details" class="method-name">get_campos_claves
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                                                                            <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_datos' title="details" class="method-name">get_datos
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+                                                                                </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_tablas_schema' title="details" class="method-name">get_tablas_schema
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_tablas_triggers_desactivados' title="details" class="method-name">get_tablas_triggers_desactivados
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_triggers_activos' title="details" class="method-name">get_triggers_activos
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+                                                                                </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_triggers_schema' title="details" class="method-name">get_triggers_schema
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#migrar' title="details" class="method-name">migrar
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#migrar_estructura_campos_toba_2_4' title="details" class="method-name">migrar_estructura_campos_toba_2_4
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#migrar_estructura_campos_toba_3_1' title="details" class="method-name">migrar_estructura_campos_toba_3_1
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+                                                                                </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#migrar_tabla' title="details" class="method-name">migrar_tabla
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#purgar' title="details" class="method-name">purgar
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#purgar_datos' title="details" class="method-name">purgar_datos
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#regenerar' title="details" class="method-name">regenerar
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#reset_tablas' title="details" class="method-name">reset_tablas
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#set_esquema_logs' title="details" class="method-name">set_esquema_logs
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#set_esquema_origen' title="details" class="method-name">set_esquema_origen
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#set_esquema_toba' title="details" class="method-name">set_esquema_toba
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#set_estado_activacion_triggers' title="details" class="method-name">set_estado_activacion_triggers
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#set_triggers_eliminacion_forzada' title="details" class="method-name">set_triggers_eliminacion_forzada
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                        </table>
+			</div>
+			<br />
+		</div>
+	</div>
+
+
+
+
+
+
+    <a name="sec-methods"></a>
+    <div class="info-box">
+        <div class="info-box-body">
+                <a name='method_detail'></a>
+                                                                                                <a name="methodget_campos_propios" id="get_campos_propios" href="../classes/toba-auditoria-tablas-postgres.html#method_get_campos_propios"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">
+        	<span class="method-title">static method get_campos_propios</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea  33]
+	</span>
+    </div>
+<br />
+
+<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+    <tr><td class="code-border">
+        <table width="100%" border="0" cellspacing="0" cellpadding="2">
+        <tr><td class="code">&nbsp;
+            <code>static mixed get_campos_propios(
+            )
+            </code>
+        </td></tr>
+        </table>
+    </td></tr>
+    </table>
+    <br/>
+</div>
+    
+        
+    
+<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+    
+                <br />
+</div>    
+                                                                        
+
+        <a name="method__construct" id="__construct" href="../classes/toba-auditoria-tablas-postgres.html#method___construct"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		__construct</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 25]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed __construct(
+                                    
+                \toba_db
+                conexion                ,                             
+                [mixed
+                schema_origen = &#039;public&#039; ]                ,                             
+                [mixed
+                schema_logs = &#039;public_auditoria&#039; ]                ,                             
+                [mixed
+                schema_toba = null ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">\toba_db</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">conexion:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">schema_origen:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">schema_logs:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">schema_toba:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodactivar" id="activar" href="../classes/toba-auditoria-tablas-postgres.html#method_activar"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		activar</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 228]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed activar(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodactivar_triggers_auditoria" id="activar_triggers_auditoria" href="../classes/toba-auditoria-tablas-postgres.html#method_activar_triggers_auditoria"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		activar_triggers_auditoria</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 171]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed activar_triggers_auditoria(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodactualizar_tabla" id="actualizar_tabla" href="../classes/toba-auditoria-tablas-postgres.html#method_actualizar_tabla"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+            		    		    			
+	<span class="method-title">
+		actualizar_tabla</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 402]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed actualizar_tabla(
+                                    
+                mixed
+                origen                ,                             
+                mixed
+                schema                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">origen:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">schema:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodagregar_tabla" id="agregar_tabla" href="../classes/toba-auditoria-tablas-postgres.html#method_agregar_tabla"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		agregar_tabla</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 49]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed agregar_tabla(
+                                    
+                mixed
+                nombre                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">nombre:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodagregar_tablas" id="agregar_tablas" href="../classes/toba-auditoria-tablas-postgres.html#method_agregar_tablas"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		agregar_tablas</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 38]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed agregar_tablas(
+                                    
+                [mixed
+                prefijo = null ]                ,                             
+                [mixed
+                schema = null ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">prefijo:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">schema:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodcrear" id="crear" href="../classes/toba-auditoria-tablas-postgres.html#method_crear"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		crear</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 80]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed crear(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodcrear_funciones" id="crear_funciones" href="../classes/toba-auditoria-tablas-postgres.html#method_crear_funciones"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+            		    		    			
+	<span class="method-title">
+		crear_funciones</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 257]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed crear_funciones(
+                                    
+                mixed
+                schema                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">schema:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodcrear_lenguaje" id="crear_lenguaje" href="../classes/toba-auditoria-tablas-postgres.html#method_crear_lenguaje"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+            		    			
+	<span class="method-title">
+		crear_lenguaje</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 252]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed crear_lenguaje(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodcrear_schema" id="crear_schema" href="../classes/toba-auditoria-tablas-postgres.html#method_crear_schema"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+            		    			
+	<span class="method-title">
+		crear_schema</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 247]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed crear_schema(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodcrear_sp" id="crear_sp" href="../classes/toba-auditoria-tablas-postgres.html#method_crear_sp"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+            		    		    			
+	<span class="method-title">
+		crear_sp</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 312]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed crear_sp(
+                                    
+                mixed
+                tablas                ,                             
+                mixed
+                schema                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">tablas:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">schema:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodcrear_tabla" id="crear_tabla" href="../classes/toba-auditoria-tablas-postgres.html#method_crear_tabla"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+            		    		    			
+	<span class="method-title">
+		crear_tabla</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 293]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed crear_tabla(
+                                    
+                mixed
+                t                ,                             
+                mixed
+                schema                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">t:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">schema:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodcrear_triggers" id="crear_triggers" href="../classes/toba-auditoria-tablas-postgres.html#method_crear_triggers"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+            		    		    			
+	<span class="method-title">
+		crear_triggers</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 388]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed crear_triggers(
+                                    
+                mixed
+                tablas                ,                             
+                mixed
+                schema                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">tablas:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">schema:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methoddesactivar" id="desactivar" href="../classes/toba-auditoria-tablas-postgres.html#method_desactivar"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		desactivar</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 237]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed desactivar(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methoddesactivar_triggers_auditoria" id="desactivar_triggers_auditoria" href="../classes/toba-auditoria-tablas-postgres.html#method_desactivar_triggers_auditoria"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		desactivar_triggers_auditoria</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 163]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed desactivar_triggers_auditoria(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodeliminar" id="eliminar" href="../classes/toba-auditoria-tablas-postgres.html#method_eliminar"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		eliminar</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 153]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed eliminar(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodeliminar_schema" id="eliminar_schema" href="../classes/toba-auditoria-tablas-postgres.html#method_eliminar_schema"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+            		    			
+	<span class="method-title">
+		eliminar_schema</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 470]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed eliminar_schema(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodeliminar_sp" id="eliminar_sp" href="../classes/toba-auditoria-tablas-postgres.html#method_eliminar_sp"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+            		    			
+	<span class="method-title">
+		eliminar_sp</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 475]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed eliminar_sp(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodeliminar_triggers" id="eliminar_triggers" href="../classes/toba-auditoria-tablas-postgres.html#method_eliminar_triggers"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+            		    		    			
+	<span class="method-title">
+		eliminar_triggers</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 450]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed eliminar_triggers(
+                                    
+                mixed
+                tablas                ,                             
+                mixed
+                schema                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">tablas:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">schema:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodeliminar_triggers_especificos" id="eliminar_triggers_especificos" href="../classes/toba-auditoria-tablas-postgres.html#method_eliminar_triggers_especificos"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+            		    		    			
+	<span class="method-title">
+		eliminar_triggers_especificos</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 459]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed eliminar_triggers_especificos(
+                                    
+                mixed
+                schema                ,                             
+                mixed
+                triggers                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">schema:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">triggers:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodexiste" id="existe" href="../classes/toba-auditoria-tablas-postgres.html#method_existe"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		existe</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 213]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed existe(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> True en caso de existir el esquema con los logs nuevos.</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodget_campos_claves" id="get_campos_claves" href="../classes/toba-auditoria-tablas-postgres.html#method_get_campos_claves"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		get_campos_claves</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 558]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed get_campos_claves(
+                                    
+                mixed
+                tabla                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">tabla:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+            <a name="methodget_datos" id="get_datos" href="../classes/toba-auditoria-tablas-postgres.html#method_get_datos"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		get_datos</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 509]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed get_datos(
+                                    
+                mixed
+                tabla                ,                             
+                [mixed
+                filtro = array() ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">tabla:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">filtro:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodget_tablas_schema" id="get_tablas_schema" href="../classes/toba-auditoria-tablas-postgres.html#method_get_tablas_schema"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+            		    		    			
+	<span class="method-title">
+		get_tablas_schema</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 485]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed get_tablas_schema(
+                                    
+                mixed
+                schema                ,                             
+                [mixed
+                prefijo = null ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">schema:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">prefijo:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodget_tablas_triggers_desactivados" id="get_tablas_triggers_desactivados" href="../classes/toba-auditoria-tablas-postgres.html#method_get_tablas_triggers_desactivados"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		get_tablas_triggers_desactivados</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 189]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed get_tablas_triggers_desactivados(
+                                    
+                [mixed
+                schema = null ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">schema:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodget_triggers_activos" id="get_triggers_activos" href="../classes/toba-auditoria-tablas-postgres.html#method_get_triggers_activos"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		get_triggers_activos</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 179]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed get_triggers_activos(
+                                    
+                [mixed
+                schema = null ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">schema:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodget_triggers_schema" id="get_triggers_schema" href="../classes/toba-auditoria-tablas-postgres.html#method_get_triggers_schema"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+            		    		    			
+	<span class="method-title">
+		get_triggers_schema</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 198]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed get_triggers_schema(
+                                    
+                mixed
+                schema                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">schema:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodmigrar" id="migrar" href="../classes/toba-auditoria-tablas-postgres.html#method_migrar"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		migrar</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 111]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed migrar(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodmigrar_estructura_campos_toba_2_4" id="migrar_estructura_campos_toba_2_4" href="../classes/toba-auditoria-tablas-postgres.html#method_migrar_estructura_campos_toba_2_4"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		migrar_estructura_campos_toba_2_4</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 583]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed migrar_estructura_campos_toba_2_4(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodmigrar_estructura_campos_toba_3_1" id="migrar_estructura_campos_toba_3_1" href="../classes/toba-auditoria-tablas-postgres.html#method_migrar_estructura_campos_toba_3_1"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		migrar_estructura_campos_toba_3_1</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 594]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed migrar_estructura_campos_toba_3_1(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodmigrar_tabla" id="migrar_tabla" href="../classes/toba-auditoria-tablas-postgres.html#method_migrar_tabla"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+            		    		    			
+	<span class="method-title">
+		migrar_tabla</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 283]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed migrar_tabla(
+                                    
+                mixed
+                t                ,                             
+                mixed
+                schema                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">t:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">schema:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodpurgar" id="purgar" href="../classes/toba-auditoria-tablas-postgres.html#method_purgar"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		purgar</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 143]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed purgar(
+                                    
+                mixed
+                lapso_tiempo                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">lapso_tiempo:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodpurgar_datos" id="purgar_datos" href="../classes/toba-auditoria-tablas-postgres.html#method_purgar_datos"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		purgar_datos</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 576]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed purgar_datos(
+                                    
+                mixed
+                tabla                ,                             
+                mixed
+                lapso_tiempo                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">tabla:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">lapso_tiempo:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodregenerar" id="regenerar" href="../classes/toba-auditoria-tablas-postgres.html#method_regenerar"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		regenerar</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 127]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed regenerar(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodreset_tablas" id="reset_tablas" href="../classes/toba-auditoria-tablas-postgres.html#method_reset_tablas"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		reset_tablas</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 73]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed reset_tablas(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodset_esquema_logs" id="set_esquema_logs" href="../classes/toba-auditoria-tablas-postgres.html#method_set_esquema_logs"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		set_esquema_logs</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 63]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed set_esquema_logs(
+                                    
+                mixed
+                esquema                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">esquema:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodset_esquema_origen" id="set_esquema_origen" href="../classes/toba-auditoria-tablas-postgres.html#method_set_esquema_origen"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		set_esquema_origen</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 54]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed set_esquema_origen(
+                                    
+                mixed
+                esquema                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">esquema:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodset_esquema_toba" id="set_esquema_toba" href="../classes/toba-auditoria-tablas-postgres.html#method_set_esquema_toba"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		set_esquema_toba</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 58]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed set_esquema_toba(
+                                    
+                mixed
+                esquema                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">esquema:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodset_estado_activacion_triggers" id="set_estado_activacion_triggers" href="../classes/toba-auditoria-tablas-postgres.html#method_set_estado_activacion_triggers"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		set_estado_activacion_triggers</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 438]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed set_estado_activacion_triggers(
+                                    
+                mixed
+                tablas                ,                             
+                mixed
+                schema                ,                             
+                mixed
+                estado                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">tablas:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">schema:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">estado:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodset_triggers_eliminacion_forzada" id="set_triggers_eliminacion_forzada" href="../classes/toba-auditoria-tablas-postgres.html#method_set_triggers_eliminacion_forzada"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		set_triggers_eliminacion_forzada</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 68]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed set_triggers_eliminacion_forzada(
+                                    
+                [mixed
+                fuerza = false ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">fuerza:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        </div>
+    </div>
+            </td>
+        </tr>
+    </table>    
+            <div class="credit">
+	   <hr class="separator" />
+            Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
+	<br />
+            Documentación generada con <a href="">phpDocumentor</a>
+	</div>
+    </body>
+</html>

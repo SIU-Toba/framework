@@ -1,0 +1,3473 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>API PHP</title>
+<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
+
+   <link href="../css/style.css" rel="stylesheet" media="all"/>
+  
+</head>
+<body>
+    <table border="0" cellspacing="0" cellpadding="0" height="48" width="100%">
+        <tr>
+            <td class="header-top-left">
+                <img src="../img/logo.png" border="0" />
+            </td>
+            <td class="header-top-center">
+                    <div class="package">
+                    <a href="../packages/Centrales.html">Centrales</a>&nbsp;|&nbsp;
+                    <a href="../packages/Componentes.html">Componentes</a>&nbsp;|&nbsp;
+                    <a href="../packages/consola.html">consola</a>&nbsp;|&nbsp;
+                    <a href="../packages/Debug.html">Debug</a>&nbsp;|&nbsp;
+                    <a href="../packages/Default.html">Default</a>&nbsp;|&nbsp;
+                    <a href="../packages/Fuentes.html">Fuentes</a>&nbsp;|&nbsp;
+                    <a href="../packages/SalidaGrafica.html">SalidaGrafica</a>&nbsp;|&nbsp;
+                    <a href="../packages/Seguridad.html">Seguridad</a>&nbsp;|&nbsp;
+                    <a href="../packages/SIUToba.html">SIUToba</a>&nbsp;|&nbsp;
+                    <a href="../packages/Varios.html">Varios</a>&nbsp;|&nbsp;
+                <a href="../deprecated.html">Deprecated</a>
+    </div>
+
+ 
+                
+            </td> 
+            <td class="header-top-right">
+                                <a href="../../docs/intro" title="Navegar hacia la documentación">
+                    <img border='0' style='vertical-align: middle' src="../img/wiki-small.png" />
+    		</a>    		
+                <img height=64 border='0' style='vertical-align: middle' src="../img/php.png" />                  
+                <a href="../../api_js/index.html"  title="Navegar hacia la documentación JAVASCRIPT">
+                    <img border='0' style='vertical-align: middle' src="../img/javascript-small.png" />
+    		</a>                
+                                
+            </td>        
+        </tr>
+        <tr>
+            <td colspan="3" class="header-line">
+                <img src="../img/empty.png" width="1" height="1" border="0" alt=""  />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" class="header-menu">
+                <img src="../img/empty.png" width="1" height="10" border="0" alt=""  />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" class="header-line">
+                <img src="../img/empty.png" width="1" height="1" border="0" alt=""  />
+            </td>
+        </tr>
+    </table>
+    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr valign="top">
+            <td class="menu" width="200" >
+                    
+    <div class="package-title">Eis</div></br>
+        <div class="subpackage-title">Eis</div>
+    <div class="package-details">
+        <ul>           
+                            <li class="interface"><a href="../classes/toba-nodo-arbol.html"><abbr title="\toba_nodo_arbol">toba_nodo_arbol</abbr></a></li>
+                                                    <li class="class"><a href="../classes/toba-ajax-respuesta.html"><abbr title="\toba_ajax_respuesta">toba_ajax_respuesta</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-boton.html"><abbr title="\toba_boton">toba_boton</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-ci.html"><abbr title="\toba_ci">toba_ci</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-ei.html"><abbr title="\toba_ei">toba_ei</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-ei-arbol.html"><abbr title="\toba_ei_arbol">toba_ei_arbol</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-ei-archivos.html"><abbr title="\toba_ei_archivos">toba_ei_archivos</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-ei-calendario.html"><abbr title="\toba_ei_calendario">toba_ei_calendario</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-ei-codigo.html"><abbr title="\toba_ei_codigo">toba_ei_codigo</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-ei-esquema.html"><abbr title="\toba_ei_esquema">toba_ei_esquema</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-ei-filtro.html"><abbr title="\toba_ei_filtro">toba_ei_filtro</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-ei-formulario.html"><abbr title="\toba_ei_formulario">toba_ei_formulario</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-ei-formulario-ml.html"><abbr title="\toba_ei_formulario_ml">toba_ei_formulario_ml</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-ei-grafico.html"><abbr title="\toba_ei_grafico">toba_ei_grafico</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-ei-pantalla.html"><abbr title="\toba_ei_pantalla">toba_ei_pantalla</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-evento-usuario.html"><abbr title="\toba_evento_usuario">toba_evento_usuario</abbr></a></li>
+                            <li class="class"><a href="../classes/toba-tab.html"><abbr title="\toba_tab">toba_tab</abbr></a></li>
+                    </ul>
+    </div>
+    
+       </div>
+   <div id="topdiv">
+     <p><a href="javascript:scroll(0,0)">[ Top ]</a></p>
+   </div>
+            </td>
+            <td>
+                       
+ <a name="sec-description"></a>
+<h1>toba_ei_formulario_ml</h1>
+<div class="info-box">
+    <div class="nav-bar">                
+                    <span class="disabled">Resúmen de la Clase</span> |
+                                    <a href="#sec-inherited">Métodos Heredados</a>
+            |                            <a href="#sec-method-summary">Métodos Propios</a>
+        		
+    </div>
+    <div class="info-box-body">
+        <table width="100%" border="0" paddingtop="2px">
+        <tr><td valign="top" width="60%" class="class-overview">
+                                    
+                                                                                                                                                                                                                                                                                        
+                    <div class="classtree"><a href="../classes/toba-componente.html"><abbr title="\toba_componente">toba_componente</abbr></a><br/>&nbsp;&nbsp;&nbsp;|</div>
+                            
+                    <div class="classtree"><a href="../classes/toba-ei.html"><abbr title="\toba_ei">toba_ei</abbr></a><br/>&nbsp;&nbsp;&nbsp;|</div>
+                            
+                    <div class="classtree"><a href="../classes/toba-ei-formulario.html"><abbr title="\toba_ei_formulario">toba_ei_formulario</abbr></a><br/>&nbsp;&nbsp;&nbsp;|</div>
+                                        <div class="description">toba_ei_formulario_ml</div>
+            <p class="notes">
+                    Ubicada en php/nucleo/componentes/interface/toba_ei_formulario_ml.php [<span class="field">line 14</span>]
+            </p>
+            <table border="0" cellspacing="0" cellpadding="0">
+</table>
+<br>
+<table border="0" cellspacing="0" cellpadding="0">
+   </table>
+<br />
+
+        </td>
+        </tr>
+        </table>
+    </div>
+</div>
+
+   
+    <a name="sec-inherited"></a>
+    <div class="info-box">
+        <div class="info-box-title">Métodos Heredados</div>
+        <div class="info-box-body">
+            <table cellpadding="2" cellspacing="0" class="class-table">
+            <tr>
+                <td width="100%">
+                    <p>Heredado de <span class="classname"><strong>toba_componente</strong></span></p>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-componente.html#method___construct"><abbr title="\toba_componente::__construct()">toba_componente::__construct()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-componente.html#method_destruir"><abbr title="\toba_componente::destruir()">toba_componente::destruir()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei-formulario.html#method_aplicar_restricciones_funcionales"><abbr title="\toba_ei_formulario::aplicar_restricciones_funcionales()">toba_ei_formulario::aplicar_restricciones_funcionales()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei-formulario.html#method_agregar_ef"><abbr title="\toba_ei_formulario::agregar_ef()">toba_ei_formulario::agregar_ef()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei-formulario.html#method_set_ancho"><abbr title="\toba_ei_formulario::set_ancho()">toba_ei_formulario::set_ancho()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei-formulario.html#method_set_ancho_etiqueta"><abbr title="\toba_ei_formulario::set_ancho_etiqueta()">toba_ei_formulario::set_ancho_etiqueta()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei-formulario.html#method_restaurar_ancho_etiqueta"><abbr title="\toba_ei_formulario::restaurar_ancho_etiqueta()">toba_ei_formulario::restaurar_ancho_etiqueta()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei-formulario.html#method_ef_tiene_maestros_seteados"><abbr title="\toba_ei_formulario::ef_tiene_maestros_seteados()">toba_ei_formulario::ef_tiene_maestros_seteados()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei-formulario.html#method_validar_estado"><abbr title="\toba_ei_formulario::validar_estado()">toba_ei_formulario::validar_estado()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei-formulario.html#method_set_expandir_descripcion"><abbr title="\toba_ei_formulario::set_expandir_descripcion()">toba_ei_formulario::set_expandir_descripcion()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei-formulario.html#method_set_detectar_cambios"><abbr title="\toba_ei_formulario::set_detectar_cambios()">toba_ei_formulario::set_detectar_cambios()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei-formulario.html#method_limpiar_interface"><abbr title="\toba_ei_formulario::limpiar_interface()">toba_ei_formulario::limpiar_interface()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei-formulario.html#method_get_nombres_ef"><abbr title="\toba_ei_formulario::get_nombres_ef()">toba_ei_formulario::get_nombres_ef()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei-formulario.html#method_get_cantidad_efs"><abbr title="\toba_ei_formulario::get_cantidad_efs()">toba_ei_formulario::get_cantidad_efs()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei-formulario.html#method_get_efs_activos"><abbr title="\toba_ei_formulario::get_efs_activos()">toba_ei_formulario::get_efs_activos()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei-formulario.html#method_ef"><abbr title="\toba_ei_formulario::ef()">toba_ei_formulario::ef()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei-formulario.html#method_existe_ef"><abbr title="\toba_ei_formulario::existe_ef()">toba_ei_formulario::existe_ef()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei-formulario.html#method_set_solo_lectura"><abbr title="\toba_ei_formulario::set_solo_lectura()">toba_ei_formulario::set_solo_lectura()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei-formulario.html#method_set_efs_obligatorios"><abbr title="\toba_ei_formulario::set_efs_obligatorios()">toba_ei_formulario::set_efs_obligatorios()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei-formulario.html#method_desactivar_validacion_ef"><abbr title="\toba_ei_formulario::desactivar_validacion_ef()">toba_ei_formulario::desactivar_validacion_ef()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei-formulario.html#method_desactivar_efs"><abbr title="\toba_ei_formulario::desactivar_efs()">toba_ei_formulario::desactivar_efs()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei-formulario.html#method_get_tab_index"><abbr title="\toba_ei_formulario::get_tab_index()">toba_ei_formulario::get_tab_index()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei-formulario.html#method_get_datos"><abbr title="\toba_ei_formulario::get_datos()">toba_ei_formulario::get_datos()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei-formulario.html#method_set_callback_validacion"><abbr title="\toba_ei_formulario::set_callback_validacion()">toba_ei_formulario::set_callback_validacion()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei-formulario.html#method_set_datos"><abbr title="\toba_ei_formulario::set_datos()">toba_ei_formulario::set_datos()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei-formulario.html#method_set_datos_defecto"><abbr title="\toba_ei_formulario::set_datos_defecto()">toba_ei_formulario::set_datos_defecto()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei-formulario.html#method_set_template"><abbr title="\toba_ei_formulario::set_template()">toba_ei_formulario::set_template()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei-formulario.html#method_servicio__mostrar_captchas_efs"><abbr title="\toba_ei_formulario::servicio__mostrar_captchas_efs()">toba_ei_formulario::servicio__mostrar_captchas_efs()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei-formulario.html#method_servicio__cascadas_efs"><abbr title="\toba_ei_formulario::servicio__cascadas_efs()">toba_ei_formulario::servicio__cascadas_efs()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei-formulario.html#method_servicio__filtrado_ef_ce"><abbr title="\toba_ei_formulario::servicio__filtrado_ef_ce()">toba_ei_formulario::servicio__filtrado_ef_ce()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei-formulario.html#method_servicio__filtrado_ef_ce_validar"><abbr title="\toba_ei_formulario::servicio__filtrado_ef_ce_validar()">toba_ei_formulario::servicio__filtrado_ef_ce_validar()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei-formulario.html#method_generar_html"><abbr title="\toba_ei_formulario::generar_html()">toba_ei_formulario::generar_html()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei-formulario.html#method_generar_layout"><abbr title="\toba_ei_formulario::generar_layout()">toba_ei_formulario::generar_layout()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei-formulario.html#method_generar_layout_template"><abbr title="\toba_ei_formulario::generar_layout_template()">toba_ei_formulario::generar_layout_template()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei-formulario.html#method_generar_layout_impresion"><abbr title="\toba_ei_formulario::generar_layout_impresion()">toba_ei_formulario::generar_layout_impresion()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei-formulario.html#method_generar_layout_template_impresion"><abbr title="\toba_ei_formulario::generar_layout_template_impresion()">toba_ei_formulario::generar_layout_template_impresion()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei-formulario.html#method_generar_html_ef"><abbr title="\toba_ei_formulario::generar_html_ef()">toba_ei_formulario::generar_html_ef()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei-formulario.html#method_get_html_ef"><abbr title="\toba_ei_formulario::get_html_ef()">toba_ei_formulario::get_html_ef()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei-formulario.html#method_get_html_impresion_ef"><abbr title="\toba_ei_formulario::get_html_impresion_ef()">toba_ei_formulario::get_html_impresion_ef()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei-formulario.html#method_generar_html_impresion_ef"><abbr title="\toba_ei_formulario::generar_html_impresion_ef()">toba_ei_formulario::generar_html_impresion_ef()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei-formulario.html#method_generar_input_ef"><abbr title="\toba_ei_formulario::generar_input_ef()">toba_ei_formulario::generar_input_ef()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei-formulario.html#method_get_input_ef"><abbr title="\toba_ei_formulario::get_input_ef()">toba_ei_formulario::get_input_ef()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei-formulario.html#method_generar_etiqueta_ef"><abbr title="\toba_ei_formulario::generar_etiqueta_ef()">toba_ei_formulario::generar_etiqueta_ef()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei-formulario.html#method_get_etiqueta_ef"><abbr title="\toba_ei_formulario::get_etiqueta_ef()">toba_ei_formulario::get_etiqueta_ef()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei-formulario.html#method_get_objeto_js_ef"><abbr title="\toba_ei_formulario::get_objeto_js_ef()">toba_ei_formulario::get_objeto_js_ef()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_vista_impresion_html"><abbr title="\toba_ei::vista_impresion_html()">toba_ei::vista_impresion_html()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei-formulario.html#method_set_pdf_tabla_ancho"><abbr title="\toba_ei_formulario::set_pdf_tabla_ancho()">toba_ei_formulario::set_pdf_tabla_ancho()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei-formulario.html#method_set_pdf_letra_tabla"><abbr title="\toba_ei_formulario::set_pdf_letra_tabla()">toba_ei_formulario::set_pdf_letra_tabla()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei-formulario.html#method_set_pdf_tabla_opciones"><abbr title="\toba_ei_formulario::set_pdf_tabla_opciones()">toba_ei_formulario::set_pdf_tabla_opciones()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei-formulario.html#method_vista_pdf"><abbr title="\toba_ei_formulario::vista_pdf()">toba_ei_formulario::vista_pdf()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei-formulario.html#method_vista_excel"><abbr title="\toba_ei_formulario::vista_excel()">toba_ei_formulario::vista_excel()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei-formulario.html#method_set_formateo_ef"><abbr title="\toba_ei_formulario::set_formateo_ef()">toba_ei_formulario::set_formateo_ef()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei-formulario.html#method_vista_xml"><abbr title="\toba_ei_formulario::vista_xml()">toba_ei_formulario::vista_xml()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei-formulario.html#method_xml_set_ef_no_procesar"><abbr title="\toba_ei_formulario::xml_set_ef_no_procesar()">toba_ei_formulario::xml_set_ef_no_procesar()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_set_refresh_ejecuta_eventos"><abbr title="\toba_ei::set_refresh_ejecuta_eventos()">toba_ei::set_refresh_ejecuta_eventos()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_evento"><abbr title="\toba_ei::evento()">toba_ei::evento()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_agregar_evento"><abbr title="\toba_ei::agregar_evento()">toba_ei::agregar_evento()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_existe_evento"><abbr title="\toba_ei::existe_evento()">toba_ei::existe_evento()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_eliminar_evento"><abbr title="\toba_ei::eliminar_evento()">toba_ei::eliminar_evento()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_set_disparo_eventos_condicionado_datos"><abbr title="\toba_ei::set_disparo_eventos_condicionado_datos()">toba_ei::set_disparo_eventos_condicionado_datos()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_get_eventos_sobre_fila"><abbr title="\toba_ei::get_eventos_sobre_fila()">toba_ei::get_eventos_sobre_fila()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_cant_eventos_sobre_fila"><abbr title="\toba_ei::cant_eventos_sobre_fila()">toba_ei::cant_eventos_sobre_fila()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_reportar_evento"><abbr title="\toba_ei::reportar_evento()">toba_ei::reportar_evento()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_reportar_evento_interno"><abbr title="\toba_ei::reportar_evento_interno()">toba_ei::reportar_evento_interno()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_get_lista_eventos_usuario"><abbr title="\toba_ei::get_lista_eventos_usuario()">toba_ei::get_lista_eventos_usuario()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_get_lista_eventos_internos"><abbr title="\toba_ei::get_lista_eventos_internos()">toba_ei::get_lista_eventos_internos()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_get_invocacion_evento_fila"><abbr title="\toba_ei::get_invocacion_evento_fila()">toba_ei::get_invocacion_evento_fila()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_set_grupo_eventos_activo"><abbr title="\toba_ei::set_grupo_eventos_activo()">toba_ei::set_grupo_eventos_activo()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_get_grupo_eventos_activo"><abbr title="\toba_ei::get_grupo_eventos_activo()">toba_ei::get_grupo_eventos_activo()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_botonera_abajo"><abbr title="\toba_ei::botonera_abajo()">toba_ei::botonera_abajo()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_botonera_arriba"><abbr title="\toba_ei::botonera_arriba()">toba_ei::botonera_arriba()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_hay_botones"><abbr title="\toba_ei::hay_botones()">toba_ei::hay_botones()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_generar_botones"><abbr title="\toba_ei::generar_botones()">toba_ei::generar_botones()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_generar_botones_eventos"><abbr title="\toba_ei::generar_botones_eventos()">toba_ei::generar_botones_eventos()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_generar_html_boton"><abbr title="\toba_ei::generar_html_boton()">toba_ei::generar_html_boton()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_generar_boton"><abbr title="\toba_ei::generar_boton()">toba_ei::generar_boton()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_tiene_puntos_control"><abbr title="\toba_ei::tiene_puntos_control()">toba_ei::tiene_puntos_control()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_get_puntos_control"><abbr title="\toba_ei::get_puntos_control()">toba_ei::get_puntos_control()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_agregar_notificacion"><abbr title="\toba_ei::agregar_notificacion()">toba_ei::agregar_notificacion()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_colapsar"><abbr title="\toba_ei::colapsar()">toba_ei::colapsar()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_descolapsar"><abbr title="\toba_ei::descolapsar()">toba_ei::descolapsar()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_set_colapsable"><abbr title="\toba_ei::set_colapsable()">toba_ei::set_colapsable()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_set_titulo"><abbr title="\toba_ei::set_titulo()">toba_ei::set_titulo()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_set_descripcion"><abbr title="\toba_ei::set_descripcion()">toba_ei::set_descripcion()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_set_modo_descripcion"><abbr title="\toba_ei::set_modo_descripcion()">toba_ei::set_modo_descripcion()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_generar_html_barra_sup"><abbr title="\toba_ei::generar_html_barra_sup()">toba_ei::generar_html_barra_sup()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_mostrar_barra_superior"><abbr title="\toba_ei::mostrar_barra_superior()">toba_ei::mostrar_barra_superior()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_get_id_form"><abbr title="\toba_ei::get_id_form()">toba_ei::get_id_form()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_get_id_objeto_js"><abbr title="\toba_ei::get_id_objeto_js()">toba_ei::get_id_objeto_js()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_extender_objeto_js"><abbr title="\toba_ei::extender_objeto_js()">toba_ei::extender_objeto_js()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_get_objeto_js"><abbr title="\toba_ei::get_objeto_js()">toba_ei::get_objeto_js()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_vista_impresion"><abbr title="\toba_ei::vista_impresion()">toba_ei::vista_impresion()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_xml_set_orientacion"><abbr title="\toba_ei::xml_set_orientacion()">toba_ei::xml_set_orientacion()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_xml_set_logo"><abbr title="\toba_ei::xml_set_logo()">toba_ei::xml_set_logo()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_xml_set_titulo"><abbr title="\toba_ei::xml_set_titulo()">toba_ei::xml_set_titulo()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_xml_set_subtitulo"><abbr title="\toba_ei::xml_set_subtitulo()">toba_ei::xml_set_subtitulo()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_xml_set_dim_pagina"><abbr title="\toba_ei::xml_set_dim_pagina()">toba_ei::xml_set_dim_pagina()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_xml_set_incluir_pie"><abbr title="\toba_ei::xml_set_incluir_pie()">toba_ei::xml_set_incluir_pie()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_xml_set_pie"><abbr title="\toba_ei::xml_set_pie()">toba_ei::xml_set_pie()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_xml_set_alto_pie"><abbr title="\toba_ei::xml_set_alto_pie()">toba_ei::xml_set_alto_pie()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_xml_set_incluir_cabecera"><abbr title="\toba_ei::xml_set_incluir_cabecera()">toba_ei::xml_set_incluir_cabecera()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_xml_set_cabecera"><abbr title="\toba_ei::xml_set_cabecera()">toba_ei::xml_set_cabecera()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_xml_set_alto_cabecera"><abbr title="\toba_ei::xml_set_alto_cabecera()">toba_ei::xml_set_alto_cabecera()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_xml_set_margenes"><abbr title="\toba_ei::xml_set_margenes()">toba_ei::xml_set_margenes()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_xml_set_atts_ei"><abbr title="\toba_ei::xml_set_atts_ei()">toba_ei::xml_set_atts_ei()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_xml_set_nro_copias"><abbr title="\toba_ei::xml_set_nro_copias()">toba_ei::xml_set_nro_copias()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_xml_get_att_comunes"><abbr title="\toba_ei::xml_get_att_comunes()">toba_ei::xml_get_att_comunes()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_xml_get_elem_comunes"><abbr title="\toba_ei::xml_get_elem_comunes()">toba_ei::xml_get_elem_comunes()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_xml_texto"><abbr title="\toba_ei::xml_texto()">toba_ei::xml_texto()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_xml_tabla"><abbr title="\toba_ei::xml_tabla()">toba_ei::xml_tabla()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_xml_imagen"><abbr title="\toba_ei::xml_imagen()">toba_ei::xml_imagen()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_xml_set_tabla_cols"><abbr title="\toba_ei::xml_set_tabla_cols()">toba_ei::xml_set_tabla_cols()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_xml_set_ns"><abbr title="\toba_ei::xml_set_ns()">toba_ei::xml_set_ns()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-ei.html#method_xml_get_informacion_basica_vista"><abbr title="\toba_ei::xml_get_informacion_basica_vista()">toba_ei::xml_get_informacion_basica_vista()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-componente.html#method___sleep"><abbr title="\toba_componente::__sleep()">toba_componente::__sleep()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-componente.html#method_set_modo_compatible_manejo_sesion"><abbr title="\toba_componente::set_modo_compatible_manejo_sesion()">toba_componente::set_modo_compatible_manejo_sesion()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-componente.html#method_ini"><abbr title="\toba_componente::ini()">toba_componente::ini()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-componente.html#method_log"><abbr title="\toba_componente::log()">toba_componente::log()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-componente.html#method_get_nombre"><abbr title="\toba_componente::get_nombre()">toba_componente::get_nombre()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-componente.html#method_get_titulo"><abbr title="\toba_componente::get_titulo()">toba_componente::get_titulo()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-componente.html#method_get_id"><abbr title="\toba_componente::get_id()">toba_componente::get_id()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-componente.html#method_inicializado"><abbr title="\toba_componente::inicializado()">toba_componente::inicializado()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-componente.html#method_get_parametro"><abbr title="\toba_componente::get_parametro()">toba_componente::get_parametro()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-componente.html#method_controlador"><abbr title="\toba_componente::controlador()">toba_componente::controlador()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-componente.html#method_invocar_callback"><abbr title="\toba_componente::invocar_callback()">toba_componente::invocar_callback()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-componente.html#method_get_mensaje"><abbr title="\toba_componente::get_mensaje()">toba_componente::get_mensaje()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-componente.html#method_informar_msg"><abbr title="\toba_componente::informar_msg()">toba_componente::informar_msg()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-componente.html#method_informar"><abbr title="\toba_componente::informar()">toba_componente::informar()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-componente.html#method_borrar_memoria"><abbr title="\toba_componente::borrar_memoria()">toba_componente::borrar_memoria()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-componente.html#method_mantener_estado_sesion"><abbr title="\toba_componente::mantener_estado_sesion()">toba_componente::mantener_estado_sesion()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-componente.html#method_set_propiedades_sesion"><abbr title="\toba_componente::set_propiedades_sesion()">toba_componente::set_propiedades_sesion()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-componente.html#method_eliminar_estado_sesion"><abbr title="\toba_componente::eliminar_estado_sesion()">toba_componente::eliminar_estado_sesion()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-componente.html#method_get_estado_sesion"><abbr title="\toba_componente::get_estado_sesion()">toba_componente::get_estado_sesion()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-componente.html#method_set_controlador"><abbr title="\toba_componente::set_controlador()">toba_componente::set_controlador()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-componente.html#method_dependencia"><abbr title="\toba_componente::dependencia()">toba_componente::dependencia()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-componente.html#method_dep"><abbr title="\toba_componente::dep()">toba_componente::dep()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-componente.html#method_agregar_dependencia"><abbr title="\toba_componente::agregar_dependencia()">toba_componente::agregar_dependencia()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-componente.html#method_agregar_dependencia_por_indice"><abbr title="\toba_componente::agregar_dependencia_por_indice()">toba_componente::agregar_dependencia_por_indice()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-componente.html#method_dependencia_cargada"><abbr title="\toba_componente::dependencia_cargada()">toba_componente::dependencia_cargada()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-componente.html#method_existe_dependencia"><abbr title="\toba_componente::existe_dependencia()">toba_componente::existe_dependencia()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-componente.html#method_get_dependencias"><abbr title="\toba_componente::get_dependencias()">toba_componente::get_dependencias()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-componente.html#method_get_cantidad_dependencias"><abbr title="\toba_componente::get_cantidad_dependencias()">toba_componente::get_cantidad_dependencias()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                                
+                        <blockquote>
+                            <dl>
+                                <dt>
+                                    <span class="method-definition"><a href="../classes/toba-componente.html#method_get_dependencias_clase"><abbr title="\toba_componente::get_dependencias_clase()">toba_componente::get_dependencias_clase()</abbr></a></span>
+                                </dt>
+                            </dl>
+                        </blockquote>
+                                    </td>
+            </tr>
+            </table>
+            <br />
+        </div>
+    </div>
+   
+
+        <a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Métodos Propios</div>
+		<div class="info-box-body">
+			<div class="method-summary">
+                            <table border="0" cellspacing="5" cellpadding="0" class="method-summary">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <tr><td></td><td class="method-definition" nowrap>static
+                                                                            <span class="method-result">mixed</span>&nbsp;&nbsp;
+                                                                        </td>
+                                    <td class="method-definition">
+                                        <a href='#mixed' title="details" class="method-name">
+                                        set_callback_validacion</a>()&nbsp;&nbsp;
+                                    </td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#__construct' title="details" class="method-name">__construct
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#agregar_registro' title="details" class="method-name">agregar_registro
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition">La diferencia entre este método y agregar una fila vacía en el set_datos es que en este último
+los registros en el próximo pedido de página serán analizados como &#039;modificados&#039; ya que no sabe diferenciarlos
+de los datos que ya existen en el medio de almacenamiento.
+
+Para cumplir con su objetivo este metodo tiene que se invocado en la etapa de configuración cuando
+ya se ha cargado al componente con datos, de lo contrario se perdera su efecto.</td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#analizar_diferencias' title="details" class="method-name">analizar_diferencias
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#carga_inicial' title="details" class="method-name">carga_inicial
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">bool</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#datos_cargados' title="details" class="method-name">datos_cargados
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#desactivar_agregado_filas' title="details" class="method-name">desactivar_agregado_filas
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#deseleccionar' title="details" class="method-name">deseleccionar
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#destruir' title="details" class="method-name">destruir
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+                                                                                </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#generar_botonera_manejo_filas' title="details" class="method-name">generar_botonera_manejo_filas
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#generar_botones' title="details" class="method-name">generar_botones
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+                                                                                </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#generar_etiqueta_columna' title="details" class="method-name">generar_etiqueta_columna
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+                                                                                </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#generar_eventos_fila' title="details" class="method-name">generar_eventos_fila
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#generar_html' title="details" class="method-name">generar_html
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+                                                                                </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#generar_layout_fila' title="details" class="method-name">generar_layout_fila
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">int</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_cantidad_lineas' title="details" class="method-name">get_cantidad_lineas
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+                                                                                </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_clave_fila' title="details" class="method-name">get_clave_fila
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">array</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_datos' title="details" class="method-name">get_datos
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">string</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#get_objeto_js_ef' title="details" class="method-name">get_objeto_js_ef
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#limpiar_interface' title="details" class="method-name">limpiar_interface
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#seleccionar' title="details" class="method-name">seleccionar
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition">A la hora de mostrar la grilla se crea un feedback gráfico sobre la fila que posea esta clave</td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#set_borrar_en_linea' title="details" class="method-name">set_borrar_en_linea
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                                                                            <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#set_datos' title="details" class="method-name">set_datos
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition">Si el formulario tiene definido un ordenamiento, aqui es donde se lleva a cabo</td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#set_exportar_excel' title="details" class="method-name">set_exportar_excel
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#set_exportar_pdf' title="details" class="method-name">set_exportar_pdf
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#set_metodo_analisis' title="details" class="method-name">set_metodo_analisis
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition">Existen dos métodos de análisis:
+- En línea con los registros: incluye una columna apex_ei_analisis_fila a cada registro indicando si la fila es nueva (A), si es modificada (M) o si fue borrada (B)
+- A través de eventos: se dispara un evento por cambio (ej. evt__ml__registro_alta($id, $datos))</td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#set_modo_agregar' title="details" class="method-name">set_modo_agregar
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#set_mostrar_agregar' title="details" class="method-name">set_mostrar_agregar
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#set_mostrar_cabecera_sin_datos' title="details" class="method-name">set_mostrar_cabecera_sin_datos
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#set_mostrar_utilerias_orden' title="details" class="method-name">set_mostrar_utilerias_orden
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#set_ocultar_agregar' title="details" class="method-name">set_ocultar_agregar
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#set_ordenar_en_linea' title="details" class="method-name">set_ordenar_en_linea
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#set_proximo_id' title="details" class="method-name">set_proximo_id
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition">Como el formulario crea la fila antes que existan en el medio de almacenamiento (típicamente una base de datos)
+necesita brindar a la fila un identificador únivoco, entonces maneja internamente una secuencia, con este método
+es posible modificar el valor que toma el siguiente número de esa secuencia.</td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#set_registro_nuevo' title="details" class="method-name">set_registro_nuevo
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition">Solo permite agregar un único registro, llamadas consecutivas a este método sólo variarán el contenido de la nueva fila
+La diferencia con agregar_registro es que este último no puede ser invocado antes del set_datos (configuración o carga),
+set_registro_nuevo deja una marca interna que fuerza la creación de una nueva fila independientemente de la carga de datos.</td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#totalizar_columnas_impresion' title="details" class="method-name">totalizar_columnas_impresion
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#validar_estado' title="details" class="method-name">validar_estado
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#vista_excel' title="details" class="method-name">vista_excel
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#vista_impresion_html' title="details" class="method-name">vista_impresion_html
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#vista_pdf' title="details" class="method-name">vista_pdf
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                                                                <tr>
+                                    <td nowrap align="right">
+                                                                                                                            </td>
+                                                                            <td nowrap class="method-definition"><span class="method-result">string</span>&nbsp;&nbsp;</td>
+                                                                        <td class="method-definition">
+                                    <a href='#vista_xml' title="details" class="method-name">vista_xml
+                                    </a>()&nbsp;&nbsp;</td>
+                                    <td class="method-definition"></td>
+                                    </tr>
+                                                                                        </table>
+			</div>
+			<br />
+		</div>
+	</div>
+
+
+
+
+
+
+    <a name="sec-methods"></a>
+    <div class="info-box">
+        <div class="info-box-body">
+                <a name='method_detail'></a>
+                                                                                            <a name="methodset_callback_validacion" id="set_callback_validacion" href="../classes/toba-ei-formulario-ml.html#method_set_callback_validacion"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">
+        	<span class="method-title">static method set_callback_validacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea  450]
+	</span>
+    </div>
+<br />
+
+<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+    <tr><td class="code-border">
+        <table width="100%" border="0" cellspacing="0" cellpadding="2">
+        <tr><td class="code">&nbsp;
+            <code>static mixed set_callback_validacion(
+                                                
+                     \toba_valida_datos
+                    validador                                                 )
+            </code>
+        </td></tr>
+        </table>
+    </td></tr>
+    </table>
+    <br/>
+</div>
+    
+        
+    Parámetros:<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+            <tr><td class="indent">
+            <span class="var-type">\toba_valida_datos</span>&nbsp;&nbsp;</td>
+            <td>
+            <span class="var-name">validador:&nbsp;</span></td>
+            <td>
+                    </td></tr>
+        </table>
+    
+<br />
+    <table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+    
+                <br />
+</div>    
+                                                                        
+
+        <a name="method__construct" id="__construct" href="../classes/toba-ei-formulario-ml.html#method___construct"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		__construct</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 40]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed __construct(
+                                    
+                mixed
+                id                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">id:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodagregar_registro" id="agregar_registro" href="../classes/toba-ei-formulario-ml.html#method_agregar_registro"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    		    			
+	<span class="method-title">
+		agregar_registro</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 563]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed agregar_registro(
+                                    
+                [mixed
+                valores = array() ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Agrega un registro nuevo a la matriz de datos</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">valores:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+            </table>
+	
+		
+		<br />
+</div>
+        <a name="methodanalizar_diferencias" id="analizar_diferencias" href="../classes/toba-ei-formulario-ml.html#method_analizar_diferencias"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		analizar_diferencias</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 426]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed analizar_diferencias(
+                                    
+                mixed
+                datos                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">datos:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodcarga_inicial" id="carga_inicial" href="../classes/toba-ei-formulario-ml.html#method_carga_inicial"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		carga_inicial</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 303]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed carga_inicial(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Crea la cantidad de filas vacías definidas en el editor</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methoddatos_cargados" id="datos_cargados" href="../classes/toba-ei-formulario-ml.html#method_datos_cargados"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		datos_cargados</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 601]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>bool datos_cargados(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> El formulario posee datos?</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methoddesactivar_agregado_filas" id="desactivar_agregado_filas" href="../classes/toba-ei-formulario-ml.html#method_desactivar_agregado_filas"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		desactivar_agregado_filas</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 202]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed desactivar_agregado_filas(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> No permite que el usuario pueda agregar nuevas filas en el cliente</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methoddeseleccionar" id="deseleccionar" href="../classes/toba-ei-formulario-ml.html#method_deseleccionar"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		deseleccionar</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 183]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed deseleccionar(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Deja al formulario sin selección alguna de fila</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methoddestruir" id="destruir" href="../classes/toba-ei-formulario-ml.html#method_destruir"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		destruir</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 47]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed destruir(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Destructor del componente</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodgenerar_botonera_manejo_filas" id="generar_botonera_manejo_filas" href="../classes/toba-ei-formulario-ml.html#method_generar_botonera_manejo_filas"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+            		    			
+	<span class="method-title">
+		generar_botonera_manejo_filas</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 758]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed generar_botonera_manejo_filas(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Genera el HTML de la botonera de agregar/quitar/ordenar filas</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodgenerar_botones" id="generar_botones" href="../classes/toba-ei-formulario-ml.html#method_generar_botones"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		generar_botones</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 858]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed generar_botones(
+                                    
+                [string
+                clase = &#039;&#039; ]                ,                             
+                [mixed
+                extra = &#039;&#039; ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Genera la botonera del componente</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">clase:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">extra:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodgenerar_etiqueta_columna" id="generar_etiqueta_columna" href="../classes/toba-ei-formulario-ml.html#method_generar_etiqueta_columna"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+            		    		    			
+	<span class="method-title">
+		generar_etiqueta_columna</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 828]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed generar_etiqueta_columna(
+                                    
+                string
+                ef                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> General el html de la etiqueta de un ef especifico</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">ef:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodgenerar_eventos_fila" id="generar_eventos_fila" href="../classes/toba-ei-formulario-ml.html#method_generar_eventos_fila"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+            		    		    			
+	<span class="method-title">
+		generar_eventos_fila</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 972]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed generar_eventos_fila(
+                                    
+                int
+                fila                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Dado una fila, genera el html de los eventos de la misma</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">int</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">fila:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodgenerar_html" id="generar_html" href="../classes/toba-ei-formulario-ml.html#method_generar_html"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		generar_html</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 686]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed generar_html(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodgenerar_layout_fila" id="generar_layout_fila" href="../classes/toba-ei-formulario-ml.html#method_generar_layout_fila"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+            		    		    		    			
+	<span class="method-title">
+		generar_layout_fila</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 955]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed generar_layout_fila(
+                                    
+                mixed
+                clave_fila                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Genera el cuerpo del formulario conteniendo la lista de efs
+Por defecto el layout es un ef uno al lado del otro, este método se puede extender
+para incluir algún layout específico</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">clave_fila:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+            </table>
+	
+		
+		<br />
+</div>
+        <a name="methodget_cantidad_lineas" id="get_cantidad_lineas" href="../classes/toba-ei-formulario-ml.html#method_get_cantidad_lineas"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		get_cantidad_lineas</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 387]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>int get_cantidad_lineas(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Retorna la cantidad de filas, registros o líneas que el formulario tiene cargados</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodget_clave_fila" id="get_clave_fila" href="../classes/toba-ei-formulario-ml.html#method_get_clave_fila"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+                            <img border='0' title='protected' style='vertical-align: middle' src="../img/candado.png" />
+            		    		    			
+	<span class="method-title">
+		get_clave_fila</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 460]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed get_clave_fila(
+                                    
+                mixed
+                fila                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Retorna la posicion en el arreglo de datos donde se ubica un id interno de fila
+  Esta posicion puede ser el mismo id interno en caso de que las diferencias se analizen online
+  o puede ser el posicionamiento simple si no hay analisis</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">fila:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodget_datos" id="get_datos" href="../classes/toba-ei-formulario-ml.html#method_get_datos"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		get_datos</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 399]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>array get_datos(
+                                    
+                [bool
+                analizar_diferencias = false ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Retorna el set de datos que maneja actualmente el componente
+Si se llama en la etapa de eventos contiene los datos recibidos del POST
+Si se llama en la etapa de servicio contiene los datos cargados con set_datos</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">bool</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">analizar_diferencias:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodget_objeto_js_ef" id="get_objeto_js_ef" href="../classes/toba-ei-formulario-ml.html#method_get_objeto_js_ef"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		get_objeto_js_ef</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 1063]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>string get_objeto_js_ef(
+                                    
+                string
+                id                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Retorna una referencia al ef en javascript</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">id:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodlimpiar_interface" id="limpiar_interface" href="../classes/toba-ei-formulario-ml.html#method_limpiar_interface"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		limpiar_interface</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 370]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed limpiar_interface(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Borra los datos actuales y resetea el estado de los efs</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodseleccionar" id="seleccionar" href="../classes/toba-ei-formulario-ml.html#method_seleccionar"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		seleccionar</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 193]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed seleccionar(
+                                    
+                string
+                clave                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Indica al formulario cual es la clave seleccionada.</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">clave:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodset_borrar_en_linea" id="set_borrar_en_linea" href="../classes/toba-ei-formulario-ml.html#method_set_borrar_en_linea"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		set_borrar_en_linea</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 132]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed set_borrar_en_linea(
+                                    
+                bool
+                en_linea                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Cambia la forma gráfica de la eliminación de una fila, se situa al lado de la misma o en la parte superior</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">bool</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">en_linea:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+            <a name="methodset_datos" id="set_datos" href="../classes/toba-ei-formulario-ml.html#method_set_datos"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		set_datos</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 495]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed set_datos(
+                                    
+                array
+                datos                ,                             
+                [mixed
+                set_cargado = true ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Carga el formulario con un conjunto de datos.</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">array</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">datos:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">set_cargado:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodset_exportar_excel" id="set_exportar_excel" href="../classes/toba-ei-formulario-ml.html#method_set_exportar_excel"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    		    			
+	<span class="method-title">
+		set_exportar_excel</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 106]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed set_exportar_excel(
+                                    
+                [bool
+                exportar = true ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Permite indicar por api si se exporta a excel el formulario</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">bool</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">exportar:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+            </table>
+	
+		
+		<br />
+</div>
+        <a name="methodset_exportar_pdf" id="set_exportar_pdf" href="../classes/toba-ei-formulario-ml.html#method_set_exportar_pdf"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    		    			
+	<span class="method-title">
+		set_exportar_pdf</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 115]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed set_exportar_pdf(
+                                    
+                [bool
+                exportar = true ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Permite indicar por api si se exporta a pdf el formulario</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">bool</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">exportar:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+            </table>
+	
+		
+		<br />
+</div>
+        <a name="methodset_metodo_analisis" id="set_metodo_analisis" href="../classes/toba-ei-formulario-ml.html#method_set_metodo_analisis"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		set_metodo_analisis</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 84]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed set_metodo_analisis(
+                                    
+                string
+                metodo                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Cambia o desactiva el método de análisis del formulario.</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">metodo:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodset_modo_agregar" id="set_modo_agregar" href="../classes/toba-ei-formulario-ml.html#method_set_modo_agregar"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		set_modo_agregar</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 142]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed set_modo_agregar(
+                                    
+                bool
+                es_inferior                ,                             
+                [string
+                texto_a_mostrar = null ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Cambia la forma gráfica de la creación de una fila, se situa en la parte inferior o en la superior</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">bool</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">es_inferior:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">texto_a_mostrar:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodset_mostrar_agregar" id="set_mostrar_agregar" href="../classes/toba-ei-formulario-ml.html#method_set_mostrar_agregar"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		set_mostrar_agregar</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 158]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed set_mostrar_agregar(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Muestra el botón de agregar</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodset_mostrar_cabecera_sin_datos" id="set_mostrar_cabecera_sin_datos" href="../classes/toba-ei-formulario-ml.html#method_set_mostrar_cabecera_sin_datos"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		set_mostrar_cabecera_sin_datos</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 175]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed set_mostrar_cabecera_sin_datos(
+                                    
+                mixed
+                mostrar                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Se muestra la cabecera/pie en caso de que no tenga datos el formulario (por defecto true)</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">mostrar:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodset_mostrar_utilerias_orden" id="set_mostrar_utilerias_orden" href="../classes/toba-ei-formulario-ml.html#method_set_mostrar_utilerias_orden"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		set_mostrar_utilerias_orden</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 167]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed set_mostrar_utilerias_orden(
+                                    
+                [bool
+                mostrar = true ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Muestra las utilerias para ordenar filas</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">bool</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">mostrar:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodset_ocultar_agregar" id="set_ocultar_agregar" href="../classes/toba-ei-formulario-ml.html#method_set_ocultar_agregar"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		set_ocultar_agregar</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 150]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed set_ocultar_agregar(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Oculta el botón de agregar</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodset_ordenar_en_linea" id="set_ordenar_en_linea" href="../classes/toba-ei-formulario-ml.html#method_set_ordenar_en_linea"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		set_ordenar_en_linea</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 123]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed set_ordenar_en_linea(
+                                    
+                bool
+                en_linea                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Cambia la forma gráfica del ordenamiento de las filas, si es en_linea se muestran las flechas al lado del registro, sino se muestran en una botonera separada</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">bool</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">en_linea:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodset_proximo_id" id="set_proximo_id" href="../classes/toba-ei-formulario-ml.html#method_set_proximo_id"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		set_proximo_id</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 591]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed set_proximo_id(
+                                    
+                int
+                id                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Cambia la clave o id a utilizar para la siguiente fila creada en este formulario</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">int</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">id:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodset_registro_nuevo" id="set_registro_nuevo" href="../classes/toba-ei-formulario-ml.html#method_set_registro_nuevo"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    		    			
+	<span class="method-title">
+		set_registro_nuevo</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 578]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed set_registro_nuevo(
+                                    
+                [array
+                template = array() ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Inserta un registro nuevo en la proxima generación de HTML.</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">array</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">template:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+            </table>
+	
+		
+		<br />
+</div>
+        <a name="methodtotalizar_columnas_impresion" id="totalizar_columnas_impresion" href="../classes/toba-ei-formulario-ml.html#method_totalizar_columnas_impresion"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    			
+	<span class="method-title">
+		totalizar_columnas_impresion</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 1240]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed totalizar_columnas_impresion(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+    </table>
+	
+		
+		<br />
+</div>
+        <a name="methodvalidar_estado" id="validar_estado" href="../classes/toba-ei-formulario-ml.html#method_validar_estado"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    		    			
+	<span class="method-title">
+		validar_estado</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 351]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed validar_estado(
+        )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Recorre todos los datos del formulario, cargandolos en los efs y validando estos el estado</div>
+
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+            </table>
+	
+		
+		<br />
+</div>
+        <a name="methodvista_excel" id="vista_excel" href="../classes/toba-ei-formulario-ml.html#method_vista_excel"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		vista_excel</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 1200]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed vista_excel(
+                                    
+                \toba_vista_excel
+                salida                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">\toba_vista_excel</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">salida:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodvista_impresion_html" id="vista_impresion_html" href="../classes/toba-ei-formulario-ml.html#method_vista_impresion_html"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		vista_impresion_html</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 1091]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed vista_impresion_html(
+                                    
+                \toba_impresion
+                salida                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Impresion HTML por defecto</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">\toba_impresion</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">salida:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodvista_pdf" id="vista_pdf" href="../classes/toba-ei-formulario-ml.html#method_vista_pdf"><!-- --></a>
+    <div class="evenrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		vista_pdf</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 1142]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>mixed vista_pdf(
+                                    
+                mixed
+                salida                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">salida:&nbsp;</span></td>
+                    <td>
+                                            </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        <a name="methodvista_xml" id="vista_xml" href="../classes/toba-ei-formulario-ml.html#method_vista_xml"><!-- --></a>
+    <div class="oddrow">
+    <div class="method-header">	    
+            		    		    			
+	<span class="method-title">
+		vista_xml</span>&nbsp;&nbsp;
+	<span class="smalllinenumber">[línea 1270]</span>
+    </div>
+    <br />
+
+    <div class="function">
+        <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>string vista_xml(
+                                    
+                [bool
+                inicial = false ]                ,                             
+                [string
+                xmlns = null ]                                    )</code>
+            </td></tr>
+            </table>
+        </td></tr>
+        </table><br />
+    </div>
+
+	<div class="description"> Genera el xml del componente</div>
+
+	            Parámetros:<br />
+            <table border="0" cellspacing="0" cellpadding="0">
+		                    <tr><td class="indent">
+                        <span class="var-type">bool</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">inicial:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		                    <tr><td class="indent">
+                        <span class="var-type">string</span>&nbsp;&nbsp;</td>
+                    <td>
+                        <span class="var-name">xmlns:&nbsp;</span></td>
+                    <td>
+                        <span class="var-description"> </span>                    </td></tr>
+		            </table>
+	    <br/>
+	<table border="0" cellspacing="0" cellpadding="0">
+  <br/>
+    <br/>
+  </table>
+<br />
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        </table>
+	
+		
+		<br />
+</div>
+        </div>
+    </div>
+            </td>
+        </tr>
+    </table>    
+            <div class="credit">
+	   <hr class="separator" />
+            Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
+	<br />
+            Documentación generada con <a href="">phpDocumentor</a>
+	</div>
+    </body>
+</html>
