@@ -201,9 +201,14 @@ class comando_doc extends comando_toba
 				"--project-name \"SIU-Toba\" $directorios ";
 		system($cmd);
 
-		//-- La clase toba es la clase inicial
+		//--- Elimina archivos overview* que no sirven de nada
+		$lista = toba_manejador_archivos::get_archivos_directorio($destino, "/overview-.*/", true);
+		foreach ($lista as $arch) {
+			unlink($arch);
+		}
+		//-- La clase toba es la clase inicial		
 		copy($destino.'/toba.html', $destino.'/index.html');
-		//$this->convertir_codificacion_dir($destino, "ISO-8859-1", "UTF-8");
+		$this->convertir_codificacion_dir($destino, "ISO-8859-1", "UTF-8");
 	}
 
 	/**
