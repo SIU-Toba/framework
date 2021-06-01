@@ -30,7 +30,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	private static $clases_exc_autoload = array();
 	const tipo_paquete_produccion = 'p';
 	const tipo_paquete_desarrollo = 'd';
-        const tabla_membresias = 'apex_usuario_grupo_acc_miembros';
+    const tabla_membresias = 'apex_usuario_grupo_acc_miembros';
 
 	static function set_clases_excluidas_autoload($clases)
 	{
@@ -1410,8 +1410,8 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		}
 
                 //-- Intenta meter las membresias de permisos
-                $archivo_membresias = $dir_base . '/membresias_perfiles.xml';
-		if (file_exists($archivo_perfil_datos)) {
+        $archivo_membresias = $dir_base . '/membresias_perfiles.xml';
+		if (file_exists($archivo_membresias)) {
 			$archivos = array_merge($archivos, array($archivo_membresias));
 		}
 
