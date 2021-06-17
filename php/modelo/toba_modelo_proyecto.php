@@ -30,7 +30,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	private static $clases_exc_autoload = array();
 	const tipo_paquete_produccion = 'p';
 	const tipo_paquete_desarrollo = 'd';
-        const tabla_membresias = 'apex_usuario_grupo_acc_miembros';
+    const tabla_membresias = 'apex_usuario_grupo_acc_miembros';
 
 	static function set_clases_excluidas_autoload($clases)
 	{
@@ -745,7 +745,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
                                 $membresias = $datos[self::tabla_membresias];
                                 unset($datos[self::tabla_membresias]);
 
-                                $archivo_m = $dir_perfiles. '/membresias_perfiles.xml';
+                                $archivo_m = $dir_perfiles. "/membresias_perfiles_$permiso.xml";
                                 $xml = new toba_xml_tablas();
                                 $xml->set_tablas([self::tabla_membresias => $membresias]);
                                 $xml->guardar($archivo_m);
@@ -1409,10 +1409,10 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$archivos = array_merge(array($archivo_menues), $archivos);
 		}
 
-                //-- Intenta meter las membresias de permisos
-                $archivo_membresias = $dir_base . '/membresias_perfiles.xml';
-		if (file_exists($archivo_perfil_datos)) {
-			$archivos = array_merge($archivos, array($archivo_membresias));
+		//-- Intenta meter las membresias de permisos
+		$lista_membresias = toba_manejador_archivos::get_archivos_directorio($dir_base, '|membresias_perfiles.*\.xml$|' );
+		if (!empty($lista_membresias)) {
+			$archivos = array_merge($archivos, $lista_membresias);
 		}
 
 		//-- Trata de encontrar los nombres de las operaciones que no se le pudieron asignar a los perfiles
