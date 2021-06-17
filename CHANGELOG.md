@@ -4,6 +4,10 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.3.20](https://github.com/SIU-Toba/framework/releases/tag/v3.3.20) (2021-06-17)
+- Evita update no intencionado del paquete `siu/interfaces-manejador-salida-toba`
+- Fix exportación de membresias de perfiles.. no permitia múltiples membresias
+
 [3.3.19](https://github.com/SIU-Toba/framework/releases/tag/v3.3.19) (2021-05-18)
 - Agrega posibilidad de parametrizar exposicion de atributos SAML via `instalacion.ini`
 - Actualizacion de seguridad de paquetes JS:

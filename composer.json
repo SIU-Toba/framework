@@ -28,7 +28,7 @@
         "siu-toba/structures_graph": "^1.1.1.1",
         "siu/arai-json-migrator": "~1.0",
         "siu/manejador-salida-toba": "~1.1",
-        "siu/interfaces-manejador-salida-toba": "~1.2",
+        "siu/interfaces-manejador-salida-toba": "~1.2.0",
         "siu/security-multitool": "~1.1",
         "symfony/yaml": "~4.4",
         "vlucas/phpdotenv": "~3.6"
