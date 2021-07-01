@@ -406,7 +406,8 @@ class toba_ei_formulario extends toba_ei
 			if ($validacion !== true) {
 				$this->_efs_invalidos[$ef] = str_replace("'", '"', $validacion);
 				$etiqueta = $this->_elemento_formulario[$ef]->get_etiqueta();
-				throw new toba_error_validacion($etiqueta.': '.$validacion, $this->ef($ef));
+				toba_logger::instancia()->error($etiqueta.': '.$validacion, $this->ef($ef));
+				throw new toba_error_validacion('Se produjo un error en la validacion del ef, revise el log');
 			}
 		}
 	}
@@ -516,7 +517,8 @@ class toba_ei_formulario extends toba_ei
 			if(isset($this->_elemento_formulario[$ef])){
 				$this->_elemento_formulario[$ef]->set_solo_lectura($readonly);
 			}else{
-				throw new toba_error_def("El ef '$ef' no existe");
+				toba_logger::instancia()->error("El ef '$ef' no existe");
+				throw new toba_error_def('El ef solicitado no existe');
 			}
 		}
 	}
@@ -540,7 +542,8 @@ class toba_ei_formulario extends toba_ei
 				$this->_elemento_formulario[$ef]->set_obligatorio($obligatorios);
 				$this->_memoria['efs'][$ef]['obligatorio'] = $obligatorios;
 			} else {
-				throw new toba_error_def("El ef '$ef' no existe");
+				toba_logger::instancia()->error("El ef '$ef' no existe");
+				throw new toba_error_def('El ef solicitado no existe');
 			}
 		}
 	}
@@ -556,7 +559,8 @@ class toba_ei_formulario extends toba_ei
 			$this->_elemento_formulario[$ef]->desactivar_validacion(true);
 			$this->_memoria['efs'][$ef]['desactivar_validacion'] = 1;		
 		} else {
-			throw new toba_error_def("El ef '$ef' no existe");			
+				toba_logger::instancia()->error("El ef '$ef' no existe");
+				throw new toba_error_def('El ef solicitado no existe');
 		}
 	}
 	
@@ -580,7 +584,8 @@ class toba_ei_formulario extends toba_ei
 				array_splice($this->_lista_ef_post, $pos, 1);	
 				$this->_carga_opciones_ef->quitar_ef($ef);
 			} else {
-				throw new toba_error_def("No se puede desactivar el ef '$ef' ya que no se encuentra en la lista de efs activos");
+				toba_logger::instancia()->error("No se puede desactivar el ef '$ef' ya que no se encuentra en la lista de efs activos");
+				throw new toba_error_def('No se puede desactivar el ef solicitado, no se encuentra en la lista de efs activos, revise el log');
 			}
 		}		
 		$this->_carga_opciones_ef->registrar_cascadas();
@@ -614,9 +619,9 @@ class toba_ei_formulario extends toba_ei
 			if (is_array($dato)){	//El EF maneja	DATO COMPUESTO
 				if ($this->_elemento_formulario[$ef]->es_estado_unico()) {
 					if ((count($dato))!=(count($estado))) {//Error	de	consistencia interna	del EF
-						throw new toba_error_def("Error de consistencia	interna en el EF etiquetado: ".
-											$this->_elemento_formulario[$ef]->get_etiqueta().
-											"\nRecibido: ".var_export($estado, true));
+						toba_logger::instancia()->error("Error de consistencia	interna en el EF etiquetado: ".
+											$this->_elemento_formulario[$ef]->get_etiqueta()."\nRecibido: ".var_export($estado, true));
+						throw new toba_error_def('Error de consistencia	interna en el EF, revise el log');
 					}
 					for($x=0;$x<count($dato);$x++){
 						$registro[$dato[$x]] = $estado[$dato[$x]];
@@ -628,9 +633,9 @@ class toba_ei_formulario extends toba_ei
 					foreach ($estado as $sub_estado) {
 						if (count($dato) != count($sub_estado)) {
 							//Error	de	consistencia interna	del EF
-							throw new toba_error_def("Error de consistencia	interna en el EF etiquetado: ".
-												$this->_elemento_formulario[$ef]->get_etiqueta().
-												"\nRecibido: ".var_export($sub_estado, true));
+							toba_logger::instancia()->error("Error de consistencia	interna en el EF etiquetado: ".
+												$this->_elemento_formulario[$ef]->get_etiqueta()."\nRecibido: ".var_export($sub_estado, true));
+							throw new toba_error_def('Error de consistencia	interna en el EF, revise el log');
 						}
 						for ($x=0;$x<count($dato);$x++) {
 							$salida[$dato[$x]] = $sub_estado[$dato[$x]];
@@ -773,11 +778,12 @@ class toba_ei_formulario extends toba_ei
 	function servicio__cascadas_efs()
 	{
 		if (! isset($_GET['cascadas-ef']) || ! isset($_GET['cascadas-maestros'])) {
-			throw new toba_error_seguridad("Cascadas: Invocación incorrecta");	
+			throw new toba_error_seguridad('Cascadas: Invocación incorrecta');	
 		}
 		$id_ef = trim(toba::memoria()->get_parametro('cascadas-ef'));
 		if (! $this->existe_ef($id_ef)) {
-			throw new toba_error_seguridad($this->get_txt()." No existe ef '$id_ef'");
+			toba_logger::instancia()->error($this->get_txt()." No existe ef '$id_ef'");
+			throw new toba_error_seguridad(' No existe el ef indicado');
 		}
 		$fila_actual = trim(toba::memoria()->get_parametro('cascadas-fila'));
 		$maestros = array();
@@ -787,13 +793,15 @@ class toba_ei_formulario extends toba_ei
 			if (trim($par) != '') {
 				$param = explode("-;-", trim($par));
 				if (count($param) != 2) {
-					throw new toba_error_seguridad("Cascadas: Cantidad incorrecta de parametros ($par).");						
+					toba_logger::instancia()->error("Cascadas: Cantidad incorrecta de parametros ($par).");
+					throw new toba_error_seguridad('Cascadas: parametros incorrectos.');
 				}
 				$id_ef_maestro = $param[0];
 				
 				//--- Verifique que este entre los maestros y lo elimina de la lista
 				if (!in_array($id_ef_maestro, $ids_maestros)) {
-					throw new toba_error_seguridad("Cascadas: El ef '$id_ef_maestro' no esta entre los maestros de '$id_ef'");
+					toba_logger::instancia()->error("Cascadas: El ef '$id_ef_maestro' no esta entre los maestros de '$id_ef'");
+					throw new toba_error_seguridad('Cascadas: El ef no esta entre los maestros requeridos, revise el log');
 				}
 				array_borrar_valor($ids_maestros, $id_ef_maestro);
 				
@@ -804,7 +812,8 @@ class toba_ei_formulario extends toba_ei
 				} else {
 					//--- Manejo de claves múltiples					
 					if (count($valores) != count($campos)) {
-						throw new toba_error("Cascadas: El ef $id_ef_maestro maneja distinta cantidad de datos que los campos pasados");
+						toba_logger::instancia()->error("Cascadas: El ef $id_ef_maestro maneja distinta cantidad de datos que los campos pasados");
+						throw new toba_error('Cascadas: parametros incorrectos.');
 					}
 					$valores_clave = array();
 					for ($i=0; $i < count($campos) ; $i++) {
@@ -822,7 +831,8 @@ class toba_ei_formulario extends toba_ei
 				$this->ef($id_ef_maestro)->cargar_estado_post();
 			}
 			if (! $this->ef($id_ef_maestro)->tiene_estado()) {
-				throw new toba_error_seguridad("Cascadas: El ef maestro '$id_ef_maestro' no tiene estado cargado");
+				toba_logger::instancia()->error("Cascadas: El ef maestro '$id_ef_maestro' no tiene estado cargado");
+				throw new toba_error_seguridad('Cascadas: Ef maestro no cargado');
 			}
 			$maestros[$id_ef_maestro] = $this->ef($id_ef_maestro)->get_estado();
 		}
@@ -863,7 +873,7 @@ class toba_ei_formulario extends toba_ei
 	function servicio__filtrado_ef_ce()
 	{
 		if (! isset($_GET['filtrado-ce-ef']) || ! isset($_GET['filtrado-ce-valor'])) {
-			throw new toba_error_seguridad("Filtrado de combo editable: Invocación incorrecta");	
+			throw new toba_error_seguridad('Filtrado de combo editable: Invocación incorrecta');	
 		}
 		toba::memoria()->desactivar_reciclado();
 		$id_ef = trim(toba::memoria()->get_parametro('filtrado-ce-ef'));
@@ -878,13 +888,15 @@ class toba_ei_formulario extends toba_ei
 			if (trim($par) != '') {
 				$param = explode("-;-", trim($par));
 				if (count($param) != 2) {
-					throw new toba_error_seguridad("Filtrado de combo editable: Cantidad incorrecta de parametros ($par).");						
+					toba_logger::instancia()->error("Filtrado de combo editable: Cantidad incorrecta de parametros ($par).");	
+					throw new toba_error_seguridad('Filtrado de combo editable: parametros incorrectos.');
 				}
 				$id_ef_maestro = $param[0];
 				
 				//--- Verifique que este entre los maestros y lo elimina de la lista
 				if (!in_array($id_ef_maestro, $ids_maestros)) {
-					throw new toba_error_seguridad("Filtrado de combo editable: El ef '$id_ef_maestro' no esta entre los maestros de '$id_ef'");
+					toba_logger::instancia()->error("Filtrado de combo editable: El ef '$id_ef_maestro' no esta entre los maestros de '$id_ef'");
+					throw new toba_error_seguridad('Filtrado de combo editable: El ef no esta entre los maestros del ef indicado, revise el log');
 				}
 				array_borrar_valor($ids_maestros, $id_ef_maestro);
 				
@@ -895,7 +907,8 @@ class toba_ei_formulario extends toba_ei
 				} else {
 					//--- Manejo de claves múltiples					
 					if (count($valores) != count($campos)) {
-						throw new excepction_toba("Filtrado de combo editable: El ef $id_ef_maestro maneja distinta cantidad de datos que los campos pasados");
+						toba_logger::instancia()->error("Filtrado de combo editable: El ef $id_ef_maestro maneja distinta cantidad de datos que los campos pasados");
+						throw new toba_error_def('Filtrado de combo editable: parametros incorrectos.');
 					}
 					$valores_clave = array();
 					for ($i=0; $i < count($campos) ; $i++) {
@@ -913,7 +926,8 @@ class toba_ei_formulario extends toba_ei
 				$this->ef($id_ef_maestro)->cargar_estado_post();
 			}
 			if (! $this->ef($id_ef_maestro)->tiene_estado()) {
-				throw new toba_error_seguridad("Filtrado de combo editable: El ef maestro '$id_ef_maestro' no tiene estado cargado");
+				toba_logger::instancia()->error("Filtrado de combo editable: El ef maestro '$id_ef_maestro' no tiene estado cargado");
+				throw new toba_error_seguridad('Filtrado de combo editable: Ef maestro no cargado');
 			}
 			$maestros[$id_ef_maestro] = $this->ef($id_ef_maestro)->get_estado();
 		}
@@ -944,7 +958,7 @@ class toba_ei_formulario extends toba_ei
 	function servicio__filtrado_ef_ce_validar()
 	{
 		if (! isset($_GET['filtrado-ce-ef']) || ! isset($_GET['filtrado-ce-valor'])) {
-			throw new toba_error_seguridad("Validación de combo editable: Invocación incorrecta");	
+			throw new toba_error_seguridad('Validación de combo editable: Invocación incorrecta');	
 		}
 		$id_ef = trim(toba::memoria()->get_parametro('filtrado-ce-ef'));
 		$valor = trim(toba::memoria()->get_parametro('filtrado-ce-valor'));
@@ -1043,7 +1057,8 @@ class toba_ei_formulario extends toba_ei
 					$atributos[$partes[0]] = $partes[1];
 				}
 				if (! isset($atributos['id'])) {
-					throw new toba_error_def($this->get_txt()."Tag [ef] incorrecto, falta atributo id");
+					toba_logger::instancia()->error($this->get_txt()."Tag [ef] incorrecto, falta atributo id");
+					throw new toba_error_def("Tag [ef] incorrecto falta atributo, revise el log");
 				}
 				$etiqueta_mostrar = true;
 				if (isset($atributos['etiqueta_mostrar']) && $atributos['etiqueta_mostrar'] == 0) {
@@ -1058,7 +1073,8 @@ class toba_ei_formulario extends toba_ei
 			}
 			echo $salida;
 		} else {
-			throw new toba_error_def($this->get_txt()."Template incorrecto");
+			toba_logger::instancia()->error($this->get_txt().'Template incorrecto no cumple con la ER');
+			throw new toba_error_def('Template incorrecto');
 		}		
 	}
 	
@@ -1107,7 +1123,8 @@ class toba_ei_formulario extends toba_ei
 					$atributos[$partes[0]] = $partes[1];
 				}
 				if (! isset($atributos['id'])) {
-					throw new toba_error_def($this->get_txt()."Tag [ef] incorrecto, falta atributo id");
+					toba_logger::instancia()->error($this->get_txt()."Tag [ef] incorrecto, falta atributo id");
+					throw new toba_error_def("Tag [ef] incorrecto falta atributo, revise el log");
 				}
 				$etiqueta_mostrar = true;
 				if (isset($atributos['etiqueta_mostrar']) && $atributos['etiqueta_mostrar'] == 0) {
@@ -1122,7 +1139,8 @@ class toba_ei_formulario extends toba_ei
 			}
 			echo $salida;
 		} else {
-			throw new toba_error_def($this->get_txt()."Template impresión incorrecto");
+			toba_logger::instancia()->error($this->get_txt()."Template impresión incorrecto");
+			throw new toba_error_def('Template incorrecto');
 		}
 	}
 
@@ -1290,7 +1308,8 @@ class toba_ei_formulario extends toba_ei
 		}
 		foreach ($this->_lista_ef_post as $ef) {
 			if (! in_array($ef, $this->_efs_generados)) {
-				throw new toba_error_def($this->get_txt()." Error en la redefinición del layout: Falta salida ef '$ef'");
+				toba_logger::instancia()->error($this->get_txt()." Error en la redefinición del layout: Falta salida ef '$ef'");
+				throw new toba_error_def('Template incorrecto');
 			}
 			echo $identado."{$this->objeto_js}.agregar_ef({$this->_elemento_formulario[$ef]->crear_objeto_js()}, '$ef');\n";
 		}

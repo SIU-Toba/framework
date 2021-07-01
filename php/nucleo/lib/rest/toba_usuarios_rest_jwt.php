@@ -50,7 +50,8 @@ class toba_usuarios_rest_jwt extends validador_jwt
         $uid = $this->usuario_id;
 
         if (!isset($data->$uid)){
-            throw new toba_error("El identificador de usuario '$uid' no existe en los datos del token JWT.");
+			toba_logger::instancia()->error("El identificador de usuario '$uid' no existe en los datos del token JWT.");
+            throw new toba_error('El identificador solicitado no existe en los datos del token JWT.');
         }
 
         return $data->$uid;

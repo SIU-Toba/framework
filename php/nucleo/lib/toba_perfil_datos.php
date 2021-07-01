@@ -267,7 +267,7 @@ class toba_perfil_datos
 			return $restricciones;
 		} else {
 			toba::logger()->error("El usuario $usuario no posee perfil de datos en el proyecto $proyecto");
-			throw new toba_error_def("El usuario no posee perfil de datos en el proyecto");
+			throw new toba_error_def('El usuario no posee perfil de datos en el proyecto');
 		}
 	}
 	

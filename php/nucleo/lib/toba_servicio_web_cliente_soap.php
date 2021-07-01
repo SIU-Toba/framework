@@ -86,17 +86,20 @@ class toba_servicio_web_cliente_soap extends toba_servicio_web_cliente
 
             //Cargo las claves y armo el objeto WSF
             if (! file_exists($config['clave_cliente'])) {
-                throw new toba_error("El archivo ".$config['clave_cliente']." no existe");
+				toba::logger()->error("El archivo ".$config['clave_cliente']." no existe");
+                throw new toba_error('El archivo con clave/certificado no existe');
             }
             $clave_cliente = ws_get_key_from_file($config['clave_cliente']);
 
             if (! file_exists($config['cert_cliente'])) {
-                throw new toba_error("El archivo ".$config['cert_cliente']." no existe");
+				toba::logger()->error("El archivo ".$config['cert_cliente']." no existe");
+                throw new toba_error('El archivo con clave/certificado no existe');
             }
             $cert_cliente = ws_get_cert_from_file($config['cert_cliente']);
 
             if (! file_exists($config['cert_servidor'])) {
-                throw new toba_error("El archivo ".$config['cert_servidor']." no existe");
+				toba::logger()->error("El archivo ".$config['cert_servidor']." no existe");
+                throw new toba_error('El archivo con clave/certificado no existe');
             }
             $cert_server = ws_get_cert_from_file($config['cert_servidor']);
 

@@ -177,7 +177,8 @@ class toba_ei_mapa extends toba_ei
 	function set_viewport($ancho, $alto)
 	{
 		if (!is_numeric($ancho) || !is_numeric($alto)) {
-			throw new toba_error_usuario('El tamaño del viewport no es válido', "Se eligio ('$ancho', '$alto') como tamaño para el viewport y no es válido");
+			toba_logger::instancia()->error('El tamaño del viewport no es válido', "Se eligio ('$ancho', '$alto') como tamaño para el viewport y no es válido");
+			throw new toba_error_usuario('El tamaño del viewport no es válido');
 		}
 		$this->_ancho_viewport = $ancho;
 		$this->_alto_viewport = $alto;	
@@ -270,7 +271,7 @@ class toba_ei_mapa extends toba_ei
 		foreach($layers as $layer) {
 			if (! in_array($layer, $layers_referencia)) {
 				toba::logger()->error("El layer $layer no es valido para el mapa {$this->_info_mapa['mapfile_path']}");
-				throw new toba_error_validacion("El layer $layer no es válido");
+				throw new toba_error_validacion('El layer solicitado no es válido');
 			}
 		}
 		return true;
@@ -388,7 +389,8 @@ class toba_ei_mapa extends toba_ei
 		$actual = $nombre_layer;
 		$layer_obj = $this->_mapa->getLayerByName($actual);
 		if (is_null($layer_obj)) {
-			throw new toba_error('El mapa no contiene la capa '. $actual);			
+			toba_logger::instancia()->error('El mapa no contiene la capa '. $actual);
+			throw new toba_error('El mapa no contiene la capa ');			
 		}		
 		$status = $layer_obj	->getMetadata('status');		
 		if ($status === MS_OFF) {					//Si el layer no esta activo en el mapfile
@@ -487,7 +489,8 @@ class toba_ei_mapa extends toba_ei
 			foreach($layers_disp as $layer) {
 				$lay_obj = $this->_mapa->getLayerByName($layer);
 				if (is_null($lay_obj)) {
-					throw new toba_error('En el mapa no se encuentra cargada la capa ' .$layer);
+					toba_logger::instancia()->error('En el mapa no se encuentra cargada la capa ' .$layer);
+					throw new toba_error('El mapa no contiene la capa ');
 				}
 				//De acuerdo a si esta o no seleccionado, muestro u oculto el layer.
 				if (in_array($layer, $this->_layers_activos)) {

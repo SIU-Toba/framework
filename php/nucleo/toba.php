@@ -331,7 +331,8 @@ class toba
 	{
 		$cn = self::componente($indice);
 		if(! $cn instanceof toba_cn ) {
-			throw new toba_error_def("Error cargando CN por INDICE. El componente identificado con la etiqueta '$indice' no es un CN.");
+			toba::logger()->error("Error cargando CN por INDICE. El componente identificado con la etiqueta '$indice' no es un CN.");
+			throw new toba_error_def('Error cargando CN por INDICE. La etiqueta solicitada se encuentra o no es un CN. Revise el log');
 		}
 		return $cn;
 	}
@@ -394,7 +395,7 @@ class toba
 				}
 				self::$consultas_php[$clase] = new $clase_php();
 			} else {
-				throw new toba_error("La consulta_php solicitada no posee un archivo asociado");
+				throw new toba_error('La consulta_php solicitada no posee un archivo asociado');
 			}
 		}
 		return self::$consultas_php[$clase];

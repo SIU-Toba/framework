@@ -64,7 +64,7 @@ class toba_manejador_sesiones
             $handler->configure_settings();
 
             if (session_id() != '') {
-                    throw new toba_error("Ya existe una sesión abierta, probablemente tenga activado session.auto_start = 1 en el php.ini");
+                    throw new toba_error('Ya existe una sesión abierta, probablemente tenga activado session.auto_start = 1 en el php.ini');
             }
             if (! toba_nucleo::instancia()->es_acceso_rest()) {
                     session_name(toba::instalacion()->get_session_name());
@@ -108,6 +108,7 @@ class toba_manejador_sesiones
 
 		// Se recarga el nucleo, esta vez sobre una sesion activa.
 		if (toba::nucleo()->solicitud_en_proceso()) {
+			//session_regenerate_id();
 			throw new toba_reset_nucleo('INICIAR SESION... recargando el nucleo.');
 		}
 	}
@@ -172,7 +173,7 @@ class toba_manejador_sesiones
 			throw new toba_error_seguridad('Es intentando acceder a un usuario no valido' );
 		}
 		//Si todo va bien.
-		$this->procesar_salida_proyecto("Logout por cambio de usuario");			//Redirije a la pantalla de login, quizas hay que hacer algo distinto por ejemplo, no borrar la sesion
+		$this->procesar_salida_proyecto('Logout por cambio de usuario');			//Redirije a la pantalla de login, quizas hay que hacer algo distinto por ejemplo, no borrar la sesion
 		$this->procesar_acceso_instancia($mapeo, $datos_iniciales);
 	}
 
@@ -187,6 +188,7 @@ class toba_manejador_sesiones
 		}
 		$this->procesar_acceso_proyecto($datos_iniciales);
 		if (toba::nucleo()->solicitud_en_proceso()) {
+			//session_regenerate_id();
 			throw new toba_reset_nucleo('INICIAR SESION PROYECTO... recargando el nucleo.');
 		}
 	}
@@ -381,7 +383,8 @@ class toba_manejador_sesiones
 		//Validacion
 		foreach ($activos as $perfil) {
 			if (! in_array($perfil, $perfiles)) {
-				throw new toba_error_seguridad("Se esta intentando activar el perfil '$perfil' y el mismo no pertenece al usuario actual");
+				toba_logger::instancia()->error("Se esta intentando activar el perfil '$perfil' y el mismo no pertenece al usuario actual");
+				throw new toba_error_seguridad('Se esta intentando activar un perfil que no pertenece al usuario actual');
 			}
 			$finales[] = $perfil;
 			$membresias = toba::proyecto()->get_perfiles_funcionales_asociados($perfil);
@@ -742,11 +745,12 @@ class toba_manejador_sesiones
 			$ultimo_acceso = $_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['info_sesion']['ultimo_acceso'];
 			$tiempo_desconectado = ((time()-$ultimo_acceso)/60);//Tiempo desde el ultimo REQUEST
 			if ( $tiempo_desconectado >= $ventana) {
-				toba::notificacion("Usted ha permanecido mas de $ventana minutos sin interactuar
+				toba::notificacion('Usted ha permanecido varios minutos sin interactuar
 							con el servidor. Por razones de seguridad su sesion ha sido eliminada.
 							Por favor vuelva a registrarse si desea continuar utilizando el sistema.
-							Disculpe las molestias ocasionadas.");
-				throw new toba_error_autorizacion("Se exedio la ventana temporal ($ventana m.)");
+							Disculpe las molestias ocasionadas.');
+				toba_logger::error("Se exedio la ventana temporal ($ventana m.)");
+				throw new toba_error_autorizacion('Se exedio la ventana temporal');
 			}
 		}
 		// Controlo el tiempo maximo de sesion
@@ -755,10 +759,11 @@ class toba_manejador_sesiones
 			$inicio_sesion = $_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['info_sesion']['inicio'];
 			$tiempo_total = ((time()-$inicio_sesion)/60);//Tiempo desde que se inicio la sesion
 			if ( $tiempo_total >= $maximo) {
-				toba::notificacion("Se ha superado el tiempo de sesion permitido ($maximo minutos)
+				toba::notificacion('Se ha superado el tiempo de sesion permitido
 							Por favor vuelva a registrarse si desea continuar utilizando el sistema.
-							Disculpe las molestias ocasionadas.");
-				throw new toba_error_autorizacion("Se exedio el tiempo maximo de sesion ($maximo m.)");
+							Disculpe las molestias ocasionadas.');
+				toba_logger::instancia()->error("Se exedio el tiempo maximo de sesion ($maximo m.)");
+				throw new toba_error_autorizacion('Se exedio el tiempo maximo de sesion');
 			}
 		}
 
@@ -1004,12 +1009,15 @@ class toba_manejador_sesiones
 				if ( $supero_tope_intentos_en_ventana ) {
 					if ($bloquear_usuario) {
 						$this->invocar_metodo_usuario('bloquear_usuario',array($id_usuario));
-						throw new toba_error_autenticacion("$error. Ha superado el límite de inicios de sesion. El usuario ha sido bloqueado.");
+						toba_logger::instancia()->error("$error. Ha superado el límite de inicios de sesion. El usuario ha sido bloqueado.");
+						throw new toba_error_autenticacion("$error. Ha superado el límite de inicios de sesion.");
 					}elseif ($lanzar_excepcion) {
-						throw new toba_error_autenticacion_intentos("$error. Ha superado el límite de inicios de sesion.|$intentos");
+						toba_logger::instancia()->error("$error. Ha superado el límite de inicios de sesion.|$intentos");
+						throw new toba_error_autenticacion_intentos("$error. Ha superado el límite de inicios de sesion.");
 					} else {
 						$this->invocar_metodo_usuario('bloquear_ip',array($ip));
-						throw new toba_error_autenticacion("$error. La IP ha sido bloqueada.");
+						toba_logger::instancia()->error("$error. La IP ha sido bloqueada.");
+						throw new toba_error_autenticacion("$error. Ha superado el límite de inicios de sesion.");
 					}
 				}
 			}

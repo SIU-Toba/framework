@@ -41,7 +41,8 @@ class toba_carga_opciones_ef
 			$this->_cascadas_maestros[$esclavo] = $this->_efs[$esclavo]->get_maestros();
 			foreach ($this->_cascadas_maestros[$esclavo] as $maestro) {
 				if (! isset($this->_efs[$maestro])) {
-					throw new toba_error_def("Cascadas: El ef '$maestro' no esta definido");
+					toba_logger::instancia()->error("Cascadas: El ef '$maestro' no esta definido");
+					throw new toba_error_def('Cascadas: Ef maestro no definido, revise el log');
 				}
 				$this->_cascadas_esclavos[$maestro][] = $esclavo;
 
@@ -185,7 +186,8 @@ class toba_carga_opciones_ef
 				return $nuevos;	
 			}
 		} else {
-			throw new toba_error_def('No está definido un método de carga. Parámetros: '.var_export($parametros, true));
+			toba_logger::instancia()->error('No está definido un método de carga. Parámetros: '.var_export($parametros, true));
+			throw new toba_error_def('No está definido un método de carga. Revise el log');
 		}
 		if (! $this->_efs[$id_ef]->permite_seleccion_multiple()) {
 			$salida = $this->ajustar_descripciones($id_ef, $salida);
@@ -249,7 +251,8 @@ class toba_carga_opciones_ef
 			} elseif (count($campos) == 2) {
 				$valores[trim($campos[0])] = trim($campos[1]);
 			} else {
-				throw new toba_error_def("La lista de opciones del ef '$id_ef' es incorrecta.");
+				toba_logger::instancia()->error("La lista de opciones del ef '$id_ef' es incorrecta.");
+				throw new toba_error_def('La lista de opciones del ef es incorrecta o esta incompleta. Revise el log');
 			}
 		}		
 		return $valores;
@@ -305,7 +308,8 @@ class toba_carga_opciones_ef
 				$clase = $parametros['carga_clase'];
 			}
 			if (! method_exists($clase, $parametros['carga_metodo'])) {
-				throw new toba_error_def("ERROR en la carga del ef $id_ef. No existe el método '{$parametros['carga_metodo']}' de la clase '{$parametros['carga_clase']}'");			
+				toba_logger::instancia()->error("ERROR en la carga del ef $id_ef. No existe el método '{$parametros['carga_metodo']}' de la clase '{$parametros['carga_clase']}'");
+				throw new toba_error_def('ERROR en la carga del ef . No existe el método solicitado en la clase indicada. Revise el log');			
 			}			
 			$metodo = array($clase, $parametros['carga_metodo']);	
 			return call_user_func_array($metodo, $maestros);
@@ -313,7 +317,8 @@ class toba_carga_opciones_ef
 			//--- Es un metodo del CI contenedor
 			if (! method_exists($this->_controlador->controlador(), $parametros['carga_metodo'])) {
 				$clase = get_class($this->_controlador->controlador());
-				throw new toba_error_def("ERROR en la carga del ef $id_ef. No existe el método '{$parametros['carga_metodo']}' en la clase '$clase'");			
+				toba_logger::instancia()->error("ERROR en la carga del ef $id_ef. No existe el método '{$parametros['carga_metodo']}' en la clase '$clase'");			
+				throw new toba_error_def('ERROR en la carga del ef . No existe el método solicitado en la clase indicada. Revise el log');
 			}
 			$dato = call_user_func_array(array($this->_controlador->controlador(), $parametros['carga_metodo']), $maestros);
 			return $dato;
@@ -329,7 +334,8 @@ class toba_carga_opciones_ef
 			$objeto = toba::consulta_php($parametros['carga_consulta_php_clase']);
 			$metodo = $parametros['carga_metodo'];
 			if (! method_exists($objeto, $metodo)) {
-				throw new toba_error_def("ERROR en la carga del ef $id_ef. No existe el método '{$parametros['carga_metodo']}' de la consulta php '{$parametros['carga_consulta_php_clase']}'");
+				toba_logger::instancia()->error("ERROR en la carga del ef $id_ef. No existe el método '{$parametros['carga_metodo']}' de la consulta php '{$parametros['carga_consulta_php_clase']}'");
+				throw new toba_error_def('ERROR en la carga del ef . No existe el método solicitado en la clase indicada. Revise el log');
 			}
 			return call_user_func_array(array($objeto, $metodo), $maestros);
 		} 
@@ -345,7 +351,8 @@ class toba_carga_opciones_ef
 		$dt = toba_constructor::get_runtime(array('proyecto' => $id[0],'componente' => $parametros['carga_dt']), 'toba_datos_tabla');
 		if (! method_exists($dt, $parametros['carga_metodo'])) {
 			$clase = get_class($dt);
-			throw new toba_error_def("ERROR en la carga del ef $id_ef. No existe el método '{$parametros['carga_metodo']}' de la clase '$clase'");			
+			toba_logger::instancia()->error("ERROR en la carga del ef $id_ef. No existe el método '{$parametros['carga_metodo']}' de la clase '$clase'");			
+			throw new toba_error_def('ERROR en la carga del ef . No existe el método solicitado en la clase indicada. Revise el log');
 		}				
 		return call_user_func_array(array($dt, $parametros['carga_metodo']), $maestros);
 	}	

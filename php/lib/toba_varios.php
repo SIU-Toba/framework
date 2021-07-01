@@ -410,12 +410,14 @@
 				if (isset($fila[$clave])) {
 					$valores_clave[] = $fila[$clave];
 				} else {
-					throw new toba_error_def("La fila del recordset no contiene la clave '$clave'. ".var_export($fila, true));
+					toba_logger::instancia()->error("La fila del recordset no contiene la clave '$clave'. ".var_export($fila, true));
+					throw new toba_error_def('La fila del recordset no contiene la columna indicada, revise el log ');
 				}
 			}
 
 			if (! isset($fila[$valor])){
-				throw new toba_error_def("La fila del recordset no contiene la columna '$valor'. ".var_export($fila, true));
+				toba_logger::instancia()->error("La fila del recordset no contiene la clave '$clave'. ".var_export($fila, true));
+				throw new toba_error_def('La fila del recordset no contiene la columna indicada, revise el log ');
 			}else{
 				$valores[implode(apex_qs_separador, $valores_clave)] = $fila[$valor];
 			}
@@ -740,7 +742,8 @@
 			case '~':
 				return preg_match($valor2, $valor1);		//$valor2 es el pattern
 			default:
-				throw new toba_error("El operador $operador no está soportado");
+				toba_logger::instancia()->error("El operador $operador no está soportado");
+				throw new toba_error('Operador no soportado');
 		}
 	}
 

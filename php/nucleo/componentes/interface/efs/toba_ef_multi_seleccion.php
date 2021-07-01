@@ -143,8 +143,9 @@ abstract class toba_ef_multi_seleccion extends toba_ef
 			//El estado tiene el formato adecuado?
 			$cant_datos = count($this->dato);
 			if (count($estado) <> $cant_datos) {
-				throw new toba_error_def("Ha intentado cargar el ef '{$this->id}' con un array que posee un formato inadecuado " .
+				toba_logger::instancia()->error("Ha intentado cargar el ef '{$this->id}' con un array que posee un formato inadecuado " .
 								" se esperaban {$cant_datos} claves, pero se utilizaron: ". count($estado) . ".");
+				throw new toba_error_def('Ha intentado cargar el ef con un array que posee un formato inadecuado, revise el log ');				
 			}
 		}
 	}
@@ -173,7 +174,8 @@ abstract class toba_ef_multi_seleccion extends toba_ef
 		}
 		$estado = $_POST[$this->id_form];
 		if (! is_array($estado)) {
-			throw new toba_error_seguridad("Se esperaba un arreglo, se recibio ".var_export($estado, true));
+			toba_logger::instancia()->error("Se esperaba un arreglo, se recibio ".var_export($estado, true));
+			throw new toba_error_seguridad('Ha intentado cargar el ef con un formato inadecuado, revise el log ');
 		}
 
 		//-- Chequeo de seguridad que lo que viene es parte de lo que se ofrecio
@@ -185,7 +187,8 @@ abstract class toba_ef_multi_seleccion extends toba_ef
 				//Busca los valores disponibles en la fila actual
 				if (!isset($por_fila) || ! in_array($valor, $por_fila)) {
 					//toba::logger()->info("Fallback Cotejando $valor en ".$this->clave_memoria(true)." contra ".var_export($por_fila, true));
-					throw new toba_error_seguridad("El ef '{$this->id}' no posee a la opción '$valor' entre las enviadas");
+					toba_logger::instancia()->error("El ef '{$this->id}' no posee a la opción '$valor' entre las enviadas");
+					throw new toba_error_seguridad('El ef no posee la opción indicada entre las enviadas, revise el log ');
 				}
 			}
 		}
@@ -198,8 +201,9 @@ abstract class toba_ef_multi_seleccion extends toba_ef
 			foreach ($estado as $seleccion) {
 	            $valores = explode(apex_qs_separador, $seleccion);
 				if (count($valores) <> $cant_datos) {
-					throw new toba_error_def("Ha intentado cargar el ef '{$this->id}' con un array que posee un formato inadecuado " .
+					toba_logger::instancia()->error("Ha intentado cargar el ef '{$this->id}' con un array que posee un formato inadecuado " .
 									" se esperaban {$cant_datos} claves, pero se utilizaron: ". count($valores) . ".");
+					throw new toba_error_def('Ha intentado cargar el ef con un formato inadecuado, revise el log ');
 				}
 				$nuevo = array();
 				for ($i=0; $i < count($this->dato); $i++) {

@@ -193,7 +193,8 @@ class toba_info_editores
 				WHERE clase = $clase;";
 		$datos = toba_contexto_info::get_db()->consultar($sql);
 		if( ! $datos ) {
-			throw new toba_error("No hay definido un datos_relacion para la clase $clase");
+			toba_logger::instancia()->error("No hay definido un datos_relacion para la clase $clase");
+			throw new toba_error('No hay definido un datos_relacion para la clase indicada, revise el log');
 		} else {
 			return array( $datos[0]['objeto_dr_proyecto'], $datos[0]['objeto_dr'] );
 		}
@@ -1085,7 +1086,8 @@ class toba_info_editores
 				AND 	proyecto = $proyecto";
 		$rs = toba_contexto_info::get_db()->consultar($sql);
 		if (empty($rs)) {
-			throw new toba_error("No se puede encontrar la fuente $id_fuente en el proyecto $proyecto");	
+			toba_logger::instancia()->error("No se puede encontrar la fuente $id_fuente en el proyecto $proyecto");
+			throw new toba_error('No se puede encontrar la fuente en el proyecto, revise el log');	
 		}
 		return $rs[0];
 	}

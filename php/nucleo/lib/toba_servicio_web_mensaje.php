@@ -102,7 +102,8 @@ class toba_servicio_web_mensaje
 		foreach ($array as $clave => $valor) {
 			$empieza_con_numero = strlen($clave) > 0 && ctype_digit(substr($clave, 0, 1));
 			if ($empieza_con_numero && is_string($clave)) {
-				throw new toba_error_def("El arreglo contiene una clave asociativa ($clave) que comienza con un número, XML no acepta tags que comienzen con numeros");
+				toba::logger()->error("El arreglo contiene una clave asociativa ($clave) que comienza con un número, XML no acepta tags que comiencen con numeros");
+				throw new toba_error_def('El arreglo contiene una clave que comienza con un número, XML no acepta esto, revise el log');
 			}
 			if ($empieza_con_numero) {				
 				$clave = self::id_fila_generica.$clave_padre;	//El xml no puede tener claves numericas, se define una clave unica para los posicionales

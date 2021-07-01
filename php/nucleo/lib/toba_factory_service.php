@@ -67,7 +67,7 @@ class toba_factory_service
 	function registrarServicio(IFactory $fabrica)
 	{		
 		if( ! $fabrica instanceof IFactory) {
-			throw new toba_error("El servicio a registrar debe ser una implementación de IFactory");
+			throw new toba_error('El servicio a registrar debe ser una implementación de IFactory');
 		}
 		
 		/* @todo Agregar validacion de nombre */

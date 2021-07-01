@@ -195,8 +195,8 @@ class toba_ei_pantalla extends toba_ei
 		if (in_array($id, $this->_lista_dependencias)) {
 			array_borrar_valor($this->_lista_dependencias, $id);
 		} else {
-			throw new toba_error_def($this->get_txt(). 
-					" Se quiere eliminar la dependencia '$id', pero esta no está en la pantalla actual");
+			toba_logger::instancia()->error($this->get_txt(). " Se quiere eliminar la dependencia '$id', pero esta no está en la pantalla actual");
+			throw new toba_error_def(' Se quiere eliminar una dependencia pero esta no está en la pantalla actual, revise el log');
 		}
 		//--- Por si ya estamos en la etapa de servicios
 		if (isset($this->_dependencias[$id])) {
@@ -253,7 +253,8 @@ class toba_ei_pantalla extends toba_ei
 		if(isset($this->_lista_tabs[$id])){
 			return $this->_lista_tabs[$id];	
 		} else {
-			throw new toba_error_def($this->get_txt(). " El tab '$id' no existe.");
+			toba_logger::instancia()->error($this->get_txt(). " El tab '$id' no existe.");
+			throw new toba_error_def('El tab solicitado no existe');
 		}
 	}
 	
@@ -274,8 +275,8 @@ class toba_ei_pantalla extends toba_ei
 		if (isset($this->_lista_tabs[$id])) {
 			unset($this->_lista_tabs[$id]);
 		} else {
-			throw new toba_error_def($this->get_txt(). 
-					" Se quiere eliminar el tab '$id', pero esta no está en la pantalla actual");
+			toba_logger::instancia()->error($this->get_txt(). " Se quiere eliminar el tab '$id', pero esta no está en la pantalla actual");
+			throw new toba_error_def('El tab solicitado no existe');
 		}
 	}
 	

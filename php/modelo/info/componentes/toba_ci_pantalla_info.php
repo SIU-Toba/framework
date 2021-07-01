@@ -55,7 +55,8 @@ class toba_ci_pantalla_info implements toba_nodo_arbol, toba_meta_clase
 		if (isset($this->datos['subclase_archivo'])) {
 			$filas = $dr->tabla('pantallas')->get_id_fila_condicion(array('pantalla' => $this->datos['pantalla']), false);
 			if (count($filas) != 1) {
-				throw new toba_error_modelo("Imposible clonar subclase de pantalla {$this->datos['pantalla']}");
+				toba_logger::instancia()->error("Imposible clonar subclase de pantalla {$this->datos['pantalla']}");
+				throw new toba_error_modelo('Imposible clonar subclase de pantalla, revise el log');
 			}
 			$fila = current($filas);
 			$archivo = $this->datos['subclase_archivo'];
@@ -73,7 +74,8 @@ class toba_ci_pantalla_info implements toba_nodo_arbol, toba_meta_clase
 				toba_manejador_archivos::crear_arbol_directorios($path_destino.$dir_subclases);
 			}
 			if (! copy($path_origen.$archivo, $path_destino.$nuevo_archivo)) {
-				throw new toba_error('No es posible copiar el archivo desde '.$path_origen.$archivo.' hacia '.$path_destino.$nuevo_archivo);
+				toba_logger::instancia()->error('No es posible copiar el archivo desde '.$path_origen.$archivo.' hacia '.$path_destino.$nuevo_archivo);
+				throw new toba_error('No es posible copiar el archivo, revise el log');
 			}
 			$dr->tabla('pantallas')->set_fila_columna_valor($fila, 'subclase_archivo', $nuevo_archivo);						
 		}

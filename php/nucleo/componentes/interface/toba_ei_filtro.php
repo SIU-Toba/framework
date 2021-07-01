@@ -188,12 +188,14 @@ class toba_ei_filtro extends toba_ei
 					$validacion = $this->_columnas[$id]->validar_estado();
 					if ($validacion !== true) {
 						$etiqueta = $this->_columnas[$id]->get_etiqueta();
-						throw new toba_error_validacion($etiqueta.': '.$validacion, $this->_columnas[$id]);
+						toba_logger::instancia()->error($etiqueta.': '.$validacion, $this->_columnas[$id]);
+						throw new toba_error_validacion('Se produjo un error en la validación de la columna, revise el log');
 					}
 					$this->_columnas_datos[$id] = $this->_columnas[$id];
 				} else {
 					if ($columna->es_obligatorio()) {
-						throw new toba_error_validacion("La columna $id es obligatoria");
+						toba_logger::instancia()->info("La columna $id es obligatoria");
+						throw new toba_error_validacion("La columna es obligatoria");
 					}
 				}
 			}
@@ -467,12 +469,13 @@ class toba_ei_filtro extends toba_ei
 	function servicio__cascadas_columnas()
 	{
 		if (! isset($_GET['cascadas-col']) || ! isset($_GET['cascadas-maestros'])) {
-			throw new toba_error_seguridad("Cascadas: Invocación incorrecta");
+			throw new toba_error_seguridad('Cascadas: Invocación incorrecta');
 		}
 		toba::memoria()->desactivar_reciclado();
 		$id_columna = trim(toba::memoria()->get_parametro('cascadas-col'));		
 		if (! $this->existe_columna($id_columna)) {
-			throw new toba_error_seguridad($this->get_txt()." No existe la columna  '$id_columna'");
+			toba_logger::instancia()->error($this->get_txt()." No existe la columna  '$id_columna'");
+			throw new toba_error_seguridad(' No existe la columna indicada');
 		}
 		$maestros = array();
 		$cascadas_maestros = $this->_carga_opciones_ef->get_cascadas_maestros();
@@ -481,13 +484,15 @@ class toba_ei_filtro extends toba_ei
 			if (trim($par) != '') {
 				$param = explode("-;-", trim($par));
 				if (count($param) != 2) {
-					throw new toba_error_seguridad("Cascadas: Cantidad incorrecta de parametros ($par).");
+					toba_logger::instancia()->error("Cascadas: Cantidad incorrecta de parametros ($par).");
+					throw new toba_error_seguridad('Cascadas: parametros incorrectos.');
 				}
 				$id_col_maestro = $param[0];
 
 				//--- Verifique que este entre los maestros y lo elimina de la lista
 				if (!in_array($id_col_maestro, $ids_maestros)) {
-					throw new toba_error_seguridad("Cascadas: El ef '$id_col_maestro' no esta entre los maestros de '$id_columna'");
+					toba_logger::instancia()->error("Cascadas: El ef '$id_col_maestro' no esta entre los maestros de '$id_columna'");
+					throw new toba_error_seguridad('Cascadas: El ef no esta entre los maestros de la columna indicada, revise el log');
 				}
 				array_borrar_valor($ids_maestros, $id_col_maestro);
 
@@ -498,7 +503,8 @@ class toba_ei_filtro extends toba_ei
 				} else {
 					//--- Manejo de claves múltiples
 					if (count($valores) != count($campos)) {
-						throw new toba_error("Cascadas: El ef $id_col_maestro maneja distinta cantidad de datos que los campos pasados");
+						toba_logger::instancia()->error("Cascadas: El ef $id_col_maestro maneja distinta cantidad de datos que los campos pasados");
+						throw new toba_error('Cascadas: parametros incorrectos.');
 					}
 					$valores_clave = array();
 					for ($i=0; $i < count($campos) ; $i++) {
@@ -511,7 +517,8 @@ class toba_ei_filtro extends toba_ei
 		//--- Recorro la lista de maestros para ver si falta alguno. Permite tener ocultos como maestros
 		foreach ($ids_maestros as $id_col_maestro) {
 			if (is_null($this->columna($id_col_maestro)->get_estado())) {
-				throw new toba_error_seguridad("Cascadas: El ef maestro '$id_col_maestro' no tiene estado cargado");
+				toba_logger::instancia()->error("Cascadas: El ef maestro '$id_col_maestro' no tiene estado cargado");
+				throw new toba_error_seguridad('Cascadas: Ef maestro no cargado');
 			}
 			$maestros[$id_col_maestro] = $this->columna($id_col_maestro)->get_estado();
 		}
@@ -549,7 +556,7 @@ class toba_ei_filtro extends toba_ei
 	function servicio__filtrado_ef_ce()
 	{
 		if (! isset($_GET['filtrado-ce-ef']) || ! isset($_GET['filtrado-ce-valor'])) {
-			throw new toba_error_seguridad("Filtrado de combo editable: Invocación incorrecta");	
+			throw new toba_error_seguridad('Filtrado de combo editable: Invocación incorrecta');	
 		}
 		toba::memoria()->desactivar_reciclado();
 		$id_ef = trim(toba::memoria()->get_parametro('filtrado-ce-ef'));
@@ -564,13 +571,15 @@ class toba_ei_filtro extends toba_ei
 			if (trim($par) != '') {
 				$param = explode("-;-", trim($par));
 				if (count($param) != 2) {
-					throw new toba_error_seguridad("Filtrado de combo editable: Cantidad incorrecta de parametros ($par).");
+					toba_logger::instancia()->error("Filtrado de combo editable: Cantidad incorrecta de parametros ($par).");
+					throw new toba_error_seguridad('Filtrado de combo editable: parametros incorrectos.');
 				}
 				$id_ef_maestro = $param[0];
 
 				//--- Verifique que este entre los maestros y lo elimina de la lista
 				if (!in_array($id_ef_maestro, $ids_maestros)) {
-					throw new toba_error_seguridad("Filtrado de combo editable: El ef '$id_ef_maestro' no esta entre los maestros de '$id_ef'");
+					toba_logger::instancia()->error("Filtrado de combo editable: El ef '$id_ef_maestro' no esta entre los maestros de '$id_ef'");
+					throw new toba_error_seguridad('Filtrado de combo editable: El ef no esta entre los maestros de la columna indicada, revise el log');
 				}
 				array_borrar_valor($ids_maestros, $id_ef_maestro);
 
@@ -581,7 +590,8 @@ class toba_ei_filtro extends toba_ei
 				} else {
 					//--- Manejo de claves múltiples
 					if (count($valores) != count($campos)) {
-						throw new toba_error_def("Filtrado de combo editable: El ef $id_ef_maestro maneja distinta cantidad de datos que los campos pasados");
+						toba_logger::instancia()->error("Filtrado de combo editable: El ef $id_ef_maestro maneja distinta cantidad de datos que los campos pasados");
+						throw new toba_error_def('Filtrado de combo editable: parametros incorrectos.');
 					}
 					$valores_clave = array();
 					for ($i=0; $i < count($campos) ; $i++) {
@@ -595,7 +605,8 @@ class toba_ei_filtro extends toba_ei
 		foreach ($ids_maestros as $id_ef_maestro) {
 			$this->columna($id_ef_maestro)->cargar_estado_post();
 			if (! $this->columna($id_ef_maestro)->tiene_estado()) {
-				throw new toba_error_seguridad("Filtrado de combo editable: El ef maestro '$id_ef_maestro' no tiene estado cargado");
+				toba_logger::instancia()->error("Filtrado de combo editable: El ef maestro '$id_ef_maestro' no tiene estado cargado");
+				throw new toba_error_seguridad('Filtrado de combo editable: Ef maestro no cargado');
 			}
 			$maestros[$id_ef_maestro] = $this->columna($id_ef_maestro)->get_estado();
 		}
@@ -624,7 +635,7 @@ class toba_ei_filtro extends toba_ei
 	function servicio__filtrado_ef_ce_validar()
 	{
 		if (! isset($_GET['filtrado-ce-ef']) || ! isset($_GET['filtrado-ce-valor'])) {
-			throw new toba_error_seguridad("Validación de combo editable: Invocación incorrecta");	
+			throw new toba_error_seguridad('Validación de combo editable: Invocación incorrecta');	
 		}
 		$id_ef = trim(toba::memoria()->get_parametro('filtrado-ce-ef'));
 		$valor = trim(toba::memoria()->get_parametro('filtrado-ce-valor'));

@@ -37,7 +37,8 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		$this->instalacion = $instalacion;
 		$this->dir = $this->instalacion->get_dir() . '/' . self::dir_prefijo . $this->identificador;
 		if( ! is_dir( $this->dir ) ) {
-			throw new toba_error("INSTANCIA: La instancia '{$this->identificador}' es invalida. (la carpeta '{$this->dir}' no existe)");
+			toba_logger::instancia()->error("INSTANCIA: La instancia '{$this->identificador}' es invalida. (la carpeta '{$this->dir}' no existe)");
+			throw new toba_error('INSTANCIA: La instancia es invalida. (la carpeta correspondiente no existe) revise el log');
 		}
 		//Solo se sincronizan los SQLs
 		$this->cargar_info_ini();
@@ -66,7 +67,8 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	{
 		$archivo_ini = $this->dir . '/' . self::toba_instancia;
 		if ( ! is_file( $archivo_ini ) ) {
-			throw new toba_error("INSTANCIA: La instancia '{$this->identificador}' es invalida. (El archivo de configuracion '$archivo_ini' no existe)");
+			toba_logger::instancia()->error("INSTANCIA: La instancia '{$this->identificador}' es invalida. (El archivo de configuracion '$archivo_ini' no existe)");
+			throw new toba_error('INSTANCIA: La instancia es invalida. (El archivo de configuracion no existe) revise el log');
 		} else {
 			//--- Levanto la CONFIGURACION de la instancia
 			//  BASE
@@ -75,19 +77,22 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			$this->datos_ini = toba::config()->get_seccion('instancia');
 			toba_logger::instancia()->debug("Parametros instancia {$this->identificador}: ".var_export($this->datos_ini, true));
 			if ( ! isset( $this->datos_ini['base'] ) ) {
-				throw new toba_error("INSTANCIA: La instancia '{$this->identificador}' es invalida. (El archivo de configuracion '$archivo_ini' no posee una entrada 'base')");
+				toba_logger::instancia()->error("INSTANCIA: La instancia '{$this->identificador}' es invalida. (El archivo de configuracion '$archivo_ini' no posee una entrada 'base')");
+				throw new toba_error('INSTANCIA: La instancia es invalida. (El archivo de configuracion no posee una entrada para la base) revise el log');
 			}
 			$this->ini_base = $this->datos_ini['base'];
 			// PROYECTOS
 			if ( ! isset( $this->datos_ini['proyectos'] ) ) {
-				throw new toba_error("INSTANCIA: La instancia '{$this->identificador}' es invalida. (El archivo de configuracion '$archivo_ini' no posee una entrada 'proyectos')");
+				toba_logger::instancia()->error("INSTANCIA: La instancia '{$this->identificador}' es invalida. (El archivo de configuracion '$archivo_ini' no posee una entrada 'proyectos')");
+				throw new toba_error('INSTANCIA: La instancia es invalida. (El archivo de configuracion no posee una entrada para el proyecto) revise el log');
 			}
 			$lista_proyectos = array();
 			if (trim($this->datos_ini['proyectos']) != '') {
 				$lista_proyectos = explode(',', $this->datos_ini['proyectos'] );
 				$lista_proyectos = array_map('trim',$lista_proyectos);
 				if ( count( $lista_proyectos ) == 0 ) {
-					throw new toba_error("INSTANCIA: La instancia '{$this->identificador}' es invalida. (El archivo de configuracion '$archivo_ini' no posee proyectos asociados. La entrada 'proyectos' debe estar constituida por una lista de proyectos separados por comas)");
+					toba_logger::instancia()->error("INSTANCIA: La instancia '{$this->identificador}' es invalida. (El archivo de configuracion '$archivo_ini' no posee proyectos asociados. La entrada 'proyectos' debe estar constituida por una lista de proyectos separados por comas)");
+					throw new toba_error('INSTANCIA: La instancia es invalida. (El archivo de configuracion no posee proyectos asociados) revise el log');
 				}
 			}
 			sort($lista_proyectos);
@@ -379,7 +384,8 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			$this->generar_ini_rest($proyecto);
 			
 		} else {
-			throw new toba_error("El proyecto '$proyecto' no existe.");
+			toba_logger::instancia()->error("El proyecto '$proyecto' no existe.");
+			throw new toba_error('El proyecto solicitado no existe o no tiene acceso.');
 		}
 	}
 
@@ -734,7 +740,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 					}
 					$this->get_db()->renombrar_schema($this->get_schema_db(), $schema_backup);								
 				} else {
-					throw new toba_error_modelo_preexiste("INSTANCIA: Ya existe un modelo cargado en la base de datos.");
+					throw new toba_error_modelo_preexiste('INSTANCIA: Ya existe un modelo cargado en la base de datos.');
 				}
 			}
 			$this->crear_schema();			
@@ -776,7 +782,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			if ( $forzar_carga ) {
 				$this->eliminar_tablas_minimas();
 			} else {
-				throw new toba_error_modelo_preexiste("INSTANCIA: Ya existe un modelo cargado en la base de datos.");
+				throw new toba_error_modelo_preexiste('INSTANCIA: Ya existe un modelo cargado en la base de datos.');
 			}
 		}
 		try {
@@ -1059,7 +1065,8 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		try {
 			$path = $path_origen.'/instalacion/'.self::dir_prefijo.$instancia_origen;
 			if (! file_exists($path)) {
-				throw new toba_error("No existe la carpeta $path");
+				toba_logger::instancia()->error("No existe la carpeta $path");
+				throw new toba_error('No existe la carpeta en la instalacion origen, revise el log');
 			}
 			$subdirs = toba_manejador_archivos::get_subdirectorios($path);
 			$proyectos = $this->get_lista_proyectos_vinculados();
