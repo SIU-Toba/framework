@@ -30,7 +30,7 @@ class toba_escapador extends Escaper
 				}
 			}
 		} else {
-			$resultado = parent::escapeHtml($input);
+			$resultado = parent::escapeHtml((null !== $input) ? $input: '');
 		}
 		return  $resultado;
 	}
@@ -47,19 +47,19 @@ class toba_escapador extends Escaper
 				}
 			}
 		} else {
-			$resultado = (isset($this->_es_editor) && ($this->_es_editor === true)) ? $input: parent::escapeHtmlAttr($input);
+			$resultado = (isset($this->_es_editor) && ($this->_es_editor === true)) ? $input: parent::escapeHtmlAttr((null !== $input) ? $input: '');
 		}
 		return  $resultado;
 	}
 	
 	function escapeCss($texto)
 	{
-		return (isset($this->_es_editor) && ($this->_es_editor === true)) ? $texto: parent::escapeCss($texto);
+		return (isset($this->_es_editor) && ($this->_es_editor === true)) ? $texto: parent::escapeCss((null !== $texto) ? $texto: '');
 	}
 	
 	function escapeJs($texto)
 	{
-		return (isset($this->_es_editor) && ($this->_es_editor === true)) ? $texto: parent::escapeJs($texto);
+		return (isset($this->_es_editor) && ($this->_es_editor === true)) ? $texto: parent::escapeJs((null !== $texto) ? $texto: '');
 	}
 	
 	function quitar_tags($input)
