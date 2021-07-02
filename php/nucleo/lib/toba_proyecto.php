@@ -70,7 +70,8 @@ class toba_proyecto
 	{
 		if (! in_array($proyecto, toba::instancia()->get_id_proyectos())) {		//El proyecto no existe o no esta cargado en la instancia
 			if (! toba::instalacion()->es_produccion()) {
-				throw new toba_error("El proyecto '".$proyecto."' no se encuentra cargado en la instancia");
+				toba_logger::instancia()->error("El proyecto '".$proyecto."' no se encuentra cargado en la instancia");
+				throw new toba_error('El proyecto no se encuentra cargado en la instancia');
 			} else {
 				die;		//En produccion no se loguea nada, se mata inmediatamente el proceso
 			}

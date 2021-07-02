@@ -567,7 +567,7 @@ class toba_instancia
 			$id = $this->get_db()->sentencia_preparar($sql);
 			$this->get_db()->sentencia_ejecutar($id, array('usuario'=>$usuario,'ip'=>$ip,'texto'=>$texto));
 		} catch ( toba_error_db $e) {
-			throw new toba_error('Error');
+			throw new toba_error('Error!');
 		}
 	}
 
