@@ -57,7 +57,8 @@ class arbol_perfiles_funcionales extends toba_ei_arbol
 			if (isset($this->ids[$id_nodo])) {
 				$clase = get_class($nodo);
 				$clase_vieja = $this->ids[$id_nodo];
-				throw new toba_error("Error al procesar el nodo '$id_nodo' de clase '$clase'. Ya existe el mismo id de clase '$clase_vieja'");
+				toba_logger::instancia()->error("Error al procesar el nodo '$id_nodo' de clase '$clase'. Ya existe el mismo id de clase '$clase_vieja'");
+				throw new toba_error('Error al procesar el nodo. Ya existe el mismo id, revise el log');
 			}
 			$this->ids[$id_nodo] = get_class($nodo);
 		}
