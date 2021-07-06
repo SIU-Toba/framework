@@ -70,7 +70,7 @@ class rest_arai_usuarios
 			$msg .= Psr7\str($e->getResponse()) . PHP_EOL;
 		}
 		toba_logger::instancia()->error($msg);
-		throw new toba_error(toba::escapador()->escapeJs($msg));
+		throw new toba_error(toba::escaper()->escapeJs($msg));
 	}
 	
 	public function get_usuarios($filtro=array(), $excluir_aplicacion = null)
@@ -97,7 +97,7 @@ class rest_arai_usuarios
 		} catch (RequestException $e) {
 			$this->manejar_excepcion_request($e);
 		} catch (Exception $e) {
-			throw new toba_error(toba::escapador()->escapeJs($e));
+			throw new toba_error(toba::escaper()->escapeJs($e));
 		}
 		return $datos;		
 	}
@@ -115,7 +115,7 @@ class rest_arai_usuarios
 		} catch (RequestException $e) {
 			$this->manejar_excepcion_request($e);
 		} catch (Exception $e) {
-			throw new toba_error(toba::escapador()->escapeJs($e));
+			throw new toba_error(toba::escaper()->escapeJs($e));
 		}
 		return $datos;		
 	}
@@ -132,7 +132,7 @@ class rest_arai_usuarios
 			if ($e->getCode() == 404) { return array();	}
 			$this->manejar_excepcion_request($e);
 		} catch (Exception $e) {
-			throw new toba_error(toba::escapador()->escapeJs($e));
+			throw new toba_error(toba::escaper()->escapeJs($e));
 		}
 		return $datos;	
 	}
@@ -148,7 +148,7 @@ class rest_arai_usuarios
 		} catch (RequestException $e) {
 			$this->manejar_excepcion_request($e);
 		} catch (Exception $e) {
-			throw new toba_error(toba::escapador()->escapeJs($e));
+			throw new toba_error(toba::escaper()->escapeJs($e));
 		}
 		return $datos;		
 	}
@@ -163,7 +163,7 @@ class rest_arai_usuarios
 		} catch (RequestException $e) {
 			$this->manejar_excepcion_request($e);
 		} catch (Exception $e) {
-			throw new toba_error(toba::escapador()->escapeJs($e));
+			throw new toba_error(toba::escaper()->escapeJs($e));
 		}
 	}
 	
