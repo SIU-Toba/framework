@@ -63,9 +63,9 @@ class toba_solicitud_web extends toba_solicitud
 				$mensaje_debug = null;
 				$escaper = toba::escaper();				
 				if (toba::logger()->modo_debug()) {
-					$mensaje_debug = $escaper->escapeHtml($e->get_mensaje_log());
+					$mensaje_debug = $escaper->escapeJs($e->get_mensaje_log());
 				}				
-				toba::notificacion()->error($escaper->escapeHtml($e->get_mensaje()), $mensaje_debug);
+				toba::notificacion()->error($escaper->escapeJs($e->get_mensaje()), $mensaje_debug);
 				toba::notificacion()->mostrar();
 			}
 		}
