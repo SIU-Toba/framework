@@ -65,7 +65,9 @@ class ci_editor extends toba_ci
 		if ($datos['clave'] == self::clave_falsa ) {
 			unset($datos['clave']);
 		} else {						//Chequeamos que la composicion de la clave sea valida
-			toba_usuario::verificar_composicion_clave($datos['clave'], $largo_clave);
+			if (! toba::instalacion()->usa_2FA() || ! toba::instalacion()->vincula_arai_usuarios() || $datos['pide_2do_factor'] == 1) {	
+				toba_usuario::verificar_composicion_clave($datos['clave'], $largo_clave);
+			} 
 		}
 
 		if (! isset($datos['autentificacion'])) {
@@ -84,20 +86,22 @@ class ci_editor extends toba_ci
 		$largo_clave = toba_parametros::get_largo_pwd(null);							//Como aun no se sobre que proyecto trabajo.. el largo es el por defecto, osea 8.
 		$form->ef('clave')->set_expreg(toba_usuario::get_exp_reg_pwd($largo_clave));
 		$form->ef('clave')->set_descripcion("La clave debe tener al menos $largo_clave caracteres, entre letras mayúsculas, minúsculas, números y símbolos, no pudiendo repetir caracteres adyacentes");
-
+		$form->ef('clave')->set_obligatorio(true);
+	
 		// obtengo los datos de arai-usuarios
 		$datos = gestion_arai_usuarios::get_datos($datos);
 
 		// quito los campos que no se utilizan cuando esta vinculado con arai-usuarios y ademas usa 2FA
-                if (toba::instalacion()->vincula_arai_usuarios()) {
-                    $efs = array('usuario', 'nombre', 'email', 'clave', 'forzar_cambio_pwd', 'vencimiento', 'pide_2do_factor');
-                    if (toba::instalacion()->usa_2FA()) {
-                        $efs = array_diff($efs, ['clave', 'pide_2do_factor']);
-                    }
-                } else {
-                    $efs = array('usuario_arai', 'cuenta', 'pide_2do_factor');
-                }
-                $form->desactivar_efs($efs);
+		if (toba::instalacion()->vincula_arai_usuarios()) {
+			$efs = array('usuario', 'nombre', 'email', 'clave', 'forzar_cambio_pwd', 'vencimiento', 'pide_2do_factor');
+			if (toba::instalacion()->usa_2FA()) {
+				$efs = array_diff($efs, ['clave', 'pide_2do_factor']);
+				$form->ef('clave')->set_obligatorio(false);
+			}
+		} else {
+			$efs = array('usuario_arai', 'cuenta', 'pide_2do_factor');
+		}		
+		$form->desactivame_campos($efs);
 		return $datos;
 	}
 
