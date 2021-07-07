@@ -68,6 +68,7 @@ class rest_arai_usuarios
 		if ($e->hasResponse()) {
 			$msg .= Psr7\str($e->getResponse()) . PHP_EOL;
 		}
+		toba_logger::instancia()->error($msg);
 		throw new toba_error($msg);
 	}
 	

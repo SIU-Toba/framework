@@ -529,7 +529,7 @@ class toba_mc_comp__2185
       'identificador' => 'clave',
       'elemento_formulario' => 'ef_editable_clave',
       'columnas' => 'clave',
-      'obligatorio' => 1,
+      'obligatorio' => 0,
       'oculto_relaja_obligatorio' => 0,
       'orden' => '6',
       'etiqueta' => 'Clave',
