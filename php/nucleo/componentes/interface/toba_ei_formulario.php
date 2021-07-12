@@ -788,7 +788,7 @@ class toba_ei_formulario extends toba_ei
 		$fila_actual = trim(toba::memoria()->get_parametro('cascadas-fila'));
 		$maestros = array();
 		$cascadas_maestros = $this->_carga_opciones_ef->get_cascadas_maestros();
-		$ids_maestros = $cascadas_maestros[$id_ef];
+		$ids_maestros = (!isset($cascadas_maestros[$id_ef]) || !is_array($cascadas_maestros[$id_ef])) ? [] : $cascadas_maestros[$id_ef];
 		foreach (explode('-|-', toba::memoria()->get_parametro('cascadas-maestros')) as $par) {
 			if (trim($par) != '') {
 				$param = explode("-;-", trim($par));
@@ -876,14 +876,17 @@ class toba_ei_formulario extends toba_ei
 			throw new toba_error_seguridad('Filtrado de combo editable: Invocación incorrecta');	
 		}
 		toba::memoria()->desactivar_reciclado();
-		$id_ef = trim(toba::memoria()->get_parametro('filtrado-ce-ef'));
+		$id_ef = trim(toba::memoria()->get_parametro('filtrado-ce-ef'));		
+		if (! $this->existe_ef($id_ef)) {
+			toba_logger::instancia()->error($this->get_txt()." No existe ef '$id_ef'");
+			throw new toba_error_seguridad(' No existe el ef indicado');
+		}
+
 		$filtro = trim(toba::memoria()->get_parametro('filtrado-ce-valor'));
 		$fila_actual = trim(toba::memoria()->get_parametro('filtrado-ce-fila'));
-
-		//--- Resuelve la cascada
-		$maestros = array($id_ef => $filtro);
+		$maestros = array($id_ef => $filtro);		
 		$cascadas_maestros = $this->_carga_opciones_ef->get_cascadas_maestros();
-		$ids_maestros = $cascadas_maestros[$id_ef];
+		$ids_maestros = (!isset($cascadas_maestros[$id_ef]) || !is_array($cascadas_maestros[$id_ef])) ? [] : $cascadas_maestros[$id_ef];
 		foreach (explode('-|-', toba::memoria()->get_parametro('cascadas-maestros')) as $par) {
 			if (trim($par) != '') {
 				$param = explode("-;-", trim($par));
@@ -964,11 +967,12 @@ class toba_ei_formulario extends toba_ei
 		$valor = trim(toba::memoria()->get_parametro('filtrado-ce-valor'));
 		//$fila_actual = trim(toba::memoria()->get_parametro('filtrado-ce-fila'));
 
+		$escaper = toba::escaper();
 		$descripcion = $this->_carga_opciones_ef->ejecutar_metodo_carga_descripcion_ef($id_ef, $valor);
-		$estado = array($valor => $descripcion);
+		$estado = array($escaper->escapeJs($valor) => $escaper->escapeJs($descripcion));
 		
 		//--- Se arma la respuesta en formato JSON
-		$json = new Services_JSON();
+		$json = new Services_JSON();		
 		echo $json->encode($estado);
 	}
 	
