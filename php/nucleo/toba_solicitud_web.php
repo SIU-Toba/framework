@@ -61,11 +61,11 @@ class toba_solicitud_web extends toba_solicitud
 			}catch(toba_error $e) {
 				toba::logger()->error($e, 'toba');
 				$mensaje_debug = null;
-				$escaper = toba::escaper();				
+				//La notificacion se escapa... hacerlo previamente seria doble escapado
 				if (toba::logger()->modo_debug()) {
-					$mensaje_debug = $escaper->escapeJs($e->get_mensaje_log());
+					$mensaje_debug = $e->get_mensaje_log();
 				}				
-				toba::notificacion()->error($escaper->escapeJs($e->get_mensaje()), $mensaje_debug);
+				toba::notificacion()->error($e->get_mensaje(), $mensaje_debug);
 				toba::notificacion()->mostrar();
 			}
 		}
