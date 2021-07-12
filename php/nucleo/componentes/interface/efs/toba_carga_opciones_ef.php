@@ -69,6 +69,9 @@ class toba_carga_opciones_ef
 	 */
 	function ef_tiene_maestros_seteados($id_ef)
 	{
+		if (!array_key_exists($id_ef, $this->_efs) || !isset($this->_cascadas_maestros[$id_ef])) {
+			return false;
+		}
 		foreach ($this->_cascadas_maestros[$id_ef] as $maestro) {
 			if (! $this->_efs[$maestro]->tiene_estado()) {
 				return false;
@@ -133,18 +136,22 @@ class toba_carga_opciones_ef
 	 */
 	protected function ef_requiere_carga($id_ef)
 	{
-		return 
-			isset($this->_parametros_carga_efs[$id_ef]['carga_metodo'])
+		return array_key_exists($id_ef, $this->_efs)
+			&& (isset($this->_parametros_carga_efs[$id_ef]['carga_metodo'])
 			|| isset($this->_parametros_carga_efs[$id_ef]['carga_lista'])
 			|| isset($this->_parametros_carga_efs[$id_ef]['carga_sql'])
-			|| isset($this->_parametros_carga_efs[$id_ef]['popup_carga_desc_metodo']);
+			|| isset($this->_parametros_carga_efs[$id_ef]['popup_carga_desc_metodo']));
 	}
 	
 	/**
 	 * @ignore 
 	 */
 	function ejecutar_metodo_carga_ef($id_ef, $maestros = array())
-	{
+	{				
+		if (!array_key_exists($id_ef, $this->_efs) || !isset($this->_parametros_carga_efs[$id_ef]) || !isset($this->_efs[$id_ef])) {
+			toba_logger::instancia()->error('Se intenta cargar la cascada de un ef inexistente: '. $id_ef);
+			throw new toba_error_def('No está definido un método de carga. Revise el log');
+		}
 		$parametros = $this->_parametros_carga_efs[$id_ef];
 		$seleccionable = $this->_efs[$id_ef]->es_seleccionable();
 		
@@ -229,6 +236,9 @@ class toba_carga_opciones_ef
 	 */
 	function ejecutar_metodo_carga_descripcion_ef($id_ef, $maestros = array())
 	{
+		if (!array_key_exists($id_ef, $this->_efs)) {
+			return '';
+		}
 		$parametros = $this->_parametros_carga_efs[$id_ef];
 		$parametros['carga_metodo'] = $parametros['popup_carga_desc_metodo'];		
 		$parametros['carga_clase'] = $parametros['popup_carga_desc_clase'];
@@ -363,6 +373,9 @@ class toba_carga_opciones_ef
 	 */
 	function quitar_ef($ef)
 	{
+		if (! array_key_exists($ef, $this->_efs)) {
+			return;
+		}
 		$esclavos = (isset($this->_cascadas_esclavos[$ef])) ? $this->_cascadas_esclavos[$ef]: array();
 		foreach($esclavos as $ef_esclavo){
 			if (isset($this->_efs[$ef_esclavo])){
