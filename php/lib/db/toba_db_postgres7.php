@@ -1204,7 +1204,7 @@ class toba_db_postgres7 extends toba_db
 		exec($comando, $tabla, $exito);
 		if ($exito > 0) {
 			$this->log("Error ejecutando pg_dump. Comando ejecutado: $comando", 'error');
-			throw new toba_error('Error obteniendo el dump, revise el log');
+			throw new toba_error('No se pudo generar el dump');
 		}
 
 		$tabla = $this->pgdump_limpiar($tabla);
