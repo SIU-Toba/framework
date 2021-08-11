@@ -109,7 +109,7 @@ class toba_manejador_sesiones
 		// Se recarga el nucleo, esta vez sobre una sesion activa.
 		if (toba::nucleo()->solicitud_en_proceso()) {
 			if (PHP_SAPI != 'cli') {
-				session_regenerate_id();
+				session_regenerate_id(true);
 			}
 			throw new toba_reset_nucleo('INICIAR SESION... recargando el nucleo.');
 		}
@@ -191,7 +191,7 @@ class toba_manejador_sesiones
 		$this->procesar_acceso_proyecto($datos_iniciales);
 		if (toba::nucleo()->solicitud_en_proceso()) {
 			if (PHP_SAPI != 'cli') {
-				session_regenerate_id();
+				session_regenerate_id(true);
 			}
 			throw new toba_reset_nucleo('INICIAR SESION PROYECTO... recargando el nucleo.');
 		}
