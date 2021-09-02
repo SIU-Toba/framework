@@ -195,7 +195,8 @@ class toba_usuario_basico extends toba_usuario
 	{
 		$parametro = strtolower(trim($parametro));
 		if ( !($parametro=='a'||$parametro=='b'||$parametro=='c') ) {
-			throw new toba_error("Consulta de parametro de usuario: El parametro '$parametro' es invalido.");
+			toba::logger()->error("Consulta de parametro de usuario: El parametro '$parametro' es invalido.");
+			throw new toba_error('Consulta de parametro de usuario: El parametro no se encuentra o es invalido, revise el log.');
 		}
 		//Las opciones correctas son 'a','b' o 'c'
 		$nombre_parametro = 'parametro_'. $parametro;

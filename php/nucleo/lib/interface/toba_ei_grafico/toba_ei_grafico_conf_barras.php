@@ -29,7 +29,7 @@ class toba_ei_grafico_conf_barras extends toba_ei_grafico_conf_especifico
 	function serie__agregar($id, $datos)
 	{
 		if (count($this->series) > 0) {
-			throw new toba_error("Los gráficos de barras soportan sólo una serie");
+			throw new toba_error('Los gráficos de barras soportan sólo una serie');
 		}
 
 		parent::serie__agregar($id, $datos);

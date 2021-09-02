@@ -113,7 +113,7 @@ class ci_auditoria extends toba_ci
 			$db = $this->get_db();
 			$auditoria = $db->get_manejador_auditoria();
 			if (is_null($auditoria)) {
-				throw toba_error_db('No existe manejador de auditoria para este motor de bd');
+				throw new toba_error_db('No existe manejador de auditoria para este motor de bd');
 			}
 			$clase = get_class($auditoria);
 			$campos_propios = call_user_func(array($clase, 'get_campos_propios'));

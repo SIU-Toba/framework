@@ -65,7 +65,7 @@ class toba_planificador_tareas
 		$mensaje_debug = "[Programador de Tareas] Tarea $id_tarea desprogramada";
 		toba::logger()->debug($mensaje_debug);	
 		if (isset($manejador_interface)) {
-			$manejador_interface->mensaje($mensaje_debug);
+			$manejador_interface->mensaje('[Programador de Tareas] Tarea solicitada desprogramada');
 		}
 	}
 	
@@ -128,7 +128,8 @@ class toba_planificador_tareas
 		";
 		$datos = $db->consultar_fila($sql);
 		if ($datos === false) {
-			throw new toba_error("[Programador de Tareas] No existe una tarea programada con id '{$datos['tarea']}' en el proyecto '{$this->proyecto}'");
+			toba_logger::instancia()->error("[Programador de Tareas] No existe una tarea programada con id '{$datos['tarea']}' en el proyecto '{$this->proyecto}'");
+			throw new toba_error('[Programador de Tareas] No existe una tarea programada en el proyecto actual, revise el log');
 		}
 		
 		//-- Ejecuta el objeto tarea
@@ -137,7 +138,7 @@ class toba_planificador_tareas
 			$mensaje_debug = "[Programador de Tareas] Error al deserializar tarea '{$datos['tarea']}' con clase '{$datos['clase']}' en el proyecto '{$this->proyecto}'";
 			toba::logger()->error($mensaje_debug);
 			if (isset($manejador_interface)) {
-				$manejador_interface->error($mensaje_debug);
+				$manejador_interface->error('[Programador de Tareas] Error al deserializar tarea en el proyecto actual, revise el log');
 			}
 		} else {
 			$tarea->ejecutar();
@@ -164,7 +165,7 @@ class toba_planificador_tareas
 		$mensaje_debug = "[Programador de Tareas] Ejecutada tarea $id:{$datos['nombre']} de clase '{$datos['tarea_clase']}' en el proyecto '{$this->proyecto}'";
 		toba::logger()->debug($mensaje_debug);		
 		if (isset($manejador_interface)) {
-			$manejador_interface->mensaje($mensaje_debug);
+			$manejador_interface->mensaje('[Programador de Tareas] Ejecutada tarea en el proyecto actual, para mas información revise el log');
 		}		
 		
 		$sql = "INSERT INTO $schema_log.apex_log_tarea (proyecto, tarea, nombre, tarea_clase, tarea_objeto, ejecucion)
@@ -212,7 +213,7 @@ class toba_planificador_tareas
 		$mensaje = "[Programador de Tareas] Tarea $tarea reprogamada al {$rs['proxima']}";
 		toba::logger()->debug($mensaje);
 		if (isset($manejador_interface)) {
-			$manejador_interface->mensaje($mensaje);
+			$manejador_interface->mensaje("[Programador de Tareas] Tarea reprogamada al {$rs['proxima']}, revise el log");
 		}
 		
 	}

@@ -69,7 +69,7 @@ class toba_ei_archivos extends toba_ei
 						//--- Chequeo de seguridad
 						if (isset($this->_path_absoluto)) {
 							if (strpos(realpath($seleccion), realpath($this->_path_absoluto)) !== 0) {
-							   throw new toba_error_seguridad("El path es invalido");
+							   throw new toba_error_seguridad('El path es invalido');
 							}				
 						}
 						$this->_dir_actual = toba_manejador_archivos::path_a_unix(realpath($seleccion));
@@ -133,7 +133,8 @@ class toba_ei_archivos extends toba_ei
 			if ( strpos($nombre,$char) !== false ) {
 				$invs = array_map('addslashes',$this->_caracteres_invalidos_nombres);
 				$invs = implode(', ', $invs);
-				throw new toba_error_validacion("El nombre $nombre posee caracteres invalidos ($invs)");
+				toba_logger::instancia()->error("El nombre $nombre posee caracteres invalidos ($invs)");
+				throw new toba_error_validacion('El nombre no es válido, revise el log');
 			}				
 		}
 	}	

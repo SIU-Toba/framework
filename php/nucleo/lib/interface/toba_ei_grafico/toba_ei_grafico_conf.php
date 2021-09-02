@@ -25,7 +25,7 @@ class toba_ei_grafico_conf
 	function canvas()
 	{
 		if (!isset($this->canvas)) {
-			throw new toba_error("No hay ningún canvas seteado");
+			throw new toba_error('No hay ningún canvas seteado');
 		}
 
 		return $this->canvas;
@@ -38,7 +38,7 @@ class toba_ei_grafico_conf
 	function imagen__generar($path)
 	{
 		if (!isset($this->canvas)) {
-			throw new toba_error("Generación de imágen: No hay ningún canvas seteado");
+			throw new toba_error('Generación de imágen: No hay ningún canvas seteado');
 		}
 		// escribimos la imagen a un archivo
 		$this->canvas->Stroke($path);

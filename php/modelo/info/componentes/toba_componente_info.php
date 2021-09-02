@@ -213,7 +213,8 @@ abstract class toba_componente_info implements toba_nodo_arbol, toba_meta_clase
 				toba_manejador_archivos::crear_arbol_directorios($path_destino.$dir_subclases);
 			}
 			if (! copy($path_origen.$archivo, $path_destino.$nuevo_archivo)) {
-				throw new toba_error('No es posible copiar el archivo desde '.$path_origen.$archivo.' hacia '.$path_destino.$nuevo_archivo);
+				toba_logger::instancia()->error('No es posible copiar el archivo desde '.$path_origen.$archivo.' hacia '.$path_destino.$nuevo_archivo);
+				throw new toba_error('No es posible copiar el archivo, revise el log');
 			}				
 		}
 	}

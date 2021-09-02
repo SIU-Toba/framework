@@ -33,7 +33,8 @@ class toba_instalacion
 		if(!$this->memoria || $recargar) {
 			$archivo = toba::nucleo()->toba_instalacion_dir() . '/instalacion.ini';
 			if (! file_exists($archivo)) {
-					throw new toba_error('No fue posible encontrar la instalacion', "El archivo instalacion.ini no se encuentra en la ruta : $archivo" );
+				toba_logger::instancia()->error("No se encontro la instalacion. El archivo instalacion.ini no se encuentra en la ruta : $archivo");
+				throw new toba_error('No fue posible encontrar la instalacion', 'El archivo instalacion.ini no se encuentra en la ruta');
 			}
 			$this->memoria = toba::config()->get_seccion('instalacion');
 		}
@@ -217,11 +218,13 @@ class toba_instalacion
 		}
 		$path_ini_smtp = toba::nucleo()->toba_instalacion_dir().'/smtp.ini';
 		if (! file_exists($path_ini_smtp)) {								//Ver si se puede reemplazar por algun checkeo sobre secciones o algo.
-			throw new toba_error("No existe el archivo '$path_ini_smtp'");
+			toba_logger::instancia()->error("No existe el archivo '$path_ini_smtp'");
+			throw new toba_error('No existe el archivo smtp.ini en la ruta esperada');
 		}
 		$conf = (is_null($nombre_config)) ? $this->memoria['smtp']: $nombre_config;
 		if (! toba::config()->existe_valor('smtp', null, $conf)) {
-			throw new toba_error("No existe la entrada '$conf' el archivo '$path_ini_smtp'");
+			toba_logger::instancia()->error("No existe la entrada '$conf' el archivo '$path_ini_smtp'");
+			throw new toba_error('No existe la entrada para la config solicitada en el archivo stmp.ini');
 		}
 		return toba::config()->get_subseccion('smtp', $conf);
 	}

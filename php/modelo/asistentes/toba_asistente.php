@@ -233,7 +233,8 @@ abstract class toba_asistente
 		if (isset($this->retorno_opciones_generacion[$opcion])) {
 			return $this->retorno_opciones_generacion[$opcion];
 		} else {
-			throw new toba_error_asistentes("ASISTENTE: La opcion de generacion '$opcion' no existe!");	
+			toba_logger::instancia()->error("ASISTENTE: La opcion de generacion '$opcion' no existe!");
+			throw new toba_error_asistentes('ASISTENTE: La opcion indicada no existe!');	
 		}
 	}
 
@@ -315,7 +316,8 @@ abstract class toba_asistente
 						break;
 						
 					default:
-						throw new toba_error('No esta definida la acción para el método de carga '.$fila['ef_carga_origen']);
+						toba_logger::instancia()->error('No esta definida la acción para el método de carga '.$fila['ef_carga_origen']);
+						throw new toba_error('No esta definida la acción para el método de carga, revise el log ');
 				}
 			}
 			//Procesar en JAVASCRIPT?

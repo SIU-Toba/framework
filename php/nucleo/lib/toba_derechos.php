@@ -54,7 +54,8 @@ class toba_derechos
 		//No tiene el permiso, tratar de ver si el permiso existe y cuales son sus datos
 		$rs = toba::proyecto()->get_descripcion_permiso($derecho);
 		if 	(empty($rs)) {
-			throw new toba_error_def("El permiso '$derecho' no se encuentra definido en el sistema.");
+			toba_logger::instancia()->error("El permiso '$derecho' no se encuentra definido en el sistema.");
+			throw new toba_error_def('Error recuperando el permiso del sistema.');
 		}
 		if (! $lanzar_excepcion) {
 			return false;
@@ -64,7 +65,8 @@ class toba_derechos
 			} else {
 				$usuario = toba::usuario()->get_id();
 				$descripcion = isset($rs['descripcion']) ? $rs['descripcion'] : $derecho;
-				throw new toba_error_permisos("El usuario $usuario no posee el derecho '$descripcion'");
+				toba_logger::instancia()->error("El usuario $usuario no posee el derecho '$descripcion'");
+				throw new toba_error_permisos('El usuario no existe o no posee el derecho solicitado');
 			}
 		}
 	}

@@ -87,11 +87,13 @@ class toba_puntos_control
 		$data =& $this->get_bloque();
 
 		if (! \array_key_exists($punto_control, $data)) {
-			throw new toba_error("El punto de control '$punto_control' no está definido.");
+			toba::logger()->error("El punto de control '$punto_control' no está definido.");
+			throw new toba_error('El punto de control no está definido, revise el log.');
 		 }
 
 		if (! \array_key_exists($parametro, $data[$punto_control]['parametros'])) {
-			throw new toba_error("El parametro '$parametro' del punto de control '$punto_control' no está definido.");
+			toba::logger()->error("El parametro '$parametro' del punto de control '$punto_control' no está definido.");
+			throw new toba_error('El parametro indicado para el punto de control no está definido, revise el log.');
 		}
 		$data[$punto_control]['parametros'][$parametro] = $valor;
 	}
@@ -156,7 +158,8 @@ class toba_puntos_control
 	{
 		$data =& $this->get_bloque();
 		if (! \array_key_exists($punto_control, $data)) {
-			throw new toba_error("El punto de control '$punto_control' no está definido.");
+			toba::logger()->error("El punto de control '$punto_control' no está definido.");
+			throw new toba_error('El punto de control no está definido, revise el log.');			
 		}
 		return $data[$punto_control]['controles'];
 	}
@@ -187,10 +190,12 @@ class toba_puntos_control
 	{
 		$data =& $this->get_bloque();
 		if (! \array_key_exists($punto_control, $data)) {
-			throw new toba_error("El punto de control '$punto_control' no está definido.");
+			toba::logger()->error("El punto de control '$punto_control' no está definido.");
+			throw new toba_error('El punto de control no está definido, revise el log.');
 		}
 		if (! \array_key_exists(get_class($control), $data[$punto_control]['controles'])) {
-			throw new toba_error("El control '$control' no está definido en el punto de control '$punto_control' .");
+			toba::logger()->error("El control '$control' no está definido en el punto de control '$punto_control' .");
+			throw new toba_error("El control indicado no pertenece o no está definido en el punto de control.");
 		}
 		$data[$punto_control]['controles'][get_class($control)]['resultado'] = $control->get_resultado();
 		$this->set_resultado($control);
@@ -269,10 +274,12 @@ class toba_puntos_control
 		// Recupero bloque de datos
 		$data =& $this->get_bloque();
 		if (! \array_key_exists($punto_control, $data)) {
-			throw new toba_error("El punto de control '$punto_control' no está definido.");
+			toba::logger()->error("El punto de control '$punto_control' no está definido.");
+			throw new toba_error('El punto de control no está definido, revise el log.');
 		}
 		if (!is_array($data[$punto_control]['parametros'])) {
-			throw new toba_error("Los parametros de '$punto_control' no están definidos.");
+			toba::logger()->error("Los parametros de '$punto_control' no están definidos.");
+			throw new toba_error("Los parametros del punto de control no están definidos.");
 		}
 		return $data[$punto_control]['parametros'];
 	}
@@ -304,10 +311,12 @@ class toba_puntos_control
 		// Recupero bloque de datos
 		$data =& $this->get_bloque();
 		if (! \array_key_exists($punto_control, $data)) {
-			throw new toba_error("El punto de control '$punto_control' no está definido.");
+			toba::logger()->error("El punto de control '$punto_control' no está definido.");
+			throw new toba_error('El punto de control no está definido, revise el log.');
 		 }
 		if (! \array_key_exists($control, $data[$punto_control]['controles'])) {
-			throw new toba_error("El control '$control' no está definido en el punto de control '$punto_control' .");
+			toba::logger()->error("El control '$control' no está definido en el punto de control '$punto_control' .");
+			throw new toba_error('El control solicitado no está definido en el punto de control.');
 		}
 		return $data[$punto_control]['controles'][$control]['actua_como'];
 	}
@@ -367,9 +376,10 @@ class toba_puntos_control
 
 		if (! $this->get_resultado()) {
 			if ($this->get_actua_como() == 'E') {
-				throw new toba_error("ERROR: " . $this->get_mensaje() . "</ul>");
+				toba::logger()->error('ERROR: ' . $this->get_mensaje() . '</ul>');
+				throw new toba_error('ERROR: Se produjo un error al ejecutar el punto de control, revise el log </ul>');
 			} else {
-				toba::notificacion()->agregar("MENSAJE:	" . $this->get_mensaje() . "</ul>");
+				toba::notificacion()->agregar('MENSAJE:	' . toba::escaper()->escapeHtml($this->get_mensaje()) . '</ul>');
 			}
 		}
 	}

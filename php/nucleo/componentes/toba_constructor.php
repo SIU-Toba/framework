@@ -62,7 +62,8 @@ class toba_constructor
 		} elseif (is_null($datos['basica']['carpeta']) || $datos['basica']['carpeta'] != '1')  {					//**** Creacion de ITEMS
 			$clase = "toba_solicitud_".$datos['basica']['item_solic_tipo'];
 		} else {
-			throw new toba_error_seguridad('La operación invocada no existe: ' . var_export($id, true));
+			toba_logger::instancia()->error('La operación invocada no existe: ' . var_export($id, true));
+			throw new toba_error_seguridad('La operación invocada no existe o no se encontro, revise el log ');
 		}
 		return array($tipo, $clase, $datos);		
 	}
@@ -81,7 +82,9 @@ class toba_constructor
 				$clase_actual = get_class($objeto);
 				$clase_requerida = $datos['_info']['clase'];
 				$componente = $datos['_info']['objeto'];
-				throw new toba_error_def("La sublcase '$clase_actual' del componente '$componente' debe heredar de la clase '$clase_requerida'");
+				
+				toba_logger::instancia()->error("La sublcase '$clase_actual' del componente '$componente' debe heredar de la clase '$clase_requerida'");
+				throw new toba_error_def('La sublcase no hereda de la clase requerida, revise el log');
 			}
 			self::$objetos_runtime_instanciados[ $id['componente'] ][] = $objeto;
 			if (isset($datos['_const_instancia_numero'])) {
@@ -144,7 +147,8 @@ class toba_constructor
 		if ( isset(self::$objetos_runtime_instanciados[$id['componente']]) && ! empty(self::$objetos_runtime_instanciados[$id['componente']])) {
 			return self::$objetos_runtime_instanciados[$id['componente']][$numero_instancia];
 		} else {
-			throw new toba_error_def("El objeto '{$id['componente']}' no fue instanciado");	
+			toba_logger::instancia()->error("El objeto '{$id['componente']}' no fue instanciado");
+			throw new toba_error_def('El objeto no existe o no fue instanciado, revise el log');				
 		}
 	}
 	
@@ -174,7 +178,8 @@ class toba_constructor
 		if(! is_array($clave_componente) 
 			|| !isset($clave_componente['componente']) 
 			|| !isset($clave_componente['proyecto']) ) {
-			throw new toba_error_def("La clave utilizada para invocar el componente no es valida: ".var_export($clave_componente, true));	
+			toba_logger::instancia()->error('La clave utilizada para invocar el componente no es valida: '.var_export($clave_componente, true));
+			throw new toba_error_def('La clave utilizada para el componente no es valida o no se encontro, revise el log');	
 		}
 	}
 	

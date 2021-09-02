@@ -352,7 +352,8 @@ class toba_datos_relacion extends toba_componente
 		if($this->existe_tabla($tabla)){
 			return $this->_dependencias[$tabla];
 		}else{
-			throw new toba_error_def("El datos_tabla '$tabla' solicitado no existe.");
+			toba_logger::instancia()->error("El datos_tabla '$tabla' solicitado no existe.");
+			throw new toba_error_def('El datos_tabla solicitado no existe o no esta asignado.');
 		}
 	}
 
@@ -690,7 +691,7 @@ class toba_datos_relacion extends toba_componente
 
 		// Controla que haya una única tabla raiz
 		if(count($this->_tablas_raiz) != 1)
-			throw new toba_error_def("El datos_relacion no posee una única tabla raiz.");
+			throw new toba_error_def('El datos_relacion no posee una única tabla raiz.');
 
 		// Recupera los registros de la tabla raiz para armar cada unidad del XML.
 		$datos_raiz = $this->_dependencias[$this->_tablas_raiz[0]]->get_filas();
@@ -757,9 +758,10 @@ class toba_datos_relacion extends toba_componente
 		}
 		
 		// Controlo que se haya encontrado la tabla
-		if(!$id_objeto_padre)
-			throw new toba_error_def("No se puede obtener el conjunto de tablas hija de la tabla $tabla que no pertenece a la relación.");
-
+		if(!$id_objeto_padre){
+			toba_logger::instancia()->error("No se puede obtener el conjunto de tablas hija de la tabla $tabla, que no pertenece a la relación.");
+			throw new toba_error_def('La tabla no pertenece a la relación, revise el log');
+		}
 		// Busco todos los id de objeto de las tablas hijas
 		$objetos_hijos = array();
 		foreach($this->_info_columnas_asoc_rel as $relacion){

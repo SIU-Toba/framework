@@ -70,7 +70,8 @@ class toba_proyecto
 	{
 		if (! in_array($proyecto, toba::instancia()->get_id_proyectos())) {		//El proyecto no existe o no esta cargado en la instancia
 			if (! toba::instalacion()->es_produccion()) {
-				throw new toba_error("El proyecto '".$proyecto."' no se encuentra cargado en la instancia");
+				toba_logger::instancia()->error("El proyecto '".$proyecto."' no se encuentra cargado en la instancia");
+				throw new toba_error('El proyecto no se encuentra cargado en la instancia');
 			} else {
 				die;		//En produccion no se loguea nada, se mata inmediatamente el proceso
 			}
@@ -112,7 +113,8 @@ class toba_proyecto
 				return null;
 			}else{
 				if ($obligatorio) {
-					throw new toba_error("INFO_PROYECTO: El parametro '$id' no se encuentra definido.");
+					toba_logger::instancia()->error("INFO_PROYECTO: El parametro '$id' no se encuentra definido.");
+					throw new toba_error('INFO_PROYECTO: El parametro solicitado no se encuentra definido, revise el log.');
 				} else {
 					return null;
 				}
@@ -158,7 +160,8 @@ class toba_proyecto
 			$rs = toba_proyecto_db::cargar_info_basica($proyecto);
 		}
 		if (!$rs) {
-			throw new toba_error("El proyecto '".$proyecto."' no se encuentra cargado en la instancia ".toba_instancia::get_id());
+			toba_logger::instancia()->error("El proyecto '".$proyecto."' no se encuentra cargado en la instancia ".toba_instancia::get_id());
+			throw new toba_error('El proyecto no se encuentra o no esta cargado en la instancia');
 		}
 		return $rs;
 	}
@@ -319,7 +322,8 @@ class toba_proyecto
 			}
 		}
 		if( ! isset($this->mapeo_componentes[$identificador]) ) {
-			throw new toba_error("Error buscando el componente '$identificador'. El INDICE no existe");
+			toba_logger::instancia()->error("Error buscando el componente '$identificador'. El INDICE no existe");
+			throw new toba_error("Error buscando el componente. El INDICE solicitado no existe");
 		}
 		return $this->mapeo_componentes[$identificador];
 	}
@@ -373,7 +377,8 @@ class toba_proyecto
 			//-- No se carga aqui la relacion entre tabla y dt por un tema de eficiencia, se hace con un lazyload en toba_fuente_datos
 		}
 		if (empty($rs)) {
-			throw new toba_error("No se puede encontrar la fuente '$id_fuente' en el proyecto '$proyecto'");
+			toba_logger::instancia()->error("No se puede encontrar la fuente '$id_fuente' en el proyecto '$proyecto'");
+			throw new toba_error('No se puede encontrar la fuente solicitada en el proyecto');
 		}
 		return $rs;
 	}
@@ -589,7 +594,8 @@ class toba_proyecto
 			$rs = toba_proyecto_db::get_consulta_php($proyecto, $clase);
 		}
 		if (empty($rs)) {
-			throw new toba_error("No se puede encontrar la consulta PHP '$clase' en el proyecto '$proyecto'");
+			toba_logger::instancia()->error("No se puede encontrar la consulta PHP '$clase' en el proyecto '$proyecto'");
+			throw new toba_error('No se puede encontrar la clase de consulta PHP en el proyecto');
 		}
 		return $rs;
 	}
@@ -605,7 +611,8 @@ class toba_proyecto
 			$rs = toba_proyecto_db::get_info_servicio_web($proyecto, $id);
 		}
 		if (empty($rs)) {
-			throw new toba_error("No se puede encontrar la definición del Servicio Web '$id' en el proyecto '$proyecto'");
+			toba_logger::instancia()->error("No se puede encontrar la definición del Servicio Web '$id' en el proyecto '$proyecto'");
+			throw new toba_error('No se puede encontrar la definición del Servicio Web en el proyecto ');
 		}
 		return $rs;
 	}
@@ -621,7 +628,8 @@ class toba_proyecto
 			$rs = toba_proyecto_db::get_pms($proyecto);
 		}
 		if (empty($rs)) {
-			throw new toba_error("No se pueden encontrar puntos de montaje en el proyecto '$proyecto'");
+			toba_logger::instancia()->error("No se pueden encontrar puntos de montaje en el proyecto '$proyecto'");
+			throw new toba_error('No se pueden encontrar puntos de montaje en el proyecto');
 		}
 
 		return $rs;

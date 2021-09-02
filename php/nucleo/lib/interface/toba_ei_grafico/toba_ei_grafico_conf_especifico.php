@@ -86,7 +86,8 @@ abstract class toba_ei_grafico_conf_especifico extends toba_ei_grafico_conf
 	function serie__set_activa($id_serie)
 	{
 		if (!isset($this->series[$id_serie])) {
-			throw new toba_error("La serie con id $id_serie no existe.");
+			toba_logger::instancia()->error("La serie con id $id_serie no existe.");
+			throw new toba_error('La serie indicada no se encuentra o no existe.');
 		}
 		
 		$this->serie_actual = $id_serie;
@@ -113,8 +114,8 @@ abstract class toba_ei_grafico_conf_especifico extends toba_ei_grafico_conf
 	function serie__get_activa()
 	{
 		if (!isset($this->serie_actual)) {
-			throw new toba_error("Antes de comenzar a configurar el "
-								 ."objeto debe invocar al método agregar_serie");
+			throw new toba_error('Antes de comenzar a configurar el '
+								 .'objeto debe invocar al método agregar_serie');
 		}
 		
 		return $this->serie($this->serie_actual);
@@ -127,7 +128,8 @@ abstract class toba_ei_grafico_conf_especifico extends toba_ei_grafico_conf
 	function serie($id_serie)
 	{
 		if (!isset($this->series[$id_serie])) {
-			throw new toba_error("No existe la serie $id_serie");
+			toba_logger::instancia()->error("No existe la serie $id_serie");
+			throw new toba_error('Identificador de serie no encontrado o no valido');
 		}
 
 		return $this->series[$id_serie];

@@ -23,7 +23,8 @@ class toba_punto_montaje_factory
 			case toba_punto_montaje::tipo_pers:
 				return self::construir_pers($registro);	
 			default:
-				throw new toba_error("PUNTOS DE MONTAJE: El tipo $tipo es inválido");
+				toba_logger::instancia()->error("PUNTOS DE MONTAJE: El tipo $tipo es inválido");
+				throw new toba_error('PUNTOS DE MONTAJE: Tipo inválido');
 		}
 	}
 

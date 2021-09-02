@@ -160,7 +160,8 @@ class toba_mail implements toba_tarea
 			unlink($temp);
 		}
 		if (!$exito) {
-			throw new toba_error("Imposible enviar mail. Mensaje de error: {$mail->ErrorInfo}");
+			toba_logger::instancia()->error("Imposible enviar mail. Mensaje de error: {$mail->ErrorInfo}");
+			throw new toba_error('Imposible enviar mail, revise el log.');
 		}
 
 	}

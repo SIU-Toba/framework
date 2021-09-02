@@ -25,10 +25,12 @@ abstract class toba_punto_montaje_autoload extends toba_punto_montaje
 				spl_autoload_register(array($nombre_clase, $nombre_metodo));
 				toba::logger()->debug("PUNTO DE MONTAJE: se cargó exitosamente el autoload del punto de montaje {$this->get_etiqueta()}");
 			} else {
-				throw new toba_error("PUNTO DE MONTAJE PROYECTO: el método $nombre_clase::$nombre_metodo de autoload no existe");
+				toba_logger::instancia()->error("PUNTO DE MONTAJE PROYECTO: el método $nombre_clase::$nombre_metodo de autoload no existe");
+				throw new toba_error('PUNTO DE MONTAJE PROYECTO: el método de autoload esperado no existe, revise el log');
 			}
 		} else {
-			throw new toba_error("PUNTO DE MONTAJE PROYECTO: no se encuentra el archivo de autoload, verifique su existencia. Path: $path_autoload");
+			toba_logger::instancia()->error("PUNTO DE MONTAJE PROYECTO: no se encuentra el archivo de autoload, verifique su existencia. Path: $path_autoload");
+			throw new toba_error('PUNTO DE MONTAJE PROYECTO: no se encuentra el archivo de autoload, revise el log.');
 			// La existencia del archivo, no la de uno mismo porque es demasiado pedir al usuario (ni siquiera podemos requerir php 5.3 :p)
 		}
 	}

@@ -22,7 +22,7 @@ class toba_firma_digital
 			$output = str_replace('-----END CERTIFICATE-----', '', $output);
 			return base64_decode($output);
 		} else {
-			throw new toba_error("El certificado no es un certificado valido", "Detalles: $certificado");
+			throw new toba_error('El certificado no es un certificado valido', "Detalles: $certificado");
 		}
 	}
 
@@ -40,11 +40,11 @@ class toba_firma_digital
 	static function certificado_validar_revocacion($certificado, $crl) 
 	{
 		if (! file_exists($crl)) {
-			throw new toba_error("La base de certificados revocados no existe o no es accesible.", "Archivo '$crl'");
+			throw new toba_error('La base de certificados revocados no existe o no es accesible.', "Archivo '$crl'");
 		}
 		$comando = "openssl crl -inform DER -text -noout -in $crl";
 		if (toba_manejador_procesos::ejecutar($comando, $stdout, $stderr) !== 0) {
-			throw new toba_error("No es posible acceder al detalle de certificados revocados", "Error al ejecutar comando '$comando': $stdout\n".$stderr);
+			throw new toba_error('No es posible acceder al detalle de certificados revocados', "Error al ejecutar comando '$comando': $stdout\n".$stderr);
 		}
 		$serial = self::certificado_get_serial_number($certificado);
 		if (strpos($stdout, $serial) !== false) {
@@ -60,7 +60,7 @@ class toba_firma_digital
 	static function certificado_validar_CA($certificado, $pem_ca)
 	{
 		if (! file_exists($pem_ca)) {
-			throw new toba_error("El certificado raiz no existe o no es accesible.", "Archivo '$pem_ca'");
+			throw new toba_error('El certificado raiz no existe o no es accesible.', "Archivo '$pem_ca'");
 		}
 		$archivo_temp = toba::proyecto()->get_path_temp().'/'.md5(uniqid(time()));
 		file_put_contents($archivo_temp, $certificado);		
@@ -68,7 +68,7 @@ class toba_firma_digital
 		$output = toba_manejador_procesos::ejecutar($comando, $stdout, $stderr);
 		unlink($archivo_temp);
 		if ($output == 0) {
-			throw new toba_error_firma_digital("El certificado no es válido", "Salida del comando '$comando': $stdout\n".$stderr);
+			throw new toba_error_firma_digital('El certificado no es válido', "Salida del comando '$comando': $stdout\n".$stderr);
 		}	
 	}
 	
@@ -76,10 +76,10 @@ class toba_firma_digital
 	{
 		$data = openssl_x509_parse($certificado);
 		if (self::compare_openssl_date($data['validFrom']) > 0) {
-			throw new toba_error_firma_digital("El certificado no es válido tiene una fecha de inicio superior al día de hoy", "Certificado: $certificado");
+			throw new toba_error_firma_digital('El certificado no es válido tiene una fecha de inicio superior al día de hoy', "Certificado: $certificado");
 		}
 		if (self::compare_openssl_date($data['validTo']) < 0) {
-			throw new toba_error_firma_digital("El certificado no es válido, tiene una fecha de finalización inferior al día de hoy", "Certificado: $certificado");
+			throw new toba_error_firma_digital('El certificado no es válido, tiene una fecha de finalización inferior al día de hoy', "Certificado: $certificado");
 		}
 	}
 

@@ -113,10 +113,10 @@ class toba_nucleo
 			$this->finalizar_contexto_ejecucion();
 		} catch (Error $e) {
 			toba::logger()->crit($e, 'toba');
-			echo $e->getMessage() . "\n\n";
+			echo toba::escaper()->escapeHtml($e->getMessage()) . "\n\n";
 		} catch (Exception $e) {
 			toba::logger()->crit($e, 'toba');
-			echo $e->getMessage() . "\n\n";
+			echo toba::escaper()->escapeHtml($e->getMessage()) . "\n\n";
 		}
 		//toba::logger()->debug('Tiempo utilizado: ' . toba::cronometro()->tiempo_acumulado() . ' seg.');
 		toba::logger()->guardar();
@@ -147,7 +147,8 @@ class toba_nucleo
 			$this->iniciar_contexto_solicitud($item);
 			$this->solicitud = toba_constructor::get_runtime(array('proyecto'=>$item[0],'componente'=>$item[1]), 'toba_item');
 			if(! $this->solicitud instanceof toba_solicitud_servicio_web) {
-				throw new toba_error_seguridad("El item {$item[1]} no es un item de servicio web");
+				toba::logger_ws()->error("El item {$item[1]} no es un item de servicio web");
+				throw new toba_error_seguridad('El item solicitado no parece un servicio web, revise el log');
 			}
 			if (!toba::instalacion()->es_produccion()) {
 				if ($xml = file_get_contents('php://input')) {
@@ -162,10 +163,10 @@ class toba_nucleo
 			$this->finalizar_contexto_ejecucion();
 		} catch (Error $e) {
 			toba::logger()->crit($e, 'toba');
-			echo $e->getMessage() . "\n\n";
+			echo toba::escaper()->escapeJs($e->getMessage()) . "\n\n";
 		} catch (Exception $e) {
 			toba::logger()->crit($e, 'toba');
-			echo $e->getMessage() . "\n\n";
+			echo toba::escaper()->escapeJs($e->getMessage()) . "\n\n";
 		}
 		toba::logger()->guardar();
 	}
@@ -185,12 +186,12 @@ class toba_nucleo
 			$this->solicitud->registrar();
 			$this->finalizar_contexto_rest();
 		} catch (Error $e) {
-			toba::logger()->crit($e, 'toba');
-			echo $e->getMessage() . "\n\n";
+			toba::logger()->crit($e, 'toba');			
+			echo toba::escaper()->escapeJs($e->getMessage()) . "\n\n";
 			toba::logger()->guardar();
 		} catch (Exception $e) {
 			toba::logger()->crit($e, 'toba');
-			echo $e->getMessage() . "\n\n";
+			echo toba::escaper()->escapeJs($e->getMessage()) . "\n\n";
 			toba::logger()->guardar();
 		}
 		if (! is_null($app)) {
@@ -405,9 +406,7 @@ class toba_nucleo
 
 	function controlar_requisitos_basicos()
 	{
-		if (php_sapi_name() !== 'cli' && get_magic_quotes_gpc()) {
-			throw new toba_error_def("Necesita desactivar las 'magic_quotes' en el servidor (ver http://www.php.net/manual/es/security.magicquotes.disabling.php)");
-		}
+		//Removido el contenido que chequeaba magic_quotes
 	}
 
 	function es_acceso_rest()

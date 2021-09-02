@@ -476,7 +476,8 @@ class toba_datos_tabla extends toba_componente
 			$this->_cursor = $id;	
 			$this->log("Nuevo cursor '{$this->_cursor}' en reemplazo del anterior '{$this->_cursor_original}'");
 		}else{
-			throw new toba_error_def($this->get_txt() . "La fila '$id' no es valida");
+			toba_logger::instancia()->error($this->get_txt() . "La fila '$id' no es valida");
+			throw new toba_error_def('La fila solicitada no es valida');
 		}
 	}	
 	
@@ -620,7 +621,8 @@ class toba_datos_tabla extends toba_componente
 	{
 		$id_fila = $this->normalizar_id($id_fila);
 		if(!isset($this->_relaciones_con_padres[$tabla_padre])) {
-			throw new toba_error_def("La tabla padre '$tabla_padre' no existe");	
+			toba_logger::instancia()->error("La tabla padre '$tabla_padre' no existe");
+			throw new toba_error_def('La tabla solicitada no existe, revise el log');	
 		}
 		return $this->_relaciones_con_padres[$tabla_padre]->get_id_padre($id_fila);
 	}
@@ -661,7 +663,8 @@ class toba_datos_tabla extends toba_componente
 						$valor = $condiciones[$campo];
 					}					
 					if( !isset($this->_columnas[$columna]) ){
-						throw new toba_error_def("El campo '$columna' no existe. No es posible filtrar por dicho campo");
+						toba_logger::instancia()->error("El campo '$columna' no existe. No es posible filtrar por dicho campo");
+						throw new toba_error_def('Parametro de filtrado incorrecto, revise el log');
 					}
 					if(!isset($this->_datos[$id_fila][$columna])) {
 						// Es posible que una fila no posea una columa. Ej: una nueva fila no tiene la clave si esta es una secuencia.
@@ -742,7 +745,7 @@ class toba_datos_tabla extends toba_componente
 		} elseif ($this->hay_cursor()) {
 			return $this->get_fila_columna($this->get_cursor(), $columna);
 		} else {
-			throw new toba_error_def("No hay posicionado un cursor en la tabla, no es posible determinar la fila actual");
+			throw new toba_error_def('No hay posicionado un cursor en la tabla, no es posible determinar la fila actual');
 		}		
 	}
 	
@@ -801,7 +804,8 @@ class toba_datos_tabla extends toba_componente
 				return $id[apex_datos_clave_fila];
 			}
 		}
-		throw new toba_error_def($this->get_txt() . ' La clave tiene un formato incorrecto.');
+		toba_logger::instancia()->error($this->get_txt() . ' La clave tiene un formato incorrecto: '. var_export($id, true));
+		throw new toba_error_def(' La clave tiene un formato incorrecto. Revise el log');
 	}
 
 	//-------------------------------------------------------------------------------
@@ -868,8 +872,8 @@ class toba_datos_tabla extends toba_componente
 	{
 		$id = $this->normalizar_id($id);
 		if (!$this->existe_fila($id)){
-			$mensaje = $this->get_txt() . " MODIFICAR. No existe un registro con el INDICE indicado ($id)";
-			toba::logger()->error($mensaje);
+			$mensaje = ' MODIFICAR. No existe un registro con el INDICE indicado ';
+			toba::logger()->error($this->get_txt(). $mensaje . "($id)");
 			throw new toba_error_def($mensaje);
 		}
 		//Saco el campo que indica la posicion del registro
@@ -924,14 +928,15 @@ class toba_datos_tabla extends toba_componente
 	{
 		$id = $this->normalizar_id($id_fila);		
 		if (!$this->existe_fila($id)){
-			$mensaje = $this->get_txt() . " CAMBIAR PADRE. No existe un registro con el INDICE indicado ($id)";
-			toba::logger()->error($mensaje);
+			$mensaje = ' CAMBIAR PADRE. No existe un registro con el INDICE indicado';
+			toba::logger()->error($this->get_txt(). $mensaje . " ($id)");
 			throw new toba_error_def($mensaje);
 		}
 		$cambio_padre = false;
 		foreach ($nuevos_padres as $tabla_padre => $id_padre) {
 			if (!isset($this->_relaciones_con_padres[$tabla_padre])) {
-				$mensaje = $this->get_txt() . " CAMBIAR PADRE. No existe una relación padre $tabla_padre.";
+				$mensaje = ' CAMBIAR PADRE. No existe una relación padre';
+				toba_logger::instancia()->error( $this->get_txt(). $mensaje . "$tabla_padre");
 				throw new toba_error_def($mensaje);
 			}
 			if ($this->_relaciones_con_padres[$tabla_padre]->set_padre($id_fila, $id_padre)) {
@@ -956,8 +961,8 @@ class toba_datos_tabla extends toba_componente
 	{
 		$id = $this->normalizar_id($id);
 		if (!$this->existe_fila($id)) {
-			$mensaje = $this->get_txt() . " ELIMINAR. No existe un registro con el INDICE indicado ($id)";
-			toba::logger()->error($mensaje);
+			$mensaje = ' ELIMINAR. No existe un registro con el INDICE indicado';
+			toba::logger()->error($this->get_txt() . $mensaje . " ($id)");
 			throw new toba_error_def($mensaje);
 		}
 		if ( $this->get_cursor() == $id ) { 
@@ -1006,10 +1011,12 @@ class toba_datos_tabla extends toba_componente
 			if( isset($this->_columnas[$columna]) ){
 				$this->modificar_fila($id, array($columna => $valor));
 			}else{
-				throw new toba_error_def("La columna '$columna' no es valida");
+				toba_logger::instancia()->error("La columna '$columna' no es valida");
+				throw new toba_error_def('Columna no valida, revise el log');
 			}
 		}else{
-			throw new toba_error_def("La fila '$id' no es valida");
+			toba_logger::instancia()->error("La fila '$id' no es valida");
+			throw new toba_error_def('La fila no es valida, revise el log');
 		}
 	}
 
@@ -1023,7 +1030,8 @@ class toba_datos_tabla extends toba_componente
 	function set_columna_valor($columna, $valor, $con_cursores=false)
 	{
 		if(! isset($this->_columnas[$columna]) ) { 
-			throw new toba_error_def("La columna '$columna' no es valida");
+			toba_logger::instancia()->error("La columna '$columna' no es valida");
+			throw new toba_error_def('La columna no es valida, revise el log');
 		}
 		foreach($this->get_id_filas($con_cursores) as $fila) {
 			$this->modificar_fila($fila, array($columna => $valor));
@@ -1049,9 +1057,9 @@ class toba_datos_tabla extends toba_componente
 		//--- Controlo estructura
 		foreach(array_keys($filas) as $id){
 			if(!isset($filas[$id][apex_ei_analisis_fila])){
-				throw new toba_error_def("Para procesar un conjunto de registros es necesario indicar el estado ".
-									"de cada uno utilizando una columna referenciada con la constante 'apex_ei_analisis_fila'.
-									Si los datos provienen de un ML, active la opción de analizar filas.");
+				toba_logger::instancia()->error('Se intenta procesar datos que no poseen la columna apex_ei_analisis_fila '. var_export($filas[$id], true));
+				throw new toba_error_def('Para procesar un conjunto de registros es necesario indicar el estado '.
+									'Si los datos provienen de un ML, active la opción de analizar filas.');
 			}
 		}
 		//--- Se asume que el id de la fila es la key del registro o la columna apex_datos_clave_fila. 
@@ -1119,7 +1127,7 @@ class toba_datos_tabla extends toba_componente
 		} elseif ($this->hay_cursor()) {
 			return $this->get_fila($this->get_cursor());
 		} else {
-			throw new toba_error_def("No hay posicionado un cursor en la tabla, no es posible determinar la fila actual");
+			throw new toba_error_def('No hay posicionado un cursor en la tabla, no es posible determinar la fila actual');
 		}
 	}
 
@@ -1143,7 +1151,7 @@ class toba_datos_tabla extends toba_componente
 			if ($this->hay_cursor()){
 				$id_fila = $this->get_cursor();
 			} else {
-				throw new toba_error_def("No hay posicionado un cursor en la tabla, no es posible determinar la fila actual");	
+				throw new toba_error_def('No hay posicionado un cursor en la tabla, no es posible determinar la fila actual');	
 			}
 		}
 		//Borra algïñun cache previo
@@ -1175,7 +1183,7 @@ class toba_datos_tabla extends toba_componente
 			} elseif ($this->hay_cursor()) {
 				$id_fila = $this->get_cursor();
 			} else {
-				throw new toba_error_def("No hay posicionado un cursor en la tabla, no es posible determinar la fila actual");
+				throw new toba_error_def('No hay posicionado un cursor en la tabla, no es posible determinar la fila actual');
 			}
 		}
 		if (!isset($this->_blobs[$id_fila][$columna])) {
@@ -1214,7 +1222,8 @@ class toba_datos_tabla extends toba_componente
 				if ($path != '') {
 					$fp = fopen($path, 'rb');
 					if (! is_resource($fp)) {
-						throw new toba_error_def("No fue posible recuperar el campo '$col' de la fila '$id_registro' desde archivo temporal '$fp'");
+						toba_logger::instancia()->error("No fue posible recuperar el campo '$col' de la fila '$id_registro' desde archivo temporal '$fp'");
+						throw new toba_error_def('No fue posible recuperar el campo solicitado, revise el log');
 					}
 				} else {
 					// Quiere decir que explicitamente se lo hizo nulo
@@ -1238,7 +1247,8 @@ class toba_datos_tabla extends toba_componente
 	private function validar_fila($fila, $id=null)
 	{
 		if(!is_array($fila)){
-			throw new toba_error_def($this->get_txt() . ' La fila debe ser una array');	
+			toba_logger::instancia()->error($this->get_txt() . ' La fila debe ser una array');
+			throw new toba_error_def(' La fila no es valida, revise el log');
 		}
 		$this->evt__validar_ingreso($fila, $id);
 		$this->control_estructura_fila($fila);
@@ -1305,7 +1315,8 @@ class toba_datos_tabla extends toba_componente
 					}
 				}
 				if ($combinacion_existente) {
-					throw new toba_error_validacion($this->get_txt().": Error de valores repetidos en columna '$columna'");
+					toba_logger::instancia()->error($this->get_txt().": Error de valores repetidos en columna '$columna'");
+					throw new toba_error_validacion('Error de valores repetidos');
 				}
 			}
 		}		
@@ -1375,8 +1386,8 @@ class toba_datos_tabla extends toba_componente
 	protected function control_tope_minimo_filas()
 	{
 		if ($this->_tope_min_filas != 0 && $this->get_cantidad_filas() < $this->_tope_min_filas) {
-				throw new toba_error_validacion("La tabla <em>{$this->_id_en_controlador}</em> requiere ingresar al menos {$this->_tope_min_filas} registro/s (se encontraron
-				sólo {$this->get_cantidad_filas()}).");
+			toba_logger::instancia()->error("La tabla <em>{$this->_id_en_controlador}</em> requiere ingresar al menos {$this->_tope_min_filas} registro/s (se encontraron sólo {$this->get_cantidad_filas()}).");
+			throw new toba_error_validacion('El numero de filas enviadas no es adecuado');
 		}
 	}
 
@@ -1386,8 +1397,8 @@ class toba_datos_tabla extends toba_componente
 	protected function control_tope_maximo_filas($cantidad)
 	{
 		if (($this->_tope_max_filas != 0) && ($cantidad > $this->_tope_max_filas)) {
-			throw new toba_error_validacion("No está permitido ingresar más de {$this->_tope_max_filas} registros
-									en la tabla <em>{$this->_id_en_controlador}</em> (se encontraron $cantidad).");
+			toba_logger::instancia()->error("No está permitido ingresar más de {$this->_tope_max_filas} registros en la tabla <em>{$this->_id_en_controlador}</em> (se encontraron $cantidad).");
+			throw new toba_error_validacion('El numero de filas enviadas no es adecuado');
 		}
 	}
 	
@@ -1407,7 +1418,8 @@ class toba_datos_tabla extends toba_componente
 				$clase = $this->_info_estructura['ap_sub_clase'];
 				$include = $this->_info_estructura['ap_sub_clase_archivo'];
 				if( (trim($clase) == '' ) ){
-					throw new toba_error_def( $this->get_txt() . "Error en la definicion, falta definir la subclase");
+					toba_logger::instancia()->error($this->get_txt() . 'Error en la definicion, falta definir la subclase');
+					throw new toba_error_def('Error de definicion del persistidor, revise el log');
 				}
 			}else{
 				$clase = 'toba_'.$this->_info_estructura['ap_clase'];

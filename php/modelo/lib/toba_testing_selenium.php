@@ -38,7 +38,8 @@ class toba_testing_selenium
 		}
 		$ok = file_put_contents($path, $this->salida);
 		if ($ok === false) {
-			throw new toba_error("Imposible guardar archivo '$path'");
+			toba_logger::instancia()->error("Imposible guardar archivo '$path'");
+			throw new toba_error('Imposible guardar el archivo, revise el log');
 		}
 	}	
 	

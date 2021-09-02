@@ -184,7 +184,7 @@ class toba_vista_xslfo
 		//Escribo el xml
   		$fxml = $this->get_nombre_archivo_xml();
 		if (file_put_contents($fxml, $xml) === false) {
-			throw new toba_error("Error al guardar archivo xml", "No es posible escribir en ".$fxml);
+			throw new toba_error('Error al guardar archivo xml', 'No es posible escribir en '.$fxml);
 		}
 
 		//Si existe el archivo pdf, lo borro.
@@ -202,7 +202,8 @@ class toba_vista_xslfo
 		}
 
 		if (!file_exists($archivo_pdf)) {
-			throw new toba_error_usuario("Error al ejecutar el comando '".$comando."'");
+			toba_logger::instancia()->error("Error al ejecutar el comando '".$comando."'");
+			throw new toba_error_usuario('Error al ejecutar, revise el log');
 		}
 		if (file_exists($fxml)) {
 			unlink($fxml);

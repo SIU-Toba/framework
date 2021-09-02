@@ -24,12 +24,14 @@ class toba_version
 		$this->partes = explode('.', $numero);
 		//Validando el numero
 		if (count($this->partes) < 3) {
-			throw new toba_error("El número de versión $numero es incorrecto. Se requiere al menos 3 partes. ".$formato);
+			toba_logger::instancia()->error("El número de versión $numero es incorrecto. Se requiere al menos 3 partes. $formato");
+			throw new toba_error('El número de versión es incorrecto. Revise el log');
 		}
 		if (!is_numeric($this->partes[2])) {
 			$digito = intval($this->partes[2]);
 			if (! is_numeric($digito)) {
-				throw new toba_error("El número de versión $numero es incorrecto. Las partes deben ser numéricas. ".$formato);
+				toba_logger::instancia()->error("El número de versión $numero es incorrecto. Las partes deben ser numéricas. $formato");
+				throw new toba_error('El número de versión es incorrecto. Revise el log');
 			}
 			$extra = trim(str_replace(array('(', ')', '-'), '', substr($this->partes[2], strlen($digito))));			
 			$this->partes[2] = $digito;
@@ -41,20 +43,23 @@ class toba_version
 			}
 			if (isset($inestable)) {
 				if (! in_array($inestable, $this->inestables)) {
-					throw new toba_error("El número de versión $numero es incorrecto. El codigo de inestable '$inestable' no es válido. ".$formato);
+					toba_logger::instancia()->error("El número de versión $numero es incorrecto. El codigo de inestable '$inestable' no es válido. $formato");
+					throw new toba_error('El número de versión es incorrecto. Revise el log');
 				}
 				$this->inestable = $inestable;				
 			}
 			if ($build != '') {
 				$this->build = $build;				
 				if (! is_numeric($build)) {
-					throw new toba_error("El número de versión $numero es incorrecto. El codigo de build '$build' no es válido. ".$formato);					
+					toba_logger::instancia()->error("El número de versión $numero es incorrecto. El codigo de build '$build' no es válido. $formato");
+					throw new toba_error('El número de versión es incorrecto. Revise el log');					
 				}
 			}
 		}
 		foreach ($this->partes as $parte) {
 			if (!is_numeric($parte) || !is_int(intval($parte))) {
-				throw new toba_error("El número de versión $numero es incorrecto. Las partes deben ser numéricas ".$formato);
+				toba_logger::instancia()->error("El número de versión $numero es incorrecto. Las partes deben ser numéricas $formato");
+				throw new toba_error('El número de versión es incorrecto. Revise el log');
 			}
 		}
 		

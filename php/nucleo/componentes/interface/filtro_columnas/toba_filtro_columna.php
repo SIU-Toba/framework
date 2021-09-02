@@ -50,7 +50,8 @@ abstract class toba_filtro_columna
 			if  (isset($estado['condicion']) && isset($this->_estado)  &&($this->_estado['condicion'] != $estado['condicion'])){	//Si la condicion no viene seteada retorna al default
 				$msg = "Existe una condicion fija para la columna '".$this->get_nombre().
 							"' la misma no se puede cambiar seteando el estado.";
-				throw new toba_error_def($msg);
+				toba_logger::instancia()->error($msg);
+				throw new toba_error_def('Existe una condicion fija para la columna, la misma no se puede cambiar seteando el estado. Revise el log');
 			}
 		}
 
@@ -96,7 +97,8 @@ abstract class toba_filtro_columna
 		if (isset($_POST[$this->_id_form_cond])) {
 			$condicion = $_POST[$this->_id_form_cond];
 			if (! isset($this->_condiciones[$condicion])) {
-				throw new toba_error_seguridad("La condicion '$condicion' no es una condicion válida");
+				toba_logger::instancia()->error("La condicion '$condicion' no es una condicion válida");
+				throw new toba_error_seguridad("La condicion indicada no es válida");
 			}
 			$this->_estado['condicion'] = $condicion;
 		} else {
@@ -317,11 +319,13 @@ abstract class toba_filtro_columna
 	function set_condicion_fija($nombre, $estado = true)
 	{
 		if (!isset($this->_condiciones[$nombre])){
-			throw new toba_error_def("No existe la condicion '$nombre' para la columna '". $this->get_nombre()."'");
+			toba_logger::instancia()->error("No existe la condicion '$nombre' para la columna '". $this->get_nombre()."'");
+			throw new toba_error_def('No existe la condicion señalada para la columna indicada, revise el log');
 		}
 
 		if ($this->hay_condicion_fija()){
-			throw new toba_error_def("Ya existe una condicion fija para la columna '".$this->get_nombre()."'");
+			toba_logger::instancia()->error("Ya existe una condicion fija para la columna '".$this->get_nombre()."'");
+			throw new toba_error_def('Ya existe una condicion fija para la columna indicada, revise el log');
 		}
 
 		$this->_condicion_default = ($estado) ? $nombre : null;		//Si el estado es false se limpia el default
@@ -336,7 +340,8 @@ abstract class toba_filtro_columna
 	function set_condicion_default($nombre)
 	{
 		if (!isset($this->_condiciones[$nombre])){
-			throw new toba_error_def("No existe la condicion '$nombre' para la columna '". $this->get_nombre()."'");
+			toba_logger::instancia()->error("No existe la condicion '$nombre' para la columna '". $this->get_nombre()."'");
+			throw new toba_error_def('No existe la condicion señalada para la columna indicada, revise el log');
 		}
 		$this->_condicion_default = $nombre;
 	}
@@ -368,7 +373,8 @@ abstract class toba_filtro_columna
 			if (isset($this->_estado)) {
 				return $this->_condiciones[$this->_estado['condicion']];
 			} else {
-				throw new toba_error_def("No hay una condicion actualmente seleccionada para la columna '".$this->get_nombre()."'");
+				toba_logger::instancia()->error("No hay una condicion actualmente seleccionada para la columna '".$this->get_nombre()."'");
+				throw new toba_error_def('No hay una condicion actualmente seleccionada para la columna indicada, revise el log');
 			}
 		} else {
 			return $this->_condiciones[$nombre];
@@ -387,7 +393,8 @@ abstract class toba_filtro_columna
 			if (isset($this->_estado)) {
 				$this->_condiciones[$this->_estado['condicion']] = $condicion;
 			} else {
-				throw new toba_error_def("No hay una condicion actualmente seleccionada para la columna '".$this->get_nombre()."'");
+				toba_logger::instancia()->error("No hay una condicion actualmente seleccionada para la columna '".$this->get_nombre()."'");
+				throw new toba_error_def('No hay una condicion actualmente seleccionada para la columna indicada, revise el log');
 			}
 		} else {
 			$this->_condiciones[$nombre] = $condicion;

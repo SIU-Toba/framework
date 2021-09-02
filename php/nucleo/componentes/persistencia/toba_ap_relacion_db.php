@@ -235,7 +235,8 @@ class toba_ap_relacion_db implements toba_ap_relacion
 			} elseif ($sincro_por_filas) { 
 				if(isset($filas_tablas[$tabla])) {
 					if (!is_array($filas_tablas[$tabla])) {
-						throw new toba_error("Sincronizacion por filas: error en la definicion de las filas de la tabla: $tabla. El parametro debe ser un array");
+						toba_logger::instancia()->error("Sincronizacion por filas: error en la definicion de las filas de la tabla: $tabla. El parametro debe ser un array");
+						throw new toba_error('Sincronizacion por filas: error en la definicion de las filas. Revise el log');
 					}
 					$tabla->persistidor()->sincronizar_eliminados($filas_tablas[$tabla]);
 				}
@@ -256,7 +257,8 @@ class toba_ap_relacion_db implements toba_ap_relacion
 			} elseif ($sincro_por_filas) { 
 				if(isset($filas_tablas[$tabla])) {
 					if (!is_array($filas_tablas[$tabla])) {
-						throw new toba_error("Sincronizacion por filas: error en la definicion de las filas de la tabla: $tabla. El parametro debe ser un array");
+						toba_logger::instancia()->error("Sincronizacion por filas: error en la definicion de las filas de la tabla: $tabla. El parametro debe ser un array");
+						throw new toba_error('Sincronizacion por filas: error en la definicion de las filas. Revise el log');
 					}
 					$tabla->persistidor()->sincronizar_insertados($filas_tablas[$tabla]);
 					$tabla->notificar_hijos_sincronizacion($filas_tablas[$tabla]);
@@ -278,7 +280,8 @@ class toba_ap_relacion_db implements toba_ap_relacion
 			} elseif ($sincro_por_filas) { 
 				if(isset($filas_tablas[$tabla])) {
 					if (!is_array($filas_tablas[$tabla])) {
-						throw new toba_error("Sincronizacion por filas: error en la definicion de las filas de la tabla: $tabla. El parametro debe ser un array");
+						toba_logger::instancia()->error("Sincronizacion por filas: error en la definicion de las filas de la tabla: $tabla. El parametro debe ser un array");
+						throw new toba_error('Sincronizacion por filas: error en la definicion de las filas. Revise el log');
 					}
 					$tabla->persistidor()->sincronizar_actualizados($filas_tablas[$tabla]);
 					$tabla->notificar_hijos_sincronizacion($filas_tablas[$tabla]);

@@ -39,14 +39,14 @@ class toba_solicitud_servicio_web extends toba_solicitud
 			//$i = 0;
 			foreach ($this->info['objetos'] as $objeto) {
 				if ($objeto['clase'] != 'toba_servicio_web') {
-					throw new toba_error_def("Necesita asociar a la operación un componente de clase toba_servicio_web");					
+					throw new toba_error_def('Necesita asociar a la operación un componente de clase toba_servicio_web');					
 				}
 			}
 		} else { 
 			if (count($this->info['objetos']) == 0) {
-				throw new toba_error_def("Necesita asociar a la operación un componente toba_servicio_web");
+				throw new toba_error_def('Necesita asociar a la operación un componente toba_servicio_web');
 			} else {
-				throw new toba_error_def("Debe asociar a la operación un único componente toba_servicio_web");
+				throw new toba_error_def('Debe asociar a la operación un único componente toba_servicio_web');
 			}
 		}
 	}	

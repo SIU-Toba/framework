@@ -32,7 +32,8 @@ class toba_cache_db
 				//throw new toba_error("CACHE: La clave '$clave' de la tabla '$tabla' no existe");
 			}
 		} else {
-			throw new toba_error("CACHE: La tabla '$tabla' no existe");
+			toba_logger::instancia()->error("CACHE: La tabla '$tabla' no existe");
+			throw new toba_error("CACHE: El id solicitado no existe");
 		}
 	}
 
