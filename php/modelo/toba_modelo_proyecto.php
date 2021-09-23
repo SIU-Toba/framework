@@ -1400,7 +1400,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		//-- Agrego los perfiles en orden alfabetico para respetar las membresias
 		$lista_perfiles = toba_manejador_archivos::get_archivos_directorio($dir_base, '|perfil_.*\.xml$|' );
 		if (! empty($lista_perfiles)) {
-			//sort($lista_perfiles, SORT_LOCALE_STRING);
+			sort($lista_perfiles, SORT_LOCALE_STRING);
 			$archivos = array_merge($lista_perfiles, $archivos);
 		}
 
