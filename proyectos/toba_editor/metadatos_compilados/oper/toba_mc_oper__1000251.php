@@ -283,16 +283,6 @@ class toba_mc_comp__1404
     ),
     1 => 
     array (
-      'pantalla' => 383,
-      'proyecto' => 'toba_editor',
-      'objeto_ci' => 1404,
-      'dep_id' => 76,
-      'orden' => 1,
-      'identificador_pantalla' => 'p_tablas',
-      'identificador_dep' => 'dependencias',
-    ),
-    2 => 
-    array (
       'pantalla' => 458,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1404,
@@ -300,6 +290,16 @@ class toba_mc_comp__1404
       'orden' => 1,
       'identificador_pantalla' => 'p_relaciones',
       'identificador_dep' => 'relaciones',
+    ),
+    2 => 
+    array (
+      'pantalla' => 383,
+      'proyecto' => 'toba_editor',
+      'objeto_ci' => 1404,
+      'dep_id' => 76,
+      'orden' => 1,
+      'identificador_pantalla' => 'p_tablas',
+      'identificador_dep' => 'dependencias',
     ),
     3 => 
     array (
@@ -4772,19 +4772,6 @@ class toba_mc_comp__1550
   array (
     0 => 
     array (
-      'identificador' => 'relaciones_esquema',
-      'proyecto' => 'toba_editor',
-      'objeto' => 1755,
-      'clase' => 'toba_ei_esquema',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_esquema.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
-      'fuente' => NULL,
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    1 => 
-    array (
       'identificador' => 'relaciones_columnas',
       'proyecto' => 'toba_editor',
       'objeto' => 1551,
@@ -4793,6 +4780,19 @@ class toba_mc_comp__1550
       'subclase' => NULL,
       'subclase_archivo' => NULL,
       'fuente' => 'instancia',
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    1 => 
+    array (
+      'identificador' => 'relaciones_esquema',
+      'proyecto' => 'toba_editor',
+      'objeto' => 1755,
+      'clase' => 'toba_ei_esquema',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_esquema.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
+      'fuente' => NULL,
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),

@@ -346,7 +346,7 @@ class toba_mc_comp__1988
     ),
     7 => 
     array (
-      'identificador' => 'form_cuadro_carga',
+      'identificador' => 'form_form_fila',
       'proyecto' => 'toba_editor',
       'objeto' => 1000317,
       'clase' => 'toba_ei_formulario',
@@ -359,7 +359,7 @@ class toba_mc_comp__1988
     ),
     8 => 
     array (
-      'identificador' => 'form_form_fila',
+      'identificador' => 'form_cuadro_carga',
       'proyecto' => 'toba_editor',
       'objeto' => 1000317,
       'clase' => 'toba_ei_formulario',

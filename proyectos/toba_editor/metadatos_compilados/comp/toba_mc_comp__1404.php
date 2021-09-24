@@ -201,16 +201,6 @@ class toba_mc_comp__1404
     ),
     1 => 
     array (
-      'pantalla' => 383,
-      'proyecto' => 'toba_editor',
-      'objeto_ci' => 1404,
-      'dep_id' => 76,
-      'orden' => 1,
-      'identificador_pantalla' => 'p_tablas',
-      'identificador_dep' => 'dependencias',
-    ),
-    2 => 
-    array (
       'pantalla' => 458,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1404,
@@ -218,6 +208,16 @@ class toba_mc_comp__1404
       'orden' => 1,
       'identificador_pantalla' => 'p_relaciones',
       'identificador_dep' => 'relaciones',
+    ),
+    2 => 
+    array (
+      'pantalla' => 383,
+      'proyecto' => 'toba_editor',
+      'objeto_ci' => 1404,
+      'dep_id' => 76,
+      'orden' => 1,
+      'identificador_pantalla' => 'p_tablas',
+      'identificador_dep' => 'dependencias',
     ),
     3 => 
     array (

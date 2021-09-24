@@ -283,18 +283,18 @@ class toba_mc_comp__1517
       'pantalla' => 462,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1517,
-      'evento_id' => 91,
+      'evento_id' => 92,
       'identificador_pantalla' => 'pant_permisos_tablas',
-      'identificador_evento' => 'eliminar',
+      'identificador_evento' => 'procesar',
     ),
     3 => 
     array (
       'pantalla' => 462,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1517,
-      'evento_id' => 92,
+      'evento_id' => 91,
       'identificador_pantalla' => 'pant_permisos_tablas',
-      'identificador_evento' => 'procesar',
+      'identificador_evento' => 'eliminar',
     ),
     4 => 
     array (
