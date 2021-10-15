@@ -49,7 +49,8 @@ CKEDITOR.editorConfig = function( config ) {
 	config.scayt_sLang = 'es_ES';
 	config.extraPlugins= 'templates,font,justify,colorbutton';
 	config.allowedContent = true;
-	
+    config.skin = 'kama';
+    
 	config.sharedSpaces =
 	{
 		top : 'toolbar_Toba'
