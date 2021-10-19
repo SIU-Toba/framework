@@ -13,7 +13,7 @@ class toba_vista_xslfo
 {
 	protected $nombre_archivo = 'archivo.pdf';
 	protected $tipo_descarga = 'attachment';
-        protected $tipo_salida = 'application/pdf';
+    protected $tipo_salida = 'application/pdf';
 	protected $fop;
 	protected $xsl_proyecto;
 	protected $xml;
@@ -154,11 +154,13 @@ class toba_vista_xslfo
 	function generar_salida()
 	{
 		//Callback de los eis
-		foreach( $this->objetos as $objeto ) {
-			if(method_exists($objeto, 'vista_xslfo')) {
-				$objeto->vista_xslfo($this);
-			}
-		}
+        if (isset($this->objetos) && is_countable($this->objetos)) {
+            foreach( $this->objetos as $objeto ) {
+                if(method_exists($objeto, 'vista_xslfo')) {
+                    $objeto->vista_xslfo($this);
+                }
+            }
+        }
 		$xml = $this->xml->generar_xml();
 		if (preg_match('&^https?://.*$&',$this->fop)) {
 			$this->temp_salida = $this->obtener_pdf($xml);

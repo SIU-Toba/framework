@@ -25,6 +25,7 @@ class toba_vista_jasperreports
 	protected $limpiar_modo_archivo = false;
 	
 	private $lista_jrprint = array();
+    protected $objetos = array();
 	
 	function __construct()
 	{
@@ -266,11 +267,13 @@ class toba_vista_jasperreports
 	 */
 	function generar_salida()
 	{
-		foreach( $this->objetos as $objeto ) {
-			if(method_exists($objeto, 'vista_jasperreports')) {
-				$objeto->vista_jasperreports($this);	
-			}
-		}	
+        if (isset($this->objetos) && is_countable($this->objetos)) {
+            foreach( $this->objetos as $objeto ) {
+                if(method_exists($objeto, 'vista_jasperreports')) {
+                    $objeto->vista_jasperreports($this);
+                }
+            }
+        }
 		
 		//Uno los distintos metareportes (jrprint) en un solo archivo para enviar el pdf.
 		if (! $this->hay_metareportes()) {

@@ -13,7 +13,7 @@ class toba_vista_xml
 {
 	protected $objetos = array();
 	protected $tipo_descarga = 'attachment';
-        protected $tipo_salida = 'application/xml';
+    protected $tipo_salida = 'application/xml';
 	protected $nombre_archivo = 'archivo.xml';
 	protected $xml_externo;
 	protected $temp_salida;
@@ -87,11 +87,13 @@ class toba_vista_xml
 	{
 		if (! isset($this->xml_externo)) {																//Si no existe XML pre-generado externamente
 			$xml = '<?xml version="1.0" encoding="ISO-8859-1"?><raiz>';
-			foreach( $this->objetos as $objeto ) {
-				if(method_exists($objeto, 'vista_xml')) {
-					$xml .= $objeto->vista_xml(true);
-				}
-			}
+            if (isset($this->objetos) && is_countable($this->objetos)) {
+                foreach( $this->objetos as $objeto ) {
+                    if(method_exists($objeto, 'vista_xml')) {
+                        $xml .= $objeto->vista_xml(true);
+                    }
+                }
+            }
 			$xml .= '</raiz>';
 		} else {
 			$xml = $this->xml_externo;

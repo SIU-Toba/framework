@@ -19,7 +19,7 @@ class toba_vista_pdf
 	protected $texto_pie;
 	protected $nombre_archivo = 'archivo.pdf';
 	protected $tipo_descarga = 'attachment';
-        protected $tipo_salida = 'application/pdf';
+    protected $tipo_salida = 'application/pdf';
 	protected $temp_salida;
 
 	function __construct()
@@ -123,9 +123,11 @@ class toba_vista_pdf
 	function generar_salida()
 	{
 		$this->generar_pdf_encabezado_pie();
-		foreach( $this->objetos as $objeto ) {
-			$objeto->vista_pdf( $this );
-		}
+        if (isset($this->objetos) && is_countable($this->objetos)) {
+            foreach( $this->objetos as $objeto ) {
+                $objeto->vista_pdf( $this );
+            }
+        }
 		$this->parar_numeracion_paginas();
 		return $this->crear_pdf();
 	}
