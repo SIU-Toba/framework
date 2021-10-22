@@ -261,6 +261,9 @@ class toba_ef_html extends toba_ef
 	protected $fckeditor;
 	protected $colapsada = false;
 	protected $js_config;
+    
+    static protected $config_global; 
+    static protected $skin;
 
 	static function get_lista_parametros()
 	{
@@ -297,16 +300,22 @@ class toba_ef_html extends toba_ef
 		$name = $this->id_form;
 		$attr = '';
 		$out = "<textarea name=\"" . $name . "\" id=\"".$name. "\" " . $attr . ">" . htmlspecialchars($valor) . "</textarea>\n";
-		if (! isset($this->config_file)) {
-			$url_archivo = toba_recurso::js('ckeditor_cfg/config.js');
-		} else {
-			$url_archivo = toba_recurso::url_proyecto() . '/js' . $this->config_file;
-		}
+        if (isset(self::$config_global)) {
+            $url_archivo = toba_recurso::url_proyecto() . '/js' . self::$config_global;
+        } elseif (isset($this->config_file)) {
+            $url_archivo = toba_recurso::url_proyecto() . '/js' . $this->config_file;
+        } else {
+            $url_archivo = toba_recurso::js('ckeditor_cfg/config.js');
+        }
 
-		$opciones = array(	'width' => $this->ancho,
-						'height' => $this->alto,
-						'toolbar' => $this->botonera,
-						'skin' => 'kama');
+        $opciones = [
+            'width' => $this->ancho,
+            'height' => $this->alto,
+            'toolbar' => $this->botonera ];
+        
+        if (isset(self::$skin)) {
+            $opciones['skin'] = self::$skin;
+        }
 		$opciones['customConfig'] = $url_archivo;
 		$opciones['readOnly'] =  $this->es_solo_lectura();
 		$opciones =  array_map('utf8_e_seguro', $opciones);
@@ -358,6 +367,16 @@ class toba_ef_html extends toba_ef
 		$this->config_file = $path;
 	}
 
+    static function set_global_cfg_file($path)
+    {
+        self::$config_global = $path;
+    }
+    
+    static function set_skin($eskin)
+    {
+        self::$skin = $eskin;
+    }
+    
 	function get_input()
 	{
 		if(isset($this->estado)){
