@@ -12,7 +12,10 @@ class toba_autenticacion
 				'uid', 'uniqueIdentifier',
 				'appLauncherData', 'userAccounts', 
 				'defaultUserAccount',
-				'employeeNumber'];
+				'employeeNumber',
+                //Active Directory Fields
+                'sAMAccountName',
+        ];
 	protected $parametros_url;
 	protected $atributos_usuario;
 	
