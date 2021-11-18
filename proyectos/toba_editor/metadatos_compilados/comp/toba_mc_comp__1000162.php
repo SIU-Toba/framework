@@ -131,13 +131,13 @@ class toba_mc_comp__1000162
   array (
     0 => 
     array (
-      'pantalla' => 33000085,
+      'pantalla' => 1000030,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1000162,
-      'dep_id' => 33000166,
+      'dep_id' => 1000046,
       'orden' => 0,
-      'identificador_pantalla' => '2do_factor',
-      'identificador_dep' => 'form_2do_factor',
+      'identificador_pantalla' => 'login',
+      'identificador_dep' => 'datos',
     ),
     1 => 
     array (
@@ -151,13 +151,13 @@ class toba_mc_comp__1000162
     ),
     2 => 
     array (
-      'pantalla' => 1000030,
+      'pantalla' => 33000085,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1000162,
-      'dep_id' => 1000046,
+      'dep_id' => 33000166,
       'orden' => 0,
-      'identificador_pantalla' => 'login',
-      'identificador_dep' => 'datos',
+      'identificador_pantalla' => '2do_factor',
+      'identificador_dep' => 'form_2do_factor',
     ),
     3 => 
     array (

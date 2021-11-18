@@ -255,38 +255,47 @@ class toba_mc_comp__2206
       'pantalla' => 1143,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 2206,
-      'evento_id' => 984,
+      'evento_id' => 983,
       'identificador_pantalla' => 'propiedades',
-      'identificador_evento' => 'eliminar',
+      'identificador_evento' => 'guardar',
     ),
     1 => 
     array (
       'pantalla' => 1143,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 2206,
-      'evento_id' => 983,
+      'evento_id' => 984,
       'identificador_pantalla' => 'propiedades',
-      'identificador_evento' => 'guardar',
+      'identificador_evento' => 'eliminar',
     ),
     2 => 
     array (
       'pantalla' => 1150,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 2206,
-      'evento_id' => 984,
+      'evento_id' => 983,
       'identificador_pantalla' => 'pant_gatillos_d',
-      'identificador_evento' => 'eliminar',
+      'identificador_evento' => 'guardar',
     ),
     3 => 
     array (
       'pantalla' => 1150,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 2206,
-      'evento_id' => 983,
+      'evento_id' => 984,
       'identificador_pantalla' => 'pant_gatillos_d',
-      'identificador_evento' => 'guardar',
+      'identificador_evento' => 'eliminar',
     ),
     4 => 
+    array (
+      'pantalla' => 1151,
+      'proyecto' => 'toba_editor',
+      'objeto_ci' => 2206,
+      'evento_id' => 983,
+      'identificador_pantalla' => 'pant_gatillos_i',
+      'identificador_evento' => 'guardar',
+    ),
+    5 => 
     array (
       'pantalla' => 1151,
       'proyecto' => 'toba_editor',
@@ -294,15 +303,6 @@ class toba_mc_comp__2206
       'evento_id' => 984,
       'identificador_pantalla' => 'pant_gatillos_i',
       'identificador_evento' => 'eliminar',
-    ),
-    5 => 
-    array (
-      'pantalla' => 1151,
-      'proyecto' => 'toba_editor',
-      'objeto_ci' => 2206,
-      'evento_id' => 983,
-      'identificador_pantalla' => 'pant_gatillos_i',
-      'identificador_evento' => 'guardar',
     ),
     6 => 
     array (
@@ -353,6 +353,19 @@ class toba_mc_comp__2206
     ),
     2 => 
     array (
+      'identificador' => 'formulario',
+      'proyecto' => 'toba_editor',
+      'objeto' => 2205,
+      'clase' => 'toba_ei_formulario',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
+      'fuente' => 'instancia',
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    3 => 
+    array (
       'identificador' => 'form_gatillos_dir',
       'proyecto' => 'toba_editor',
       'objeto' => 2230,
@@ -364,7 +377,7 @@ class toba_mc_comp__2206
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
-    3 => 
+    4 => 
     array (
       'identificador' => 'form_gatillos_indir',
       'proyecto' => 'toba_editor',
@@ -373,19 +386,6 @@ class toba_mc_comp__2206
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
       'subclase' => 'eiform_gatillos',
       'subclase_archivo' => 'datos/dimensiones/eiform_gatillos.php',
-      'fuente' => 'instancia',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    4 => 
-    array (
-      'identificador' => 'formulario',
-      'proyecto' => 'toba_editor',
-      'objeto' => 2205,
-      'clase' => 'toba_ei_formulario',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
       'fuente' => 'instancia',
       'parametros_a' => NULL,
       'parametros_b' => NULL,

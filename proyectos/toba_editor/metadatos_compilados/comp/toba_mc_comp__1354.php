@@ -596,7 +596,7 @@ class toba_mc_comp__1354
     ),
     3 => 
     array (
-      'identificador' => 'cuadro_layout_impresion',
+      'identificador' => 'cuadro_layout',
       'proyecto' => 'toba_editor',
       'objeto' => 30000101,
       'clase' => 'toba_ei_cuadro',
@@ -609,7 +609,7 @@ class toba_mc_comp__1354
     ),
     4 => 
     array (
-      'identificador' => 'cuadro_layout',
+      'identificador' => 'cuadro_layout_impresion',
       'proyecto' => 'toba_editor',
       'objeto' => 30000101,
       'clase' => 'toba_ei_cuadro',
@@ -648,7 +648,7 @@ class toba_mc_comp__1354
     ),
     7 => 
     array (
-      'identificador' => 'form_layout_impresion',
+      'identificador' => 'form_layout',
       'proyecto' => 'toba_editor',
       'objeto' => 30000048,
       'clase' => 'toba_ei_formulario',
@@ -661,7 +661,7 @@ class toba_mc_comp__1354
     ),
     8 => 
     array (
-      'identificador' => 'form_layout',
+      'identificador' => 'form_layout_impresion',
       'proyecto' => 'toba_editor',
       'objeto' => 30000048,
       'clase' => 'toba_ei_formulario',

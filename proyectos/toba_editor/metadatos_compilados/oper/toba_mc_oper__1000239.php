@@ -291,19 +291,6 @@ class toba_mc_comp__1381
   array (
     0 => 
     array (
-      'identificador' => 'filtro',
-      'proyecto' => 'toba_editor',
-      'objeto' => 1369,
-      'clase' => 'toba_ei_formulario',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
-      'subclase' => 'filtro_catalogo_items',
-      'subclase_archivo' => 'catalogos/filtro_catalogo_items.php',
-      'fuente' => 'instancia',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    1 => 
-    array (
       'identificador' => 'fotos',
       'proyecto' => 'toba_editor',
       'objeto' => 1383,
@@ -315,7 +302,7 @@ class toba_mc_comp__1381
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
-    2 => 
+    1 => 
     array (
       'identificador' => 'items',
       'proyecto' => 'toba_editor',
@@ -325,6 +312,19 @@ class toba_mc_comp__1381
       'subclase' => NULL,
       'subclase_archivo' => NULL,
       'fuente' => NULL,
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    2 => 
+    array (
+      'identificador' => 'filtro',
+      'proyecto' => 'toba_editor',
+      'objeto' => 1369,
+      'clase' => 'toba_ei_formulario',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
+      'subclase' => 'filtro_catalogo_items',
+      'subclase_archivo' => 'catalogos/filtro_catalogo_items.php',
+      'fuente' => 'instancia',
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),

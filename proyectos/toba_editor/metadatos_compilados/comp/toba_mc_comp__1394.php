@@ -293,18 +293,18 @@ class toba_mc_comp__1394
       'pantalla' => 372,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1394,
-      'evento_id' => 68,
+      'evento_id' => 69,
       'identificador_pantalla' => '1',
-      'identificador_evento' => 'eliminar',
+      'identificador_evento' => 'procesar',
     ),
     1 => 
     array (
       'pantalla' => 372,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1394,
-      'evento_id' => 69,
+      'evento_id' => 68,
       'identificador_pantalla' => '1',
-      'identificador_evento' => 'procesar',
+      'identificador_evento' => 'eliminar',
     ),
     2 => 
     array (
@@ -329,29 +329,20 @@ class toba_mc_comp__1394
       'pantalla' => 30000028,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1394,
-      'evento_id' => 69,
+      'evento_id' => 68,
       'identificador_pantalla' => '4',
-      'identificador_evento' => 'procesar',
+      'identificador_evento' => 'eliminar',
     ),
     5 => 
     array (
       'pantalla' => 30000028,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1394,
-      'evento_id' => 68,
+      'evento_id' => 69,
       'identificador_pantalla' => '4',
-      'identificador_evento' => 'eliminar',
+      'identificador_evento' => 'procesar',
     ),
     6 => 
-    array (
-      'pantalla' => 33000011,
-      'proyecto' => 'toba_editor',
-      'objeto_ci' => 1394,
-      'evento_id' => 68,
-      'identificador_pantalla' => '5',
-      'identificador_evento' => 'eliminar',
-    ),
-    7 => 
     array (
       'pantalla' => 33000011,
       'proyecto' => 'toba_editor',
@@ -359,6 +350,15 @@ class toba_mc_comp__1394
       'evento_id' => 69,
       'identificador_pantalla' => '5',
       'identificador_evento' => 'procesar',
+    ),
+    7 => 
+    array (
+      'pantalla' => 33000011,
+      'proyecto' => 'toba_editor',
+      'objeto_ci' => 1394,
+      'evento_id' => 68,
+      'identificador_pantalla' => '5',
+      'identificador_evento' => 'eliminar',
     ),
     8 => 
     array (
@@ -435,7 +435,7 @@ class toba_mc_comp__1394
     ),
     4 => 
     array (
-      'identificador' => 'form_layout_impresion',
+      'identificador' => 'form_layout',
       'proyecto' => 'toba_editor',
       'objeto' => 30000048,
       'clase' => 'toba_ei_formulario',
@@ -448,7 +448,7 @@ class toba_mc_comp__1394
     ),
     5 => 
     array (
-      'identificador' => 'form_layout',
+      'identificador' => 'form_layout_impresion',
       'proyecto' => 'toba_editor',
       'objeto' => 30000048,
       'clase' => 'toba_ei_formulario',

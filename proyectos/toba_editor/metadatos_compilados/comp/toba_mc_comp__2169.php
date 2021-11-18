@@ -233,16 +233,6 @@ class toba_mc_comp__2169
   array (
     0 => 
     array (
-      'pantalla' => 1128,
-      'proyecto' => 'toba_editor',
-      'objeto_ci' => 2169,
-      'dep_id' => 1079,
-      'orden' => 1,
-      'identificador_pantalla' => 'pant_edicion',
-      'identificador_dep' => 'formulario',
-    ),
-    1 => 
-    array (
       'pantalla' => 1127,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 2169,
@@ -250,6 +240,16 @@ class toba_mc_comp__2169
       'orden' => 1,
       'identificador_pantalla' => 'pant_seleccion',
       'identificador_dep' => 'cuadro',
+    ),
+    1 => 
+    array (
+      'pantalla' => 1128,
+      'proyecto' => 'toba_editor',
+      'objeto_ci' => 2169,
+      'dep_id' => 1079,
+      'orden' => 1,
+      'identificador_pantalla' => 'pant_edicion',
+      'identificador_dep' => 'formulario',
     ),
     2 => 
     array (
@@ -315,19 +315,6 @@ class toba_mc_comp__2169
   array (
     0 => 
     array (
-      'identificador' => 'cuadro',
-      'proyecto' => 'toba_editor',
-      'objeto' => 2167,
-      'clase' => 'toba_ei_cuadro',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_cuadro.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
-      'fuente' => NULL,
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    1 => 
-    array (
       'identificador' => 'datos',
       'proyecto' => 'toba_editor',
       'objeto' => 2160,
@@ -339,7 +326,33 @@ class toba_mc_comp__2169
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
+    1 => 
+    array (
+      'identificador' => 'cuadro',
+      'proyecto' => 'toba_editor',
+      'objeto' => 2167,
+      'clase' => 'toba_ei_cuadro',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_cuadro.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
+      'fuente' => NULL,
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
     2 => 
+    array (
+      'identificador' => 'formulario',
+      'proyecto' => 'toba_editor',
+      'objeto' => 2168,
+      'clase' => 'toba_ei_formulario',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
+      'fuente' => 'instancia',
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    3 => 
     array (
       'identificador' => 'form_importar',
       'proyecto' => 'toba_editor',
@@ -352,7 +365,7 @@ class toba_mc_comp__2169
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
-    3 => 
+    4 => 
     array (
       'identificador' => 'form_paleta',
       'proyecto' => 'toba_editor',
@@ -361,19 +374,6 @@ class toba_mc_comp__2169
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
       'subclase' => 'ml_paleta',
       'subclase_archivo' => 'configuracion/skins/ml_paleta.php',
-      'fuente' => 'instancia',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    4 => 
-    array (
-      'identificador' => 'formulario',
-      'proyecto' => 'toba_editor',
-      'objeto' => 2168,
-      'clase' => 'toba_ei_formulario',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
       'fuente' => 'instancia',
       'parametros_a' => NULL,
       'parametros_b' => NULL,

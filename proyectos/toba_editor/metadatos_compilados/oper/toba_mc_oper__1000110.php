@@ -473,19 +473,6 @@ class toba_mc_comp__1000292
   array (
     0 => 
     array (
-      'identificador' => 'form_generaciones',
-      'proyecto' => 'toba_editor',
-      'objeto' => 1994,
-      'clase' => 'toba_ei_formulario_ml',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
-      'fuente' => 'instancia',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    1 => 
-    array (
       'identificador' => 'form_tipo_operacion',
       'proyecto' => 'toba_editor',
       'objeto' => 1000289,
@@ -493,6 +480,19 @@ class toba_mc_comp__1000292
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
       'subclase' => 'form_tipo_operacion',
       'subclase_archivo' => 'asistentes/form_tipo_operacion.php',
+      'fuente' => 'instancia',
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    1 => 
+    array (
+      'identificador' => 'form_generaciones',
+      'proyecto' => 'toba_editor',
+      'objeto' => 1994,
+      'clase' => 'toba_ei_formulario_ml',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
       'fuente' => 'instancia',
       'parametros_a' => NULL,
       'parametros_b' => NULL,

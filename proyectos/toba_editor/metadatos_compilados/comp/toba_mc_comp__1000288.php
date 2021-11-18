@@ -315,20 +315,29 @@ class toba_mc_comp__1000288
       'pantalla' => 1000163,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1000288,
-      'evento_id' => 1000365,
+      'evento_id' => 1000324,
       'identificador_pantalla' => 'pant_editar',
-      'identificador_evento' => 'editar_basicos',
+      'identificador_evento' => 'procesar',
     ),
     1 => 
     array (
       'pantalla' => 1000163,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1000288,
-      'evento_id' => 1000324,
+      'evento_id' => 1000365,
       'identificador_pantalla' => 'pant_editar',
-      'identificador_evento' => 'procesar',
+      'identificador_evento' => 'editar_basicos',
     ),
     2 => 
+    array (
+      'pantalla' => 1000162,
+      'proyecto' => 'toba_editor',
+      'objeto_ci' => 1000288,
+      'evento_id' => 1000365,
+      'identificador_pantalla' => 'pant_generar',
+      'identificador_evento' => 'editar_basicos',
+    ),
+    3 => 
     array (
       'pantalla' => 1000162,
       'proyecto' => 'toba_editor',
@@ -337,16 +346,16 @@ class toba_mc_comp__1000288
       'identificador_pantalla' => 'pant_generar',
       'identificador_evento' => 'generar',
     ),
-    3 => 
+    4 => 
     array (
-      'pantalla' => 1000162,
+      'pantalla' => 1000168,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1000288,
       'evento_id' => 1000365,
-      'identificador_pantalla' => 'pant_generar',
+      'identificador_pantalla' => 'pant_borrar',
       'identificador_evento' => 'editar_basicos',
     ),
-    4 => 
+    5 => 
     array (
       'pantalla' => 1000168,
       'proyecto' => 'toba_editor',
@@ -354,15 +363,6 @@ class toba_mc_comp__1000288
       'evento_id' => 1000335,
       'identificador_pantalla' => 'pant_borrar',
       'identificador_evento' => 'borrar',
-    ),
-    5 => 
-    array (
-      'pantalla' => 1000168,
-      'proyecto' => 'toba_editor',
-      'objeto_ci' => 1000288,
-      'evento_id' => 1000365,
-      'identificador_pantalla' => 'pant_borrar',
-      'identificador_evento' => 'editar_basicos',
     ),
     6 => 
     array (
@@ -391,6 +391,19 @@ class toba_mc_comp__1000288
     ),
     1 => 
     array (
+      'identificador' => 'form_molde',
+      'proyecto' => 'toba_editor',
+      'objeto' => 1000299,
+      'clase' => 'toba_ei_formulario',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
+      'subclase' => 'form_molde',
+      'subclase_archivo' => 'asistentes/form_molde.php',
+      'fuente' => 'instancia',
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    2 => 
+    array (
       'identificador' => 'form_borrar',
       'proyecto' => 'toba_editor',
       'objeto' => 1000300,
@@ -402,7 +415,7 @@ class toba_mc_comp__1000288
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
-    2 => 
+    3 => 
     array (
       'identificador' => 'form_generaciones',
       'proyecto' => 'toba_editor',
@@ -411,19 +424,6 @@ class toba_mc_comp__1000288
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
       'subclase' => NULL,
       'subclase_archivo' => NULL,
-      'fuente' => 'instancia',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    3 => 
-    array (
-      'identificador' => 'form_molde',
-      'proyecto' => 'toba_editor',
-      'objeto' => 1000299,
-      'clase' => 'toba_ei_formulario',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
-      'subclase' => 'form_molde',
-      'subclase_archivo' => 'asistentes/form_molde.php',
       'fuente' => 'instancia',
       'parametros_a' => NULL,
       'parametros_b' => NULL,

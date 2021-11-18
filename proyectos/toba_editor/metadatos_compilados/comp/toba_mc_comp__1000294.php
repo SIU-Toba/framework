@@ -113,19 +113,6 @@ class toba_mc_comp__1000294
     ),
     1 => 
     array (
-      'identificador' => 'filas',
-      'proyecto' => 'toba_editor',
-      'objeto' => 1000296,
-      'clase' => 'toba_datos_tabla',
-      'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_tabla.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
-      'fuente' => 'instancia',
-      'parametros_a' => '',
-      'parametros_b' => '',
-    ),
-    2 => 
-    array (
       'identificador' => 'molde',
       'proyecto' => 'toba_editor',
       'objeto' => 1000298,
@@ -136,6 +123,19 @@ class toba_mc_comp__1000294
       'fuente' => 'instancia',
       'parametros_a' => '1',
       'parametros_b' => '1',
+    ),
+    2 => 
+    array (
+      'identificador' => 'filas',
+      'proyecto' => 'toba_editor',
+      'objeto' => 1000296,
+      'clase' => 'toba_datos_tabla',
+      'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_tabla.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
+      'fuente' => 'instancia',
+      'parametros_a' => '',
+      'parametros_b' => '',
     ),
   ),
   '_info_columnas_asoc_rel' => 

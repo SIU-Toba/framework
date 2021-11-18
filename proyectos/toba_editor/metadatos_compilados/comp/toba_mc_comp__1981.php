@@ -295,6 +295,19 @@ class toba_mc_comp__1981
   array (
     0 => 
     array (
+      'identificador' => 'opciones',
+      'proyecto' => 'toba_editor',
+      'objeto' => 1000305,
+      'clase' => 'toba_datos_tabla',
+      'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_tabla.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
+      'fuente' => 'instancia',
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    1 => 
+    array (
       'identificador' => 'cuadro_planes',
       'proyecto' => 'toba_editor',
       'objeto' => 1984,
@@ -306,26 +319,13 @@ class toba_mc_comp__1981
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
-    1 => 
+    2 => 
     array (
       'identificador' => 'form_opciones',
       'proyecto' => 'toba_editor',
       'objeto' => 1000306,
       'clase' => 'toba_ei_formulario',
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
-      'fuente' => 'instancia',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    2 => 
-    array (
-      'identificador' => 'opciones',
-      'proyecto' => 'toba_editor',
-      'objeto' => 1000305,
-      'clase' => 'toba_datos_tabla',
-      'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_tabla.php',
       'subclase' => NULL,
       'subclase_archivo' => NULL,
       'fuente' => 'instancia',

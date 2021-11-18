@@ -260,9 +260,9 @@ class toba_mc_comp__33000026
   array (
     0 => 
     array (
-      'identificador' => 'form_pregunta',
+      'identificador' => 'form_usuario',
       'proyecto' => 'toba_editor',
-      'objeto' => 33000066,
+      'objeto' => 33000027,
       'clase' => 'toba_ei_formulario',
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
       'subclase' => NULL,
@@ -273,9 +273,9 @@ class toba_mc_comp__33000026
     ),
     1 => 
     array (
-      'identificador' => 'form_usuario',
+      'identificador' => 'form_pregunta',
       'proyecto' => 'toba_editor',
-      'objeto' => 33000027,
+      'objeto' => 33000066,
       'clase' => 'toba_ei_formulario',
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
       'subclase' => NULL,

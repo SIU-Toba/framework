@@ -492,19 +492,6 @@ class toba_mc_comp__2296
     ),
     1 => 
     array (
-      'identificador' => 'form_metodos',
-      'proyecto' => 'toba_editor',
-      'objeto' => 2291,
-      'clase' => 'toba_ei_formulario',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
-      'subclase' => 'form_metodos',
-      'subclase_archivo' => 'objetos_toba/subclases/form_metodos.php',
-      'fuente' => 'instancia',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    2 => 
-    array (
       'identificador' => 'form_opciones',
       'proyecto' => 'toba_editor',
       'objeto' => 2295,
@@ -512,6 +499,19 @@ class toba_mc_comp__2296
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
       'subclase' => NULL,
       'subclase_archivo' => NULL,
+      'fuente' => 'instancia',
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    2 => 
+    array (
+      'identificador' => 'form_metodos',
+      'proyecto' => 'toba_editor',
+      'objeto' => 2291,
+      'clase' => 'toba_ei_formulario',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
+      'subclase' => 'form_metodos',
+      'subclase_archivo' => 'objetos_toba/subclases/form_metodos.php',
       'fuente' => 'instancia',
       'parametros_a' => NULL,
       'parametros_b' => NULL,

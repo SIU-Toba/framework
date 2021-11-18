@@ -434,19 +434,6 @@ class toba_mc_comp__1000001
   array (
     0 => 
     array (
-      'identificador' => 'filtro',
-      'proyecto' => 'toba_editor',
-      'objeto' => 1000002,
-      'clase' => 'toba_ei_formulario',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
-      'subclase' => 'filtro_opciones',
-      'subclase_archivo' => 'utilitarios/logger/filtro_opciones.php',
-      'fuente' => 'instancia',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    1 => 
-    array (
       'identificador' => 'pedidos',
       'proyecto' => 'toba_editor',
       'objeto' => 1000003,
@@ -455,6 +442,19 @@ class toba_mc_comp__1000001
       'subclase' => NULL,
       'subclase_archivo' => NULL,
       'fuente' => NULL,
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    1 => 
+    array (
+      'identificador' => 'filtro',
+      'proyecto' => 'toba_editor',
+      'objeto' => 1000002,
+      'clase' => 'toba_ei_formulario',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
+      'subclase' => 'filtro_opciones',
+      'subclase_archivo' => 'utilitarios/logger/filtro_opciones.php',
+      'fuente' => 'instancia',
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),

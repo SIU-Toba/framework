@@ -285,20 +285,29 @@ class toba_mc_comp__1399
       'pantalla' => 378,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1399,
-      'evento_id' => 76,
+      'evento_id' => 75,
       'identificador_pantalla' => '1',
-      'identificador_evento' => 'procesar',
+      'identificador_evento' => 'eliminar',
     ),
     1 => 
     array (
       'pantalla' => 378,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1399,
-      'evento_id' => 75,
+      'evento_id' => 76,
       'identificador_pantalla' => '1',
-      'identificador_evento' => 'eliminar',
+      'identificador_evento' => 'procesar',
     ),
     2 => 
+    array (
+      'pantalla' => 379,
+      'proyecto' => 'toba_editor',
+      'objeto_ci' => 1399,
+      'evento_id' => 75,
+      'identificador_pantalla' => '2',
+      'identificador_evento' => 'eliminar',
+    ),
+    3 => 
     array (
       'pantalla' => 379,
       'proyecto' => 'toba_editor',
@@ -306,15 +315,6 @@ class toba_mc_comp__1399
       'evento_id' => 76,
       'identificador_pantalla' => '2',
       'identificador_evento' => 'procesar',
-    ),
-    3 => 
-    array (
-      'pantalla' => 379,
-      'proyecto' => 'toba_editor',
-      'objeto_ci' => 1399,
-      'evento_id' => 75,
-      'identificador_pantalla' => '2',
-      'identificador_evento' => 'eliminar',
     ),
     4 => 
     array (

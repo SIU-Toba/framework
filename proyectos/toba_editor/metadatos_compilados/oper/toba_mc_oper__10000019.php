@@ -315,16 +315,6 @@ class toba_mc_comp__10000021
   array (
     0 => 
     array (
-      'pantalla' => 10000009,
-      'proyecto' => 'toba_editor',
-      'objeto_ci' => 10000021,
-      'dep_id' => 10000033,
-      'orden' => 1,
-      'identificador_pantalla' => 'pant_edicion',
-      'identificador_dep' => 'detalle',
-    ),
-    1 => 
-    array (
       'pantalla' => 10000008,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 10000021,
@@ -332,6 +322,16 @@ class toba_mc_comp__10000021
       'orden' => 1,
       'identificador_pantalla' => 'pant_listado',
       'identificador_dep' => 'cuadro',
+    ),
+    1 => 
+    array (
+      'pantalla' => 10000009,
+      'proyecto' => 'toba_editor',
+      'objeto_ci' => 10000021,
+      'dep_id' => 10000033,
+      'orden' => 1,
+      'identificador_pantalla' => 'pant_edicion',
+      'identificador_dep' => 'detalle',
     ),
     2 => 
     array (
@@ -397,13 +397,13 @@ class toba_mc_comp__10000021
   array (
     0 => 
     array (
-      'identificador' => 'controles',
+      'identificador' => 'relacion',
       'proyecto' => 'toba_editor',
-      'objeto' => 10000034,
-      'clase' => 'toba_ei_formulario_ml',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
-      'subclase' => 'eiform_controles',
-      'subclase_archivo' => 'objetos_toba/eiform_controles.php',
+      'objeto' => 10000024,
+      'clase' => 'toba_datos_relacion',
+      'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_relacion.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
       'fuente' => 'instancia',
       'parametros_a' => NULL,
       'parametros_b' => NULL,
@@ -449,13 +449,13 @@ class toba_mc_comp__10000021
     ),
     4 => 
     array (
-      'identificador' => 'relacion',
+      'identificador' => 'controles',
       'proyecto' => 'toba_editor',
-      'objeto' => 10000024,
-      'clase' => 'toba_datos_relacion',
-      'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_relacion.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
+      'objeto' => 10000034,
+      'clase' => 'toba_ei_formulario_ml',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
+      'subclase' => 'eiform_controles',
+      'subclase_archivo' => 'objetos_toba/eiform_controles.php',
       'fuente' => 'instancia',
       'parametros_a' => NULL,
       'parametros_b' => NULL,

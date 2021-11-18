@@ -261,19 +261,6 @@ class toba_mc_comp__1827
   array (
     0 => 
     array (
-      'identificador' => 'basica',
-      'proyecto' => 'toba_editor',
-      'objeto' => 1829,
-      'clase' => 'toba_ei_formulario',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
-      'subclase' => 'eiform_proyecto_confbasica',
-      'subclase_archivo' => 'configuracion/eiform_proyecto_confbasica.php',
-      'fuente' => 'instancia',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    1 => 
-    array (
       'identificador' => 'datos',
       'proyecto' => 'toba_editor',
       'objeto' => 1828,
@@ -285,7 +272,7 @@ class toba_mc_comp__1827
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
-    2 => 
+    1 => 
     array (
       'identificador' => 'login',
       'proyecto' => 'toba_editor',
@@ -294,6 +281,19 @@ class toba_mc_comp__1827
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
       'subclase' => 'eiform_proyecto_conflogin',
       'subclase_archivo' => 'configuracion/eiform_proyecto_conflogin.php',
+      'fuente' => 'instancia',
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    2 => 
+    array (
+      'identificador' => 'basica',
+      'proyecto' => 'toba_editor',
+      'objeto' => 1829,
+      'clase' => 'toba_ei_formulario',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
+      'subclase' => 'eiform_proyecto_confbasica',
+      'subclase_archivo' => 'configuracion/eiform_proyecto_confbasica.php',
       'fuente' => 'instancia',
       'parametros_a' => NULL,
       'parametros_b' => NULL,

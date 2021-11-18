@@ -375,18 +375,18 @@ class toba_mc_comp__1394
       'pantalla' => 372,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1394,
-      'evento_id' => 68,
+      'evento_id' => 69,
       'identificador_pantalla' => '1',
-      'identificador_evento' => 'eliminar',
+      'identificador_evento' => 'procesar',
     ),
     1 => 
     array (
       'pantalla' => 372,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1394,
-      'evento_id' => 69,
+      'evento_id' => 68,
       'identificador_pantalla' => '1',
-      'identificador_evento' => 'procesar',
+      'identificador_evento' => 'eliminar',
     ),
     2 => 
     array (
@@ -411,29 +411,20 @@ class toba_mc_comp__1394
       'pantalla' => 30000028,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1394,
-      'evento_id' => 69,
+      'evento_id' => 68,
       'identificador_pantalla' => '4',
-      'identificador_evento' => 'procesar',
+      'identificador_evento' => 'eliminar',
     ),
     5 => 
     array (
       'pantalla' => 30000028,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1394,
-      'evento_id' => 68,
+      'evento_id' => 69,
       'identificador_pantalla' => '4',
-      'identificador_evento' => 'eliminar',
+      'identificador_evento' => 'procesar',
     ),
     6 => 
-    array (
-      'pantalla' => 33000011,
-      'proyecto' => 'toba_editor',
-      'objeto_ci' => 1394,
-      'evento_id' => 68,
-      'identificador_pantalla' => '5',
-      'identificador_evento' => 'eliminar',
-    ),
-    7 => 
     array (
       'pantalla' => 33000011,
       'proyecto' => 'toba_editor',
@@ -441,6 +432,15 @@ class toba_mc_comp__1394
       'evento_id' => 69,
       'identificador_pantalla' => '5',
       'identificador_evento' => 'procesar',
+    ),
+    7 => 
+    array (
+      'pantalla' => 33000011,
+      'proyecto' => 'toba_editor',
+      'objeto_ci' => 1394,
+      'evento_id' => 68,
+      'identificador_pantalla' => '5',
+      'identificador_evento' => 'eliminar',
     ),
     8 => 
     array (
@@ -517,7 +517,7 @@ class toba_mc_comp__1394
     ),
     4 => 
     array (
-      'identificador' => 'form_layout_impresion',
+      'identificador' => 'form_layout',
       'proyecto' => 'toba_editor',
       'objeto' => 30000048,
       'clase' => 'toba_ei_formulario',
@@ -530,7 +530,7 @@ class toba_mc_comp__1394
     ),
     5 => 
     array (
-      'identificador' => 'form_layout',
+      'identificador' => 'form_layout_impresion',
       'proyecto' => 'toba_editor',
       'objeto' => 30000048,
       'clase' => 'toba_ei_formulario',
@@ -13995,6 +13995,19 @@ class toba_mc_comp__1747
   array (
     0 => 
     array (
+      'identificador' => 'generador',
+      'proyecto' => 'toba_editor',
+      'objeto' => 1719,
+      'clase' => 'toba_ei_formulario',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
+      'fuente' => 'instancia',
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    1 => 
+    array (
       'identificador' => 'eventos',
       'proyecto' => 'toba_editor',
       'objeto' => 1366,
@@ -14006,7 +14019,7 @@ class toba_mc_comp__1747
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
-    1 => 
+    2 => 
     array (
       'identificador' => 'eventos_lista',
       'proyecto' => 'toba_editor',
@@ -14015,19 +14028,6 @@ class toba_mc_comp__1747
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
       'subclase' => 'eiform_abm_detalle',
       'subclase_archivo' => 'objetos_toba/eiform_abm_detalle.php',
-      'fuente' => 'instancia',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    2 => 
-    array (
-      'identificador' => 'generador',
-      'proyecto' => 'toba_editor',
-      'objeto' => 1719,
-      'clase' => 'toba_ei_formulario',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
       'fuente' => 'instancia',
       'parametros_a' => NULL,
       'parametros_b' => NULL,

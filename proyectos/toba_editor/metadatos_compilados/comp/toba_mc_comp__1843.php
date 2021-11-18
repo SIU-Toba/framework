@@ -143,16 +143,6 @@ class toba_mc_comp__1843
   array (
     0 => 
     array (
-      'pantalla' => 33000006,
-      'proyecto' => 'toba_editor',
-      'objeto_ci' => 1843,
-      'dep_id' => 801,
-      'orden' => 0,
-      'identificador_pantalla' => 'edicion',
-      'identificador_dep' => 'formulario',
-    ),
-    1 => 
-    array (
       'pantalla' => 991,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1843,
@@ -160,6 +150,16 @@ class toba_mc_comp__1843
       'orden' => 0,
       'identificador_pantalla' => 'seleccion',
       'identificador_dep' => 'filtro',
+    ),
+    1 => 
+    array (
+      'pantalla' => 33000006,
+      'proyecto' => 'toba_editor',
+      'objeto_ci' => 1843,
+      'dep_id' => 801,
+      'orden' => 0,
+      'identificador_pantalla' => 'edicion',
+      'identificador_dep' => 'formulario',
     ),
     2 => 
     array (
@@ -188,19 +188,6 @@ class toba_mc_comp__1843
   array (
     0 => 
     array (
-      'identificador' => 'cuadro',
-      'proyecto' => 'toba_editor',
-      'objeto' => 1845,
-      'clase' => 'toba_ei_cuadro',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_cuadro.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
-      'fuente' => NULL,
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    1 => 
-    array (
       'identificador' => 'datos',
       'proyecto' => 'toba_editor',
       'objeto' => 1844,
@@ -212,7 +199,7 @@ class toba_mc_comp__1843
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
-    2 => 
+    1 => 
     array (
       'identificador' => 'filtro',
       'proyecto' => 'toba_editor',
@@ -222,6 +209,19 @@ class toba_mc_comp__1843
       'subclase' => NULL,
       'subclase_archivo' => NULL,
       'fuente' => 'instancia',
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    2 => 
+    array (
+      'identificador' => 'cuadro',
+      'proyecto' => 'toba_editor',
+      'objeto' => 1845,
+      'clase' => 'toba_ei_cuadro',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_cuadro.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
+      'fuente' => NULL,
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),

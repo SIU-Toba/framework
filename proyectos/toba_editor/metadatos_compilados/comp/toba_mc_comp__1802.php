@@ -233,16 +233,6 @@ class toba_mc_comp__1802
   array (
     0 => 
     array (
-      'pantalla' => 977,
-      'proyecto' => 'toba_editor',
-      'objeto_ci' => 1802,
-      'dep_id' => 764,
-      'orden' => 1,
-      'identificador_pantalla' => 'edicion',
-      'identificador_dep' => 'editor',
-    ),
-    1 => 
-    array (
       'pantalla' => 976,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1802,
@@ -250,6 +240,16 @@ class toba_mc_comp__1802
       'orden' => 1,
       'identificador_pantalla' => 'seleccion',
       'identificador_dep' => 'filtro',
+    ),
+    1 => 
+    array (
+      'pantalla' => 977,
+      'proyecto' => 'toba_editor',
+      'objeto_ci' => 1802,
+      'dep_id' => 764,
+      'orden' => 1,
+      'identificador_pantalla' => 'edicion',
+      'identificador_dep' => 'editor',
     ),
     2 => 
     array (
@@ -331,19 +331,6 @@ class toba_mc_comp__1802
     ),
     2 => 
     array (
-      'identificador' => 'filtro',
-      'proyecto' => 'toba_editor',
-      'objeto' => 1809,
-      'clase' => 'toba_ei_formulario',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
-      'fuente' => 'instancia',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    3 => 
-    array (
       'identificador' => 'listado',
       'proyecto' => 'toba_editor',
       'objeto' => 1805,
@@ -352,6 +339,19 @@ class toba_mc_comp__1802
       'subclase' => NULL,
       'subclase_archivo' => NULL,
       'fuente' => NULL,
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    3 => 
+    array (
+      'identificador' => 'filtro',
+      'proyecto' => 'toba_editor',
+      'objeto' => 1809,
+      'clase' => 'toba_ei_formulario',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
+      'fuente' => 'instancia',
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
