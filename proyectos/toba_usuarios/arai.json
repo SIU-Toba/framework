@@ -9,7 +9,7 @@
       "name": "app:siu-toba/toba-usuarios",
       "alias": "Toba Usuarios",
       "description": "Gestor de Usuarios y Permisos de SIU-Toba",
-      "version": "3.3.1"
+      "version": "3.3.21"
     }
   ],
    "consume": [

@@ -4,6 +4,20 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.3.21](https://github.com/SIU-Toba/framework/releases/tag/v3.3.21) (2021-11-18)
+- Actualizacion de seguridad de paquetes JS:
+     * CKEditor4: v4.17.1
+- Se elimina el paquete siutoba/jasper de los sugeridos
+- Se agrega campo para Active Directory a los válidos para el Token SAML
+- Fix deprecateds en 3eros/CodeSniffer
+- Se agregan opciones de configuracion server-side para ef_html
+- Fix actualización de instancias anteriores con membresias en perfiles
+- Fix vulnerabilidades `path_disclosure` y `XSS` reportadas. (credits UNLU)
+- Fix en toba_usuarios por error en form al no usar factor local
+- Se actualizan los paquetes por seguridad
+    * laminas/laminas-escaper: v2.9.0
+    * phpmailer/phpmailer: v6.5.1
+
 [3.3.20](https://github.com/SIU-Toba/framework/releases/tag/v3.3.20) (2021-06-17)
 - Evita update no intencionado del paquete `siu/interfaces-manejador-salida-toba`
 - Fix exportación de membresias de perfiles.. no permitia múltiples membresias
