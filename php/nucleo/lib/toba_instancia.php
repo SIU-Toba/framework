@@ -46,7 +46,8 @@ class toba_instancia
 		toba::config()->add_config_file('instancia', $archivo);
 		toba::config()->load();
 		if (! is_file( $archivo ) ) {
-			throw new toba_error("INFO_INSTANCIA: No se encuentra definido el archivo de inicializacion de la INSTANCIA: '".self::get_id()."' ('$archivo')");
+			toba_logger::instancia()->error("INFO_INSTANCIA: No se encuentra definido el archivo de inicializacion de la INSTANCIA: '".self::get_id()."' ('$archivo')");
+			throw new toba_error('INFO_INSTANCIA: No se encuentra definido el archivo de inicializacion de la INSTANCIA');
 		}
 		return toba::config()->get_seccion('instancia');
 	}
@@ -78,7 +79,8 @@ class toba_instancia
 		if ( isset( $this->memoria['base'] ) ) {
 			return toba_dba::get_db($this->memoria['base']);
 		} else {
-			throw new toba_error("INFO_INSTANCIA: El archivo de inicializacion de la INSTANCIA: '".self::$id."' no posee una BASE DEFINIDA");
+			toba_logger::error("INFO_INSTANCIA: El archivo de inicializacion de la INSTANCIA: '".self::$id."' no posee una BASE DEFINIDA");
+			throw new toba_error('INFO_INSTANCIA: El archivo de inicializacion de la INSTANCIA no posee una BASE DEFINIDA');
 		}
 	}
 
@@ -384,7 +386,8 @@ class toba_instancia
 		$rs = array();
 		if (trim($usuario) != '') {$rs = $this->get_info_usuarios(array($usuario));}
 		if(empty($rs)){
-			throw new toba_error("El usuario $usuario no existe.");
+			toba_logger::instancia()->error("El usuario $usuario no existe.");
+			throw new toba_error('Usuario incorrecto o inexistente');
 		}
 		return $rs[0];
 	}
@@ -564,7 +567,7 @@ class toba_instancia
 			$id = $this->get_db()->sentencia_preparar($sql);
 			$this->get_db()->sentencia_ejecutar($id, array('usuario'=>$usuario,'ip'=>$ip,'texto'=>$texto));
 		} catch ( toba_error_db $e) {
-			throw new toba_error('Error');
+			throw new toba_error('Error!');
 		}
 	}
 
@@ -647,7 +650,7 @@ class toba_instancia
 		$sql = "SELECT nextval('{$this->get_schema_logs_toba()}.apex_sesion_browser_seq'::text) as id;";
 		$rs = $this->get_db()->consultar($sql);
 		if(empty($rs)){
-			throw new toba_error("No es posible recuperar el ID de la sesion.");
+			throw new toba_error('No es posible recuperar el ID de la sesion.');
 		}
 		return $rs[0]['id'];
 	}

@@ -158,9 +158,11 @@ abstract class toba_ef_seleccion extends toba_ef
 			//Maneja multiples datos
 			//El estado tiene el formato adecuado?
 			$cant_datos = count($this->dato);
-			if (count($estado) <> $cant_datos) {
-				throw new toba_error_def("Ha intentado cargar el combo '{$this->id}' con un array que posee un formato inadecuado " .
-								" se esperaban {$cant_datos} claves, pero se utilizaron: ". count($estado) . ".");
+			$cant_estado = count($estado);
+			if ($cant_estado <> $cant_datos) {
+				toba_logger::instancia()->error("Ha intentado cargar el combo '{$this->id}' con un array que posee un formato inadecuado " .
+								" se esperaban {$cant_datos} claves, pero se utilizaron: {$cant_estado}.");
+				throw new toba_error_def('Ha intentado cargar el ef con un array que posee un formato inadecuado, revise el log ');
 			}
 		}
 		if ($this->es_estado_nulo($estado)) {
@@ -189,7 +191,8 @@ abstract class toba_ef_seleccion extends toba_ef
 				$disponibles = toba::memoria()->get_dato_operacion($this->clave_memoria(true));
 				if (!isset($disponibles) || ! in_array($seleccion, $disponibles)) {
 					//toba::logger()->info("Fallback a fila modelo Cotejando $seleccion en ".$this->clave_memoria(true)." contra ".var_export($disponibles, true));				
-					throw new toba_error_seguridad("El ef '{$this->id}' no posee a la opción '$seleccion' entre las enviadas");
+					toba_logger::instancia()->error("El ef '{$this->id}' no posee a la opción '$seleccion' entre las enviadas");
+					throw new toba_error_seguridad('El ef solicitado no posee a la opción indicada entre las enviadas, revise el log');
 				}
 			}
 		}
@@ -201,8 +204,9 @@ abstract class toba_ef_seleccion extends toba_ef
 				$cant_datos = count($this->dato);
 				$valores = explode(apex_qs_separador, $seleccion);
 				if (count($valores) <> $cant_datos) {
-					throw new toba_error_def("Ha intentado cargar el combo '{$this->id}' con un array que posee un formato inadecuado " .
+					toba_logger::instancia()->error("Ha intentado cargar el combo '{$this->id}' con un array que posee un formato inadecuado " .
 									" se esperaban {$cant_datos} claves, pero se utilizaron: ". count($valores) . ".");
+					throw new toba_error_def('Ha intentado cargar el combo con un array que posee un formato inadecuado, revise el log ');
 				}
 				$this->estado = array();
 				for ($i=0; $i < count($this->dato); $i++) {

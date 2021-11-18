@@ -87,7 +87,8 @@ class toba_pms
 		}
 
 		$proyecto = toba::proyecto()->get_id();
-		throw new toba_error("PUNTOS DE MONTAJE: El punto de montaje con etiqueta '$etiqueta' no existe en el proyecto '$proyecto'");
+		toba_logger::instancia()->error("PUNTOS DE MONTAJE: El punto de montaje con etiqueta '$etiqueta' no existe en el proyecto '$proyecto'");
+		throw new toba_error('PUNTOS DE MONTAJE: El punto de montaje con etiqueta pedida no existe en el proyecto');
 	}
 
 	/**
@@ -103,7 +104,8 @@ class toba_pms
 			}
 		}
 		$proyecto = toba::proyecto()->get_id();
-		throw new toba_error("PUNTOS DE MONTAJE: El punto de montaje con id '$id' no existe en el proyecto '$proyecto'");
+		toba_logger::instancia()->error("PUNTOS DE MONTAJE: El punto de montaje con id '$id' no existe en el proyecto '$proyecto'");
+		throw new toba_error('PUNTOS DE MONTAJE: El punto de montaje no existe en el proyecto');
 	}
 	
 	function get_instancia_pm_proyecto($proyecto, $id)

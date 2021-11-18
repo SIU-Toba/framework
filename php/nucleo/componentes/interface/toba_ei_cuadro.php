@@ -377,7 +377,8 @@ class toba_ei_cuadro extends toba_ei
 		$this->_agrupacion_columnas[$nombre_grupo] = $columnas;
 		foreach ($columnas as $columna) {
 			if (! isset($this->_columnas[$columna])) {
-				throw new toba_error_def("No es posible agrupar las columnas, la columna '$columna' no existe");
+				toba_logger::instancia()->error("No es posible agrupar las columnas, la columna '$columna' no existe");
+				throw new toba_error_def('No es posible agrupar las columnas, revise el log');
 			}
 			$this->_columnas[$columna]['grupo'] = $nombre_grupo;
 		}
@@ -435,7 +436,8 @@ class toba_ei_cuadro extends toba_ei
 
 				if(! is_null($id)) {
 					if(isset($this->_sum_usuario[$id])){
-						throw new toba_error_def("Las funciones de sumarizacion deben tener IDs unicos. El id '$id' ya existe");
+						toba_logger::instancia()->error("Las funciones de sumarizacion deben tener IDs unicos. El id '$id' ya existe");
+						throw new toba_error_def('La funcion de sumarizacion no es correcta, revise el log');
 					}
 					// Agrego la sumarizacion en la pila de sumarizaciones.
 					$this->_sum_usuario[$id]['metodo'] = $metodo->getName();
@@ -590,9 +592,10 @@ class toba_ei_cuadro extends toba_ei
 			}
 		}
 		if(count($error)>0){
-			throw new toba_error_def( $this->get_txt() .
+			toba_logger::instancia()->error( $this->get_txt() .
 					" El array provisto para cargar el cuadro posee un formato incorrecto\n" .
 					" Las columnas: '". implode("', '",$error) ."' NO EXISTEN");
+			throw new toba_error_def(' El array provisto para cargar el cuadro posee un formato incorrecto'. PHP_EOL);
 		}
 	}
 
@@ -790,7 +793,8 @@ class toba_ei_cuadro extends toba_ei
 	private function validar_y_separar_clave(&$klave)
 	{
 		if (! isset($this->_memoria['claves_enviadas']) || ! in_array($klave, $this->_memoria['claves_enviadas'])) {
-			throw new toba_error_seguridad($this->get_txt()." La clave '$klave' del cuadro no estaba entre las enviadas");
+			toba_logger::instancia()->error($this->get_txt()." La clave '$klave' del cuadro no estaba entre las enviadas");
+			throw new toba_error_seguridad(' La clave seleccionada no es valida');
 		}
 		if ($this->_modo_clave_segura) {
 			$aux = (isset($this->_mapeo_clave_segura[$klave])) ? $this->_mapeo_clave_segura[$klave] : array();
@@ -1025,7 +1029,7 @@ class toba_ei_cuadro extends toba_ei
 	function deshabilitar_corte_control($corte)
 	{
 		if (! isset($this->_cortes_indice[$corte])) {
-			toba::logger()->error("Se quiere eliminar el corte '$corte' y no existe");
+			toba::logger()->error("Se quiere deshabilitar el corte '$corte' y no existe");
 			throw new toba_error_def(' Se desea eliminar un corte de control inexistente.');
 		}
 		//Esto solo debe hacer que el corte no se grafique
@@ -1035,7 +1039,7 @@ class toba_ei_cuadro extends toba_ei
 	function habilitar_corte_control($corte)
 	{
 		if (! isset($this->_cortes_indice[$corte])) {
-			toba::logger()->error("Se quiere eliminar el corte '$corte' y no existe");
+			toba::logger()->error("Se quiere habilitar el corte '$corte' y no existe");
 			throw new toba_error_def(' Se desea eliminar un corte de control inexistente.');
 		}
 		//Esto restaura el corte para su grafico.
@@ -1742,7 +1746,8 @@ class toba_ei_cuadro extends toba_ei
 		}elseif ($valor == 'des') {
 			$sentido = SORT_DESC;
 		}else{
-			throw new toba_error_def('Sentido de ordenamiento inválido: '. $valor);
+			toba_logger::instancia()->error('Sentido de ordenamiento inválido: '. $valor);
+			throw new toba_error_def('Sentido de ordenamiento inválido');
 		}
 		return $sentido;
 	}
@@ -1963,9 +1968,11 @@ class toba_ei_cuadro extends toba_ei
 	{
 		$this->datos = $datos;
 		if (!is_array($this->datos)) {
-			throw new toba_error_def( $this->get_txt() .
+			toba_logger::instancia()->error( $this->get_txt() .
 					" El parametro para cargar el cuadro posee un formato incorrecto:" .
 						"Se esperaba un arreglo de dos dimensiones con formato recordset.");
+			
+			throw new toba_error_def(' El parametro para cargar el cuadro posee un formato incorrecto, revise el log');
 		}
 		if (count($this->datos) > 0 ) {
 			$this->validar_estructura_datos();
@@ -2082,7 +2089,8 @@ class toba_ei_cuadro extends toba_ei
 	protected function generar_salida($tipo, $objeto_toba_salida = null)
 	{
 		if($tipo!="html" && $tipo!="impresion_html" && $tipo!="pdf" && $tipo!='excel' && $tipo!='xml'){
-			throw new toba_error_seguridad("El tipo de salida '$tipo' es invalida");
+			toba_logger::instancia()->error("El tipo de salida '$tipo' es invalida");
+			throw new toba_error_seguridad("El tipo de salida indicado es invalido, revise el log");
 		}
 		$this->_tipo_salida = $tipo;
 		$this->instanciar_manejador_tipo_salida($tipo);

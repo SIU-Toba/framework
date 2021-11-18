@@ -321,7 +321,8 @@ class toba_asistente_abms extends toba_asistente_1dt
 																$filtro );
 			}
 		} else {
-			throw new toba_error_asistentes('El tipo de origen de datos no fue definido correctamente [' . $this->molde_abms['cuadro_carga_php_clase'] . ']');	
+			toba_logger::instancia()->error('El tipo de origen de datos no fue definido correctamente [' . $this->molde_abms['cuadro_carga_php_clase'] . ']');
+			throw new toba_error_asistentes('El tipo de origen de carga no fue definido correctamente, revise el log ');	
 		}
 		//-- SI la operacion tiene FILTRO....
 		if ($this->molde_abms['gen_usa_filtro']) {

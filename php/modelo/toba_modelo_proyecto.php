@@ -48,7 +48,8 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$this->identificador = $identificador;
 		$this->dir = $instancia->get_path_proyecto($identificador);
 		if( ! is_dir( $this->dir ) ) {
-			throw new toba_error("PROYECTO: El proyecto '{$this->identificador}' es invalido. (la carpeta '{$this->dir}' no existe)");
+			toba_logger::instancia()->error("PROYECTO: El proyecto '{$this->identificador}' es invalido. (la carpeta '{$this->dir}' no existe)");
+			throw new toba_error('PROYECTO: El proyecto solicitado es invalido. (la carpeta no existe o no tiene acceso) revise el log');
 		}
 		$this->db = $this->instancia->get_db();
 		toba_contexto_info::set_db($this->get_db());
@@ -362,7 +363,8 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		if (toba::config()->existe_valor('proyecto', $seccion, $parametro)) {
 			return toba::config()->get_parametro('proyecto', $seccion, $parametro);
 		} elseif ($obligatorio) {
-			throw new toba_error("INFO_PROYECTO: El parametro '$parametro' no se encuentra definido.");
+			toba_logger::instancia()->error("INFO_PROYECTO: El parametro '$parametro' no se encuentra definido.");
+			throw new toba_error('INFO_PROYECTO: El parametro solicitado no se encuentra definido. Revise el log');
 		}
 		return null;
 	}
@@ -397,7 +399,8 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$existe_vinculo = $this->instancia->existe_proyecto_vinculado( $this->identificador );
 		$existen_metadatos = $this->instancia->existen_metadatos_proyecto( $this->identificador );
 		if( !( $existen_metadatos || $existe_vinculo ) ) {
-			throw new toba_error("PROYECTO: El proyecto '{$this->identificador}' no esta asociado a la instancia actual");
+			toba_logger::instancia()->error("PROYECTO: El proyecto '{$this->identificador}' no esta asociado a la instancia actual");
+			throw new toba_error('PROYECTO: El proyecto no esta asociado a la instancia actual, revise el log');
 		}
 		//Verifico que no hubo actualizacion precoz,
 		//no recalculo version aca ya que hasta que no hace commit no cambia.
@@ -411,8 +414,8 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$this->sincronizar_archivos();
 			$this->generar_checksum(); //Regenero el checksum
 		} catch ( toba_error $e ) {
-			throw new toba_error( "Proyecto {$this->identificador}: Ha ocurrido un error durante la exportacion:\n".
-												$e->getMessage() );
+			toba_logger::instancia()->error("Proyecto {$this->identificador}: Ha ocurrido un error durante la exportacion:\n". $e->getMessage());
+			throw new toba_error('Proyecto: Ha ocurrido un error durante la exportacion, revise el log:'. PHP_EOL);
 		}
 	}
 
@@ -543,7 +546,8 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		} elseif (isset($metadatos['apex_item'][0]['nombre'])) {
 			$nombre_componente = $metadatos['apex_item'][0]['nombre'];
 		} else {
-			throw new toba_error("Los metadatos para el componente con id {$id['componente']} no existen");
+			toba_logger::instancia()->error("Los metadatos para el componente con id {$id['componente']} no existen");
+			throw new toba_error('Los metadatos para el componente no se encuentran o no existen, revise el log');
 		}
 		//Genero el CONTENIDO
 		$contenido = "------------------------------------------------------------\n";
@@ -618,7 +622,8 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$existe_vinculo = $this->instancia->existe_proyecto_vinculado( $this->get_id());
 		$existen_metadatos = $this->instancia->existen_metadatos_proyecto( $this->get_id() );
 		if( !( $existen_metadatos || $existe_vinculo ) ) {
-			throw new toba_error("PROYECTO: El proyecto '{$this->get_id()}' no esta asociado a la instancia actual");
+			toba_logger::instancia()->error("PROYECTO: El proyecto '{$this->get_id()}' no esta asociado a la instancia actual");
+			throw new toba_error('PROYECTO: El proyecto no esta asociado a la instancia actual, revise el log');
 		}
 		//Verifico que no hubo actualizacion precoz,
 		//no recalculo version aca ya que hasta que no hace commit no cambia.
@@ -630,8 +635,8 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$this->get_sincronizador()->sincronizar_agregados();	//Sincronizo los archivos
 			$this->generar_checksum();													//Regenero el checksum
 		} catch ( toba_error $e ) {
-			throw new toba_error( "Proyecto {$this->identificador}: Ha ocurrido un error durante la exportacion del item $item:\n".
-												$e->getMessage() );
+			toba_logger::instancia()->error("Proyecto {$this->identificador}: Ha ocurrido un error durante la exportacion del item $item:\n".	$e->getMessage());
+			throw new toba_error('Proyecto: Ha ocurrido un error durante la exportacion del item, revise el log:'. PHP_EOL);
 		}
 
 		$this->manejador_interface->titulo( "Recuerde que esta operación actualmente no exporta los permisos ni los perfiles para el item." );
@@ -649,7 +654,8 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			}
 			$this->manejador_interface->progreso_fin();
 		} else {
-			throw new toba_error_def( "No existe el item $item \n");
+			toba_logger::instancia()->error("No existe el item $item");
+			throw new toba_error_def('El item solicitado no existe o no se encuentra, revise el log');
 		}
 	}
 	//-- PERFILES -------------------------------------------------------------
@@ -1149,7 +1155,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		foreach ($fuentes as $fuente) {
 			$nombre_archivo = $dir . $prefijo_archivo . '_' . $fuente. '.sql';
 			if (! empty ($sentencias[$fuente])) {
-				if (! file_put_contents($nombre_archivo, $sentencias[$fuente])) {
+				if (! file_put_contents($nombre_archivo, $sentencias[$fuente])) {					
 					throw new toba_error('PROYECTO: Se produjo un error en la generación del script, verifique los logs', 'Se produjo un error al guardar los datos para la fuente '. $fuente);
 				}
 			}
@@ -1249,7 +1255,8 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	{
 		toba_logger::instancia()->debug("Cargando proyecto '{$this->identificador}'");
 		if( ! ( $this->instancia->existe_proyecto_vinculado( $this->identificador ) ) ) {
-			throw new toba_error("PROYECTO: El proyecto '{$this->identificador}' no esta asociado a la instancia actual");
+			toba_logger::instancia()->error("PROYECTO: El proyecto '{$this->identificador}' no esta asociado a la instancia actual");
+			throw new toba_error('PROYECTO: El proyecto no esta asociado a la instancia actual, revise el log');
 		}
 		$this->cargar_tablas();
 		$this->cargar_componentes();
@@ -1393,7 +1400,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		//-- Agrego los perfiles en orden alfabetico para respetar las membresias
 		$lista_perfiles = toba_manejador_archivos::get_archivos_directorio($dir_base, '|perfil_.*\.xml$|' );
 		if (! empty($lista_perfiles)) {
-			//sort($lista_perfiles, SORT_LOCALE_STRING);
+			sort($lista_perfiles, SORT_LOCALE_STRING);
 			$archivos = array_merge($lista_perfiles, $archivos);
 		}
 
@@ -2490,10 +2497,10 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$sql = "SELECT fuente_datos, COALESCE($pm_safe,  pm_contexto) as pm_contexto FROM apex_proyecto WHERE proyecto = ".quote($this->identificador);
 		$defecto = toba::db()->consultar_fila($sql);
 		if (empty($defecto['fuente_datos'])) {
-			throw new toba_error("El proyecto no tiene definida una fuente de datos.");
+			throw new toba_error('El proyecto no tiene definida una fuente de datos.');
 		}
 		if (empty($defecto['pm_contexto'])) {
-			throw new toba_error("El proyecto no tiene definida un punto de montaje para el contexto.");
+			throw new toba_error('El proyecto no tiene definida un punto de montaje para el contexto.');
 		}
 
 		//--- Clonando
@@ -2803,7 +2810,8 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			throw new toba_error("INSTALACION: No es posible crear un proyecto con el nombre 'toba'");
 		}
 		if ( self::existe( $nombre ) ) {
-			throw new toba_error("INSTALACION: Ya existe una carpeta con el nombre '$nombre' en la carpeta 'proyectos'");
+			toba_logger::instancia()->error("INSTALACION: Ya existe una carpeta con el nombre '$nombre' en la carpeta 'proyectos'");
+			throw new toba_error("INSTALACION: Ya existe una carpeta con el nombre especificado en la carpeta 'proyectos'");
 		}
 		try {
 
@@ -2854,7 +2862,8 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 				$db->cerrar_transaccion();
 			} catch ( toba_error $e ) {
 				$db->abortar_transaccion();
-				$txt = 'PROYECTO : Ha ocurrido un error durante la carga de METADATOS del PROYECTO. DETALLE: ' . $e->getMessage();
+				$txt = 'PROYECTO : Ha ocurrido un error durante la carga de METADATOS del PROYECTO. DETALLE: ';
+				toba_logger::instancia()->error($txt . $e->getMessage());
 				throw new toba_error( $txt );
 			}
 		} catch ( toba_error $e ) {
@@ -2952,9 +2961,9 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 				" * Regeneración de proyecto (toba proyecto regenerar)\n\n".
 				"Si en cambio quiere descartar los posibles cambios locales simplemente regenere el proyecto (toba proyecto regenerar)\n\n".
 				"Este mensaje tiene como objetivo prevenir que se edite el proyecto sin antes haber sincronizado el trabajo del resto del equipo.";
-				throw new toba_error_def($msg);
-				$this->manejador_interface->progreso_avanzar();
+				throw new toba_error_def($msg);				
 			}
+			$this->manejador_interface->progreso_avanzar();
 		}
 		$this->manejador_interface->progreso_fin();
 	}

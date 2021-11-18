@@ -274,7 +274,8 @@ class ci_navegacion_perfiles extends toba_ci
 				}
 			}
 			$perfiles = implode(', ', $ciclo);
-			throw new toba_error_usuario("Existe un ciclo en la asignación de las membresías entre los perfiles: <b>$perfiles</b>.<br><br>Por favor quite alguna membresía.");
+			toba_logger::instancia()->error("Existe un ciclo en la asignación de las membresías entre los perfiles: $perfiles");
+			throw new toba_error_usuario('Existe un ciclo en la asignación de las membresías entre los perfiles.<br><br>Por favor quite alguna membresia');
 		}
 	}
 	

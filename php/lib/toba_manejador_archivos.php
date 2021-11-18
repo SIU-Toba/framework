@@ -21,7 +21,8 @@ class toba_manejador_archivos
 		}
 		if (!file_exists($path)) {
 			if (!mkdir($path, $modo, true)) {
-				throw new toba_error("No es posible crear el directorio $path, verifique que el usuario de Apache posea privilegios de escritura sobre este directorio");
+				toba_logger::instancia()->error("No es posible crear el directorio $path, verifique que el usuario de Apache posea privilegios de escritura sobre este directorio");
+				throw new toba_error('No es posible crear el directorio solicitado, verifique que el usuario de Apache posea privilegios de escritura sobre este directorio');
 			}
 		}
 	}
@@ -144,7 +145,8 @@ class toba_manejador_archivos
 	{
 		$archivos_ok = array();
 		if( ! is_dir( $directorio ) ) {
-			throw new toba_error("BUSCAR ARCHIVOS: El directorio '$directorio' es INVALIDO");
+			toba_logger::instancia()->error("BUSCAR ARCHIVOS: El directorio '$directorio' es INVALIDO");
+			throw new toba_error('BUSCAR ARCHIVOS: El directorio solicitado no es valido o no tiene permisos');
 		}
 
 		if (in_array($directorio, $exclude_dirs)) {
@@ -187,7 +189,8 @@ class toba_manejador_archivos
 	static function buscar_archivos_directorio_recursivo( $directorio, &$exclude_dirs = array() )
 	{
 		if( ! is_dir( $directorio ) ) {
-			throw new toba_error("BUSCAR ARCHIVOS: El directorio '$directorio' es INVALIDO");
+			toba_logger::instancia()->error("BUSCAR ARCHIVOS: El directorio '$directorio' es INVALIDO");
+			throw new toba_error('BUSCAR ARCHIVOS: El directorio solicitado no es valido o no tiene permisos');
 		}
 		$archivos = array();
 		$d = dir( $directorio );
@@ -220,7 +223,8 @@ class toba_manejador_archivos
 	{
 		$dirs = array();
 		if( ! is_dir( $directorio ) ) {
-			throw new toba_error("BUSCAR SUBDIRECTORIOS: El directorio '$directorio' es INVALIDO");
+			toba_logger::instancia()->error("BUSCAR SUBDIRECTORIOS: El directorio '$directorio' es INVALIDO");
+			throw new toba_error('BUSCAR SUBDIRECTORIOS: El directorio solicitado no es valido o no tiene permisos');
 		}
 		$dir = opendir($directorio);
 		if ($dir !== false) {
@@ -251,7 +255,8 @@ class toba_manejador_archivos
 	static function copiar_directorio( $origen, $destino, $excepciones=array(), $manejador_interface = null, $copiar_ocultos=true )
 	{
 		if( ! is_dir( $origen ) ) {
-			throw new toba_error("COPIAR DIRECTORIO: El directorio de origen '$origen' es INVALIDO");
+			toba_logger::instancia()->error("COPIAR DIRECTORIO: El directorio de origen '$origen' es INVALIDO");
+			throw new toba_error('COPIAR DIRECTORIO: El directorio de origen no es valido o no tiene permisos');
 		}
 		$ok = true;
 		if( ! is_dir( $destino ) ) {
@@ -296,7 +301,8 @@ class toba_manejador_archivos
 	static function eliminar_directorio( $directorio )
 	{
 		if( ! is_dir( $directorio ) ) {
-			throw new toba_error("ELIMINAR DIRECTORIO: El directorio '$directorio' es INVALIDO");
+			toba_logger::instancia()->error("ELIMINAR DIRECTORIO: El directorio '$directorio' es INVALIDO");
+			throw new toba_error('ELIMINAR DIRECTORIO: El directorio solicitado no es valido o no tiene permisos');
 		}
 		$ok = true;
 		$dir = opendir( $directorio );
@@ -472,7 +478,7 @@ class toba_manejador_archivos
 				if (! $sin_error) {	//Si se produce error en el calculo aborto
 					hash_final($hsh_handler);
 					toba::logger()->error("\nError calculando checksum con el archivo '$archivo' ");
-					throw new toba_error("\nError calculando checksum con el archivo '$archivo' ");
+					throw new toba_error(PHP_EOL. 'Error calculando checksum de archivo, revise el log ');
 				}
 			}
 			$checksum = hash_final($hsh_handler);

@@ -112,7 +112,8 @@ class consultas_instancia
 		if (isset($fila['id'])) {
 			return $fila['id'];
 		} else {
-			throw new toba_error("No se encontro la sesión de la solicitud $id_solicitud");
+			toba_logger::instancia()->error("No se encontro la sesión de la solicitud $id_solicitud");
+			throw new toba_error('No se encontro la sesión de la solicitud indicada');
 		}
 	}
 

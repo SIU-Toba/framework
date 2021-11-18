@@ -99,7 +99,7 @@ class toba_vista_jasperreports
 	{
 		$tipos_parametros = array('D', 'E', 'S', 'F', 'B', 'L');		
 		if (! in_array($tipo, $tipos_parametros)) {
-			throw new toba_error("Tipo incorrecto de parametro");
+			throw new toba_error('Tipo incorrecto de parametro');
 		}
 
 		switch ($tipo) {
@@ -308,7 +308,7 @@ class toba_vista_jasperreports
 	function completar_con_datos()
 	{
 		if (! isset($this->path_reporte)) {				//Lo chequeo aca adentro por si la funcion se llama mas de una vez
-			throw new toba_error_def("Falta definir el .jasper con set_path_reporte");
+			throw new toba_error_def('Falta definir el .jasper con set_path_reporte');
 		}	
 
 		if ($this->modo_archivo) {									//Si el conjunto de datos viene de un archivo comun

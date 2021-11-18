@@ -22,7 +22,8 @@ class toba_ci_info extends toba_ei_info
 				return new toba_ci_pantalla_info($this->datos['_info_ci_me_pantalla'][$i],array(), $this->proyecto, $this->id, $this->datos['_info_obj_pantalla']);
 			}
 		}
-		throw new toba_error("No se encuentra la pantalla '$id'");
+		toba_logger::instancia()->error("No se encuentra la pantalla '$subcomponente'");
+		throw new toba_error('No se encuentra la pantalla solicitada, revise el log');
 	}
 	
 	/**
@@ -60,7 +61,8 @@ class toba_ci_info extends toba_ei_info
 											$this->subelementos, $this->proyecto, $this->id, $this->datos['_info_obj_pantalla']);
 			}
 		}
-		throw new toba_error("No se encuentra la pantalla $id");
+		toba_logger::instancia()->error("No se encuentra la pantalla $id");
+		throw new toba_error('No se encuentra la pantalla solicitada, revise el log');
 	}
 	
 	function get_cant_pantallas()

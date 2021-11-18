@@ -195,8 +195,8 @@ class toba_ei_pantalla extends toba_ei
 		if (in_array($id, $this->_lista_dependencias)) {
 			array_borrar_valor($this->_lista_dependencias, $id);
 		} else {
-			throw new toba_error_def($this->get_txt(). 
-					" Se quiere eliminar la dependencia '$id', pero esta no está en la pantalla actual");
+			toba_logger::instancia()->error($this->get_txt(). " Se quiere eliminar la dependencia '$id', pero esta no está en la pantalla actual");
+			throw new toba_error_def(' Se quiere eliminar una dependencia pero esta no está en la pantalla actual, revise el log');
 		}
 		//--- Por si ya estamos en la etapa de servicios
 		if (isset($this->_dependencias[$id])) {
@@ -253,7 +253,8 @@ class toba_ei_pantalla extends toba_ei
 		if(isset($this->_lista_tabs[$id])){
 			return $this->_lista_tabs[$id];	
 		} else {
-			throw new toba_error_def($this->get_txt(). " El tab '$id' no existe.");
+			toba_logger::instancia()->error($this->get_txt(). " El tab '$id' no existe.");
+			throw new toba_error_def('El tab solicitado no existe');
 		}
 	}
 	
@@ -274,8 +275,8 @@ class toba_ei_pantalla extends toba_ei
 		if (isset($this->_lista_tabs[$id])) {
 			unset($this->_lista_tabs[$id]);
 		} else {
-			throw new toba_error_def($this->get_txt(). 
-					" Se quiere eliminar el tab '$id', pero esta no está en la pantalla actual");
+			toba_logger::instancia()->error($this->get_txt(). " Se quiere eliminar el tab '$id', pero esta no está en la pantalla actual");
+			throw new toba_error_def('El tab solicitado no existe');
 		}
 	}
 	
@@ -581,9 +582,9 @@ class toba_ei_pantalla extends toba_ei
 		if (preg_match_all($pattern, $this->_info_pantalla['template'], $resultado)) {
 			$salida = $this->_info_pantalla['template'];
 			if (count($resultado[0]) > count($restantes)) {		//Para cuando se hizo un pantalla->eliminar_dep();
-				toba::logger()->debug(' Dependencias Template:');
-				toba::logger()->var_dump($resultado[0]);
-				throw new toba_error_def($this->get_txt(). " Template incompleto, faltan dependencias en la pantalla:");
+				toba::logger()->debug($this->get_txt().' Dependencias Template: ');
+				toba::logger()->var_dump($resultado[0]);				
+				throw new toba_error_def(' Template incompleto, faltan dependencias en la pantalla');
 			}
 			for ($i=0; $i < count($resultado[0]); $i++) {
 				$original = $resultado[0][$i];
@@ -593,7 +594,8 @@ class toba_ei_pantalla extends toba_ei
 					$atributos[$partes[0]] = $partes[1];
 				}
 				if (! isset($atributos['id'])) {
-					throw new toba_error_def($this->get_txt()."Tag [dep] incorrecto, falta atributo id");
+					toba_logger::instancia()->error($this->get_txt().'Tag [dep] incorrecto, falta atributo id');
+					throw new toba_error_def('Tag [dep] incorrecto falta atributo necesario, revise el log');
 				}
 				if (isset($this->_dependencias[$atributos['id']])) {
 					ob_start();
@@ -609,7 +611,8 @@ class toba_ei_pantalla extends toba_ei
 		}
 		if (! empty($restantes)) {
 			$faltan = implode(', ', $restantes);
-			throw new toba_error_def($this->get_txt(). " Template incompleto, falta incluir las siguientes dependencias: $faltan");
+			toba_logger::instancia()->error($this->get_txt(). " Template incompleto, falta incluir las siguientes dependencias: $faltan");
+			throw new toba_error_def(' Template incompleto falta incluir dependencias, revise el log');
 		}		
 	}
 
@@ -800,7 +803,8 @@ class toba_ei_pantalla extends toba_ei
 					$atributos[$partes[0]] = $partes[1];
 				}
 				if (! isset($atributos['id'])) {
-					throw new toba_error_def($this->get_txt()."Tag [dep] incorrecto, falta atributo id");
+					toba_logger::instancia()->error($this->get_txt().'Tag [dep] incorrecto, falta atributo id');
+					throw new toba_error_def('Tag [dep] incorrecto falta atributo necesario, revise el log');					
 				}
 				if (isset($this->_dependencias[$atributos['id']])) {
 					ob_start();
@@ -816,7 +820,8 @@ class toba_ei_pantalla extends toba_ei
 		}
 		if (! empty($restantes)) {
 			$faltan = implode(', ', $restantes);
-			throw new toba_error_def($this->get_txt(). " Template de impresión incompleto, falta incluir las siguientes dependencias: $faltan");
+			toba_logger::instancia()->error($this->get_txt(). " Template de impresión incompleto, falta incluir las siguientes dependencias: $faltan");
+			throw new toba_error_def(' Template incompleto falta incluir dependencias, revise el log');
 		}
 	}
 	

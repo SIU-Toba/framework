@@ -173,7 +173,8 @@ class toba_boton
 	function set_imagen($url_relativa, $origen='apex')
 	{
 		if ($origen != 'apex' &&  $origen != 'proyecto' ) {
-			throw new toba_error_def("EVENTO: El origen de la imagen debe ser 'apex' o 'proyecto'. Valor recibido: $origen");	
+			toba_logger::instancia()->error("EVENTO: El origen de la imagen debe ser 'apex' o 'proyecto'. Valor recibido: $origen");
+			throw new toba_error_def('EVENTO: El origen de la imagen no es valido, revise el log');	
 		}
 		$this->datos['imagen_recurso_origen'] = $origen;
 		$this->datos['imagen'] = $url_relativa;

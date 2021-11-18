@@ -625,7 +625,8 @@ class toba_ci extends toba_ei
 	protected function configurar_dep($dep)
 	{
 		if ($this->dependencia_esta_configurada($dep)) {
-			throw new toba_error_def("La dependencia '$dep' ya ha sido configurada anteriormente");
+			toba_logger::instancia()->error("La dependencia '$dep' ya ha sido configurada anteriormente");
+			throw new toba_error_def("La dependencia solicitada ya ha sido configurada anteriormente");
 		}
 		$this->_dependencias_configuradas[] = $dep;		
 		//--- Config. por defecto
@@ -800,7 +801,8 @@ class toba_ci extends toba_ei
 	    	if (!$ok && $info_pantalla['identificador'] == $id) { 
 				if (in_array($info_pantalla['pantalla'], $no_visibles)) {
 					//-- Restricción funcional pantalla no-visible ------
-					throw new toba_error_def($this->get_txt()."No es posible navegar hacia la pantalla '". $id ."' ya que se encuentra oculta por una restricción funcional");
+					toba_logger::instancia()->error($this->get_txt()."No es posible navegar hacia la pantalla '". $id ."' ya que se encuentra oculta por una restricción funcional");
+					throw new toba_error_def('No es posible navegar hacia la pantalla solicitada, que se encuentra limitada por una restricción funcional');
 					//--------------								
 				} else {
 					$ok = true;
@@ -809,11 +811,13 @@ class toba_ci extends toba_ei
 	    }
 	
 		if (! $ok) {
-			throw new toba_error_def($this->get_txt()."El identificador de pantalla '". $id ."' no está definido en el ci.");
+			toba_logger::instancia()->error($this->get_txt()."El identificador de pantalla '". $id ."' no está definido en el ci.");
+			throw new toba_error_def('El identificador de pantalla no está definido en el ci. Revise el log');
 		}
 	
 		if (isset($this->_pantalla_servicio)) { 
-			throw new toba_error_def($this->get_txt()."No es posible cambiar la pantalla a mostrar porque ya ha sido utilizada.");
+			toba_logger::instancia()->error($this->get_txt()."No es posible cambiar la pantalla a mostrar porque ya ha sido utilizada.");
+			throw new toba_error_def('No es posible cambiar la pantalla porque ya ha sido utilizada. Revise el log');
 		}
 	    $this->_pantalla_id_servicio	= $id;
 	}
@@ -870,7 +874,8 @@ class toba_ci extends toba_ei
 		$metodo = 'ajax__'.trim(toba::memoria()->get_parametro('ajax-metodo'));
 		$metodo = substr($metodo,0,80);
 		if (!isset($this->_metodos_ajax) || !in_array($metodo, $this->_metodos_ajax)) {
-			throw new toba_error_seguridad("Invocación AJAX incorrecta, el metodo $metodo no existe");
+			toba_logger::instancia()->error("Invocación AJAX incorrecta, el metodo $metodo no existe");
+			throw new toba_error_seguridad('Invocación AJAX incorrecta, revise el log');
 		}
 		$parametros = trim(toba::memoria()->get_parametro('ajax-param'));
 		$modo = trim(toba::memoria()->get_parametro('ajax-modo'));		

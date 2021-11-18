@@ -88,7 +88,8 @@ class toba_ini
 		if ( isset( $this->entradas[ $nombre ] ) ) {
 			unset( $this->entradas[ $nombre ] );
 		} else {
-			throw new toba_error("La entrada '$nombre' no existe");
+			toba_logger::instancia()->error("La entrada '$nombre' no existe");
+			throw new toba_error('La entrada solicitada no existe o no se cargo, revise el log');
 		}
 	}
 
@@ -103,7 +104,8 @@ class toba_ini
 		if ( isset( $this->entradas[ $nombre ] ) ) {
 			return $this->entradas[ $nombre ];
 		} else {
-			throw new toba_error("La entrada '$nombre' no existe en '{$this->path}'");
+			toba_logger::instancia()->error("La entrada '$nombre' no existe en '{$this->path}'");
+			throw new toba_error('La entrada solicitada no existe o no pudo ser cargada, revise el log');
 		}
 	}
 
@@ -125,7 +127,8 @@ class toba_ini
 			return $this->entradas[$seccion];
 		}
 		if ($obligatorio) {
-			throw new toba_error("No se encuentra definido el parámetro '$seccion' $clave en {$this->path}");
+			toba_logger::instancia()->error("No se encuentra definido el parámetro '$seccion' $clave en {$this->path}");
+			throw new toba_error('No se encuentra definido el parámetro solicitado, revise el log');
 		} else {
 			return $defecto;
 		}
@@ -142,7 +145,8 @@ class toba_ini
 		if ( isset( $this->entradas[ $nombre ] ) ) {
 			$this->entradas[ $nombre ] = $datos;
 		} else {
-			throw new toba_error("La entrada '$nombre' no existe");
+			toba_logger::instancia()->error("La entrada '$nombre' no existe");
+			throw new toba_error('La entrada solicitada no existe o no se cargo, revise el log');
 		}
 	}
 

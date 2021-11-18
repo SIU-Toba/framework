@@ -84,7 +84,8 @@ class toba_recurso
 		} elseif ($origen == 'skin') {
 			return self::imagen_skin($nombre);
 		} else {
-			throw new toba_error("No existe el origen de recurso $origen");	
+			toba::logger()->error("No existe el origen de recurso $origen");
+			throw new toba_error('No existe el origen solicidato para el recurso, revise el log');	
 		}
 	}
 	

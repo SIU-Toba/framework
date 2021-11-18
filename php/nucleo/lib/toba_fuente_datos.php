@@ -68,7 +68,8 @@ class toba_fuente_datos
 		if (isset($this->definicion['mapeo_tablas_dt'][$tabla])) {
 			return $this->definicion['mapeo_tablas_dt'][$tabla];
 		} else {
-			throw new toba_error("No se encuentra el datos_tabla asociado a la tabla $tabla en la fuente {$this->definicion['fuente_datos']}");
+			toba_logger::instancia()->error("No se encuentra el datos_tabla asociado a la tabla $tabla en la fuente {$this->definicion['fuente_datos']}");
+			throw new toba_error('No se encuentra el datos_tabla asociado a la tabla solicitada en la fuente de datos, revise el log');
 		}
 	}
 	

@@ -1043,7 +1043,8 @@ class toba_db_postgres7 extends toba_db
 
 		$columnas = $this->consultar($sql);
 		if(!$columnas){
-			throw new toba_error("La tabla '$tabla' no existe");
+			$this->log("La tabla '$tabla' no existe", 'error');
+			throw new toba_error('Alguna tabla no existe');
 		}
 		//2) Normalizo VALORES
 		$columnas_booleanas = array('uk','pk','not_null','tiene_predeterminado');
@@ -1202,7 +1203,8 @@ class toba_db_postgres7 extends toba_db
 
 		exec($comando, $tabla, $exito);
 		if ($exito > 0) {
-			throw new toba_error("Error ejecutando pg_dump. Comando ejecutado: $comando");
+			$this->log("Error ejecutando pg_dump. Comando ejecutado: $comando", 'error');
+			throw new toba_error('No se pudo generar el dump');
 		}
 
 		$tabla = $this->pgdump_limpiar($tabla);

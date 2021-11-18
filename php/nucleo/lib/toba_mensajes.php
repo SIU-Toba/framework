@@ -16,7 +16,8 @@ class toba_mensajes
 	function set_fuente_ini($path)
 	{
 		if (! file_exists($path)) {
-			throw new toba_error_def("No existe el archivo de mensajes $path");
+			toba_logger::instancia()->error("No existe el archivo de mensajes $path");
+			throw new toba_error_def('No existe el archivo de mensajes, revise el log');
 		}
 		$this->mensajes = parse_ini_file($path, true);
 	}
@@ -43,10 +44,12 @@ class toba_mensajes
 	{
 		$datos = toba::proyecto()->get_mensaje_toba($indice);
 		if(!is_array($datos)){
-			throw new toba_error_def("El mensaje $indice no EXISTE.");
+			toba_logger::instancia()->error("El mensaje $indice no EXISTE.");
+			throw new toba_error_def('El mensaje no se puede mostrar, no existe o está vacío.');
 		}else{
 			if(trim($datos['m'])==""){
-				throw new toba_error_def("El mensaje $indice, existe pero está vacío.");
+				toba_logger::instancia()->error("El mensaje $indice, existe pero está vacío.");
+				throw new toba_error_def('El mensaje no se puede mostrar, no existe o está vacío.');
 			}else{
 				$mensaje = self::parsear_parametros($datos['m'], $parametros);
 			}

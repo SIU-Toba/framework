@@ -300,7 +300,7 @@ class toba_editor
 			$grupos = array_map('trim', $grupos);
 			return $grupos;
 		} else {
-			throw new toba_error("No estan definidos los perfiles de acceso a la previsualización. Desde toba_editor se pueden definir en la opción de Configuración > Previsualización");
+			throw new toba_error('No estan definidos los perfiles de acceso a la previsualización. Desde toba_editor se pueden definir en la opción de Configuración > Previsualización');
 		}
 	}
 

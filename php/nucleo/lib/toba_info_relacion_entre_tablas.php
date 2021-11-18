@@ -32,7 +32,8 @@ class toba_info_relacion_entre_tablas
 				$respuesta[$tabla_1]=self::$relaciones[$fuente_datos][$tabla_2][$tabla_1]['cols_2'];
 				$respuesta[$tabla_2]=self::$relaciones[$fuente_datos][$tabla_2][$tabla_1]['cols_1'];
 			} else {
-				throw new toba_error('Informacion del modelo de datos de la fuente: '. $fuente_datos . ". No existe la relacion: $tabla_1 - $tabla_2" );
+				toba_logger::instancia()->error('Informacion del modelo de datos de la fuente: '. $fuente_datos . ". No existe la relacion: $tabla_1 - $tabla_2" );
+				throw new toba_error('Informacion del modelo de datos de la fuente: No existe relacion entre las tablas planteadas, revise el log');
 			}
 		}
 		return $respuesta;

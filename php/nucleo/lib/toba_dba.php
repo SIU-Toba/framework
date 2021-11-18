@@ -63,7 +63,8 @@ class toba_dba
 		if ( isset( self::$bases_definidas[ $id_base ] ) ) {
 			return self::$bases_definidas[ $id_base ];
 		} else {
-			throw new toba_error("DBA: La BASE [$id_base] no esta definida en el archivo de definicion de BASES: '" . self::get_path_archivo_bases() . "'" );
+			toba_logger::instancia()->error("DBA: La BASE [$id_base] no esta definida en el archivo de definicion de BASES: '" . self::get_path_archivo_bases() . "'");
+			throw new toba_error('DBA: La BASE solicitada no esta definida en el archivo de definicion de BASES, revise el log');
 		}
 	}
 	
@@ -170,7 +171,8 @@ class toba_dba
 		if( !( isset($parametros['motor']) && isset($parametros['profile']) 
 				&& isset($parametros['usuario']) && isset($parametros['clave'])
 				&& isset($parametros['base']) ) ) {
-			throw new toba_error("DBA: La BASE '$id_base' no esta definida correctamente." );
+			toba_logger::instancia()->error("DBA: La BASE '$id_base' no esta definida correctamente." );
+			throw new toba_error('DBA: La BASE no definida correctamente. Revise el log');
 		}
 		$puerto = isset($parametros['puerto']) ? $parametros['puerto'] : '';
 		$server = isset($parametros['server']) ? $parametros['server'] : '';
@@ -223,15 +225,18 @@ class toba_dba
 			}
 			$archivo = toba::nucleo()->toba_instalacion_dir().'/'.$parametros['conexiones_perfiles'];
 			if (! file_exists($archivo) || is_dir($archivo)) {
-				throw new toba_error_def("La base '$id_base' posee una referencia a un archivo de conexiones de perfiles inexistente: '$archivo'");
+				toba_logger::instancia()->error("La base '$id_base' posee una referencia a un archivo de conexiones de perfiles inexistente: '$archivo'");
+				throw new toba_error_def('La base posee una referencia a un archivo de conexiones inexistente');
 			}
 			$usuarios = parse_ini_file($archivo, true );	
 			if (isset($usuarios[$seccion]))	{
 				if (! isset($usuarios[$seccion]['usuario'])) {
-					throw new toba_error_def("La definición '$seccion' del archivo '$archivo' no posee el valor 'usuario'");
+					toba_logger::instancia()->error("La definición '$seccion' del archivo '$archivo' no posee el valor 'usuario'");
+					throw new toba_error_def("La definición del archivo de conexiones no posee el valor 'usuario'");
 				}
 				if (! isset($usuarios[$seccion]['clave'])) {
-					throw new toba_error_def("La definición '$seccion' del archivo '$archivo' no posee el valor 'clave'");					
+					toba_logger::instancia()->error("La definición '$seccion' del archivo '$archivo' no posee el valor 'clave'");
+					throw new toba_error_def("La definición del archivo de conexiones no posee el valor 'clave'");
 				}				
 				return array($usuarios[$seccion]['usuario'], $usuarios[$seccion]['clave']);
 			}

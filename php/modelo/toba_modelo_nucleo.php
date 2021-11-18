@@ -100,7 +100,8 @@ class toba_modelo_nucleo extends toba_modelo_elemento
 			//Intento abrir	el archivo
 			$fd	= @fopen ($archivo,	"r");
 			if(!is_resource($fd)){
-				throw new toba_error("ERROR: '$archivo' no es un archivo valido\n");
+				toba_logger::instancia()->error("ERROR: '$archivo' no es un archivo valido\n");
+				throw new toba_error('ERROR: El archivo procesado no es un archivo valido\n');
 			}
 			//Recorro el archivo
 			$table = null; //Referencia a una tabla.
@@ -134,7 +135,8 @@ class toba_modelo_nucleo extends toba_modelo_elemento
 				{
 					$temp =	preg_split("/(\s*):(\s*)/",$buffer);
 					if(!isset($temp[1])||!isset($temp[2])){	
-						throw new toba_error("Error parseando la linea: $temp\n (archivo: $archivo)");
+						toba_logger::instancia()->error("Error parseando la linea: $temp\n (archivo: $archivo)");
+						throw new toba_error('Error parseando archivo, revise el log');
 					}
 					$tabla[trim($temp[1])]=addslashes(trim($temp[2]));
 				}
@@ -174,13 +176,16 @@ class toba_modelo_nucleo extends toba_modelo_elemento
 			
 			//-- Controles de integridad de la DEFINICION del plan --
 			if ( $dump_componente && ( $es_instancia || $es_log ) ) {
-				throw new toba_error("La tabla '$id' posee un error en el plan de dumpeo: componente + (historica || instancia).");
+				toba_logger::instancia()->error("La tabla '$id' posee un error en el plan de dumpeo: componente + (historica || instancia).");
+				throw new toba_error('Una tabla posee un error en el plan de dumpeo, revise el log.');
 			}
 			if( $es_instancia && $es_log ) {
-				throw new toba_error("La tabla '$id' posee un error en el plan de dumpeo: historica + instancia.");
+				toba_logger::instancia()->error("La tabla '$id' posee un error en el plan de dumpeo: historica + instancia.");
+				throw new toba_error('Una tabla posee un error en el plan de dumpeo, revise el log');
 			}
 			if( !( $dump_componente || $dump_proyecto || $dump_nucleo || $dump_permisos || $sin_dump) ) {
-				throw new toba_error("La tabla '$id' no posee una modalidad de dumpeo definida.");
+				toba_logger::instancia()->error("La tabla '$id' no posee una modalidad de dumpeo definida.");
+				throw new toba_error('Una tabla no posee una modalidad de dumpeo definida, revise el log');
 			}
 			//-- Armo el PLAN --
 			if ( $es_instancia ) {

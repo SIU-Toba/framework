@@ -61,9 +61,10 @@ class toba_solicitud_web extends toba_solicitud
 			}catch(toba_error $e) {
 				toba::logger()->error($e, 'toba');
 				$mensaje_debug = null;
+				//La notificacion se escapa... hacerlo previamente seria doble escapado
 				if (toba::logger()->modo_debug()) {
 					$mensaje_debug = $e->get_mensaje_log();
-				}
+				}				
 				toba::notificacion()->error($e->get_mensaje(), $mensaje_debug);
 				toba::notificacion()->mostrar();
 			}
@@ -136,11 +137,12 @@ class toba_solicitud_web extends toba_solicitud
 			} catch (toba_error $e) {
 				toba::logger()->error($e, 'toba');
 				$mensaje_debug = null;
+				$escaper = toba::escaper();
 				if (toba::logger()->modo_debug()) {
-					$mensaje_debug = $e->get_mensaje_log();
+					$mensaje_debug = $escaper->escapeHtml($e->get_mensaje_log());
 				}
-				toba::notificacion()->error($e->get_mensaje(), $mensaje_debug);
-				toba::notificacion()->set_titulo($e->get_titulo_ventana());
+				toba::notificacion()->error($escaper->escapeHtml($e->get_mensaje()), $mensaje_debug);
+				toba::notificacion()->set_titulo($escaper->escapeHtml($e->get_titulo_ventana()));
 			}
 		}
 	}
@@ -264,10 +266,11 @@ class toba_solicitud_web extends toba_solicitud
 			} catch (toba_error $e) {
 				toba::logger()->error($e, 'toba');
 				$mensaje_debug = null;
+				$escaper = toba::escaper();
 				if (toba::logger()->modo_debug()) {
-					$mensaje_debug = $e->get_mensaje_log();
+					$mensaje_debug = $escaper->escapeHtml($e->get_mensaje_log());
 				}
-				toba::notificacion()->error($e->get_mensaje(), $mensaje_debug);
+				toba::notificacion()->error($escaper->escapeHtml($e->get_mensaje()), $mensaje_debug);
 			}
 			echo toba_js::cerrar();
 
@@ -396,10 +399,11 @@ class toba_solicitud_web extends toba_solicitud
 		} catch(toba_error $e) {
 			$ok = false;
 			toba::logger()->error($e, 'toba');
-			$mensaje = $e->get_mensaje();
+			$escaper = toba::escaper();
+			$mensaje = $escaper->escapeHtml($e->get_mensaje());
 			$mensaje_debug = null;
 			if (toba::logger()->modo_debug()) {
-				$mensaje_debug = $e->get_mensaje_log();
+				$mensaje_debug = $escaper->escapeHtml($e->get_mensaje_log());
 			}
 			toba::notificacion()->error($mensaje, $mensaje_debug);
 		}
@@ -439,10 +443,11 @@ class toba_solicitud_web extends toba_solicitud
 			} catch (toba_error $e) {
 				toba::logger()->error($e, 'toba');
 				$mensaje_debug = null;
+				$escaper = toba::escaper();
 				if (toba::logger()->modo_debug()) {
-					$mensaje_debug = $e->get_mensaje_log();
+					$mensaje_debug = $escaper->escapeHtml($e->get_mensaje_log());
 				}
-				toba::notificacion()->error($e->get_mensaje(), $mensaje_debug);
+				toba::notificacion()->error($escaper->escapeHtml($e->get_mensaje()), $mensaje_debug);
 			}
 		}
 		toba::notificacion()->mostrar(false);
@@ -459,16 +464,18 @@ class toba_solicitud_web extends toba_solicitud
 		try {
 			if (count($objetos) != 1) {
 				$actual = count($objetos);
-				throw new toba_error_def("Las cascadas sólo admiten un objeto destino (actualmente: $actual)");
+				toba::logger()->error("Las cascadas sólo admiten un objeto destino (actualmente: $actual)");
+				throw new toba_error_def('Las cascadas sólo admiten un objeto destino, revise el log');
 			}
 			$objetos[0]->servicio__cascadas_efs();
 		} catch(toba_error $e) {
 			toba::logger()->error($e, 'toba');
 			$mensaje_debug = null;
+			$escaper = toba::escaper();
 			if (toba::logger()->modo_debug()) {
-				$mensaje_debug = $e->get_mensaje_log();
+				$mensaje_debug = $escaper->escapeHtml($e->get_mensaje_log());
 			}
-			toba::notificacion()->error($e->get_mensaje(), $mensaje_debug);
+			toba::notificacion()->error($escaper->escapeHtml($e->get_mensaje()), $mensaje_debug);
 		}
 	}
 
@@ -489,12 +496,14 @@ class toba_solicitud_web extends toba_solicitud
 		try {
 			if (count($objetos) != 1) {
 				$actual = count($objetos);
-				throw new toba_error_def("La invocacion AJAX sólo admite un objeto destino (actualmente: $actual)");
+				toba::logger()->error("La invocacion AJAX sólo admite un objeto destino (actualmente: $actual)");
+				throw new toba_error_def('La invocacion AJAX sólo admite un objeto destino, revise el log');
 			}
 			$objetos[0]->servicio__ajax();
 		} catch(toba_error $e) {
 			toba::logger()->error($e, 'toba');
-			$mensaje_debug = (toba::logger()->modo_debug()) ? $e->get_mensaje_log() : $e->get_mensaje();
+			$escaper = toba::escaper();
+			$mensaje_debug = (toba::logger()->modo_debug()) ? $escaper->escapeHtml($e->get_mensaje_log()) : $escaper->escapeHtml($e->get_mensaje());
 			echo $mensaje_debug;
 		}
 	}

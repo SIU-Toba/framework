@@ -116,7 +116,8 @@ class toba_datos_busqueda
 		$cols_existentes = array_keys($this->tabla->get_columnas());		
 		foreach($cols as $columna => $sentido) {
 			if (! in_array($columna, $cols_existentes)) {
-				throw new toba_error_def('La columna por la que intenta ordenar no existe: '. $columna);
+				toba_logger::instancia()->error('La columna por la que intenta ordenar no existe: '. $columna);
+				throw new toba_error_def('Parametro de ordenamiento incorrecto, revise el log');
 			}
 		}
 		$this->_info_orden_col = $cols;

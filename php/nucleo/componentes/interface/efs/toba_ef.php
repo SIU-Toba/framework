@@ -118,8 +118,8 @@ abstract class toba_ef
 		if ($cant_claves > 1 || is_array($this->dato)) {
 			$cant_datos = count($this->dato);
 			if (!is_array($this->dato) || count($this->campos_clave) != $cant_datos) {
-				throw new toba_error_def("EF: {$this->etiqueta}. La cantidad de claves ($cant_claves)
-															tiene que corresponderse con la cantidad de datos manejados por el EF ($cant_datos)");
+				toba_logger::instancia()->error("EF: {$this->etiqueta}. La cantidad de claves ($cant_claves) tiene que corresponderse con la cantidad de datos manejados por el EF ($cant_datos)");
+				throw new toba_error_def('EF: La cantidad de datos y claves no coincide, revise el log');
 			}
 			foreach ($this->dato as $dato){
 				$this->estado_nulo[$dato] = null;

@@ -162,7 +162,7 @@ class toba_relacion_entre_tablas
 					$claves = $this->mapear_fila_a_formato_padre($fila_hijo);
 					$padre = $this->tabla_padre->get_id_fila_condicion($claves, false);
 					if (count($padre)!=1) {
-						throw new toba_error("RELACION entre TABLAS: MAPEO de hijos a padres: se encontro mas de un padre para un hijo.");
+						throw new toba_error('RELACION entre TABLAS: MAPEO de hijos a padres: se encontro mas de un padre para un hijo.');
 					}
 					$id_padre = $padre[0];
 					$this->mapeo_filas[$id_padre][] = $id_fila_hijo;
@@ -209,7 +209,7 @@ class toba_relacion_entre_tablas
 		//¿Hay filas hijos?
 		if (isset($this->mapeo_filas[$id]) && !empty($this->mapeo_filas[$id])) {
 			if (!$this->borrado_en_cascada) {
-				throw new toba_error_def($this->get_txt_error_base("No está permitido el borrado en cascada"));
+				throw new toba_error_def($this->get_txt_error_base('No está permitido el borrado en cascada'));
 			}
 			//Borra las filas en cascada
 			foreach ($this->mapeo_filas[$id] as $hijo) {
@@ -291,7 +291,7 @@ class toba_relacion_entre_tablas
 		if ($this->hay_cursor_en_padre()) {
 			return $this->get_id_filas_hijas_de($this->tabla_padre->get_cursor(), $incluir_hijos_eliminados);
 		} else {
-			throw new toba_error_def($this->get_txt_error_base("La tabla padre no tiene definido un cursor"));
+			throw new toba_error_def($this->get_txt_error_base('La tabla padre no tiene definido un cursor'));
 		}
 	}
 
@@ -321,9 +321,11 @@ class toba_relacion_entre_tablas
 		} else {
 			$desc_hijo = var_export($fila_hijo, true);
 			if (empty($id_padre)) {
-				throw new toba_error_def($this->get_txt_error_base("No se encuentra una fila padre. Fila hija: $desc_hijo"));
+				toba_logger::instancia()->error("No se encuentra una fila padre. Fila hija: $desc_hijo");
+				throw new toba_error_def($this->get_txt_error_base('No se encuentra una fila padre.'));
 			} else {
-				throw new toba_error_def($this->get_txt_error_base("Estructura corrupta. Se encuentra más de una fila padre. Fila hija: $desc_hijo"));
+				toba_logger::instancia()->error("Estructura corrupta. Se encuentra más de una fila padre. Fila hija: $desc_hijo");
+				throw new toba_error_def($this->get_txt_error_base('Estructura corrupta. Se encuentra más de una fila padre.'));
 			}
 		}		
 	}
@@ -434,7 +436,8 @@ class toba_relacion_entre_tablas
 	{
 		$pos = $this->buscar_padre_de($id_fila_hijo);
 		if ($pos === false) {
-			throw new toba_error_def($this->get_txt_error_base("No fue posible encontrar el padre actual de la fila $id_fila_hijo"));
+			toba_logger::instancia()->error("No fue posible encontrar el padre actual de la fila $id_fila_hijo");
+			throw new toba_error_def($this->get_txt_error_base('No fue posible encontrar el padre actual'));
 		}
 		//Se borra la asociación actual con el padre
 		unset($this->mapeo_filas[$pos[0]][$pos[1]]);
@@ -458,7 +461,7 @@ class toba_relacion_entre_tablas
 		//Si no se paso el padre, hay que encontrarlo...
 		if (!isset($id_padre)) {
 			if (! $this->tabla_padre->hay_cursor() && $this->es_relacion_de_inclusion) {
-				throw new toba_error_def($this->get_txt_error_base("Se intenta crear o actualizar una fila y su fila padre aún no existe"));
+				throw new toba_error_def($this->get_txt_error_base('Se intenta crear o actualizar una fila y su fila padre aún no existe'));
 			}
 			$id_padre = $this->tabla_padre->get_cursor();
 		} 

@@ -142,7 +142,8 @@ class toba_aplicacion_comando_base implements toba_aplicacion_comando
 			toba_manejador_archivos::crear_arbol_directorios($pathMigration);
 		} catch(toba_error $e) {
 			toba_logger::instancia()->error($e->getMessage());
-			throw new toba_error("No se pudo crear la carpeta $pathMigration. ¿Problemas de permisos?");
+			toba_logger::instancia()->error("No se pudo crear la carpeta $pathMigration. ¿Problemas de permisos?");
+			throw new toba_error('No se pudo crear la carpeta indicada. ¿Problemas de permisos?');
 		}
 		$tokens = (isset($parametros['--mascara'])) ? $this->recuperar_tokens_indicativos($parametros['--mascara']) : array();
 		$excluir_bloqueados = isset($parametros['--excluir-bloqueados']);

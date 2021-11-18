@@ -58,7 +58,8 @@ class rest_arai_usuarios
 			$cliente = toba::servicio_web_rest('rest_arai_usuarios', $opciones);
 			return $cliente->guzzle();
 		} catch (toba_error $e) {
-			throw new toba_error_usuario("Hay un problema de configuracion del cliente REST. Por favor asegurese de configurarlo correctamente en el archivo cliente.ini.\n<br/><br/>Mensaje: " . $e->get_mensaje());
+			toba_logger::instancia()->error("Hay un problema de configuracion del cliente REST.\n Mensaje: " . $e->get_mensaje());
+			throw new toba_error_usuario('Hay un problema de configuracion del cliente REST. Por favor asegurese de configurarlo correctamente en el archivo cliente.ini del servicio usado.');
 		}
 	}
 	
@@ -68,7 +69,8 @@ class rest_arai_usuarios
 		if ($e->hasResponse()) {
 			$msg .= Psr7\str($e->getResponse()) . PHP_EOL;
 		}
-		throw new toba_error($msg);
+		toba_logger::instancia()->error($msg);
+		throw new toba_error(toba::escaper()->escapeJs($msg));
 	}
 	
 	public function get_usuarios($filtro=array(), $excluir_aplicacion = null)
@@ -95,7 +97,7 @@ class rest_arai_usuarios
 		} catch (RequestException $e) {
 			$this->manejar_excepcion_request($e);
 		} catch (Exception $e) {
-			throw new toba_error($e);
+			throw new toba_error(toba::escaper()->escapeJs($e));
 		}
 		return $datos;		
 	}
@@ -113,7 +115,7 @@ class rest_arai_usuarios
 		} catch (RequestException $e) {
 			$this->manejar_excepcion_request($e);
 		} catch (Exception $e) {
-			throw new toba_error($e);
+			throw new toba_error(toba::escaper()->escapeJs($e));
 		}
 		return $datos;		
 	}
@@ -130,7 +132,7 @@ class rest_arai_usuarios
 			if ($e->getCode() == 404) { return array();	}
 			$this->manejar_excepcion_request($e);
 		} catch (Exception $e) {
-			throw new toba_error($e);
+			throw new toba_error(toba::escaper()->escapeJs($e));
 		}
 		return $datos;	
 	}
@@ -146,7 +148,7 @@ class rest_arai_usuarios
 		} catch (RequestException $e) {
 			$this->manejar_excepcion_request($e);
 		} catch (Exception $e) {
-			throw new toba_error($e);
+			throw new toba_error(toba::escaper()->escapeJs($e));
 		}
 		return $datos;		
 	}
@@ -161,7 +163,7 @@ class rest_arai_usuarios
 		} catch (RequestException $e) {
 			$this->manejar_excepcion_request($e);
 		} catch (Exception $e) {
-			throw new toba_error($e);
+			throw new toba_error(toba::escaper()->escapeJs($e));
 		}
 	}
 	

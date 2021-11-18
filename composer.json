@@ -17,7 +17,7 @@
         "nikic/php-parser": "~4.4",
         "onelogin/php-saml": "~3.4",
         "paragonie/random-lib": "~2.0",
-        "phpmailer/phpmailer": "~6.4.0",
+        "phpmailer/phpmailer": "~6.5.0",
         "phpoffice/phpspreadsheet": "^1.0",
         "psr/log": "~1.1",
         "rospdf/pdf-php": "~0.12",
@@ -49,7 +49,6 @@
     },
     "suggest": {
         "simplesamlphp/simplesamlphp": "Permite conectarse a un IDP centralizado (see onelogin)",
-        "siu-toba/jasper": "Permite imprimir reportes via Jasper desde SIU-Toba",
         "siu/arai-cli": "Librería cliente de los componentes ARAI",
         "siu/arai-reportes": "Permite imprimir reportes via un servidor Jasper desde SIU-Toba",
         "siu/manejador-salida-bootstrap": "Permite generar un marcado HTML responsive",
@@ -75,7 +74,7 @@
     ],
     "scripts": {
         "post-install-cmd": [
-            "yarn add ckeditor4@4.16 jquery@3.6 jquery-migrate@3.3 siu-js-app-launcher@1.0.6 --modules-folder www/js/packages/",
+            "yarn add ckeditor4@4.17 jquery@3.6 jquery-migrate@3.3 siu-js-app-launcher@1.0.6 --modules-folder www/js/packages/",
             "yarn ",
             "php bin/instalar_assets.php"
         ],

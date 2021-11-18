@@ -305,7 +305,8 @@ class toba_ap_tabla_db_mt extends toba_ap_tabla_db
 		} elseif (isset($this->_cols_por_tabla[$this->_tabla_ext][$col])) {
 			return $this->_tabla_ext;
 		} else {
-			throw new toba_error("TOBA AP MT: No existe la columna $col");
+			toba_logger::instancia()->error("TOBA AP MT: No existe la columna $col");
+			throw new toba_error("TOBA AP MT: No existe la columna solicitada");
 		}
 	}
 

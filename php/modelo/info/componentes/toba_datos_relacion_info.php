@@ -99,7 +99,8 @@ class toba_datos_relacion_info extends toba_componente_info
 				toba_manejador_archivos::crear_arbol_directorios($path_destino.$dir_subclases);
 			}
 			if (! copy($path_origen.$archivo, $path_destino.$nuevo_archivo)) {
-				throw new toba_error('No es posible copiar el archivo desde '.$path_origen.$archivo.' hacia '.$path_destino.$nuevo_archivo);
+				toba_logger::instancia()->error('No es posible copiar el archivo desde '.$path_origen.$archivo.' hacia '.$path_destino.$nuevo_archivo);
+				throw new toba_error('No es posible copiar el archivo, revise el log');
 			}			
 		}
 	}	

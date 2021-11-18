@@ -79,7 +79,8 @@ class toba_modelo_pms
 		$sql = "SELECT * FROM apex_puntos_montaje WHERE etiqueta=$etiqueta AND proyecto=$proyecto";
 		$registro = $this->db->consultar_fila($sql);
 		if (empty($registro)) {
-			throw new toba_error("PUNTOS MONTAJE: El punto de montaje con etiqueta $etiqueta no existe");
+			toba_logger::instancia()->error("PUNTOS MONTAJE: El punto de montaje con etiqueta $etiqueta no existe");
+			throw new toba_error('PUNTOS MONTAJE: El punto de montaje requerido no existe, revise el log');
 		} else {
 			return toba_punto_montaje_factory::construir($registro);
 		}
@@ -239,7 +240,8 @@ class toba_modelo_pms
 		$sql = "SELECT * FROM apex_puntos_montaje WHERE id=$id AND proyecto = $proyecto";
 		$registro = toba::db()->consultar_fila($sql);
 		if (empty($registro)) {
-			throw new toba_error("PUNTOS MONTAJE: El punto de montaje con id $id no existe");
+			toba_logger::instancia()->error("PUNTOS MONTAJE: El punto de montaje con id $id no existe");
+			throw new toba_error('PUNTOS MONTAJE: El punto de montaje requerido no existe, revise el log');
 		} else {
 			return toba_punto_montaje_factory::construir($registro);
 		}
