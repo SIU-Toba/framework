@@ -268,7 +268,7 @@ class ci_fuentes extends toba_ci
 		if (isset($datos['conexiones_perfiles']) || is_null($datos['conexiones_perfiles'])) {
 			unset($datos['conexiones_perfiles']);
 		}
-		if (in_array($id_base, $bases)) {
+		if (in_array($id_base, $bases, true)) {
 			//---Actualiza la entrada actual
 			$instalacion->actualizar_db($id_base, $datos);
 		} else {

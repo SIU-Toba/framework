@@ -141,7 +141,7 @@ class ci_editor extends ci_editores_toba
 		if ($registros = $this->get_entidad()->tabla('dependencias')->get_filas()) {
 			foreach ($registros as $reg) {
 				$clase = explode(',', $reg['clase']);
-				if (! in_array('toba_datos_tabla', $clase) && ! in_array('toba_datos_relacion', $clase)) {
+				if (! in_array('toba_datos_tabla', $clase, true) && ! in_array('toba_datos_relacion', $clase, true)) {
 						$this->s__pantalla_dep_asoc[$reg['identificador']] = $reg['identificador'];
 				}
 			}
@@ -673,7 +673,7 @@ class ci_editor extends ci_editores_toba
 
 			//Miro si la pantalla esta entre las presentes
 			$pantalla = $this->get_entidad()->tabla('pantallas')->get_fila_columna($pantalla_id, 'identificador');
-			$evento_debe_estar = (is_null($pant_presentes) || in_array($pantalla, $pant_presentes));
+			$evento_debe_estar = (is_null($pant_presentes) || in_array($pantalla, $pant_presentes, true));
 
 
 			if ($evento_debe_estar && !$evento_esta) {

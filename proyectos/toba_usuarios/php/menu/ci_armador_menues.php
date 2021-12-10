@@ -266,7 +266,7 @@ class ci_armador_menues extends toba_ci
 	{
 		$padre = null;
 		foreach ($datos as $klave => $grupo) {
-			if (in_array($id, $grupo)) {
+			if (in_array($id, $grupo, true)) {
 				$padre = $klave;
 			}
 		}

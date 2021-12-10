@@ -9,7 +9,7 @@ class filtro_auditoria extends toba_ei_formulario
 			}
 		</style>";
 		foreach ($this->get_efs_activos() as $id_ef) {
-			if (! in_array($id_ef, array('fecha_hasta', 'valor'))) {
+			if (! in_array($id_ef, array('fecha_hasta', 'valor'), true)) {
 				$this->generar_html_ef($id_ef);
 			}
 		}

@@ -168,7 +168,7 @@ class zona_objeto extends zona_editor
 				echo "<td  class='barra-obj-link' width='5'>".toba_recurso::imagen_toba($rs['clase_icono'], true).'</td>';
 				echo "<td  class='barra-obj-link' >[".$escapador->escapeHtml($rs['objeto'].'] '.$rs['objeto_nombre']).'</td>';
 				echo "<td  class='barra-obj-link'>".$escapador->escapeHtml($rs['objeto_identificador']).'</td>';
-				if (!in_array($rs['clase'], toba_info_editores::get_lista_tipo_componentes())) { 
+				if (!in_array($rs['clase'], toba_info_editores::get_lista_tipo_componentes(), true)) { 
 					echo "<td  class='barra-obj-id' width='5'>";
 					echo "<a href='" . toba::vinculador()->get_url(toba_editor::get_id(), '/admin/objetos/propiedades',
 												array(apex_hilo_qs_zona=>$rs['objeto_proyecto']

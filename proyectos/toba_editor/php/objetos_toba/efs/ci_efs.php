@@ -208,13 +208,13 @@ class ci_efs extends toba_ci
 	{
 		$param = $this->get_definicion_parametros(true);		
 		$tipos = array();
-		if (in_array('carga_metodo', $param)) {
+		if (in_array('carga_metodo', $param, true)) {
 			$tipos[] = array('carga_metodo', 'Método de consulta PHP');
 		}
-		if (in_array('carga_lista', $param)) {
+		if (in_array('carga_lista', $param, true)) {
 			$tipos[] = array('carga_lista', 'Lista fija de Opciones');
 		}		
-		if (in_array('carga_sql', $param)) {		
+		if (in_array('carga_sql', $param, true)) {		
 			$tipos[] = array('carga_sql', 'Consulta SQL');
 		}
 		return $tipos;
@@ -268,7 +268,7 @@ class ci_efs extends toba_ci
 	function conf__param_varios(toba_ei_formulario $form)
 	{
 		$tipo_ef = $this->get_tipo_ef();
-		if (in_array($tipo_ef, array('ef_editable_numero','ef_editable_moneda', 'ef_editable_numero_porcentaje'))) {
+		if (in_array($tipo_ef, array('ef_editable_numero','ef_editable_moneda', 'ef_editable_numero_porcentaje'), true)) {
 			$form->set_descripcion('Definir los [wiki:Referencia/efs/numero parámetros del número]');
 			$form->set_modo_descripcion(false);
 		}
@@ -279,7 +279,7 @@ class ci_efs extends toba_ci
 		$todos = $this->dependencia('param_varios')->get_nombres_ef();
 		$efs_a_desactivar = array();
 		foreach ($todos as $disponible) {
-			if (! in_array($disponible, $param) ) {
+			if (! in_array($disponible, $param, true) ) {
 				$efs_a_desactivar[] = $disponible;
 				if (isset($this->parametros[$disponible])) {
 					unset($this->parametros[$disponible]);	
@@ -288,7 +288,7 @@ class ci_efs extends toba_ci
 		}
 		
 		//-- Si es un popup no eliminar la carpeta (es cosmetico)
-		if (! in_array('popup_item', $efs_a_desactivar)) {
+		if (! in_array('popup_item', $efs_a_desactivar, true)) {
 			array_borrar_valor($efs_a_desactivar, 'popup_carpeta');
 			array_borrar_valor($efs_a_desactivar, 'popup_carga_desc_estatico');
 			//-- Si esta seteado el item, buscar la carpeta asociada
@@ -348,7 +348,7 @@ class ci_efs extends toba_ci
 		//---Desactiva los efs que no pertenecen a los parametros
 		$todos = $this->dependencia('param_carga')->get_nombres_ef();
 		foreach ($todos as $disponible) {
-			if (! in_array($disponible, $lista_param) &&
+			if (! in_array($disponible, $lista_param, true) &&
 					$disponible != 'mecanismo' &&
 					$disponible != 'tipo_clase' &&
 					$disponible != 'carga_metodo_lista' &&

@@ -20,7 +20,7 @@ class test_arbol_items extends test_toba
 		$ids = array();
 		foreach ($items as $item)
 		{
-			if (in_array($item->id(), $ids))
+			if (in_array($item->id(), $ids, true))
 				$this->fail('El conjunto de items contiene items repetidos');
 			else
 				$ids[] = $item->id();
@@ -176,7 +176,7 @@ class test_arbol_items extends test_toba
 		$this->assertEqual($arbol->cantidad_items(), count($items_buscados));
 		foreach ($arbol->items() as $item)
 		{
-			$this->assertTrue(in_array($item->id(), $items_buscados), 'Las carpetas del camino deben tener permisos');
+			$this->assertTrue(in_array($item->id(), $items_buscados, true), 'Las carpetas del camino deben tener permisos');
 		}
 		$this->asegurar_unicidad($arbol->items());
 	}	

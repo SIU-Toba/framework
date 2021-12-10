@@ -204,14 +204,14 @@ class ci_principal extends toba_ci
 				//Si esta asignado ponerle el nombre del grupo y chequear el checkbox
 				if ($asignado['usuario_grupo_acc'] == $grupo['usuario_grupo_acc']) {
 					$grupo['tiene_permiso'] = 1;
-					$grupo['item'] = $this->s__id_item['item'];
+					$grupo['item'] = $this->s__id_item['item'] ?? null;
 					$esta_asignado = true;
 				}
 			}
 			//Si no esta asignado poner el item y deschequear el checkbox
 			if (!$esta_asignado) {
 				$grupo['tiene_permiso'] = 0;
-				$grupo['item'] = $this->s__id_item['item'];
+				$grupo['item'] = $this->s__id_item['item'] ?? null;
 			}
 			$datos[] = $grupo;
 		}
@@ -346,16 +346,16 @@ class ci_principal extends toba_ci
 		toba::logger()->var_dump($datos);
 		foreach($datos as $klave => $fila) {
 			$permisos = explode(',' , $fila['permisos']);
-			if (in_array('select', $permisos)) {
+			if (in_array('select', $permisos, true)) {
 				$datos[$klave]['chk_select'] = 1;
 			}
-			if (in_array('insert', $permisos)) {
+			if (in_array('insert', $permisos, true)) {
 				$datos[$klave]['chk_insert'] = 1;
 			}
-			if (in_array('update', $permisos)) {
+			if (in_array('update', $permisos, true)) {
 				$datos[$klave]['chk_update'] = 1;
 			}
-			if (in_array('delete', $permisos)) {
+			if (in_array('delete', $permisos, true)) {
 				$datos[$klave]['chk_delete'] = 1;
 			}			
 		}

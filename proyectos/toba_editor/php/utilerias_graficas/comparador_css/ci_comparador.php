@@ -56,13 +56,13 @@ class ci_comparador extends toba_ci
 		$this->analisis = array('faltantes' => array(), 'sobrantes' => array());
 		//Busca los estilos faltantes
 		foreach ($est_origen as $estilo) {
-			if (!in_array($estilo, $est_destino)) {
+			if (!in_array($estilo, $est_destino, true)) {
 				$this->analisis['faltantes'][] = array('estilo'=>$estilo);
 			}
 		}
 		//Busca la estilos sobrantes
 		foreach ($est_destino as $estilo) {
-			if (!in_array($estilo, $est_origen)) {
+			if (!in_array($estilo, $est_origen, true)) {
 				$this->analisis['sobrantes'][] = array('estilo'=>$estilo);	
 			}
 		}

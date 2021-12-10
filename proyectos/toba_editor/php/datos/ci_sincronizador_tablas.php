@@ -81,7 +81,7 @@ class ci_sincronizador_tablas extends toba_ci
 		$colapsa = true;
 		if (isset($this->s__seleccionadas)) {
 			foreach ($this->s__seleccionadas as $tabla) {
-				if (in_array($tabla['tabla'], $claves)) {
+				if (in_array($tabla['tabla'], $claves, true)) {
 					$colapsa = false;
 				}
 			}
