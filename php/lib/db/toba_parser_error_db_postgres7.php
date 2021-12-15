@@ -53,7 +53,7 @@ class toba_parser_error_db_postgres7 extends toba_parser_error_db
 		$mensaje = str_replace("\n", '', $mensaje);
 		$metodos = reflexion_buscar_metodos($this, 'parsear_sqlstate_');
 		$metodo = "parsear_sqlstate_$sqlstate";
-		if (in_array($metodo, $metodos)) {
+		if (in_array($metodo, $metodos,true)) {
 			return $this->$metodo($accion, $sql, $mensaje);
 		}
 	}
@@ -89,7 +89,7 @@ class toba_parser_error_db_postgres7 extends toba_parser_error_db
 		$rs = $db->consultar($sql);
 		$salida = array();
 		foreach ($rs as $campo) {
-			if (! isset($posiciones) || in_array($campo['orden'], $posiciones)) {
+			if (! isset($posiciones) || in_array($campo['orden'], $posiciones, true)) {
 				if (isset($campo['com_campo'])) {
 					$salida[$campo['campo']] = $campo['com_campo'];
 				} elseif ($this->mostrar_nombres_campos) {
