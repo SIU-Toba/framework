@@ -79,7 +79,7 @@ class comando_test extends comando_toba
 			}
 			$elegidos = $this->consola->dialogo_lista_opciones($lista, 'Seleccione el caso de test', true, null, false);
 			foreach($klaves as $klave) {
-				if (! in_array($seleccionados[$klave]['id'], $elegidos)) {
+				if (! in_array($seleccionados[$klave]['id'], $elegidos, true)) {
 					unset($seleccionados[$klave]);					
 				}
 			}

@@ -237,12 +237,12 @@ class comando_instalacion extends comando_toba
 				$this->consola->mensaje("     ln -s $toba_conf /etc/apache2/sites-enabled/$nombre_toba.conf");
 			}
 			$this->consola->mensaje("");
-                        if (in_array('toba_editor', $instancia->get_lista_proyectos_vinculados())) {
-                            $url = $instancia->get_proyecto('toba_editor')->get_url();
-                            $this->consola->mensaje("Reiniciar el servicio apache e ingresar al framework navegando hacia ");
-                            $this->consola->mensaje("");
-                            $this->consola->mensaje("     http://localhost$url");
-                        }
+            if (in_array('toba_editor', $instancia->get_lista_proyectos_vinculados(), true)) {
+                $url = $instancia->get_proyecto('toba_editor')->get_url();
+                $this->consola->mensaje("Reiniciar el servicio apache e ingresar al framework navegando hacia ");
+                $this->consola->mensaje("");
+                $this->consola->mensaje("     http://localhost$url");
+            }
 			$this->consola->mensaje("");
 			$this->consola->mensaje("");
 		}

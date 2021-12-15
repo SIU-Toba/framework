@@ -136,7 +136,7 @@ class toba_instalador
 			$instancia = $this->get_instancia($id_inst);
 			foreach ($instancia->get_lista_proyectos_vinculados() as $id_proy) {
 				$proy_propios = array('toba_editor', 'toba_referencia', 'toba_testing', 'toba_instancia');
-				if (in_array($id_proy, $proy_propios)) {
+				if (in_array($id_proy, $proy_propios, true)) {
 					$instancia->get_proyecto($id_proy)->desinstalar();
 				}
 			}
