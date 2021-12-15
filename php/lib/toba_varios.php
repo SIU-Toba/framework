@@ -142,7 +142,7 @@
 	{
 		$nuevo = array();
 		foreach ($arreglo as $clave => $valor) {
-			if (in_array($clave, $llaves)) {
+			if (in_array($clave, $llaves, true)) {
 				$nuevo[$clave] = $valor;
 			}
 		}
