@@ -26,7 +26,7 @@
         "siu-toba/services_json": "^1.0.3.3",
         "siu-toba/ssl-cert-utils": "~1.0",
         "siu-toba/structures_graph": "^1.1.1.1",
-        "siu/arai-json-migrator": "~1.0",
+        "siu/arai-json-migrator": "~1.1",
         "siu/manejador-salida-toba": "~1.1",
         "siu/interfaces-manejador-salida-toba": "~1.2.0",
         "siu/security-multitool": "~1.1",
