@@ -3,6 +3,12 @@
 ## CHANGELOG
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
+- Se actualizan los siguientes paquetes 
+     * phpmailer/phpmailer: v6.5.3
+     * phpoffice/phpspreadsheet: v1.20.0
+     * nikic/php-parser: v4.13.2
+     * vlucas/phpdotenv: v3.6.10
+     * siu/arai-json-migrator: v1.1.0
 
 [3.3.21](https://github.com/SIU-Toba/framework/releases/tag/v3.3.21) (2021-11-18)
 - Actualizacion de seguridad de paquetes JS:
