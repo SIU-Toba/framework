@@ -608,9 +608,10 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	{
 		$desc = array();
 		if (! empty($datos)) {
-			foreach (array_keys($datos['items']) as $fila) {
-				$desc[$fila['item']] = $fila['nombre'];
-			}
+            foreach (array_keys($datos['items']) as $indx) {
+                $fila = $datos['items'][$indx];
+                $desc[$fila['item']] = $fila['nombre'];
+            }
 		}
 		return $desc;
 	}
