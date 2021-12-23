@@ -141,7 +141,8 @@ class toba_solicitud_web extends toba_solicitud
 				if (toba::logger()->modo_debug()) {
 					$mensaje_debug = $escaper->escapeHtml($e->get_mensaje_log());
 				}
-				toba::notificacion()->error($escaper->escapeHtml($e->get_mensaje()), $mensaje_debug);
+                
+				toba::notificacion()->error($e->get_mensaje(), $mensaje_debug);
 				toba::notificacion()->set_titulo($escaper->escapeHtml($e->get_titulo_ventana()));
 			}
 		}
@@ -270,7 +271,7 @@ class toba_solicitud_web extends toba_solicitud
 				if (toba::logger()->modo_debug()) {
 					$mensaje_debug = $escaper->escapeHtml($e->get_mensaje_log());
 				}
-				toba::notificacion()->error($escaper->escapeHtml($e->get_mensaje()), $mensaje_debug);
+				toba::notificacion()->error($e->get_mensaje(), $mensaje_debug);
 			}
 			echo toba_js::cerrar();
 
@@ -447,7 +448,7 @@ class toba_solicitud_web extends toba_solicitud
 				if (toba::logger()->modo_debug()) {
 					$mensaje_debug = $escaper->escapeHtml($e->get_mensaje_log());
 				}
-				toba::notificacion()->error($escaper->escapeHtml($e->get_mensaje()), $mensaje_debug);
+				toba::notificacion()->error($e->get_mensaje(), $mensaje_debug);
 			}
 		}
 		toba::notificacion()->mostrar(false);
