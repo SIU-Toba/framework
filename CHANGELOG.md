@@ -3,6 +3,9 @@
 ## CHANGELOG
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
+
+[3.3.22](https://github.com/SIU-Toba/framework/releases/tag/v3.3.22) (2021-12-23)
+- Fix por escapado multiple en mensajes de error
 - Se actualizan los siguientes paquetes 
      * phpmailer/phpmailer: v6.5.3
      * phpoffice/phpspreadsheet: v1.20.0
