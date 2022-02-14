@@ -749,11 +749,11 @@ class toba_manejador_sesiones
 			$ultimo_acceso = $_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['info_sesion']['ultimo_acceso'];
 			$tiempo_desconectado = ((time()-$ultimo_acceso)/60);//Tiempo desde el ultimo REQUEST
 			if ( $tiempo_desconectado >= $ventana) {
-				toba::notificacion('Usted ha permanecido varios minutos sin interactuar
+				toba::notificacion()->agregar('Usted ha permanecido varios minutos sin interactuar
 							con el servidor. Por razones de seguridad su sesion ha sido eliminada.
 							Por favor vuelva a registrarse si desea continuar utilizando el sistema.
 							Disculpe las molestias ocasionadas.');
-				toba_logger::error("Se exedio la ventana temporal ($ventana m.)");
+				toba_logger::instancia()->error("Se exedio la ventana temporal ($ventana m.)");
 				throw new toba_error_autorizacion('Se exedio la ventana temporal');
 			}
 		}
@@ -763,7 +763,7 @@ class toba_manejador_sesiones
 			$inicio_sesion = $_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['info_sesion']['inicio'];
 			$tiempo_total = ((time()-$inicio_sesion)/60);//Tiempo desde que se inicio la sesion
 			if ( $tiempo_total >= $maximo) {
-				toba::notificacion('Se ha superado el tiempo de sesion permitido
+				toba::notificacion()->agregar('Se ha superado el tiempo de sesion permitido
 							Por favor vuelva a registrarse si desea continuar utilizando el sistema.
 							Disculpe las molestias ocasionadas.');
 				toba_logger::instancia()->error("Se exedio el tiempo maximo de sesion ($maximo m.)");

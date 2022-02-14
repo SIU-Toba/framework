@@ -42,7 +42,8 @@ class toba_planificador_tareas
 		//Inserta el objeto serializado en el BLOB
 		$pdo = $db->get_pdo();
 		$stmt = $pdo->prepare($sql);
-		$stmt->bindParam(1, serialize($tarea), PDO::PARAM_LOB);
+		$tarea_serializada = serialize($tarea); 
+		$stmt->bindParam(1, $tarea_serializada, PDO::PARAM_LOB);
 		$stmt->execute();
 		
 		$id_tarea = $db->recuperar_secuencia('apex_tarea_seq');
