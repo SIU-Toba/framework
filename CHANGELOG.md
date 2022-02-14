@@ -4,6 +4,10 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.3.23](https://github.com/SIU-Toba/framework/releases/tag/v3.3.23) (2022-02-14)
+- Fix instanciacion incorrecta del logger al superarse el tiempo de sesión
+- Fix notice al lidiar con tareas serializadas
+
 [3.3.22](https://github.com/SIU-Toba/framework/releases/tag/v3.3.22) (2021-12-23)
 - Fix por escapado multiple en mensajes de error
 - Se actualizan los siguientes paquetes 
