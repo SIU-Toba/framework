@@ -56,29 +56,26 @@ class toba_manejador_sesiones
             }
 	}
 
-        private function iniciar_session_php()
-        {
-            //Instancio el handler y configuro via ini_set
-            $handler = $this->instanciar_handler();
-            $handler->read_env_settings();
-            $handler->configure_settings();
+    private function iniciar_session_php()
+    {
+        //Instancio el handler y configuro via ini_set
+        $handler = $this->instanciar_handler();
+        $handler->read_env_settings();
+        $handler->configure_settings();
 
-            if (session_id() != '') {
-                    throw new toba_error('Ya existe una sesión abierta, probablemente tenga activado session.auto_start = 1 en el php.ini');
-            }
-            if (! toba_nucleo::instancia()->es_acceso_rest()) {
-                    session_name(toba::instalacion()->get_session_name());
-                    session_start();
-            }
+        if (session_id() != '') {
+                throw new toba_error('Ya existe una sesión abierta, probablemente tenga activado session.auto_start = 1 en el php.ini');
         }
+        if (! toba_nucleo::instancia()->es_acceso_rest()) {
+                session_name(toba::instalacion()->get_session_name());
+                session_start();
+        }
+    }
 
 	static function enviar_csrf_hidden()
 	{
-		$tm = toba::memoria();
-		if ($tm->existe_dato_operacion(apex_sesion_csrt)) {
-			$valor = $tm->get_dato_operacion(apex_sesion_csrt);
-			echo toba_form::hidden(apex_sesion_csrt, $valor);
-		}
+        echo toba::memoria()->fijar_csrf_token();
+        //ei_arbol($_SESSION['CSRF']);
 	}
 
 	//------------------------------------------------------------------
@@ -1017,7 +1014,7 @@ class toba_manejador_sesiones
 						throw new toba_error_autenticacion("$error. Ha superado el límite de inicios de sesion.");
 					}elseif ($lanzar_excepcion) {
 						toba_logger::instancia()->error("$error. Ha superado el límite de inicios de sesion.|$intentos");
-						throw new toba_error_autenticacion_intentos("$error. Ha superado el límite de inicios de sesion.");
+						throw new toba_error_autenticacion_intentos("$error. Ha superado el límite de inicios de sesion.|$intentos");
 					} else {
 						$this->invocar_metodo_usuario('bloquear_ip',array($ip));
 						toba_logger::instancia()->error("$error. La IP ha sido bloqueada.");

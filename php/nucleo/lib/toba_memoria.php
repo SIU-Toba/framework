@@ -1,5 +1,6 @@
 <?php
-use SecurityMultiTool\Csrf\TokenGenerator;
+//use SecurityMultiTool\Csrf\TokenGenerator;
+use ParagonIE\AntiCSRF\AntiCSRF;
 	
 //Tamaño de la pila de la memoria sincronizada
 if (! defined('apex_hilo_tamano')) {
@@ -66,7 +67,9 @@ class toba_memoria
 	private $memoria_instancia;			// Memoria global de la instancia.
 	private $url_original;
 	private $parametros_item_original;
-	
+
+    private $csrf_config = ['hmac_ip' => false, 'recycle_after' => 10, 'expire_old' => true];
+    
 	static function instancia()
 	{
 		if (!isset(self::$instancia)) {
@@ -934,29 +937,22 @@ class toba_memoria
 	//-------------------------------------------------------------------------------------------------------------------------------------//	
 	function fijar_csrf_token($forzar = false)
 	{
-		if (! $this->existe_dato_operacion(apex_sesion_csrt) || $forzar) {
-			$cstoken = $this->generar_unique_cripto();
-			$this->set_dato_operacion(apex_sesion_csrt, $cstoken);
-		}
+        $conf = ($forzar === true) ? ['recycle_after' => 1] :$this->csrf_config;
+        
+        $generador = new AntiCSRF();
+        $val = $generador->reconfigure($conf)->insertToken($this->get_id() ?? '', false);  //ID del proximo pedido de pagina
+        //toba_logger::instancia()->var_dump($val);
+        return $val;
 	}
 	
 	function validar_pedido_pagina($valor_form)
 	{
-		if ($this->existe_dato_operacion(apex_sesion_csrt)) {
-			$valor = trim($valor_form);
-			$frm_orig = ($valor === trim($this->get_dato_operacion(apex_sesion_csrt)));	
-			return $frm_orig;
-		} 
-		return true;
+        $generador = new AntiCSRF();
+        $val = $generador->reconfigure($this->csrf_config)->validateRequest($this->hilo_referencia ?? '');  //ID del pedido de pagina actual
+        //toba_logger::instancia()->debug($generador->getFormToken());        
+        return $val;
 	}
-	
-	protected function generar_unique_cripto()
-	{		
-		$generador = new SecurityMultiTool\Csrf\TokenGenerator();
-		$hashed = $generador->generate();
-		return $hashed;
-	}
-	
+		
 	static protected function validar_id_item_enviado($item)
 	{
 		$rs = explode(apex_qs_separador, $item);
