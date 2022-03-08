@@ -44,11 +44,11 @@ toba proyecto cargar -p nombre_proyecto -d `pwd`
 
 La descarga de SIU-Toba a partir de la version 3.0 se lleva a cabo enteramente via composer, para ello se deben agregar al archivo ``composer.json``  de su proyecto las siguientes lineas
 ```json
-"repositories": [
+    "repositories": [
         {
             "type": "composer",
             "url": "https://satis.siu.edu.ar",
-            "exclude": ["siu-toba/rest"]
+            "exclude": ["siu-toba/framework", "siu-toba/rest"]
         }
     ],
     "require": {
