@@ -3,10 +3,10 @@
 interface toba_callback_errores_validacion {
 	
 	/**
-	 * Atrapa la validacion de tamaÒo maximo de un campo
+	 * Atrapa la validacion de tama√±o maximo de un campo
 	 *
-	 * @param toba_ef_editable $ef campo en cuestiÛn
-	 * @param int $maximo TamaÒo maximo definido
+	 * @param toba_ef_editable $ef campo en cuesti√≥n
+	 * @param int $maximo Tama√±o maximo definido
 	 * @param string $estado Estado actual a validado
 	 * @return boolean/String True para descartar el error, o un string para mostrar un mensaje personalizado
 	 */
@@ -60,7 +60,7 @@ class toba_ef_editable extends toba_ef
 	}
     	
 	/**
-	 * Permite hacer que todos los efs traduzcan su tamaÒo visual a pixeles con un porcentaje dado
+	 * Permite hacer que todos los efs traduzcan su tama√±o visual a pixeles con un porcentaje dado
 	 * @param int $porcentaja 
 	 */
 	static function set_tamano_multiplicado_pixels($porcentaje = 1)
@@ -80,7 +80,7 @@ class toba_ef_editable extends toba_ef
 			$this->estado_defecto = $parametros['estado_defecto'];
 			$this->estado = $this->estado_defecto;
 		}
-		//TamaÒo del editable
+		//Tama√±o del editable
 		if (isset($parametros['edit_tamano'])) {
 			$this->tamano = $parametros['edit_tamano'];	
 		}
@@ -185,13 +185,13 @@ class toba_ef_editable extends toba_ef
 		if ($this->tiene_estado() && $this->estado != '') {
 			//Hago el chequeo x expresion regular si existiera
 			if (isset($this->expreg) && !preg_match($this->expreg, $this->estado)) {
-				return 'No es v·lido';
+				return 'No es v√°lido';
 			}
 
 			//Evaluo si se supera el maximo de caracteres permitido
 			if (isset($this->maximo) && !is_null($this->maximo) && (strlen($this->estado) > $this->maximo)) {
 				if (! isset(self::$callback_errores_validacion)) {
-					return "Supera el ancho m·ximo {$this->maximo}";
+					return "Supera el ancho m√°ximo {$this->maximo}";
 				} else {
 					return self::$callback_errores_validacion->editable_maximo($this, $this->maximo, $this->estado);
 				}
@@ -235,7 +235,7 @@ class toba_ef_editable extends toba_ef
 //########################################################################################################
 
 /**
- * Elemento editable que sÛlo permite ingresar n˙meros
+ * Elemento editable que s√≥lo permite ingresar n√∫meros
  * @package Componentes
  * @subpackage Efs
  * @jsdoc ef_editable_numero ef_editable_numero
@@ -268,7 +268,7 @@ class toba_ef_editable_numero extends toba_ef_editable
 
 	/**
 	 * Permite modificar el rango de numeros permitido y el mensaje de error
-	 * @param string $rango ej: "[0..100), N˙mero positivo"
+	 * @param string $rango ej: "[0..100), N√∫mero positivo"
 	 */
 	function cambiar_rango($rango)
 	{
@@ -276,7 +276,7 @@ class toba_ef_editable_numero extends toba_ef_editable
 		$limitadores = array('[', ']', '(', ')');
 		$partes = explode(',', $rango, 2);
 
-		//DeterminaciÛn de lÌmites
+		//Determinaci√≥n de l√≠mites
 		$rango = trim($partes[0]);
 		list($inferior, $superior) = explode('..',  str_replace($limitadores, '', $rango));
 		$this->rango_inferior['limite'] = trim($inferior);
@@ -286,7 +286,7 @@ class toba_ef_editable_numero extends toba_ef_editable
 		if (strpos($rango, ')') !== false)
 			$this->rango_superior['incluido'] = 0;
 
-		//DescripciÛn
+		//Descripci√≥n
 		if (isset($partes[1])) {
 			$this->mensaje_defecto = $partes[1];
 		}
@@ -332,7 +332,7 @@ class toba_ef_editable_numero extends toba_ef_editable
 	}
 
 	/**
-	 * Valida que el n˙mero cumpla con el rango preestablecido (si lo hay)
+	 * Valida que el n√∫mero cumpla con el rango preestablecido (si lo hay)
 	 */
 	function validar_estado()
 	{
@@ -345,7 +345,7 @@ class toba_ef_editable_numero extends toba_ef_editable
 				return true;
 			}
 			if (! is_numeric($this->estado)) {
-				return "El campo es numÈrico";
+				return "El campo es num√©rico";
 			}
 			return $this->validar_rango();
 		}
@@ -397,7 +397,7 @@ class toba_ef_editable_numero extends toba_ef_editable
 //########################################################################################################
 
 /**
- * Elemento editable que sÛlo permite ingresar n˙meros que representan un valor monetario
+ * Elemento editable que s√≥lo permite ingresar n√∫meros que representan un valor monetario
  * @package Componentes
  * @subpackage Efs
  * @jsdoc ef_editable_moneda ef_editable_moneda
@@ -443,7 +443,7 @@ class toba_ef_editable_moneda extends toba_ef_editable_numero
 //########################################################################################################
 
 /**
- * Elemento editable que sÛlo permite ingresar n˙meros que representan un porcentaje
+ * Elemento editable que s√≥lo permite ingresar n√∫meros que representan un porcentaje
  * @package Componentes
  * @subpackage Efs
  * @jsdoc ef_editable_porcentaje ef_editable_porcentaje
@@ -499,7 +499,7 @@ class toba_ef_editable_numero_porcentaje extends toba_ef_editable_numero
 //########################################################################################################
 
 /**
- * Elemento editable que permite ingresar contraseÒas, con o sin campo de confirmaciÛn
+ * Elemento editable que permite ingresar contrase√±as, con o sin campo de confirmaci√≥n
  * @package Componentes
  * @subpackage Efs
  * @jsdoc ef_editable_clave ef_editable_clave
@@ -623,7 +623,7 @@ class toba_ef_editable_fecha extends toba_ef_editable
 	} 
 
 	/**
-	 * Valida que las fechas ingresadas estÈn dentro del rango de fechas
+	 * Valida que las fechas ingresadas est√©n dentro del rango de fechas
 	 *
 	 * @param string $desde aaaa-mm-dd
 	 * @param string $hasta aaaa-mm-dd
@@ -662,7 +662,7 @@ class toba_ef_editable_fecha extends toba_ef_editable
 	}
     
 	/**
-	 * Valida que sea una fecha v·lida con la funcion php checkdate
+	 * Valida que sea una fecha v√°lida con la funcion php checkdate
 	 */
 	function validar_estado()
 	{
@@ -685,7 +685,7 @@ class toba_ef_editable_fecha extends toba_ef_editable
 				return "El campo no es una fecha valida (1).";
 			}
 			if (isset($this->rango_fechas)) {
-				//TODO: Falta validaciÛn en el servidor
+				//TODO: Falta validaci√≥n en el servidor
 			}
 		}
 		return true;
@@ -837,7 +837,7 @@ class toba_ef_editable_fecha_hora extends toba_ef_editable
 	}
 
 	/**
-	* Valida que sea una fecha v·lida con la funcion php checkdate
+	* Valida que sea una fecha v√°lida con la funcion php checkdate
 	*/
 	function validar_estado()
 	{
@@ -860,7 +860,7 @@ class toba_ef_editable_fecha_hora extends toba_ef_editable
 				return "El campo no es una fecha valida (1).";
 			}
 			if (isset($this->rango_fechas)) {
-				//TODO: Falta validaciÛn en el servidor
+				//TODO: Falta validaci√≥n en el servidor
 			}
 
 			$hora = explode(':', $this->estado['hora']);
@@ -908,7 +908,7 @@ class toba_ef_editable_fecha_hora extends toba_ef_editable
 				$desc = $formato->formato_fecha_hora("{$estado[0]} {$estado[1]}");
 				break;
 			case 'xml'  :
-            case 'pdf'  : 
+			case 'pdf'  : 
 				break;
 		}
         
@@ -986,7 +986,7 @@ class toba_ef_editable_hora extends toba_ef_editable
 	}
 
 	/**
-	* Valida que sea una fecha v·lida con la funcion php checkdate
+	* Valida que sea una fecha v√°lida con la funcion php checkdate
 	*/
 	function validar_estado()
 	{
