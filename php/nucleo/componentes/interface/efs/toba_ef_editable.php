@@ -898,19 +898,20 @@ class toba_ef_editable_fecha_hora extends toba_ef_editable
 	{
 		$formato = new toba_formateo($tipo_salida);
 		$estado = $this->get_estado();
+        $desc = (! is_null($estado)) ? $formato->formato_fecha($estado[0]) . " $estado[1] " : '';
 		switch ($tipo_salida) {
 			case 'html':
-			case 'impresion_html':
-				$desc = (! is_null($estado)) ? $formato->formato_fecha($estado[0]) . " $estado[1] " : '';
+			case 'impresion_html':				
 				$desc = "<div class='{$this->clase_css}'>$desc</div>";
 				break;				
 			case 'excel':
 				$desc = $formato->formato_fecha_hora("{$estado[0]} {$estado[1]}");
 				break;
-			case 'xml':
-			case 'pdf':
-				break;		//Retorna la descripcion actual
+			case 'xml'  :
+            case 'pdf'  : 
+				break;
 		}
+        
 		return $desc;
 	}
 }
