@@ -121,7 +121,9 @@ class toba_vinculador
 		
 		if(isset($parametros) && is_array($parametros)) {			
 			foreach($parametros as $clave => $valor){
-				$query_str .= $separador."$clave=$valor";
+                if (null !== $valor && null !== $clave) {
+                    $query_str .= $separador."$clave=$valor";
+                }
 			}
 		}
 		
@@ -232,7 +234,9 @@ class toba_vinculador
 		//Formateo paremetros directos
 		if(isset($parametros) && is_array($parametros)){
 			foreach($parametros as $clave => $valor){
-				$parametros_formateados .= $separador."$clave=".  $escapador->escapeUrl($valor);
+                if (null !== $valor && null !== $clave) {
+                    $parametros_formateados .= $separador."$clave=".  $escapador->escapeUrl($valor);
+                }
 			}
 		}
 		//Obtengo el prefijo del vinculo
