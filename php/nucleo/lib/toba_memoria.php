@@ -1,5 +1,9 @@
 <?php
-use SecurityMultiTool\Csrf\TokenGenerator;
+
+use Symfony\Component\Security\Csrf\CsrfToken;
+use Symfony\Component\Security\Csrf\CsrfTokenManager;
+//use Symfony\Component\Security\Csrf\TokenGenerator\UriSafeTokenGenerator;
+//use Symfony\Component\Security\Csrf\TokenStorage\NativeSessionTokenStorage;
 	
 //Tamaño de la pila de la memoria sincronizada
 if (! defined('apex_hilo_tamano')) {
@@ -937,24 +941,31 @@ class toba_memoria
 		if (! $this->existe_dato_operacion(apex_sesion_csrt) || $forzar) {
 			$cstoken = $this->generar_unique_cripto();
 			$this->set_dato_operacion(apex_sesion_csrt, $cstoken);
+            return $cstoken;
 		}
 	}
 	
 	function validar_pedido_pagina($valor_form)
 	{
 		if ($this->existe_dato_operacion(apex_sesion_csrt)) {
-			$valor = trim($valor_form);
-			$frm_orig = ($valor === trim($this->get_dato_operacion(apex_sesion_csrt)));	
-			return $frm_orig;
-		} 
-		return true;
+            $tokenID = $this->hilo_referencia ?? apex_sesion_csrt;
+            $manager = new CsrfTokenManager();
+            $val = $manager->isTokenValid(new CsrfToken($tokenID, $valor_form));        
+            //toba_logger::instancia()->debug($manager->getToken($tokenID));        
+            
+            $manager->removeToken($tokenID);
+            toba_logger::instancia()->debug('Tokens pendientes: '. count($_SESSION['_csrf']));
+            return $val;            
+		}         
+		return true;        
 	}
 	
 	protected function generar_unique_cripto()
 	{		
-		$generador = new SecurityMultiTool\Csrf\TokenGenerator();
-		$hashed = $generador->generate();
-		return $hashed;
+        $tokenID = $this->get_id() ?? apex_sesion_csrt;
+        $manager = new CsrfTokenManager();
+        $token = $manager->getToken($tokenID);
+        return $token->getValue();
 	}
 	
 	static protected function validar_id_item_enviado($item)
