@@ -2,8 +2,6 @@
 
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManager;
-//use Symfony\Component\Security\Csrf\TokenGenerator\UriSafeTokenGenerator;
-//use Symfony\Component\Security\Csrf\TokenStorage\NativeSessionTokenStorage;
 	
 //Tamaño de la pila de la memoria sincronizada
 if (! defined('apex_hilo_tamano')) {
