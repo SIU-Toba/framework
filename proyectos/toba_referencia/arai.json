@@ -23,11 +23,11 @@
     {
       "name": "app:siu-toba/toba-referencia",
       "alias": "Toba Referencia",
-      "version": "3.3.1"
+      "version": "3.3.24"
     },
     {
       "name": "api:siu-toba/toba-referencia",
-      "version": "3.3.1",
+      "version": "3.3.24",
       "options": {
         "auto-configurar": true
       }
