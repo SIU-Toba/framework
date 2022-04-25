@@ -18,7 +18,7 @@ class toba_vista_excel
 	 */
 	protected $excel;
 	protected $objetos = array();
-        protected $tipo_salida = 'application/vnd.ms-excel';
+    protected $tipo_salida = 'application/vnd.ms-excel';
 	protected $nombre_archivo = 'salida.xlsx';
 	protected $tipo_descarga = 'attachment';
 	protected $writer = 'Xlsx';
@@ -87,9 +87,11 @@ class toba_vista_excel
 	 */
 	function generar_salida()
 	{
-		foreach( $this->objetos as $objeto ) {
-			$objeto->vista_excel( $this );
-		}
+        if (isset($this->objetos) && is_countable($this->objetos)) {
+            foreach( $this->objetos as $objeto ) {
+                $objeto->vista_excel( $this );
+            }
+        }
 		$this->crear_excel();
 	}
 

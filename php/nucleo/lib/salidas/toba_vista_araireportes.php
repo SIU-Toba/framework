@@ -22,6 +22,7 @@ class toba_vista_araireportes
     protected $formato_datos = 'xml';
 
     private $lista_jrprint = array();
+    protected $objetos = array();
     protected $url;
 
     protected $uri;
@@ -220,9 +221,11 @@ class toba_vista_araireportes
      */
     public function generar_salida()
     {
-        foreach ($this->objetos as $objeto) {
-            if (method_exists($objeto, 'vista_araireportes')) {
-                $objeto->vista_araireportes($this);
+        if (isset($this->objetos) && is_countable($this->objetos)) {
+            foreach ($this->objetos as $objeto) {
+                if (method_exists($objeto, 'vista_araireportes')) {
+                    $objeto->vista_araireportes($this);
+                }
             }
         }
         $this->crear_recursos_temporales();

@@ -4,6 +4,14 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.3.24](https://github.com/SIU-Toba/framework/releases/tag/v3.3.24) (2022-04-25)
+- Fix eliminacion repetida de columnas en `toba_ei_cuadro`
+- Fix regresion en objeto JS que maneja la comunicacion con el server
+- Fix salida no inicializada en `toba_ef_editable_fecha_hora` (credits @fcastiglione)
+- Actualizacion de seguridad de paquetes JS:
+     * CKEditor4: v4.18.1
+- Se eliminan notices en las clases `toba_vista_xx`
+
 [3.3.23](https://github.com/SIU-Toba/framework/releases/tag/v3.3.23) (2022-02-14)
 - Fix instanciacion incorrecta del logger al superarse el tiempo de sesión
 - Fix notice al lidiar con tareas serializadas

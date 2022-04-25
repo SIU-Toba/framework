@@ -296,9 +296,11 @@ class toba_ei_cuadro extends toba_ei
 	function eliminar_columnas($columnas)
 	{
 		foreach($columnas as $clave) {
-			$id = $this->_info_cuadro_columna_indices[$clave];
-			array_splice($this->_info_cuadro_columna, $id, 1);
-			$this->procesar_definicion_columnas();		//Se re ejecuta por eliminación para actualizar $this->_info_cuadro_columna_indices
+            if (isset($this->_info_cuadro_columna_indices[$clave])) {
+                $id = $this->_info_cuadro_columna_indices[$clave];
+                array_splice($this->_info_cuadro_columna, $id, 1);
+                $this->procesar_definicion_columnas();		//Se re ejecuta por eliminación para actualizar $this->_info_cuadro_columna_indices
+            }
 		}
 	}
 

@@ -465,11 +465,12 @@ var conexion =
    * @method createExceptionObject
    * @private
    * @static
+   * @param {tId} The transaction ID
    * @param {callback} callback The callback object
    * @param {boolean} isAbort Determines if the exception case is caused by a transaction abort
    * @return {object}
    */
-    createExceptionObject:function(callback, isAbort)
+    createExceptionObject:function(tId, callback, isAbort)
     {
 		var COMM_CODE = 0;
 		var COMM_ERROR = 'communication failure';
@@ -479,7 +480,7 @@ var conexion =
 
 		var obj = {};
 
-		obj.tId = callback.tId;
+		obj.tId = tId;
 		if(isAbort){
 			obj.status = ABORT_CODE;
 			obj.statusText = ABORT_ERROR;

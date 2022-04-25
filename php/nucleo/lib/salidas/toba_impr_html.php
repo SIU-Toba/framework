@@ -23,9 +23,11 @@ class toba_impr_html implements toba_impresion
 	{
 	    header('Content-Type: text/html; charset=iso-8859-1', true); 
 		$this->generar_html_encabezado();
-		foreach( $this->objetos as $objeto ) {
-			$objeto->vista_impresion( $this );	
-		}
+        if (isset($this->objetos) && is_countable($this->objetos)) {
+            foreach( $this->objetos as $objeto ) {
+                $objeto->vista_impresion($this);
+            }
+        }
 		$this->generar_html_pie();
 	}
 
@@ -37,7 +39,7 @@ class toba_impr_html implements toba_impresion
 		echo toba_recurso::link_css("toba_impr", 'print');
 		 echo "<style type='text/css' media='print'>
 			.barra-impresion {
-				display: none;				
+				display: none;
 			}
 			</style>\n";
 		toba_js::cargar_consumos_basicos();

@@ -1,12 +1,14 @@
 <?php
+
 php_referencia::instancia()->agregar(__FILE__);
 
 class ci_cuadro_cc extends toba_ci
 {
 	/*        PLANO         */
 
-	function conf__cuadro()
+	function conf__cuadro($cuadro)
 	{
+        $cuadro->eliminar_columnas(['columna_inexistente']);    //No deberia generar ningun inconveniente visual y/o error
 		return $this->get_info_localidades();
 	}
 
