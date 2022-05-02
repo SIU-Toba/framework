@@ -485,6 +485,8 @@ class toba_manejador_sesiones
 				throw new toba_error_seguridad('Alguno de los perfiles de datos seteado no es valido');
 			}
 			$this->perfiles_datos_activos = $perfiles;
+		} else {
+			$this->perfiles_datos_activos = [];
 		}
 	}
 
@@ -1241,4 +1243,3 @@ class toba_manejador_sesiones
             return new $handler();
         }
 }
-?>
