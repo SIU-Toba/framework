@@ -478,6 +478,7 @@ class toba_manejador_sesiones
 	 */
 	function set_perfiles_datos_activos($perfiles)
 	{
+		$this->perfiles_datos_activos = [];
 		if (is_array($perfiles) && ! empty($perfiles)) {
 			$disponibles = $this->get_perfiles_datos();									//Controlo que no sea algun perfil que este por fuera de los asignados al usuario
 			$df = array_diff($perfiles, $disponibles);
@@ -485,8 +486,6 @@ class toba_manejador_sesiones
 				throw new toba_error_seguridad('Alguno de los perfiles de datos seteado no es valido');
 			}
 			$this->perfiles_datos_activos = $perfiles;
-		} else {
-			$this->perfiles_datos_activos = [];
 		}
 	}
 
