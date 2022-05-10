@@ -319,7 +319,6 @@ class toba_auditoria_tablas_postgres
 			$sql .= "CREATE OR REPLACE FUNCTION {$this->schema_logs}.sp_$t() RETURNS trigger AS\n";
 			$sql .= "'
 				DECLARE
-					schema_temp varchar;
 					rtabla_usr RECORD;
 					rusuario RECORD;
 					vusuario VARCHAR(60);
@@ -328,19 +327,13 @@ class toba_auditoria_tablas_postgres
 					vestampilla timestamp;
 				BEGIN
 					vestampilla := clock_timestamp();
-					SELECT INTO schema_temp $schema.recuperar_schema_temp();
-					SELECT INTO rtabla_usr * FROM pg_tables WHERE tablename = ''tt_usuario'' AND schemaname = schema_temp;
-					IF FOUND THEN
-						SELECT INTO rusuario usuario, id_solicitud FROM tt_usuario;
-						IF FOUND THEN
-							vusuario := rusuario.usuario;
-							vid_solicitud := rusuario.id_solicitud;
-						ELSE
-							vusuario := user;
-							vid_solicitud := 0;
-						END IF;
+					SELECT INTO rusuario usuario, id_solicitud FROM ( select current_setting(''tt_usuario.usuario'', TRUE) as usuario, current_setting(''tt_usuario.id_solicitud'', TRUE) as id_solicitud) as one;
+					IF rusuario.usuario IS NOT NULL THEN
+						vusuario := rusuario.usuario;
+						vid_solicitud := rusuario.id_solicitud;
 					ELSE
 						vusuario := user;
+						vid_solicitud := 0;
 					END IF;
 					IF (TG_OP = ''INSERT'') OR (TG_OP = ''UPDATE'') THEN
 						IF (TG_OP = ''INSERT'') THEN
@@ -450,10 +443,12 @@ class toba_auditoria_tablas_postgres
 	protected function eliminar_triggers($tablas, $schema) 
 	{
 		$triggers = array();
-		foreach ($tablas as $t) {
-			$triggers[$t] = "tauditoria_$t";
+		if (! empty($tablas)) {
+			foreach ($tablas as $t) {
+				$triggers[$t] = "tauditoria_$t";
+			}		
+			$this->eliminar_triggers_especificos($schema, $triggers);
 		}
-		$this->eliminar_triggers_especificos($schema, $triggers);
 	}
 	
 	protected function eliminar_triggers_especificos($schema, $triggers)
