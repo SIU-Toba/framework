@@ -188,7 +188,7 @@ class toba_ei_filtro extends toba_ei
 					$validacion = $this->_columnas[$id]->validar_estado();
 					if ($validacion !== true) {
 						$etiqueta = $this->_columnas[$id]->get_etiqueta();
-						toba_logger::instancia()->error($etiqueta.': '.$validacion, $this->_columnas[$id]);
+						toba_logger::instancia()->error($etiqueta.': '.$validacion. ' ' .$this->_columnas[$id]->get_id());
 						throw new toba_error_validacion('Se produjo un error en la validación de la columna, revise el log');
 					}
 					$this->_columnas_datos[$id] = $this->_columnas[$id];

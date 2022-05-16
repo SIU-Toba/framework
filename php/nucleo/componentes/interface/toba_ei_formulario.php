@@ -406,8 +406,8 @@ class toba_ei_formulario extends toba_ei
 			if ($validacion !== true) {
 				$this->_efs_invalidos[$ef] = str_replace("'", '"', $validacion);
 				$etiqueta = $this->_elemento_formulario[$ef]->get_etiqueta();
-				toba_logger::instancia()->error($etiqueta.': '.$validacion, $this->ef($ef));
-				throw new toba_error_validacion('Se produjo un error en la validacion del ef, revise el log');
+				toba_logger::instancia()->error($etiqueta.': '.$validacion . ' ' .$this->ef($ef)->get_id());
+				throw new toba_error_validacion('Se produjo un error en la validación del ef, revise el log');
 			}
 		}
 	}
