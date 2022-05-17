@@ -29,9 +29,10 @@
         "siu/arai-json-migrator": "~1.1",
         "siu/manejador-salida-toba": "~1.1",
         "siu/interfaces-manejador-salida-toba": "~1.2.0",
-        "siu/security-multitool": "~1.1",
+        "paragonie/anti-csrf": "~2.3.0",
         "symfony/yaml": "~4.4",
-        "vlucas/phpdotenv": "~3.6"
+        "vlucas/phpdotenv": "~3.6",
+        "laminas/laminas-escaper": "~2.9.0"
     },
     "conflict": {
         "siu/arai-cli": "<3.0.0",
