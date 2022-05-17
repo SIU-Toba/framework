@@ -92,8 +92,8 @@ class toba_puntos_control
 		 }
 
 		if (! \array_key_exists($parametro, $data[$punto_control]['parametros'])) {
-			toba::logger()->error("El parametro '$parametro' del punto de control '$punto_control' no está definido.");
-			throw new toba_error('El parametro indicado para el punto de control no está definido, revise el log.');
+			toba::logger()->error("El parámetro '$parametro' del punto de control '$punto_control' no está definido.");
+			throw new toba_error('El parámetro indicado para el punto de control no está definido, revise el log.');
 		}
 		$data[$punto_control]['parametros'][$parametro] = $valor;
 	}
@@ -278,8 +278,8 @@ class toba_puntos_control
 			throw new toba_error('El punto de control no está definido, revise el log.');
 		}
 		if (!is_array($data[$punto_control]['parametros'])) {
-			toba::logger()->error("Los parametros de '$punto_control' no están definidos.");
-			throw new toba_error("Los parametros del punto de control no están definidos.");
+			toba::logger()->error("Los parámetros de '$punto_control' no están definidos.");
+			throw new toba_error("Los parámetros del punto de control no están definidos.");
 		}
 		return $data[$punto_control]['parametros'];
 	}

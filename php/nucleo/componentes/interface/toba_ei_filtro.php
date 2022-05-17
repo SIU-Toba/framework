@@ -484,8 +484,8 @@ class toba_ei_filtro extends toba_ei
 			if (trim($par) != '') {
 				$param = explode("-;-", trim($par));
 				if (count($param) != 2) {
-					toba_logger::instancia()->error("Cascadas: Cantidad incorrecta de parametros ($par).");
-					throw new toba_error_seguridad('Cascadas: parametros incorrectos.');
+					toba_logger::instancia()->error("Cascadas: Cantidad incorrecta de parámetros ($par).");
+					throw new toba_error_seguridad('Cascadas: parámetros incorrectos.');
 				}
 				$id_col_maestro = $param[0];
 
@@ -504,7 +504,7 @@ class toba_ei_filtro extends toba_ei
 					//--- Manejo de claves múltiples
 					if (count($valores) != count($campos)) {
 						toba_logger::instancia()->error("Cascadas: El ef $id_col_maestro maneja distinta cantidad de datos que los campos pasados");
-						throw new toba_error('Cascadas: parametros incorrectos.');
+						throw new toba_error('Cascadas: parámetros incorrectos.');
 					}
 					$valores_clave = array();
 					for ($i=0; $i < count($campos) ; $i++) {
@@ -571,8 +571,8 @@ class toba_ei_filtro extends toba_ei
 			if (trim($par) != '') {
 				$param = explode("-;-", trim($par));
 				if (count($param) != 2) {
-					toba_logger::instancia()->error("Filtrado de combo editable: Cantidad incorrecta de parametros ($par).");
-					throw new toba_error_seguridad('Filtrado de combo editable: parametros incorrectos.');
+					toba_logger::instancia()->error("Filtrado de combo editable: Cantidad incorrecta de parámetros ($par).");
+					throw new toba_error_seguridad('Filtrado de combo editable: parámetros incorrectos.');
 				}
 				$id_ef_maestro = $param[0];
 
@@ -591,7 +591,7 @@ class toba_ei_filtro extends toba_ei
 					//--- Manejo de claves múltiples
 					if (count($valores) != count($campos)) {
 						toba_logger::instancia()->error("Filtrado de combo editable: El ef $id_ef_maestro maneja distinta cantidad de datos que los campos pasados");
-						throw new toba_error_def('Filtrado de combo editable: parametros incorrectos.');
+						throw new toba_error_def('Filtrado de combo editable: parámetros incorrectos.');
 					}
 					$valores_clave = array();
 					for ($i=0; $i < count($campos) ; $i++) {

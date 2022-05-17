@@ -178,8 +178,8 @@ class toba_constructor
 		if(! is_array($clave_componente) 
 			|| !isset($clave_componente['componente']) 
 			|| !isset($clave_componente['proyecto']) ) {
-			toba_logger::instancia()->error('La clave utilizada para invocar el componente no es valida: '.var_export($clave_componente, true));
-			throw new toba_error_def('La clave utilizada para el componente no es valida o no se encontro, revise el log');	
+			toba_logger::instancia()->error('La clave utilizada para invocar el componente no es válida: '.var_export($clave_componente, true));
+			throw new toba_error_def('La clave utilizada para el componente no es válida o no se encontro, revise el log');	
 		}
 	}
 	

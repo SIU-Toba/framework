@@ -750,11 +750,11 @@ class toba_manejador_sesiones
 			$tiempo_desconectado = ((time()-$ultimo_acceso)/60);//Tiempo desde el ultimo REQUEST
 			if ( $tiempo_desconectado >= $ventana) {
 				toba::notificacion()->agregar('Usted ha permanecido varios minutos sin interactuar
-							con el servidor. Por razones de seguridad su sesion ha sido eliminada.
+							con el servidor. Por razones de seguridad su sesión ha sido eliminada.
 							Por favor vuelva a registrarse si desea continuar utilizando el sistema.
 							Disculpe las molestias ocasionadas.');
-				toba_logger::instancia()->error("Se exedio la ventana temporal ($ventana m.)");
-				throw new toba_error_autorizacion('Se exedio la ventana temporal');
+				toba_logger::instancia()->error("Se excedió la ventana temporal ($ventana m.)");
+				throw new toba_error_autorizacion('Se excedió la ventana temporal');
 			}
 		}
 		// Controlo el tiempo maximo de sesion
@@ -763,11 +763,11 @@ class toba_manejador_sesiones
 			$inicio_sesion = $_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['info_sesion']['inicio'];
 			$tiempo_total = ((time()-$inicio_sesion)/60);//Tiempo desde que se inicio la sesion
 			if ( $tiempo_total >= $maximo) {
-				toba::notificacion()->agregar('Se ha superado el tiempo de sesion permitido
+				toba::notificacion()->agregar('Se ha superado el tiempo de sesión permitido
 							Por favor vuelva a registrarse si desea continuar utilizando el sistema.
 							Disculpe las molestias ocasionadas.');
-				toba_logger::instancia()->error("Se exedio el tiempo maximo de sesion ($maximo m.)");
-				throw new toba_error_autorizacion('Se exedio el tiempo maximo de sesion');
+				toba_logger::instancia()->error("Se excedió el tiempo máximo de sesión ($maximo m.)");
+				throw new toba_error_autorizacion('Se excedió el tiempo máximo de sesión');
 			}
 		}
 
@@ -803,7 +803,7 @@ class toba_manejador_sesiones
 	function abortar_sesion_proyecto($proyecto, $obs=null)
 	{
 		$id = $this->get_id_sesion($proyecto);
-		toba::logger()->debug("Abortando la sesion '$id' del proyecto '$proyecto'.",'toba');
+		toba::logger()->debug("Abortando la sesión '$id' del proyecto '$proyecto'.",'toba');
 		toba::instancia()->cerrar_sesion($id, $obs);
 		$this->borrar_segmento_proyecto($proyecto);
 	}
@@ -1013,15 +1013,15 @@ class toba_manejador_sesiones
 				if ( $supero_tope_intentos_en_ventana ) {
 					if ($bloquear_usuario) {
 						$this->invocar_metodo_usuario('bloquear_usuario',array($id_usuario));
-						toba_logger::instancia()->error("$error. Ha superado el límite de inicios de sesion. El usuario ha sido bloqueado.");
-						throw new toba_error_autenticacion("$error. Ha superado el límite de inicios de sesion.");
+						toba_logger::instancia()->error("$error. Ha superado el límite de inicios de sesión. El usuario ha sido bloqueado.");
+						throw new toba_error_autenticacion("$error. Ha superado el límite de inicios de sesión.");
 					}elseif ($lanzar_excepcion) {
-						toba_logger::instancia()->error("$error. Ha superado el límite de inicios de sesion.|$intentos");
-						throw new toba_error_autenticacion_intentos("$error. Ha superado el límite de inicios de sesion.");
+						toba_logger::instancia()->error("$error. Ha superado el límite de inicios de sesión.|$intentos");
+						throw new toba_error_autenticacion_intentos("$error. Ha superado el límite de inicios de sesión.");
 					} else {
 						$this->invocar_metodo_usuario('bloquear_ip',array($ip));
 						toba_logger::instancia()->error("$error. La IP ha sido bloqueada.");
-						throw new toba_error_autenticacion("$error. Ha superado el límite de inicios de sesion.");
+						throw new toba_error_autenticacion("$error. Ha superado el límite de inicios de sesión.");
 					}
 				}
 			}
@@ -1235,7 +1235,7 @@ class toba_manejador_sesiones
                         $handler =  '\toba_session_memcached_handler';
                         break;
                     default:
-                        throw new \toba_error_ini_sesion('El handler de sesion elegido no es válido');
+                        throw new \toba_error_ini_sesion('El handler de sesión elegido no es válido');
                 }
             }
             return new $handler();

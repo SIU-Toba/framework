@@ -58,8 +58,8 @@ class rest_arai_usuarios
 			$cliente = toba::servicio_web_rest('rest_arai_usuarios', $opciones);
 			return $cliente->guzzle();
 		} catch (toba_error $e) {
-			toba_logger::instancia()->error("Hay un problema de configuracion del cliente REST.\n Mensaje: " . $e->get_mensaje());
-			throw new toba_error_usuario('Hay un problema de configuracion del cliente REST. Por favor asegurese de configurarlo correctamente en el archivo cliente.ini del servicio usado.');
+			toba_logger::instancia()->error("Hay un problema de configuración del cliente REST.\n Mensaje: " . $e->get_mensaje());
+			throw new toba_error_usuario('Hay un problema de configuración del cliente REST. Por favor asegurese de configurarlo correctamente en el archivo cliente.ini del servicio usado.');
 		}
 	}
 	

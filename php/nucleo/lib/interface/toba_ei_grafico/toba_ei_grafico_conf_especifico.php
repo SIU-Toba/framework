@@ -129,7 +129,7 @@ abstract class toba_ei_grafico_conf_especifico extends toba_ei_grafico_conf
 	{
 		if (!isset($this->series[$id_serie])) {
 			toba_logger::instancia()->error("No existe la serie $id_serie");
-			throw new toba_error('Identificador de serie no encontrado o no valido');
+			throw new toba_error('Identificador de serie no encontrado o no válido');
 		}
 
 		return $this->series[$id_serie];
