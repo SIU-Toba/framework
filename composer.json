@@ -31,7 +31,8 @@
         "siu/interfaces-manejador-salida-toba": "~1.2.0",
         "siu/security-multitool": "~1.1",
         "symfony/yaml": "~4.4",
-        "vlucas/phpdotenv": "~3.6"
+        "vlucas/phpdotenv": "~3.6",
+        "siu-toba/toba-usuarios": "*"
     },
     "conflict": {
         "siu/arai-cli": "<3.0.0",
@@ -45,7 +46,8 @@
         "siu/arai-cli": "*",
         "siu/arai-crypto": "*",
         "siu/arai-json-parser": "*",
-        "siu/manejador-salida-bootstrap": "~1.3"
+        "siu/manejador-salida-bootstrap": "~1.3",
+        "siu-toba/toba-editor": "*"
     },
     "suggest": {
         "simplesamlphp/simplesamlphp": "Permite conectarse a un IDP centralizado (see onelogin)",
@@ -64,6 +66,22 @@
             "type": "composer",
             "url": "https://satis.siu.edu.ar",
             "exclude": ["siu-toba/rest"]
+        },
+        {
+           "type": "path",
+           "url": "proyectos/toba_editor",
+           "canonical": false,
+           "options": {
+              "symlink": false
+          }
+        },
+        {
+           "type": "path",
+           "url": "proyectos/toba_usuarios",
+           "canonical": false,
+           "options": {
+              "symlink": false
+          }
         }
     ],
     "minimum-stability": "dev",

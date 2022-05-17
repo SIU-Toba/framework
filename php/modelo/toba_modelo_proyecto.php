@@ -99,10 +99,10 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	{
 		if (! isset($this->aplicacion_modelo)) {
 			$id_proyecto = $this->get_id();
-			$archivo_proy = $this->instancia->get_path_proyecto($id_proyecto)."/php/extension_toba/".$id_proyecto."_modelo.php";
-			if (file_exists($archivo_proy)) {
+			$clase = $id_proyecto.'_modelo';
+			$archivo_proy = $this->instancia->get_path_proyecto($id_proyecto).'/php/extension_toba/'.$id_proyecto.'_modelo.php';
+			if (!class_exists($clase) && file_exists($archivo_proy)) {
 				require_once($archivo_proy);
-				$clase = $id_proyecto.'_modelo';
 				$this->aplicacion_modelo = new $clase();
 				$this->aplicacion_modelo->set_entorno($this->manejador_interface, $this->get_instalacion(), $this->get_instancia(), $this);
 			}
