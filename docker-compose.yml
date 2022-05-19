@@ -22,6 +22,8 @@ web:
 #    TOBA_PROYECTO_ALIAS               : /miproyecto
 #    TOBA_PROYECTO_INSTALAR            : "true"
 #    TOBA_PROYECTO_INSTALAR_PARAMETROS : --base-nombre miproyecto
+## Descomentar para que el contenedor pueda usar el service jasper
+#    JAVA_HOSTS                        : jasper:7080
   links:
    - pg
 ## Activar este link si se desea utilizar el servidor de Jasper
@@ -36,6 +38,8 @@ web:
 # Descomentar este bloque si se desea utilizar el servidor Jasper (Por ahora esta sin testear)
 #jasper:
 ##  build: jasper/
+#  ports:
+#   - "7080:8081"
 #  image: siutoba/docker-guarani-jasper
 #  links:
 #   - pg

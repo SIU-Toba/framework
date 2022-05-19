@@ -56,7 +56,8 @@ class toba_vista_jasperreports
 	
 	protected function cargar_jasper()
 	{
-		if (!defined("JAVA_HOSTS")) define ("JAVA_HOSTS", "127.0.0.1:8081");
+	        $java_hosts = is_null($_ENV["JAVA_HOSTS"]) ? "127.0.0.1:8081" : $_ENV["JAVA_HOSTS"];
+                define("JAVA_HOSTS", $java_hosts);
 		$path = $this->definir_path_vendor();
 				
 		//Incluimos la libreria JavaBridge
