@@ -18,7 +18,7 @@
         "onelogin/php-saml": "~3.4",
         "paragonie/random-lib": "~2.0",
         "phpmailer/phpmailer": "~6.5.0",
-        "phpoffice/phpspreadsheet": "^1.0",
+        "phpoffice/phpspreadsheet": "~1.23",
         "psr/log": "~1.1",
         "rospdf/pdf-php": "~0.12",
         "siu-toba/numbers_words": "0.18.0.1",
