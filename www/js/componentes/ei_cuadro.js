@@ -344,9 +344,9 @@ function ei_cuadro(id, instancia, input_submit, filas, ids_eventos_multiple) {
 		this.set_ordenamiento_multiple(seleccion_actual);
 	}
 	
-	ei_cuadro.prototype.exportar_excel_sin_cortes = function() {
+	ei_cuadro.prototype.exportar_excel_sin_cortes = function(propaga_zona = false) {
 		var param = {es_plano:true};
-		var url = vinculador.get_url(null, null, 'vista_excel', param, [this._id]);
+		var url = vinculador.get_url(null, null, 'vista_excel', param, [this._id], false, propaga_zona);
 		document.location.href = url;
 	};
 	

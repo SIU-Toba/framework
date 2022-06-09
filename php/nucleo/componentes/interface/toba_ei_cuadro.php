@@ -2482,7 +2482,17 @@ class toba_ei_cuadro extends toba_ei
 			return null;
 		}
 	}
-
+	
+	function hay_zona():bool	
+	{
+		try {
+			$hay_zona = toba::zona()->cargada();
+		} catch (toba_error_def $ex) {
+			$hay_zona = false;
+		}
+		return $hay_zona;
+	}
+	
 	//-------------------------------------------------------------------------------
 	//---- JAVASCRIPT --
 	//-------------------------------------------------------------------------------
