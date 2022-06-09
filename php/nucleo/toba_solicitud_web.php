@@ -497,8 +497,8 @@ class toba_solicitud_web extends toba_solicitud
 		try {
 			if (count($objetos) != 1) {
 				$actual = count($objetos);
-				toba::logger()->error("La invocacion AJAX sólo admite un objeto destino (actualmente: $actual)");
-				throw new toba_error_def('La invocacion AJAX sólo admite un objeto destino, revise el log');
+				toba::logger()->error("La invocación AJAX sólo admite un objeto destino (actualmente: $actual)");
+				throw new toba_error_def('La invocación AJAX sólo admite un objeto destino, revise el log');
 			}
 			$objetos[0]->servicio__ajax();
 		} catch(toba_error $e) {

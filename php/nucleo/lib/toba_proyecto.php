@@ -113,8 +113,8 @@ class toba_proyecto
 				return null;
 			}else{
 				if ($obligatorio) {
-					toba_logger::instancia()->error("INFO_PROYECTO: El parametro '$id' no se encuentra definido.");
-					throw new toba_error('INFO_PROYECTO: El parametro solicitado no se encuentra definido, revise el log.');
+					toba_logger::instancia()->error("INFO_PROYECTO: El parámetro '$id' no se encuentra definido.");
+					throw new toba_error('INFO_PROYECTO: El parámetro solicitado no se encuentra definido, revise el log.');
 				} else {
 					return null;
 				}

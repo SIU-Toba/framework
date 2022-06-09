@@ -100,8 +100,8 @@ class toba_modelo_nucleo extends toba_modelo_elemento
 			//Intento abrir	el archivo
 			$fd	= @fopen ($archivo,	"r");
 			if(!is_resource($fd)){
-				toba_logger::instancia()->error("ERROR: '$archivo' no es un archivo valido\n");
-				throw new toba_error('ERROR: El archivo procesado no es un archivo valido\n');
+				toba_logger::instancia()->error("ERROR: '$archivo' no es un archivo válido\n");
+				throw new toba_error('ERROR: El archivo procesado no es un archivo válido\n');
 			}
 			//Recorro el archivo
 			$table = null; //Referencia a una tabla.
@@ -135,7 +135,7 @@ class toba_modelo_nucleo extends toba_modelo_elemento
 				{
 					$temp =	preg_split("/(\s*):(\s*)/",$buffer);
 					if(!isset($temp[1])||!isset($temp[2])){	
-						toba_logger::instancia()->error("Error parseando la linea: $temp\n (archivo: $archivo)");
+						toba_logger::instancia()->error("Error parseando la línea: $temp\n (archivo: $archivo)");
 						throw new toba_error('Error parseando archivo, revise el log');
 					}
 					$tabla[trim($temp[1])]=addslashes(trim($temp[2]));

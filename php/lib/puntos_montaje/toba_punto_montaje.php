@@ -167,12 +167,13 @@ class toba_punto_montaje
 		if (empty($this->path)) {
 			$datos = toba::config()->get_subseccion('instancia', $this->get_proyecto());
 			$nombre = toba_modelo_pms::prefijo_ini.$this->get_etiqueta();
+            $path_instancia_ini = '';//$this->instancia_toba()->get_path_ini();
 			if (!isset($datos[$nombre])) {
 				toba_logger::instancia()->error("Punto de montaje: el punto de montaje '{$this->get_etiqueta()}' no existe en $path_instancia_ini.
 					Debe agregar en instancia.ini la entrada 'pm_{$this->get_etiqueta()} = path' donde path es la ubicación
 					absoluta en el sistema de archivos. Esta entrada debe ir en la sección [{$this->get_proyecto()}]");
 					
-				throw new toba_error('Punto de montaje: el punto de montaje no existe en la configuracion. Revise el log');
+				throw new toba_error('Punto de montaje: el punto de montaje no existe en la configuración. Revise el log');
 			}
 			$this->path = $datos[$nombre];
 		}

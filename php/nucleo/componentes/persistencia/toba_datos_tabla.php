@@ -476,8 +476,8 @@ class toba_datos_tabla extends toba_componente
 			$this->_cursor = $id;	
 			$this->log("Nuevo cursor '{$this->_cursor}' en reemplazo del anterior '{$this->_cursor_original}'");
 		}else{
-			toba_logger::instancia()->error($this->get_txt() . "La fila '$id' no es valida");
-			throw new toba_error_def('La fila solicitada no es valida');
+			toba_logger::instancia()->error($this->get_txt() . "La fila '$id' no es válida");
+			throw new toba_error_def('La fila solicitada no es válida');
 		}
 	}	
 	
@@ -664,7 +664,7 @@ class toba_datos_tabla extends toba_componente
 					}					
 					if( !isset($this->_columnas[$columna]) ){
 						toba_logger::instancia()->error("El campo '$columna' no existe. No es posible filtrar por dicho campo");
-						throw new toba_error_def('Parametro de filtrado incorrecto, revise el log');
+						throw new toba_error_def('Párametro de filtrado incorrecto, revise el log');
 					}
 					if(!isset($this->_datos[$id_fila][$columna])) {
 						// Es posible que una fila no posea una columa. Ej: una nueva fila no tiene la clave si esta es una secuencia.
@@ -1011,12 +1011,12 @@ class toba_datos_tabla extends toba_componente
 			if( isset($this->_columnas[$columna]) ){
 				$this->modificar_fila($id, array($columna => $valor));
 			}else{
-				toba_logger::instancia()->error("La columna '$columna' no es valida");
-				throw new toba_error_def('Columna no valida, revise el log');
+				toba_logger::instancia()->error("La columna '$columna' no es válida");
+				throw new toba_error_def('Columna no válida, revise el log');
 			}
 		}else{
-			toba_logger::instancia()->error("La fila '$id' no es valida");
-			throw new toba_error_def('La fila no es valida, revise el log');
+			toba_logger::instancia()->error("La fila '$id' no es válida");
+			throw new toba_error_def('La fila no es válida, revise el log');
 		}
 	}
 
@@ -1030,8 +1030,8 @@ class toba_datos_tabla extends toba_componente
 	function set_columna_valor($columna, $valor, $con_cursores=false)
 	{
 		if(! isset($this->_columnas[$columna]) ) { 
-			toba_logger::instancia()->error("La columna '$columna' no es valida");
-			throw new toba_error_def('La columna no es valida, revise el log');
+			toba_logger::instancia()->error("La columna '$columna' no es válida");
+			throw new toba_error_def('La columna no es válida, revise el log');
 		}
 		foreach($this->get_id_filas($con_cursores) as $fila) {
 			$this->modificar_fila($fila, array($columna => $valor));
@@ -1248,7 +1248,7 @@ class toba_datos_tabla extends toba_componente
 	{
 		if(!is_array($fila)){
 			toba_logger::instancia()->error($this->get_txt() . ' La fila debe ser una array');
-			throw new toba_error_def(' La fila no es valida, revise el log');
+			throw new toba_error_def(' La fila no es válida, revise el log');
 		}
 		$this->evt__validar_ingreso($fila, $id);
 		$this->control_estructura_fila($fila);
@@ -1387,7 +1387,7 @@ class toba_datos_tabla extends toba_componente
 	{
 		if ($this->_tope_min_filas != 0 && $this->get_cantidad_filas() < $this->_tope_min_filas) {
 			toba_logger::instancia()->error("La tabla <em>{$this->_id_en_controlador}</em> requiere ingresar al menos {$this->_tope_min_filas} registro/s (se encontraron sólo {$this->get_cantidad_filas()}).");
-			throw new toba_error_validacion('El numero de filas enviadas no es adecuado');
+			throw new toba_error_validacion('El número de filas enviadas no es adecuado');
 		}
 	}
 
@@ -1398,7 +1398,7 @@ class toba_datos_tabla extends toba_componente
 	{
 		if (($this->_tope_max_filas != 0) && ($cantidad > $this->_tope_max_filas)) {
 			toba_logger::instancia()->error("No está permitido ingresar más de {$this->_tope_max_filas} registros en la tabla <em>{$this->_id_en_controlador}</em> (se encontraron $cantidad).");
-			throw new toba_error_validacion('El numero de filas enviadas no es adecuado');
+			throw new toba_error_validacion('El número de filas enviadas no es adecuado');
 		}
 	}
 	
@@ -1418,8 +1418,8 @@ class toba_datos_tabla extends toba_componente
 				$clase = $this->_info_estructura['ap_sub_clase'];
 				$include = $this->_info_estructura['ap_sub_clase_archivo'];
 				if( (trim($clase) == '' ) ){
-					toba_logger::instancia()->error($this->get_txt() . 'Error en la definicion, falta definir la subclase');
-					throw new toba_error_def('Error de definicion del persistidor, revise el log');
+					toba_logger::instancia()->error($this->get_txt() . 'Error en la definición, falta definir la subclase');
+					throw new toba_error_def('Error de definición del persistidor, revise el log');
 				}
 			}else{
 				$clase = 'toba_'.$this->_info_estructura['ap_clase'];
