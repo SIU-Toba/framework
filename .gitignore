@@ -29,6 +29,7 @@ bin/arai-cli
 node_modules/
 proyectos/toba_referencia/www/siu/
 proyectos/toba_referencia/metadatos_compilados/
+/proyectos/toba_editor/www/js/
 build/
 .phpdoc
 .php_cs.cache

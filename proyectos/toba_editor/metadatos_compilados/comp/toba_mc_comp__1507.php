@@ -276,9 +276,9 @@ class toba_mc_comp__1507
     ),
     6 => 
     array (
-      'identificador' => 'eventos_pantalla',
+      'identificador' => 'objetos_pantalla',
       'proyecto' => 'toba_editor',
-      'objeto' => 33000011,
+      'objeto' => 33000010,
       'clase' => 'toba_datos_tabla',
       'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_tabla.php',
       'subclase' => NULL,
@@ -289,9 +289,9 @@ class toba_mc_comp__1507
     ),
     7 => 
     array (
-      'identificador' => 'objetos_pantalla',
+      'identificador' => 'eventos_pantalla',
       'proyecto' => 'toba_editor',
-      'objeto' => 33000010,
+      'objeto' => 33000011,
       'clase' => 'toba_datos_tabla',
       'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_tabla.php',
       'subclase' => NULL,

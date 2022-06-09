@@ -226,6 +226,7 @@ class toba_editor_autoload
 		'zona_item' => 'zona/zona_item.php',
 		'zona_objeto' => 'zona/zona_objeto.php',
 		'zona_usuario' => 'zona/zona_usuario.php',
+		'tp_editor_highlight' => 'extension_toba/tp_editor_highlight.php',
 	);
 }
 ?>

@@ -14,3 +14,15 @@ INSERT INTO apex_pagina_tipo (proyecto, pagina_tipo, descripcion, clase_nombre, 
 	NULL, --contexto
 	'12'  --punto_montaje
 );
+INSERT INTO apex_pagina_tipo (proyecto, pagina_tipo, descripcion, clase_nombre, clase_archivo, include_arriba, include_abajo, exclusivo_toba, contexto, punto_montaje) VALUES (
+	'toba_editor', --proyecto
+	'editor_highlight', --pagina_tipo
+	'Tipo de pagina para hacer Highlight de codigo', --descripcion
+	'tp_editor_highlight', --clase_nombre
+	'extension_toba/tp_editor_highlight.php', --clase_archivo
+	NULL, --include_arriba
+	NULL, --include_abajo
+	NULL, --exclusivo_toba
+	NULL, --contexto
+	'12'  --punto_montaje
+);
