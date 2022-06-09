@@ -193,8 +193,8 @@ class toba_modelo_servicio_web extends toba_modelo_elemento
 		$cmd = "openssl req -x509 -nodes -days 2000 -newkey rsa:2048 -keyout $dir_sign -config $dir_inst/openssl.ini -out $out_cert";
 		$exito = toba_manejador_procesos::ejecutar($cmd, $stdout, $stderr);
 		if ($exito != '0') {
-			toba_logger::instancia()->error($stderr. "\n Asegurese tener instalados los binarios de OpenSSL y disponibles en el path. Para comprobar ejecute 'openssl version'");
-			throw new toba_error_usuario('Asegurese tener instalados los binarios de OpenSSL y disponibles en el path. Revise el log para mas info');
+			toba_logger::instancia()->error($stderr. "\n Asegúrese tener instalados los binarios de OpenSSL y disponibles en el path. Para comprobar ejecute 'openssl version'");
+			throw new toba_error_usuario('Asegúrese tener instalados los binarios de OpenSSL y disponibles en el path. Revise el log para mas info');
 		}
 		
 		$cmd = "openssl rsa -in $dir_sign -out $out_key";

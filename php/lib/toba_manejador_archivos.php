@@ -146,7 +146,7 @@ class toba_manejador_archivos
 		$archivos_ok = array();
 		if( ! is_dir( $directorio ) ) {
 			toba_logger::instancia()->error("BUSCAR ARCHIVOS: El directorio '$directorio' es INVALIDO");
-			throw new toba_error('BUSCAR ARCHIVOS: El directorio solicitado no es valido o no tiene permisos');
+			throw new toba_error('BUSCAR ARCHIVOS: El directorio solicitado no es válido o no tiene permisos');
 		}
 
 		if (in_array($directorio, $exclude_dirs)) {
@@ -190,7 +190,7 @@ class toba_manejador_archivos
 	{
 		if( ! is_dir( $directorio ) ) {
 			toba_logger::instancia()->error("BUSCAR ARCHIVOS: El directorio '$directorio' es INVALIDO");
-			throw new toba_error('BUSCAR ARCHIVOS: El directorio solicitado no es valido o no tiene permisos');
+			throw new toba_error('BUSCAR ARCHIVOS: El directorio solicitado no es válido o no tiene permisos');
 		}
 		$archivos = array();
 		$d = dir( $directorio );
@@ -224,7 +224,7 @@ class toba_manejador_archivos
 		$dirs = array();
 		if( ! is_dir( $directorio ) ) {
 			toba_logger::instancia()->error("BUSCAR SUBDIRECTORIOS: El directorio '$directorio' es INVALIDO");
-			throw new toba_error('BUSCAR SUBDIRECTORIOS: El directorio solicitado no es valido o no tiene permisos');
+			throw new toba_error('BUSCAR SUBDIRECTORIOS: El directorio solicitado no es válido o no tiene permisos');
 		}
 		$dir = opendir($directorio);
 		if ($dir !== false) {
@@ -256,7 +256,7 @@ class toba_manejador_archivos
 	{
 		if( ! is_dir( $origen ) ) {
 			toba_logger::instancia()->error("COPIAR DIRECTORIO: El directorio de origen '$origen' es INVALIDO");
-			throw new toba_error('COPIAR DIRECTORIO: El directorio de origen no es valido o no tiene permisos');
+			throw new toba_error('COPIAR DIRECTORIO: El directorio de origen no es válido o no tiene permisos');
 		}
 		$ok = true;
 		if( ! is_dir( $destino ) ) {
@@ -302,7 +302,7 @@ class toba_manejador_archivos
 	{
 		if( ! is_dir( $directorio ) ) {
 			toba_logger::instancia()->error("ELIMINAR DIRECTORIO: El directorio '$directorio' es INVALIDO");
-			throw new toba_error('ELIMINAR DIRECTORIO: El directorio solicitado no es valido o no tiene permisos');
+			throw new toba_error('ELIMINAR DIRECTORIO: El directorio solicitado no es válido o no tiene permisos');
 		}
 		$ok = true;
 		$dir = opendir( $directorio );

@@ -11,7 +11,7 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 	static protected $conexion_externa;
 	const db_encoding_estandar = 'LATIN1';
 	const info_basica = 'instalacion.ini';
-	const info_basica_titulo = 'Configuracion de la INSTALACION';
+	const info_basica_titulo = 'Configuracion de la INSTALACIÓN';
 	const info_bases = 'bases.ini';
 	const info_bases_titulo = 'Configuracion de BASES de DATOS';
 	private $dir;							// Directorio con info de la instalacion.
@@ -21,7 +21,7 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 	function __construct()
 	{
 		$this->dir = self::dir_base();
-		toba_logger::instancia()->debug('INSTALACION "'.$this->dir.'"');
+		toba_logger::instancia()->debug('INSTALACIÓN "'.$this->dir.'"');
 	}
 
 	function cargar_info_ini($forzar_recarga=false)
@@ -30,8 +30,8 @@ class toba_modelo_instalacion extends toba_modelo_elemento
                 //--- Levanto la CONFIGURACION de bases
                 $archivo_ini_bases = $this->dir . '/' . self::info_bases;
                 if ( ! is_file( $archivo_ini_bases ) ) {
-					toba_logger::instancia()->error("INSTALACION: La instalacion '".toba_dir()."' es invalida. (El archivo de configuracion '$archivo_ini_bases' no existe)");
-                    throw new toba_error('INSTALACION: La instalacion es invalida. (El archivo de configuracion no existe) Revise el log');
+					toba_logger::instancia()->error("INSTALACIÓN: La instalación '".toba_dir()."' es inválida. (El archivo de configuración '$archivo_ini_bases' no existe)");
+                    throw new toba_error('INSTALACIÓN: La instalación es inválida. (El archivo de configuración no existe) Revise el log');
                 } else {
                         //  BASE
                     $pendientes = array();
@@ -54,8 +54,8 @@ class toba_modelo_instalacion extends toba_modelo_elemento
                 //--- Levanto la CONFIGURACION de bases
                 $archivo_ini_instalacion = $this->dir . '/' . self::info_basica;
                 if ( ! is_file( $archivo_ini_instalacion ) ) {
-					toba_logger::instancia()->error("INSTALACION: La instalacion '".toba_dir()."' es invalida. (El archivo de configuracion '$archivo_ini_instalacion' no existe)");
-                    throw new toba_error('INSTALACION: La instalacion es invalida. (El archivo de configuracion no existe) Revise el log');
+					toba_logger::instancia()->error("INSTALACIÓN: La instalación '".toba_dir()."' es inválida. (El archivo de configuración '$archivo_ini_instalacion' no existe)");
+                    throw new toba_error('INSTALACIÓN: La instalación es inválida. (El archivo de configuración no existe) Revise el log');
                 }
                 $this->ini_cargado = true;
             }
@@ -212,8 +212,8 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 		if ( isset( $this->ini_bases[$id_base] ) ) {
 			return $this->ini_bases[$id_base];
 		} else {
-			toba_logger::instancia()->error("INSTALACION: La base '$id_base' no existe en el archivo bases.ini");
-			throw new toba_error('INSTALACION: La base solicitada no existe en el archivo bases.ini');
+			toba_logger::instancia()->error("INSTALACIÓN: La base '$id_base' no existe en el archivo bases.ini");
+			throw new toba_error('INSTALACIÓN: La base solicitada no existe en el archivo bases.ini');
 		}
 	}
 
@@ -328,7 +328,7 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 			$db->destruir();
 			toba_logger::instancia()->debug("Creada base '$base_a_crear'");
 		} else {
-			throw new toba_error('INSTALACION: El metodo no esta definido para el motor especificado');
+			throw new toba_error('INSTALACIÓN: El método no esta definido para el motor especificado');
 		}
 	}
 
@@ -350,7 +350,7 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 			$db->ejecutar($sql);
 			$db->destruir();
 		}else{
-			throw new toba_error('INSTALACION: El metodo no esta definido para el motor especificado');
+			throw new toba_error('INSTALACIÓN: El método no esta definido para el motor especificado');
 		}
 	}
 
@@ -645,7 +645,7 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 		return toba_manejador_archivos::get_subdirectorios($dir);
 	}
 
-	//-- Archivo de CONFIGURACION de la INSTALACION  --------------------------------------
+	//-- Archivo de CONFIGURACION de la INSTALACIÓN  --------------------------------------
 
 	/**
 	* Crea el archivo con la informacion basica sobre la instalacion
@@ -722,8 +722,8 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 				isset( $base['base'] ) ) {
 				$ini->agregar_entrada( $id, $base );
 			} else {
-				toba_logger::instancia()->error("La definicion de la BASE '$id' es INCORRECTA.");
-				throw new toba_error("La definicion especificada para una BASE es INCORRECTA. Revise el log");
+				toba_logger::instancia()->error("La definición de la BASE '$id' es INCORRECTA.");
+				throw new toba_error("La definición especificada para una BASE es INCORRECTA. Revise el log");
 			}
 		}
 		$ini->guardar( self::archivo_info_bases() );
@@ -733,20 +733,20 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 	static private function validar_parametros_db($parametros)
 	{
 		if ( ! is_array( $parametros ) ) {
-			throw new toba_error('INSTALACION: Los parametros definidos son incorrectos');
+			throw new toba_error('INSTALACIÓN: Los parámetros definidos son incorrectos');
 		} else {
 			// Estan todos los parametros
 			if ( !isset( $parametros['motor']  )
 				|| !isset( $parametros['profile'] )
 				|| !isset( $parametros['usuario'] )
 				|| !isset( $parametros['base'] ) ) {
-				throw new toba_error('INSTALACION: Los parametros definidos son incorrectos');
+				throw new toba_error('INSTALACIÓN: Los parámetros definidos son incorrectos');
 			}
 			// El motor es reconocido
 			$motores = array('postgres7', 'informix', 'mysql', 'odbc', 'sqlserver');
 			if( ! in_array( $parametros['motor'], $motores ) ) {
-				toba_logger::instancia()->error("INSTALACION: El motor tiene que pertenecer a la siguente lista: " . implode(', ',$motores));
-				throw new toba_error('INSTALACION: El motor especificado no se encuentra entre los reconocidos, revise el log');
+				toba_logger::instancia()->error("INSTALACIÓN: El motor tiene que pertenecer a la siguente lista: " . implode(', ',$motores));
+				throw new toba_error('INSTALACIÓN: El motor especificado no se encuentra entre los reconocidos, revise el log');
 			}
 		}
 	}
@@ -900,12 +900,12 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 			$archivo_ini_bases = $dir_toba_viejo.'/instalacion/bases.ini';
 			if (! file_exists($archivo_ini_bases)) {
 				toba_logger::instancia()->error("No se encuentra el archivo $archivo_ini_bases");
-				throw new toba_error('No se encuentra el archivo de configuracion, revise el log');
+				throw new toba_error('No se encuentra el archivo de configuración, revise el log');
 			}
 			$archivo_instancia = $dir_toba_viejo."/instalacion/i__$id_instancia/instancia.ini";
 			if (! file_exists($archivo_instancia)) {
 				toba_logger::instancia()->error("No se encuentra el archivo $archivo_instancia");
-				throw new toba_error('No se encuentra el archivo de configuracion, revise el log');
+				throw new toba_error('No se encuentra el archivo de configuración, revise el log');
 			}
 			$conf_instancia = parse_ini_file($archivo_instancia, true);
 			$id_base_instancia = $instancia->get_ini_base();

@@ -100,7 +100,7 @@ class toba_vista_jasperreports
 	{
 		$tipos_parametros = array('D', 'E', 'S', 'F', 'B', 'L');		
 		if (! in_array($tipo, $tipos_parametros)) {
-			throw new toba_error('Tipo incorrecto de parametro');
+			throw new toba_error('Tipo incorrecto de parámetro');
 		}
 
 		switch ($tipo) {
