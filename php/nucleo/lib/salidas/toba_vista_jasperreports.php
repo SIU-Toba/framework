@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Genera un pdf a través de una api básica
+ * Genera un pdf a travÃ©s de una api bÃ¡sica
  * @package SalidaGrafica
  */
 class toba_vista_jasperreports
@@ -31,7 +31,7 @@ class toba_vista_jasperreports
 	{
 		$this->temp_salida = toba::proyecto()->get_path_temp().'/'.uniqid('jasper_').'.pdf';		
 		$this->cargar_jasper();
-		/*Creamos una variable tipo arreglo que contendrá los parámetros */
+		/*Creamos una variable tipo arreglo que contendrÃ¡ los parÃ¡metros */
 		$this->parametros = new Java("java.util.HashMap");		
 	}
 	
@@ -56,13 +56,14 @@ class toba_vista_jasperreports
 	
 	protected function cargar_jasper()
 	{
-		if (!defined("JAVA_HOSTS")) define ("JAVA_HOSTS", "127.0.0.1:8081");
+		$java_hosts = is_null(getenv["JAVA_HOSTS"]) ? "127.0.0.1:8081" : getenv["JAVA_HOSTS"];
+		define("JAVA_HOSTS", $java_hosts);
 		$path = $this->definir_path_vendor();
 				
 		//Incluimos la libreria JavaBridge
 		require_once($path. '/JavaBridge/java/Java.inc');
 		
-		//Creamos una variable que va a contener todas las librerías java presentes
+		//Creamos una variable que va a contener todas las librerÃ­as java presentes
 		$path_libs =  $path .'/JasperReports';
 		$classpath = '';
 		try {
@@ -74,7 +75,7 @@ class toba_vista_jasperreports
 			toba::logger()->error($et->getMessage());		//No se encontro el directorio, asi que no agrega nada al path y sigue el comportamiento que tenia con opendir			
 		}
 		try {
-			//Añadimos las librerías
+			//AÃ±adimos las librerÃ­as
 			java_require($classpath);
 
 			//Creamos el objeto JasperReport que permite obtener el reporte
@@ -196,7 +197,7 @@ class toba_vista_jasperreports
 	//------------------------------------------------------------------------
 	
 	/**
-	 * Cambia la ubicación del archivo .jasper
+	 * Cambia la ubicaciÃ³n del archivo .jasper
 	 * @param $path String
 	 */
 	function set_path_reporte($path) 
@@ -300,7 +301,7 @@ class toba_vista_jasperreports
 		//Uno todos los metareportes para generar un solo archivo
 		$master_print = $this->unir_metareportes();
 
-		////Exportamos el informe y lo guardamos como pdf en el directorio donde están los reportes
+		////Exportamos el informe y lo guardamos como pdf en el directorio donde estÃ¡n los reportes
 		$export_manager = new JavaClass("net.sf.jasperreports.engine.JasperExportManager");
 		$export_manager->exportReportToPdfFile($master_print, $this->temp_salida);		
 	}
@@ -384,13 +385,13 @@ class toba_vista_jasperreports
 	protected function configurar_bd(&$conexion)
 	{
 		$params = $conexion->get_parametros();
-		//Creamos la conexión JDBC
+		//Creamos la conexiÃ³n JDBC
 		$con = new Java("org.altic.jasperReports.JdbcConnection");
 		//Seteamos el driver jdbc
 		$con->setDriver("org.postgresql.Driver");
 		$port = (isset($params['puerto'])) ? ":".$params['puerto'] : '';
 		$con->setConnectString("jdbc:postgresql://".$params['profile'].$port.'/'.$params['base']);
-		//Especificamos los datos de la conexión, cabe aclarar que esta conexion es la del servidor de producción
+		//Especificamos los datos de la conexiÃ³n, cabe aclarar que esta conexion es la del servidor de producciÃ³n
 		$con->setUser($params['usuario']);
 		$con->setPassword($params['clave']);
 		$con1 = $con->getConnection();
