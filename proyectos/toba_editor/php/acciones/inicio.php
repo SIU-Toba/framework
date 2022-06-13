@@ -6,7 +6,7 @@ function controlar_usuario()
     if (isset($usuario_actual)) {
             $escapador = toba::escaper();
             $usuarios_defecto = array('system', 'www-data', 'wwwrun', 'nobody', 'nobody');
-            if (in_array($usuario_actual, $usuarios_defecto)) {
+            if (in_array($usuario_actual, $usuarios_defecto, true)) {
 
                     $html = "<div style='margin-top: 100px; background-color:white; padding: 10px;'>
                                     <strong>Recomendado cambiar usuario APACHE</strong><br><br>

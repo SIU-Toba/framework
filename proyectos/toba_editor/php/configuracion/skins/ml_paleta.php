@@ -12,7 +12,7 @@ class ml_paleta extends toba_ei_formulario_ml
 	{
 		$escapador = toba::escaper();
 		parent::generar_input_ef($ef);
-		if (in_array($ef, $this->colores)) {
+		if (in_array($ef, $this->colores, true)) {
 			$fila = $this->ef($ef)->get_fila_actual();
 			$id_form = $this->ef($ef)->get_id_form();
 			$contenido = gif_nulo(16, 16);

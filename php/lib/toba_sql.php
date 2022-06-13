@@ -72,9 +72,9 @@
 				}
 			}
 		}
-		//Llego al final sin encontrar naad
+		//Llego al final sin encontrar nada
 		if(!isset($punto_insercion)){
-			if(in_array(';',$separadores)){
+			if(in_array(';',$separadores, true)){
 				$punto_insercion = count($palabras)-2;
 			} else {
 				$punto_insercion = count($palabras)-1;

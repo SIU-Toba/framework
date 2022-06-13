@@ -993,7 +993,7 @@ class toba_db
 				//--- Es una referencia, hay que hacer joins
 				$externo = $this->get_opciones_sql_campo_externo($columna);
 				$alias_externo = sql_get_alias( $externo['tabla']);
-				if (in_array($alias_externo, $aliases)) {
+				if (in_array($alias_externo, $aliases, true)) {
 					$nro_alias += 1;				// EJPomares - SDN - 26/08/2010
 					$alias_externo .= $nro_alias;
 				}
@@ -1067,7 +1067,7 @@ class toba_db
 	{
 		$tablas_analizadas = array();
 		//--- Busca cual es el campo descripcion de la tabla destino
-		while (isset($campo['fk_tabla']) && ! in_array($campo['fk_tabla'], $tablas_analizadas)) {
+		while (isset($campo['fk_tabla']) && ! in_array($campo['fk_tabla'], $tablas_analizadas, true)) {
 			$tabla = $campo['fk_tabla'];
 			$tablas_analizadas[] = $tabla;			
 			$clave = $campo['fk_campo'];

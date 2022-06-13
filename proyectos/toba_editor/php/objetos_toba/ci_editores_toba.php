@@ -92,7 +92,7 @@ abstract class ci_editores_toba extends toba_ci
 		
 	function conf__base($form)
 	{
-		if (! in_array($this->get_clase_actual(), toba_info_editores::get_clases_con_fuente_datos())) {
+		if (! in_array($this->get_clase_actual(), toba_info_editores::get_clases_con_fuente_datos(), true)) {
 			//Oculta la fuente
 			$form->desactivar_efs(array('fuente_datos'));
 		}

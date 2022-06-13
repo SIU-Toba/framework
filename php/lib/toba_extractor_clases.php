@@ -139,7 +139,7 @@ class toba_extractor_clases
 						continue;
 					}
 					//Si extiende de alguna clase y esta estaba excluida, lo ignoro tambien
-					if (null !== $nodo->extends && \is_object($nodo->extends) && \in_array($nodo->extends->parts, $this->extends_excluidos)) {
+					if (null !== $nodo->extends && \is_object($nodo->extends) && \in_array($nodo->extends->parts, $this->extends_excluidos, true)) {
 						continue;
 					}
 

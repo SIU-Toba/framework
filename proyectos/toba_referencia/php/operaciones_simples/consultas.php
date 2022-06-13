@@ -147,7 +147,7 @@ class consultas
 		$resultado = array();
 		$dias = self::get_dias_semana();
 		foreach($dias as $dia) {
-			if (in_array($dia['id'], $dias_mios)) {
+			if (in_array($dia['id'], $dias_mios, true)) {
 				$resultado[] =array('dia_semana' => $dia['id'], 'desc_dia_semana' => $dia['desc']);
 			}
 		}

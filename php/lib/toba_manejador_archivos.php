@@ -149,7 +149,7 @@ class toba_manejador_archivos
 			throw new toba_error('BUSCAR ARCHIVOS: El directorio solicitado no es válido o no tiene permisos');
 		}
 
-		if (in_array($directorio, $exclude_dirs)) {
+		if (in_array($directorio, $exclude_dirs, true)) {
 			return $archivos_ok;
 		}
 
@@ -195,7 +195,7 @@ class toba_manejador_archivos
 		$archivos = array();
 		$d = dir( $directorio );
 
-		if (in_array($directorio, $exclude_dirs)) {
+		if (in_array($directorio, $exclude_dirs, true)) {
 			return $archivos;
 		}
 
@@ -278,7 +278,7 @@ class toba_manejador_archivos
 			$x_origen = $origen . '/' . $archivo;
 			$x_destino = $destino . '/' . $archivo;
 			//Evito excepciones
-			if (! in_array($x_origen, $excepciones) && ($copiar_ocultos || substr($archivo, 0, 1) != '.')) {
+			if (! in_array($x_origen, $excepciones, true) && ($copiar_ocultos || substr($archivo, 0, 1) != '.')) {
 				if ( is_dir( $x_origen )) {
 					if (isset($manejador_interface)) {
 						$manejador_interface->progreso_avanzar();
