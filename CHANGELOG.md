@@ -4,6 +4,13 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.3.25](https://github.com/SIU-Toba/framework/releases/tag/v3.3.25) (2022-06-13)
+- Fix instanciacion de `toba_logger` en `toba_ei_formulario`, `toba_ei_filtro` y `toba_ei_formulario_ml`
+- Actualizacion de seguridad de paquetes
+     * phpmailer/phpmailer: v6.5.4
+     * phpoffice/phpspreadsheet: v1.23.0
+     * guzzlehttp/guzzle: v6.5.7
+
 [3.3.24](https://github.com/SIU-Toba/framework/releases/tag/v3.3.24) (2022-04-25)
 - Fix eliminacion repetida de columnas en `toba_ei_cuadro`
 - Fix regresion en objeto JS que maneja la comunicacion con el server
