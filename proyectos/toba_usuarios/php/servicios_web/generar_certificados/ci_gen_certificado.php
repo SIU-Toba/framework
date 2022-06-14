@@ -18,7 +18,7 @@ class ci_gen_certificado extends toba_ci
 	{
 		if (! isset($this->modelo_proyecto)) {
 			$modelo = toba_modelo_catalogo::instanciacion();	
-			$modelo->set_db(toba::db());	
+			$modelo->set_db(toba::db('usuarios'));	
 			$this->modelo_proyecto = $modelo->get_proyecto(toba::instancia()->get_id(), $this->s__datos_proyecto['proyecto']);
 		}
 		return $this->modelo_proyecto;

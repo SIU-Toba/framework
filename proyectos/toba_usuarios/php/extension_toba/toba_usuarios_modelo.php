@@ -17,7 +17,7 @@ class toba_usuarios_modelo extends toba_aplicacion_modelo_base
 		if (! $this->permitir_instalar) {
 			return;
 		}		
-		$id_def_base = $this->proyecto->construir_id_def_base($this->get_fuente_defecto());		
+		$id_def_base = $this->proyecto->construir_id_def_base('usuarios');		
 		if (! $this->instalacion->existe_base_datos_definida($id_def_base)) {
 			$datos_servidor = $this->instancia->get_parametros_db();
 			//-- Agrega la definición de la base

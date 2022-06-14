@@ -38,23 +38,23 @@ class ci_asociar_menu_perfil extends toba_ci
 		$menu = quote($this->datos['id_menu']);
 		$perfiles = quote($this->datos['ids_perfil_funcional']);
 		$proyecto = quote($this->s__proyecto);
-		toba::db()->abrir_transaccion();
+		toba::db('usuarios')->abrir_transaccion();
 		try {
 			//Primero le quito el menu a todos los grupos de acceso que actualmente lo usan
 			$sql = "UPDATE apex_usuario_grupo_acc SET menu_usuario = null
 					WHERE proyecto = $proyecto AND menu_usuario = $menu;";
-			toba::db()->ejecutar($sql);
+			toba::db('usuarios')->ejecutar($sql);
 			
 			//Le agrego el menu a los grupos existentes
 			foreach ($perfiles as $grupo) {
 				$sql = "UPDATE apex_usuario_grupo_acc SET menu_usuario = $menu 
 						WHERE proyecto = $proyecto AND usuario_grupo_acc = $grupo;";
 				toba::logger()->debug($sql);
-				toba::db()->ejecutar($sql);
+				toba::db('usuarios')->ejecutar($sql);
 			}
-			toba::db()->cerrar_transaccion();				
+			toba::db('usuarios')->cerrar_transaccion();				
 		} catch (toba_error_db $e) {
-			toba::db()->abortar_transaccion();
+			toba::db('usuarios')->abortar_transaccion();
 			toba::logger()->debug($e->getMessage());
 			throw new toba_error_usuario('Hubo un inconveniente al actualizar los datos');
 		}

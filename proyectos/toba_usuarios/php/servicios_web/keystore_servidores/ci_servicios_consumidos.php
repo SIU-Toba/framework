@@ -20,7 +20,7 @@ class ci_servicios_consumidos extends toba_ci
 	{
 		if (! isset($this->modelo_proyecto)) {
 			$modelo = toba_modelo_catalogo::instanciacion();	
-			$modelo->set_db(toba::db());	
+			$modelo->set_db(toba::db('usuarios'));	
 			$this->modelo_proyecto = $modelo->get_proyecto(toba::instancia()->get_id(), $this->s__filtro['proyecto']);
 		}
 		return $this->modelo_proyecto;
