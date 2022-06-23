@@ -5,14 +5,12 @@ services:
     image: postgres:12
     ports:
     - "7432:5432"
-    container_name: pg
     environment:
       POSTGRES_USER       : postgres
       POSTGRES_PASSWORD   : postgres
 
   web:
     image: siudocker/php:7.4-web-v0.9.0
-    container_name: web-toba
     ports:
     - "7008:80"
     environment:
