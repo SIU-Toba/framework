@@ -1,57 +1,32 @@
-pgdata:
-  image: postgres:9.6
-  command: "true"
-  volumes:
-#Comentar la siguiente linea para corregir permisos en OSX  
-   - ./docker-data/pgdata:/var/lib/postgresql/data
+version: '3.7'
 
-   - ./docker-data/toba:/var/local/docker-data/toba
+services:
+  pg:
+    image: postgres:14
+    ports:
+    - "7432:5432"
+    environment:
+      POSTGRES_USER       : postgres
+      POSTGRES_PASSWORD   : postgres
 
-web:
-  image: siutoba/docker-toba:latest
-  ports:
-   - "2020:80"
-  env_file: docker.env
-  environment:
-## Descomentar y definir para cagar/instalar un proyecto especifico o instalar toba en un path dado  
-    TOBA_DIR: /var/local/toba
-    TOBA_INSTALACION_DIR: /var/local/toba/docker-data/instalacion
-#    TOBA_PROYECTO                     : miproyecto
-#    TOBA_BASE_NOMBRE                  : toba
-#    TOBA_PROYECTO_DIR                 : /var/local/toba/proyectos/miproyecto
-#    TOBA_PROYECTO_ALIAS               : /miproyecto
-#    TOBA_PROYECTO_INSTALAR            : "true"
-#    TOBA_PROYECTO_INSTALAR_PARAMETROS : --base-nombre miproyecto
-## Descomentar para que el contenedor pueda usar el service jasper
-#    JAVA_HOSTS                        : jasper:7080
-  links:
-   - pg
-## Activar este link si se desea utilizar el servidor de Jasper
-#   - jasper
-## Descomentar esta variable de entorno para corregir permisos en OSX
-#   OSX: 1
-  volumes_from:
-   - pgdata
-  volumes:
-   - ./:/var/local/toba
-
-# Descomentar este bloque si se desea utilizar el servidor Jasper (Por ahora esta sin testear)
-#jasper:
-##  build: jasper/
-#  ports:
-#   - "7080:8081"
-#  image: siutoba/docker-guarani-jasper
-#  links:
-#   - pg
-#  volumes:
-#   - ./:/var/local/toba
-
-pg:
-  image: postgres:9.6
-  ports:
-   - "4432:5432"
-  environment:
-    POSTGRES_USER: postgres
-    POSTGRES_PASSWORD: postgres
-  volumes_from:
-   - pgdata
+  web:
+    image: siudocker/php:7.4-web-v0.9.0
+    ports:
+    - "7008:80"
+    environment:
+      DOCKER_NAME                       : web-toba
+      DOCKER_WEB_PORT                   : 7008
+      TOBA_PASS                         : toba
+      TOBA_BASE_PASS                    : postgres
+      TOBA_DIR                          : /var/local/framework
+      TOBA_INSTALACION_DIR              : /var/local/docker-data/framework-instalacion
+      TOBA_BASE_HOST                    : pg
+      TOBA_BASE_NOMBRE                  : toba_trunk
+      TOBA_PROYECTO_INSTALAR            : "True"
+      TOBA_INSTALAR_REFERENCIA          : "True"
+      TOBA_INSTALAR_USUARIOS            : "True"
+    links:
+    - pg
+    volumes:
+    - .:/var/local/framework
+    - ./instalacion:/var/local/docker-data/framework-instalacion
