@@ -64,7 +64,7 @@ class toba_manejador_sesiones
             $handler->configure_settings();
 
             if (session_id() != '') {
-                    throw new toba_error('Ya existe una sesi贸n abierta, probablemente tenga activado session.auto_start = 1 en el php.ini');
+                    throw new toba_error('Ya existe una sesi髇 abierta, probablemente tenga activado session.auto_start = 1 en el php.ini');
             }
             if (! toba_nucleo::instancia()->es_acceso_rest()) {
                     session_name(toba::instalacion()->get_session_name());
@@ -100,9 +100,9 @@ class toba_manejador_sesiones
 			$this->procesar_acceso_proyecto($datos_iniciales);
 		}
 		$this->autenticar($id_usuario, $clave, $datos_iniciales);
-		if ($this->contrasenia_vencida) {	//Si se vencio la contrase帽a del usuario redirecciono al item correspondiente
+		if ($this->contrasenia_vencida) {	//Si se vencio la contrase馻 del usuario redirecciono al item correspondiente
 			$this->contrasenia_vencida = false;
-			throw new  toba_error_login_contrasenia_vencida('La contrase帽a actual del usuario ha caducado');
+			throw new  toba_error_login_contrasenia_vencida('La contrase馻 actual del usuario ha caducado');
 		}
 		$this->procesar_acceso_instancia($id_usuario, $datos_iniciales);
 
@@ -172,7 +172,7 @@ class toba_manejador_sesiones
 		//Verificar que el usuario nuevo esta en la lista de posibles fijada por el app_launcher
 		$mapeo = $this->recuperar_mapeo_usuarios($nuevo , $this->_usuarios_posibles);
 		if (empty($mapeo)) {
-			throw new toba_error_seguridad('Es intentando acceder a un usuario no valido' );
+			throw new toba_error_seguridad('Es intentando acceder a un usuario no v醠ido' );
 		}
 		//Si todo va bien.
 		$this->procesar_salida_proyecto('Logout por cambio de usuario');			//Redirije a la pantalla de login, quizas hay que hacer algo distinto por ejemplo, no borrar la sesion
@@ -180,7 +180,7 @@ class toba_manejador_sesiones
 	}
 
 	/**
-	*	Entrada a un proyecto desde la operaci贸n de inicializacion de sesion
+	*	Entrada a un proyecto desde la operaci髇 de inicializacion de sesion
 	*/
 	function iniciar_sesion_proyecto($datos_iniciales)
 	{
@@ -198,7 +198,7 @@ class toba_manejador_sesiones
 	}
 
 	/**
-	 * Delega la autenticaci贸n del proyecto a un objeto
+	 * Delega la autenticaci髇 del proyecto a un objeto
 	 * @param toba_autenticable $autenticacion Objeto responsable de la autenticacion
 	 */
 	function set_autenticacion(toba_autenticable $autenticacion)
@@ -368,7 +368,7 @@ class toba_manejador_sesiones
 	}
 
 	/**
-	 * Retorna los perfiles funcionales activos en la sesi贸n actual
+	 * Retorna los perfiles funcionales activos en la sesi髇 actual
 	 * @return array
 	 */
 	function get_perfiles_funcionales_activos()
@@ -542,7 +542,7 @@ class toba_manejador_sesiones
 				$this->registrar_activacion_sesion();
 				$this->control_cambio_usuario();
 			} catch ( toba_error $e ) {
-				toba::logger()->debug('P茅rdida de sesi贸n: '. $e->getMessage());
+				toba::logger()->debug('P閞dida de sesi髇: '. $e->getMessage());
 				$this->logout($e->getMessage());
 				$this->comprobar_acceso_anonimo();
 			}
@@ -985,16 +985,16 @@ class toba_manejador_sesiones
 			throw new toba_error('La IP esta bloqueada. Contactese con el administrador');
 		}
 		if ($this->invocar_metodo_usuario('es_usuario_bloqueado', array($id_usuario))) {
-			throw new toba_error('El usuario se encuentra bloqueado. Cont谩ctese con el administrador');
+			throw new toba_error('El usuario se encuentra bloqueado. Cont醕tese con el administrador');
 		}
 		// Disparo la autenticacion
 		if ($this->get_autenticacion() != null) {
 			$estado = $this->autenticacion->autenticar($id_usuario, $clave, $datos_iniciales);
 		} else {
-			throw new toba_error_seguridad('No existe la autenticaci贸n propuesta');
+			throw new toba_error_seguridad('No existe la autenticaci髇 propuesta');
 		}
 		if (!$estado) {
-			$error = 'La combinaci贸n usuario/clave es incorrecta';
+			$error = 'La combinaci髇 usuario/clave es incorrecta';
 			$this->invocar_metodo_usuario('registrar_error_login', array($id_usuario, $ip, $error));
 			$proyecto = toba::proyecto()->get_id();
 			$cant_max_intentos = toba_parametros::get_intentos_validacion($proyecto);
@@ -1035,7 +1035,7 @@ class toba_manejador_sesiones
 				$this->_usuarios_posibles = $this->generar_mapeo_usuarios($usr_posibles);
 			}
 		} else {
-			throw new toba_error_seguridad('No existe la autenticaci贸n propuesta');
+			throw new toba_error_seguridad('No existe la autenticaci髇 propuesta');
 		}
 	}
 
