@@ -27,10 +27,12 @@
         "siu-toba/ssl-cert-utils": "~1.0",
         "siu-toba/structures_graph": "^1.1.1.1",
         "siu/arai-json-migrator": "~1.1",
+        "symfony/yaml": "~5.4",
+        "symfony/security-csrf": "^5.4",
+        "laminas/laminas-escaper": "~2.9.0",
         "siu/manejador-salida-toba": "dev-develop",
         "siu/interfaces-manejador-salida-toba": "~1.3.0",
         "siu/security-multitool": "~1.1",
-        "symfony/yaml": "~4.4",
         "vlucas/phpdotenv": "~3.6"
     },
     "conflict": {

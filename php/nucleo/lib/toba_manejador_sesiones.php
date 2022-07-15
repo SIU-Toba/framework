@@ -73,7 +73,7 @@ class toba_manejador_sesiones
         }
 
 	static function enviar_csrf_hidden()
-	{
+	{        
 		$tm = toba::memoria();
 		if ($tm->existe_dato_operacion(apex_sesion_csrt)) {
 			$valor = $tm->get_dato_operacion(apex_sesion_csrt);
@@ -172,7 +172,7 @@ class toba_manejador_sesiones
 		//Verificar que el usuario nuevo esta en la lista de posibles fijada por el app_launcher
 		$mapeo = $this->recuperar_mapeo_usuarios($nuevo , $this->_usuarios_posibles);
 		if (empty($mapeo)) {
-			throw new toba_error_seguridad('Es intentando acceder a un usuario no valido' );
+			throw new toba_error_seguridad('Es intentando acceder a un usuario no válido' );
 		}
 		//Si todo va bien.
 		$this->procesar_salida_proyecto('Logout por cambio de usuario');			//Redirije a la pantalla de login, quizas hay que hacer algo distinto por ejemplo, no borrar la sesion
