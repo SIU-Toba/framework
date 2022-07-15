@@ -960,10 +960,10 @@ class toba_memoria
 	
 	protected function generar_unique_cripto()
 	{		
-        $tokenID = $this->get_id() ?? apex_sesion_csrt;
-        $manager = new CsrfTokenManager();
-        $token = $manager->getToken($tokenID);
-        return $token->getValue();
+            $tokenID = $this->get_id() ?? apex_sesion_csrt;
+            $manager = new CsrfTokenManager();
+            $token = $manager->getToken($tokenID);
+            return $token->getValue();
 	}
 	
 	static protected function validar_id_item_enviado($item)
