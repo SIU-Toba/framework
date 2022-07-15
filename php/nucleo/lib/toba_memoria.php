@@ -946,14 +946,14 @@ class toba_memoria
 	function validar_pedido_pagina($valor_form)
 	{
 		if ($this->existe_dato_operacion(apex_sesion_csrt)) {
-            $tokenID = $this->hilo_referencia ?? apex_sesion_csrt;
-            $manager = new CsrfTokenManager();
-            $val = $manager->isTokenValid(new CsrfToken($tokenID, $valor_form));        
-            //toba_logger::instancia()->debug($manager->getToken($tokenID));        
-            
-            $manager->removeToken($tokenID);
-            toba_logger::instancia()->debug('Tokens pendientes: '. count($_SESSION['_csrf']));
-            return $val;            
+                $tokenID = $this->hilo_referencia ?? apex_sesion_csrt;
+                $manager = new CsrfTokenManager();
+                $val = $manager->isTokenValid(new CsrfToken($tokenID, $valor_form));
+                //toba_logger::instancia()->debug($manager->getToken($tokenID));
+
+                $manager->removeToken($tokenID);
+                toba_logger::instancia()->debug('Tokens pendientes: '. count($_SESSION['_csrf']));
+                return $val;
 		}         
 		return true;        
 	}
@@ -980,4 +980,3 @@ class toba_memoria
 		}
 	}
 }
-?>
