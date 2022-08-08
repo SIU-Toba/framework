@@ -63,7 +63,7 @@ class toba_logger
 	protected function __construct($proyecto = null)
 	{
 		$this->proyecto_actual = (isset($proyecto)) ? $proyecto : $this->get_proyecto_actual();
-		$this->modo_salida = toba_basic_logger::$MODO_FILE;
+		$this->modo_salida = static::$MODO_FILE;
 	}
 	
 	/**
