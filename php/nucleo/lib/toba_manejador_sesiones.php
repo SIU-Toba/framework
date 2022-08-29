@@ -75,10 +75,8 @@ class toba_manejador_sesiones
 	static function enviar_csrf_hidden()
 	{        
 		$tm = toba::memoria();
-		if ($tm->existe_dato_operacion(apex_sesion_csrt)) {
-			$valor = $tm->get_dato_operacion(apex_sesion_csrt);
-			echo toba_form::hidden(apex_sesion_csrt, $valor);
-		}
+        $valor = (!$tm->existe_dato_operacion(apex_sesion_csrt)) ? $tm->fijar_csrf_token(): $tm->get_dato_operacion(apex_sesion_csrt);
+		echo toba_form::hidden(apex_sesion_csrt, $valor);
 	}
 
 	//------------------------------------------------------------------
