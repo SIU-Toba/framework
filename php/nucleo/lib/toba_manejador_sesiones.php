@@ -899,6 +899,12 @@ class toba_manejador_sesiones
 		return $this->invocar_metodo_usuario('autenticar', array($id_usuario, $clave, $datos_iniciales) );
 	}
 
+    /**
+     * Invoca un metodo especifico de la clase de usuario
+     * @param string $metodo
+     * @param array $parametros Debe ser arreglo posicional SI O SI!!
+     * @return type
+     */
 	private function invocar_metodo_usuario($metodo, $parametros)
 	{
 		$subclase = toba::proyecto()->get_parametro('usuario_subclase');
