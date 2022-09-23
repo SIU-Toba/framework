@@ -72,7 +72,8 @@ class toba_rest
 			'debug' => !$es_produccion,
 			'encoding' => 'latin1'
 		);
-		
+		//Obtengo la versión de la API via url
+		$api_nombre = $_SERVER['REDIRECT_API_NOMBRE'] ?? 'v1';
 		$datos_ini_proyecto = $this->get_ini_proyecto();
 		//Busco version del proyecto para recurso info
 		if (! isset($datos_ini_proyecto['proyecto']['version'])) {
@@ -80,11 +81,11 @@ class toba_rest
 		} else {
 			$settings['version'] = $datos_ini_proyecto['proyecto']['version'];
 		}
-		//Busca version de la API (como subconjunto major.minor) obligatorio
-		if (isset($datos_ini_proyecto['proyecto']['api_major']) && isset($datos_ini_proyecto['proyecto']['api_minor'])) {
-			$settings['api_version'] = "v{$datos_ini_proyecto['proyecto']['api_major']}.{$datos_ini_proyecto['proyecto']['api_minor']}";
-			$settings['api_major'] = $datos_ini_proyecto['proyecto']['api_major'];
-			$settings['api_minor'] = $datos_ini_proyecto['proyecto']['api_minor'];
+		//Busca version de la API (ver proyecto.ini, conjunto [api_v<version>] subcobjuntos api_major.api_minor) obligatorio
+		if (isset($datos_ini_proyecto['api_'.$api_nombre]['api_major']) && isset($datos_ini_proyecto['api_'.$api_nombre]['api_minor'])) {
+			$settings['api_version'] = "v{$datos_ini_proyecto['api_'.$api_nombre]['api_major']}.{$datos_ini_proyecto['api_'.$api_nombre]['api_minor']}";
+			$settings['api_major'] = $datos_ini_proyecto['api_'.$api_nombre]['api_major'];
+			$settings['api_minor'] = $datos_ini_proyecto['api_'.$api_nombre]['api_minor'];
 		} else {
 			throw new toba_error('No esta especificada la version de la API (major:minor)');
 		}
