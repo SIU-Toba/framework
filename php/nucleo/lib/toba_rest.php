@@ -81,14 +81,36 @@ class toba_rest
 		} else {
 			$settings['version'] = $datos_ini_proyecto['proyecto']['version'];
 		}
-		//Busca version de la API (ver proyecto.ini, conjunto [api_v<version>] subcobjuntos api_major.api_minor) obligatorio
+		
+		//Si no existe definición (api_major:api_minor) en proyecto.ini devuelve un error
+		if (! isset($datos_ini_proyecto['proyecto']['api_major']) && ! isset($datos_ini_proyecto['api_'.$api_nombre]['api_major'])) {
+			throw new toba_error('No esta especificada la version de la API (major:minor)');
+		}
+
+		//Si existen subconjuntos api_<version> utilizó los siguientes parámetros
 		if (isset($datos_ini_proyecto['api_'.$api_nombre]['api_major']) && isset($datos_ini_proyecto['api_'.$api_nombre]['api_minor'])) {
 			$settings['api_version'] = "v{$datos_ini_proyecto['api_'.$api_nombre]['api_major']}.{$datos_ini_proyecto['api_'.$api_nombre]['api_minor']}";
 			$settings['api_major'] = $datos_ini_proyecto['api_'.$api_nombre]['api_major'];
 			$settings['api_minor'] = $datos_ini_proyecto['api_'.$api_nombre]['api_minor'];
-		} else {
-			throw new toba_error('No esta especificada la version de la API (major:minor)');
+		}else{
+			//SINO, busco la version de la API en los subconjuntos [api_major:api_minor] obligatorios en proyecto.ini			
+			if (isset($datos_ini_proyecto['proyecto']['api_major']) && isset($datos_ini_proyecto['proyecto']['api_minor'])) {
+				
+				//Si es < 0, api_nombre es una version mayor a la declarada en proyecto.ini, no existe dicha versión
+				if(strcmp("v{$datos_ini_proyecto['proyecto']['api_major']}",$api_nombre) < 0){
+					throw new toba_error('No esta especificada la version de la API (api_major:api_minor)');
+				}
+
+				//Seteo el api_version con los valores del subconjunto (api_major:api_minor)
+				$settings['api_version'] = "v{$datos_ini_proyecto['proyecto']['api_major']}.{$datos_ini_proyecto['proyecto']['api_minor']}";
+				$settings['api_major'] = $datos_ini_proyecto['proyecto']['api_major'];
+				$settings['api_minor'] = $datos_ini_proyecto['proyecto']['api_minor'];
+			}else{
+				//Si por url quiero ingresar a una version inexistente, devuelvo con un error
+				throw new toba_error('No esta especificada la version de la API (major:minor)');
+			}
 		}
+		
 		//Busca id del proyecto para mejorar el titulo de la documentacion
         if (!empty($datos_ini_proyecto) && isset($datos_ini_proyecto['proyecto']['id'])) {
 			$settings['api_titulo'] = 'Referencia de API para ' . $datos_ini_proyecto['proyecto']['id'];
