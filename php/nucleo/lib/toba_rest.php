@@ -269,7 +269,7 @@ class toba_rest
 	protected function get_autorizador_oauth($conf_auth)
 	{
 		if (!isset($conf_auth['scopes'])) {
-			die("es necesario definir el par·metro 'scopes' en el bloque oauth2 de la configuraciÛn");
+			die("es necesario definir el par√°metro 'scopes' en el bloque oauth2 de la configuraci√≥n");
 		}
 		$auth = new autorizacion_scopes();
 		$auth->set_scopes_requeridos(array_map('trim', explode(',', $conf_auth['scopes'])));
@@ -279,21 +279,22 @@ class toba_rest
 	protected function get_param_major_minor($api)
 	{
 		$datos_ini_proyecto = $this->get_ini_proyecto();
-		//Si no existe definiciÛn (api_major:api_minor) en proyecto.ini devuelve un error
+		//Si no existe definici√≥n (api_major:api_minor) en proyecto.ini devuelve un error
 		if (! isset($datos_ini_proyecto['proyecto']['api_major']) && ! isset($datos_ini_proyecto['api_'.$api]['api_major'])) {
 			throw new toba_error('No esta especificada la version de la API (major:minor)');
 		}
 
-		//Si es < 0, api_nombre es una version mayor a la declarada en proyecto.ini, no existe dicha versiÛn
+		//Si es < 0, api_nombre es una version mayor a la declarada en proyecto.ini, no existe dicha versi√≥n
 		if(strcmp("v{$datos_ini_proyecto['proyecto']['api_major']}",$api) < 0){
 			throw new toba_error('No esta especificada la version de la API (api_major:api_minor)');
 		}
 		
-		//Si existen subconjuntos api_<version> utilizÛ los siguientes par·metros
-		if (isset($datos_ini_proyecto['api_'.$api]['api_major']) && isset($datos_ini_proyecto['api_'.$api]['api_minor'])) {
-			$settings_1['api_version'] = "v{$datos_ini_proyecto['api_'.$api]['api_major']}.{$datos_ini_proyecto['api_'.$api]['api_minor']}";
-			$settings_1['api_major'] = $datos_ini_proyecto['api_'.$api]['api_major'];
-			$settings_1['api_minor'] = $datos_ini_proyecto['api_'.$api]['api_minor'];
+		//Si existen subconjuntos api_<version> utiliz√≥ los siguientes par√°metros
+                $indx = 'api_' . $api;
+		if (isset($datos_ini_proyecto[$indx]['api_major']) && isset($datos_ini_proyecto[$indx]['api_minor'])) {
+			$settings_1['api_version'] = "v{$datos_ini_proyecto[$indx]['api_major']}.{$datos_ini_proyecto[$indx]['api_minor']}";
+			$settings_1['api_major'] = $datos_ini_proyecto[$indx]['api_major'];
+			$settings_1['api_minor'] = $datos_ini_proyecto[$indx]['api_minor'];
 		}
 
 		if (isset($datos_ini_proyecto['proyecto']['api_major']) && isset($datos_ini_proyecto['proyecto']['api_minor'])) {//Seteo el api_version con los valores del subconjunto (api_major:api_minor)
