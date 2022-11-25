@@ -73,7 +73,7 @@ class toba_rest
 			'encoding' => 'latin1'
 		);
 		
-		$datos_ini_proyecto = $this->get_param_major_minor($api);
+		$datos_ini_proyecto = $this->get_param_major_minor($api, $this->get_ini_proyecto());
 		
 		//Busco version del proyecto para recurso info
 		if (! isset($datos_ini_proyecto['proyecto']['version'])) {
@@ -276,9 +276,8 @@ class toba_rest
 		return $auth;
 	}
 
-	protected function get_param_major_minor($api)
+	protected function get_param_major_minor($api, $datos_ini_proyecto = null)
 	{
-		$datos_ini_proyecto = $this->get_ini_proyecto();
 		//Si no existe definición (api_major:api_minor) en proyecto.ini devuelve un error
 		if (! isset($datos_ini_proyecto['proyecto']['api_major']) && ! isset($datos_ini_proyecto['api_'.$api]['api_major'])) {
 			throw new toba_error('No esta especificada la version de la API (major:minor)');
@@ -289,20 +288,21 @@ class toba_rest
 			throw new toba_error('No esta especificada la version de la API (api_major:api_minor)');
 		}
 		
-		//Si existen subconjuntos api_<version> utilizó los siguientes parámetros
-                $indx = 'api_' . $api;
-		if (isset($datos_ini_proyecto[$indx]['api_major']) && isset($datos_ini_proyecto[$indx]['api_minor'])) {
-			$settings_1['api_version'] = "v{$datos_ini_proyecto[$indx]['api_major']}.{$datos_ini_proyecto[$indx]['api_minor']}";
-			$settings_1['api_major'] = $datos_ini_proyecto[$indx]['api_major'];
-			$settings_1['api_minor'] = $datos_ini_proyecto[$indx]['api_minor'];
-		}
-
+		//Si no existen subconjuntos api_<version> utilizó (api_major:api_minor) de [proyecto] proyecto.ini
 		if (isset($datos_ini_proyecto['proyecto']['api_major']) && isset($datos_ini_proyecto['proyecto']['api_minor'])) {//Seteo el api_version con los valores del subconjunto (api_major:api_minor)
-			$settings_2['api_version'] = "v{$datos_ini_proyecto['proyecto']['api_major']}.{$datos_ini_proyecto['proyecto']['api_minor']}";
-			$settings_2['api_major'] = $datos_ini_proyecto['proyecto']['api_major'];
-			$settings_2['api_minor'] = $datos_ini_proyecto['proyecto']['api_minor'];
+			$datos_ini_proyecto['api_version'] = "v{$datos_ini_proyecto['proyecto']['api_major']}.{$datos_ini_proyecto['proyecto']['api_minor']}";
+			$datos_ini_proyecto['api_major'] = $datos_ini_proyecto['proyecto']['api_major'];
+			$datos_ini_proyecto['api_minor'] = $datos_ini_proyecto['proyecto']['api_minor'];
 		}
 
-		return array_merge($datos_ini_proyecto, $settings_2, $settings_1);
+		//Si existen subconjuntos api_<version> utilizó los siguientes parámetros
+        $indx = 'api_' . $api;
+		if (isset($datos_ini_proyecto[$indx]['api_major']) && isset($datos_ini_proyecto[$indx]['api_minor'])) {
+			$datos_ini_proyecto['api_version'] = "v{$datos_ini_proyecto[$indx]['api_major']}.{$datos_ini_proyecto[$indx]['api_minor']}";
+			$datos_ini_proyecto['api_major'] = $datos_ini_proyecto[$indx]['api_major'];
+			$datos_ini_proyecto['api_minor'] = $datos_ini_proyecto[$indx]['api_minor'];
+		}
+
+		return $datos_ini_proyecto;
 	}
 }
