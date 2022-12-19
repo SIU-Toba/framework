@@ -6,9 +6,10 @@ ef_cuit.prototype.constructor = ef_cuit;
 	 * @constructor
 	 * @phpdoc classes/toba_ef_cuit.html toba_ef_cuit
 	 */
-	function ef_cuit(id_form, etiqueta, obligatorio, colapsado, desactivar_validacion) {
+	function ef_cuit(id_form, etiqueta, obligatorio, colapsado, desactivar_validacion, tipos_validos) {
 		ef.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado);
 		this._desactivar_validacion = desactivar_validacion;
+        this._tipos_validos = tipos_validos;
 	}
 
 	ef_cuit.prototype.input = function(posicion) {
@@ -31,7 +32,7 @@ ef_cuit.prototype.constructor = ef_cuit;
 			this._error = ' tiene que ser numérico.';
 		    return false;
 		}
-		if (valor !== '' && ! this._desactivar_validacion && ! es_cuit(valor)) {
+		if (valor !== '' && ! this._desactivar_validacion && ! es_cuit(valor, this._tipos_validos)) {
 			this._error = ' no es una clave válida.';
 		    return false;			
 		}
@@ -115,12 +116,12 @@ ef_cuit.prototype.constructor = ef_cuit;
 	};				
 	
 //--------------------------------------------	
-function es_cuit(nro) {
+function es_cuit(nro, prefijos) {
 	if (typeof ef_cuit_excepciones != 'undefined') {
 		if (in_array(nro, ef_cuit_excepciones)) {
 			return true;
 		}
-	}
+	}        
 	var suma;
 	var resto;
 	var verif;
@@ -129,6 +130,15 @@ function es_cuit(nro) {
 		return false;
 	}
 	
+    //Chequea prefijos
+    if (typeof prefijos != 'undefined') {
+        var pref_actual = pos[0]+pos[1];
+        console.log(pref_actual);
+        if (! in_array(pref_actual, prefijos)) {
+            return false;
+        }
+    }    
+    
 	while (true) {
 		suma = (pos[0] * 5 + pos[1] * 4 + pos[2] * 3 +	pos[3] * 2 + pos[4] * 7 + pos[5] * 6 +	pos[6] * 5 + pos[7] * 4 + pos[8] * 3 + pos[9] * 2);
 		resto = suma % 11;
