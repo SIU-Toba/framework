@@ -87,7 +87,7 @@ class toba_rest
 			$settings['api_titulo'] = 'Referencia de API para ' . $datos_ini_proyecto['proyecto']['id'];
 		}
 		
-		$settings = array_merge($settings, $ini->get('settings', null, array(), false),$datos_ini_proyecto);
+		$settings = array_merge($settings,$datos_ini_proyecto);
 		$app = new SIUToba\rest\rest($settings);
 		return $app;
 	}
