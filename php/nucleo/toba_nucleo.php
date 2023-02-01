@@ -190,6 +190,10 @@ class toba_nucleo
 			echo toba::escaper()->escapeJs($e->getMessage()) . "\n\n";
 			toba::logger()->guardar();
 		} catch (Exception $e) {
+            $codigo = $e->getCode();
+            if (is_int($codigo) && $codigo !== 0) {
+                header('Error Inesperado', true, 500);
+            }
 			toba::logger()->crit($e, 'toba');
 			echo toba::escaper()->escapeJs($e->getMessage()) . "\n\n";
 			toba::logger()->guardar();
