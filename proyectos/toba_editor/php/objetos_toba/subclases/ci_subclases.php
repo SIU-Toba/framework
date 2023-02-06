@@ -275,7 +275,7 @@ class ci_subclases extends toba_ci
 		$archivo_php = new toba_archivo_php($this->get_path_archivo());
 		$clase_php = new toba_clase_php($archivo_php, $this->get_metaclase());
 	
-		$clase_php->generar($metodos, $opciones['incluir_comentarios'], $opciones['incluir_separadores']);
+		$clase_php->generar($metodos, $opciones['incluir_comentarios']??false, $opciones['incluir_separadores']??false);
 		$this->pantalla()->set_descripcion('Clase generada correctamente');
 		$this->dep('ci_generacion')->set_pantalla('pant_vista_previa');
 		

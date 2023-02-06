@@ -97,7 +97,7 @@ class toba_ef_upload extends toba_ef
 
 	function es_archivo_vacio()
 	{
-		return $_FILES[$this->id_form]["error"] == UPLOAD_ERR_NO_FILE;
+		return $_FILES[$this->id_form]['error'] == UPLOAD_ERR_NO_FILE;
 	}
 	
 	function tiene_estado()
@@ -118,7 +118,7 @@ class toba_ef_upload extends toba_ef
 			return $padre;	
 		}
 		if (isset($this->archivo_subido[$this->id_form]) && $this->archivo_subido[$this->id_form]) {
-			$id = $this->estado['error'];
+			$id = $this->estado['error']??'NFW';
 			switch($id){
 				case UPLOAD_ERR_OK:
 					break;
