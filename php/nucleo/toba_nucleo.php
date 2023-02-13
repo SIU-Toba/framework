@@ -324,7 +324,7 @@ class toba_nucleo
 
 	protected function iniciar_contexto_ejecucion()
 	{
-		if (!ini_get('safe_mode') && strpos(ini_get('disable_functions'), 'set_time_limit') === FALSE) {
+		if (strpos(ini_get('disable_functions'), 'set_time_limit') === FALSE) {
 			set_time_limit(0);
 		}
 		$this->controlar_requisitos_basicos();
@@ -338,7 +338,7 @@ class toba_nucleo
 
 	protected function iniciar_contexto_consola()
 	{
-		if (!ini_get('safe_mode') && strpos(ini_get('disable_functions'), 'set_time_limit') === FALSE) {
+		if (strpos(ini_get('disable_functions'), 'set_time_limit') === FALSE) {
 			set_time_limit(0);
 		}
 		$this->controlar_requisitos_basicos();
@@ -357,7 +357,7 @@ class toba_nucleo
 
 	protected function iniciar_contexto_rest()
 	{
-		if (!ini_get('safe_mode') && strpos(ini_get('disable_functions'), 'set_time_limit') === FALSE) {
+		if (strpos(ini_get('disable_functions'), 'set_time_limit') === FALSE) {
 			set_time_limit(0);
 		}
 		$this->controlar_requisitos_basicos();
