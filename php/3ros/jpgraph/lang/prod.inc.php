@@ -1,4 +1,5 @@
 <?php
+
 namespace JpGraph\lang;
 
 /*=======================================================================
@@ -285,8 +286,8 @@ HTTP headers have already been sent.<br>Caused by output from file <b>%s</b> at 
 25132 => array(DEFAULT_ERROR_MESSAGE.'25132',0),
 25133 => array(DEFAULT_ERROR_MESSAGE.'25133',0),
 25500 => array(DEFAULT_ERROR_MESSAGE.'25500',0),
-24003 => array(DEFAULT_ERROR_MESSAGE.'24003',0),
-24004 => array(DEFAULT_ERROR_MESSAGE.'24004',0),
+/*24003 => array(DEFAULT_ERROR_MESSAGE.'24003',0),
+24004 => array(DEFAULT_ERROR_MESSAGE.'24004',0),*/
 24005 => array(DEFAULT_ERROR_MESSAGE.'24005',0),
 24006 => array(DEFAULT_ERROR_MESSAGE.'24006',0),
 24007 => array(DEFAULT_ERROR_MESSAGE.'24007',0),

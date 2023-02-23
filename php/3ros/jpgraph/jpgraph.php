@@ -1,4 +1,5 @@
 <?php
+
 namespace JpGraph;
 
 //=======================================================================
@@ -21,7 +22,7 @@ require_once('jpgraph_theme.inc.php');
 require_once('gd_image.inc.php');
 
 // Version info
-define('JPG_VERSION','4.2.0');
+define('JPG_VERSION','4.4.1');
 
 // Minimum required PHP version
 define('MIN_PHPVERSION','5.1.0');
@@ -163,6 +164,11 @@ define("_JPG_DEBUG",false);
 define("_FORCE_IMGTOFILE",false);
 define("_FORCE_IMGDIR",'/tmp/jpgimg/');
 
+//mitoteam: better Windows OS detection under Cygwin (PHP_OS_FAMILY constant supported only in PHP 7.2+)
+define(
+  "JPG_IS_WINDOWS",
+  defined("PHP_OS_FAMILY") ? PHP_OS_FAMILY === 'Windows' : strstr(PHP_OS, 'WIN')
+);
 
 //
 // Automatic settings of path for cache and font directory
@@ -170,7 +176,7 @@ define("_FORCE_IMGDIR",'/tmp/jpgimg/');
 //
 if(USE_CACHE) {
     if (!defined('CACHE_DIR')) {
-        if ( strstr( PHP_OS, 'WIN') ) {
+        if (JPG_IS_WINDOWS) { //mitoteam: better Windows OS detection under Cygwin
             if( empty($_SERVER['TEMP']) ) {
                 $t = new ErrMsgText();
                 $msg = $t->Get(11,$file,$lineno);
@@ -192,7 +198,7 @@ elseif( !defined('CACHE_DIR') ) {
 // Setup path for western/latin TTF fonts
 //
 if (!defined('TTF_DIR')) {
-    if (strstr( PHP_OS, 'WIN') ) {
+    if (JPG_IS_WINDOWS) { //mitoteam: better Windows OS detection under Cygwin
         $sroot = getenv('SystemRoot');
         if( empty($sroot) ) {
             $t = new ErrMsgText();
@@ -211,7 +217,7 @@ if (!defined('TTF_DIR')) {
 // Setup path for MultiByte TTF fonts (japanese, chinese etc.)
 //
 if (!defined('MBTTF_DIR')) {
-    if (strstr( PHP_OS, 'WIN') ) {
+    if (JPG_IS_WINDOWS) { //mitoteam: better Windows OS detection under Cygwin
         $sroot = getenv('SystemRoot');
         if( empty($sroot) ) {
             $t = new ErrMsgText();
@@ -394,15 +400,15 @@ class DateLocale {
         }
 
         $this->iLocale = $aLocale;
-        for( $i = 0, $ofs = 0 - strftime('%w'); $i < 7; $i++, $ofs++ ) {
-            $day = strftime('%a', strtotime("$ofs day"));
+        for( $i = 0, $ofs = 0 - date('w'); $i < 7; $i++, $ofs++ ) {
+            $day = date('D', strtotime("$ofs day"));
             $day[0] = strtoupper($day[0]);
             $this->iDayAbb[$aLocale][]= $day[0];
             $this->iShortDay[$aLocale][]= $day;
         }
 
         for($i=1; $i<=12; ++$i) {
-            list($short ,$full) = explode('|', strftime("%b|%B",strtotime("2001-$i-01")));
+            list($short ,$full) = explode('|', date("M|F",strtotime("2001-$i-01")));
             $this->iShortMonth[$aLocale][] = ucfirst($short);
             $this->iMonthName [$aLocale][] = ucfirst($full);
         }
@@ -646,8 +652,7 @@ class Graph {
 
             $theme_class = DEFAULT_THEME_CLASS;
             if (class_exists($theme_class)) {
-                $class_name = 'JpGraph\Themes\\'. $theme_class;
-                $this->graph_theme = new $class_name();
+                $this->graph_theme = new $theme_class();
             }
         }
     }
@@ -655,7 +660,7 @@ class Graph {
     function InitializeFrameAndMargin() {
         $this->doframe=true;
         $this->frame_color='black';
-        $this->frame_weight=1; 
+        $this->frame_weight=1;
 
         $this->titlebackground_framecolor = 'blue';
         $this->titlebackground_framestyle = 2;
@@ -743,11 +748,6 @@ class Graph {
     // Rotate the graph 90 degrees and set the margin
     // when we have done a 90 degree rotation
     function Set90AndMargin($lm=0,$rm=0,$tm=0,$bm=0) {
-        $lm = $lm ==0 ? floor(0.2 * $this->img->width)  : $lm ;
-        $rm = $rm ==0 ? floor(0.1 * $this->img->width)  : $rm ;
-        $tm = $tm ==0 ? floor(0.2 * $this->img->height) : $tm ;
-        $bm = $bm ==0 ? floor(0.1 * $this->img->height) : $bm ;
-
         $adj = ($this->img->height - $this->img->width)/2;
         $this->img->SetMargin($tm-$adj,$bm-$adj,$rm+$adj,$lm+$adj);
         $this->img->SetCenter(floor($this->img->width/2),floor($this->img->height/2));
@@ -1293,9 +1293,11 @@ class Graph {
             }
         }
 
-        $n = count($this->iTables);
-        for( $i=0; $i < $n; ++$i ) {
-            $csim .= $this->iTables[$i]->GetCSIMareas();
+        if($this->iTables != null) {
+            $n = count($this->iTables);
+            for ($i = 0; $i < $n; ++$i) {
+                $csim .= $this->iTables[$i]->GetCSIMareas();
+            }
         }
 
         return $csim;
@@ -1370,7 +1372,7 @@ class Graph {
 
         // Now reconstruct any user URL argument
         reset($_GET);
-        while( list($key,$value) = each($_GET) ) {
+        foreach ($_GET as $key => $value) {
             if( is_array($value) ) {
                 foreach ( $value as $k => $v ) {
                     $urlarg .= '&amp;'.$key.'%5B'.$k.'%5D='.urlencode($v);
@@ -1385,7 +1387,7 @@ class Graph {
         // but there is little else we can do. One idea for the
         // future might be recreate the POST header in case.
         reset($_POST);
-        while( list($key,$value) = each($_POST) ) {
+        foreach ($_POST as $key => $value) {
             if( is_array($value) ) {
                 foreach ( $value as $k => $v ) {
                     $urlarg .= '&amp;'.$key.'%5B'.$k.'%5D='.urlencode($v);
@@ -1406,7 +1408,7 @@ class Graph {
     function StrokeCSIM($aScriptName='auto',$aCSIMName='',$aBorder=0) {
         if( $aCSIMName=='' ) {
             // create a random map name
-            srand ((double) microtime() * 1000000);
+            srand ((int)((double) microtime() * 1000000)); // MiTo Team: explicit type casting
             $r = rand(0,100000);
             $aCSIMName='__mapname'.$r.'__';
         }
@@ -1575,8 +1577,10 @@ class Graph {
             foreach( $this->y2plots as $p ) {
                 list($xmin,$ymin) = $p->Min();
                 list($xmax,$ymax) = $p->Max();
-                $min = Min($xmin,$min);
-                $max = Max($xmax,$max);
+                if( $xmin !== null && $xmax !== null ) {
+                    $min = Min($xmin, $min);
+                    $max = Max($xmax, $max);
+                }
             }
         }
 
@@ -1586,8 +1590,10 @@ class Graph {
                 foreach( $this->ynplots[$i] as $p ) {
                     list($xmin,$ymin) = $p->Min();
                     list($xmax,$ymax) = $p->Max();
-                    $min = Min($xmin,$min);
-                    $max = Max($xmax,$max);
+                    if( $xmin !== null && $xmax !== null ) {
+                        $min = Min($xmin, $min);
+                        $max = Max($xmax, $max);
+                    }
                 }
             }
         }
@@ -1595,14 +1601,14 @@ class Graph {
     }
 
     function AdjustMarginsForTitles() {
-        $totrequired = 
-            ($this->title->t != '' 
+        $totrequired =
+            ($this->title->t != ''
                 ? $this->title->GetTextHeight($this->img) + $this->title->margin + 5 * SUPERSAMPLING_SCALE
                 : 0 ) +
-            ($this->subtitle->t != '' 
+            ($this->subtitle->t != ''
                 ? $this->subtitle->GetTextHeight($this->img) + $this->subtitle->margin + 5 * SUPERSAMPLING_SCALE
                 : 0 ) +
-            ($this->subsubtitle->t != '' 
+            ($this->subsubtitle->t != ''
                 ? $this->subsubtitle->GetTextHeight($this->img) + $this->subsubtitle->margin + 5 * SUPERSAMPLING_SCALE
                 : 0 ) ;
 
@@ -1644,7 +1650,7 @@ class Graph {
                 $this->SetMargin(
                     $this->img->raw_left_margin,
                     $this->img->raw_right_margin,
-                    $totrequired / SUPERSAMPLING_SCALE, 
+                    $totrequired / SUPERSAMPLING_SCALE,
                     $this->img->raw_bottom_margin
                 );
             }
@@ -2521,7 +2527,7 @@ class Graph {
     function StrokePlotGrad() {
         if( $this->plot_gradtype < 0  )
             return;
-            
+
         $grad = new Gradient($this->img);
         $xl = $this->img->left_margin;
         $yt = $this->img->top_margin;
@@ -2746,7 +2752,7 @@ class Graph {
             $aa = $this->img->SetAngle(0);
             $this->StrokeFrame();
             $aa = $this->img->SetAngle($aa);
-            $this->StrokeBackgroundGrad(); 
+            $this->StrokeBackgroundGrad();
             if( $this->bkg_gradtype < 0 || ($this->bkg_gradtype > 0 && $this->bkg_gradstyle==BGRAD_MARGIN) ) {
                 $this->FillPlotArea();
             }
@@ -3137,7 +3143,7 @@ class Graph {
                 $this->inputValues['aTimeout'],
                 $this->inputValues['aInline']
             );
- 
+
         if (!($this instanceof PieGraph)) {
             if ($this->isAfterSetScale) {
                 $this->SetScale(
@@ -3146,7 +3152,7 @@ class Graph {
                         $this->inputValues['aYMax'],
                         $this->inputValues['aXMin'],
                         $this->inputValues['aXMax']
-                    );       
+                    );
             }
         }
 
@@ -3644,7 +3650,6 @@ class Grid {
             // assumption offset==0 so we might end up drawing one
             // to many gridlines
             $i=0;
-            $x=$aTicksPos[$i];
             while( $i<count($aTicksPos) && ($x=$aTicksPos[$i]) <= $limit ) {
                 if    ( $aType == 'solid' )      $this->img->Line($x,$yl,$x,$yu);
                 elseif( $aType == 'dotted' )     $this->img->DashedLineForGrid($x,$yl,$x,$yu,1,6);
@@ -3957,7 +3962,7 @@ class Axis extends AxisPrototype {
             if( !$this->hide_line ) {
                 // Stroke Y-axis
                 $this->img->FilledRectangle(
-                    $pos - $this->weight + 1, 
+                    $pos - $this->weight + 1,
                     $this->img->top_margin,
                     $pos,
                     $this->img->height - $this->img->bottom_margin + $this->weight - 1
@@ -4062,7 +4067,7 @@ class Axis extends AxisPrototype {
                 // that holds the labels set by the user. If the user hasn't
                 // specified any values we use whats in the automatically asigned
                 // labels in the maj_ticks_label
-                if( isset($this->ticks_label[$i*$m]) ) {
+                if( isset($this->ticks_label[$i *(int)$m]) ) {
                     $label=$this->ticks_label[$i*$m];
                 }
                 else {
@@ -4074,12 +4079,12 @@ class Axis extends AxisPrototype {
                     }
 
                     // We number the scale from 1 and not from 0 so increase by one
-                    if( $this->scale->textscale && 
+                    if( $this->scale->textscale &&
                         $this->scale->ticks->label_formfunc == '' &&
                         ! $this->scale->ticks->HaveManualLabels() ) {
 
                         ++$label;
-                        
+
                     }
                 }
 
@@ -4171,6 +4176,8 @@ class Ticks {
     public $maj_ticks_pos = array(), $maj_ticklabels_pos = array(),
            $ticks_pos = array(), $maj_ticks_label = array();
     public $precision;
+
+    public $ticks_label = array(); /* mitoteam: absent in original sources */
 
     protected $minor_abs_size=3, $major_abs_size=5;
     protected $scale;
@@ -5012,7 +5019,7 @@ class LinearScale {
             $this->off=$img->left_margin;
             $this->scale_factor = 0;
             if( $this->world_size > 0 ) {
-                $this->scale_factor=$this->world_abs_size/($this->world_size*1.0);
+                $this->scale_factor=$this->world_abs_size/($this->world_size*0.999999);
             }
         }
         else { // y scale
@@ -5020,7 +5027,7 @@ class LinearScale {
             $this->off=$img->top_margin+$this->world_abs_size;
             $this->scale_factor = 0;
             if( $this->world_size > 0 ) {
-                $this->scale_factor=-$this->world_abs_size/($this->world_size*1.0);
+                $this->scale_factor=-$this->world_abs_size/($this->world_size*0.999999);
             }
         }
         $size = $this->world_size * $this->scale_factor;
@@ -5221,13 +5228,13 @@ class LinearScale {
     }
 
     function __get($name) {
-        $variable_name = '_' . $name; 
+        $variable_name = '_' . $name;
 
         if (isset($this->$variable_name)) {
             return $this->$variable_name * SUPERSAMPLING_SCALE;
         } else {
             JpGraphError::RaiseL('25132', $name);
-        } 
+        }
     }
 
     function __set($name, $value) {
@@ -5572,7 +5579,7 @@ class Plot {
 
     function Clear() {
         $this->isRunningClear = true;
-        $this->__construct($this->inputValues['aDatay'], $this->inputValues['aDatax']);
+        Plot::__construct($this->inputValues['aDatay'], $this->inputValues['aDatax']);
         $this->isRunningClear = false;
     }
 

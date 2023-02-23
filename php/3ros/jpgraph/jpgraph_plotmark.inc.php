@@ -1,7 +1,7 @@
 <?php
+
 namespace JpGraph;
 
-use JpGraph\Graph;
 //=======================================================================
 // File:        JPGRAPH_PLOTMARK.PHP
 // Description: Class file. Handles plotmarks

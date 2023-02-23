@@ -1,4 +1,5 @@
 <?php
+
 namespace JpGraph;
 
 //=======================================================================
@@ -489,6 +490,13 @@ class TTF {
                     JpGraphError::RaiseL(25047,$this->style_names[$style],$this->font_files[$family][FS_NORMAL]);//('Style "'.$this->style_names[$style].'" is not available for font family '.$this->font_files[$family][FS_NORMAL].'.');
             if( !$font_file ) {
                 JpGraphError::RaiseL(25048,$fam);//("Unknown font style specification [$fam].");
+            }
+
+            // MiTo Team: if absolute path provided check if file exists
+            if($font_file[0] === DIRECTORY_SEPARATOR) {
+              if (file_exists($font_file) === true && is_readable($font_file) === true) {
+                break;
+              }
             }
 
             // check jpgraph/src/fonts dir
