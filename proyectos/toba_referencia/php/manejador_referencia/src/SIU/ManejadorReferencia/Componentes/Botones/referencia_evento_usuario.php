@@ -52,7 +52,7 @@ class referencia_evento_usuario implements IEventoUsuario{
 			$clase, $con_id=true, $estilo_inline=null, $habilitado=true, $esta_sobre_fila = false){
 		
 		$html .= " $img";
-		$clase = implode(array_filter(explode(' ',$clase),[$this, 'filtrado']),' ');
+		$clase = implode(' ', array_filter(explode(' ',$clase),[$this, 'filtrado']));
 		//var_dump(array_filter(explode(' ',$clase),[$this, 'filtrado']));
 		if($esta_sobre_fila){
 			return \toba_form::link_html( $nombre, $html, $extra, $tab, $tecla, $tip, $tipo, '', $clase, true, $estilo_inline, $habilitado);
