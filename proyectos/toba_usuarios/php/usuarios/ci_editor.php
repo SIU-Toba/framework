@@ -261,7 +261,7 @@ class ci_editor extends toba_ci
 						descripcion
 				FROM 	apex_usuario_grupo_acc
 				WHERE 	proyecto = $proyecto;";
-		return toba::db('usuarios')->consultar($sql);
+		return toba::db('toba_usuarios')->consultar($sql);
 	}
 
 	private function encriptar_datos($dato_original)
