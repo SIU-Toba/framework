@@ -1,7 +1,5 @@
 <?php
 
-namespace SIUToba\TobaUsuarios\lib;
-
 /**
  * Interface minima a implementar para la operacion del ABM de Usuarios
  */
