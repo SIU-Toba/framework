@@ -1,8 +1,5 @@
 <?php
 
-namespace SIUToba\TobaUsuarios\lib;
-
-use SIUToba\TobaUsuarios\lib\InterfaseApiUsuarios;
 use GuzzleHttp\Psr7;
 use GuzzleHttp\Exception\RequestException;
 

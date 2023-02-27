@@ -1,7 +1,5 @@
 <?php
 
-namespace SIUToba\TobaUsuarios\lib;
-
 use GuzzleHttp\Psr7;
 use GuzzleHttp\Exception\RequestException;
 
@@ -40,11 +38,11 @@ class rest_arai_usuarios
         $major = $this->getVersionApi();
         switch ($major) {
             case '2':
-                $cliente = new api_usuarios_2($this->cliente);
+                $cliente = api_usuarios_2::instancia($this->cliente);
                 break;
             case '1':
             default:
-                $cliente = new api_usuarios_1($this->cliente);
+                $cliente = api_usuarios_1::instancia($this->cliente);
         }
         return $cliente;
     }
@@ -54,9 +52,13 @@ class rest_arai_usuarios
         try {
             $response = $this->cliente->get('info');
             $datos = rest_decode($response->getBody()->__toString());
-            return (! empty($datos)) ? $datos['api_major'] : null;
-        } catch (RequestException | Exception $ex) {
+            return (! empty($datos)) ? $datos[0]['api_major'] : null;
+        } catch (RequestException $ex) {
             $this->manejar_excepcion_request($ex);
+        } catch (Exception $ex) {
+            $msg = $ex->getMessage();
+            toba_logger::instancia()->error($msg);
+            throw new toba_error(toba::escaper()->escapeJs($msg));
         }
     }
     //-----------------------------------------------------------------------------------
