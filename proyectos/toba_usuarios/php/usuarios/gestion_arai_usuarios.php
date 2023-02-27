@@ -1,4 +1,7 @@
 <?php	
+
+use SIUToba\TobaUsuarios\lib\rest_arai_usuarios;
+
 /**
  * Clase para utilizar Arai-Usuarios
  * 
