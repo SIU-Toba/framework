@@ -10,7 +10,6 @@ class api_usuarios_2 extends api_usuarios_1 implements InterfaseApiUsuarios
 {
     private static $instancia;
     private $uid;
-    //protected $cliente;
 
     public static function instancia($cliente)
     {
@@ -28,24 +27,9 @@ class api_usuarios_2 extends api_usuarios_1 implements InterfaseApiUsuarios
         self::$instancia = null;
     }
 
-    /*private function __construct($cliente)
-    {
-        $this->cliente = $cliente;
-    }*/
-
     //-----------------------------------------------------------------------------------
     //---- Auxiliares -------------------------------------------------------------------
     //-----------------------------------------------------------------------------------
-    /*
-    private function manejar_excepcion_request(RequestException $e)
-    {
-        $msg = $e->getMessage() . PHP_EOL . Psr7\str($e->getRequest()) . PHP_EOL;
-        if ($e->hasResponse()) {
-            $msg .= Psr7\str($e->getResponse()) . PHP_EOL;
-        }
-        toba_logger::instancia()->error($msg);
-        throw new toba_error(toba::escaper()->escapeJs($msg));
-    }*/
 
     public function get_usuarios($filtro=array(), $excluir_aplicacion = null)
     {
@@ -116,30 +100,6 @@ class api_usuarios_2 extends api_usuarios_1 implements InterfaseApiUsuarios
         }
         return $datos;
     }
-    /*
-    public function eliminar_cuenta($identificador_aplicacion, $cuenta)
-    {
-        try {
-            $url = "aplicaciones/$identificador_aplicacion/cuentas/$cuenta";
-
-            // obtengo la respuesta
-            $this->cliente->delete($url);
-        } catch (RequestException $e) {
-            $this->manejar_excepcion_request($e);
-        } catch (Exception $e) {
-            throw new toba_error(toba::escaper()->escapeJs($e));
-        }
-    }
-
-    public function get_nombre_apellido_usuario($identificador)
-    {
-        $datos = $this->get_usuario($identificador);
-        if (isset($datos) && !empty($datos)) {
-            return $datos['nombre_apellido'];
-        } else {
-            return '';
-        }
-    }*/
 
     public function get_identificador_x_aplicacion_cuenta($identificador_aplicacion, $cuenta)
     {
