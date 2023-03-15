@@ -83,11 +83,11 @@ class rest_arai_usuarios
 
     private function manejar_excepcion_request(RequestException $e)
     {
-        $msg = $e->getMessage() . PHP_EOL . Psr7\str($e->getRequest()) . PHP_EOL;
+        $msg = $e->getMessage() . PHP_EOL . Psr7\Message::toString($e->getRequest()). PHP_EOL;
         if ($e->hasResponse()) {
-            $msg .= Psr7\str($e->getResponse()) . PHP_EOL;
+            $msg .= Psr7\Message::toString($e->getResponse()) . PHP_EOL;
         }
         toba_logger::instancia()->error($msg);
-        throw new toba_error(toba::escaper()->escapeJs($msg));
+        throw new toba_error(toba::escaper()->escapeJs($e->getMessage()));
     }
 }
