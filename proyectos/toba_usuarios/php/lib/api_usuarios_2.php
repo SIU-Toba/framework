@@ -64,15 +64,7 @@ class api_usuarios_2 extends api_usuarios_1 implements InterfaseApiUsuarios
     {
         try {
             $uid = $this->get_uid_x_identificador($identificador);
-            if ($uid !== null) {
-                $url = "usuarios/$uid";
-                // obtengo la respuesta
-                $response = $this->cliente->get($url);
-                $datos = rest_decode($response->getBody()->__toString());
-                if (! empty($datos)) {
-                    $datos['nombre_apellido'] = $datos['nombre'] . ' ' . $datos['apellido'];
-                }
-            }
+            $datos = $this->get_usuario_datos($uid);
         } catch (RequestException $e) {
             $this->manejar_excepcion_request($e);
         } catch (Exception $e) {
@@ -105,25 +97,63 @@ class api_usuarios_2 extends api_usuarios_1 implements InterfaseApiUsuarios
     {
         $datos = $this->get_cuenta($identificador_aplicacion, $cuenta);
         if (isset($datos) && !empty($datos)) {
-            return $datos['identificador_usuario'];
+            //En esta version de la API hay que recuperar el identificador con un nuevo pedido, sino se intercambia valor con uid
+            $datos_usuario = $this->get_usuario_datos($datos['identificador_usuario']);
+            return $datos_usuario['identificador'] ?? null;
         } else {
             return null;
         }
     }
 
+    //----------------------------------------------------------------------------//
+    //                          AUXILIARES
+    //----------------------------------------------------------------------------//
+
+    /**
+     * Recupera el UID del usuario a partir del identificador legible
+     * @param string $identificador
+     * @return string
+     * @throws toba_error
+     */
     private function get_uid_x_identificador($identificador)
     {
         if (! isset($this->uid)) {
-            $response = $this->cliente->get("uuid/$identificador");
-            $datos = rest_decode($response->getBody()->__toString());
-            if (! empty($datos) && $identificador == $datos['identificador']) {
-                $this->uid = $datos['uid'];
-            } else {
-                toba_logger::instancia()->error('La api devolvio: '. var_export($datos, true));
-                throw new toba_error('Usuario no válido');
+            try {
+                $response = $this->cliente->get("uuid/$identificador");
+                $datos = rest_decode($response->getBody()->__toString());
+                if (! empty($datos) && $identificador == $datos['identificador']) {
+                    $this->uid = $datos['uid'];
+                } else {
+                    toba_logger::instancia()->error('La api devolvio: '. var_export($datos, true));
+                    throw new toba_error('Usuario no válido');
+                }
+            } catch (RequestException $e) {
+                $this->manejar_excepcion_request($e);
+            } catch (Exception $e) {
+                throw new toba_error(toba::escaper()->escapeJs($e));
             }
         }
 
         return $this->uid;
+    }
+
+    /**
+     * Recupera los datos del usuario solo por UID
+     * @param uuid $uid
+     * @return array
+     */
+    private function get_usuario_datos($uid)
+    {
+        $datos = [];
+        if ($uid !== null) {
+            $url = "usuarios/$uid";
+            // obtengo la respuesta
+            $response = $this->cliente->get($url);
+            $datos = rest_decode($response->getBody()->__toString());
+            if (! empty($datos)) {
+                $datos['nombre_apellido'] = $datos['nombre'] . ' ' . $datos['apellido'];
+            }
+        }
+        return $datos;
     }
 }
