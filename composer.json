@@ -24,7 +24,7 @@
         "psr/log": "~1.1",
         "rospdf/pdf-php": "~0.12",
         "siu-toba/numbers_words": "0.18.0.1",
-        "siu-toba/rest": "~2.0",
+        "siu-toba/rest": "dev-feature/upgradeJWT",
         "siu-toba/services_json": "^1.0.3.3",
         "siu-toba/ssl-cert-utils": "~1.0",
         "siu-toba/structures_graph": "^1.1.1.1",
@@ -77,14 +77,15 @@
     ],
     "scripts": {
         "post-install-cmd": [
-    	    "composer run-script post-install-cmd ./proyectos/toba_editor/",
+            "@putenv COMPOSER=./proyectos/toba_editor/composer.json",
+            "composer run-script post-install-cmd ",
             "yarn add ckeditor4@4.18 jquery@3.6 jquery-migrate@3.3 siu-js-app-launcher@1.0.6  --modules-folder www/js/packages/",
             "yarn ",
-            "php bin/instalar_assets.php"
+            "@php bin/instalar_assets.php"
         ],
         "post-update-cmd": [
             "yarn  --non-interactive --modules-folder www/js/packages/",
-            "php bin/instalar_assets.php"
+            "@php bin/instalar_assets.php"
         ]
     }
 }
