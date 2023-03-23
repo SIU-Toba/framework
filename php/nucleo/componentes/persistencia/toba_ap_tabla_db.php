@@ -178,7 +178,7 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 	 * @param boolean $estricto Indica si es imperioso que la columna externa posea un estado o se
 	 * permite que no posea valor.
 	 */
-	function activar_proceso_carga_externa_dao($metodo, $clase=null, $include=null, $col_parametros, $col_resultado, $sincro_continua=true, $estricto=true, $carga_masiva = 0, $metodo_masivo = '')
+	function activar_proceso_carga_externa_dao($metodo, $clase=null, $include=null, $col_parametros=[], $col_resultado=[], $sincro_continua=true, $estricto=true, $carga_masiva = 0, $metodo_masivo = '')
 	{
 		$proximo = count($this->_proceso_carga_externa);
 		$this->_proceso_carga_externa[$proximo]["tipo"] = "dao";
