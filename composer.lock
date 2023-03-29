@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7438737134b11f220c271409c8bc975d",
+    "content-hash": "34970247b7aad8e0cb3bd4ed4709c533",
     "packages": [
         {
             "name": "dapphp/securimage",
@@ -1611,16 +1611,16 @@
         },
         {
             "name": "phpmailer/phpmailer",
-            "version": "v6.7.1",
+            "version": "v6.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPMailer/PHPMailer.git",
-                "reference": "49cd7ea3d2563f028d7811f06864a53b1f15ff55"
+                "reference": "df16b615e371d81fb79e506277faea67a1be18f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/49cd7ea3d2563f028d7811f06864a53b1f15ff55",
-                "reference": "49cd7ea3d2563f028d7811f06864a53b1f15ff55",
+                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/df16b615e371d81fb79e506277faea67a1be18f1",
+                "reference": "df16b615e371d81fb79e506277faea67a1be18f1",
                 "shasum": ""
             },
             "require": {
@@ -1679,7 +1679,7 @@
             "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
             "support": {
                 "issues": "https://github.com/PHPMailer/PHPMailer/issues",
-                "source": "https://github.com/PHPMailer/PHPMailer/tree/v6.7.1"
+                "source": "https://github.com/PHPMailer/PHPMailer/tree/v6.8.0"
             },
             "funding": [
                 {
@@ -1687,7 +1687,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-12-08T13:30:06+00:00"
+            "time": "2023-03-06T14:43:22+00:00"
         },
         {
             "name": "phpoffice/phpspreadsheet",
@@ -2081,25 +2081,25 @@
         },
         {
             "name": "psr/http-message",
-            "version": "1.0.1",
+            "version": "1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/http-message.git",
-                "reference": "f6561bf28d520154e4b0ec72be95418abe6d9363"
+                "reference": "cb6ce4845ce34a8ad9e68117c10ee90a29919eba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/http-message/zipball/f6561bf28d520154e4b0ec72be95418abe6d9363",
-                "reference": "f6561bf28d520154e4b0ec72be95418abe6d9363",
+                "url": "https://api.github.com/repos/php-fig/http-message/zipball/cb6ce4845ce34a8ad9e68117c10ee90a29919eba",
+                "reference": "cb6ce4845ce34a8ad9e68117c10ee90a29919eba",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "php": "^7.2 || ^8.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0.x-dev"
+                    "dev-master": "1.1.x-dev"
                 }
             },
             "autoload": {
@@ -2128,9 +2128,9 @@
                 "response"
             ],
             "support": {
-                "source": "https://github.com/php-fig/http-message/tree/master"
+                "source": "https://github.com/php-fig/http-message/tree/1.1"
             },
-            "time": "2016-08-06T14:39:51+00:00"
+            "time": "2023-04-04T09:50:52+00:00"
         },
         {
             "name": "psr/log",
@@ -2743,11 +2743,11 @@
         },
         {
             "name": "siu/interfaces-manejador-salida-toba",
-            "version": "v1.3",
+            "version": "dev-feature/php8Up",
             "source": {
                 "type": "git",
                 "url": "https://gitlab.siu.edu.ar/siu/interfaces-manejador-salida-toba.git",
-                "reference": "a9c09bf1a99d8bdeff7d806aa214bfedd6f6e8e2"
+                "reference": "b5bafa167b61f7dbebc09aad9d2d767cb6ffba43"
             },
             "type": "library",
             "autoload": {
@@ -2762,7 +2762,7 @@
                 }
             ],
             "description": "Implementación de las interfaces del patrón Abstract Factory para la salida de Toba",
-            "time": "2020-10-13T15:29:41+00:00"
+            "time": "2023-03-28T18:24:57+00:00"
         },
         {
             "name": "siu/json-util",
@@ -2794,16 +2794,15 @@
         },
         {
             "name": "siu/manejador-salida-toba",
-            "version": "dev-develop",
+            "version": "dev-feature/php8Up",
             "source": {
                 "type": "git",
                 "url": "https://gitlab.siu.edu.ar/siu/manejador-salida-toba.git",
-                "reference": "b7a90ea21ea81355da159f76c55648369092a1ea"
+                "reference": "9a9462222a798511bea346c738d44c44c74cf4de"
             },
             "require": {
-                "siu/interfaces-manejador-salida-toba": "~1.3"
+                "siu/interfaces-manejador-salida-toba": "dev-feature/php8Up"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -2817,7 +2816,7 @@
                 }
             ],
             "description": "Implementación del patrón 'Abstract Factory' para la salida de Toba",
-            "time": "2022-06-22T15:54:11+00:00"
+            "time": "2023-04-03T21:48:02+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -4462,16 +4461,15 @@
         },
         {
             "name": "siu/manejador-salida-bootstrap",
-            "version": "dev-develop",
+            "version": "dev-feature/php8Up",
             "source": {
                 "type": "git",
                 "url": "https://gitlab.siu.edu.ar/siu/manejador-salida-bootstrap.git",
-                "reference": "93073b1f3ed89e02abdebe1ef7252f50110903f9"
+                "reference": "05206bad25cd8ae064904a74c33edeb68bbbb56b"
             },
             "require": {
-                "siu/interfaces-manejador-salida-toba": "~1.3"
+                "siu/interfaces-manejador-salida-toba": "dev-feature/php8Up"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -4480,8 +4478,8 @@
             },
             "scripts": {
                 "post-install-cmd": [
-                    "yarn add font-awesome@4.7.0 respond.js@1.4.2 html5shiv@3.7.3  --modules-folder tmp_assets/",
-                    "yarn add bootstrap@3.3.7  --no-dev --modules-folder tmp_assets/",
+                    "yarn add font-awesome@4.7.0 respond.js@1.4.2 html5shiv@3.7.3  --modules-folder node_modules/",
+                    "yarn add bootstrap@3.3.7  --no-dev --modules-folder node_modules/",
                     "yarn install",
                     "php bin/instalar_assets.php"
                 ]
@@ -4493,20 +4491,20 @@
                 }
             ],
             "description": "Implementacion del patron 'Abstract Factory' para la salida Bootstrap",
-            "time": "2022-11-10T19:42:36+00:00"
+            "time": "2023-04-03T21:46:53+00:00"
         },
         {
             "name": "symfony/console",
-            "version": "v5.4.21",
+            "version": "v5.4.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "c77433ddc6cdc689caf48065d9ea22ca0853fbd9"
+                "reference": "3cd51fd2e6c461ca678f84d419461281bd87a0a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/c77433ddc6cdc689caf48065d9ea22ca0853fbd9",
-                "reference": "c77433ddc6cdc689caf48065d9ea22ca0853fbd9",
+                "url": "https://api.github.com/repos/symfony/console/zipball/3cd51fd2e6c461ca678f84d419461281bd87a0a8",
+                "reference": "3cd51fd2e6c461ca678f84d419461281bd87a0a8",
                 "shasum": ""
             },
             "require": {
@@ -4571,12 +4569,12 @@
             "homepage": "https://symfony.com",
             "keywords": [
                 "cli",
-                "command line",
+                "command-line",
                 "console",
                 "terminal"
             ],
             "support": {
-                "source": "https://github.com/symfony/console/tree/v5.4.21"
+                "source": "https://github.com/symfony/console/tree/v5.4.22"
             },
             "funding": [
                 {
@@ -4592,7 +4590,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-02-25T16:59:41+00:00"
+            "time": "2023-03-25T09:27:28+00:00"
         },
         {
             "name": "symfony/debug",
@@ -5224,6 +5222,7 @@
         "ioncube/php-openssl-cryptor": 20,
         "siu-toba/rest": 20,
         "siu/manejador-salida-toba": 20,
+        "siu/interfaces-manejador-salida-toba": 20,
         "greenlion/php-sql-parser": 20,
         "siu/manejador-salida-bootstrap": 20
     },

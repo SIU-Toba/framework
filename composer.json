@@ -19,7 +19,7 @@
         "nikic/php-parser": "~4.0",
         "onelogin/php-saml": "~4.0",
         "paragonie/random-lib": "~2.0",
-        "phpmailer/phpmailer": "~6.7.0",
+        "phpmailer/phpmailer": "~6.8.0",
         "phpoffice/phpspreadsheet": "~1.23",
         "psr/log": "~1.1",
         "rospdf/pdf-php": "~0.12",
@@ -32,8 +32,8 @@
         "symfony/yaml": "~5.4",
         "symfony/security-csrf": "^5.4",
         "laminas/laminas-escaper": "~2.12.0",
-        "siu/manejador-salida-toba": "dev-develop",
-        "siu/interfaces-manejador-salida-toba": "~1.3.0",
+        "siu/manejador-salida-toba": "dev-feature/php8Up",
+        "siu/interfaces-manejador-salida-toba": "dev-feature/php8Up",
         "symfony/yaml": "~4.4|~5.4|~6.0",
         "vlucas/phpdotenv": "~5.4"
     },
@@ -48,7 +48,7 @@
         "siu/arai-cli": "*",
         "siu/arai-crypto": "*",
         "siu/arai-json-parser": "*",
-        "siu/manejador-salida-bootstrap": "dev-develop"
+        "siu/manejador-salida-bootstrap": "dev-feature/php8Up"
     },
     "suggest": {
         "simplesamlphp/simplesamlphp": "Permite conectarse a un IDP centralizado (see onelogin)",

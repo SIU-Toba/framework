@@ -198,7 +198,7 @@ class consola implements toba_proceso_gui
 	/*
 	* Genera la salida de una linea completando el espacio faltante del display con un caracter
 	*/
-	function linea_completa( $base='', $caracter_relleno )
+	function linea_completa($base='', $caracter_relleno='-')
 	{
 		if (self::$display_ancho > 100) {
 			$ancho = 100;
