@@ -132,7 +132,7 @@ class toba_ef_cuit extends toba_ef
 	function crear_objeto_js()
 	{
 		$desactivar_validacion = $this->_desactivar_validacion ? '1' : '0';
-        $prefijos = toba_js::arreglo(self::_prefijos_validos, false, false);
+        $prefijos = toba_js::arreglo(self::$_prefijos_validos, false, false);
 		return "new ef_cuit({$this->parametros_js()}, $desactivar_validacion, $prefijos)";
 	}
 		
