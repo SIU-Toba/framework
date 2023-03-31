@@ -157,6 +157,7 @@ class toba_ef_cuit extends toba_ef
         
         $prefijo = intval(substr($cuit_rearmado, 0, 2)); //verifica prefijo de CUIT/CUIL
         if (!in_array($prefijo, self::$_prefijos_validos, true)) {
+            toba::logger()->debug('Se encontro un prefijo no valido en el EF: ' . $prefijo);
             return false;
         }
         
