@@ -148,27 +148,27 @@ class comando_doc extends comando_toba
 		chdir(toba_dir());
 		$dest = toba_dir().'/proyectos/toba_editor/www/doc/api';
 		
-		$_phpDocumentor_setting[] = "phpdoc";
-		$_phpDocumentor_setting[] = 'project:run';
-		$_phpDocumentor_setting[] =  '-c' . toba_dir().'/phpdoc.xml';
-		$_phpDocumentor_setting[] = "--title";
-		$_phpDocumentor_setting[] ="API PHP";
-		$_phpDocumentor_setting[] = "--cache-folder";
+		$_phpDocumentor_setting[] = "phpdoc ";
+		$_phpDocumentor_setting[] = 'project:run ';
+		$_phpDocumentor_setting[] =  '-c ' . toba_dir().'/phpdoc.xml';
+		$_phpDocumentor_setting[] = "--title ";
+		$_phpDocumentor_setting[] ="'API PHP'";
+		$_phpDocumentor_setting[] = "--cache-folder ";
 		$_phpDocumentor_setting[] ="/tmp/doc_cache";
-		$_phpDocumentor_setting[] = "-t$dest";
+		$_phpDocumentor_setting[] = "-t $dest";
 		
 		$lista = toba_manejador_archivos::get_archivos_directorio($dest, "/\\.html/", true);
 		foreach ($lista as $arch) {
 			unlink($arch);
 		}
-				
-		$app = \phpDocumentor\Bootstrap::createInstance()
-			->registerProfiler()
-			->initialize();
-		$_SERVER['argv'] = $_phpDocumentor_setting;
-		$app->run();			
+
 		error_reporting(error_reporting() & ~E_STRICT);	
-			
+		$cmd = implode(' ', $_phpDocumentor_setting);
+		toba_manejador_procesos::ejecutar($cmd, $salida, $error);
+		/*if ($error != '') {
+			var_dump($error);			
+		}*/
+	
 		//-- La clase toba es la clase inicial (como esta un nivel mas adentro hay que bajar un nivel menos)
 		$indice = file_get_contents($dest.'/classes/toba.html');
 		$indice = str_replace('../../', '#BASE#', $indice);
@@ -201,9 +201,14 @@ class comando_doc extends comando_toba
 				"--project-name \"SIU-Toba\" $directorios ";
 		system($cmd);
 
-		//-- La clase toba es la clase inicial
+		//--- Elimina archivos overview* que no sirven de nada
+		$lista = toba_manejador_archivos::get_archivos_directorio($destino, "/overview-.*/", true);
+		foreach ($lista as $arch) {
+			unlink($arch);
+		}
+		//-- La clase toba es la clase inicial		
 		copy($destino.'/toba.html', $destino.'/index.html');
-		//$this->convertir_codificacion_dir($destino, "ISO-8859-1", "UTF-8");
+		$this->convertir_codificacion_dir($destino, "ISO-8859-1", "UTF-8");
 	}
 
 	/**

@@ -1,5 +1,8 @@
 <?php 
-
+/**
+ * @package Seguridad
+ * @subpackage autenticacion
+ */
 interface toba_autenticable
 {
 	/**

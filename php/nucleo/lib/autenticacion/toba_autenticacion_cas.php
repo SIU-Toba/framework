@@ -1,4 +1,8 @@
 <?php
+/**
+ * @package Seguridad
+ * @subpackage autenticacion
+ */
 class toba_autenticacion_cas extends toba_autenticacion implements toba_autenticable
 {
 	protected $url;
