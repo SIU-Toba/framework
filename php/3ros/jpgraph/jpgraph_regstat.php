@@ -1,4 +1,5 @@
 <?php
+
 namespace JpGraph;
 
 /*=======================================================================
@@ -84,7 +85,7 @@ class Spline {
 
         // Binary search to find interval
         while( $max-$min > 1 ) {
-            $k = ($max+$min) / 2;
+            $k = (int) floor(($max+$min) / 2);
             if( $this->xdata[$k] > $xpoint )
             $max=$k;
             else

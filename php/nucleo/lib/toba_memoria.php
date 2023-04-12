@@ -947,12 +947,16 @@ class toba_memoria
 	{
 		if ($this->existe_dato_operacion(apex_sesion_csrt)) {
                 $tokenID = $this->hilo_referencia ?? apex_sesion_csrt;
+                //Recupera token especifico y lo chequea
                 $manager = new CsrfTokenManager();
                 $val = $manager->isTokenValid(new CsrfToken($tokenID, $valor_form));
-                //toba_logger::instancia()->debug($manager->getToken($tokenID));
-
+                //toba_logger::instancia()->debug('ID TOken <'. $tokenID);
+                //toba_logger::instancia()->debug('Valor Form <: ' . $valor_form);
+                //
+                //Remueve token tanto de la lista valida, como de la session de la operacion (que se usa como flag) 
+                $this->eliminar_dato_operacion(apex_sesion_csrt);
                 $manager->removeToken($tokenID);
-                toba_logger::instancia()->debug('Tokens pendientes: '. count($_SESSION['_csrf']));
+                //toba_logger::instancia()->debug('Tokens pendientes: '. count($_SESSION['_csrf']));
                 return $val;
 		}         
 		return true;        

@@ -1,7 +1,7 @@
 <?php
+
 namespace JpGraph;
 
-use JpGraph\Graph;
 //=======================================================================
 // File:        JPGRAPH_ICONPLOT.PHP
 // Description: Extension module to add icons to plots

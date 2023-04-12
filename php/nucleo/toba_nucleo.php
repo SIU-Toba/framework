@@ -190,6 +190,10 @@ class toba_nucleo
 			echo toba::escaper()->escapeJs($e->getMessage()) . "\n\n";
 			toba::logger()->guardar();
 		} catch (Exception $e) {
+            $codigo = $e->getCode();
+            if (is_int($codigo) && $codigo !== 0) {
+                header('Error Inesperado', true, 500);
+            }
 			toba::logger()->crit($e, 'toba');
 			echo toba::escaper()->escapeJs($e->getMessage()) . "\n\n";
 			toba::logger()->guardar();
@@ -320,7 +324,7 @@ class toba_nucleo
 
 	protected function iniciar_contexto_ejecucion()
 	{
-		if (!ini_get('safe_mode') && strpos(ini_get('disable_functions'), 'set_time_limit') === FALSE) {
+		if (strpos(ini_get('disable_functions'), 'set_time_limit') === FALSE) {
 			set_time_limit(0);
 		}
 		$this->controlar_requisitos_basicos();
@@ -334,7 +338,7 @@ class toba_nucleo
 
 	protected function iniciar_contexto_consola()
 	{
-		if (!ini_get('safe_mode') && strpos(ini_get('disable_functions'), 'set_time_limit') === FALSE) {
+		if (strpos(ini_get('disable_functions'), 'set_time_limit') === FALSE) {
 			set_time_limit(0);
 		}
 		$this->controlar_requisitos_basicos();
@@ -353,7 +357,7 @@ class toba_nucleo
 
 	protected function iniciar_contexto_rest()
 	{
-		if (!ini_get('safe_mode') && strpos(ini_get('disable_functions'), 'set_time_limit') === FALSE) {
+		if (strpos(ini_get('disable_functions'), 'set_time_limit') === FALSE) {
 			set_time_limit(0);
 		}
 		$this->controlar_requisitos_basicos();

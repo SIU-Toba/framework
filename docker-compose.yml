@@ -10,7 +10,7 @@ services:
       POSTGRES_PASSWORD   : postgres
 
   web:
-    image: siudocker/php:7.4-web-v0.9.0
+    image: siudocker/php:8.1-web-v0.10.0
     ports:
     - "7008:80"
     environment:
@@ -18,7 +18,6 @@ services:
       DOCKER_WEB_PORT                   : 7008
       TOBA_PASS                         : toba
       TOBA_BASE_PASS                    : postgres
-      TOBA_DIR                          : /var/local/framework
       TOBA_INSTALACION_DIR              : /var/local/docker-data/framework-instalacion
       TOBA_BASE_HOST                    : pg
       TOBA_BASE_NOMBRE                  : toba_trunk

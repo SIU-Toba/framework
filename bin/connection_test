@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 
-$intentos = 20;
+$intentos = 30;
 echo "Chequeando conexion postgres...". PHP_EOL;
 if ($argc < 6) {
     echo " Chequea la conexion con la bd hasta $intentos intentos ". PHP_EOL;
@@ -27,12 +27,12 @@ $count = 0;
 $connFailed = true;
 while ($connFailed) {
     try {
-        $db = new PDO($dsn, $USR, $PWD);    
+        $db = new PDO($dsn, $USR, $PWD);
         $connFailed = false;
     } catch (PDOException $e) {
         $count++;
         $connFailed = ($count < $intentos);
-        sleep (2);        
+        sleep ($count);
         echo "Intentando nuevamente..". PHP_EOL;
         //echo $e->getMessage();
     }

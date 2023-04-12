@@ -63,7 +63,7 @@ class toba_logger
 	protected function __construct($proyecto = null)
 	{
 		$this->proyecto_actual = (isset($proyecto)) ? $proyecto : $this->get_proyecto_actual();
-		$this->modo_salida = toba_basic_logger::$MODO_FILE;
+		$this->modo_salida = static::$MODO_FILE;
 	}
 	
 	/**
@@ -165,14 +165,15 @@ class toba_logger
 	function obsoleto($clase, $metodo, $version, $extra=null, $proyecto=null) 
 	{
 		if (TOBA_LOG_NOTICE <= $this->nivel_maximo) {
-			$extra = "";
 			//Se saca el archivo que llamo el metodo obsoleto solo cuando hay modo debug
 			if (TOBA_LOG_DEBUG <= $this->nivel_maximo) {
 				$traza = debug_backtrace();
 				$archivo = $traza[2]['file'];
 				$linea = $traza[2]['line'];
 				$extra = "Archivo: $archivo, linea: $linea";
-			}
+			} else {
+                $extra = "";
+            }
 			if ($clase != '') {
 				$unidad = "Método '$clase::$metodo'";
 			} elseif ($metodo != '') {

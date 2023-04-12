@@ -1,7 +1,7 @@
 <?php
+
 namespace JpGraph;
 
-use JpGraph\Graph;
 /*=======================================================================
  // File:        JPGRAPH_MGRAPH.PHP
  // Description: Class to handle multiple graphs in the same image

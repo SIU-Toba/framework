@@ -6,11 +6,10 @@
  */
 interface toba_meta_clase
 {
-	function get_molde_subclase();
-	function get_clase_nombre();
-	function get_clase_archivo();
-	function get_punto_montaje();
-	function get_subclase_nombre();
-	function get_subclase_archivo();
+    public function get_molde_subclase();
+    public function get_clase_nombre();
+    public function get_clase_archivo();
+    public function get_punto_montaje();
+    public function get_subclase_nombre();
+    public function get_subclase_archivo();
 }
-?>

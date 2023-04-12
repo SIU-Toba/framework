@@ -123,6 +123,9 @@ class toba_ef_editable_captcha extends toba_ef_editable
 		$this->input_extra .= $this->get_estilo_visualizacion_pixeles();
 		$this->input_extra .= $this->get_info_placeholder();	
 		$this->estado  = false;
+        
+        //Fuerza la generacion de un codigo, de lo contrario no hay texto a comparar
+        $this->generar_texto_aleatorio();
 		$longitud = strlen($this->texto); //la longitud maxima de caracteres del ef
 		$tab = ' tabindex="'.$this->padre->get_tab_index().'"';		
 		$text_input  = toba_form::text($this->id_form, $this->estado, $this->es_solo_lectura(), $longitud, $this->tamano, $this->clase_css, $this->javascript.' '.$this->input_extra.$tab);

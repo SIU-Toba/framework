@@ -75,10 +75,8 @@ class toba_manejador_sesiones
 	static function enviar_csrf_hidden()
 	{        
 		$tm = toba::memoria();
-		if ($tm->existe_dato_operacion(apex_sesion_csrt)) {
-			$valor = $tm->get_dato_operacion(apex_sesion_csrt);
-			echo toba_form::hidden(apex_sesion_csrt, $valor);
-		}
+        $valor = (!$tm->existe_dato_operacion(apex_sesion_csrt)) ? $tm->fijar_csrf_token(): $tm->get_dato_operacion(apex_sesion_csrt);
+		echo toba_form::hidden(apex_sesion_csrt, $valor);
 	}
 
 	//------------------------------------------------------------------
@@ -899,6 +897,12 @@ class toba_manejador_sesiones
 		return $this->invocar_metodo_usuario('autenticar', array($id_usuario, $clave, $datos_iniciales) );
 	}
 
+    /**
+     * Invoca un metodo especifico de la clase de usuario
+     * @param string $metodo
+     * @param array $parametros Debe ser arreglo posicional SI O SI!!
+     * @return type
+     */
 	private function invocar_metodo_usuario($metodo, $parametros)
 	{
 		$subclase = toba::proyecto()->get_parametro('usuario_subclase');

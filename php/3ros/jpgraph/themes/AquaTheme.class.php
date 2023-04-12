@@ -1,12 +1,12 @@
 <?php
-namespace JpGraph\Themes;
+
+namespace JpGraph\themes;
 
 use JpGraph\Theme;
-
 /**
 * Aqua Theme class
 */
-class AquaTheme extends Theme
+class AquaTheme extends Theme 
 {
     protected $font_color       = '#0044CC';
     protected $background_color = '#DDFFFF';

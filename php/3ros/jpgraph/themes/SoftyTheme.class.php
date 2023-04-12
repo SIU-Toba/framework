@@ -1,7 +1,8 @@
 <?php
 
-namespace JpGraph\Themes;
+namespace JpGraph\themes;
 
+use JpGraph\Theme;
 /**
 * Softy Theme class
 */

@@ -199,12 +199,8 @@ class ci_ajax extends toba_ci
 	function ajax__album_flickr($tag, toba_ajax_respuesta $respuesta)
 	{
 		if (!extension_loaded('curl')) {
-		    $prefix = (PHP_SHLIB_SUFFIX === 'dll') ? 'php_' : '';
-		    @dl($prefix . 'curl.' . PHP_SHLIB_SUFFIX);
-			if (!extension_loaded('curl')) {
-		    	echo 'Se necesita instalar la extensión <strong>curl</strong> para acceder al API de Flickr';
-		    	return;
-			}
+            echo 'Se necesita instalar la extensión <strong>curl</strong> para acceder al API de Flickr';
+            return;
 		}
 		require_once('lib/flickr_api.php');
 		$secrets = array('api_key' => 'e5ec32dadfbc7f48fa476a1d62a5c251', 'api_secret' => '579da1ad011ef233');
