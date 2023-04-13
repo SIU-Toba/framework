@@ -47,20 +47,18 @@ class rest_arai_usuarios
         return $cliente;
     }
 
-    private function getVersionApi()
+    /**
+     * Devuelve la version major de api desde configuracion o un patron no numerico en caso de no presencia
+     * @return string
+     */
+    private function getVersionApi(): string
     {
-        try {
-            $response = $this->cliente->get('info');
-            $datos = rest_decode($response->getBody()->__toString());
-            return (! empty($datos)) ? $datos[0]['api_major'] : null;
-        } catch (RequestException $ex) {
-            $this->manejar_excepcion_request($ex);
-        } catch (Exception $ex) {
-            $msg = $ex->getMessage();
-            toba_logger::instancia()->error($msg);
-            throw new toba_error(toba::escaper()->escapeJs($msg));
-        }
+        $cliente = toba_servicio_web_cliente_rest::get_datos_conexion('rest_arai_usuarios');
+        $data = $cliente->get('conexion', 'version', '-x.0', false);
+        list($major, $minor) = explode('.', $data);
+        return $major;
     }
+
     //-----------------------------------------------------------------------------------
     //---- Auxiliares -------------------------------------------------------------------
     //-----------------------------------------------------------------------------------

@@ -53,8 +53,8 @@ class toba_servicio_web_cliente_rest extends toba_servicio_web_cliente
 	 */
 	function guzzle()
 	{
-		if (! isset($this->guzzle)) {
-			$options = array('base_uri' => $this->opciones['to']);
+		if (! isset($this->guzzle)) {           
+			$options = array('base_uri' => self::get_url_base($this->opciones));
 			if (isset($this->opciones['auth_tipo'])) {
 				if ($this->opciones['auth_tipo'] != 'ssl') {
 					$options['auth'] = array($this->opciones['auth_usuario'], 	$this->opciones['auth_password'], $this->opciones['auth_tipo']);
@@ -90,6 +90,7 @@ class toba_servicio_web_cliente_rest extends toba_servicio_web_cliente
 	
 	static function get_datos_conexion($id_servicio)
 	{
+        //Aca hay que obtener el nro de Version de la api y dejarlo disponible para que alguno lo use
 		$var_name = self::ENV_PREFIX  . strtoupper($id_servicio);
 		$env_value = \getenv($var_name);
 		if (false === $env_value) {
@@ -104,6 +105,9 @@ class toba_servicio_web_cliente_rest extends toba_servicio_web_cliente
 												'auth_password' => $conf[0][1], 
 												'to' => $conf[0][2], 
 												'auth_tipo' => 'basic'));
+            if (count($conf[9]) > 3) {
+                $datos['conexion']['version'] = $conf[0][3];
+            }
 		}
 		
 		//Devuelvo un ini para mantener contrato
@@ -111,4 +115,25 @@ class toba_servicio_web_cliente_rest extends toba_servicio_web_cliente
 		$ini->set_entradas($datos);
 		return $ini;
 	}
+    
+    /**
+     * Devuelve la URL base con el nro de version incluido si existe
+     * @param array $opciones
+     * @return string
+     */
+    static function get_url_base($opciones): string
+    {        
+        if (! isset($opciones['version'])) {
+            return $opciones['to'];
+        }
+        
+        $valor = '';
+        $separadas = \explode('.', $opciones['version']);
+        if (! empty($separadas)) {
+            $valor = '/v'. \current($separadas);
+        }
+        
+        return $opciones['to'] . $valor;
+    }
+    
 }
