@@ -87,8 +87,6 @@ class gestion_arai_usuarios
 
     public static function get_nombre_usuario_arai($identificador)
     {
-        toba_logger::instancia()->info("La puta que vale la pena estar vivo: " . $identificador);
-        //return 'panchito';
         return rest_arai_usuarios::instancia()->get_nombre_apellido_usuario($identificador);
     }
 

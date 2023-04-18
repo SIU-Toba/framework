@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "34970247b7aad8e0cb3bd4ed4709c533",
+    "content-hash": "846bbe7dd7f795a58de340040a980281",
     "packages": [
         {
             "name": "dapphp/securimage",
@@ -2459,21 +2459,21 @@
         },
         {
             "name": "siu-toba/jwt-util",
-            "version": "dev-feature/upgradeJWT",
+            "version": "v1.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SIU-Toba/jwt-util.git",
-                "reference": "7959b8b966540d099c2081248aa231971a8d7ec5"
+                "reference": "15f7387de95505551047bd1a5945db1ea2c337b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SIU-Toba/jwt-util/zipball/7959b8b966540d099c2081248aa231971a8d7ec5",
-                "reference": "7959b8b966540d099c2081248aa231971a8d7ec5",
+                "url": "https://api.github.com/repos/SIU-Toba/jwt-util/zipball/15f7387de95505551047bd1a5945db1ea2c337b0",
+                "reference": "15f7387de95505551047bd1a5945db1ea2c337b0",
                 "shasum": ""
             },
             "require": {
                 "firebase/php-jwt": "~6.4",
-                "php": ">=5.6.0"
+                "php": ">=7.1.0"
             },
             "require-dev": {
                 "phpunit/phpunit": "9.5.*"
@@ -2495,9 +2495,9 @@
             "homepage": "http://www.siu.edu.ar",
             "support": {
                 "issues": "https://github.com/SIU-Toba/jwt-util/issues",
-                "source": "https://github.com/SIU-Toba/jwt-util/tree/feature/upgradeJWT"
+                "source": "https://github.com/SIU-Toba/jwt-util/tree/v1.0.5"
             },
-            "time": "2023-02-27T21:20:17+00:00"
+            "time": "2023-04-17T20:28:44+00:00"
         },
         {
             "name": "siu-toba/numbers_words",
@@ -2565,22 +2565,22 @@
         },
         {
             "name": "siu-toba/rest",
-            "version": "dev-feature/upgradeJWT",
+            "version": "v3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SIU-Toba/rest.git",
-                "reference": "11de0ef3a2ae0a0e57129bae2ceb69078057b632"
+                "reference": "34d99b40de050a84285cd540f73f819facfc5117"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SIU-Toba/rest/zipball/11de0ef3a2ae0a0e57129bae2ceb69078057b632",
-                "reference": "11de0ef3a2ae0a0e57129bae2ceb69078057b632",
+                "url": "https://api.github.com/repos/SIU-Toba/rest/zipball/34d99b40de050a84285cd540f73f819facfc5117",
+                "reference": "34d99b40de050a84285cd540f73f819facfc5117",
                 "shasum": ""
             },
             "require": {
                 "doctrine/cache": "~1.4",
                 "php": ">=5.6.0",
-                "siu-toba/jwt-util": "dev-feature/upgradeJWT",
+                "siu-toba/jwt-util": "~1.0.0",
                 "siu-toba/ssl-cert-utils": "1.0"
             },
             "require-dev": {
@@ -2597,9 +2597,9 @@
             "homepage": "http://toba.siu.edu.ar",
             "support": {
                 "issues": "https://github.com/SIU-Toba/rest/issues",
-                "source": "https://github.com/SIU-Toba/rest/tree/feature/upgradeJWT"
+                "source": "https://github.com/SIU-Toba/rest/tree/v3.0.0"
             },
-            "time": "2023-03-03T15:16:46+00:00"
+            "time": "2022-12-29T21:26:41+00:00"
         },
         {
             "name": "siu-toba/services_json",
@@ -5220,7 +5220,6 @@
     "stability-flags": {
         "guiguiboy/php-cli-progress-bar": 20,
         "ioncube/php-openssl-cryptor": 20,
-        "siu-toba/rest": 20,
         "siu/manejador-salida-toba": 20,
         "siu/interfaces-manejador-salida-toba": 20,
         "greenlion/php-sql-parser": 20,
