@@ -111,7 +111,7 @@ class ci_servicios_consumidos extends toba_ci
 		}
 		
 		$rest = toba::servicio_web_rest($parametro['servicio_web']);
-		$response = $rest->guzzle()->get('status');				//Hay que crear este servicio para que todos puedan responder
+		$response = $rest->guzzle()->get('info');
 		$respuesta->set($response->json());
 	}
 	//-----------------------------------------------------------------------------------
