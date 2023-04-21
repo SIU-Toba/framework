@@ -553,12 +553,23 @@ class comando_instalacion extends comando_toba
 
 
 	protected function definir_alias_nucleo()
-	{
-		$this->consola->enter();
-		$this->consola->subtitulo('Definir el nombre del ALIAS del núcleo Toba');
-		$this->consola->mensaje('Este alias se utiliza para consumir todo el contenido navegable de Toba');
-		$this->consola->enter();
-		$resultado = $this->consola->dialogo_ingresar_texto( 'Nombre del Alias (por defecto "toba")', false );
+  {
+    # En otros parametros se verifica la linea de comando y si no hay nada se llama a esta funcion definir_*
+    # En alias--nucleo verificamos la linea de comando dentro de esta funcion definir para asegurarnos de
+    # agregar el "/" al principio
+    $param = $this->get_parametros();
+    if ( isset($param['--alias-nucleo']) ) {
+      # si lo indicamos en linea de comando con --alias-nucleo usamos ese
+      $resultado = $param['--alias-nucleo'];
+    } else {
+      # si no lo indicamos con --alias-nucleo lo pedimos por consola
+      $this->consola->enter();
+      $this->consola->subtitulo('Definir el nombre del ALIAS del núcleo Toba');
+      $this->consola->mensaje('Este alias se utiliza para consumir todo el contenido navegable de Toba');
+      $this->consola->enter();
+      $resultado = $this->consola->dialogo_ingresar_texto( 'Nombre del Alias (por defecto "toba")', false );
+    }
+
 		if ( $resultado == '' ) {
 			return '/toba';
 		} else {
