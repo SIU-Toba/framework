@@ -78,8 +78,8 @@ class admin_instancia
             }
             //-- Re-Compilamos los metadatos de perfiles
             if (toba::nucleo()->usar_perfiles_compilados($id_proyecto)) {
-				$instancia->get_proyecto($id_proyecto)->compilar_metadatos_generales_grupos_acceso(true);
-			}
+                $instancia->get_proyecto($id_proyecto)->compilar_metadatos_generales_grupos_acceso(true);
+            }
         }
     }
 

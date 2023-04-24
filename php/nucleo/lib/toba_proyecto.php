@@ -447,7 +447,7 @@ class toba_proyecto
         //Recupero los items y los formateo en un indice consultable
         if (!isset($this->indice_items_accesibles)) {
             $this->indice_items_accesibles = array();
-            if (toba::nucleo()->utilizar_metadatos_compilados($this->id, 'compilados' ) && toba::nucleo()->usar_perfiles_compilados($this->id)) {
+            if (toba::nucleo()->utilizar_metadatos_compilados($this->id, 'compilados') && toba::nucleo()->usar_perfiles_compilados($this->id)) {
                 ///-- Metadatos compilados
                 if (! empty($grupos_acceso)) {
                     //-- Busca los items accesibles por grupo
