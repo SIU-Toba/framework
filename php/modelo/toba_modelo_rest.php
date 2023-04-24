@@ -262,7 +262,7 @@ class toba_modelo_rest extends toba_modelo_elemento
 		return $proyecto->get_dir_pers().'/php' . self::CARPETA_REST;		
 	}
 		
-	function generar_configuracion_cliente($id_servicio, $cert_CA, $url, $cert_cli, $key_cli, $cert_pwd, $usr, $usr_pwd, $tipo_auth)
+	function generar_configuracion_cliente($id_servicio, $cert_CA, $url, $cert_cli, $key_cli, $cert_pwd, $usr, $usr_pwd, $tipo_auth, $api_version)
 	{		
 		//Intento crear la carpeta de destino de configuraciones por si no esta.
 		try {
@@ -313,6 +313,10 @@ class toba_modelo_rest extends toba_modelo_elemento
 			}			
 		}
 		
+        //Agrega version especifica de la api (si se indico)
+        if (! is_null($api_version) && trim($api_version) != '') {
+            $datos['version'] = $api_version;
+        }
 		$ini->set_datos_entrada('conexion', $datos);
 		$ini->guardar();
 	}

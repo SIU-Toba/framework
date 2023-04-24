@@ -131,6 +131,7 @@ class toba_servicio_web_cliente_rest extends toba_servicio_web_cliente
         $separadas = \explode('.', $opciones['version']);
         if (! empty($separadas)) {
             $valor = '/v'. \current($separadas);
+            $opciones['to'] = rtrim($opciones['to'], '/');
         }
         
         return $opciones['to'] . $valor;
