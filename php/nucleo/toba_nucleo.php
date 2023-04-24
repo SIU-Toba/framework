@@ -515,7 +515,7 @@ class toba_nucleo
 		$flag = toba::instancia()->get_directiva_compilacion_perfiles($proyecto);
 		if(!isset($flag) && $proyecto == toba_proyecto::get_id()) {
 			//Mecanismo obsoleto
-			return (defined('apex_pa_perfiles_compilados') && apex_pa_perfiles_compilados);
+			return (defined('apex_pa_perfiles_compilados') && apex_pa_perfiles_compilados == 1);
 		}else{
 			return $flag;
 		}		

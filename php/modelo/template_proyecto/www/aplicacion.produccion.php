@@ -6,8 +6,8 @@ define('apex_pa_proyecto', '__proyecto__');
 # Ejecuta con metadatos compilados
 define('apex_pa_metadatos_compilados', 1);
 
-# Deshabilita uso de permisos desde metadatos_compilados, util para entornos dockerizados
-#define('apex_pa_permisos_compilados', 0);
+# Habilita/deshabilita uso de permisos desde metadatos_compilados, util para entornos dockerizados (default: activo)
+define('apex_pa_permisos_compilados', 1);
 
 # Deshabilita el autologin
 define('apex_pa_validacion_debug', 0);
