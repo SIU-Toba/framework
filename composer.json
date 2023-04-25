@@ -27,7 +27,7 @@
         "siu-toba/rest": "~3.0",
         "siu-toba/services_json": "^1.0.3.3",
         "siu-toba/ssl-cert-utils": "~1.0",
-        "siu-toba/structures_graph": "^1.1.1.1",
+        "siu-toba/structures_graph": "dev-feature/updateLibs",
         "siu/arai-json-migrator": "~1.1",
         "symfony/yaml": "~5.4",
         "symfony/security-csrf": "^5.4",

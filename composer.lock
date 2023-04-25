@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "846bbe7dd7f795a58de340040a980281",
+    "content-hash": "cf15e6c60f1fbf676d7fece6c4d288c5",
     "packages": [
         {
             "name": "dapphp/securimage",
@@ -1495,6 +1495,57 @@
             "time": "2022-09-26T03:40:35+00:00"
         },
         {
+            "name": "pear/console_getopt",
+            "version": "v1.4.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pear/Console_Getopt.git",
+                "reference": "a41f8d3e668987609178c7c4a9fe48fecac53fa0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pear/Console_Getopt/zipball/a41f8d3e668987609178c7c4a9fe48fecac53fa0",
+                "reference": "a41f8d3e668987609178c7c4a9fe48fecac53fa0",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Console": "./"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "include-path": [
+                "./"
+            ],
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Andrei Zmievski",
+                    "email": "andrei@php.net",
+                    "role": "Lead"
+                },
+                {
+                    "name": "Stig Bakken",
+                    "email": "stig@php.net",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Greg Beaver",
+                    "email": "cellog@php.net",
+                    "role": "Helper"
+                }
+            ],
+            "description": "More info available on: http://pear.php.net/package/Console_Getopt",
+            "support": {
+                "issues": "http://pear.php.net/bugs/search.php?cmd=display&package_name[]=Console_Getopt",
+                "source": "https://github.com/pear/Console_Getopt"
+            },
+            "time": "2019-11-20T18:27:48+00:00"
+        },
+        {
             "name": "pear/math_biginteger",
             "version": "v1.0.3",
             "source": {
@@ -1546,6 +1597,54 @@
                 "source": "https://github.com/pear/Math_BigInteger"
             },
             "time": "2016-04-12T05:46:52+00:00"
+        },
+        {
+            "name": "pear/pear-core-minimal",
+            "version": "v1.10.13",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pear/pear-core-minimal.git",
+                "reference": "aed862e95fd286c53cc546734868dc38ff4b5b1d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pear/pear-core-minimal/zipball/aed862e95fd286c53cc546734868dc38ff4b5b1d",
+                "reference": "aed862e95fd286c53cc546734868dc38ff4b5b1d",
+                "shasum": ""
+            },
+            "require": {
+                "pear/console_getopt": "~1.4",
+                "pear/pear_exception": "~1.0"
+            },
+            "replace": {
+                "rsky/pear-core-min": "self.version"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "include-path": [
+                "src/"
+            ],
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Christian Weiske",
+                    "email": "cweiske@php.net",
+                    "role": "Lead"
+                }
+            ],
+            "description": "Minimal set of PEAR core files to be used as composer dependency",
+            "support": {
+                "issues": "http://pear.php.net/bugs/search.php?cmd=display&package_name[]=PEAR",
+                "source": "https://github.com/pear/pear-core-minimal"
+            },
+            "time": "2023-04-19T19:15:47+00:00"
         },
         {
             "name": "pear/pear_exception",
@@ -2680,11 +2779,18 @@
         },
         {
             "name": "siu-toba/structures_graph",
-            "version": "v1.1.1.1",
+            "version": "dev-feature/updateLibs",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SIU-Toba/Structures_Graph.git",
-                "reference": "3e18b7c2f418f9d78ebe357134b49b11c157fb7f"
+                "reference": "8906f52d93f631fde08b58c1a8b602a9341cdc75"
+            },
+            "require": {
+                "pear/pear-core-minimal": "~1.10",
+                "php": ">=8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~9.6"
             },
             "type": "library",
             "autoload": {
@@ -2696,7 +2802,7 @@
                 "./"
             ],
             "license": [
-                "PHP License"
+                "LGPL-3.0-or-later"
             ],
             "authors": [
                 {
@@ -2706,10 +2812,11 @@
                 }
             ],
             "description": "More info available on: http://pear.php.net/package/Structures_Graph",
+            "homepage": "http://pear.php.net/package/Structures_Graph",
             "support": {
                 "source": "https://github.com/pear/Structures_Graph"
             },
-            "time": "2017-01-05T17:19:07+00:00"
+            "time": "2023-04-25T20:51:09+00:00"
         },
         {
             "name": "siu/arai-json-migrator",
@@ -5217,6 +5324,7 @@
     "stability-flags": {
         "guiguiboy/php-cli-progress-bar": 20,
         "ioncube/php-openssl-cryptor": 20,
+        "siu-toba/structures_graph": 20,
         "siu/manejador-salida-toba": 20,
         "siu/interfaces-manejador-salida-toba": 20,
         "greenlion/php-sql-parser": 20,
