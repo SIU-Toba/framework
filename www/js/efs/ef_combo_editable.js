@@ -63,10 +63,12 @@ function ef_combo_editable(id_form, etiqueta, obligatorio, colapsado, tamano, mo
 		
 		//Recorro las opciones del combo por si viene cargado desde el servidor, asi no elimino opciones validas
 		var valor_actual;
+        var aux_valor;
 		this._ultimas_opciones_server[this._id_form] = [];							//Inicializo la coleccion para el ML
 		
 		for (var i=0; i < combo_original.options.length; i++) {
-			valor_actual = combo_original.options[i].value;
+            aux_valor = combo_original.options[i].value;
+			valor_actual = (typeof  aux_valor == 'string') ? trim(aux_valor): aux_valor;    //Se trimea para que la comparacion contra get_estado() luego sea homogenea
 			if (isset(valor_actual) && valor_actual != 'nopar') {
 				this._ultimas_opciones_server[this._id_form].push(valor_actual);
 			}
@@ -299,7 +301,7 @@ function ef_combo_editable(id_form, etiqueta, obligatorio, colapsado, tamano, mo
 		var datos = [];
 		this._ultimas_opciones_server[this._id_form] = [];
 		for (var i = 0; i < valores.length; i++) {
-			var clave = valores[i][0];
+			var clave = (typeof  valores[i][0] == 'string') ? trim(valores[i][0]): valores[i][0];
 			var valor = (typeof  valores[i][1] == 'string') ? valores[i][1].decodeEntities(): valores[i][1];
 			if (clave != 'nopar') {
 				datos.push([clave, valor]);

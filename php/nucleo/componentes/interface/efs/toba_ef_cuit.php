@@ -11,7 +11,9 @@ class toba_ef_cuit extends toba_ef
 	static protected $_excepciones;	
 	protected $clase_css = 'ef-cuit';
 	protected $_desactivar_validacion = false;
-
+    
+    static protected $_prefijos_validos = [20, 23, 24, 27, 30, 33, 34];
+    
 	static function get_lista_parametros_carga()
 	{
 		return array();
@@ -61,7 +63,7 @@ class toba_ef_cuit extends toba_ef
 	{
 		if (isset($this->estado)) {
 			return ($this->estado != "");
-		} else{
+		} else {
 			return false;
 		}
 	}
@@ -130,7 +132,8 @@ class toba_ef_cuit extends toba_ef
 	function crear_objeto_js()
 	{
 		$desactivar_validacion = $this->_desactivar_validacion ? '1' : '0';
-		return "new ef_cuit({$this->parametros_js()}, $desactivar_validacion)";
+        $prefijos = toba_js::arreglo(self::$_prefijos_validos, false, false);
+		return "new ef_cuit({$this->parametros_js()}, $desactivar_validacion, $prefijos)";
 	}
 		
 	function get_consumo_javascript()
@@ -151,6 +154,13 @@ class toba_ef_cuit extends toba_ef
 				return true;
 			}
 		}
+        
+        $prefijo = intval(substr($cuit_rearmado, 0, 2)); //verifica prefijo de CUIT/CUIL
+        if (!in_array($prefijo, self::$_prefijos_validos, true)) {
+            toba::logger()->debug('Se encontro un prefijo no valido en el EF: ' . $prefijo);
+            return false;
+        }
+        
 		$coeficiente = array(5, 4, 3, 2, 7, 6, 5, 4, 3, 2);
 		$resultado=1;
 		if (strlen($cuit_rearmado) != 11) {  // si to estan todos los digitos
