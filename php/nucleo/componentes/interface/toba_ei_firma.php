@@ -187,7 +187,7 @@ class toba_ei_firma extends toba_ei
 	 
 	 /**
 	 * Servicio que se ejecuta cuando el applet busca/envia el PDF
-	 * @param <type> $parametros
+	 * @param mixed $parametros
 	 * @ignore
 	 */
 	function servicio__ejecutar($parametros = null)

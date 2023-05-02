@@ -497,7 +497,7 @@ class toba_instancia
 
 	/**
 	*	Retorna los perfiles funcionales que tiene asociado un usuario a un proyecto
-	*	@return $value	Retorna un array de grupos de acceso
+	*	@return array Retorna un array de grupos de acceso
 	*/
 	function get_perfiles_funcionales($usuario, $proyecto)
 	{

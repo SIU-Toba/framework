@@ -227,7 +227,8 @@ class toba_datos_tabla extends toba_componente
 	
 	/**
 	 * Retorna las relaciones con las tablas padre
-	 * @return array de {@link toba_relacion_entre_tablas toba_relacion_entre_tablas}
+     * @link toba_relacion_entre_tablas toba_relacion_entre_tablas
+	 * @return array
 	 * @ignore 
 	 */
 	function get_relaciones_con_padres()
@@ -237,7 +238,8 @@ class toba_datos_tabla extends toba_componente
 
 	/**
 	 * Retorna la relación con una tabla padre
-	 * @return {@link toba_relacion_entre_tablas toba_relacion_entre_tablas}
+     * @link toba_relacion_entre_tablas toba_relacion_entre_tablas
+	 * @return toba_relacion_entre_tablas
 	 * @ignore 
 	 */	
 	function get_relacion_con_padre($id_tabla_padre)
@@ -294,7 +296,8 @@ class toba_datos_tabla extends toba_componente
 
 
 	/**
-	 * Retorna la {@link toba_datos_relacion relacion} que contiene a esta tabla, si existe
+	 * Retorna la relacion que contiene a esta tabla, si existe
+     * @link toba_datos_relacion relacion
 	 * @return toba_datos_relacion
 	 */
 	function get_relacion()
@@ -1665,7 +1668,8 @@ class toba_datos_tabla extends toba_componente
 	}
 	
 	/**
-	 * Retorna el nombre de la {@link toba_fuente_datos fuente de datos} utilizado por este componente
+	 * Retorna el nombre de la fuente de datos utilizado por este componente
+     * @link toba_fuente_datos fuente de datos
 	 * @return string
 	 */
 	function get_fuente()

@@ -13,7 +13,7 @@ class toba_usuario_basico extends toba_usuario
 
 	/**
 	*	Realiza la autentificacion.
-	*	@return $value	Retorna TRUE o FALSE de acuerdo al estado de la autentifiacion
+	*	@return boolean $value	Retorna TRUE o FALSE de acuerdo al estado de la autentifiacion
 	*/
 	static function autenticar($id_usuario, $clave, $datos_iniciales=null, $usar_log=true)
 	{
@@ -189,7 +189,7 @@ class toba_usuario_basico extends toba_usuario
 	/*
 	*	Devuelve el valor contenido en el parametro de usuario especificado.
 	*	@param 	$parametro	char	Identificador del parametro de usuario, las opciones validas son 'A','B' o 'C'
-	*	@return $value	Retorna el valor del parametro o null si es que no se encuentra seteado.
+	*	@return mixed $value	Retorna el valor del parametro o null si es que no se encuentra seteado.
 	*/
 	function get_parametro($parametro)
 	{

@@ -101,8 +101,8 @@ class toba_pers_xml_generador_componentes extends toba_pers_xml_generador
 	}
 
 	/**
-	 * @param <type> $componente
-	 * @param <type> $path
+	 * @param mixed $componente
+	 * @param string $path
 	 */
 	private function generar_componente_borrada(&$componente, $path)
 	{
@@ -138,8 +138,8 @@ class toba_pers_xml_generador_componentes extends toba_pers_xml_generador
 	}
 	
 	/**
-	 * @param <type> $componente
-	 * @param <type> $path
+	 * @param mixed $componente
+	 * @param string $path
 	 */
 	private function generar_componente_modificada(&$componente, $path)
 	{

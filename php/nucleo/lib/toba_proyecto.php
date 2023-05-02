@@ -660,7 +660,7 @@ class toba_proyecto
 	/**
 	 * Instancia el objeto correspondiente de acuerdo a la informacion recibida
 	 * ademas asigna los valores de las propiedades existentes
-	 * @param <type> $info
+	 * @param mixed $info
 	 * @ignore
 	 */
 	private function get_objeto_gadget($info)

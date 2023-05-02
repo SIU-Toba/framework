@@ -39,7 +39,7 @@ class toba_autenticacion_ldap extends toba_autenticacion implements toba_autenti
 	
 	/**
 	*	Realiza la autentificacion utilizando un servidor LDAP
-	*	@return $value	Retorna TRUE o FALSE de acuerdo al estado de la autentifiacion
+	*	@return boolean Retorna TRUE o FALSE de acuerdo al estado de la autentifiacion
 	*/
 	function autenticar($id_usuario, $clave, $datos_iniciales=null)
 	{	

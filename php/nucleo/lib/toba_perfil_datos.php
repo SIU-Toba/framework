@@ -117,7 +117,7 @@ class toba_perfil_datos
 
 	/**
 	*	retorna el perfil de datos del usuario
-	*	@return $value string. Si el usuario no posee un perfil devuelve NULL
+	*	@return string $value. Si el usuario no posee un perfil devuelve NULL
 	*/
 	function get_id()
 	{
@@ -128,7 +128,7 @@ class toba_perfil_datos
 
 	/**
 	*	retorna un arreglo con los perfiles de datos del usuario
-	*	@return $value array. Si el usuario no posee un perfil devuelve NULL
+	*	@return array $value. Si el usuario no posee un perfil devuelve NULL
 	*/
 	function get_ids()
 	{
@@ -137,7 +137,7 @@ class toba_perfil_datos
 	
 	/**
 	*	Indica si el perfil de datos del usuario posee restricciones
-	*	@return $value	boolean
+	*	@return boolean $value
 	*/
 	function posee_restricciones($fuente)
 	{
@@ -150,7 +150,7 @@ class toba_perfil_datos
 
 	/**
 	*	Retorna un array con las restricciones aplicadas sobre las dimensiones
-	*	@return $value	Retorna un array de dimensiones con un subarray de restricciones
+	*	@return array $value	Retorna un array de dimensiones con un subarray de restricciones
 	*/
 	function get_restricciones( $fuente )
 	{
@@ -164,7 +164,7 @@ class toba_perfil_datos
 	 * 
 	 * @param varchar $dimension nombre de la dimension a consultar.
 	 * @param unknown_type $fuente_datos fuente de datos donde deberia estar la dimension.
-	 * @return $value boolean
+	 * @return boolean $value
 	 */
 	function posee_dimension($dimension, $fuente_datos=null) 
 	{
@@ -238,7 +238,7 @@ class toba_perfil_datos
 	
 	/**
 	*	Retorna un array con las dimensiones sobre las que se establecieron restricciones
-	*	@return $value	Retorna un array de dimensiones
+	*	@return array $value	Retorna un array de dimensiones
 	*/
 	function get_lista_dimensiones_restringidas($fuente)
 	{

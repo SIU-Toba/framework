@@ -544,7 +544,7 @@ class toba_solicitud_web extends toba_solicitud
 
 	/**
 	 *@private
-	 * @return <type>
+	 * @return boolean
 	 */
 	function es_item_login()
 	{

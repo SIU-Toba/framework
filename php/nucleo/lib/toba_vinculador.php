@@ -353,14 +353,13 @@ class toba_vinculador
 	//------------------------------ SALIDA  ----------------------------------------------
 	//-------------------------------------------------------------------------------------
 
-	/**
-		@@acceso: interno
-		@@desc: Genera un VINCULO
-		@@param: string | URL
-		@@param: array | Parametros para la construccion del HTML. Las claves asociativas son: frame, clase_css, texto, tipo [normal,popup], inicializacion, imagen_recurso_origen, imagen
-		@@param: string | Nombre de la ventana hija cuando el vinculo se abre en popup
-		@@retorno: string | HTML del vinculo generado
-	*/
+    /**
+     * Genera un VINCULO
+     * @param string $url
+     * @param array Parametros para la construccion del HTML. Las claves asociativas son: frame, clase_css, texto, tipo [normal,popup], inicializacion, imagen_recurso_origen, imagen
+     * @param string Nombre de la ventana hija cuando el vinculo se abre en popup
+     * @return string HTML del vinculo generado
+     */
 	protected function generar_html($url, $parametros, $nombre_ventana=null)
 	{
 		if(!isset($parametros['tipo'])) $parametros['tipo'] = 'normal';

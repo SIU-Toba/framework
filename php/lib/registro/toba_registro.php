@@ -10,16 +10,13 @@ abstract class toba_registro {
 	const registro_delete = 'registro_delete';
 
 	protected $tipo;
+	
+	protected $tabla; // La tabla a la que pertenece el registro
+	
+	protected $columnas = array(); // Las columnas del registro
 
-	// La tabla a la que pertenece el registro
-	protected $tabla;
-
-	// Las columnas del registro
-	protected $columnas = array();
-
-	protected $conversion_auto_latin1 = true;
+	protected $conversion_auto_latin1 = true;    
 	/**
-	 * La bd donde se tiene que guardar el registro
 	 * @var toba_db_postgres7
 	 */
 	protected $db;
@@ -37,9 +34,10 @@ abstract class toba_registro {
 	 * Si es verdadero todos los strings que se pasen como parametro $valor a
 	 * add_columna van a ser convertidos automáticamente a latin1 si están en
 	 * utf8
-	 * @param <type> $param
+     * 
+	 * @param boolean $param
 	 */
-	function set_conversion_auto_latin1($param)
+	function set_conversion_auto_latin1(Boolean $param)
 	{
 		$this->conversion_auto_latin1 = $param;
 	}

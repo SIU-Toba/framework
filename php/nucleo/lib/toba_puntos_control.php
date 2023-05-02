@@ -56,7 +56,7 @@ class toba_puntos_control
 	// ------------------------------------------------------------------------------------
 
 	/**
-	 * @ignore.
+	 * @ignore
 	 * @return toba_puntos_control
 	 */
 	static function instancia()
@@ -72,7 +72,7 @@ class toba_puntos_control
 	// ------------------------------------------------------------------------------------
 
 	/**
-	 * @ignore. Retorna el bloque de memoria de trabajo de los puntos de control
+	 * @ignore Retorna el bloque de memoria de trabajo de los puntos de control
 	 */
 	private function &get_bloque()
 	{
@@ -80,7 +80,7 @@ class toba_puntos_control
 	}
 
 	/**
-	 * @ignore. Establece el valor de un parametro de un punto de control en particular.
+	 * @ignore Establece el valor de un parametro de un punto de control en particular.
 	 */
 	private function set_valor($punto_control, $parametro, $valor)
 	{
@@ -99,7 +99,7 @@ class toba_puntos_control
 	}
 
 	/**
-	 * @ignore. Crea un punto de control.
+	 * @ignore Crea un punto de control.
 	 */
 	private function crear_punto_control($punto_control, &$valores_item)
 	{
@@ -152,7 +152,7 @@ class toba_puntos_control
 	}
 
 	/**
-	 * @ignore. Retorna los controles de un punto de control.
+	 * @ignore Retorna los controles de un punto de control.
 	 */
 	private function &get_controles($punto_control)
 	{
@@ -165,7 +165,7 @@ class toba_puntos_control
 	}
 
 	/**
-	 * @ignore. Ejecuta un control de un punto de control.
+	 * @ignore Ejecuta un control de un punto de control.
 	 */
 	private function ejecutar_control($componente, $punto_control, $control)
 	{
@@ -184,7 +184,7 @@ class toba_puntos_control
 	}
 
 	/**
-	* @ignore. Almacena el resultado de la ejecucion del control.
+	* @ignore Almacena el resultado de la ejecucion del control.
 	*/
 	private function set_resultado_control($punto_control, $control)
 	{
@@ -202,7 +202,7 @@ class toba_puntos_control
 	}
 
 	/**
-	* @ignore. Actualiza el resultado de la ejecucion del punto de control.
+	* @ignore Actualiza el resultado de la ejecucion del punto de control.
 	*/
 	private function set_resultado($control)
 	{
