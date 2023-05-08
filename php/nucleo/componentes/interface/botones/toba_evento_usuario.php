@@ -152,7 +152,7 @@ class toba_evento_usuario extends toba_boton
 	
 	function posee_grupo_asociado()
 	{
-		return trim($this->datos['grupo'])!='';
+		return (null !== $this->datos['grupo'] && trim($this->datos['grupo'])!='');
 	}
 	
 	function pertenece_a_grupo($grupo)

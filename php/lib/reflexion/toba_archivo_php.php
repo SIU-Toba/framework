@@ -361,7 +361,7 @@ class toba_archivo_php
 	 */	
 	static function codigo_tiene_clase($codigo, $nombre)
 	{
-		return preg_match("/class\s+$nombre/", $codigo);
+		return preg_match("/class\s+$nombre/", $codigo??'');
 	}
 
 	/**

@@ -10,9 +10,9 @@ services:
       POSTGRES_PASSWORD   : postgres
 
   web:
-    image: siudocker/php:8.1-web-v0.10.0
+    image: siudocker/php:8.1-web-v1.0.1
     ports:
-    - "7008:80"
+    - "7008:8080"
     environment:
       DOCKER_NAME                       : web-toba
       DOCKER_WEB_PORT                   : 7008
@@ -27,5 +27,7 @@ services:
     links:
     - pg
     volumes:
+    - ./ini_file:/etc/php81/conf.d/90-custom.ini
     - .:/var/local/framework
     - ./instalacion:/var/local/docker-data/framework-instalacion
+

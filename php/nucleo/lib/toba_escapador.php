@@ -17,6 +17,9 @@ class toba_escapador extends Escaper
 		
 	function escapeHtml($input)
 	{		
+        if (is_null($input)) {
+            return '';
+        }
 		if (isset($this->_es_editor) && ($this->_es_editor === true)) {
 			return htmlentities($input, ENT_QUOTES , apex_default_charset);
 		}  

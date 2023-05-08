@@ -173,7 +173,7 @@ class toba_ei_formulario extends toba_ei
 														$this->_nombre_formulario,
 														$this->_info_formulario_ef[$indx]['identificador'],
 														$this->_info_formulario_ef[$indx]['etiqueta'],
-														addslashes($this->_info_formulario_ef[$indx]['descripcion']),
+														addslashes($this->_info_formulario_ef[$indx]['descripcion']??''),
 														$clave_dato,
 														array($this->_info_formulario_ef[$indx]['obligatorio'], 
 															$this->_info_formulario_ef[$indx]['oculto_relaja_obligatorio']),

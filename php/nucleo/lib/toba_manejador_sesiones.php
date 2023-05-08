@@ -907,7 +907,7 @@ class toba_manejador_sesiones
 	private function invocar_metodo_usuario($metodo, $parametros)
 	{
 		$subclase = toba::proyecto()->get_parametro('usuario_subclase');
-		if (trim($subclase)  == '') {
+		if (is_null($subclase) || trim($subclase)  == '') {
 			$subclase = 'toba_usuario_basico';
 		} else {
 			$this->cargar_clase_usuario();
@@ -919,7 +919,7 @@ class toba_manejador_sesiones
 	private function get_sesion_proyecto()
 	{
 		$subclase = toba::proyecto()->get_parametro('sesion_subclase');
-		if (trim($subclase)  == '') {
+		if (is_null($subclase) || trim($subclase)  == '') {
 			$subclase = 'toba_sesion';
 		} else {
 			$this->cargar_clase_sesion();
