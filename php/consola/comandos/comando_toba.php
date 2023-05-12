@@ -364,7 +364,7 @@ class comando_toba extends comando
 		$result = $this->recuperar_dato_y_validez($param, $nombre_parametro);
 
 		if ($result['invalido']) {
-			toba::logger()->error("Se selecciono toba como nombre del usuario administrador, ya que uno váido no fue provisto");
+			toba::logger()->error("Se selecciono toba como nombre del usuario administrador, ya que uno válido no fue provisto");
 			return 'toba';
 		}
 		return $result['resultado'];
