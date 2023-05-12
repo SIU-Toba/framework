@@ -284,7 +284,7 @@ class comando_toba extends comando
 			if ($seleccion_multiple) {
 				foreach ($sel as $path) {
 					if (isset($seleccion[$proyectos[$path]])) {
-						throw new toba_error('ERROR: Una instancia no soporta contener el mismo proyecto mï¿½s de una vez');
+						throw new toba_error('ERROR: Una instancia no soporta contener el mismo proyecto más de una vez');
 					}
 					$seleccion[$proyectos[$path]] = $path;
 				}
@@ -352,7 +352,7 @@ class comando_toba extends comando
 		} while($es_invalido && next($nombre_parametro) !== false);
 
 		if ($es_invalido) {
-			$this->consola->mensaje('Se procede con un password no vï¿½lido bajo su responsabilidad' , true);
+			$this->consola->mensaje('Se procede con un password no válido bajo su responsabilidad' , true);
 			toba::logger()->error('Se procede con el password seleccionado a pesar que no cumple con las condiciones, su responsabilidad!');
 		}
 		return (isset($pwd)) ? $pwd: null;
@@ -364,7 +364,7 @@ class comando_toba extends comando
 		$result = $this->recuperar_dato_y_validez($param, $nombre_parametro);
 
 		if ($result['invalido']) {
-			toba::logger()->error("Se selecciono toba como nombre del usuario administrador, ya que uno vï¿½lido no fue provisto");
+			toba::logger()->error("Se selecciono toba como nombre del usuario administrador, ya que uno váido no fue provisto");
 			return 'toba';
 		}
 		return $result['resultado'];
