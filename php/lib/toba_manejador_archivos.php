@@ -19,8 +19,8 @@ class toba_manejador_archivos
 		if (self::es_windows()) {
 			$path = self::path_a_windows($path, false);
 		}
-		if (!file_exists($path)) {
-			if (!mkdir($path, $modo, true)) {
+		if (!file_exists($path)) {            
+			if (!is_writable(dirname($path)) || !mkdir($path, $modo, true)) {
 				toba_logger::instancia()->error("No es posible crear el directorio $path, verifique que el usuario de Apache posea privilegios de escritura sobre este directorio");
 				throw new toba_error('No es posible crear el directorio solicitado, verifique que el usuario de Apache posea privilegios de escritura sobre este directorio');
 			}

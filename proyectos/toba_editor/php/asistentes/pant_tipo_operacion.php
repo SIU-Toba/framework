@@ -7,7 +7,9 @@ class pant_tipo_operacion extends toba_ei_pantalla
 		$tipos_rs = toba_info_editores::get_lista_tipo_molde();
 		$tipos = array();
 		foreach ($tipos_rs as $tipo) {
-			$tipos[$tipo['operacion_tipo']] = array('descripcion' => $tipo['descripcion'], 'vista_previa' => toba_recurso::imagen_proyecto($tipo['vista_previa'], false));
+            if (isset($tipo['vista_previa'])) {
+                $tipos[$tipo['operacion_tipo']] = array('descripcion' => $tipo['descripcion'], 'vista_previa' => toba_recurso::imagen_proyecto($tipo['vista_previa'], false));
+            }
 		}
 		echo toba_js::abrir();
 		echo 'var tipos_operacion = '.toba_js::arreglo($tipos, true, true)."\n";

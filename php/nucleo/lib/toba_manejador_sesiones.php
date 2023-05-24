@@ -877,7 +877,7 @@ class toba_manejador_sesiones
 	{
 		$archivo = toba::proyecto()->get_parametro('usuario_subclase_archivo');
 		$subclase = toba::proyecto()->get_parametro('usuario_subclase');
-		if (trim($archivo) != '' && trim($subclase) != '') {
+		if (null !== $archivo && null !== $subclase && trim($archivo) != '' && trim($subclase) != '') {
 			$pm = toba::proyecto()->get_parametro('pm_usuario');
 			toba_cargador::cargar_clase_archivo($pm, $archivo, toba::proyecto()->get_id());
 		}
@@ -886,10 +886,10 @@ class toba_manejador_sesiones
 	private function get_usuario_proyecto($id_usuario)
 	{
 		$subclase = toba::proyecto()->get_parametro('usuario_subclase');
-		if (trim($subclase) == '') {
-			$subclase = 'toba_usuario_basico';
+		if (null !== $subclase && trim($subclase) != '') {
+            $this->cargar_clase_usuario();			
 		} else {
-			$this->cargar_clase_usuario();
+			$subclase = 'toba_usuario_basico';
 		}
 		return new $subclase($id_usuario);
 	}

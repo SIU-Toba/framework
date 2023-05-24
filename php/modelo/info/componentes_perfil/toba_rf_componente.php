@@ -64,7 +64,7 @@ class toba_rf_componente extends toba_rf
 			$evt = array();			
 			$grupo = new toba_rf_grupo_eventos('<b>EVENTOS</b>', $this);
 			foreach($eventos as $evento) {
-				$evento['etiqueta'] = str_replace('&','', $evento['etiqueta']);
+				$evento['etiqueta'] = str_replace('&','', $evento['etiqueta'] ?? '');
 				$nombre = (trim($evento['etiqueta']) != '') ? $evento['etiqueta'] : '[' . $evento['identificador'] . ']';
 				$evt[] = new toba_rf_subcomponente_evento($nombre, $grupo, $evento['evento_id'], $evento['proyecto'], $this->item, $this->restriccion, $evento['no_visible']);
 			}

@@ -306,15 +306,15 @@ class toba_js
 					$id_js = $escapador->escapeJs($id);
 					if (is_array($valor)) {
 						//RECURSIVIDAD
-						$js .= "'$id_js': ".self::arreglo($valor, $seg_nivel_assoc)." ,";
+						$js .= "'$id_js': ".self::arreglo($valor, $seg_nivel_assoc).' ,';
 					} elseif (is_bool($valor)) {
 						$js .= "'$id_js': ". self::bool($valor) . ' ,';
-					} else {
+					} elseif (! is_null($valor)) {
 						$valor = addslashes($valor);
-						$js .= "'$id_js': '". $escapador->escapeJs($valor)."', ";
+						$js .= " '$id_js': '". $escapador->escapeJs($valor)."' ,";
 					}
 				}
-				$js = substr($js, 0, -2);
+                $js = (substr($js, 0, -2) == ' ,')? rtrim($js, ',') : $js;
 				$js .= "}";
 			} else {
 				$js = 'new Object()';

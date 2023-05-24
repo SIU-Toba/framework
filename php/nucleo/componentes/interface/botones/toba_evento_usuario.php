@@ -287,7 +287,7 @@ class toba_evento_usuario extends toba_boton
 		if (isset($this->datos['ayuda'])) {
 			$tip = $this->datos['ayuda'];
 		}
-		$acceso = tecla_acceso( $this->datos['etiqueta'] );		
+		$acceso = tecla_acceso( $this->datos['etiqueta'] ?? '' );		
 		$image_resource = isset($this->datos['imagen_recurso_origen']) ? $this->datos['imagen_recurso_origen'] : null;
 		$image_file = isset($this->datos['imagen']) ? $this->datos['imagen'] : null;
 		$style = isset($this->datos['estilo']) ? $this->datos['estilo']: null;

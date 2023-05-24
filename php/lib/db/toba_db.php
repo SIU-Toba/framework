@@ -337,7 +337,9 @@ class toba_db
 	 */
 	function quote($dato)
 	{
-		if (! is_array($dato)) {
+        if (is_null($dato)) {
+            return 'NULL';
+        } elseif (! is_array($dato)) {
 			return $this->conexion->quote($dato);
 		} else {
 			$salida = array();
