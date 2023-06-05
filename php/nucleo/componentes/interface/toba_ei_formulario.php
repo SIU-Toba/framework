@@ -785,7 +785,7 @@ class toba_ei_formulario extends toba_ei
 			toba_logger::instancia()->error($this->get_txt()." No existe ef '$id_ef'");
 			throw new toba_error_seguridad(' No existe el ef indicado');
 		}
-		$fila_actual = trim(toba::memoria()->get_parametro('cascadas-fila'));
+		$fila_actual = trim(toba::memoria()->get_parametro('cascadas-fila')??'');
 		$maestros = array();
 		$cascadas_maestros = $this->_carga_opciones_ef->get_cascadas_maestros();
 		$ids_maestros = (!isset($cascadas_maestros[$id_ef]) || !is_array($cascadas_maestros[$id_ef])) ? [] : $cascadas_maestros[$id_ef];
@@ -883,7 +883,7 @@ class toba_ei_formulario extends toba_ei
 		}
 
 		$filtro = trim(toba::memoria()->get_parametro('filtrado-ce-valor'));
-		$fila_actual = trim(toba::memoria()->get_parametro('filtrado-ce-fila'));
+		$fila_actual = trim(toba::memoria()->get_parametro('filtrado-ce-fila')??'');
 		$maestros = array($id_ef => $filtro);		
 		$cascadas_maestros = $this->_carga_opciones_ef->get_cascadas_maestros();
 		$ids_maestros = (!isset($cascadas_maestros[$id_ef]) || !is_array($cascadas_maestros[$id_ef])) ? [] : $cascadas_maestros[$id_ef];

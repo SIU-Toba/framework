@@ -294,7 +294,9 @@ class toba_logger
 			$this->instanciar_handler($archivo);
 		}
 		
-		fwrite($this->stream_handler, $texto);
+        if (false !== $this->stream_handler) {
+            fwrite($this->stream_handler, $texto);
+        }
 	}
 	
 	/**

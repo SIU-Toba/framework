@@ -867,7 +867,7 @@ class toba_manejador_sesiones
 	{
 		$subclase = toba::proyecto()->get_parametro('sesion_subclase');
 		$archivo = toba::proyecto()->get_parametro('sesion_subclase_archivo');
-		if (trim($archivo) != '' && trim($subclase) != '') {
+		if (null !== $archivo && null !== $subclase && trim($archivo) != '' && trim($subclase) != '') {
 			$pm = toba::proyecto()->get_parametro('pm_sesion');
 			toba_cargador::cargar_clase_archivo($pm, $archivo, toba::proyecto()->get_id());
 		}
