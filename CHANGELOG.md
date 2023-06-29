@@ -4,6 +4,16 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.3.26](https://github.com/SIU-Toba/framework/releases/tag/v3.3.26) (2023-06-30)
+- Cierra explicitamente la conexión JDBC en `toba_vistar_jasperreports` para prevenir proceso zombie
+- Corrige uso del parametro `alias-nucleo` en el comando `instalar`
+- Corrige lectura contenido de archivo al instalar usando la configuración por archivo yaml (credits tomasdelvechio)
+- Corrige validacion de estado en `ef_fecha_hora` (credits: rdsmiranda)
+- Se ajusta archivo `docker-compose.yml` para trabajo local y elimina templates sin uso
+- Actualizacion de seguridad/funcionalidad de paquetes
+     * guzzlehttp/guzzle: v6.5.8
+     * siu/manejador-salida-toba: v1.1.4
+
 [3.3.25](https://github.com/SIU-Toba/framework/releases/tag/v3.3.25) (2022-06-13)
 - Fix instanciacion de `toba_logger` en `toba_ei_formulario`, `toba_ei_filtro` y `toba_ei_formulario_ml`
 - Actualizacion de seguridad de paquetes
