@@ -28,6 +28,7 @@ class toba_vista_excel
 
 	const FORMAT_CURRENCY_USD_CUSTOM	= '#,##0.00_- [$USD]';
 	const FORMAT_DATE_DATETIMEFULL		= 'd/m/yy h:mm';
+    const FORMAT_CURRENCY_CUSTOM = '$#,##0.00_-';
 
 	function __construct()
 	{
