@@ -10,6 +10,7 @@ services:
       POSTGRES_PASSWORD   : postgres
 
   web:
+   ## user: "$USER_ID"
     image: siudocker/php:8.1-web-v1.0.2
     ports:
     - "7008:8080"
@@ -24,6 +25,7 @@ services:
       TOBA_PROYECTO_INSTALAR            : "True"
       TOBA_INSTALAR_REFERENCIA          : "True"
       TOBA_INSTALAR_USUARIOS            : "True"
+      TOBA_REDIRECCIONAR_LOGS           : 1
     links:
     - pg
     volumes:

@@ -6,7 +6,10 @@ class contexto_ejecucion_editor implements toba_interface_contexto_ejecucion
 	protected $chequeado = false;
 	
 	function conf__inicial()
-	{
+	{      
+        if (false !== \getenv('TOBA_REDIRECCIONAR_LOGS')) {
+			toba_logger::instancia()->redirect_to_stdout(\getenv('TOBA_REDIRECCIONAR_LOGS') == 1);
+		}
 		require_once('admin_util.php');		
 		//*********  FRAMES entorno EDICION ************
 		//-- FRAME control

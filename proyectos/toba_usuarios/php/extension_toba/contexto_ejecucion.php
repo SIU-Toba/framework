@@ -7,6 +7,9 @@ class contexto_ejecucion implements toba_interface_contexto_ejecucion
 {
 	function conf__inicial()
 	{
+        if (false !== \getenv('TOBA_REDIRECCIONAR_LOGS')) {
+			toba_logger::instancia()->redirect_to_stdout(\getenv('TOBA_REDIRECCIONAR_LOGS') == 1);
+		}
 		require_once('lib/admin_instancia.php');
 		require_once('lib/consultas_instancia.php');
 		
