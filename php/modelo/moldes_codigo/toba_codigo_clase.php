@@ -89,7 +89,7 @@ class toba_codigo_clase
 
 	//-- Preguntas sobre la composicion del molde ------------------
 
-	function get_lista_metodos($codigo_existente=null)
+	function get_lista_metodos($codigo_existente='')
 	{
 		$plan = array();
 		$plan = $this->generar_lista_elementos($this->elementos_php, 'PHP', $codigo_existente);
@@ -100,7 +100,7 @@ class toba_codigo_clase
 	/**
 		Genera una lista de los elementos que conforman el molde
 	*/
-	function generar_lista_elementos($elementos, $prefijo, $codigo_existente=null)
+	function generar_lista_elementos($elementos, $prefijo, $codigo_existente='')
 	{
 		$lista = array();
 		$titulo = '';
@@ -183,7 +183,7 @@ class toba_codigo_clase
 			$this->filtrar_separadores();	
 		}		
 		// Genero el codigo
-		return $this->generar_codigo($codigo_existente);
+		return $this->generar_codigo($codigo_existente ?? '');
 	}
 
 	//-- Filtro de contenido ------------------------------------
