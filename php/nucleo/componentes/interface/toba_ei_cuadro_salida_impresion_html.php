@@ -106,7 +106,7 @@ class toba_ei_cuadro_salida_impresion_html extends toba_ei_cuadro_salida_html
 	                if(isset($columnas[$a]["formateo"])) {
 	                    $funcion = "formato_" . $columnas[$a]["formateo"];
 	                    //Formateo el valor
-	                    $valor = $formateo->$funcion($valor_real);
+	                    $valor = $formateo->$funcion($valor_real ?? '');
 	                } else {
 	                	$valor = $valor_real;
 	                }
