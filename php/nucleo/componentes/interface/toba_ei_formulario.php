@@ -173,7 +173,7 @@ class toba_ei_formulario extends toba_ei
 														$this->_nombre_formulario,
 														$this->_info_formulario_ef[$indx]['identificador'],
 														$this->_info_formulario_ef[$indx]['etiqueta'],
-														addslashes($this->_info_formulario_ef[$indx]['descripcion']),
+														addslashes($this->_info_formulario_ef[$indx]['descripcion']??''),
 														$clave_dato,
 														array($this->_info_formulario_ef[$indx]['obligatorio'], 
 															$this->_info_formulario_ef[$indx]['oculto_relaja_obligatorio']),
@@ -785,7 +785,7 @@ class toba_ei_formulario extends toba_ei
 			toba_logger::instancia()->error($this->get_txt()." No existe ef '$id_ef'");
 			throw new toba_error_seguridad(' No existe el ef indicado');
 		}
-		$fila_actual = trim(toba::memoria()->get_parametro('cascadas-fila'));
+		$fila_actual = trim(toba::memoria()->get_parametro('cascadas-fila')??'');
 		$maestros = array();
 		$cascadas_maestros = $this->_carga_opciones_ef->get_cascadas_maestros();
 		$ids_maestros = (!isset($cascadas_maestros[$id_ef]) || !is_array($cascadas_maestros[$id_ef])) ? [] : $cascadas_maestros[$id_ef];
@@ -883,7 +883,7 @@ class toba_ei_formulario extends toba_ei
 		}
 
 		$filtro = trim(toba::memoria()->get_parametro('filtrado-ce-valor'));
-		$fila_actual = trim(toba::memoria()->get_parametro('filtrado-ce-fila'));
+		$fila_actual = trim(toba::memoria()->get_parametro('filtrado-ce-fila')??'');
 		$maestros = array($id_ef => $filtro);		
 		$cascadas_maestros = $this->_carga_opciones_ef->get_cascadas_maestros();
 		$ids_maestros = (!isset($cascadas_maestros[$id_ef]) || !is_array($cascadas_maestros[$id_ef])) ? [] : $cascadas_maestros[$id_ef];
@@ -1202,7 +1202,7 @@ class toba_ei_formulario extends toba_ei
 			$formateo = new $this->_clase_formateo('impresion_html');
 			$funcion = "formato_" . $this->_info_formulario_ef[$ef]["formateo"];
 			$valor_real = $this->_elemento_formulario[$ef]->get_estado();
-			$valor = $formateo->$funcion($valor_real);
+			$valor = $formateo->$funcion($valor_real ?? '');
 		} else {
 			$valor = $this->_elemento_formulario[$ef]->get_descripcion_estado('impresion_html');
 	    }
@@ -1430,7 +1430,7 @@ class toba_ei_formulario extends toba_ei
             	if(isset($this->_info_formulario_ef[$ef]["formateo"])){
                 	$funcion = "formato_" . $this->_info_formulario_ef[$ef]["formateo"];
                 	$valor_real = $this->_elemento_formulario[$ef]->get_estado();
-                	$valor = $formateo->$funcion($valor_real);
+                	$valor = $formateo->$funcion($valor_real ?? '');
             	}else{
 		            $valor = $this->_elemento_formulario[$ef]->get_descripcion_estado('pdf');
 		        }	
@@ -1465,7 +1465,7 @@ class toba_ei_formulario extends toba_ei
 		if(isset($this->_info_formulario_ef[$id_ef]["formateo"])){
 			$funcion = "formato_" . $this->_info_formulario_ef[$id_ef]["formateo"];
 			$valor_real = $this->_elemento_formulario[$id_ef]->get_estado();
-			$valor = $formateo->$funcion($valor_real);
+			$valor = $formateo->$funcion($valor_real ?? '');
 		}else{
 			$valor = $this->_elemento_formulario[$id_ef]->get_descripcion_estado('pdf');
 		}

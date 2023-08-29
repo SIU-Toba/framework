@@ -585,7 +585,7 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 				if(isset($columnas[$a]["formateo"])) {
 					$funcion = "formato_" . $columnas[$a]["formateo"];
 					//Formateo el valor
-					$valor = $formateo->$funcion($valor_real);
+					$valor = $formateo->$funcion($valor_real ?? '');
 				} else {
 					$valor = $valor_real;
 				}
@@ -691,7 +691,7 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 		$alguna_tiene_titulo = false;
 		$columnas = $this->_cuadro->get_columnas();
 		foreach(array_keys($columnas) as $clave) {
-			if (trim($columnas[$clave]["titulo"]) != '') {
+			if (isset($columnas[$clave]["titulo"]) && trim($columnas[$clave]["titulo"]) != '') {
 				$alguna_tiene_titulo = true;
 				break;
 			}

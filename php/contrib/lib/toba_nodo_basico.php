@@ -84,12 +84,12 @@ class toba_nodo_basico implements toba_nodo_arbol
 	
 	function get_nombre_corto()
 	{
-		return $this->nombre_corto;
+		return $this->nombre_corto ?? '';
 	}
 	
 	function get_nombre_largo()
 	{
-		return $this->nombre_largo;
+		return $this->nombre_largo ?? '';
 	}
 	
 	function get_info_extra()

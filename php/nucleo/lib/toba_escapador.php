@@ -17,6 +17,9 @@ class toba_escapador extends Escaper
 		
 	function escapeHtml($input)
 	{		
+        if (is_null($input)) {
+            return '';
+        }
 		if (isset($this->_es_editor) && ($this->_es_editor === true)) {
 			return htmlentities($input, ENT_QUOTES , apex_default_charset);
 		}  
@@ -64,12 +67,15 @@ class toba_escapador extends Escaper
 	
 	function quitar_tags($input)
 	{
-		$lista_tags = implode('|', $this->tags_formato);
-		$pattern = '@<('. $lista_tags.')>(.*?)</\1>@i';
-		if (! is_array($input)) { 
+        /*if (is_null($input)) {
+            debug_print_backtrace();
+        }*/
+		if (null !== $input && ! is_array($input)) { 
+            $lista_tags = implode('|', $this->tags_formato);
+            $pattern = '@<('. $lista_tags.')>(.*?)</\1>@i';
 		    $cant = preg_match_all($pattern, $input, $matches); 
 		} else { 
-		    throw new toba_error_def('Se esta pasando un array o una matriz a un campo que espera un valor escalar'); 
+		    throw new toba_error_def('Se esta pasando null, un array o una matriz a un campo que espera un valor escalar'); 
 		}
 		return ($cant !== 0  && $cant !== false) ? $matches : array();
 	}

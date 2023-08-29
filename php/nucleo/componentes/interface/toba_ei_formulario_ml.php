@@ -1123,7 +1123,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 					if(isset($this->_info_formulario_ef[$ef]["formateo"])){
                			$funcion = "formato_" . $this->_info_formulario_ef[$ef]["formateo"];
                			$valor_real = $this->_elemento_formulario[$ef]->get_estado();
-               			$valor = $formateo->$funcion($valor_real);
+               			$valor = $formateo->$funcion($valor_real ?? '');
             		}else{
 		        		$valor = $this->_elemento_formulario[$ef]->get_descripcion_estado('impresion_html');
 		    		}	
@@ -1167,7 +1167,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
             		if(isset($this->_info_formulario_ef[$ef]["formateo"])){
                 		$funcion = "formato_" . $this->_info_formulario_ef[$ef]["formateo"];
                 		$valor_real = $this->_elemento_formulario[$ef]->get_estado();
-                		$valor = $formateo->$funcion($valor_real);
+                		$valor = $formateo->$funcion($valor_real ?? '');
             		}else{
 			            $valor = $this->_elemento_formulario[$ef]->get_descripcion_estado('pdf');
 		        	}	
@@ -1221,7 +1221,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 					if(isset($this->_info_formulario_ef[$ef]["formateo"])){
                 		$funcion = "formato_" . $this->_info_formulario_ef[$ef]["formateo"];
                 		$valor_real = $this->_elemento_formulario[$ef]->get_estado();
-                		list($valor, $estilo) = $formateo->$funcion($valor_real);
+                		list($valor, $estilo) = $formateo->$funcion($valor_real ?? '');
             		}else{
 	            		list($valor, $estilo) = $this->_elemento_formulario[$ef]->get_descripcion_estado('excel');
 	        		}	

@@ -374,8 +374,9 @@ class toba_ei_arbol extends toba_ei
 			$nodo = $this->_nodos_inicial[0];
 			while ($nodo->get_padre() != null) {
 				$nodo = $nodo->get_padre();
+                $nombre = (is_null($nodo->get_nombre_corto())) ? '': $this->acortar_nombre($nodo->get_nombre_corto(), 20); 
 				$nodo_barra = "<a href='#' onclick='{$this->objeto_js}.ver_propiedades(\"{$nodo->get_id()}\");'";
-				$nodo_barra .= "class='ei-arbol-ver-prop'>". $this->acortar_nombre($nodo->get_nombre_corto(), 20).'</a>';
+				$nodo_barra .= "class='ei-arbol-ver-prop'>". $nombre.'</a>';
 				$camino = $nodo_barra . ' > '. $camino;
 				$this->_ids_enviados[] = $nodo->get_id();															//Agrego los nodos de la barra del path
 			}
@@ -532,7 +533,7 @@ class toba_ei_arbol extends toba_ei
 		$salida .= $this->mostrar_iconos($nodo);
 
 		//Nombre y ayuda
-		$corto = $this->acortar_nombre($nodo->get_nombre_corto());
+		$corto = $this->acortar_nombre($nodo->get_nombre_corto() ?? '');
 		$id = $nodo->get_id();
 		$largo = $nodo->get_nombre_largo();
 		$extra = $nodo->get_info_extra();
@@ -603,7 +604,7 @@ class toba_ei_arbol extends toba_ei
 	{
 		$salida = '';
 		foreach ($nodo->get_iconos() as $icono) {
-			$ayuda = toba_parser_ayuda::parsear($icono['ayuda']);
+			$ayuda = toba_parser_ayuda::parsear($icono['ayuda']?? '');
 			$js = isset($icono['javascript']) ? $icono['javascript'] : '';
 			$img = toba_recurso::imagen($icono['imagen'], null, null, $ayuda, null, $js);
 			if (isset($icono['vinculo'])) {
@@ -665,7 +666,7 @@ class toba_ei_arbol extends toba_ei
 	 * @param integer $limite Cantidad de caracteres a mostrar
 	 * @return string
 	 */
-	protected function acortar_nombre($nombre, $limite=null)
+	protected function acortar_nombre(string $nombre, $limite=null)
 	{
 		if (! isset($limite)) {
 			$limite = $this->_ancho_nombres;

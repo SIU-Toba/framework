@@ -123,7 +123,7 @@ class toba_ci_pantalla_info implements toba_nodo_arbol, toba_meta_clase
 
     public function get_nombre_largo()
     {
-        if (trim($this->datos['descripcion']) != '') {
+        if (isset($this->datos['descripcion']) && trim($this->datos['descripcion']) != '') {
             return $this->datos['descripcion'];
         } else {
             return $this->get_nombre_corto();

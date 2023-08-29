@@ -206,7 +206,7 @@ class ci_subclases extends toba_ci
 	function conf__pant_generacion()
 	{
 		$archivo_php = new toba_archivo_php($this->get_path_archivo());
-		$codigo_existente = null; 
+		$codigo_existente = ''; 
 		if (! $archivo_php->esta_vacio()) {
 			$codigo_existente = $archivo_php->get_codigo();
 		}

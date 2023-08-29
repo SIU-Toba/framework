@@ -71,7 +71,7 @@ class toba_boton
 	 */
 	function posee_confirmacion()
 	{
-		return ( trim($this->datos['confirmacion']) !== '' );
+		return (isset($this->datos['confirmacion']) && trim($this->datos['confirmacion']) !== '' );
 	}
 
 	//--------- Geters ---------------------

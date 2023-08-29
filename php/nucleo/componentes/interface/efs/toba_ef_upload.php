@@ -27,8 +27,11 @@ class toba_ef_upload extends toba_ef
 		// Controlar las extensiones válidas...
 		if (isset($parametros['upload_extensiones']) && trim($parametros['upload_extensiones']) != '') {
 			$this->extensiones_validas = array();
-			foreach (explode(',', $parametros['upload_extensiones']) as $valor)
-				$this->extensiones_validas[] = strtolower(trim($valor));
+			foreach (explode(',', $parametros['upload_extensiones']) as $valor) {
+                if (null !== $valor) {
+                    $this->extensiones_validas[] = strtolower(trim($valor));
+                }
+            }				
 		}		
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio, $parametros);
 	}	

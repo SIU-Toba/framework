@@ -657,7 +657,7 @@ abstract class toba_ei extends toba_componente
 			}
 			$botonera_sup = $this->hay_botones() && isset($this->_posicion_botonera) && ($this->_posicion_botonera == "arriba" ||
 					 $this->_posicion_botonera == "ambos") && ! $botonera_en_item;
-			$tiene_titulo = trim($this->_info["titulo"])!="" || trim($titulo) != '';
+			$tiene_titulo = trim($this->_info["titulo"]??'')!="" || trim($titulo??'') != '';
 			$fuerza_titulo = (isset($this->_info_cuadro) && $this->_info_cuadro['siempre_con_titulo'] == '1');
 			if ($botonera_sup || !$control_titulo_vacio || $tiene_titulo || $fuerza_titulo) {
 				if (!isset($titulo)) {
@@ -687,7 +687,7 @@ abstract class toba_ei extends toba_componente
 			}
 
 			//--- Descripcion con barra. Muestra una barra en lugar de un tooltip
-			if(trim($this->_info["descripcion"])!="" &&  !$this->_modo_descripcion_tooltip){
+			if(!is_null($this->_info['descripcion']) && trim($this->_info["descripcion"])!="" &&  !$this->_modo_descripcion_tooltip){
 				$tipo = isset($this->_info['descripcion_tipo']) ? $this->_info['descripcion_tipo'] : null;
 				$this->generar_html_descripcion($this->_info['descripcion'], $tipo);
 			}

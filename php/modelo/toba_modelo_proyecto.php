@@ -1472,10 +1472,12 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	function publicar($url=null, $full_url=null)
 	{
 		if (! $this->esta_publicado()) {
-			$url_pers = (trim($url) != '') ? $url . '_pers/' : null;
 			if ($url == '' || is_null($url)) {
 				$url = $this->get_url();
-			}
+                $url_pers = null;
+			} else {
+                $url_pers = $url . '_pers/';
+            }
 			$this->instancia->set_url_proyecto($this->get_id(), $url, $full_url);
 			toba_modelo_instalacion::agregar_alias_apache(	$url,
 													$this->get_dir(),

@@ -1940,13 +1940,17 @@ class toba_datos_tabla extends toba_componente
 	 */
 	function get_xml($xml)
 	{
-		// Recupera los datos del registro marcado por el cursor
-		$datos = $this->get();
-		
-		// Para cada columna, la agrega como atributo del nodo
-		foreach($datos as $clave => $valor){
-			$xml->addAttribute($clave,utf8_encode($valor));
-		}
+        // Recupera los datos del registro marcado por el cursor
+        $datos = $this->get();
+        $id_fila  = $this->get_cursor();
+
+        // Para cada columna, la agrega como atributo del nodo
+        foreach($datos as $clave => $valor){
+            //Chequeo explicitamente que no se trate de un campo blob
+            if (!isset($this->_blobs[$id_fila][$clave])) {
+                $xml->addAttribute($clave, utf8_encode(strval($valor)));
+            }			
+        }
 	}
 
 }

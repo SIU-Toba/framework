@@ -20,7 +20,7 @@ class toba_parser_ayuda
 	/**
 	 * Busca y reemplaza el formato wiki en un texto
 	 */
-	static function parsear($texto, $resumido=false)
+	static function parsear(string $texto, $resumido=false)
 	{
 		$parseado = "";
 		$resultado = array();

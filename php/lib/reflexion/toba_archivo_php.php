@@ -70,7 +70,8 @@ class toba_archivo_php
 	 */
 	function contiene_clase($nombre)
 	{
-		return self::codigo_tiene_clase(file_get_contents($this->nombre), $nombre);
+        $contenido = file_get_contents($this->nombre);        
+		return (false !== $contenido) ? self::codigo_tiene_clase($contenido, $nombre): false;
 	}
 
 	/**
@@ -79,7 +80,8 @@ class toba_archivo_php
 	 */
 	function contiene_metodo($nombre)
 	{
-		return self::codigo_tiene_metodo(file_get_contents($this->nombre), $nombre);
+        $contenido = file_get_contents($this->nombre);
+		return (false !== $contenido) ? self::codigo_tiene_metodo($contenido, $nombre): false;
 	}
 
 
@@ -252,7 +254,7 @@ class toba_archivo_php
 	/**
 	*	Dado un codigo PHP, extrae un metodo y los sustituye por codigo nuevo
 	*/
-	static function reemplazar_metodo($codigo, $nombre_metodo_a_extraer, $codigo_a_insertar)
+	static function reemplazar_metodo(String $codigo, String $nombre_metodo_a_extraer, String $codigo_a_insertar)
 	{
 		$contenido = explode("\n",$codigo);
 		$codigo_a_insertar = explode("\n", $codigo_a_insertar);
@@ -293,7 +295,7 @@ class toba_archivo_php
 	/**
 	 * Retorna el cuerpo de un método
 	 */
-	static function codigo_get_metodo($codigo, $nombre_metodo_a_extraer)
+	static function codigo_get_metodo(String $codigo, $nombre_metodo_a_extraer)
 	{
 		$contenido = explode("\n",$codigo);
 		$encontrado = false;
@@ -335,15 +337,15 @@ class toba_archivo_php
 	/**
 	 * Determina si una porción de código tiene un método específico
 	 */
-	static function codigo_tiene_metodo($codigo, $nombre)
+	static function codigo_tiene_metodo(String $codigo, String $nombre)
 	{
-		return preg_match("/function\s+$nombre\s*\(/", $codigo);		
+        return preg_match("/function\s+$nombre\s*\(/", $codigo);
 	}
 	
 	/**
 	 * Determina si una porción de código tiene un método específico
 	 */
-	static function codigo_tiene_metodo_js($codigo, $nombre)
+	static function codigo_tiene_metodo_js(String $codigo, String $nombre)
 	{
 		return preg_match("/\.$nombre = function\s*\(/", $codigo);		
 	}	
@@ -351,7 +353,7 @@ class toba_archivo_php
 	/**
 	 * Determina si una porción de código tiene un método específico
 	 */
-	static function codigo_tiene_codigo($actual, $codigo)
+	static function codigo_tiene_codigo(String $actual, String $codigo)
 	{
 		return strpos($actual, $codigo) !== false;
 	}	
@@ -359,15 +361,15 @@ class toba_archivo_php
 	/**
 	 * Determina si una porción de código tiene una clase específica definida
 	 */	
-	static function codigo_tiene_clase($codigo, $nombre)
+	static function codigo_tiene_clase(String $codigo, String $nombre)
 	{
-		return preg_match("/class\s+$nombre/", $codigo);
+		return preg_match("/class\s+$nombre/", $codigo??'');
 	}
 
 	/**
 	 * Retorna los métodos definidos en una porción de código
 	 */	
-	static function codigo_get_nombre_metodos($codigo, $solo_publicos=true)
+	static function codigo_get_nombre_metodos(String $codigo, $solo_publicos=true)
 	{
 		$no_publicos = '';
 		if ($solo_publicos) {
@@ -390,7 +392,7 @@ class toba_archivo_php
 	/**
 	 * Toma una porción de código y agrega un nuevo método
 	 */	
-	static function codigo_agregar_metodo($codigo_actual, $metodo)
+	static function codigo_agregar_metodo(String $codigo_actual, String $metodo)
 	{
 		$pos = strrpos($codigo_actual, '}');
 		if ($pos !== false) {
@@ -402,7 +404,7 @@ class toba_archivo_php
 
 	}	
 	
-	static function codigo_quitar_identacion($codigo, $identacion=1)
+	static function codigo_quitar_identacion(String $codigo, $identacion=1)
 	{
 		$salida = array();
 		foreach(explode("\n", $codigo) as $linea) {
@@ -425,7 +427,7 @@ class toba_archivo_php
 	/**
 	 * Toma una porción de código y le quita los tags php si los tiene
 	 */		
-	static function codigo_sacar_tags_php($codigo)
+	static function codigo_sacar_tags_php(String $codigo)
 	{
 		$codigo = str_replace('<?php', '', $codigo);
 		return trim(str_replace('?>', '', $codigo));
@@ -434,11 +436,11 @@ class toba_archivo_php
 	static function convertir_formato_interno($nombre_archivo)
 	{
 		$codigo =  file_get_contents($nombre_archivo);
-		$codigo_interno = str_replace("\r\n", "\n", $codigo);
+		$codigo_interno = (false !== $codigo) ? str_replace("\r\n", "\n", $codigo): '';
 		return $codigo_interno;
 	}
 
-	static function convertir_formato_so($contenido_archivo)
+	static function convertir_formato_so(String $contenido_archivo)
 	{
 		return str_replace("\n", PHP_EOL, $contenido_archivo);
 	}

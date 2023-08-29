@@ -113,13 +113,19 @@ class toba_nucleo
 			$this->finalizar_contexto_ejecucion();
 		} catch (Error $e) {
 			toba::logger()->crit($e, 'toba');
-			echo toba::escaper()->escapeHtml($e->getMessage()) . "\n\n";
+			echo toba::escaper()->escapeHtml($e->getMessage()) . PHP_EOL;
 		} catch (Exception $e) {
 			toba::logger()->crit($e, 'toba');
-			echo toba::escaper()->escapeHtml($e->getMessage()) . "\n\n";
+			echo toba::escaper()->escapeHtml($e->getMessage()) . PHP_EOL;
 		}
 		//toba::logger()->debug('Tiempo utilizado: ' . toba::cronometro()->tiempo_acumulado() . ' seg.');
-		toba::logger()->guardar();
+        
+        //Agrega try/catch por si acaso no es un directorio actualizable
+        try {
+            toba::logger()->guardar();
+        } catch (toba_error $e) {
+            echo toba::escaper()->escapeHtml($e->getMessage()) . PHP_EOL;
+        }
 	}
 
 	/**
