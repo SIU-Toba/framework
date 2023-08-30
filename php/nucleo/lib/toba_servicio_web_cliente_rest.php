@@ -105,7 +105,7 @@ class toba_servicio_web_cliente_rest extends toba_servicio_web_cliente
 												'auth_password' => $conf[0][1], 
 												'to' => $conf[0][2], 
 												'auth_tipo' => 'basic'));
-            if (count($conf[9]) > 3) {
+            if (count($conf[0]) > 3) {
                 $datos['conexion']['version'] = $conf[0][3];
             }
 		}
