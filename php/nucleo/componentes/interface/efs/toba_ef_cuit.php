@@ -41,6 +41,9 @@ class toba_ef_cuit extends toba_ef
     /**
      * Premite incluir la lista de prefijos validos para el CUIT
      * se crea para mantener BC con algun valor previo y no romper de entrada
+     * 
+     * Modo de uso:  toba_ef_cuit::set_prefijos(['19','24', '30']);
+     * 
      * @param array $prefijos
      */
     static function set_prefijos(Array $prefijos)
