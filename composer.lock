@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9404f71b00170aa778e4e91cada77fd1",
+    "content-hash": "e8f584d4d3ededc9a1f57aeb995b2ba4",
     "packages": [
         {
             "name": "dapphp/securimage",
-            "version": "3.6.8",
+            "version": "dev-nextgen",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dapphp/securimage.git",
-                "reference": "5fc5953c4ffba1eb214cc83100672f238c184ca4"
+                "reference": "864ba7505e1bd36ee73f04d8471d86e1f821d754"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dapphp/securimage/zipball/5fc5953c4ffba1eb214cc83100672f238c184ca4",
-                "reference": "5fc5953c4ffba1eb214cc83100672f238c184ca4",
+                "url": "https://api.github.com/repos/dapphp/securimage/zipball/864ba7505e1bd36ee73f04d8471d86e1f821d754",
+                "reference": "864ba7505e1bd36ee73f04d8471d86e1f821d754",
                 "shasum": ""
             },
             "require": {
@@ -31,6 +31,9 @@
             },
             "type": "library",
             "autoload": {
+                "psr-4": {
+                    "Securimage\\": "./"
+                },
                 "classmap": [
                     "securimage.php"
                 ]
@@ -46,7 +49,7 @@
                 }
             ],
             "description": "PHP CAPTCHA Library",
-            "homepage": "https://www.phpcaptcha.org",
+            "homepage": "https://github.com/dapphp/securimage",
             "keywords": [
                 "Forms",
                 "anti-spam",
@@ -55,10 +58,10 @@
             ],
             "support": {
                 "issues": "https://github.com/dapphp/securimage/issues",
-                "source": "https://github.com/dapphp/securimage/tree/3.6.8"
+                "source": "https://github.com/dapphp/securimage/tree/nextgen"
             },
             "abandoned": true,
-            "time": "2020-05-30T09:43:22+00:00"
+            "time": "2023-07-31T17:00:43+00:00"
         },
         {
             "name": "doctrine/cache",
@@ -5343,6 +5346,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "dapphp/securimage": 20,
         "guiguiboy/php-cli-progress-bar": 20,
         "ioncube/php-openssl-cryptor": 20,
         "siu-toba/structures_graph": 20,

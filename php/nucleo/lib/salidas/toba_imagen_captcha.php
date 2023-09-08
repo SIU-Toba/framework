@@ -90,7 +90,8 @@ class toba_imagen_captcha extends Securimage
 	 */
 	function get_codigo()
 	{
-		return parent::getCode(false, true);
+        $obj = parent::getCode(false, true);
+        return !empty($obj) ? $obj->code_display: '';
 	}
 	
 	/**
