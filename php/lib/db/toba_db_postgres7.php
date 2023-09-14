@@ -933,17 +933,17 @@ class toba_db_postgres7 extends toba_db
 			SELECT
 				c.relname as tabla,
 				a.attname as campo,
-                                replace( substring(pg_get_expr(adef.adbin, a.attrelid),'''[^'']*'''), '''', '' ) as nombre/*,
-				pg_get_serial_sequence(c.relname, a.attname)*/
+				substring(pg_get_serial_sequence(c.relname, a.attname) ,  n.nspname || '\.(.*)' )  as nombre     --- Elimina el nombre del schema
 			FROM
 				pg_catalog.pg_attribute a
-                                LEFT JOIN pg_catalog.pg_attrdef adef ON a.attrelid=adef.adrelid AND a.attnum=adef.adnum
-                                LEFT JOIN pg_catalog.pg_type t ON a.atttypid=t.oid
-                                LEFT JOIN pg_catalog.pg_class c ON a.attrelid=c.oid
-                                LEFT JOIN pg_catalog.pg_namespace as n ON c.relnamespace = n.oid
+            LEFT JOIN pg_catalog.pg_attrdef adef ON a.attrelid=adef.adrelid AND a.attnum=adef.adnum
+            LEFT JOIN pg_catalog.pg_type t ON a.atttypid=t.oid
+            LEFT JOIN pg_catalog.pg_class c ON a.attrelid=c.oid
+            LEFT JOIN pg_catalog.pg_namespace as n ON c.relnamespace = n.oid
 			WHERE
-			 	pg_get_expr(adef.adbin, a.attrelid) like '%nextval%'
-			 	AND a.attnum > 0 AND NOT a.attisdropped
+			 	pg_get_serial_sequence(c.relname, a.attname) IS NOT NULL
+			 	AND a.attnum > 0 
+                AND NOT a.attisdropped
 			 	$where
 			ORDER BY a.attname;
 		";
@@ -975,9 +975,12 @@ class toba_db_postgres7 extends toba_db
 						a.atttypmod as 			longitud,
 						format_type(a.atttypid, a.atttypmod) as tipo_sql,
 						a.attnotnull as 		not_null,
-						a.atthasdef as 			tiene_predeterminado,
-						pg_get_expr(d.adbin, a.attrelid)        valor_predeterminado,
-						'' as					secuencia,
+                        CASE 
+                            WHEN a.attidentity IN ('a', 'd') THEN true
+                            ELSE a.atthasdef 
+                        END AS tiene_predeterminado,  
+						pg_get_expr(d.adbin, a.attrelid) as  valor_predeterminado,
+						substring(pg_get_serial_sequence(c.relname, a.attname) ,  n.nspname || '\.(.*)' )  as secuencia,
 						fc.relname				as fk_tabla,
 						fa.attname				as fk_campo,
 						a.attnum as 			orden,
@@ -1018,14 +1021,14 @@ class toba_db_postgres7 extends toba_db
 						pg_type t,
 						pg_namespace as n,
 						pg_attribute a
-							LEFT OUTER JOIN pg_attrdef d
+				LEFT OUTER JOIN pg_attrdef d
 								ON ( d.adrelid = a.attrelid AND d.adnum = a.attnum)
-							--- Foreign Keys
-							LEFT OUTER JOIN (pg_constraint const
-												INNER JOIN pg_class fc ON fc.oid = const.confrelid
-												INNER JOIN pg_attribute fa ON (fa.attrelid = const.confrelid AND fa.attnum = const.confkey[1]
-																				AND const.confkey[2] IS NULL)
-											)
+                --- Foreign Keys
+				LEFT OUTER JOIN (pg_constraint const
+                                    INNER JOIN pg_class fc ON fc.oid = const.confrelid
+                                    INNER JOIN pg_attribute fa ON (fa.attrelid = const.confrelid AND fa.attnum = const.confkey[1]
+                                                                    AND const.confkey[2] IS NULL)
+                                )
 								ON (const.conrelid = a.attrelid
 										AND const.contype='f'
 										AND const.conkey[1] = a.attnum
@@ -1070,13 +1073,6 @@ class toba_db_postgres7 extends toba_db
 			//-- Si es numerico(a,b) la longitud es 327680*b+a, pero para facilitar el proceso general se usa -1
 			if ($columnas[$id]['tipo'] == 'numeric') {
 				$columnas[$id]['longitud'] = -1;
-			}
-			//Secuencias
-			if($columnas[$id]['tiene_predeterminado']){
-				$match = array();
-				if(preg_match("&nextval.*?(\'|\")(.*?[.]|)(.*)(\'|\")&",$columnas[$id]['valor_predeterminado'],$match)){
-					$columnas[$id]['secuencia'] = $match[3];
-				}
 			}
 		}
 		$this->cache_metadatos[$tabla] = array_values($columnas);
