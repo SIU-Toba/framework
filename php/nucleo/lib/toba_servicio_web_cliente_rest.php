@@ -37,11 +37,19 @@ class toba_servicio_web_cliente_rest extends toba_servicio_web_cliente
 			}
 		}
 
+        //-- Ajusta la URL de destino de acuerdo a la version especifica de la API
+        if (! empty($opciones_ini) && isset($opciones_ini['to'])) {
+            $opciones_ini['to'] = self::get_url_base($opciones_ini);
+        }
+
 		//-- Mezcla con las opciones recibidas y crea el objeto
 		$opciones = array_merge($opciones_ini, $opciones);
 		if (! isset($opciones['to'])) {
 			throw new toba_error_def("Debe indicar la URL destino en el campo 'to'");
 		}
+
+            //toba::logger()->debug('Opciones de inicializacion');
+            //toba::logger()->var_dump($opciones);
 
 		toba::logger()->debug("Invocando servicio $id_servicio. Opciones:<br>". var_export($opciones, true));
 		$servicio = new toba_servicio_web_cliente_rest($opciones, $id_servicio);
@@ -54,7 +62,7 @@ class toba_servicio_web_cliente_rest extends toba_servicio_web_cliente
 	function guzzle()
 	{
 		if (! isset($this->guzzle)) {           
-			$options = array('base_uri' => self::get_url_base($this->opciones));
+			$options = array('base_uri' => $this->opciones['to']);
 			if (isset($this->opciones['auth_tipo'])) {
 				if ($this->opciones['auth_tipo'] != 'ssl') {
 					$options['auth'] = array($this->opciones['auth_usuario'], 	$this->opciones['auth_password'], $this->opciones['auth_tipo']);
@@ -130,7 +138,7 @@ class toba_servicio_web_cliente_rest extends toba_servicio_web_cliente
         $valor = '';
         $separadas = \explode('.', $opciones['version']);
         if (! empty($separadas)) {
-            $valor = '/v'. \current($separadas);
+            $valor = '/v'. \current($separadas) .'/';
             $opciones['to'] = rtrim($opciones['to'], '/');
         }
         

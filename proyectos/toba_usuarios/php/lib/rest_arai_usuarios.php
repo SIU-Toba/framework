@@ -71,7 +71,7 @@ class rest_arai_usuarios
     {
         try {
             $opciones = array();
-            $cliente = toba::servicio_web_rest('rest_arai_usuarios', $opciones);
+            $cliente = toba_servicio_web_cliente_rest::conectar('rest_arai_usuarios', $opciones);
             return $cliente->guzzle();
         } catch (toba_error $e) {
             toba_logger::instancia()->error("Hay un problema de configuración del cliente REST.\n Mensaje: " . $e->get_mensaje());
