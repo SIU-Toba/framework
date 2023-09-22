@@ -6,7 +6,7 @@ use GuzzleHttp\Exception\RequestException;
 
 class ci_cliente_rest extends toba_ci
 {
-	protected $dump_url;
+	protected $dump_url='';
 	//    protected $dump_pedido;
 	protected $dump_respuesta;
 	protected $rs_personas;

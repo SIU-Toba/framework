@@ -132,7 +132,7 @@ class toba_ei_pantalla extends toba_ei
 	 */
 	function get_descripcion()
 	{
-		return trim($this->_info_pantalla["descripcion"]);
+		return trim($this->_info_pantalla["descripcion"]??'');
 	}
 
 	/**

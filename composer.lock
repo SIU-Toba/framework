@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e8f584d4d3ededc9a1f57aeb995b2ba4",
+    "content-hash": "cb65988c394499ad0cd0be34f09cbf3a",
     "packages": [
         {
             "name": "dapphp/securimage",
@@ -2601,16 +2601,16 @@
         },
         {
             "name": "siu-toba/rest",
-            "version": "v3.0.0",
+            "version": "dev-feature/fixValidador",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SIU-Toba/rest.git",
-                "reference": "34d99b40de050a84285cd540f73f819facfc5117"
+                "reference": "a909609f1e2fb2614fd8c58b0e787902c4843444"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SIU-Toba/rest/zipball/34d99b40de050a84285cd540f73f819facfc5117",
-                "reference": "34d99b40de050a84285cd540f73f819facfc5117",
+                "url": "https://api.github.com/repos/SIU-Toba/rest/zipball/a909609f1e2fb2614fd8c58b0e787902c4843444",
+                "reference": "a909609f1e2fb2614fd8c58b0e787902c4843444",
                 "shasum": ""
             },
             "require": {
@@ -2633,9 +2633,9 @@
             "homepage": "http://toba.siu.edu.ar",
             "support": {
                 "issues": "https://github.com/SIU-Toba/rest/issues",
-                "source": "https://github.com/SIU-Toba/rest/tree/v3.0.0"
+                "source": "https://github.com/SIU-Toba/rest/tree/feature/fixValidador"
             },
-            "time": "2022-12-29T21:26:41+00:00"
+            "time": "2022-02-01T16:13:45+00:00"
         },
         {
             "name": "siu-toba/services_json",
@@ -5349,6 +5349,7 @@
         "dapphp/securimage": 20,
         "guiguiboy/php-cli-progress-bar": 20,
         "ioncube/php-openssl-cryptor": 20,
+        "siu-toba/rest": 20,
         "siu-toba/structures_graph": 20,
         "siu/arai-json-migrator": 20,
         "siu/manejador-salida-toba": 20,
