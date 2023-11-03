@@ -113,12 +113,12 @@ class toba_ei_cuadro_salida_xml extends toba_ei_cuadro_salida
 						$valor_real = '';
 					}
 					//Hay que formatear?
-					if(isset($columnas[$a]["formateo"])){
+					if(isset($columnas[$a]["formateo"]) && null !== $valor_real){
 						$funcion = "formato_" . $columnas[$a]["formateo"];
 						//Formateo el valor
 						$valor = $formateo->$funcion($valor_real);
 					} else {
-						$valor = $valor_real;
+						$valor = $valor_real ?? '';
 					}
 				}
 				$this->_objeto_toba_salida .= '<'.$this->xml_ns.'dato clave="'.$columnas[$a]["clave"].'" valor="'.$valor.'"/>';

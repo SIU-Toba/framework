@@ -1198,11 +1198,11 @@ class toba_ei_formulario extends toba_ei
 		$html .= $this->_elemento_formulario[$ef]->get_etiqueta();
 		$html .= "</td><td class='ei-form-valor'>\n";
 		//Hay que formatear?
-		if(isset($this->_info_formulario_ef[$ef]["formateo"])){
+		$valor_real = $this->_elemento_formulario[$ef]->get_estado();        
+		if(isset($this->_info_formulario_ef[$ef]["formateo"]) && null !== $valor_real){
 			$formateo = new $this->_clase_formateo('impresion_html');
 			$funcion = "formato_" . $this->_info_formulario_ef[$ef]["formateo"];
-			$valor_real = $this->_elemento_formulario[$ef]->get_estado();
-			$valor = $formateo->$funcion($valor_real ?? '');
+			$valor = $formateo->$funcion($valor_real);
 		} else {
 			$valor = $this->_elemento_formulario[$ef]->get_descripcion_estado('impresion_html');
 	    }
@@ -1427,10 +1427,10 @@ class toba_ei_formulario extends toba_ei
 			if ($this->_elemento_formulario[$ef]->tiene_estado()) {
 				$etiqueta = $this->_elemento_formulario[$ef]->get_etiqueta();
 				//Hay que formatear? Le meto pa'delante...
-            	if(isset($this->_info_formulario_ef[$ef]["formateo"])){
+                $valor_real = $this->_elemento_formulario[$ef]->get_estado();                
+            	if(isset($this->_info_formulario_ef[$ef]["formateo"]) && null !== $valor_real){
                 	$funcion = "formato_" . $this->_info_formulario_ef[$ef]["formateo"];
-                	$valor_real = $this->_elemento_formulario[$ef]->get_estado();
-                	$valor = $formateo->$funcion($valor_real ?? '');
+                	$valor = $formateo->$funcion($valor_real);
             	}else{
 		            $valor = $this->_elemento_formulario[$ef]->get_descripcion_estado('pdf');
 		        }	
@@ -1439,10 +1439,11 @@ class toba_ei_formulario extends toba_ei
 		}
 		//-- Genera la tabla
         $ancho = null;
-        if (strpos($this->_pdf_tabla_ancho, '%') !== false) {
-        	$ancho = $salida->get_ancho(str_replace('%', '', $this->_pdf_tabla_ancho));	
-        } elseif (isset($this->_pdf_tabla_ancho)) {
-        		$ancho = $this->_pdf_tabla_ancho;
+        if (isset($this->_pdf_tabla_ancho)) {
+            $ancho = $this->_pdf_tabla_ancho;
+            if (strpos($this->_pdf_tabla_ancho, '%') !== false) {
+                $ancho = $salida->get_ancho(str_replace('%', '', $this->_pdf_tabla_ancho));	
+            }     
         }
         $opciones = $this->_pdf_tabla_opciones;
         if (isset($ancho)) {
@@ -1462,10 +1463,10 @@ class toba_ei_formulario extends toba_ei
 		$formateo = new $this->_clase_formateo('pdf');
 		$etiqueta = $this->_elemento_formulario[$id_ef]->get_etiqueta();
 		//Hay que formatear? Le meto pa'delante...
-		if(isset($this->_info_formulario_ef[$id_ef]["formateo"])){
-			$funcion = "formato_" . $this->_info_formulario_ef[$id_ef]["formateo"];
-			$valor_real = $this->_elemento_formulario[$id_ef]->get_estado();
-			$valor = $formateo->$funcion($valor_real ?? '');
+        $valor_real = $this->_elemento_formulario[$id_ef]->get_estado();
+		if(isset($this->_info_formulario_ef[$id_ef]["formateo"]) && null !== $valor_real){
+			$funcion = "formato_" . $this->_info_formulario_ef[$id_ef]["formateo"];			
+			$valor = $formateo->$funcion($valor_real);
 		}else{
 			$valor = $this->_elemento_formulario[$id_ef]->get_descripcion_estado('pdf');
 		}
@@ -1489,9 +1490,9 @@ class toba_ei_formulario extends toba_ei
 			$etiqueta = $this->_elemento_formulario[$ef]->get_etiqueta();
 			//Hay que formatear?
 			$estilo = array();
-			if(isset($this->_info_formulario_ef[$ef]["formateo"])){
+            $valor_real = $this->_elemento_formulario[$ef]->get_estado();            
+			if(isset($this->_info_formulario_ef[$ef]["formateo"]) && null !== $valor_real){
 				$funcion = "formato_" . $this->_info_formulario_ef[$ef]["formateo"];
-				$valor_real = $this->_elemento_formulario[$ef]->get_estado();
 				list($valor, $estilo) = $formateo->$funcion($valor_real);
 			}else{
 				list($valor, $estilo) = $this->_elemento_formulario[$ef]->get_descripcion_estado('excel');
@@ -1544,10 +1545,11 @@ class toba_ei_formulario extends toba_ei
 		$formateo = new $this->_clase_formateo('pdf');
 		
         $ancho = null;
-        if (strpos($this->_pdf_tabla_ancho, '%') !== false) {
-        	$ancho = $salida->get_ancho(str_replace('%', '', $this->_pdf_tabla_ancho));	
-        } elseif (isset($this->_pdf_tabla_ancho)) {
-        		$ancho = $this->_pdf_tabla_ancho;
+        if (isset($this->_pdf_tabla_ancho)) {
+            $ancho = $this->_pdf_tabla_ancho;
+            if (strpos($this->_pdf_tabla_ancho, '%') !== false) {
+                $ancho = $salida->get_ancho(str_replace('%', '', $this->_pdf_tabla_ancho));	
+            }
         }
         $opciones = $this->_pdf_tabla_opciones;
         if (isset($ancho)) {
@@ -1568,9 +1570,9 @@ class toba_ei_formulario extends toba_ei
 					if ($this->_elemento_formulario[$ef]->tiene_estado() && (!isset($this->xml_ef_no_procesar) || !in_array($ef,$this->xml_ef_no_procesar))) {
 						$etiqueta = $this->_elemento_formulario[$ef]->get_etiqueta();
 						//Hay que formatear? Le meto pa'delante...
-						if(isset($this->_info_formulario_ef[$ef]["formateo"])){
+                        $valor_real = $this->_elemento_formulario[$ef]->get_estado();                        
+						if(isset($this->_info_formulario_ef[$ef]["formateo"]) && null !== $valor_real){
 							$funcion = "formato_" . $this->_info_formulario_ef[$ef]["formateo"];
-							$valor_real = $this->_elemento_formulario[$ef]->get_estado();
 							$valor = $formateo->$funcion($valor_real);
 						}else{
 							$valor = $this->_elemento_formulario[$ef]->get_descripcion_estado('pdf');

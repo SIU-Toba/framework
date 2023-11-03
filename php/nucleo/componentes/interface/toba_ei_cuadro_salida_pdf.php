@@ -91,13 +91,13 @@ class toba_ei_cuadro_salida_pdf extends toba_ei_cuadro_salida
 
 		//-- Genera la tablas
 		$ancho = null;
-		if (strpos($this->_pdf_tabla_ancho, '%') !== false) {
-			$ancho = $this->_objeto_toba_salida->get_ancho(str_replace('%', '', $this->_pdf_tabla_ancho));
-		} else {
-			$ancho = $this->_pdf_tabla_ancho;
-		}
-		$opciones = array('width' => $ancho, 'cols' => $estilos);
-		$opciones = array_merge($opciones, $this->get_opciones_columnas());
+        if (isset($this->_pdf_tabla_ancho)) {
+            $ancho = $this->_pdf_tabla_ancho;
+            if (strpos($this->_pdf_tabla_ancho, '%') !== false) {
+                $ancho = $this->_objeto_toba_salida->get_ancho(str_replace('%', '', $this->_pdf_tabla_ancho));
+            }
+        }
+		$opciones = array_merge(['width' => $ancho, 'cols' => $estilos], $this->get_opciones_columnas());
 		$this->_objeto_toba_salida->tabla(array('datos_tabla'=>$datos, 'titulos_columnas'=>$titulos), true, $this->_pdf_letra_tabla, $opciones);
 		$this->_objeto_toba_salida->separacion($this->_pdf_sep_tabla);
 	}
@@ -122,7 +122,7 @@ class toba_ei_cuadro_salida_pdf extends toba_ei_cuadro_salida
 	{
 		$fila = array();
 		foreach (array_keys($columnas) as $a) {
-			$valor = "";
+			$valor = '';
 			if(isset($columnas[$a]["clave"])){
 				if(isset($datos_cuadro[$id_fila][$columnas[$a]["clave"]])){
 					$valor_real = $datos_cuadro[$id_fila][$columnas[$a]["clave"]];
@@ -130,12 +130,12 @@ class toba_ei_cuadro_salida_pdf extends toba_ei_cuadro_salida
 					$valor_real = '';
 				}
 				//Hay que formatear?
-				if(isset($columnas[$a]["formateo"])){
+				if(isset($columnas[$a]["formateo"]) && null !== $valor_real){
 					$funcion = "formato_" . $columnas[$a]["formateo"];
 					//Formateo el valor
 					$valor = $formateo->$funcion($valor_real);
 				} else {
-					$valor = $valor_real;
+					$valor = $valor_real ?? '';
 				}
 			}
 			$fila[$columnas[$a]["clave"]] = $valor;
@@ -287,7 +287,7 @@ class toba_ei_cuadro_salida_pdf extends toba_ei_cuadro_salida
 				$datos[$clave] = $valor;
 			}else{
 				unset($titulos[$clave]);
-				$datos[$clave] = null;
+				$datos[$clave] = '';
 			}
 		}
 		return $datos;
