@@ -95,7 +95,7 @@ class toba_ei_cuadro_salida_excel extends toba_ei_cuadro_salida
 				if(isset($datos_cuadro[$id_fila][$clave])) {
 					$valor_real = $datos_cuadro[$id_fila][$clave];
 				} else {
-					$valor_real = '';
+					$valor_real = null;
 				}
 				//Hay que formatear?
 				$estilo = array();
