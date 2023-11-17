@@ -787,11 +787,11 @@ class toba_ei_filtro extends toba_ei
 
 			//-- Valor			
 			$fn_formateo = $columna->get_formateo();
-			if (! is_null($fn_formateo)){
+			if (! is_null($fn_formateo) && $columna->get_ef()->tiene_estado()){
 				$formateo = new $this->_clase_formateo('impresion_html');				
 				$funcion = "formato_" . $fn_formateo;
 				$valor_real = $columna->get_ef()->get_estado();
-				$valor = $formateo->$funcion($valor_real ?? '');				
+				$valor = $formateo->$funcion($valor_real);				
 			}else{
 				$valor = $columna->get_ef()->get_descripcion_estado('impresion_html');
 			}			
@@ -852,10 +852,10 @@ class toba_ei_filtro extends toba_ei
 				$condicion = $columna->condicion()->get_etiqueta();
 								
 				$fn_formateo = $columna->get_formateo();
-				if (! is_null($fn_formateo)) {
+				if (! is_null($fn_formateo) && null !== $columna->get_pdf_valor()) {
 					$funcion = "formato_" . $fn_formateo;
 					$valor_real = $columna->get_pdf_valor();
-					$valor = $formateo->$funcion($valor_real ?? '');
+					$valor = $formateo->$funcion($valor_real);
 				} else {
 					$valor = $columna->get_pdf_valor();
 				}
@@ -864,11 +864,12 @@ class toba_ei_filtro extends toba_ei
 		}
 		//-- Genera la tabla
 		$ancho = null;
-		if (strpos($this->_pdf_tabla_ancho, '%') !== false) {
-			$ancho = $salida->get_ancho(str_replace('%', '', $this->_pdf_tabla_ancho));	
-		} elseif (isset($this->_pdf_tabla_ancho)) {
-				$ancho = $this->_pdf_tabla_ancho;
-		}
+        if (isset($this->_pdf_tabla_ancho)) {
+            $ancho = $this->_pdf_tabla_ancho;
+            if (strpos($this->_pdf_tabla_ancho, '%') !== false) {
+                $ancho = $salida->get_ancho(str_replace('%', '', $this->_pdf_tabla_ancho));	
+            } 
+        }
 		$opciones = $this->_pdf_tabla_opciones;
 		if (isset($ancho)) {
 			$opciones['width'] = $ancho;		
@@ -897,10 +898,10 @@ class toba_ei_filtro extends toba_ei
 				//Hay que formatear?
 				$estilo = array();
 				$fn_formateo = $columna->get_formateo();
-				if (! is_null($fn_formateo)){
+				if (! is_null($fn_formateo) && null !== $columna->get_excel_valor()){
 					$funcion = "formato_" . $fn_formateo;
 					$valor_real = $columna->get_excel_valor();
-					list($valor, $estilo) = $formateo->$funcion($valor_real ?? '');
+					list($valor, $estilo) = $formateo->$funcion($valor_real);
 				} else {
 					list($valor, $estilo) = $columna->get_excel_valor();
 				}
@@ -965,10 +966,10 @@ class toba_ei_filtro extends toba_ei
 				$condicion = $columna->condicion()->get_etiqueta();
 								
 				$fn_formateo = $columna->get_formateo();
-				if (! is_null($fn_formateo)){
+				if (! is_null($fn_formateo) && null !== $columna->get_ef()->get_estado()){
 					$funcion = "formato_" . $fn_formateo;
                 	$valor_real = $columna->get_ef()->get_estado();
-                	$valor = $formateo->$funcion($valor_real ?? '');
+                	$valor = $formateo->$funcion($valor_real);
 				}else{
 					$valor = $columna->get_ef()->get_descripcion_estado('xml');
 				}

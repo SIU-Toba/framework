@@ -35,8 +35,8 @@ class toba_ei_cuadro_salida_impresion_html extends toba_ei_cuadro_salida_html
 	protected function impresion_html_cabecera()
 	{
 		$info = $this->_cuadro->get_informacion_basica_cuadro();
-		if(trim($info["subtitulo"])<>""){
-			echo $info["subtitulo"];
+		if(null !== $info['subtitulo'] && trim($info['subtitulo'])<>''){
+			echo $info['subtitulo'];
 		}
 	}
 
@@ -103,12 +103,12 @@ class toba_ei_cuadro_salida_impresion_html extends toba_ei_cuadro_salida_html
 						//ATENCION!! hay una columna que no esta disponible!
 					}
 	                //Hay que formatear?
-	                if(isset($columnas[$a]["formateo"])) {
+	                if(isset($columnas[$a]["formateo"]) && null !== $valor_real) {
 	                    $funcion = "formato_" . $columnas[$a]["formateo"];
 	                    //Formateo el valor
-	                    $valor = $formateo->$funcion($valor_real ?? '');
+	                    $valor = $formateo->$funcion($valor_real);
 	                } else {
-	                	$valor = $valor_real;
+	                	$valor = $valor_real ?? '';
 	                }
 	            }
 
