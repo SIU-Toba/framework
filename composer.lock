@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2f0a4d32b38fbf07f00eb8ea156beedc",
+    "content-hash": "909f1f3cecccbde6af9109283de38f73",
     "packages": [
         {
             "name": "dapphp/securimage",
@@ -1540,21 +1540,22 @@
         },
         {
             "name": "pear/pear-core-minimal",
-            "version": "v1.10.13",
+            "version": "v1.10.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pear/pear-core-minimal.git",
-                "reference": "aed862e95fd286c53cc546734868dc38ff4b5b1d"
+                "reference": "a86fc145edb5caedbf96527214ce3cadc9de4a32"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pear/pear-core-minimal/zipball/aed862e95fd286c53cc546734868dc38ff4b5b1d",
-                "reference": "aed862e95fd286c53cc546734868dc38ff4b5b1d",
+                "url": "https://api.github.com/repos/pear/pear-core-minimal/zipball/a86fc145edb5caedbf96527214ce3cadc9de4a32",
+                "reference": "a86fc145edb5caedbf96527214ce3cadc9de4a32",
                 "shasum": ""
             },
             "require": {
                 "pear/console_getopt": "~1.4",
-                "pear/pear_exception": "~1.0"
+                "pear/pear_exception": "~1.0",
+                "php": ">=5.4"
             },
             "replace": {
                 "rsky/pear-core-min": "self.version"
@@ -1584,7 +1585,7 @@
                 "issues": "http://pear.php.net/bugs/search.php?cmd=display&package_name[]=PEAR",
                 "source": "https://github.com/pear/pear-core-minimal"
             },
-            "time": "2023-04-19T19:15:47+00:00"
+            "time": "2023-11-26T16:15:38+00:00"
         },
         {
             "name": "pear/pear_exception",
@@ -2714,11 +2715,11 @@
         },
         {
             "name": "siu-toba/structures_graph",
-            "version": "dev-feature/updateLibs",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SIU-Toba/Structures_Graph.git",
-                "reference": "8906f52d93f631fde08b58c1a8b602a9341cdc75"
+                "reference": "10294ab8d3ea8b697dbd63180b29190f4f20d6ba"
             },
             "require": {
                 "pear/pear-core-minimal": "~1.10",
@@ -2751,7 +2752,7 @@
             "support": {
                 "source": "https://github.com/pear/Structures_Graph"
             },
-            "time": "2023-04-25T20:51:09+00:00"
+            "time": "2023-11-27T20:43:55+00:00"
         },
         {
             "name": "siu/arai-json-migrator",
@@ -2809,7 +2810,7 @@
             "source": {
                 "type": "git",
                 "url": "https://gitlab.siu.edu.ar/siu-arai/json-util.git",
-                "reference": "fa04377f43d78f19eaf888caf31731773565cb79"
+                "reference": "fb60a92a06c72b9fed8dd62f0beee94c8d357602"
             },
             "require": {
                 "justinrainbow/json-schema": "~5.2",
@@ -2832,7 +2833,7 @@
                 }
             ],
             "description": "Utilidades para el parseo y chequeo de schemas de archivos Json",
-            "time": "2022-04-05T19:52:27+00:00"
+            "time": "2023-11-21T15:35:23+00:00"
         },
         {
             "name": "siu/manejador-salida-toba",
@@ -5172,7 +5173,6 @@
         "dapphp/securimage": 20,
         "guiguiboy/php-cli-progress-bar": 20,
         "ioncube/php-openssl-cryptor": 20,
-        "siu-toba/structures_graph": 20,
         "siu/arai-json-migrator": 20,
         "siu/manejador-salida-toba": 20,
         "siu/interfaces-manejador-salida-toba": 20,
