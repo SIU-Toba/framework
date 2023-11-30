@@ -9,16 +9,20 @@
      * phpmailer/phpmailer: v6.8.1
      * phpoffice/phpspreadsheet: v1.29.0
      * rospdf/pdf-php: v0.12.67
-     * vlucas/phpdotenv: v5.5.0
+     * vlucas/phpdotenv: v5.6.0
      * nikic/php-parser: v4.17.1
      * onelogin/php-saml: v4.1.0
-     * laminas/escaper: v2.12.0
+     * laminas/escaper: v2.13.0
      * jpGraph/jpGraph: v4.4.1
-     * firebase/php-jwt: v6.8.1
+     * firebase/php-jwt: v6.10.0
      * symfony/security-csrf: v5.4.27
-     * symfony/yaml: v6.3.3
+     * symfony/yaml: v4.4.45
      * siu-toba/rest: v3.1.0
+     * siu-toba/structures_graph: v1.2.0
+     * siu/arai-json-migrator: v2.0.0
+     * siu/interfaces-manejador-salida-toba: v1.4.0
 
+- Se corrige error al intentar formatear valores nulos en exportaciones de `ei_cuadro`
 - Se incluye mecanismo para configurar la versión de API a consumir en `cliente.ini`
 - Se agrega soporte en DT para las columnas tipo `IDENTITY`
 - Se mejora el soporte de auditoria para fuentes que no tienen asignado un schema en metadatos

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "909f1f3cecccbde6af9109283de38f73",
+    "content-hash": "bd0fb54cfaafc639ddaffeb9860f9622",
     "packages": [
         {
             "name": "dapphp/securimage",
@@ -225,16 +225,16 @@
         },
         {
             "name": "firebase/php-jwt",
-            "version": "v6.9.0",
+            "version": "v6.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/firebase/php-jwt.git",
-                "reference": "f03270e63eaccf3019ef0f32849c497385774e11"
+                "reference": "a49db6f0a5033aef5143295342f1c95521b075ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/firebase/php-jwt/zipball/f03270e63eaccf3019ef0f32849c497385774e11",
-                "reference": "f03270e63eaccf3019ef0f32849c497385774e11",
+                "url": "https://api.github.com/repos/firebase/php-jwt/zipball/a49db6f0a5033aef5143295342f1c95521b075ff",
+                "reference": "a49db6f0a5033aef5143295342f1c95521b075ff",
                 "shasum": ""
             },
             "require": {
@@ -282,9 +282,9 @@
             ],
             "support": {
                 "issues": "https://github.com/firebase/php-jwt/issues",
-                "source": "https://github.com/firebase/php-jwt/tree/v6.9.0"
+                "source": "https://github.com/firebase/php-jwt/tree/v6.10.0"
             },
-            "time": "2023-10-05T00:24:42+00:00"
+            "time": "2023-12-01T16:26:39+00:00"
         },
         {
             "name": "graham-campbell/result-type",
@@ -2756,15 +2756,15 @@
         },
         {
             "name": "siu/arai-json-migrator",
-            "version": "dev-feature/updateLibs",
+            "version": "v2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://gitlab.siu.edu.ar/siu-arai/arai-json-migrator.git",
-                "reference": "0cddc736e8edd2569c884627b3e6e898e4bcd492"
+                "reference": "f1ed58f5501c0c14654384cb6d8a66cfaca906d3"
             },
             "require": {
-                "php": ">=5.3.0",
-                "siu/json-util": "dev-feature/upgradeLibs"
+                "php": ">=8.0.0",
+                "siu/json-util": "~1.4"
             },
             "type": "project",
             "autoload": {
@@ -2779,15 +2779,15 @@
                 }
             ],
             "description": "Utilidades para exportar e importar usuarios en Araí mediante un archivo JSON",
-            "time": "2023-06-09T19:54:22+00:00"
+            "time": "2023-12-01T17:41:46+00:00"
         },
         {
             "name": "siu/interfaces-manejador-salida-toba",
-            "version": "dev-feature/php8Up",
+            "version": "v1.4",
             "source": {
                 "type": "git",
                 "url": "https://gitlab.siu.edu.ar/siu/interfaces-manejador-salida-toba.git",
-                "reference": "b5bafa167b61f7dbebc09aad9d2d767cb6ffba43"
+                "reference": "dcc2eac1f35d16853fefb4bd77e1415331129154"
             },
             "type": "library",
             "autoload": {
@@ -2802,19 +2802,19 @@
                 }
             ],
             "description": "Implementación de las interfaces del patrón Abstract Factory para la salida de Toba",
-            "time": "2023-03-28T18:24:57+00:00"
+            "time": "2023-11-28T15:48:35+00:00"
         },
         {
             "name": "siu/json-util",
-            "version": "dev-feature/upgradeLibs",
+            "version": "v1.4",
             "source": {
                 "type": "git",
                 "url": "https://gitlab.siu.edu.ar/siu-arai/json-util.git",
-                "reference": "fb60a92a06c72b9fed8dd62f0beee94c8d357602"
+                "reference": "f5805560d31a20ca66d08db6dc55eab20d133987"
             },
             "require": {
                 "justinrainbow/json-schema": "~5.2",
-                "php": ">=7.3.0",
+                "php": ">=8.0.0",
                 "seld/jsonlint": "~1.8"
             },
             "require-dev": {
@@ -2833,18 +2833,18 @@
                 }
             ],
             "description": "Utilidades para el parseo y chequeo de schemas de archivos Json",
-            "time": "2023-11-21T15:35:23+00:00"
+            "time": "2023-11-29T20:33:28+00:00"
         },
         {
             "name": "siu/manejador-salida-toba",
-            "version": "dev-feature/php8Up",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://gitlab.siu.edu.ar/siu/manejador-salida-toba.git",
-                "reference": "2ca02071fb9ab32b963d69e87c2f37a8f452b1ef"
+                "reference": "c8fb5dbb666db3c10e5eb540834df81e9e059f98"
             },
             "require": {
-                "siu/interfaces-manejador-salida-toba": "dev-feature/php8Up"
+                "siu/interfaces-manejador-salida-toba": "~1.4"
             },
             "type": "library",
             "autoload": {
@@ -2859,7 +2859,7 @@
                 }
             ],
             "description": "Implementación del patrón 'Abstract Factory' para la salida de Toba",
-            "time": "2023-06-02T18:55:46+00:00"
+            "time": "2023-12-01T14:00:09+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -3006,16 +3006,16 @@
         },
         {
             "name": "symfony/password-hasher",
-            "version": "v6.3.8",
+            "version": "v6.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/password-hasher.git",
-                "reference": "82161c4bebf77900372083ec6e484b5f055b0cba"
+                "reference": "e001f752338a49d644ee0523fd7891aabaccb7e2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/password-hasher/zipball/82161c4bebf77900372083ec6e484b5f055b0cba",
-                "reference": "82161c4bebf77900372083ec6e484b5f055b0cba",
+                "url": "https://api.github.com/repos/symfony/password-hasher/zipball/e001f752338a49d644ee0523fd7891aabaccb7e2",
+                "reference": "e001f752338a49d644ee0523fd7891aabaccb7e2",
                 "shasum": ""
             },
             "require": {
@@ -3025,8 +3025,8 @@
                 "symfony/security-core": "<5.4"
             },
             "require-dev": {
-                "symfony/console": "^5.4|^6.0",
-                "symfony/security-core": "^5.4|^6.0"
+                "symfony/console": "^5.4|^6.0|^7.0",
+                "symfony/security-core": "^5.4|^6.0|^7.0"
             },
             "type": "library",
             "autoload": {
@@ -3058,7 +3058,7 @@
                 "password"
             ],
             "support": {
-                "source": "https://github.com/symfony/password-hasher/tree/v6.3.8"
+                "source": "https://github.com/symfony/password-hasher/tree/v6.4.0"
             },
             "funding": [
                 {
@@ -3074,7 +3074,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-11-06T10:58:05+00:00"
+            "time": "2023-11-06T11:00:25+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -3326,23 +3326,23 @@
         },
         {
             "name": "symfony/security-core",
-            "version": "v6.3.7",
+            "version": "v6.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/security-core.git",
-                "reference": "7ceb30fed93f5ea40ccde3173d1f7712527c0d62"
+                "reference": "9e24a7199744d944c03fc1448276dc57f6237a33"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/security-core/zipball/7ceb30fed93f5ea40ccde3173d1f7712527c0d62",
-                "reference": "7ceb30fed93f5ea40ccde3173d1f7712527c0d62",
+                "url": "https://api.github.com/repos/symfony/security-core/zipball/9e24a7199744d944c03fc1448276dc57f6237a33",
+                "reference": "9e24a7199744d944c03fc1448276dc57f6237a33",
                 "shasum": ""
             },
             "require": {
                 "php": ">=8.1",
                 "symfony/deprecation-contracts": "^2.5|^3",
                 "symfony/event-dispatcher-contracts": "^2.5|^3",
-                "symfony/password-hasher": "^5.4|^6.0",
+                "symfony/password-hasher": "^5.4|^6.0|^7.0",
                 "symfony/service-contracts": "^2.5|^3"
             },
             "conflict": {
@@ -3356,14 +3356,14 @@
                 "psr/cache": "^1.0|^2.0|^3.0",
                 "psr/container": "^1.1|^2.0",
                 "psr/log": "^1|^2|^3",
-                "symfony/cache": "^5.4|^6.0",
-                "symfony/event-dispatcher": "^5.4|^6.0",
-                "symfony/expression-language": "^5.4|^6.0",
-                "symfony/http-foundation": "^5.4|^6.0",
-                "symfony/ldap": "^5.4|^6.0",
-                "symfony/string": "^5.4|^6.0",
-                "symfony/translation": "^5.4|^6.0",
-                "symfony/validator": "^5.4|^6.0"
+                "symfony/cache": "^5.4|^6.0|^7.0",
+                "symfony/event-dispatcher": "^5.4|^6.0|^7.0",
+                "symfony/expression-language": "^5.4|^6.0|^7.0",
+                "symfony/http-foundation": "^5.4|^6.0|^7.0",
+                "symfony/ldap": "^5.4|^6.0|^7.0",
+                "symfony/string": "^5.4|^6.0|^7.0",
+                "symfony/translation": "^5.4|^6.0|^7.0",
+                "symfony/validator": "^6.4|^7.0"
             },
             "type": "library",
             "autoload": {
@@ -3391,7 +3391,7 @@
             "description": "Symfony Security Component - Core Library",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/security-core/tree/v6.3.7"
+                "source": "https://github.com/symfony/security-core/tree/v6.4.0"
             },
             "funding": [
                 {
@@ -3407,7 +3407,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-10-28T23:11:45+00:00"
+            "time": "2023-11-06T17:20:05+00:00"
         },
         {
             "name": "symfony/security-csrf",
@@ -3975,108 +3975,6 @@
             "time": "2023-03-09T20:54:23+00:00"
         },
         {
-            "name": "monolog/monolog",
-            "version": "2.9.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "437cb3628f4cf6042cc10ae97fc2b8472e48ca1f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/437cb3628f4cf6042cc10ae97fc2b8472e48ca1f",
-                "reference": "437cb3628f4cf6042cc10ae97fc2b8472e48ca1f",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.2",
-                "psr/log": "^1.0.1 || ^2.0 || ^3.0"
-            },
-            "provide": {
-                "psr/log-implementation": "1.0.0 || 2.0.0 || 3.0.0"
-            },
-            "require-dev": {
-                "aws/aws-sdk-php": "^2.4.9 || ^3.0",
-                "doctrine/couchdb": "~1.0@dev",
-                "elasticsearch/elasticsearch": "^7 || ^8",
-                "ext-json": "*",
-                "graylog2/gelf-php": "^1.4.2 || ^2@dev",
-                "guzzlehttp/guzzle": "^7.4",
-                "guzzlehttp/psr7": "^2.2",
-                "mongodb/mongodb": "^1.8",
-                "php-amqplib/php-amqplib": "~2.4 || ^3",
-                "phpspec/prophecy": "^1.15",
-                "phpstan/phpstan": "^0.12.91",
-                "phpunit/phpunit": "^8.5.14",
-                "predis/predis": "^1.1 || ^2.0",
-                "rollbar/rollbar": "^1.3 || ^2 || ^3",
-                "ruflin/elastica": "^7",
-                "swiftmailer/swiftmailer": "^5.3|^6.0",
-                "symfony/mailer": "^5.4 || ^6",
-                "symfony/mime": "^5.4 || ^6"
-            },
-            "suggest": {
-                "aws/aws-sdk-php": "Allow sending log messages to AWS services like DynamoDB",
-                "doctrine/couchdb": "Allow sending log messages to a CouchDB server",
-                "elasticsearch/elasticsearch": "Allow sending log messages to an Elasticsearch server via official client",
-                "ext-amqp": "Allow sending log messages to an AMQP server (1.0+ required)",
-                "ext-curl": "Required to send log messages using the IFTTTHandler, the LogglyHandler, the SendGridHandler, the SlackWebhookHandler or the TelegramBotHandler",
-                "ext-mbstring": "Allow to work properly with unicode symbols",
-                "ext-mongodb": "Allow sending log messages to a MongoDB server (via driver)",
-                "ext-openssl": "Required to send log messages using SSL",
-                "ext-sockets": "Allow sending log messages to a Syslog server (via UDP driver)",
-                "graylog2/gelf-php": "Allow sending log messages to a GrayLog2 server",
-                "mongodb/mongodb": "Allow sending log messages to a MongoDB server (via library)",
-                "php-amqplib/php-amqplib": "Allow sending log messages to an AMQP server using php-amqplib",
-                "rollbar/rollbar": "Allow sending log messages to Rollbar",
-                "ruflin/elastica": "Allow sending log messages to an Elastic Search server"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-main": "2.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Monolog\\": "src/Monolog"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jordi Boggiano",
-                    "email": "j.boggiano@seld.be",
-                    "homepage": "https://seld.be"
-                }
-            ],
-            "description": "Sends your logs to files, sockets, inboxes, databases and various web services",
-            "homepage": "https://github.com/Seldaek/monolog",
-            "keywords": [
-                "log",
-                "logging",
-                "psr-3"
-            ],
-            "support": {
-                "issues": "https://github.com/Seldaek/monolog/issues",
-                "source": "https://github.com/Seldaek/monolog/tree/2.9.2"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/Seldaek",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/monolog/monolog",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2023-10-27T15:25:26+00:00"
-        },
-        {
             "name": "paragonie/constant_time_encoding",
             "version": "v2.6.3",
             "source": {
@@ -4400,19 +4298,19 @@
             "source": {
                 "type": "git",
                 "url": "https://gitlab.siu.edu.ar/siu-arai/arai-cli.git",
-                "reference": "17622c574c8c002fe1d85b1123eff780fd06a21b"
+                "reference": "2cb8dbc58f379ce8a57d735d949e74e44ff1003a"
             },
             "require": {
                 "egulias/email-validator": "~3.1",
                 "guzzlehttp/guzzle": "~7.0",
-                "monolog/monolog": "~1.0|~2.0",
                 "paragonie/constant_time_encoding": "^1|^2",
                 "paragonie/sodium_compat": "~1.17",
                 "php": ">=7.4",
                 "pimple/pimple": "~3.0",
+                "psr/log": "~1.0|~2.0|~3.0",
                 "seld/cli-prompt": "~1.0",
-                "siu/arai-crypto": "dev-feature/upgradeLibs",
-                "siu/arai-json-parser": "dev-feature/upgradeLibs",
+                "siu/arai-crypto": "~v2.1",
+                "siu/arai-json-parser": "dev-develop",
                 "symfony/console": "~4.4|~5.4|~5.5",
                 "symfony/error-handler": "~4.4|~5.4|~5.5"
             },
@@ -4422,6 +4320,7 @@
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "~3.8",
                 "mikey179/vfsstream": "~1.6",
+                "monolog/monolog": "~1.0|~2.0|~3.0",
                 "phpunit/phpunit": "~9.5",
                 "symfony/process": "~4.4|~5.4|~5.5"
             },
@@ -4435,15 +4334,15 @@
                 }
             },
             "description": "Librería cliente de los componentes ARAI",
-            "time": "2023-11-15T14:03:06+00:00"
+            "time": "2023-11-30T18:07:39+00:00"
         },
         {
             "name": "siu/arai-crypto",
-            "version": "dev-feature/upgradeLibs",
+            "version": "v2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://gitlab.siu.edu.ar/siu-arai/arai-crypto",
-                "reference": "050bfd341736830e6b36bae169ed9a5875684722"
+                "reference": "314b0c2c74844630f7b063b1646ada6a1d1610a0"
             },
             "require": {
                 "php": ">=7.4"
@@ -4467,19 +4366,19 @@
                 }
             },
             "description": "Librería que ofrece servicios de criptografía para ARAI",
-            "time": "2022-03-30T15:38:22+00:00"
+            "time": "2023-11-29T20:51:14+00:00"
         },
         {
             "name": "siu/arai-json-parser",
-            "version": "dev-feature/upgradeLibs",
+            "version": "dev-develop",
             "source": {
                 "type": "git",
                 "url": "https://gitlab.siu.edu.ar/siu-arai/arai-json-parser.git",
-                "reference": "a9fda727aed76677b0aa0d24120cab91a173dad3"
+                "reference": "d7b810eb8696eda27691f8155563bde89016038d"
             },
             "require": {
-                "php": ">=7.4",
-                "siu/json-util": "dev-feature/upgradeLibs"
+                "php": ">=8.0.0",
+                "siu/json-util": "~v1.4"
             },
             "type": "project",
             "autoload": {
@@ -4494,18 +4393,18 @@
                 }
             ],
             "description": "Utilidades para parsear el json de Araí",
-            "time": "2022-03-30T15:43:55+00:00"
+            "time": "2023-11-30T16:21:36+00:00"
         },
         {
             "name": "siu/manejador-salida-bootstrap",
-            "version": "dev-feature/php8Up",
+            "version": "v1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://gitlab.siu.edu.ar/siu/manejador-salida-bootstrap.git",
-                "reference": "2dccaa76f9e672132d9bbfae5ec127e2c2fa1c2e"
+                "reference": "a5bdcc56034c1a264a485430aaeff7c1cbbbdbc9"
             },
             "require": {
-                "siu/interfaces-manejador-salida-toba": "dev-feature/php8Up"
+                "siu/interfaces-manejador-salida-toba": "~1.4"
             },
             "type": "library",
             "autoload": {
@@ -4528,7 +4427,7 @@
                 }
             ],
             "description": "Implementacion del patron 'Abstract Factory' para la salida Bootstrap",
-            "time": "2023-06-05T21:27:57+00:00"
+            "time": "2023-12-01T13:58:36+00:00"
         },
         {
             "name": "symfony/console",
@@ -5018,16 +4917,16 @@
         },
         {
             "name": "symfony/process",
-            "version": "v6.3.4",
+            "version": "v6.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "0b5c29118f2e980d455d2e34a5659f4579847c54"
+                "reference": "191703b1566d97a5425dc969e4350d32b8ef17aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/0b5c29118f2e980d455d2e34a5659f4579847c54",
-                "reference": "0b5c29118f2e980d455d2e34a5659f4579847c54",
+                "url": "https://api.github.com/repos/symfony/process/zipball/191703b1566d97a5425dc969e4350d32b8ef17aa",
+                "reference": "191703b1566d97a5425dc969e4350d32b8ef17aa",
                 "shasum": ""
             },
             "require": {
@@ -5059,7 +4958,7 @@
             "description": "Executes commands in sub-processes",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/process/tree/v6.3.4"
+                "source": "https://github.com/symfony/process/tree/v6.4.0"
             },
             "funding": [
                 {
@@ -5075,7 +4974,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-08-07T10:39:22+00:00"
+            "time": "2023-11-17T21:06:49+00:00"
         },
         {
             "name": "symfony/var-dumper",
@@ -5173,11 +5072,9 @@
         "dapphp/securimage": 20,
         "guiguiboy/php-cli-progress-bar": 20,
         "ioncube/php-openssl-cryptor": 20,
-        "siu/arai-json-migrator": 20,
-        "siu/manejador-salida-toba": 20,
-        "siu/interfaces-manejador-salida-toba": 20,
         "greenlion/php-sql-parser": 20,
-        "siu/manejador-salida-bootstrap": 20
+        "siu/arai-cli": 20,
+        "siu/arai-json-parser": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
@@ -5186,5 +5083,5 @@
         "ext-curl": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.3.0"
 }
