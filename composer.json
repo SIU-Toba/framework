@@ -44,9 +44,9 @@
         "greenlion/php-sql-parser": "@dev",
         "php-webdriver/webdriver": "~1.8",
         "simpletest/simpletest": "*",
-        "siu/arai-cli": "dev-feature/updateLibs",
+        "siu/arai-cli": "*",
         "siu/arai-crypto": "*",
-        "siu/arai-json-parser": "dev-develop",
+        "siu/arai-json-parser": "*",
         "siu/manejador-salida-bootstrap": "~1.4"
     },
     "suggest": {

@@ -183,7 +183,7 @@ class toba_logger_ws extends AbstractLogger
 
 	protected function armar_mensaje($mensaje, $nivel)
 	{
-		return  "[" . $this->id_solicitud . "][" .$this->proyecto_actual . "][" . $this->ref_niveles[$nivel] ."] "  . $mensaje . PHP_EOL;
+		return  '[' . date('Y-m-d h:i:s') . '][' .$this->id_solicitud . '][' .$this->proyecto_actual . '][' . $this->ref_niveles[$nivel] .'] '  . $mensaje . PHP_EOL;
 	}
 
 	//------------------------------------------------------------------------------------------------------------------------------//

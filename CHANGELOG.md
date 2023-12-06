@@ -3,9 +3,11 @@
 ## CHANGELOG
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
+
+[3.4.0](https://github.com/SIU-Toba/framework/releases/tag/v3.4.0) (2023-12-06)
 - Se incrementa el requerimiento de plataforma a PHP 8.1+
 - Se actualizan los siguientes paquetes 
-     * guzzle/guzzle: v7.8.0
+     * guzzle/guzzle: v7.8.1
      * phpmailer/phpmailer: v6.8.1
      * phpoffice/phpspreadsheet: v1.29.0
      * rospdf/pdf-php: v0.12.67
@@ -22,6 +24,7 @@
      * siu/arai-json-migrator: v2.0.0
      * siu/interfaces-manejador-salida-toba: v1.4.0
 
+- Se corrige error al intentar migrar la auditoria (relacionado con cambio para columnas `IDENTITY`)
 - Se corrige error al intentar formatear valores nulos en exportaciones de `ei_cuadro`
 - Se incluye mecanismo para configurar la versión de API a consumir en `cliente.ini`
 - Se agrega soporte en DT para las columnas tipo `IDENTITY`
