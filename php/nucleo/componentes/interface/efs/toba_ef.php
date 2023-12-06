@@ -597,7 +597,8 @@ abstract class toba_ef
 	/**
 	 * Cambia la obligatoriedad de un ef
 	 * Notar que este cambio no se persiste para el siguiente pedido.
-	 * Para cambiar la obligatoriedad durante todo un ciclo cliente-servidor usar {@link toba_ei_formulario::set_efs_obligatorios() set_efs_obligatorios del formulario}
+	 * Para cambiar la obligatoriedad durante todo un ciclo cliente-servidor usar @see toba_ei_formulario::set_efs_obligatorios()
+     * 
 	 * @param boolean $obligatorio
 	 */
 	function set_obligatorio($obligatorio = true)

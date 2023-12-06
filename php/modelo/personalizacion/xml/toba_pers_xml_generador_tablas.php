@@ -66,7 +66,5 @@ class toba_pers_xml_generador_tablas extends toba_pers_xml_generador {
 		$xml->cerrar_elemento();
 		$xml->cerrar_documento();
 	}
-
-
 }
 ?>

@@ -111,7 +111,8 @@ class toba_ef_upload extends toba_ef
 	
 	/**
 	 * Valida que cumpla con la lista de extensiones válidas definidas.
-	 * También chequea los {@link http://www.php.net/manual/en/features.file-upload.errors.php mensajes de error de upload} de php
+	 * También chequea los http://www.php.net/manual/en/features.file-upload.errors.php mensajes de error de upload de php
+     * 
 	 * @return unknown
 	 */
 	function validar_estado()

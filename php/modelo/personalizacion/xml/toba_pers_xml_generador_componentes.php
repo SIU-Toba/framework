@@ -6,7 +6,6 @@
  */	
 class toba_pers_xml_generador_componentes extends toba_pers_xml_generador
 {
-
 	/**
 	 *
 	 * @param string $path path del directorio de componentes
@@ -101,8 +100,8 @@ class toba_pers_xml_generador_componentes extends toba_pers_xml_generador
 	}
 
 	/**
-	 * @param <type> $componente
-	 * @param <type> $path
+	 * @param array $componente
+	 * @param string $path
 	 */
 	private function generar_componente_borrada(&$componente, $path)
 	{
@@ -138,8 +137,8 @@ class toba_pers_xml_generador_componentes extends toba_pers_xml_generador
 	}
 	
 	/**
-	 * @param <type> $componente
-	 * @param <type> $path
+	 * @param array $componente
+	 * @param string $path
 	 */
 	private function generar_componente_modificada(&$componente, $path)
 	{

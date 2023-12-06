@@ -424,8 +424,8 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 
 	/**
 	 * @ignore
-	 * @param <type> $nodo
-	 * @param <type> $total_columnas
+	 * @param array $nodo
+	 * @param integer $total_columnas
 	 */
 	function html_cabecera_pie($indice, $nodo, $total_columnas)
 	{
@@ -444,8 +444,8 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 
 	/**
 	 * @ignore
-	 * @param <type> $nodo
-	 * @param <type> $total_columnas
+	 * @param array $nodo
+	 * @param integer $total_columnas
 	 * @todo Por el momento no se estaria usando y no se como se usa
 	 */
 	function html_pie_pie($nodo, $total_columnas, $es_ultimo)
@@ -462,7 +462,8 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 
 	/**
 	 * @ignore
-	 * @param <type> $nodo
+	 * @param array $nodo
+     * @param integer $total_columnas 
 	 */
 	function html_sumarizacion_usuario($nodo, $total_columnas)
 	{

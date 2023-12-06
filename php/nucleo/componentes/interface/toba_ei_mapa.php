@@ -209,7 +209,7 @@ class toba_ei_mapa extends toba_ei
 
 	/**
 	 * @ignore
-	 * @param <type> $datos
+	 * @param array $datos
 	 */
 	function set_datos($datos)
 	{
@@ -432,7 +432,7 @@ class toba_ei_mapa extends toba_ei
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	/**
 	 * Devuelve el vinculo con la direccion a la que se le pedira el servicio para el grafico del mapa.
-	 * @return <type>
+	 * @return string
 	 */
 	protected function get_url_mapa()
 	{
@@ -445,7 +445,7 @@ class toba_ei_mapa extends toba_ei
 
 	/**
 	 * Servicio que se ejecuta cuando el cliente pide el mapa por URL
-	 * @param <type> $parametros
+	 * @param array $parametros
 	 * @ignore
 	 */
 	function servicio__ejecutar($parametros = null)
@@ -559,7 +559,7 @@ class toba_ei_mapa extends toba_ei
 	/**
 	 * Devuelve la lista de scripts JS utilizados por este componente
 	 * @ignore
-	 * @return <type>
+	 * @return array
 	 */
 	function get_consumo_javascript()
 	{

@@ -181,7 +181,7 @@ class toba_cargador
 	 *
 	 * @param array $registros
 	 * @param string $claves es un string separado por ; con las claves del registro.
-	 * @return <type>
+	 * @return array
 	 */
 	protected function reorganizar_tablas($tabla, &$registros, $claves)
 	{
