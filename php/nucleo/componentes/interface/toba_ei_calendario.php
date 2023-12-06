@@ -1312,7 +1312,7 @@ class calendario //extends activecalendar
 		if ($this->solo_pasados && $this->compare_date($day) == 1) {
 			//Es una fecha futura y no se permite clickearla
 			$out = toba::output()->get('Calendario')->getDaySquare($this->cssSunday, $var. $content);
-		} elseif (($this->get_dayLinks()) && ((!$this->get_enableSatSelection() && ($this->getWeekday($var) == 0)) || ((!$this->get_enableSunSelection() && $this->getWeekday($var) == 6)))) {
+		} elseif (($this->get_dayLinks()) && ((!$this->get_enableSunSelection() && ($this->getWeekday($var) == 0)) || ((!$this->get_enableSatSelection() && $this->getWeekday($var) == 6)))) {
 			$out = toba::output()->get('Calendario')->getDaySquare($this->cssSunday, $var);
 		} elseif ($var==$this->getSelectedDay() && $this->actmonth==$this->getSelectedMonth() && $this->actyear==$this->getSelectedYear()) {
 			if (!$this->get_dayLinks()) {

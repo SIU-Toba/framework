@@ -201,7 +201,7 @@ class toba_gtk_admin
 			$opciones_a_sacar = array('listar', 'registrar');
 			$hay_que_sacar = $objeto_cmd->tiene_definido_base();
 			foreach (array_keys($this->opciones) as $id) {
-				$existe = in_array($id, $opciones_a_sacar);
+				$existe = in_array($id, $opciones_a_sacar, true);
 				if ($existe && $hay_que_sacar) {
 					unset($this->opciones[$id]);
 				}

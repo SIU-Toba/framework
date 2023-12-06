@@ -112,13 +112,14 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 	 */
 	protected function html_cabecera()
 	{
+		$hay_zona = $this->_cuadro->hay_zona();
 		$info_cuadro = $this->_cuadro->get_informacion_basica_cuadro();
 		$objeto_js = $this->_cuadro->get_id_objeto_js();
 		$exportacion_excel_plano = $this->_cuadro->permite_exportacion_excel_plano();
 		$filas_disponibles_selector = $this->_cuadro->get_filas_disponibles_selector();
 		$total_col = $this->_cuadro->get_cantidad_columnas_total();
 
-		echo toba::output()->get('CuadroSalidaHtml')->getCabeceraHtml($info_cuadro,$objeto_js, $exportacion_excel_plano,$filas_disponibles_selector,$total_col);
+		echo toba::output()->get('CuadroSalidaHtml')->getCabeceraHtml($info_cuadro,$objeto_js, $exportacion_excel_plano,$filas_disponibles_selector,$total_col, $hay_zona);
 	}
 
 	/**
@@ -581,12 +582,12 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 					//ATENCION!! hay una columna que no esta disponible!
 				}
 				//Hay que formatear?
-				if(isset($columnas[$a]["formateo"])) {
+				if(isset($columnas[$a]["formateo"]) && null !== $valor_real) {
 					$funcion = "formato_" . $columnas[$a]["formateo"];
 					//Formateo el valor
 					$valor = $formateo->$funcion($valor_real);
 				} else {
-					$valor = $valor_real;
+					$valor = $valor_real ?? '';
 				}
 			}
 
@@ -626,7 +627,7 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 		$id_evt_asoc = $columnas[$id_columna]['evento_asociado'];		//Busco el evento asociado al vinculo
 		$evento = $this->_cuadro->evento($id_evt_asoc);
 		$parametros = $this->get_parametros_interaccion($id_fila, $clave_fila);
-		$parametros[$clave_columna] = $valor_real;	//Esto es backward compatible
+		$parametros[$clave_columna] = $valor_real ?? '';	//Esto es backward compatible
 		$js =  $this->get_invocacion_evento_fila($evento, $id_fila, $clave_fila, true, $parametros);
 		$valor = "<a href='#' onclick=\"$js\">$valor_real</a>";
 		return $valor;
@@ -690,7 +691,7 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 		$alguna_tiene_titulo = false;
 		$columnas = $this->_cuadro->get_columnas();
 		foreach(array_keys($columnas) as $clave) {
-			if (trim($columnas[$clave]["titulo"]) != '') {
+			if (isset($columnas[$clave]["titulo"]) && trim($columnas[$clave]["titulo"]) != '') {
 				$alguna_tiene_titulo = true;
 				break;
 			}

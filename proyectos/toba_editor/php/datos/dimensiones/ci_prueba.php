@@ -132,7 +132,7 @@ class ci_prueba extends toba_ci
 			if ($sql) {
 				$temp[$id]['sql'] = trim($sql);
 				if (isset( $this->s__sqls_elegidos )) {
-					if (in_array($id, $this->s__sqls_elegidos)) {
+					if (in_array($id, $this->s__sqls_elegidos, true)) {
 						$temp[$id]['utilizar'] = 1;
 					} else {
 						$temp[$id]['utilizar'] = 0;

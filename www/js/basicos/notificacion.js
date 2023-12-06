@@ -89,7 +89,7 @@ notificacion = new function() {
 			} else {
 				gravedad = '<img src="'+ toba.imagen('info') + '"/> ';
 			}
-			var texto = this._mensajes[i][0];
+			var texto = this._mensajes[i][0].decodeEntities();
 			if (typeof this._mensajes[i][2] != 'undefined' && isset(this._mensajes[i][2])) {
 				texto = "<strong>" + this._mensajes[i][2].decodeEntities() + "</strong> " + texto;
 			}

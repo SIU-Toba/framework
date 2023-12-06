@@ -188,7 +188,7 @@ class toba_ei_filtro extends toba_ei
 					$validacion = $this->_columnas[$id]->validar_estado();
 					if ($validacion !== true) {
 						$etiqueta = $this->_columnas[$id]->get_etiqueta();
-						toba_logger::instancia()->error($etiqueta.': '.$validacion, $this->_columnas[$id]);
+						toba_logger::instancia()->error($etiqueta.': '.$validacion. ' ' .$this->_columnas[$id]->get_id());
 						throw new toba_error_validacion('Se produjo un error en la validación de la columna, revise el log');
 					}
 					$this->_columnas_datos[$id] = $this->_columnas[$id];
@@ -484,8 +484,8 @@ class toba_ei_filtro extends toba_ei
 			if (trim($par) != '') {
 				$param = explode("-;-", trim($par));
 				if (count($param) != 2) {
-					toba_logger::instancia()->error("Cascadas: Cantidad incorrecta de parametros ($par).");
-					throw new toba_error_seguridad('Cascadas: parametros incorrectos.');
+					toba_logger::instancia()->error("Cascadas: Cantidad incorrecta de parámetros ($par).");
+					throw new toba_error_seguridad('Cascadas: parámetros incorrectos.');
 				}
 				$id_col_maestro = $param[0];
 
@@ -504,7 +504,7 @@ class toba_ei_filtro extends toba_ei
 					//--- Manejo de claves múltiples
 					if (count($valores) != count($campos)) {
 						toba_logger::instancia()->error("Cascadas: El ef $id_col_maestro maneja distinta cantidad de datos que los campos pasados");
-						throw new toba_error('Cascadas: parametros incorrectos.');
+						throw new toba_error('Cascadas: parámetros incorrectos.');
 					}
 					$valores_clave = array();
 					for ($i=0; $i < count($campos) ; $i++) {
@@ -571,8 +571,8 @@ class toba_ei_filtro extends toba_ei
 			if (trim($par) != '') {
 				$param = explode("-;-", trim($par));
 				if (count($param) != 2) {
-					toba_logger::instancia()->error("Filtrado de combo editable: Cantidad incorrecta de parametros ($par).");
-					throw new toba_error_seguridad('Filtrado de combo editable: parametros incorrectos.');
+					toba_logger::instancia()->error("Filtrado de combo editable: Cantidad incorrecta de parámetros ($par).");
+					throw new toba_error_seguridad('Filtrado de combo editable: parámetros incorrectos.');
 				}
 				$id_ef_maestro = $param[0];
 
@@ -591,7 +591,7 @@ class toba_ei_filtro extends toba_ei
 					//--- Manejo de claves múltiples
 					if (count($valores) != count($campos)) {
 						toba_logger::instancia()->error("Filtrado de combo editable: El ef $id_ef_maestro maneja distinta cantidad de datos que los campos pasados");
-						throw new toba_error_def('Filtrado de combo editable: parametros incorrectos.');
+						throw new toba_error_def('Filtrado de combo editable: parámetros incorrectos.');
 					}
 					$valores_clave = array();
 					for ($i=0; $i < count($campos) ; $i++) {
@@ -787,7 +787,7 @@ class toba_ei_filtro extends toba_ei
 
 			//-- Valor			
 			$fn_formateo = $columna->get_formateo();
-			if (! is_null($fn_formateo)){
+			if (! is_null($fn_formateo) && $columna->get_ef()->tiene_estado()){
 				$formateo = new $this->_clase_formateo('impresion_html');				
 				$funcion = "formato_" . $fn_formateo;
 				$valor_real = $columna->get_ef()->get_estado();
@@ -852,7 +852,7 @@ class toba_ei_filtro extends toba_ei
 				$condicion = $columna->condicion()->get_etiqueta();
 								
 				$fn_formateo = $columna->get_formateo();
-				if (! is_null($fn_formateo)) {
+				if (! is_null($fn_formateo) && null !== $columna->get_pdf_valor()) {
 					$funcion = "formato_" . $fn_formateo;
 					$valor_real = $columna->get_pdf_valor();
 					$valor = $formateo->$funcion($valor_real);
@@ -864,11 +864,12 @@ class toba_ei_filtro extends toba_ei
 		}
 		//-- Genera la tabla
 		$ancho = null;
-		if (strpos($this->_pdf_tabla_ancho, '%') !== false) {
-			$ancho = $salida->get_ancho(str_replace('%', '', $this->_pdf_tabla_ancho));	
-		} elseif (isset($this->_pdf_tabla_ancho)) {
-				$ancho = $this->_pdf_tabla_ancho;
-		}
+        if (isset($this->_pdf_tabla_ancho)) {
+            $ancho = $this->_pdf_tabla_ancho;
+            if (strpos($this->_pdf_tabla_ancho, '%') !== false) {
+                $ancho = $salida->get_ancho(str_replace('%', '', $this->_pdf_tabla_ancho));	
+            } 
+        }
 		$opciones = $this->_pdf_tabla_opciones;
 		if (isset($ancho)) {
 			$opciones['width'] = $ancho;		
@@ -897,7 +898,7 @@ class toba_ei_filtro extends toba_ei
 				//Hay que formatear?
 				$estilo = array();
 				$fn_formateo = $columna->get_formateo();
-				if (! is_null($fn_formateo)){
+				if (! is_null($fn_formateo) && null !== $columna->get_excel_valor()){
 					$funcion = "formato_" . $fn_formateo;
 					$valor_real = $columna->get_excel_valor();
 					list($valor, $estilo) = $formateo->$funcion($valor_real);
@@ -965,7 +966,7 @@ class toba_ei_filtro extends toba_ei
 				$condicion = $columna->condicion()->get_etiqueta();
 								
 				$fn_formateo = $columna->get_formateo();
-				if (! is_null($fn_formateo)){
+				if (! is_null($fn_formateo) && null !== $columna->get_ef()->get_estado()){
 					$funcion = "formato_" . $fn_formateo;
                 	$valor_real = $columna->get_ef()->get_estado();
                 	$valor = $formateo->$funcion($valor_real);

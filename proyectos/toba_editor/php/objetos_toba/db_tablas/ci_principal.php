@@ -56,10 +56,11 @@ class ci_principal extends ci_editores_toba
 
 	function conf__prop_basicas(toba_ei_formulario $form)
 	{
-		$param_editor = toba_componente_info::get_utileria_editor_parametros(array('proyecto'=>$this->id_objeto['proyecto'],
-																				'componente'=> $this->id_objeto['objeto']),
-																			'ap');
-		$eliminar_extension = !isset($this->id_objeto); //Si es alta no se puede extender
+        $componente = array('proyecto'=> $this->id_objeto['proyecto']?? null,
+							'componente'=> $this->id_objeto['objeto']?? null);
+        
+		$param_editor = toba_componente_info::get_utileria_editor_parametros($componente, 'ap');
+        $eliminar_extension = !isset($this->id_objeto); //Si es alta no se puede extender
 		if ( $this->s__ap_php_db ) {
 			// Hay extension
 			$form->evento('ver_php')->vinculo()->set_parametros($param_editor);

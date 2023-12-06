@@ -22,7 +22,7 @@ class toba_firma_digital
 			$output = str_replace('-----END CERTIFICATE-----', '', $output);
 			return base64_decode($output);
 		} else {
-			throw new toba_error('El certificado no es un certificado valido', "Detalles: $certificado");
+			throw new toba_error('El certificado no es un certificado válido', "Detalles: $certificado");
 		}
 	}
 

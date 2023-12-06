@@ -92,7 +92,7 @@ class toba_formateo
 			return '$'.$this->get_separador(). number_format($valor,2,',','.');
 		} else {
 			return array($valor, array('numberFormat' => 
-						array('formatCode' => \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE)
+						 array('formatCode' => toba_vista_excel::FORMAT_CURRENCY_CUSTOM)
 				));
 		}
 	}

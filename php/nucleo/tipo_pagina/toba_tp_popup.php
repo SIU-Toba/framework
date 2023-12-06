@@ -11,8 +11,8 @@ class toba_tp_popup extends toba_tp_basico_titulo
 
     function barra_superior()
     {
-            $info = toba::solicitud()->get_datos_item();
-            echo toba::output()->get('PaginaPopup')->getContenidoBarraSuperior($info['item_descripcion'],$this->titulo_item());
+        $info = toba::solicitud()->get_datos_item();
+        echo toba::output()->get('PaginaPopup')->getContenidoBarraSuperior($info['item_descripcion'],$this->titulo_item());
     }
 
 

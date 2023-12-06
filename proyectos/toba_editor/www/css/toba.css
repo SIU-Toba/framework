@@ -137,12 +137,13 @@
 	text-align: right;
 }
 .editor-vista-previa-codigo {
-	overflow: auto;
-	width: 100%;
-	padding: 5px;
-	text-align:left;
-	background-color: #ffffff;
-	font-size: 11px;
+    overflow: visible;
+    width: 100%;
+    padding: 5px;
+    text-align:left;
+    background-color: #ffffff;
+    font-size: 11px;
+    float: left;
 }
 .editor-vista-previa-codigo img {
 	position: absolute;

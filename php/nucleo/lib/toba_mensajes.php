@@ -106,7 +106,7 @@ class toba_mensajes
 			$mensaje = $this->mensajes['operaciones'][$info['item']];
 			return $mensaje;
 		}
-		if (trim($info['item_descripcion']) != '') {
+		if (isset($info['item_descripcion']) && trim($info['item_descripcion']) != '') {
 			return $info['item_descripcion'];
 		}
 	}

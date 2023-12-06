@@ -91,11 +91,13 @@ class ci_principal extends toba_ci
 		$this->datos_form = $datos;
 	}
 	
-	function conf__form()
+	function conf__form($form)
 	{
 		if (! isset($this->datos_form)) {
 			$this->datos_form = $this->datos_comunes_form();
 		}
+            //Ejemplo de como setear un grupo de prefijos para el ef_cuit
+            //toba_ef_cuit::set_prefijos(['19','24', '30']);
 		return $this->datos_form;	
 	}
 

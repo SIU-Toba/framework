@@ -358,8 +358,8 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 				if ($validacion !== true) {
 					$this->_efs_invalidos[$id_fila][$ef] = $validacion;
 					$etiqueta = $this->_elemento_formulario[$ef]->get_etiqueta();					
-					toba_logger::instancia()->error($etiqueta.': '.$validacion, $this->ef($ef));
-					throw new toba_error_validacion('Se produjo un error en la validacion del ef, revise el log');
+					toba_logger::instancia()->error($etiqueta.': '.$validacion . ' '. $this->ef($ef)->get_id());
+					throw new toba_error_validacion('Se produjo un error en la validación del ef, revise el log');
 				}
 			}
 		}
@@ -496,9 +496,9 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	function set_datos($datos, $set_cargado=true)
 	{
 		if (!is_array($datos)) {
-			toba_logger::instancia()->error( $this->get_txt() . ' El parametro para cargar el ML posee un formato incorrecto:' .
+			toba_logger::instancia()->error( $this->get_txt() . ' El parámetro para cargar el ML posee un formato incorrecto:' .
 						'Se esperaba un arreglo de dos dimensiones con formato recordset.' . var_export($datos, true));
-			throw new toba_error_def(' El parametro para cargar el ML posee un formato incorrecto, revise el log');
+			throw new toba_error_def(' El parámetro para cargar el ML posee un formato incorrecto, revise el log');
 		}		
 		
 		$this->_filas_recibidas = array();
@@ -1120,9 +1120,9 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 				}
 				foreach ($this->_lista_ef_post as $ef){
 					$this->_elemento_formulario[$ef]->ir_a_fila($fila);
-					if(isset($this->_info_formulario_ef[$ef]["formateo"])){
-               			$funcion = "formato_" . $this->_info_formulario_ef[$ef]["formateo"];
-               			$valor_real = $this->_elemento_formulario[$ef]->get_estado();
+                    $valor_real = $this->_elemento_formulario[$ef]->get_estado();
+					if(isset($this->_info_formulario_ef[$ef]["formateo"]) && null !== $valor_real){
+               			$funcion = "formato_" . $this->_info_formulario_ef[$ef]["formateo"];               			
                			$valor = $formateo->$funcion($valor_real);
             		}else{
 		        		$valor = $this->_elemento_formulario[$ef]->get_descripcion_estado('impresion_html');
@@ -1164,9 +1164,9 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 				foreach ($this->_lista_ef_post as $ef){
 					$this->_elemento_formulario[$ef]->ir_a_fila($fila);
 					//Hay que formatear? Le meto pa'delante...
-            		if(isset($this->_info_formulario_ef[$ef]["formateo"])){
-                		$funcion = "formato_" . $this->_info_formulario_ef[$ef]["formateo"];
-                		$valor_real = $this->_elemento_formulario[$ef]->get_estado();
+                    $valor_real = $this->_elemento_formulario[$ef]->get_estado();
+            		if(isset($this->_info_formulario_ef[$ef]["formateo"]) && null !== $valor_real){
+                		$funcion = "formato_" . $this->_info_formulario_ef[$ef]["formateo"];                		
                 		$valor = $formateo->$funcion($valor_real);
             		}else{
 			            $valor = $this->_elemento_formulario[$ef]->get_descripcion_estado('pdf');
@@ -1179,10 +1179,11 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		
 		//-- Genera la tabla
         $ancho = null;
-        if (strpos($this->_pdf_tabla_ancho, '%') !== false) {
-        	$ancho = $salida->get_ancho(str_replace('%', '', $this->_pdf_tabla_ancho));	
-        } elseif (isset($this->_pdf_tabla_ancho)) {
-        		$ancho = $this->_pdf_tabla_ancho;
+        if (isset($this->_pdf_tabla_ancho)) {
+            $ancho = $this->_pdf_tabla_ancho;
+            if (strpos($this->_pdf_tabla_ancho, '%') !== false) {
+                $ancho = $salida->get_ancho(str_replace('%', '', $this->_pdf_tabla_ancho));	
+            }      
         }
         $opciones = $this->_pdf_tabla_opciones;
         if (isset($ancho)) {
@@ -1218,9 +1219,9 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 				$datos_temp = array();
 				foreach ($this->_lista_ef_post as $ef){
 					$this->_elemento_formulario[$ef]->ir_a_fila($fila);
-					if(isset($this->_info_formulario_ef[$ef]["formateo"])){
-                		$funcion = "formato_" . $this->_info_formulario_ef[$ef]["formateo"];
-                		$valor_real = $this->_elemento_formulario[$ef]->get_estado();
+                    $valor_real = $this->_elemento_formulario[$ef]->get_estado();
+					if(isset($this->_info_formulario_ef[$ef]["formateo"]) && null !== $valor_real){
+                		$funcion = "formato_" . $this->_info_formulario_ef[$ef]["formateo"];                		
                 		list($valor, $estilo) = $formateo->$funcion($valor_real);
             		}else{
 	            		list($valor, $estilo) = $this->_elemento_formulario[$ef]->get_descripcion_estado('excel');
@@ -1297,9 +1298,9 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 					foreach ($this->_lista_ef_post as $ef){
 						$this->_elemento_formulario[$ef]->ir_a_fila($fila);
 						//Hay que formatear? Le meto pa'delante...
-						if(isset($this->_info_formulario_ef[$ef]["formateo"])){
+                        $valor_real = $this->_elemento_formulario[$ef]->get_estado();
+						if(isset($this->_info_formulario_ef[$ef]["formateo"]) && null !== $valor_real){
 							$funcion = "formato_" . $this->_info_formulario_ef[$ef]["formateo"];
-							$valor_real = $this->_elemento_formulario[$ef]->get_estado();
 							$valor = $formateo->$funcion($valor_real);
 						}else{
 							$valor = $this->_elemento_formulario[$ef]->get_descripcion_estado('xml');

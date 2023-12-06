@@ -438,8 +438,8 @@ class toba_ei_cuadro extends toba_ei
 
 				if(! is_null($id)) {
 					if(isset($this->_sum_usuario[$id])){
-						toba_logger::instancia()->error("Las funciones de sumarizacion deben tener IDs unicos. El id '$id' ya existe");
-						throw new toba_error_def('La funcion de sumarizacion no es correcta, revise el log');
+						toba_logger::instancia()->error("Las funciones de sumarización deben tener IDs únicos. El id '$id' ya existe");
+						throw new toba_error_def('La función de sumarización no es correcta, revise el log');
 					}
 					// Agrego la sumarizacion en la pila de sumarizaciones.
 					$this->_sum_usuario[$id]['metodo'] = $metodo->getName();
@@ -708,7 +708,7 @@ class toba_ei_cuadro extends toba_ei
 	{
 		if (isset($this->_info_cuadro["clave_datos_tabla"]) && $this->_info_cuadro["clave_datos_tabla"] == '1') {			//Se usa Clave del DT
 			$this->_columnas_clave = array( apex_datos_clave_fila );
-		} elseif (trim($this->_info_cuadro["columnas_clave"]) != '') {
+		} elseif (isset($this->_info_cuadro["columnas_clave"]) && trim($this->_info_cuadro["columnas_clave"]) != '') {
 			$this->_columnas_clave = explode(",",$this->_info_cuadro["columnas_clave"]);		//Clave usuario
 			$this->_columnas_clave = array_map("trim", $this->_columnas_clave);
 		} else {
@@ -796,7 +796,7 @@ class toba_ei_cuadro extends toba_ei
 	{
 		if (! isset($this->_memoria['claves_enviadas']) || ! in_array($klave, $this->_memoria['claves_enviadas'])) {
 			toba_logger::instancia()->error($this->get_txt()." La clave '$klave' del cuadro no estaba entre las enviadas");
-			throw new toba_error_seguridad(' La clave seleccionada no es valida');
+			throw new toba_error_seguridad(' La clave seleccionada no es válida');
 		}
 		if ($this->_modo_clave_segura) {
 			$aux = (isset($this->_mapeo_clave_segura[$klave])) ? $this->_mapeo_clave_segura[$klave] : array();
@@ -1042,7 +1042,7 @@ class toba_ei_cuadro extends toba_ei
 	{
 		if (! isset($this->_cortes_indice[$corte])) {
 			toba::logger()->error("Se quiere habilitar el corte '$corte' y no existe");
-			throw new toba_error_def(' Se desea eliminar un corte de control inexistente.');
+			throw new toba_error_def(' Se desea habilitar un corte de control inexistente.');
 		}
 		//Esto restaura el corte para su grafico.
 		$this->_cortes_def[$corte]['habilitado'] = true;
@@ -1971,10 +1971,10 @@ class toba_ei_cuadro extends toba_ei
 		$this->datos = $datos;
 		if (!is_array($this->datos)) {
 			toba_logger::instancia()->error( $this->get_txt() .
-					" El parametro para cargar el cuadro posee un formato incorrecto:" .
+					" El parámetro para cargar el cuadro posee un formato incorrecto:" .
 						"Se esperaba un arreglo de dos dimensiones con formato recordset.");
 			
-			throw new toba_error_def(' El parametro para cargar el cuadro posee un formato incorrecto, revise el log');
+			throw new toba_error_def(' El parámetro para cargar el cuadro posee un formato incorrecto, revise el log');
 		}
 		if (count($this->datos) > 0 ) {
 			$this->validar_estructura_datos();
@@ -2091,8 +2091,8 @@ class toba_ei_cuadro extends toba_ei
 	protected function generar_salida($tipo, $objeto_toba_salida = null)
 	{
 		if($tipo!="html" && $tipo!="impresion_html" && $tipo!="pdf" && $tipo!='excel' && $tipo!='xml'){
-			toba_logger::instancia()->error("El tipo de salida '$tipo' es invalida");
-			throw new toba_error_seguridad("El tipo de salida indicado es invalido, revise el log");
+			toba_logger::instancia()->error("El tipo de salida '$tipo' es inválido");
+			throw new toba_error_seguridad("El tipo de salida indicado es inválido, revise el log");
 		}
 		$this->_tipo_salida = $tipo;
 		$this->instanciar_manejador_tipo_salida($tipo);
@@ -2119,10 +2119,10 @@ class toba_ei_cuadro extends toba_ei
 			}
 		}else{
 			if ($this->_info_cuadro["eof_invisible"]!=1){
-				if(trim($this->_info_cuadro["eof_customizado"])!=""){
-					$texto = $this->_info_cuadro["eof_customizado"];
+				if(isset($this->_info_cuadro['eof_customizado']) && trim($this->_info_cuadro['eof_customizado'])!=''){
+					$texto = $this->_info_cuadro['eof_customizado'];
 				}else{
-					$texto = "No hay datos cargados";
+					$texto = 'No hay datos cargados';
 				}
 				$this->generar_mensaje_cuadro_vacio($texto);
 			}
@@ -2482,7 +2482,17 @@ class toba_ei_cuadro extends toba_ei
 			return null;
 		}
 	}
-
+	
+	function hay_zona():bool	
+	{
+		try {
+			$hay_zona = toba::zona()->cargada();
+		} catch (toba_error_def $ex) {
+			$hay_zona = false;
+		}
+		return $hay_zona;
+	}
+	
 	//-------------------------------------------------------------------------------
 	//---- JAVASCRIPT --
 	//-------------------------------------------------------------------------------

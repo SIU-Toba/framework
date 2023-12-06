@@ -521,7 +521,7 @@ class Console_Table
     function _calculateCellLengths($row)
     {
         for ($i=0; $i<count($row); $i++) {
-            $this->_cell_lengths[$i] = max(strlen(@$this->_headers[$i]), @$this->_cell_lengths[$i], strlen(@$row[$i]));
+            $this->_cell_lengths[$i] = max(strlen($this->_headers[$i]??''), $this->_cell_lengths[$i]??0, strlen($row[$i]??''));
         }
     }
 }

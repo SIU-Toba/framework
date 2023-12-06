@@ -116,9 +116,8 @@ class ci_principal extends ci_editores_toba
 		}
 		
 		// Hay extension
-		$param_editor = toba_componente_info::get_utileria_editor_parametros(array('proyecto'=>$this->id_objeto['proyecto'],
-																	'componente'=> $this->id_objeto['objeto']),
-																	'ap');
+        $it = (!isset($this->id_objeto)) ? ['proyecto' => '', 'componente' => ''] : array('proyecto'=>$this->id_objeto['proyecto'],	'componente'=> $this->id_objeto['objeto']);
+		$param_editor = toba_componente_info::get_utileria_editor_parametros($it, 'ap');
 
 		if (isset($datos['punto_montaje'])) {
 			$param_editor['punto_montaje'] = $datos['punto_montaje'];

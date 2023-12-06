@@ -68,7 +68,7 @@ class toba_svn
 		}
 		if ($critico && $this->error != '') {
 			toba_logger::instancia()->error($this->error);
-			throw new toba_error('Error critico durante el proceso, revise el log');
+			throw new toba_error('Error crítico durante el proceso, revise el log');
 		}
 		return $this->progreso;
 	}

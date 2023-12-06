@@ -124,7 +124,7 @@ class toba_modelo_servicio_web extends toba_modelo_elemento
 	 * @param array $datos_cert
 	 * @param string $url_sistema 
 	 */
-	function generar_configuracion_cliente($cert_servidor, $url_sistema, $cert_cli=null, $key_cli=null, $cert_pwd=null,$usr=null, $usr_pwd=null, $tipo_auth=null)
+	function generar_configuracion_cliente($cert_servidor, $url_sistema, $cert_cli=null, $key_cli=null, $cert_pwd=null,$usr=null, $usr_pwd=null, $tipo_auth=null, $api_version=null)
 	{
 		if (! $this->rest) {
 			$soap = new toba_modelo_soap($this->proyecto);
@@ -133,7 +133,7 @@ class toba_modelo_servicio_web extends toba_modelo_elemento
 		} else {
 			$rest = new toba_modelo_rest($this->proyecto);
 			$rest->set_manejador_interface($this->manejador_interface);
-			$rest->generar_configuracion_cliente($this->get_id(),$cert_servidor, $url_sistema, $cert_cli, $key_cli, $cert_pwd, $usr, $usr_pwd, $tipo_auth);
+			$rest->generar_configuracion_cliente($this->get_id(),$cert_servidor, $url_sistema, $cert_cli, $key_cli, $cert_pwd, $usr, $usr_pwd, $tipo_auth, $api_version);
 		}
 	}
 	
@@ -193,8 +193,8 @@ class toba_modelo_servicio_web extends toba_modelo_elemento
 		$cmd = "openssl req -x509 -nodes -days 2000 -newkey rsa:2048 -keyout $dir_sign -config $dir_inst/openssl.ini -out $out_cert";
 		$exito = toba_manejador_procesos::ejecutar($cmd, $stdout, $stderr);
 		if ($exito != '0') {
-			toba_logger::instancia()->error($stderr. "\n Asegurese tener instalados los binarios de OpenSSL y disponibles en el path. Para comprobar ejecute 'openssl version'");
-			throw new toba_error_usuario('Asegurese tener instalados los binarios de OpenSSL y disponibles en el path. Revise el log para mas info');
+			toba_logger::instancia()->error($stderr. "\n Asegúrese tener instalados los binarios de OpenSSL y disponibles en el path. Para comprobar ejecute 'openssl version'");
+			throw new toba_error_usuario('Asegúrese tener instalados los binarios de OpenSSL y disponibles en el path. Revise el log para mas info');
 		}
 		
 		$cmd = "openssl rsa -in $dir_sign -out $out_key";

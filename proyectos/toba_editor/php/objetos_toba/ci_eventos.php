@@ -189,7 +189,7 @@ class ci_eventos extends toba_ci
 	  	
 		if (isset($datos['accion_vinculo_servicio']) && ! is_null($datos['accion_vinculo_servicio'])) {
 			$servicios_basicos = array('vista_toba_impr_html','vista_pdf','vista_excel','ejecutar', apex_ef_no_seteado);													
-			if (! in_array($datos['accion_vinculo_servicio'], $servicios_basicos)) {	  	
+			if (! in_array($datos['accion_vinculo_servicio'], $servicios_basicos, true)) {	  	
 				$datos['accion_vin_servicio_extra'] = 'O';
 			} else {
 				$datos['accion_vin_servicio_extra'] = $datos['accion_vinculo_servicio'];

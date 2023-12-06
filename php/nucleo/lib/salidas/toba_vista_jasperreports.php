@@ -56,7 +56,10 @@ class toba_vista_jasperreports
 	
 	protected function cargar_jasper()
 	{
-		if (!defined("JAVA_HOSTS")) define ("JAVA_HOSTS", "127.0.0.1:8081");
+        if (!defined('JAVA_HOSTS')) {
+            $java_hosts = (false === getenv('JAVA_HOSTS')) ? '127.0.0.1:8081' : getenv('JAVA_HOSTS');
+            define('JAVA_HOSTS', $java_hosts);
+        }
 		$path = $this->definir_path_vendor();
 				
 		//Incluimos la libreria JavaBridge
@@ -100,7 +103,7 @@ class toba_vista_jasperreports
 	{
 		$tipos_parametros = array('D', 'E', 'S', 'F', 'B', 'L');		
 		if (! in_array($tipo, $tipos_parametros)) {
-			throw new toba_error('Tipo incorrecto de parametro');
+			throw new toba_error('Tipo incorrecto de parámetro');
 		}
 
 		switch ($tipo) {
@@ -300,7 +303,7 @@ class toba_vista_jasperreports
 		//Uno todos los metareportes para generar un solo archivo
 		$master_print = $this->unir_metareportes();
 
-		////Exportamos el informe y lo guardamos como pdf en el directorio donde están los reportes
+		//Exportamos el informe y lo guardamos como pdf en el directorio donde están los reportes
 		$export_manager = new JavaClass("net.sf.jasperreports.engine.JasperExportManager");
 		$export_manager->exportReportToPdfFile($master_print, $this->temp_salida);		
 	}
@@ -323,7 +326,8 @@ class toba_vista_jasperreports
 			$this->parametros->put($jrxpath->PARAMETER_XML_DATA_DOCUMENT, $document);		
 			$print = $this->jasper->fillReport($this->path_reporte, $this->parametros);			
 		}  else {													//El conjunto de datos viene de una db o datasource
-			if (! isset($this->conexion)) {
+                    try {
+                        if (! isset($this->conexion)) {
 				$this->conexion = $this->instanciar_conexion_default();
 			}			 
 			if ($this->conexion instanceof toba_db) {						//Si es una base toba, le configuro el schema
@@ -333,7 +337,14 @@ class toba_vista_jasperreports
 			}
 			//Creo el reporte finalmente con la conexion JDBC
 			$print = $this->jasper->fillReport($this->path_reporte, $this->parametros, $con1);
-			$con1->close();
+                    } catch (\Exception $e) {
+                        toba::logger()->error('Error en la ejecución del reporte');
+                        toba::logger()->error($e->getMessage());
+                        throw $e;
+                    } finally {
+                        toba::logger()->debug("Jasper JDBC close Connection");
+                        $con1->close();
+                    }
 		}		
 		$this->lista_jrprint[] = $print;
 	}
@@ -424,4 +435,3 @@ class toba_vista_jasperreports
 	
 
 }
-?>

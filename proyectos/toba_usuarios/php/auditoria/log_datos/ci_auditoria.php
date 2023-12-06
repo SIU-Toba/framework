@@ -144,7 +144,7 @@ class ci_auditoria extends toba_ci
 					$definicion[$id]['usar_vinculo'] = false;
 					//Esto permite sacar el HTML para los estilos de campo modificado
 					$definicion[$id]['permitir_html'] = '1';						
-					if (in_array($definicion[$id]['nombre'], $campos_propios)) {
+					if (in_array($definicion[$id]['nombre'], $campos_propios, true)) {
 						unset($definicion[$id]);
 					}
 				}
@@ -181,7 +181,7 @@ class ci_auditoria extends toba_ci
 				unset($fila_anterior);
 			}
 			foreach ($fila as $campo => $valor) {
-				if (! in_array($campo, $campos_propios) && isset($fila_anterior)) {
+				if (! in_array($campo, $campos_propios, true) && isset($fila_anterior)) {
 					if ($valor !== $fila_anterior[$campo]) {	//Se produjo un cambio el valor con respecto a su inmediato anterior
 						if ($valor == '') {
 							$valor = '&nbsp;';
@@ -189,7 +189,7 @@ class ci_auditoria extends toba_ci
 						$datos[$id_fila][$campo] = "<div class='auditoria-cambio-valor'>$valor</div>";
 					}
 				}				
-				if (in_array($campo, $campos_clave)) {
+				if (in_array($campo, $campos_clave, true)) {
 					$claves[] = $valor;
 				}
 			}

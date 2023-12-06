@@ -20,7 +20,7 @@ class toba_config
 	/**
 	 * Dispara la carga de las configuraciones desde archivos
 	 */
-	function load()
+	function load(): void
 	{
 		$this->reset();
 		$this->load_basics();
@@ -34,7 +34,7 @@ class toba_config
 	 * @param string $index
 	 * @param path $file
 	 */
-	function add_config_file($index, $file)
+	function add_config_file($index, $file): void
 	{
 		if (file_exists($file)) {
 			$this->config_files[$index] = realpath($file);
@@ -44,7 +44,7 @@ class toba_config
 	/**
 	 * Resetea los valores de configuración cargados
 	 */
-	function reset()
+	function reset(): void
 	{
 		if (isset($this->config_values) && ! empty($this->config_values)) {
 			unset($this->config_values);
@@ -59,8 +59,12 @@ class toba_config
 	 * @param string $parametro
 	 * @return mixed
 	 */
-	function get_parametro($seccion=null, $subseccion=null, $parametro)
+	function get_parametro($seccion=null, $subseccion=null, $parametro=null)
 	{
+        if (is_null($parametro)) {
+            return null;            //Ataja caso de parametro no especificado, no deberia ser null por definicion
+        }
+        
 		if (is_null($seccion)) {
 			$seccion = 'general';
 		}
@@ -103,7 +107,7 @@ class toba_config
 	 * @param string $parametro
 	 * @return boolean
 	 */
-	function existe_valor($seccion=null, $subseccion=null, $parametro)
+	function existe_valor($seccion=null, $subseccion=null, $parametro=null): bool
 	{
 		return $this->get_parametro($seccion, $subseccion, $parametro) != null;
 	}
@@ -113,7 +117,7 @@ class toba_config
 	/**
 	 * Carga los archivos basicos de configuración de Toba
 	 */
-	protected function load_basics()
+	protected function load_basics(): void
 	{
 		$dir_start = toba_nucleo::toba_instalacion_dir();			//Reemplaza a toba::instalacion()->get_path_carpeta_instalacion() para no tener un ciclo que deja mal parada la config de instalacion
 		foreach($this->basic_files as $index => $ini) {
@@ -140,7 +144,7 @@ class toba_config
 	/**
 	 * Carga los archivos de configuración que se agregaron explicitamente
 	 */
-	protected function load_manual_config()
+	protected function load_manual_config(): void
 	{
 		foreach($this->config_files as $index => $ini) {
 			if (file_exists($ini)) {
@@ -155,7 +159,7 @@ class toba_config
 	 * @param sting $index
 	 * @param mixed $value_pairs
 	 */
-	protected function add_config($index, $value_pairs)
+	protected function add_config($index, $value_pairs): void
 	{
 		if (false !== $value_pairs) {
 			foreach($value_pairs as $key => $valores) {
@@ -169,7 +173,7 @@ class toba_config
 	 * @param array $arreglo
 	 * @return array
 	 */
-	protected function parse_array_values($arreglo)
+	protected function parse_array_values($arreglo): mixed
 	{
 		$datos = array();
 		if (! is_array($arreglo)) {
@@ -187,7 +191,7 @@ class toba_config
 	 * @param string $filename
 	 * @return string
 	 */
-	protected function parse_file_content($filename)
+	protected function parse_file_content($filename): string
 	{
 		$content = file_get_contents($filename);
 		$final = preg_replace_callback(self::$pattern_gral, 

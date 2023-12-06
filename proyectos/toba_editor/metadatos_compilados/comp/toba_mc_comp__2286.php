@@ -191,13 +191,13 @@ class toba_mc_comp__2286
   array (
     0 => 
     array (
-      'pantalla' => 1181,
+      'pantalla' => 1183,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 2286,
-      'dep_id' => 1169,
+      'dep_id' => 1176,
       'orden' => 1,
-      'identificador_pantalla' => 'pant_ubicacion',
-      'identificador_dep' => 'carpetas',
+      'identificador_pantalla' => 'pant_generacion',
+      'identificador_dep' => 'ci_generacion',
     ),
     1 => 
     array (
@@ -211,13 +211,13 @@ class toba_mc_comp__2286
     ),
     2 => 
     array (
-      'pantalla' => 1183,
+      'pantalla' => 1181,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 2286,
-      'dep_id' => 1176,
+      'dep_id' => 1169,
       'orden' => 1,
-      'identificador_pantalla' => 'pant_generacion',
-      'identificador_dep' => 'ci_generacion',
+      'identificador_pantalla' => 'pant_ubicacion',
+      'identificador_dep' => 'carpetas',
     ),
     3 => 
     array (
@@ -255,19 +255,6 @@ class toba_mc_comp__2286
   array (
     0 => 
     array (
-      'identificador' => 'base',
-      'proyecto' => 'toba_editor',
-      'objeto' => 1501,
-      'clase' => 'toba_datos_tabla',
-      'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_tabla.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
-      'fuente' => 'instancia',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    1 => 
-    array (
       'identificador' => 'archivos',
       'proyecto' => 'toba_editor',
       'objeto' => 30000021,
@@ -276,6 +263,19 @@ class toba_mc_comp__2286
       'subclase' => 'archivos_nombre',
       'subclase_archivo' => 'objetos_toba/subclases/archivos_nombre.php',
       'fuente' => NULL,
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    1 => 
+    array (
+      'identificador' => 'base',
+      'proyecto' => 'toba_editor',
+      'objeto' => 1501,
+      'clase' => 'toba_datos_tabla',
+      'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_tabla.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
+      'fuente' => 'instancia',
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),

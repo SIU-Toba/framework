@@ -50,8 +50,8 @@ class toba_evento_usuario extends toba_boton
 			}
 			return $this->vinculo;
 		} else {
-			toba_logger::instancia()->error('El evento "' . $this->get_id() . '" no posee un VINCULO ASOCIADO.');
-			throw new toba_error_def('El evento solicitado no posee un VINCULO ASOCIADO. Revise el log');
+			toba_logger::instancia()->error('El evento "' . $this->get_id() . '" no posee un VíNCULO ASOCIADO.');
+			throw new toba_error_def('El evento solicitado no posee un VíNCULO ASOCIADO. Revise el log');
 		}
 	}
 
@@ -152,7 +152,7 @@ class toba_evento_usuario extends toba_boton
 	
 	function posee_grupo_asociado()
 	{
-		return trim($this->datos['grupo'])!='';
+		return (null !== $this->datos['grupo'] && trim($this->datos['grupo'])!='');
 	}
 	
 	function pertenece_a_grupo($grupo)
@@ -287,7 +287,7 @@ class toba_evento_usuario extends toba_boton
 		if (isset($this->datos['ayuda'])) {
 			$tip = $this->datos['ayuda'];
 		}
-		$acceso = tecla_acceso( $this->datos['etiqueta'] );		
+		$acceso = tecla_acceso( $this->datos['etiqueta'] ?? '' );		
 		$image_resource = isset($this->datos['imagen_recurso_origen']) ? $this->datos['imagen_recurso_origen'] : null;
 		$image_file = isset($this->datos['imagen']) ? $this->datos['imagen'] : null;
 		$style = isset($this->datos['estilo']) ? $this->datos['estilo']: null;
@@ -410,7 +410,7 @@ class toba_evento_usuario extends toba_boton
 			$url = toba::vinculador()->get_url( null, null, array(), $opciones );
 			$js = "document.location.href='$url';";			
 		} elseif ( $this->posee_accion_vincular() ) {
-			// ---*** VINCULO ***---
+			// ---*** VíNCULO ***---
 			
 			if (isset($this->datos['accion_vinculo_servicio']) && !is_null($this->datos['accion_vinculo_servicio'])){
 				$this->vinculo()->set_servicio($this->datos['accion_vinculo_servicio']);

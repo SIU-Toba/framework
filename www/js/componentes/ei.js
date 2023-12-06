@@ -309,13 +309,13 @@ ei.prototype.constructor = ei;
 		return document.getElementById(this._input_submit + '_' + id);
 	};
 	
-	ei.prototype.exportar_pdf = function() {
-		var url = vinculador.get_url(null, null, 'vista_pdf', null, [this._id]);
+	ei.prototype.exportar_pdf = function(propaga_zona = false) {
+		var url = vinculador.get_url(null, null, 'vista_pdf', null, [this._id], false, propaga_zona);
 		document.location.href = url;
 	};
 
-	ei.prototype.exportar_excel = function() {
-		var url = vinculador.get_url(null, null, 'vista_excel', null, [this._id]);
+	ei.prototype.exportar_excel = function(propaga_zona = false) {
+		var url = vinculador.get_url(null, null, 'vista_excel', null, [this._id], false, propaga_zona);
 		document.location.href = url;
 	};
 	

@@ -21,7 +21,7 @@ class casos_web extends toba_ci
 		$cuadro->colapsar();
 		$lista = array();
 		foreach (toba_test_lista_casos::get_casos() as $caso) {
-			if (in_array($caso['id'], $this->selecciones['casos'])) {
+			if (in_array($caso['id'], $this->selecciones['casos'], true)) {
 				$lista[] = $caso;
 			}
 		}
@@ -71,7 +71,7 @@ class pantalla_testing extends toba_ei_pantalla
 				$test = new testSuite($categoria['nombre']);
 				$hay_uno = false;
 				foreach (toba_test_lista_casos::get_casos() as $caso) {
-					if ($caso['categoria'] == $categoria['id'] && in_array($caso['id'], $selecciones['casos'])) {
+					if ($caso['categoria'] == $categoria['id'] && in_array($caso['id'], $selecciones['casos'], true)) {
 						$hay_uno = true;
 						require_once($caso['archivo']);
 						$test->add(new $caso['id']($caso['nombre']));

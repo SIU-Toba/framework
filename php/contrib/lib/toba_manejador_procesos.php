@@ -176,24 +176,35 @@ class toba_manejador_procesos
 	 */
 	static function ejecutar($cmd, &$stdout, &$stderr)
 	{
-		$outfile = tempnam(toba_dir().'/temp', "cmd");
-		$errfile = tempnam(toba_dir().'/temp', "cmd");
+		/*$outfile = tempnam(toba_dir().'/temp', "cmd_");
+		$errfile = tempnam(toba_dir().'/temp', "cmd_");
 		$descriptorspec = array(
 			0 => array("pipe", "r"),
 			1 => array("file", $outfile, "w"),
 			2 => array("file", $errfile, "w")
-		);
+		);*/
+        
+        $descriptorspec = array(
+            0 => array("pipe", "r"),  // STDIN
+            1 => array("pipe", "w"),  // STDOUT
+            2 => array("pipe", "w")   // STDERR
+        );
+        
 		$proc = proc_open($cmd, $descriptorspec, $pipes);
-
 		if (!is_resource($proc)) return 255;
 
 		fclose($pipes[0]);
+        
+        $stdout = stream_get_contents($pipes[1]);
+        $stderr = stream_get_contents($pipes[2]);
 
+        fclose($pipes[1]);
+        fclose($pipes[2]);
 		$exit = proc_close($proc);
-		$stdout = file_get_contents($outfile);
-		$stderr = file_get_contents($errfile);
-		unlink($outfile);
-		unlink($errfile);
+		//$stdout = file_get_contents($outfile);
+		//$stderr = file_get_contents($errfile);
+		//unlink($outfile);
+		//unlink($errfile);
 		return $exit;
 	}		
 }

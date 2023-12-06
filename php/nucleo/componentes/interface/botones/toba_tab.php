@@ -39,7 +39,7 @@ class toba_tab extends toba_boton
 		if (!isset($tecla)&&($id_tab<10)) {
 			$tecla = $id_tab;
 		}
-		$tip = str_replace("'", "\\'",$tip);			
+		$tip = (null !== $tip) ? str_replace("'", "\\'", $tip) : '';			
 		$acceso = toba_recurso::ayuda($tecla, $tip);
 		$id = $id_submit .'_cambiar_tab_'. $evento;
 		//$js = "onclick=\"{$id_componente}.ir_a_pantalla('$evento');return false;\"";

@@ -48,8 +48,8 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$this->identificador = $identificador;
 		$this->dir = $instancia->get_path_proyecto($identificador);
 		if( ! is_dir( $this->dir ) ) {
-			toba_logger::instancia()->error("PROYECTO: El proyecto '{$this->identificador}' es invalido. (la carpeta '{$this->dir}' no existe)");
-			throw new toba_error('PROYECTO: El proyecto solicitado es invalido. (la carpeta no existe o no tiene acceso) revise el log');
+			toba_logger::instancia()->error("PROYECTO: El proyecto '{$this->identificador}' es inválido. (la carpeta '{$this->dir}' no existe)");
+			throw new toba_error('PROYECTO: El proyecto solicitado es inválido. (la carpeta no existe o no tiene acceso) revise el log');
 		}
 		$this->db = $this->instancia->get_db();
 		toba_contexto_info::set_db($this->get_db());
@@ -363,8 +363,8 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		if (toba::config()->existe_valor('proyecto', $seccion, $parametro)) {
 			return toba::config()->get_parametro('proyecto', $seccion, $parametro);
 		} elseif ($obligatorio) {
-			toba_logger::instancia()->error("INFO_PROYECTO: El parametro '$parametro' no se encuentra definido.");
-			throw new toba_error('INFO_PROYECTO: El parametro solicitado no se encuentra definido. Revise el log');
+			toba_logger::instancia()->error("INFO_PROYECTO: El parámetro '$parametro' no se encuentra definido.");
+			throw new toba_error('INFO_PROYECTO: El parámetro solicitado no se encuentra definido. Revise el log');
 		}
 		return null;
 	}
@@ -414,8 +414,8 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$this->sincronizar_archivos();
 			$this->generar_checksum(); //Regenero el checksum
 		} catch ( toba_error $e ) {
-			toba_logger::instancia()->error("Proyecto {$this->identificador}: Ha ocurrido un error durante la exportacion:\n". $e->getMessage());
-			throw new toba_error('Proyecto: Ha ocurrido un error durante la exportacion, revise el log:'. PHP_EOL);
+			toba_logger::instancia()->error("Proyecto {$this->identificador}: Ha ocurrido un error durante la exportación:\n". $e->getMessage());
+			throw new toba_error('Proyecto: Ha ocurrido un error durante la exportación, revise el log:'. PHP_EOL);
 		}
 	}
 
@@ -530,7 +530,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	}
 
 	/*
-	*	Genera el contenido de la exportacion de un componente
+	*	Genera el contenido de la exportación de un componente
 	*/
 	private function & get_contenido_componente( $tipo, $id )
 	{
@@ -636,8 +636,8 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$this->get_sincronizador()->sincronizar_agregados();	//Sincronizo los archivos
 			$this->generar_checksum();													//Regenero el checksum
 		} catch ( toba_error $e ) {
-			toba_logger::instancia()->error("Proyecto {$this->identificador}: Ha ocurrido un error durante la exportacion del item $item:\n".	$e->getMessage());
-			throw new toba_error('Proyecto: Ha ocurrido un error durante la exportacion del item, revise el log:'. PHP_EOL);
+			toba_logger::instancia()->error("Proyecto {$this->identificador}: Ha ocurrido un error durante la exportación del item $item:\n".	$e->getMessage());
+			throw new toba_error('Proyecto: Ha ocurrido un error durante la exportación del item, revise el log:'. PHP_EOL);
 		}
 
 		$this->manejador_interface->titulo( "Recuerde que esta operación actualmente no exporta los permisos ni los perfiles para el item." );
@@ -1472,10 +1472,12 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	function publicar($url=null, $full_url=null)
 	{
 		if (! $this->esta_publicado()) {
-			$url_pers = (trim($url) != '') ? $url . '_pers/' : null;
 			if ($url == '' || is_null($url)) {
 				$url = $this->get_url();
-			}
+                $url_pers = null;
+			} else {
+                $url_pers = $url . '_pers/';
+            }
 			$this->instancia->set_url_proyecto($this->get_id(), $url, $full_url);
 			toba_modelo_instalacion::agregar_alias_apache(	$url,
 													$this->get_dir(),
@@ -2376,7 +2378,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	//-------------------------------------------------------------------------------------
 
 	/**
-	*	Devuelve la lista de componentes para los procesos de exportacion y compilacion
+	*	Devuelve la lista de componentes para los procesos de exportación y compilacion
 	*/
 	function get_lista_tipo_componentes()
 	{
@@ -2808,11 +2810,11 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		//- 1 - Controles
 		$dir_template = toba_dir() . self::template_proyecto;
 		if ( $nombre == 'toba' ) {
-			throw new toba_error("INSTALACION: No es posible crear un proyecto con el nombre 'toba'");
+			throw new toba_error("INSTALACIÓN: No es posible crear un proyecto con el nombre 'toba'");
 		}
 		if ( self::existe( $nombre ) ) {
-			toba_logger::instancia()->error("INSTALACION: Ya existe una carpeta con el nombre '$nombre' en la carpeta 'proyectos'");
-			throw new toba_error("INSTALACION: Ya existe una carpeta con el nombre especificado en la carpeta 'proyectos'");
+			toba_logger::instancia()->error("INSTALACIÓN: Ya existe una carpeta con el nombre '$nombre' en la carpeta 'proyectos'");
+			throw new toba_error("INSTALACIÓN: Ya existe una carpeta con el nombre especificado en la carpeta 'proyectos'");
 		}
 		try {
 

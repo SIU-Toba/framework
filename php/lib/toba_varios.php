@@ -142,7 +142,7 @@
 	{
 		$nuevo = array();
 		foreach ($arreglo as $clave => $valor) {
-			if (in_array($clave, $llaves)) {
+			if (in_array($clave, $llaves, true)) {
 				$nuevo[$clave] = $valor;
 			}
 		}
@@ -343,7 +343,7 @@
 	// Ej: Proce&sar retornar array('<u>P</u>rocesar', 'P')
 	{
 		$escapador = toba::escaper();
-		$pos_guia = strpos($etiqueta, '&');
+		$pos_guia = (null !== $etiqueta) ? strpos($etiqueta, '&'): false;
 		if ($pos_guia === false || ($pos_guia ==  strlen($etiqueta) - 1)) {
 			$nueva_etiqueta = $escapador->escapeHtmlAttr($etiqueta);
 			$tecla = null;

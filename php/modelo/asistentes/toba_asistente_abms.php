@@ -240,7 +240,7 @@ class toba_asistente_abms extends toba_asistente_1dt
 	{
 		//Cabecera
 		$cuadro->set_nombre($this->molde['nombre'] . ' - Cuadro.');
-		if (trim($this->molde_abms['cuadro_eof']) != '') {
+		if (isset($this->molde_abms['cuadro_eof']) && trim($this->molde_abms['cuadro_eof']) != '') {
 			$cuadro->set_eof(trim($this->molde_abms['cuadro_eof']));
 		} else {
 			$cuadro->set_eof_invisible();

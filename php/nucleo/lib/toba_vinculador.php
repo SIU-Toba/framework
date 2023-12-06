@@ -95,13 +95,17 @@ class toba_vinculador
 		return $url;
 	}
 	
-	function get_url_ws($proyecto = null, $ws, $parametros = array(),  $opciones=array())
+	function get_url_ws($proyecto = null, $ws=null, $parametros = array(),  $opciones=array())
 	{
 		$separador = '&';
 		if (is_null($proyecto)) {
 			$proyecto = toba::proyecto()->get_id();			
 		}
-				
+        //Si no hay WS retorna inmediatamente
+        if (is_null($ws)) {
+            return null;
+        }
+        
 		$disponibles = toba_info_editores::get_items_servicios_web($proyecto);
 		$items = array();
 		foreach($disponibles as $wservice) {
@@ -121,7 +125,9 @@ class toba_vinculador
 		
 		if(isset($parametros) && is_array($parametros)) {			
 			foreach($parametros as $clave => $valor){
-				$query_str .= $separador."$clave=$valor";
+                if (null !== $valor && null !== $clave) {
+                    $query_str .= $separador."$clave=$valor";
+                }
 			}
 		}
 		
@@ -232,7 +238,9 @@ class toba_vinculador
 		//Formateo paremetros directos
 		if(isset($parametros) && is_array($parametros)){
 			foreach($parametros as $clave => $valor){
-				$parametros_formateados .= $separador."$clave=".  $escapador->escapeUrl($valor);
+                if (null !== $valor && null !== $clave) {
+                    $parametros_formateados .= $separador."$clave=".  $escapador->escapeUrl($valor);
+                }
 			}
 		}
 		//Obtengo el prefijo del vinculo
@@ -389,8 +397,8 @@ class toba_vinculador
 			$html = "<a $id href='$url' $clase $frame>";
 		} elseif( $parametros['tipo']=="popup" )	//	*** POPUP javascript ***
 		{
-			$init = explode(",",$parametros['inicializacion']);
-			$init = array_map("trim",$init);
+			$init_aux = explode(",", $parametros['inicializacion']);
+			$init = array_map("trim", $init_aux);
 			//$init = array_map('toba::escaper()->escapeHtmlAttr', $init);			
 			//ei_arbol($init);
 			$tx = (isset($init[0])) ? $escapador->escapeHtmlAttr($init[0]) : 400;

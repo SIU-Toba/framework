@@ -111,17 +111,24 @@ class toba_aplicacion_comando_base implements toba_aplicacion_comando
 	}
 	
 	/**
+	 * Hace compatible la estructura del esquema con los cambios en la version 3.4.0
+ 	 * @consola_separador 1
+	 */
+	function opcion__migrar_auditoria_3_4()
+	{
+		$this->modelo->migrar_auditoria_3_4();				//Modifico la estructura de los triggers
+	}
+	
+	/**
 	 * Arma archivo JSON con las personas y cuentas para importar en arai-usuarios
-	 *
-	 * @param array $parametros
-	 * 		array(
-	 * 			'-d' => $this->get_instalacion()->get_dir() . '/usersExportFiles/',
-	 *			'-f' => 'usuarios_' . date('YmdHis'),
-	 *			'-m' => 'toba',
-	 *			'-e' => 'toba@siu.edu.ar',
+	 * @consola_parametros 
+	 * 			'-d' => Directorio de exportacion (default: $this->get_instalacion()->get_dir() . '/usersExportFiles/') 
+	 *			'-f' => Nombre archivo exportacion (default: 'usuarios_' . date('YmdHis') )
+	 *			'-m' => Identificador del mantainer de los datos (default: 'toba')
+	 *			'-e' => Mail del mantainer de los datos(default: 'toba@siu.edu.ar') 
 	 *			'--mascara' => "<apellido>, <nombres>" O una combinacion de patron similar
 	 *			'--excluir-bloqueados'  para indicar que no se quieren las cuentas bloqueadas
-	 * 		)
+     * @consola_separador 1
 	 * @throws Exception
 	 */
 	function opcion__exportar_usuarios_arai($parametros)

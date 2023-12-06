@@ -95,11 +95,11 @@ class toba_ei_cuadro_salida_excel extends toba_ei_cuadro_salida
 				if(isset($datos_cuadro[$id_fila][$clave])) {
 					$valor_real = $datos_cuadro[$id_fila][$clave];
 				} else {
-					$valor_real = '';
+					$valor_real = null;
 				}
 				//Hay que formatear?
 				$estilo = array();
-				if(isset($columnas[$clave]["formateo"])) {
+				if(isset($columnas[$clave]["formateo"]) && null !== $valor_real) {
 					$funcion = "formato_" . $columnas[$clave]["formateo"];
 					//Formateo el valor
 					list($valor, $estilo) = $formateo->$funcion($valor_real);					
@@ -107,7 +107,7 @@ class toba_ei_cuadro_salida_excel extends toba_ei_cuadro_salida
 						$estilo = array();
 					}
 				} else {
-					$valor = $valor_real;
+					$valor = $valor_real ?? '';
 				}				
 				$estilos[$clave]['estilo'] = $this->excel_get_estilo($columnas[$clave]['estilo']);
 				$estilos[$clave]['estilo'] = array_merge($estilo, $estilos[$clave]['estilo']);

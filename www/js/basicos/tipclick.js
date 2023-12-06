@@ -29,10 +29,13 @@ var tipclick = {
 		var x = Math.round(this._get_pos_offset(obj, true));
 		var y = Math.round(this._get_pos_offset(obj, false));
 		
+        //Calcula ajuste extra sobre eje X para posiciones cercanas al borde de pantalla 
+        var xVariance = (screen.width - x < 100) ? 115 : 0;
+        
 		//Agregamos la clase correspondiente y modificamos la posicion via css
 		tip_div.addClass('tooltip')
 			   .css('visibility', 'visible')
-			   .css('left', x - this._clear_browser_edge(obj, true, x, y ) + "px")
+			   .css('left', x - xVariance - this._clear_browser_edge(obj, true, x, y ) + "px")
 			   .css('top', y - this._clear_browser_edge(obj, false, x, y) + obj.offsetHeight + "px");
 		
 		return true;

@@ -772,7 +772,6 @@ class toba_ef_editable_fecha_hora extends toba_ef_editable
 
 	function set_estado($estado="")
 	{
-		toba::logger()->var_dump($estado);
 		if(is_array($estado) && isset($estado['0']) && isset($estado['1'])) {
 			$this->estado = array('fecha' => cambiar_fecha($estado['0'],'-','/') , 'hora' => $estado['1']);
 		} else {
@@ -793,7 +792,7 @@ class toba_ef_editable_fecha_hora extends toba_ef_editable
 	function tiene_estado()
 	{
 		//Verifico que sea distinto de null y que ambas componenetes esten seteadas.
-		$hay_fecha = $hay_hora = true;
+		$hay_fecha = $hay_hora = false;
 		if (! is_null($this->estado)) {
 			$hay_fecha = (isset($this->estado['fecha']) && trim($this->estado['fecha'] != ''));
 			$hay_hora = (isset($this->estado['hora']) && trim($this->estado['hora'] != ''));
@@ -1157,7 +1156,7 @@ class toba_ef_editable_textarea extends toba_ef_editable
 	{
 		parent::set_estado($estado);
 		if ($this->maximo) {
-			if (strlen($this->estado) > $this->maximo) {
+			if (null !== $this->estado && strlen($this->estado) > $this->maximo) {
 				$this->estado = substr($this->estado, 0, $this->maximo);
 			}
 		}

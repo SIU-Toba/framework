@@ -46,8 +46,8 @@ class toba_instancia
 		toba::config()->add_config_file('instancia', $archivo);
 		toba::config()->load();
 		if (! is_file( $archivo ) ) {
-			toba_logger::instancia()->error("INFO_INSTANCIA: No se encuentra definido el archivo de inicializacion de la INSTANCIA: '".self::get_id()."' ('$archivo')");
-			throw new toba_error('INFO_INSTANCIA: No se encuentra definido el archivo de inicializacion de la INSTANCIA');
+			toba_logger::instancia()->error("INFO_INSTANCIA: No se encuentra definido el archivo de inicialización de la INSTANCIA: '".self::get_id()."' ('$archivo')");
+			throw new toba_error('INFO_INSTANCIA: No se encuentra definido el archivo de inicialización de la INSTANCIA');
 		}
 		return toba::config()->get_seccion('instancia');
 	}
@@ -79,8 +79,8 @@ class toba_instancia
 		if ( isset( $this->memoria['base'] ) ) {
 			return toba_dba::get_db($this->memoria['base']);
 		} else {
-			toba_logger::error("INFO_INSTANCIA: El archivo de inicializacion de la INSTANCIA: '".self::$id."' no posee una BASE DEFINIDA");
-			throw new toba_error('INFO_INSTANCIA: El archivo de inicializacion de la INSTANCIA no posee una BASE DEFINIDA');
+			toba_logger::error("INFO_INSTANCIA: El archivo de inicialización de la INSTANCIA: '".self::$id."' no posee una BASE DEFINIDA");
+			throw new toba_error('INFO_INSTANCIA: El archivo de inicialización de la INSTANCIA no posee una BASE DEFINIDA');
 		}
 	}
 
@@ -321,12 +321,12 @@ class toba_instancia
 	function get_url_proyecto($proy)
 	{
 		if (isset($this->memoria[$proy]['url'])) {
-			return $this->memoria[$proy]['url'];
+			return rtrim($this->memoria[$proy]['url'], '/');
 		} elseif (toba::proyecto()->get_id() == $proy && isset($_SERVER['TOBA_PROYECTO_ALIAS'])) {
 			//---Es el actual y hay una directiva en el ALIAS
-			return '/'.$_SERVER['TOBA_PROYECTO_ALIAS'];
+			return rtrim('/'.$_SERVER['TOBA_PROYECTO_ALIAS'], '/');
 		} else {
-			return '/'.$proy;
+			return rtrim('/'.$proy, '/');
 		}
 	}
 
@@ -650,7 +650,7 @@ class toba_instancia
 		$sql = "SELECT nextval('{$this->get_schema_logs_toba()}.apex_sesion_browser_seq'::text) as id;";
 		$rs = $this->get_db()->consultar($sql);
 		if(empty($rs)){
-			throw new toba_error('No es posible recuperar el ID de la sesion.');
+			throw new toba_error('No es posible recuperar el ID de la sesión.');
 		}
 		return $rs[0]['id'];
 	}

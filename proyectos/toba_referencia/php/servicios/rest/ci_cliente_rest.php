@@ -6,7 +6,7 @@ use GuzzleHttp\Exception\RequestException;
 
 class ci_cliente_rest extends toba_ci
 {
-	protected $dump_url;
+	protected $dump_url='';
 	//    protected $dump_pedido;
 	protected $dump_respuesta;
 	protected $rs_personas;
@@ -216,9 +216,9 @@ class ci_cliente_rest extends toba_ci
 	protected function manejar_excepcion_request(RequestException $e)
 	{		
 		//$msg = $e->getMessage(). "\n";
-		$msg = Psr7\str($e->getRequest());
+        $msg = Psr7\Message::toString($e->getRequest()). PHP_EOL;
 		if ($e->hasResponse()) {
-			$msg .= Psr7\str($e->getResponse()) . "\n";
+			$msg .= Psr7\Message::toString($e->getResponse()) . PHP_EOL;
 		}
 		throw new toba_error($msg);
 	}

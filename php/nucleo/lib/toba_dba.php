@@ -63,8 +63,8 @@ class toba_dba
 		if ( isset( self::$bases_definidas[ $id_base ] ) ) {
 			return self::$bases_definidas[ $id_base ];
 		} else {
-			toba_logger::instancia()->error("DBA: La BASE [$id_base] no esta definida en el archivo de definicion de BASES: '" . self::get_path_archivo_bases() . "'");
-			throw new toba_error('DBA: La BASE solicitada no esta definida en el archivo de definicion de BASES, revise el log');
+			toba_logger::instancia()->error("DBA: La BASE [$id_base] no esta definida en el archivo de definición de BASES: '" . self::get_path_archivo_bases() . "'");
+			throw new toba_error('DBA: La BASE solicitada no esta definida en el archivo de definición de BASES, revise el log');
 		}
 	}
 	

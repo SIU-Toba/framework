@@ -169,7 +169,7 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 	 * Una columna externa no participa en la sincronización posterior, pero por necesidades casi siempre estéticas
 	 * necesitan mantenerse junto al conjunto de datos.
 	 *
-	 * @param string $metodo Método que obtiene los datos.
+	 * @param string $método Método que obtiene los datos.
 	 * @param string $clase  Clase a la que pertenece el método.	Si es NULL usa el mismo AP
 	 * @param string $include Archivo donde se encuentra la clase.	Si es NULL usa el mismo AP
 	 * @param array $col_parametros Columnas que espera recibir el DAO.
@@ -178,7 +178,7 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 	 * @param boolean $estricto Indica si es imperioso que la columna externa posea un estado o se
 	 * permite que no posea valor.
 	 */
-	function activar_proceso_carga_externa_dao($metodo, $clase=null, $include=null, $col_parametros, $col_resultado, $sincro_continua=true, $estricto=true, $carga_masiva = 0, $metodo_masivo = '')
+	function activar_proceso_carga_externa_dao($metodo, $clase=null, $include=null, $col_parametros=[], $col_resultado=[], $sincro_continua=true, $estricto=true, $carga_masiva = 0, $metodo_masivo = '')
 	{
 		$proximo = count($this->_proceso_carga_externa);
 		$this->_proceso_carga_externa[$proximo]["tipo"] = "dao";
@@ -1275,13 +1275,13 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 			if (!class_exists($parametros['clase'])) {
 				require_once($parametros['include']);
 			}
-			$datos = call_user_func_array(array($parametros['clase'],$nombre_metodo), $param_dao);
+			$datos = call_user_func_array(array($parametros['clase'],$nombre_metodo), array_values($param_dao));
 		} else {
 			if (method_exists($this, $nombre_metodo)) {
-				$datos = call_user_func_array(array($this,$nombre_metodo), $param_dao);
+				$datos = call_user_func_array(array($this,$nombre_metodo), array_values($param_dao));
 			}else {
-				$this->log(' ERROR en la carga de una columna externa. El metodo: '. $nombre_metodo .' no esta definido', 'error');
-				throw new toba_error_def('AP_TABLA_DB: ERROR en la carga de una columna externa. Metodo no definido, revise el log');
+				$this->log(' ERROR en la carga de una columna externa. El método: '. $nombre_metodo .' no esta definido', 'error');
+				throw new toba_error_def('AP_TABLA_DB: ERROR en la carga de una columna externa. Método no definido, revise el log');
 			}
 		}
 		return $datos;
@@ -1301,9 +1301,9 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 		 if (! method_exists($dt, $nombre_metodo)) {
 			$clase = get_class($dt);
 			$this->log("ERROR en la carga de una columna externa. No existe el método '$nombre_metodo' de la clase '$clase'", 'error');
-			throw new toba_error_def('AP_TABLA_DB: ERROR en la carga de una columna externa. Metodo no definido, revise el log');
+			throw new toba_error_def('AP_TABLA_DB: ERROR en la carga de una columna externa. Método no definido, revise el log');
 		}
-		$datos = call_user_func_array(array($dt, $nombre_metodo), $param_dt);
+		$datos = call_user_func_array(array($dt, $nombre_metodo), array_values($param_dt));
 		return $datos;
 	}
 
@@ -1318,10 +1318,10 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 		//Recupero el objeto asociado a la clase php
 		$obj = toba::consulta_php($parametros['clase']);
 		if (method_exists($obj, $nombre_metodo)) {
-				$datos = call_user_func_array(array($obj,$nombre_metodo), $param_clase);
+				$datos = call_user_func_array(array($obj,$nombre_metodo), array_values($param_clase));
 		}else {
-			$this->log(' ERROR en la carga de una columna externa. El metodo: '. $nombre_metodo .' no esta definido en la clase de consulta '. $parametros['clase'], 'error');
-			throw new toba_error_def('AP_TABLA_DB: ERROR en la carga de una columna externa. Metodo no definido, revise el log');
+			$this->log(' ERROR en la carga de una columna externa. El método: '. $nombre_metodo .' no esta definido en la clase de consulta '. $parametros['clase'], 'error');
+			throw new toba_error_def('AP_TABLA_DB: ERROR en la carga de una columna externa. Método no definido, revise el log');
 		}
 		return $datos;
 	}
@@ -1408,7 +1408,7 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 			foreach( $parametros['col_parametro'] as $col_llave ) {
 				if (isset($evento) && isset($this->_secuencias[$col_llave])) {
 					toba_logger::instancia()->error("AP_TABLA: [{$this->_tabla}]:\n No puede actualizarse en linea un valor que dependende de una secuencia ($col_llave)");
-					throw new toba_error_def('AP_TABLA_DB: No puede actualizarse en linea un valor secuencia, revise el log');
+					throw new toba_error_def('AP_TABLA_DB: No puede actualizarse en línea un valor secuencia, revise el log');
 				}
 				if (!isset($fila[$col_llave])) {
 					$estan_todos = false;

@@ -173,7 +173,7 @@ class toba_ei_formulario extends toba_ei
 														$this->_nombre_formulario,
 														$this->_info_formulario_ef[$indx]['identificador'],
 														$this->_info_formulario_ef[$indx]['etiqueta'],
-														addslashes($this->_info_formulario_ef[$indx]['descripcion']),
+														addslashes($this->_info_formulario_ef[$indx]['descripcion']??''),
 														$clave_dato,
 														array($this->_info_formulario_ef[$indx]['obligatorio'], 
 															$this->_info_formulario_ef[$indx]['oculto_relaja_obligatorio']),
@@ -406,8 +406,8 @@ class toba_ei_formulario extends toba_ei
 			if ($validacion !== true) {
 				$this->_efs_invalidos[$ef] = str_replace("'", '"', $validacion);
 				$etiqueta = $this->_elemento_formulario[$ef]->get_etiqueta();
-				toba_logger::instancia()->error($etiqueta.': '.$validacion, $this->ef($ef));
-				throw new toba_error_validacion('Se produjo un error en la validacion del ef, revise el log');
+				toba_logger::instancia()->error($etiqueta.': '.$validacion . ' ' .$this->ef($ef)->get_id());
+				throw new toba_error_validacion('Se produjo un error en la validación del ef, revise el log');
 			}
 		}
 	}
@@ -785,7 +785,7 @@ class toba_ei_formulario extends toba_ei
 			toba_logger::instancia()->error($this->get_txt()." No existe ef '$id_ef'");
 			throw new toba_error_seguridad(' No existe el ef indicado');
 		}
-		$fila_actual = trim(toba::memoria()->get_parametro('cascadas-fila'));
+		$fila_actual = trim(toba::memoria()->get_parametro('cascadas-fila')??'');
 		$maestros = array();
 		$cascadas_maestros = $this->_carga_opciones_ef->get_cascadas_maestros();
 		$ids_maestros = (!isset($cascadas_maestros[$id_ef]) || !is_array($cascadas_maestros[$id_ef])) ? [] : $cascadas_maestros[$id_ef];
@@ -793,8 +793,8 @@ class toba_ei_formulario extends toba_ei
 			if (trim($par) != '') {
 				$param = explode("-;-", trim($par));
 				if (count($param) != 2) {
-					toba_logger::instancia()->error("Cascadas: Cantidad incorrecta de parametros ($par).");
-					throw new toba_error_seguridad('Cascadas: parametros incorrectos.');
+					toba_logger::instancia()->error("Cascadas: Cantidad incorrecta de parámetros ($par).");
+					throw new toba_error_seguridad('Cascadas: parámetros incorrectos.');
 				}
 				$id_ef_maestro = $param[0];
 				
@@ -813,7 +813,7 @@ class toba_ei_formulario extends toba_ei
 					//--- Manejo de claves múltiples					
 					if (count($valores) != count($campos)) {
 						toba_logger::instancia()->error("Cascadas: El ef $id_ef_maestro maneja distinta cantidad de datos que los campos pasados");
-						throw new toba_error('Cascadas: parametros incorrectos.');
+						throw new toba_error('Cascadas: parámetros incorrectos.');
 					}
 					$valores_clave = array();
 					for ($i=0; $i < count($campos) ; $i++) {
@@ -883,7 +883,7 @@ class toba_ei_formulario extends toba_ei
 		}
 
 		$filtro = trim(toba::memoria()->get_parametro('filtrado-ce-valor'));
-		$fila_actual = trim(toba::memoria()->get_parametro('filtrado-ce-fila'));
+		$fila_actual = trim(toba::memoria()->get_parametro('filtrado-ce-fila')??'');
 		$maestros = array($id_ef => $filtro);		
 		$cascadas_maestros = $this->_carga_opciones_ef->get_cascadas_maestros();
 		$ids_maestros = (!isset($cascadas_maestros[$id_ef]) || !is_array($cascadas_maestros[$id_ef])) ? [] : $cascadas_maestros[$id_ef];
@@ -891,8 +891,8 @@ class toba_ei_formulario extends toba_ei
 			if (trim($par) != '') {
 				$param = explode("-;-", trim($par));
 				if (count($param) != 2) {
-					toba_logger::instancia()->error("Filtrado de combo editable: Cantidad incorrecta de parametros ($par).");	
-					throw new toba_error_seguridad('Filtrado de combo editable: parametros incorrectos.');
+					toba_logger::instancia()->error("Filtrado de combo editable: Cantidad incorrecta de parámetros ($par).");	
+					throw new toba_error_seguridad('Filtrado de combo editable: parámetros incorrectos.');
 				}
 				$id_ef_maestro = $param[0];
 				
@@ -911,7 +911,7 @@ class toba_ei_formulario extends toba_ei
 					//--- Manejo de claves múltiples					
 					if (count($valores) != count($campos)) {
 						toba_logger::instancia()->error("Filtrado de combo editable: El ef $id_ef_maestro maneja distinta cantidad de datos que los campos pasados");
-						throw new toba_error_def('Filtrado de combo editable: parametros incorrectos.');
+						throw new toba_error_def('Filtrado de combo editable: parámetros incorrectos.');
 					}
 					$valores_clave = array();
 					for ($i=0; $i < count($campos) ; $i++) {
@@ -1198,10 +1198,10 @@ class toba_ei_formulario extends toba_ei
 		$html .= $this->_elemento_formulario[$ef]->get_etiqueta();
 		$html .= "</td><td class='ei-form-valor'>\n";
 		//Hay que formatear?
-		if(isset($this->_info_formulario_ef[$ef]["formateo"])){
+		$valor_real = $this->_elemento_formulario[$ef]->get_estado();        
+		if(isset($this->_info_formulario_ef[$ef]["formateo"]) && null !== $valor_real){
 			$formateo = new $this->_clase_formateo('impresion_html');
 			$funcion = "formato_" . $this->_info_formulario_ef[$ef]["formateo"];
-			$valor_real = $this->_elemento_formulario[$ef]->get_estado();
 			$valor = $formateo->$funcion($valor_real);
 		} else {
 			$valor = $this->_elemento_formulario[$ef]->get_descripcion_estado('impresion_html');
@@ -1427,9 +1427,9 @@ class toba_ei_formulario extends toba_ei
 			if ($this->_elemento_formulario[$ef]->tiene_estado()) {
 				$etiqueta = $this->_elemento_formulario[$ef]->get_etiqueta();
 				//Hay que formatear? Le meto pa'delante...
-            	if(isset($this->_info_formulario_ef[$ef]["formateo"])){
+                $valor_real = $this->_elemento_formulario[$ef]->get_estado();                
+            	if(isset($this->_info_formulario_ef[$ef]["formateo"]) && null !== $valor_real){
                 	$funcion = "formato_" . $this->_info_formulario_ef[$ef]["formateo"];
-                	$valor_real = $this->_elemento_formulario[$ef]->get_estado();
                 	$valor = $formateo->$funcion($valor_real);
             	}else{
 		            $valor = $this->_elemento_formulario[$ef]->get_descripcion_estado('pdf');
@@ -1439,10 +1439,11 @@ class toba_ei_formulario extends toba_ei
 		}
 		//-- Genera la tabla
         $ancho = null;
-        if (strpos($this->_pdf_tabla_ancho, '%') !== false) {
-        	$ancho = $salida->get_ancho(str_replace('%', '', $this->_pdf_tabla_ancho));	
-        } elseif (isset($this->_pdf_tabla_ancho)) {
-        		$ancho = $this->_pdf_tabla_ancho;
+        if (isset($this->_pdf_tabla_ancho)) {
+            $ancho = $this->_pdf_tabla_ancho;
+            if (strpos($this->_pdf_tabla_ancho, '%') !== false) {
+                $ancho = $salida->get_ancho(str_replace('%', '', $this->_pdf_tabla_ancho));	
+            }     
         }
         $opciones = $this->_pdf_tabla_opciones;
         if (isset($ancho)) {
@@ -1462,9 +1463,9 @@ class toba_ei_formulario extends toba_ei
 		$formateo = new $this->_clase_formateo('pdf');
 		$etiqueta = $this->_elemento_formulario[$id_ef]->get_etiqueta();
 		//Hay que formatear? Le meto pa'delante...
-		if(isset($this->_info_formulario_ef[$id_ef]["formateo"])){
-			$funcion = "formato_" . $this->_info_formulario_ef[$id_ef]["formateo"];
-			$valor_real = $this->_elemento_formulario[$id_ef]->get_estado();
+        $valor_real = $this->_elemento_formulario[$id_ef]->get_estado();
+		if(isset($this->_info_formulario_ef[$id_ef]["formateo"]) && null !== $valor_real){
+			$funcion = "formato_" . $this->_info_formulario_ef[$id_ef]["formateo"];			
 			$valor = $formateo->$funcion($valor_real);
 		}else{
 			$valor = $this->_elemento_formulario[$id_ef]->get_descripcion_estado('pdf');
@@ -1489,9 +1490,9 @@ class toba_ei_formulario extends toba_ei
 			$etiqueta = $this->_elemento_formulario[$ef]->get_etiqueta();
 			//Hay que formatear?
 			$estilo = array();
-			if(isset($this->_info_formulario_ef[$ef]["formateo"])){
+            $valor_real = $this->_elemento_formulario[$ef]->get_estado();            
+			if(isset($this->_info_formulario_ef[$ef]["formateo"]) && null !== $valor_real){
 				$funcion = "formato_" . $this->_info_formulario_ef[$ef]["formateo"];
-				$valor_real = $this->_elemento_formulario[$ef]->get_estado();
 				list($valor, $estilo) = $formateo->$funcion($valor_real);
 			}else{
 				list($valor, $estilo) = $this->_elemento_formulario[$ef]->get_descripcion_estado('excel');
@@ -1544,10 +1545,11 @@ class toba_ei_formulario extends toba_ei
 		$formateo = new $this->_clase_formateo('pdf');
 		
         $ancho = null;
-        if (strpos($this->_pdf_tabla_ancho, '%') !== false) {
-        	$ancho = $salida->get_ancho(str_replace('%', '', $this->_pdf_tabla_ancho));	
-        } elseif (isset($this->_pdf_tabla_ancho)) {
-        		$ancho = $this->_pdf_tabla_ancho;
+        if (isset($this->_pdf_tabla_ancho)) {
+            $ancho = $this->_pdf_tabla_ancho;
+            if (strpos($this->_pdf_tabla_ancho, '%') !== false) {
+                $ancho = $salida->get_ancho(str_replace('%', '', $this->_pdf_tabla_ancho));	
+            }
         }
         $opciones = $this->_pdf_tabla_opciones;
         if (isset($ancho)) {
@@ -1568,9 +1570,9 @@ class toba_ei_formulario extends toba_ei
 					if ($this->_elemento_formulario[$ef]->tiene_estado() && (!isset($this->xml_ef_no_procesar) || !in_array($ef,$this->xml_ef_no_procesar))) {
 						$etiqueta = $this->_elemento_formulario[$ef]->get_etiqueta();
 						//Hay que formatear? Le meto pa'delante...
-						if(isset($this->_info_formulario_ef[$ef]["formateo"])){
+                        $valor_real = $this->_elemento_formulario[$ef]->get_estado();                        
+						if(isset($this->_info_formulario_ef[$ef]["formateo"]) && null !== $valor_real){
 							$funcion = "formato_" . $this->_info_formulario_ef[$ef]["formateo"];
-							$valor_real = $this->_elemento_formulario[$ef]->get_estado();
 							$valor = $formateo->$funcion($valor_real);
 						}else{
 							$valor = $this->_elemento_formulario[$ef]->get_descripcion_estado('pdf');

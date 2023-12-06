@@ -1,4 +1,5 @@
 <?php
+
 namespace JpGraph;
 
 /*=======================================================================
@@ -32,6 +33,8 @@ class Contour {
     private $nbrIsobars = 10, $isobarColors = array();
     private $invert = true;
     private $highcontrast = false, $highcontrastbw = false;
+
+    private $edges = array();
 
     /**
      * Create a new contour level "algorithm machine".
@@ -389,7 +392,7 @@ class Contour {
 class ContourPlot extends Plot {
 
     private $contour, $contourCoord, $contourVal, $contourColor;
-    private $nbrCountours = 0 ;
+    private $nbrContours = 0 ; /* mitoteam: was $nbrCountours in original sources */
     private $dataMatrix = array();
     private $invertLegend = false;
     private $interpFactor = 1;
