@@ -54,7 +54,7 @@ class toba_logger_ws extends AbstractLogger
 		$this->modo_archivo = false;
 	}
 	
-	public function log($level, $message, array $context = array())
+	public function log($level, $message, array $context = array()): void
 	{
 		if (! $this->activo) {			//Si no estoy logueando ni me gasto.
 			return;

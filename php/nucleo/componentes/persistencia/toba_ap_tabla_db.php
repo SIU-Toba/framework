@@ -2,7 +2,7 @@
 define("apex_db_registros_separador","%");
 
 /**
- * Administrador de persistencia a una tabla de DB desde un {@link toba_datos_tabla datos_tabla}
+ * Administrador de persistencia a una tabla de DB desde un @see toba_datos_tabla
  * Supone que la tabla de datos se va a mapear a algun tipo de estructura en una base de datos
  *
  * TODO Poder desactivar el control de sincronizacion (¿se necesita esto?)
@@ -765,7 +765,7 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 	//-------------------------------------------------------------------------------
 
 	/**
-	 * Shortcut de {@link toba_db::ejecutar() toba::db()->ejecutar}
+	 * Shortcut de @see toba_db::ejecutar()
 	 */
 	protected function ejecutar_sql($sql, $id_fila=null)
 	{

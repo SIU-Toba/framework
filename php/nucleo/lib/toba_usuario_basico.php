@@ -1,6 +1,7 @@
 <?php
 /**
  * Usuario estandar de la instancia
+ * 
  * @package Seguridad
  * @subpackage TiposUsuario
  */
@@ -13,7 +14,8 @@ class toba_usuario_basico extends toba_usuario
 
 	/**
 	*	Realiza la autentificacion.
-	*	@return $value	Retorna TRUE o FALSE de acuerdo al estado de la autentifiacion
+     * 
+	*	@return boolean	Retorna TRUE o FALSE de acuerdo al estado de la autentifiacion
 	*/
 	static function autenticar($id_usuario, $clave, $datos_iniciales=null, $usar_log=true)
 	{
@@ -45,6 +47,7 @@ class toba_usuario_basico extends toba_usuario
 
 	/**
 	 * Recupera las descripciones de las cuentas de usuario
+     * 
 	 * @param array $cuentas Lista de ids de usuario
 	 * @return array El formato es array(array('id' => id, 'nombre' => nombre))
 	 */

@@ -112,10 +112,10 @@ class toba_ei_cuadro_salida_pdf extends toba_ei_cuadro_salida
 
 	/**
 	 * @ignore
-	 * @param <type> $columnas
-	 * @param <type> $datos_cuadro
-	 * @param <type> $id_fila
-	 * @param <type> $formateo
+	 * @param array $columnas
+	 * @param array $datos_cuadro
+	 * @param string $id_fila
+	 * @param string $formateo
 	 * @return string
 	 */
 	function generar_layout_fila($columnas, $datos_cuadro, $id_fila, $formateo)

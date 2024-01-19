@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Mantiene un conjunto relacionado de {@link toba_datos_tabla datos_tabla}, brindando servicios para cargar y sincronizar esta relación con algún medio de persistencia (general una BD relacional)
+ * Mantiene un conjunto relacionado de @see toba_datos_tabla , brindando servicios para cargar y sincronizar esta relación con algún medio de persistencia (general una BD relacional)
  * 
  * TODO En el dump_esquema incluir la posición actual de los cursores
  * @package Componentes\Persistencia

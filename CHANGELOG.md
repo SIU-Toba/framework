@@ -4,6 +4,9 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.4.1](https://github.com/SIU-Toba/framework/releases/tag/v3.4.1) (2024-01-19)
+- Se corrige problema en la clase `toba_logger_ws` que impedia visualizar la documentación de las APIs Rest.
+
 [3.4.0](https://github.com/SIU-Toba/framework/releases/tag/v3.4.0) (2023-12-06)
 - Se incrementa el requerimiento de plataforma a PHP 8.1+
 - Se actualizan los siguientes paquetes 

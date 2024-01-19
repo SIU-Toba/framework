@@ -524,7 +524,7 @@ class toba_ei_cuadro extends toba_ei
 
 	/**
 	 * @ignore
-	 * @return <type>
+	 * @return array
 	 */
 	function get_estructura_datos()
 	{
@@ -897,8 +897,8 @@ class toba_ei_cuadro extends toba_ei
 
 	/**
 	 * Indica si la clave que se pasa por parametro es igual a la fila actualmente seleccionada.
-	 * @param <type> $clave_fila
-	 * @return <type>
+	 * @param string $clave_fila
+	 * @return boolean
 	 */
 	function es_clave_fila_seleccionada($clave_fila)
 	{
@@ -1791,9 +1791,9 @@ class toba_ei_cuadro extends toba_ei
 
 	/**
 	 * @ignore
-	 * @param <type> $columna
-	 * @param <type> $sentido
-	 * @return <type>
+	 * @param string $columna
+	 * @param string $sentido
+	 * @return boolean
 	 */
 	function es_sentido_ordenamiento_seleccionado($columna, $sentido)
 	{

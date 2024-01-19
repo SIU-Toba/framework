@@ -1,6 +1,7 @@
 <?php
 /**
- * Esta clase representa un plan de la personalizacion
+ * Esta clase representa un plan de la personalizacion.
+ * 
  * @package Centrales
  * @subpackage Personalizacion
  */

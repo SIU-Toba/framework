@@ -73,8 +73,8 @@ class toba_cn extends toba_componente
 	/**
 	 * El procesamiento se dispara cuando la entrega de datos ci->cn ha finalizado
 	 * Se inicia una transaccion de base de datos y dentro de ella se llama a :
-	 *  - {@link evt__validar_datos() evt__validar_datos} 
-	 *  - {@link evt__procesar_especifico() evt__procesar_especifico}
+	 * @see evt__validar_datos()
+	 * @see evt__procesar_especifico()
 	 *  Una vez terminada la transacción se invoca a la limpieza de memoria
 	 * 
 	 * @todo Ver la posibilidad de usar ignore_user_abort() para evitar problemas con medios no transaccionales

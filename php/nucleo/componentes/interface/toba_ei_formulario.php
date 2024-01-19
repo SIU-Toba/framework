@@ -566,7 +566,8 @@ class toba_ei_formulario extends toba_ei
 	
 	/**
 	 * Establece que un conjunto de efs NO seran enviados al cliente durante una interacción
-	 * Para hacer un ef solo_lectura ver {@link toba_ef::set_solo_lectura() set_solo_lectura del ef}
+	 * Para hacer un ef solo_lectura ver @see toba_ef::set_solo_lectura()
+     * 
 	 * @param array $efs Uno o mas efs, si es nulo se asume todos
 	 */
 	function desactivar_efs($efs=null)
