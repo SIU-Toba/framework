@@ -61,7 +61,7 @@ abstract class toba_registro
 			throw  new toba_error('REGISTRO: No se puede agregar una columna cuyo nombre es vacío');
 		}
 		if ($this->conversion_auto_latin1) {
-			$valor = utf8_d_seguro($valor);
+			$valor = utf8_d_seguro($valor??'');
 		}
 		
 		if ($valor == toba_personalizacion::nulo) {
