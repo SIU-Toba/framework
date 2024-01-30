@@ -77,7 +77,7 @@ class toba_ei_cuadro extends toba_ei
 	protected $_agrupacion_columnas = array();
 	protected $_layout_cant_filas = null;
 	protected $_excel_usar_formulas;
-	protected static $_mostrar_excel_sin_cortes = false;    // Especifica si se tiene que dar la opción de renderizar como excel sin cortes
+	protected static $_mostrar_excel_sin_cortes = false;    // Especifica si se tiene que dar la opciï¿½n de renderizar como excel sin cortes
 	protected $_clase_formateo = 'toba_formateo';
 
 	protected $_etiqueta_cantidad_filas;
@@ -120,7 +120,7 @@ class toba_ei_cuadro extends toba_ei
 	}
 
 	/**
-	* Método interno para iniciar el componente una vez construido
+	* Mï¿½todo interno para iniciar el componente una vez construido
 	* @ignore
 	*/
 	function inicializar($parametros=array())
@@ -147,7 +147,7 @@ class toba_ei_cuadro extends toba_ei
 	}
 
 	/**
-	 * Espacio donde el componente cierra su configuración
+	 * Espacio donde el componente cierra su configuraciï¿½n
 	 * @ignore
 	 */
 	function post_configurar()
@@ -165,7 +165,7 @@ class toba_ei_cuadro extends toba_ei
 	{
 		parent::aplicar_restricciones_funcionales();
 
-		//-- Restricción funcional Columnas no-visibles ------
+		//-- Restricciï¿½n funcional Columnas no-visibles ------
 		$no_visibles = toba::perfil_funcional()->get_rf_cuadro_cols_no_visibles($this->_id[1]);
 		if (! empty($no_visibles)) {
 			$alguno_eliminado = false;
@@ -176,7 +176,7 @@ class toba_ei_cuadro extends toba_ei
 					array_splice($this->_info_cuadro_columna, $a, 1);		//Elimina el elemento y reorganiza indices
 					$a--; $limite--;									//por eso vuelvo puntero atras y descuento 1 del maximo
 					$alguno_eliminado = true;
-					toba::logger()->debug("Restricción funcional. Se filtro la columna: $clave", 'toba');
+					toba::logger()->debug("Restricciï¿½n funcional. Se filtro la columna: $clave", 'toba');
 				}
 			}
 			if ($alguno_eliminado) {
@@ -299,7 +299,7 @@ class toba_ei_cuadro extends toba_ei
             if (isset($this->_info_cuadro_columna_indices[$clave])) {
                 $id = $this->_info_cuadro_columna_indices[$clave];
                 array_splice($this->_info_cuadro_columna, $id, 1);
-                $this->procesar_definicion_columnas();		//Se re ejecuta por eliminación para actualizar $this->_info_cuadro_columna_indices
+                $this->procesar_definicion_columnas();		//Se re ejecuta por eliminaciï¿½n para actualizar $this->_info_cuadro_columna_indices
             }
 		}
 	}
@@ -336,7 +336,7 @@ class toba_ei_cuadro extends toba_ei
 	function limpiar_columnas()
 	{
 		$this->_info_cuadro_columna = array();
-		$this->procesar_definicion_columnas(); //Se re ejecuta por eliminación para actualizar $this->_info_cuadro_columna_indices
+		$this->procesar_definicion_columnas(); //Se re ejecuta por eliminaciï¿½n para actualizar $this->_info_cuadro_columna_indices
 	}
 
 
@@ -347,7 +347,7 @@ class toba_ei_cuadro extends toba_ei
 	function agregar_columnas($columnas)
 	{
 		$this->agregar_columnas_perezoso($columnas);
-		$this->procesar_definicion_columnas();  //Se re ejecuta por eliminación para actualizar $this->_info_cuadro_columna_indices
+		$this->procesar_definicion_columnas();  //Se re ejecuta por eliminaciï¿½n para actualizar $this->_info_cuadro_columna_indices
 	}
 
 	/**
@@ -369,7 +369,7 @@ class toba_ei_cuadro extends toba_ei
 	}
 
 	/**
-	 * Agrupa columnas adyacentes bajo una etiqueta común
+	 * Agrupa columnas adyacentes bajo una etiqueta comï¿½n
 	 *
 	 * @param string $nombre_grupo Etiqueta que toma el grupo
 	 * @param array $columnas Id. de las columnas a agrupar, deben ser adyacentes
@@ -395,7 +395,7 @@ class toba_ei_cuadro extends toba_ei
 	}
 
 	/**
-	 * Retorna la definición de las columnas actuales del cuadro
+	 * Retorna la definiciï¿½n de las columnas actuales del cuadro
 	 * @return array
 	 */
 	function get_columnas()
@@ -438,8 +438,8 @@ class toba_ei_cuadro extends toba_ei
 
 				if(! is_null($id)) {
 					if(isset($this->_sum_usuario[$id])){
-						toba_logger::instancia()->error("Las funciones de sumarización deben tener IDs únicos. El id '$id' ya existe");
-						throw new toba_error_def('La función de sumarización no es correcta, revise el log');
+						toba_logger::instancia()->error("Las funciones de sumarizaciï¿½n deben tener IDs ï¿½nicos. El id '$id' ya existe");
+						throw new toba_error_def('La funciï¿½n de sumarizaciï¿½n no es correcta, revise el log');
 					}
 					// Agrego la sumarizacion en la pila de sumarizaciones.
 					$this->_sum_usuario[$id]['metodo'] = $metodo->getName();
@@ -490,7 +490,7 @@ class toba_ei_cuadro extends toba_ei
 	//################################################################################
 
 	/**
-	 * Cambia el título o descripción de una columna dada del cuadro
+	 * Cambia el tï¿½tulo o descripciï¿½n de una columna dada del cuadro
 	 * @param string $id_columna Id de la columna a cambiar
 	 * @param string $titulo
 	 */
@@ -502,7 +502,7 @@ class toba_ei_cuadro extends toba_ei
 	/**
 	 * Cambia la forma en que se le da formato a una columna
 	 * @param string $id_columna
-	 * @param string $funcion Nombre de la función de formateo, sin el prefijo 'formato_'
+	 * @param string $funcion Nombre de la funciï¿½n de formateo, sin el prefijo 'formato_'
 	 * @param string $clase Nombre de la clase que contiene la funcion, por defecto toba_formateo
 	 */
 	function set_formateo_columna($id_columna, $funcion, $clase=null)
@@ -539,10 +539,10 @@ class toba_ei_cuadro extends toba_ei
 	function set_manejador_salida ($tipo_salida, $clase)
 	{
 		if (is_null($tipo_salida)){
-			throw new toba_error_seguridad('Se debe indicar un tipo de salida válido');
+			throw new toba_error_seguridad('Se debe indicar un tipo de salida vï¿½lido');
 		}
 		if (is_null($clase)) {
-			throw new toba_error_seguridad('Se debe indicar un nombre de clase válido para el tipo de salida seleccionado ');
+			throw new toba_error_seguridad('Se debe indicar un nombre de clase vï¿½lido para el tipo de salida seleccionado ');
 		}
 		$this->_manejador_tipo_salida[$tipo_salida] = $clase;
 	}
@@ -630,7 +630,7 @@ class toba_ei_cuadro extends toba_ei
 	}
 
 	/**
-	 * El cuadro muestra su título una única vez antes de los cortes de control
+	 * El cuadro muestra su tï¿½tulo una ï¿½nica vez antes de los cortes de control
 	 * @param boolean $unico
 	 */
 	function set_mostrar_titulo_antes_cc($unico=true)
@@ -796,7 +796,7 @@ class toba_ei_cuadro extends toba_ei
 	{
 		if (! isset($this->_memoria['claves_enviadas']) || ! in_array($klave, $this->_memoria['claves_enviadas'])) {
 			toba_logger::instancia()->error($this->get_txt()." La clave '$klave' del cuadro no estaba entre las enviadas");
-			throw new toba_error_seguridad(' La clave seleccionada no es válida');
+			throw new toba_error_seguridad(' La clave seleccionada no es vï¿½lida');
 		}
 		if ($this->_modo_clave_segura) {
 			$aux = (isset($this->_mapeo_clave_segura[$klave])) ? $this->_mapeo_clave_segura[$klave] : array();
@@ -812,7 +812,7 @@ class toba_ei_cuadro extends toba_ei
 	}
 
 	/**
-	 * Deja al cuadro sin selección alguna de fila
+	 * Deja al cuadro sin selecciï¿½n alguna de fila
 	 */
 	function deseleccionar()
 	{
@@ -821,7 +821,7 @@ class toba_ei_cuadro extends toba_ei
 
 	/**
 	*	Indica al cuadro cual es la clave seleccionada.
-	*	A la hora de mostrar la grilla se crea un feedback gráfico sobre la fila que posea esta clave
+	*	A la hora de mostrar la grilla se crea un feedback grï¿½fico sobre la fila que posea esta clave
 	*	@param array $clave Arreglo asociativo id_clave => valor_clave
 	*/
 	function seleccionar($clave)
@@ -875,15 +875,6 @@ class toba_ei_cuadro extends toba_ei
 			}
 			return $array;
 		}
-	}
-
-	 /**
-	*	@deprecated Desde 0.8.3. Usar get_clave_seleccionada
-	*/
-	function get_clave()
-	{
-		toba::logger()->obsoleto(__CLASS__, __FUNCTION__, "0.8.3", "Usar get_clave_seleccionada");
-		return $this->get_clave_seleccionada();
 	}
 
 	/**
@@ -983,7 +974,7 @@ class toba_ei_cuadro extends toba_ei
 			throw new toba_error_def('El corte de control no posee la/s columna/s de corte');
 		}
 		if (! isset($corte['columnas_descripcion'])) {
-			throw new toba_error_def('El corte de control no posee la/s columna/s para la descripción');
+			throw new toba_error_def('El corte de control no posee la/s columna/s para la descripciï¿½n');
 		}
 		if (! isset($corte['descripcion'])) {
 			$corte['descripcion'] = '';
@@ -1275,7 +1266,7 @@ class toba_ei_cuadro extends toba_ei
 	}
 
 	/**
-	* Cambia el tamaño de página a usar en el paginado
+	* Cambia el tamaï¿½o de pï¿½gina a usar en el paginado
 	* @param integer $tam
 	*/
 	function set_tamanio_pagina($tamanio=null)
@@ -1289,8 +1280,8 @@ class toba_ei_cuadro extends toba_ei
 
 	/**
 	 * Informa al cuadro la cantidad total de registros que posee el set de datos
-	 * Este método se utiliza cuando el paginado no lo hace el propio cuadro, en este caso
-	 * es necesario informarle la cantidad total de registros así puede armar la barra de paginado
+	 * Este mï¿½todo se utiliza cuando el paginado no lo hace el propio cuadro, en este caso
+	 * es necesario informarle la cantidad total de registros asï¿½ puede armar la barra de paginado
 	 * @param integer $cant
 	 */
 	function set_total_registros($cant)
@@ -1299,7 +1290,7 @@ class toba_ei_cuadro extends toba_ei
 	}
 
 	/**
-	 * Fuerza al cuadro a mostrar una página específica
+	 * Fuerza al cuadro a mostrar una pï¿½gina especï¿½fica
 	 * @param integer $pag
 	 */
 	function set_pagina_actual($pag)
@@ -1308,7 +1299,7 @@ class toba_ei_cuadro extends toba_ei
 	}
 
 	/**
-	 * Retorna la página actualmente seleccionada por el usuario, si existe el paginado
+	 * Retorna la pï¿½gina actualmente seleccionada por el usuario, si existe el paginado
 	 * @return integer
 	 */
 	function get_pagina_actual()
@@ -1317,7 +1308,7 @@ class toba_ei_cuadro extends toba_ei
 	}
 
 	/**
-	 * Retorna el tamaño de página actual en el paginado (si está presente el paginado)
+	 * Retorna el tamaï¿½o de pï¿½gina actual en el paginado (si estï¿½ presente el paginado)
 	 * @return integer
 	 */
 	function get_tamanio_pagina()
@@ -1336,7 +1327,7 @@ class toba_ei_cuadro extends toba_ei
 	}
 
 	/**
-	 * Devuelve la cantidad de paginas que posee el cuadro de acuerdo a la los datos y el tamaño de pagina
+	 * Devuelve la cantidad de paginas que posee el cuadro de acuerdo a la los datos y el tamaï¿½o de pagina
 	 * @return integer
 	 */
 	function get_cantidad_paginas()
@@ -1403,7 +1394,7 @@ class toba_ei_cuadro extends toba_ei
 	}
 
 	/**
-	 * Actualiza el estado actual del ordenamiento en base a la memoria anterior y lo que dice el usuario a través del POST
+	 * Actualiza el estado actual del ordenamiento en base a la memoria anterior y lo que dice el usuario a travï¿½s del POST
 	 * @ignore
 	 */
 	protected function refrescar_ordenamiento()
@@ -1418,7 +1409,7 @@ class toba_ei_cuadro extends toba_ei
 	 */
 	private function refrescar_ordenamiento_simple()
 	{
-		//¿Viene seteado de la memoria?
+		//ï¿½Viene seteado de la memoria?
         if(isset($this->_memoria['orden_columna'])) {
 			$this->_orden_columna = $this->_memoria['orden_columna'];
 		}
@@ -1426,7 +1417,7 @@ class toba_ei_cuadro extends toba_ei
 			$this->_orden_sentido = $this->_memoria['orden_sentido'];
 		}
 
-		//¿Lo cargo el usuario?
+		//ï¿½Lo cargo el usuario?
 		if (isset($_POST[$this->_submit_orden_columna]) && $_POST[$this->_submit_orden_columna] != '') {
 			$nueva_col = $_POST[$this->_submit_orden_columna];
 		}
@@ -1493,7 +1484,7 @@ class toba_ei_cuadro extends toba_ei
 	}
 
 	/**
-	 * Método estandar de ordenamiento de los datos, decide el metodo de ordenamiento en base
+	 * Mï¿½todo estandar de ordenamiento de los datos, decide el metodo de ordenamiento en base
 	 * al tipo de formateo de la columna, sino utiliza ordenamiento por default
 	 */
     protected function ordenar()
@@ -1555,7 +1546,7 @@ class toba_ei_cuadro extends toba_ei
     }
 
 		/**
-	 * Método estandar de ordenamiento por hora
+	 * Mï¿½todo estandar de ordenamiento por hora
 	 * Heredar en caso de querer cambiar el mecanismo de ordenamiento
 	 * @param string $columna Nombre de la columna
 	 * @return mixed
@@ -1566,7 +1557,7 @@ class toba_ei_cuadro extends toba_ei
 	}*/
 
 	/**
-	 * Método estandar de ordenamiento de fechas
+	 * Mï¿½todo estandar de ordenamiento de fechas
 	 * Heredar en caso de querer cambiar el mecanismo de ordenamiento
 	 * @param string $columna Nombre de la columna
 	 * @return mixed
@@ -1577,7 +1568,7 @@ class toba_ei_cuadro extends toba_ei
 	}
 
 	/**
-	 * Método estandar de ordenamiento de timestamps (fecha, hora)
+	 * Mï¿½todo estandar de ordenamiento de timestamps (fecha, hora)
 	 * Heredar en caso de querer cambiar el mecanismo de ordenamiento
 	 * @param string $columna Nombre de la columna
 	 * @return mixed
@@ -1588,7 +1579,7 @@ class toba_ei_cuadro extends toba_ei
 	}
 
 	/**
-	 * Método estandar de ordenamiento de monedas
+	 * Mï¿½todo estandar de ordenamiento de monedas
 	 * Heredar en caso de querer cambiar el mecanismo de ordenamiento
 	 * @param string $columna Nombre de la columna
 	 * @return mixed
@@ -1599,7 +1590,7 @@ class toba_ei_cuadro extends toba_ei
 	}
 
 	/**
-	 * Método estandar de ordenamiento de numeros
+	 * Mï¿½todo estandar de ordenamiento de numeros
 	 * Heredar en caso de querer cambiar el mecanismo de ordenamiento
 	 * @param string $columna Nombre de la columna
 	 * @return mixed
@@ -1610,7 +1601,7 @@ class toba_ei_cuadro extends toba_ei
 	}
 
 	/**
-	 * Método estandar de ordenamiento de decimales
+	 * Mï¿½todo estandar de ordenamiento de decimales
 	 * Heredar en caso de querer cambiar el mecanismo de ordenamiento
 	 * @param string $columna Nombre de la columna
 	 * @return mixed
@@ -1621,7 +1612,7 @@ class toba_ei_cuadro extends toba_ei
 	}
 
 	/**
-	 * Método estandar de ordenamiento de tiempo expresado en numeros
+	 * Mï¿½todo estandar de ordenamiento de tiempo expresado en numeros
 	 * Heredar en caso de querer cambiar el mecanismo de ordenamiento
 	 * @param string $columna Nombre de la columna
 	 * @return mixed
@@ -1633,7 +1624,7 @@ class toba_ei_cuadro extends toba_ei
 	}
 
 	/**
-	 * Método estandar de ordenamiento de porcentajes
+	 * Mï¿½todo estandar de ordenamiento de porcentajes
 	 * Heredar en caso de querer cambiar el mecanismo de ordenamiento
 	 * @param string $columna Nombre de la columna
 	 * @return mixed
@@ -1644,7 +1635,7 @@ class toba_ei_cuadro extends toba_ei
 	}
 
 	/**
-	 * Método estandar de ordenamiento de superficie
+	 * Mï¿½todo estandar de ordenamiento de superficie
 	 * Heredar en caso de querer cambiar el mecanismo de ordenamiento
 	 * @param string $columna Nombre de la columna
 	 * @return mixed
@@ -1655,7 +1646,7 @@ class toba_ei_cuadro extends toba_ei
 	}
 
 	/**
-	 * Método estandar de ordenamiento de caracteres en mayusculas
+	 * Mï¿½todo estandar de ordenamiento de caracteres en mayusculas
 	 * Heredar en caso de querer cambiar el mecanismo de ordenamiento
 	 * @param string $columna Nombre de la columna
 	 * @return mixed
@@ -1666,7 +1657,7 @@ class toba_ei_cuadro extends toba_ei
 	}
 
 	/**
-	 * Método estandar de ordenamiento de caracteres
+	 * Mï¿½todo estandar de ordenamiento de caracteres
 	 * Heredar en caso de querer cambiar el mecanismo de ordenamiento
 	 * @param string $columna Nombre de la columna
 	 * @return mixed
@@ -1677,7 +1668,7 @@ class toba_ei_cuadro extends toba_ei
 	}
 
 	/**
-	 * Método estandar de ordenamiento de los datos, utilizando array_multisort
+	 * Mï¿½todo estandar de ordenamiento de los datos, utilizando array_multisort
 	 * Heredar en caso de querer cambiar el mecanismo de ordenamiento
 	 * @param string $columna Nombre de la columna
 	 * @return mixed
@@ -1694,7 +1685,7 @@ class toba_ei_cuadro extends toba_ei
 	}
 
 	/**
-	 * Método estandar de ordenamiento de los datos fecha, utilizando array_multisort
+	 * Mï¿½todo estandar de ordenamiento de los datos fecha, utilizando array_multisort
 	 * Heredar en caso de querer cambiar el mecanismo de ordenamiento
 	 * @ignore
 	 */
@@ -1710,7 +1701,7 @@ class toba_ei_cuadro extends toba_ei
 	}
 
 	/**
-	 * Método estandar de ordenamiento de los datos fecha, utilizando array_multisort
+	 * Mï¿½todo estandar de ordenamiento de los datos fecha, utilizando array_multisort
 	 * Heredar en caso de querer cambiar el mecanismo de ordenamiento
 	 * @ignore
 	 */
@@ -1726,7 +1717,7 @@ class toba_ei_cuadro extends toba_ei
 	}
 
 	/**
-	 * Método estandar de ordenamiento de los datos fecha, utilizando array_multisort
+	 * Mï¿½todo estandar de ordenamiento de los datos fecha, utilizando array_multisort
 	 * Heredar en caso de querer cambiar el mecanismo de ordenamiento
 	 * @ignore
 	 */
@@ -1748,15 +1739,15 @@ class toba_ei_cuadro extends toba_ei
 		}elseif ($valor == 'des') {
 			$sentido = SORT_DESC;
 		}else{
-			toba_logger::instancia()->error('Sentido de ordenamiento inválido: '. $valor);
-			throw new toba_error_def('Sentido de ordenamiento inválido');
+			toba_logger::instancia()->error('Sentido de ordenamiento invï¿½lido: '. $valor);
+			throw new toba_error_def('Sentido de ordenamiento invï¿½lido');
 		}
 		return $sentido;
 	}
 
 	function quita_acentos($cadena)
 	{
-		$tofind = "ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ";
+		$tofind = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½";
 		$replac = "AAAAAAaaaaaaOOOOOOooooooEEEEeeeeCcIIIIiiiiUUUUuuuuyNn";
 		return(strtr($cadena,$tofind,$replac));
 	}
@@ -1971,10 +1962,10 @@ class toba_ei_cuadro extends toba_ei
 		$this->datos = $datos;
 		if (!is_array($this->datos)) {
 			toba_logger::instancia()->error( $this->get_txt() .
-					" El parámetro para cargar el cuadro posee un formato incorrecto:" .
+					" El parï¿½metro para cargar el cuadro posee un formato incorrecto:" .
 						"Se esperaba un arreglo de dos dimensiones con formato recordset.");
 			
-			throw new toba_error_def(' El parámetro para cargar el cuadro posee un formato incorrecto, revise el log');
+			throw new toba_error_def(' El parï¿½metro para cargar el cuadro posee un formato incorrecto, revise el log');
 		}
 		if (count($this->datos) > 0 ) {
 			$this->validar_estructura_datos();
@@ -2091,8 +2082,8 @@ class toba_ei_cuadro extends toba_ei
 	protected function generar_salida($tipo, $objeto_toba_salida = null)
 	{
 		if($tipo!="html" && $tipo!="impresion_html" && $tipo!="pdf" && $tipo!='excel' && $tipo!='xml'){
-			toba_logger::instancia()->error("El tipo de salida '$tipo' es inválido");
-			throw new toba_error_seguridad("El tipo de salida indicado es inválido, revise el log");
+			toba_logger::instancia()->error("El tipo de salida '$tipo' es invï¿½lido");
+			throw new toba_error_seguridad("El tipo de salida indicado es invï¿½lido, revise el log");
 		}
 		$this->_tipo_salida = $tipo;
 		$this->instanciar_manejador_tipo_salida($tipo);
@@ -2420,7 +2411,7 @@ class toba_ei_cuadro extends toba_ei
 	//																	FUNCIONES AUXILIARES
 	//############################################################################################
 	/**
-	 * Esta función debe ser utilizada desde los archivos de customización
+	 * Esta funciï¿½n debe ser utilizada desde los archivos de customizaciï¿½n
 	 * para mostrar la vista de excel sin cortes de control
 	 * @param boolean $valor
 	 */

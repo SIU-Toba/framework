@@ -1,7 +1,7 @@
 <?php
 /**
  * Datos de ACCESO y AUDITORIA necesarios para el funcionamiento del nucleo.
- * Enmascara principalmente al archivo de configuración instancia.ini de la instancia actual
+ * Enmascara principalmente al archivo de configuraciï¿½n instancia.ini de la instancia actual
  *
  * @package Centrales
  */
@@ -46,8 +46,8 @@ class toba_instancia
 		toba::config()->add_config_file('instancia', $archivo);
 		toba::config()->load();
 		if (! is_file( $archivo ) ) {
-			toba_logger::instancia()->error("INFO_INSTANCIA: No se encuentra definido el archivo de inicialización de la INSTANCIA: '".self::get_id()."' ('$archivo')");
-			throw new toba_error('INFO_INSTANCIA: No se encuentra definido el archivo de inicialización de la INSTANCIA');
+			toba_logger::instancia()->error("INFO_INSTANCIA: No se encuentra definido el archivo de inicializaciï¿½n de la INSTANCIA: '".self::get_id()."' ('$archivo')");
+			throw new toba_error('INFO_INSTANCIA: No se encuentra definido el archivo de inicializaciï¿½n de la INSTANCIA');
 		}
 		return toba::config()->get_seccion('instancia');
 	}
@@ -79,8 +79,8 @@ class toba_instancia
 		if ( isset( $this->memoria['base'] ) ) {
 			return toba_dba::get_db($this->memoria['base']);
 		} else {
-			toba_logger::error("INFO_INSTANCIA: El archivo de inicialización de la INSTANCIA: '".self::$id."' no posee una BASE DEFINIDA");
-			throw new toba_error('INFO_INSTANCIA: El archivo de inicialización de la INSTANCIA no posee una BASE DEFINIDA');
+			toba_logger::error("INFO_INSTANCIA: El archivo de inicializaciï¿½n de la INSTANCIA: '".self::$id."' no posee una BASE DEFINIDA");
+			throw new toba_error('INFO_INSTANCIA: El archivo de inicializaciï¿½n de la INSTANCIA no posee una BASE DEFINIDA');
 		}
 	}
 
@@ -304,7 +304,7 @@ class toba_instancia
 	//------------------ Relacion entre PROYECTOS --------------------------
 
 	/**
-	 * Retorna las urls de los proyectos actualmente incluídos en la instancia
+	 * Retorna las urls de los proyectos actualmente incluï¿½dos en la instancia
 	 */
 	function get_url_proyectos($proys)
 	{
@@ -376,7 +376,7 @@ class toba_instancia
 	//--------------------------------------------------------------------------
 
 	/**
-	 * Retorna la información cruda de un usuario, tal como está en la base de datos
+	 * Retorna la informaciï¿½n cruda de un usuario, tal como estï¿½ en la base de datos
 	 * Para hacer preguntas del usuario actual utilizar toba::usuario()->
 	 *
 	 * @see toba_usuario
@@ -393,7 +393,7 @@ class toba_instancia
 	}
 
 	/**
-	 * Retorna la información cruda de un grupo de usuarios, tal como está en la base de datos
+	 * Retorna la informaciï¿½n cruda de un grupo de usuarios, tal como estï¿½ en la base de datos
 	 * @see toba_usuario
 	 */
 	function get_info_usuarios($usuarios)
@@ -433,7 +433,7 @@ class toba_instancia
 			if(!empty($rs))	return $rs[0];
 		} catch (toba_error_db $e ) {
 			toba::logger()->info($e->getMessage());
-			throw new toba_error('Error recuperando información');
+			throw new toba_error('Error recuperando informaciï¿½n');
 		}
 	}
 
@@ -446,7 +446,7 @@ class toba_instancia
 			if (!empty($rs)) return $rs[0];
 		} catch (toba_error_db $e) {
 			toba::logger()->info($e->getMessage());
-			throw new toba_error('Error recuperando información');
+			throw new toba_error('Error recuperando informaciï¿½n');
 		}
 	}
 
@@ -467,7 +467,7 @@ class toba_instancia
 			return $rs;
 		} catch (toba_error_db $e) {
 			toba::logger()->info($e->getMessage());
-			throw new toba_error('Error recuperando información');
+			throw new toba_error('Error recuperando informaciï¿½n');
 		}
 	}
 
@@ -516,16 +516,6 @@ class toba_instancia
 		} else {
 			return array();
 		}
-	}
-
-
-
-	/**
-	* @deprecated Usar get_perfiles_funcionales
-	*/
-	function get_grupos_acceso($usuario, $proyecto)
-	{
-		return $this->get_perfiles_funcionales($usuario, $proyecto);
 	}
 
 	/**
@@ -650,7 +640,7 @@ class toba_instancia
 		$sql = "SELECT nextval('{$this->get_schema_logs_toba()}.apex_sesion_browser_seq'::text) as id;";
 		$rs = $this->get_db()->consultar($sql);
 		if(empty($rs)){
-			throw new toba_error('No es posible recuperar el ID de la sesión.');
+			throw new toba_error('No es posible recuperar el ID de la sesiï¿½n.');
 		}
 		return $rs[0]['id'];
 	}

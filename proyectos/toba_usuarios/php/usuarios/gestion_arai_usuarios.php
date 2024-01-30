@@ -20,17 +20,6 @@ class gestion_arai_usuarios
         return $datos;
     }
 
-    /**
-     * @deprecated desde version 3.1.0
-     * @param array $datos
-     * @param int $largo_clave
-     * @return array
-     */
-    public static function set_datos($datos, $largo_clave)
-    {
-        return self::completar_datos_usuario($datos, $largo_clave);
-    }
-
     public static function completar_datos_usuario($datos, $largo_clave)
     {
         if (toba::instalacion()->vincula_arai_usuarios()) {
@@ -136,7 +125,7 @@ class gestion_arai_usuarios
         }
         //Agregar verificacion puntual de version compatible de arai-cli
         if (! SIUToba\Framework\Arai\RegistryHooksProyectoToba::checkVersionCompatible()) {
-            throw new toba_error('La versión del paquete siu/arai-cli no es compatible, revise la documentación del sistema.');
+            throw new toba_error('La versiï¿½n del paquete siu/arai-cli no es compatible, revise la documentaciï¿½n del sistema.');
         }
 
         return true;

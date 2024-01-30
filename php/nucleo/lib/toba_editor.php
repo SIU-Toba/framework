@@ -100,7 +100,7 @@ class toba_editor
 			toba::proyecto()->set_parametro('es_css3', $datos['es_css3']);
 
 		}
-		//Cambia tipo de navegación
+		//Cambia tipo de navegaciï¿½n
 		if (toba::memoria()->get_parametro('navegacion_ajax') != '') {
 			$ajax = toba::memoria()->get_parametro('navegacion_ajax') ? true : false;
 			toba::proyecto()->set_parametro('navegacion_ajax', $ajax);
@@ -283,15 +283,6 @@ class toba_editor
 		return $param_prev;
 	}
 
-	/**
-	 * @deprecated Desde 1.5 usar get_perfiles_funcionales_previsualizacion
-	 */
-	static function get_grupos_acceso_previsualizacion()
-	{
-		return self::get_perfiles_funcionales_previsualizacion();
-	}
-
-
 	static function get_perfiles_funcionales_previsualizacion()
 	{
 		$param_prev = self::get_parametros_previsualizacion();
@@ -300,19 +291,7 @@ class toba_editor
 			$grupos = array_map('trim', $grupos);
 			return $grupos;
 		} else {
-			throw new toba_error('No estan definidos los perfiles de acceso a la previsualización. Desde toba_editor se pueden definir en la opción de Configuración > Previsualización');
-		}
-	}
-
-	/**
-	* @deprecated 3.0.0
-	* @see toba_editor::get_perfiles_datos_previsualizacion()
-	*/
-	static function get_perfil_datos_previsualizacion()
-	{
-		$perfiles = self::get_perfiles_datos_previsualizacion();
-		if (! empty($perfiles) && $perfiles !== FALSE) {
-			return current($perfiles);
+			throw new toba_error('No estan definidos los perfiles de acceso a la previsualizaciï¿½n. Desde toba_editor se pueden definir en la opciï¿½n de Configuraciï¿½n > Previsualizaciï¿½n');
 		}
 	}
 
@@ -437,9 +416,9 @@ class toba_editor
 			toba::solicitud()->set_cronometrar(true);
 		}
 		toba_js::cargar_consumos_globales(array('utilidades/toba_editor'));
-		$html_ayuda_editor = toba_recurso::ayuda(null, 'Presionando la tecla CTRL se pueden ver los enlaces hacia los editores de los distintos componentes de esta página');
-		$html_ayuda_cronometro = toba_recurso::ayuda(null, 'Ver los tiempos de ejecución en la generación de esta página');
-		$html_ayuda_ajax = toba_recurso::ayuda(null, 'Activar/Desactivar navegación interna de la operación via AJAX');
+		$html_ayuda_editor = toba_recurso::ayuda(null, 'Presionando la tecla CTRL se pueden ver los enlaces hacia los editores de los distintos componentes de esta pï¿½gina');
+		$html_ayuda_cronometro = toba_recurso::ayuda(null, 'Ver los tiempos de ejecuciï¿½n en la generaciï¿½n de esta pï¿½gina');
+		$html_ayuda_ajax = toba_recurso::ayuda(null, 'Activar/Desactivar navegaciï¿½n interna de la operaciï¿½n via AJAX');
 		$html_ayuda_editor = toba_recurso::ayuda(null, 'Volver al editor de toba');
 		$solicitud = toba::solicitud()->get_id();
 		$link_cronometro = toba::vinculador()->get_url('toba_editor', '1000263', null, array('prefijo'=>toba_editor::get_punto_acceso_editor()));
@@ -473,7 +452,7 @@ class toba_editor
 		//Memoria
 		if (function_exists('memory_get_peak_usage')) {
 			$memoria_pico = memory_get_peak_usage();
-			echo toba_recurso::imagen_toba('memory.png', true, 16, 16, 'Pico máximo de memoria que ha consumido el script actual');
+			echo toba_recurso::imagen_toba('memory.png', true, 16, 16, 'Pico mï¿½ximo de memoria que ha consumido el script actual');
 			echo ' '.file_size($memoria_pico, 0).' ';
 		}
 
@@ -491,7 +470,7 @@ class toba_editor
 				}
 				$rol = toba::db()->get_rol_actual();
 				toba::memoria()->set_dato_instancia('previsualizacion_consultas', array('fuente' => $fuente, 'datos' => $info_db));
-				echo "<a href='$link_analizador_sql' target='logger'>".toba_recurso::imagen_toba('objetos/datos_relacion.gif', true, 16, 16, 'Ver detalles de las consultas y comandos ejecutados en este pedido de página').
+				echo "<a href='$link_analizador_sql' target='logger'>".toba_recurso::imagen_toba('objetos/datos_relacion.gif', true, 16, 16, 'Ver detalles de las consultas y comandos ejecutados en este pedido de pï¿½gina').
 					count($info_db). " ($rol)</a>";
 
 			} catch (toba_error $e) {
@@ -506,12 +485,12 @@ class toba_editor
 			$total += filesize($arch);
 		}
 		toba::memoria()->set_dato_instancia('previsualizacion_archivos', $archivos);
-		echo "<a href='$link_archivos' target='logger'>".toba_recurso::imagen_toba('nucleo/php.gif', true, 16, 16, 'Ver detalle de archivos .php del proyecto incluidos en este pedido de página').
+		echo "<a href='$link_archivos' target='logger'>".toba_recurso::imagen_toba('nucleo/php.gif', true, 16, 16, 'Ver detalle de archivos .php del proyecto incluidos en este pedido de pï¿½gina').
 			' '.count($archivos)." arch. (".file_size($total,0).')</a>';
 
 		//Session
 		$tamano = file_size(strlen(serialize($_SESSION)), 0);
-		echo toba_recurso::imagen_toba('sesion.png', true, 16, 16, 'Tamaño de la sesión')." $tamano  ";
+		echo toba_recurso::imagen_toba('sesion.png', true, 16, 16, 'Tamaï¿½o de la sesiï¿½n')." $tamano  ";
 		echo "</span>";
 
 		//-- ACCIONES
@@ -542,14 +521,14 @@ class toba_editor
 		if ($hay_limitado) {
 			$actual = self::$memoria['conexion_limitada'] ? 'limitado' : 'normal';
 			$datos = array("normal" => "Normal", "limitado" => "Limitados");
-			$js = "title='Cambia temporalmente el usuario de conexión a la base' onchange=\"location.href = toba_prefijo_vinculo + '&usuario_conexion=' + this.value\"";
+			$js = "title='Cambia temporalmente el usuario de conexiï¿½n a la base' onchange=\"location.href = toba_prefijo_vinculo + '&usuario_conexion=' + this.value\"";
 			echo "Permisos DB: ".toba_form::select('cambiar_rol', $actual, $datos, 'ef-combo', $js);
 		}
 
 
 		//Skin
 		$skins = rs_convertir_asociativo(toba_info_editores::get_lista_skins(), array('estilo','proyecto'), 'descripcion');
-		$js = "title='Cambia temporalmente el skin de la aplicación' onchange=\"location.href = toba_prefijo_vinculo + '&skin=' + this.value\"";
+		$js = "title='Cambia temporalmente el skin de la aplicaciï¿½n' onchange=\"location.href = toba_prefijo_vinculo + '&skin=' + this.value\"";
 		$defecto = toba::proyecto()->get_parametro('estilo').apex_qs_separador.toba::proyecto()->get_parametro('estilo_proyecto');
 		echo "Skin: ".toba_form::select('cambiar_skin', $defecto, $skins, 'ef-combo', $js);
 
@@ -670,7 +649,7 @@ class toba_editor
 			$vinculo['frame'] = '';
 			$vinculo['imagen'] = 'reflexion/abrir.gif';
 			$vinculo['imagen_origen'] = 'proyecto';
-			$vinculo['tip'] = 'Abrir el PHP del ítem en el escritorio';
+			$vinculo['tip'] = 'Abrir el PHP del ï¿½tem en el escritorio';
 			$vinculos[] = $vinculo;
 		}
 
@@ -684,7 +663,7 @@ class toba_editor
 		$vinculo['url'] = toba::vinculador()->get_url(self::get_id(),'1000240',$parametros,$opciones);
 		$vinculo['frame'] = 'frame_centro';
 		$vinculo['imagen'] = 'objetos/editar.gif';
-		$vinculo['tip'] = 'Ir al editor de la operación.';
+		$vinculo['tip'] = 'Ir al editor de la operaciï¿½n.';
 		$vinculos[] = $vinculo;
 
 		//Catalogo Unificado
@@ -696,7 +675,7 @@ class toba_editor
 		$vinculo['url'] = toba::vinculador()->get_url(self::get_id(),'1000239',$parametros,$opciones);
 		$vinculo['frame'] = 'frame_lista';
 		$vinculo['imagen'] = 'objetos/arbol.gif';
-		$vinculo['tip'] = 'Ver composicion de la operación en el editor.';
+		$vinculo['tip'] = 'Ver composicion de la operaciï¿½n en el editor.';
 		$vinculos[] = $vinculo;
 
 /*		//Consola JS
@@ -704,7 +683,7 @@ class toba_editor
 		$vinculos[2]['url'] = toba::vinculador()->get_url(self::get_id(),'/admin/objetos/consola_js');
 		$vinculos[2]['frame'] = 'frame_lista';
 		$vinculos[2]['imagen'] = 'solic_consola.gif';
-		$vinculos[2]['tip'] = 'Ir al editor de la operación.';
+		$vinculos[2]['tip'] = 'Ir al editor de la operaciï¿½n.';
 */
 		return $vinculos;
 	}
@@ -763,7 +742,7 @@ class toba_editor
 		$opciones = array('servicio' => 'ejecutar', 'zona' => false, 'celda_memoria' => 'ajax', 'menu' => true);
 		$vinculo = toba::vinculador()->get_url(toba_editor::get_id(), "3463", $parametros, $opciones);
 		$js = "toba.comunicar_vinculo('$vinculo')";
-		$ayuda = 'Abre la extensión PHP del componente en el editor del escritorio';
+		$ayuda = 'Abre la extensiï¿½n PHP del componente en el editor del escritorio';
 		return "<a href='#' title='$ayuda' onclick=\"$js\">".self::imagen_editor($icono, true)."</a>";
 	}
 
