@@ -4,8 +4,8 @@
  *
  * - Utiliza un administrador de persistencia para obtener y sincronizar los datos con un medio de persistencia.
  * - Una vez en memoria existen primitivas para trabajar sobre estos datos.
- * - Los datos y sus modificaciones son mantenidos automáticamente en sesión entre los distintos pedidos de página.
- * - Una vez terminada la edición se hace la sincronización con el medio de persistencia marcando el final de la transacción de negocios.
+ * - Los datos y sus modificaciones son mantenidos automï¿½ticamente en sesiï¿½n entre los distintos pedidos de pï¿½gina.
+ * - Una vez terminada la ediciï¿½n se hace la sincronizaciï¿½n con el medio de persistencia marcando el final de la transacciï¿½n de negocios.
  *
  * TODO Control de FK y PK
  * @package Componentes\Persistencia
@@ -31,7 +31,7 @@ class toba_datos_tabla extends toba_componente
 	protected $_cambios = array();				// Cambios realizados sobre los datos
 	protected $_datos = array();					// Datos cargados en el db_filas
 	protected $_proxima_fila = 0;				// Posicion del proximo registro en el array de datos
-	protected $_cursor;							// Puntero a una fila específica
+	protected $_cursor;							// Puntero a una fila especï¿½fica
 	protected $_cursor_original;					// Backup del cursor que se usa para deshacer un seteo
 	protected $_cargada = false;
 	protected $_from;
@@ -205,7 +205,7 @@ class toba_datos_tabla extends toba_componente
 	}
 
 	/**
-	 * Shorcut a toba::logger()->debug incluyendo infomación básica del componente
+	 * Shorcut a toba::logger()->debug incluyendo infomaciï¿½n bï¿½sica del componente
 	 */
 	protected function log($txt)
 	{
@@ -237,7 +237,7 @@ class toba_datos_tabla extends toba_componente
 	}
 
 	/**
-	 * Retorna la relación con una tabla padre
+	 * Retorna la relaciï¿½n con una tabla padre
 	 * @return object 
      * @see toba_relacion_entre_tablas
 	 * @ignore 
@@ -384,7 +384,7 @@ class toba_datos_tabla extends toba_componente
 
 	/**
 	 * Retorna lasfilas que sufrieron cambios desde la carga
-	 * @param array $cambios Combinación de tipos de cambio a buscar: d, i o u  (por defecto los tres)
+	 * @param array $cambios Combinaciï¿½n de tipos de cambio a buscar: d, i o u  (por defecto los tres)
 	 * @return array Ids. internos
 	 */
 	function get_id_filas_a_sincronizar( $cambios=array("d","i","u") )
@@ -430,7 +430,7 @@ class toba_datos_tabla extends toba_componente
 	}
 
 	/**
-	 * Cambia la cantidad mínima de filas que debe contener la tabla
+	 * Cambia la cantidad mï¿½nima de filas que debe contener la tabla
 	 * @param integer $cantidad 0 si no hay tope
 	 */		
 	function set_tope_min_filas($cantidad)
@@ -453,7 +453,7 @@ class toba_datos_tabla extends toba_componente
 	}
 
 	/**
-	 * Indica que la tabla maneja un único registro en memoria, habilitando la api get/set
+	 * Indica que la tabla maneja un ï¿½nico registro en memoria, habilitando la api get/set
 	 * @param boolean $unico
 	 */
 	function set_es_unico_registro($unico)
@@ -467,8 +467,8 @@ class toba_datos_tabla extends toba_componente
 	
 	/**
 	 * Fija el cursor en una fila dada
-	 * Cuando la tabla tiene un cursor muchas de sus operaciones empiezan a tratar a esta fila como la única 
-	 * y sus tablas padres e hijas también. Por ejemplo al pedir las filas de la tabla hija solo retorna aquellas filas hijas del registro cursor de la tabla padre.
+	 * Cuando la tabla tiene un cursor muchas de sus operaciones empiezan a tratar a esta fila como la ï¿½nica 
+	 * y sus tablas padres e hijas tambiï¿½n. Por ejemplo al pedir las filas de la tabla hija solo retorna aquellas filas hijas del registro cursor de la tabla padre.
 	 * @param mixed $id Id. interno de la fila
 	 */
 	function set_cursor($id)
@@ -479,8 +479,8 @@ class toba_datos_tabla extends toba_componente
 			$this->_cursor = $id;	
 			$this->log("Nuevo cursor '{$this->_cursor}' en reemplazo del anterior '{$this->_cursor_original}'");
 		}else{
-			toba_logger::instancia()->error($this->get_txt() . "La fila '$id' no es válida");
-			throw new toba_error_def('La fila solicitada no es válida');
+			toba_logger::instancia()->error($this->get_txt() . "La fila '$id' no es vï¿½lida");
+			throw new toba_error_def('La fila solicitada no es vï¿½lida');
 		}
 	}	
 	
@@ -495,7 +495,7 @@ class toba_datos_tabla extends toba_componente
 
 	
 	/**
-	 * Asegura que el cursor no se encuentre posicionado en ninguna fila específica
+	 * Asegura que el cursor no se encuentre posicionado en ninguna fila especï¿½fica
 	 */
 	function resetear_cursor()
 	{
@@ -528,7 +528,7 @@ class toba_datos_tabla extends toba_componente
 
 	/**
 	 * Retorna el conjunto de filas que respeta las condiciones dadas
-	 * Por defecto la búsqueda es afectada por la presencia de cursores en las tablas padres.
+	 * Por defecto la bï¿½squeda es afectada por la presencia de cursores en las tablas padres.
 	 * @param array $condiciones Se utiliza este arreglo campo=>valor y se retornan los registros que cumplen (con condicion de igualdad) con estas restricciones. El valor no puede ser NULL porque siempre da falso
 	 * @param boolean $usar_id_fila Hace que las claves del array resultante sean
 	 * las claves internas del datos_tabla. Sino se usa una clave posicional y
@@ -557,7 +557,7 @@ class toba_datos_tabla extends toba_componente
 	 * Retorna los ids de todas las filas (sin eliminar) de esta tabla
 	 * @param boolean $usar_cursores Este conjunto de filas es afectado por la presencia de cursores en las tablas padres
 	 * @return array()
-	 * @todo Se podría optimizar este método para no recaer en tantos recorridos
+	 * @todo Se podrï¿½a optimizar este mï¿½todo para no recaer en tantos recorridos
 	 */
 	function get_id_filas($usar_cursores=true)
 	{
@@ -568,7 +568,7 @@ class toba_datos_tabla extends toba_componente
 			}
 		}
 		if ($usar_cursores) {
-			//Si algún padre tiene un cursor posicionado, 
+			//Si algï¿½n padre tiene un cursor posicionado, 
 			//se restringe a solo las filas que son hijas de esos cursores
 			foreach ($this->_relaciones_con_padres as $id => $rel_padre) {
 				$coincidencias = $rel_padre->filtrar_filas_hijas($coincidencias);
@@ -581,7 +581,7 @@ class toba_datos_tabla extends toba_componente
 	 * Retorna los ids de todas las filas (sin eliminar) de esta tabla
 	 * @param boolean $usar_cursores Este conjunto de filas es afectado por la presencia de cursores en las tablas padres
 	 * @return array()
-	 * @todo Se podría optimizar este método para no recaer en tantos recorridos
+	 * @todo Se podrï¿½a optimizar este mï¿½todo para no recaer en tantos recorridos
 	 */
 	function get_id_filas_filtradas_por_cursor($incluir_eliminados=false)
 	{
@@ -635,7 +635,7 @@ class toba_datos_tabla extends toba_componente
 	 * Busca los registros en memoria que cumplen una condicion.
 	 * Solo se chequea la condicion de igualdad. No se chequean tipos
 	 * @param array $condiciones Asociativo de campo => valor. El valor no puede ser NULL porque siempre da falso
-	 *  			Para condiciones más complejas (no solo igualdad) puede ser array($columna, $condicion, $valor), 
+	 *  			Para condiciones mï¿½s complejas (no solo igualdad) puede ser array($columna, $condicion, $valor), 
 	 * 				por ejemplo array(array('id_persona','>=',10),...)
 	 * @param boolean $usar_cursores Este conjunto de filas es afectado por la presencia de cursores en las tablas padres
 	 * @return array Ids. internos de las filas, pueden no estar numerado correlativamente
@@ -667,7 +667,7 @@ class toba_datos_tabla extends toba_componente
 					}					
 					if( !isset($this->_columnas[$columna]) ){
 						toba_logger::instancia()->error("El campo '$columna' no existe. No es posible filtrar por dicho campo");
-						throw new toba_error_def('Párametro de filtrado incorrecto, revise el log');
+						throw new toba_error_def('Pï¿½rametro de filtrado incorrecto, revise el log');
 					}
 					if(!isset($this->_datos[$id_fila][$columna])) {
 						// Es posible que una fila no posea una columa. Ej: una nueva fila no tiene la clave si esta es una secuencia.
@@ -722,7 +722,7 @@ class toba_datos_tabla extends toba_componente
 	}
 	
 	/**
-	 * Retorna los valores de una columna específica
+	 * Retorna los valores de una columna especï¿½fica
 	 * El conjunto de filas utilizado es afectado por la presencia de cursores en las tablas padres
 	 * @param string $columna Nombre del campo o columna
 	 * @return array Arreglo plano de valores
@@ -783,7 +783,7 @@ class toba_datos_tabla extends toba_componente
 	 * Busca los registros en memoria que cumplen una condicion.
 	 * Solo se chequea la condicion de igualdad. No se chequean tipos
 	 * @param array $condiciones Asociativo de campo => valor.
-	 *  			Para condiciones más complejas (no solo igualdad) puede ser array($columna, $condicion, $valor), 
+	 *  			Para condiciones mï¿½s complejas (no solo igualdad) puede ser array($columna, $condicion, $valor), 
 	 * 				por ejemplo array(array('id_persona','>=',10),...)
 	 * @param boolean $usar_cursores Este conjunto de filas es afectado por la presencia de cursores en las tablas padres	
 	 */
@@ -867,8 +867,8 @@ class toba_datos_tabla extends toba_componente
 	 * Solo se modifican los valores de las columnas enviadas y que realmente cambien el valor de la fila.
 	 * @param mixed $id Id. interno de la fila a modificar
 	 * @param array $fila Contenido de la fila, en formato columna=>valor, puede ser incompleto
-	 * @param array $nuevos_padres Arreglo (id_tabla_padre => $id_fila_padre, ....), solo se cambian los padres que se pasan por parámetros
-	 * 				El resto de los padres sigue con la asociación anterior
+	 * @param array $nuevos_padres Arreglo (id_tabla_padre => $id_fila_padre, ....), solo se cambian los padres que se pasan por parï¿½metros
+	 * 				El resto de los padres sigue con la asociaciï¿½n anterior
 	 * @return mixed Id. interno de la fila modificada
 	 */
 	function modificar_fila($id, $fila, $nuevos_padres=null)
@@ -924,8 +924,8 @@ class toba_datos_tabla extends toba_componente
 	/**
 	 * Cambia los padres de una fila
 	 * @param mixed $id_fila 
-	 * @param array $nuevos_padres Arreglo (id_tabla_padre => $id_fila_padre, ....), solo se cambian los padres que se pasan por parámetros
-	 * 				El resto de los padres sigue con la asociación anterior
+	 * @param array $nuevos_padres Arreglo (id_tabla_padre => $id_fila_padre, ....), solo se cambian los padres que se pasan por parï¿½metros
+	 * 				El resto de los padres sigue con la asociaciï¿½n anterior
 	 */
 	function cambiar_padre_fila($id_fila, $nuevos_padres)
 	{
@@ -938,7 +938,7 @@ class toba_datos_tabla extends toba_componente
 		$cambio_padre = false;
 		foreach ($nuevos_padres as $tabla_padre => $id_padre) {
 			if (!isset($this->_relaciones_con_padres[$tabla_padre])) {
-				$mensaje = ' CAMBIAR PADRE. No existe una relación padre';
+				$mensaje = ' CAMBIAR PADRE. No existe una relaciï¿½n padre';
 				toba_logger::instancia()->error( $this->get_txt(). $mensaje . "$tabla_padre");
 				throw new toba_error_def($mensaje);
 			}
@@ -972,7 +972,7 @@ class toba_datos_tabla extends toba_componente
  			$this->resetear_cursor();        
 		}
  		$this->notificar_contenedor("pre_eliminar", $id);
-		//Se notifica la eliminación a las relaciones
+		//Se notifica la eliminaciï¿½n a las relaciones
 		foreach ($this->_relaciones_con_hijos as $rel) {
 			$rel->evt__eliminacion_fila_padre($id);
 		}
@@ -1014,12 +1014,12 @@ class toba_datos_tabla extends toba_componente
 			if( isset($this->_columnas[$columna]) ){
 				$this->modificar_fila($id, array($columna => $valor));
 			}else{
-				toba_logger::instancia()->error("La columna '$columna' no es válida");
-				throw new toba_error_def('Columna no válida, revise el log');
+				toba_logger::instancia()->error("La columna '$columna' no es vï¿½lida");
+				throw new toba_error_def('Columna no vï¿½lida, revise el log');
 			}
 		}else{
-			toba_logger::instancia()->error("La fila '$id' no es válida");
-			throw new toba_error_def('La fila no es válida, revise el log');
+			toba_logger::instancia()->error("La fila '$id' no es vï¿½lida");
+			throw new toba_error_def('La fila no es vï¿½lida, revise el log');
 		}
 	}
 
@@ -1033,8 +1033,8 @@ class toba_datos_tabla extends toba_componente
 	function set_columna_valor($columna, $valor, $con_cursores=false)
 	{
 		if(! isset($this->_columnas[$columna]) ) { 
-			toba_logger::instancia()->error("La columna '$columna' no es válida");
-			throw new toba_error_def('La columna no es válida, revise el log');
+			toba_logger::instancia()->error("La columna '$columna' no es vï¿½lida");
+			throw new toba_error_def('La columna no es vï¿½lida, revise el log');
 		}
 		foreach($this->get_id_filas($con_cursores) as $fila) {
 			$this->modificar_fila($fila, array($columna => $valor));
@@ -1062,7 +1062,7 @@ class toba_datos_tabla extends toba_componente
 			if(!isset($filas[$id][apex_ei_analisis_fila])){
 				toba_logger::instancia()->error('Se intenta procesar datos que no poseen la columna apex_ei_analisis_fila '. var_export($filas[$id], true));
 				throw new toba_error_def('Para procesar un conjunto de registros es necesario indicar el estado '.
-									'Si los datos provienen de un ML, active la opción de analizar filas.');
+									'Si los datos provienen de un ML, active la opciï¿½n de analizar filas.');
 			}
 		}
 		//--- Se asume que el id de la fila es la key del registro o la columna apex_datos_clave_fila. 
@@ -1091,12 +1091,12 @@ class toba_datos_tabla extends toba_componente
 	}
 
 	//-------------------------------------------------------------------------------
-	//-- Simplificación sobre una sola línea
+	//-- Simplificaciï¿½n sobre una sola lï¿½nea
 	//-------------------------------------------------------------------------------
 
 	/**
 	 * Cambia el contenido de la fila donde se encuentra el cursor interno
-	 * Si la tabla se definio admitiendo a lo sumo un registro, este cursor se posiciona automáticamente en la carga, sino se debe explicitar con el método set_cursor
+	 * Si la tabla se definio admitiendo a lo sumo un registro, este cursor se posiciona automï¿½ticamente en la carga, sino se debe explicitar con el mï¿½todo set_cursor
 	 * En caso que no existan filas, se crea una nueva y se posiciona el cursor en ella
 	 * Si la fila es null, se borra la fila actual
 	 *
@@ -1120,7 +1120,7 @@ class toba_datos_tabla extends toba_componente
 	
 	/**
 	 * Retorna el contenido de la fila donde se encuentra posicionado el cursor interno
-	 * Si la tabla se definio admitiendo a lo sumo un registro, este cursor se posiciona automáticamente en la carga, sino se debe explicitar con el método set_cursor
+	 * Si la tabla se definio admitiendo a lo sumo un registro, este cursor se posiciona automï¿½ticamente en la carga, sino se debe explicitar con el mï¿½todo set_cursor
 	 * En caso de que no haya registros retorna NULL
 	 */
 	function get()
@@ -1157,7 +1157,7 @@ class toba_datos_tabla extends toba_componente
 				throw new toba_error_def('No hay posicionado un cursor en la tabla, no es posible determinar la fila actual');	
 			}
 		}
-		//Borra algïñun cache previo
+		//Borra algï¿½ï¿½un cache previo
 		if (isset($this->_blobs[$id_fila][$columna]['path']) && $this->_blobs[$id_fila][$columna]['path'] != '') {
 			$path = $this->_blobs[$id_fila][$columna]['path'];
 			if (file_exists($path)) {
@@ -1251,7 +1251,7 @@ class toba_datos_tabla extends toba_componente
 	{
 		if(!is_array($fila)){
 			toba_logger::instancia()->error($this->get_txt() . ' La fila debe ser una array');
-			throw new toba_error_def(' La fila no es válida, revise el log');
+			throw new toba_error_def(' La fila no es vï¿½lida, revise el log');
 		}
 		$this->evt__validar_ingreso($fila, $id);
 		$this->control_estructura_fila($fila);
@@ -1330,7 +1330,7 @@ class toba_datos_tabla extends toba_componente
 	//-------------------------------------------------------------------------------
 
 	/**
-	 * Validacion de toda la tabla necesaria previa a la sincronización
+	 * Validacion de toda la tabla necesaria previa a la sincronizaciï¿½n
 	 */
 	function validar($filas=array())
 	{
@@ -1350,7 +1350,7 @@ class toba_datos_tabla extends toba_componente
 	}
 	
 	/**
-	 * Ventana para hacer validaciones particulares previo a la sincronización
+	 * Ventana para hacer validaciones particulares previo a la sincronizaciï¿½n
 	 * El proceso puede ser abortado con un toba_error, el mensaje se muestra al usuario
 	 * @param array $fila Asociativo clave-valor de la fila a validar
 	 * 
@@ -1384,13 +1384,13 @@ class toba_datos_tabla extends toba_componente
 	}
 */
 	/**
-	 * Valida que la cantidad de filas supere el mínimo establecido
+	 * Valida que la cantidad de filas supere el mï¿½nimo establecido
 	 */
 	protected function control_tope_minimo_filas()
 	{
 		if ($this->_tope_min_filas != 0 && $this->get_cantidad_filas() < $this->_tope_min_filas) {
-			toba_logger::instancia()->error("La tabla <em>{$this->_id_en_controlador}</em> requiere ingresar al menos {$this->_tope_min_filas} registro/s (se encontraron sólo {$this->get_cantidad_filas()}).");
-			throw new toba_error_validacion('El número de filas enviadas no es adecuado');
+			toba_logger::instancia()->error("La tabla <em>{$this->_id_en_controlador}</em> requiere ingresar al menos {$this->_tope_min_filas} registro/s (se encontraron sï¿½lo {$this->get_cantidad_filas()}).");
+			throw new toba_error_validacion('El nï¿½mero de filas enviadas no es adecuado');
 		}
 	}
 
@@ -1400,8 +1400,8 @@ class toba_datos_tabla extends toba_componente
 	protected function control_tope_maximo_filas($cantidad)
 	{
 		if (($this->_tope_max_filas != 0) && ($cantidad > $this->_tope_max_filas)) {
-			toba_logger::instancia()->error("No está permitido ingresar más de {$this->_tope_max_filas} registros en la tabla <em>{$this->_id_en_controlador}</em> (se encontraron $cantidad).");
-			throw new toba_error_validacion('El número de filas enviadas no es adecuado');
+			toba_logger::instancia()->error("No estï¿½ permitido ingresar mï¿½s de {$this->_tope_max_filas} registros en la tabla <em>{$this->_id_en_controlador}</em> (se encontraron $cantidad).");
+			throw new toba_error_validacion('El nï¿½mero de filas enviadas no es adecuado');
 		}
 	}
 	
@@ -1411,7 +1411,7 @@ class toba_datos_tabla extends toba_componente
 	//-------------------------------------------------------------------------------
 
 	/**
-	 * Retorna el admin. de persistencia que asiste a este objeto durante la sincronización
+	 * Retorna el admin. de persistencia que asiste a este objeto durante la sincronizaciï¿½n
 	 * @return toba_ap_tabla_db
 	 */
 	function persistidor()
@@ -1421,8 +1421,8 @@ class toba_datos_tabla extends toba_componente
 				$clase = $this->_info_estructura['ap_sub_clase'];
 				$include = $this->_info_estructura['ap_sub_clase_archivo'];
 				if( (trim($clase) == '' ) ){
-					toba_logger::instancia()->error($this->get_txt() . 'Error en la definición, falta definir la subclase');
-					throw new toba_error_def('Error de definición del persistidor, revise el log');
+					toba_logger::instancia()->error($this->get_txt() . 'Error en la definiciï¿½n, falta definir la subclase');
+					throw new toba_error_def('Error de definiciï¿½n del persistidor, revise el log');
 				}
 			}else{
 				$clase = 'toba_'.$this->_info_estructura['ap_clase'];
@@ -1440,15 +1440,6 @@ class toba_datos_tabla extends toba_componente
 		}
 		return $this->_persistidor;
 	}
-	
-	/**
-	 * @deprecated  Usar persistidor() a secas
-	 */
-	function get_persistidor()
-	{
-		return $this->persistidor();
-	}
-	
 
 
 	/**
@@ -1537,7 +1528,7 @@ class toba_datos_tabla extends toba_componente
 	}
 		
 	/**
-	 * Sincroniza la tabla en memoria con el medio físico a travéz del administrador de persistencia.
+	 * Sincroniza la tabla en memoria con el medio fï¿½sico a travï¿½z del administrador de persistencia.
 	 *
 	 * @return integer Cantidad de registros modificados en el medio
 	 */
@@ -1561,7 +1552,7 @@ class toba_datos_tabla extends toba_componente
 	}
 
 	/**
-	 * Sincroniza un conjunto de filas de la tabla en memoria con el medio físico a travéz del administrador de persistencia.
+	 * Sincroniza un conjunto de filas de la tabla en memoria con el medio fï¿½sico a travï¿½z del administrador de persistencia.
 	 *
 	 * @return integer Cantidad de registros modificados en el medio
 	 */
@@ -1584,15 +1575,6 @@ class toba_datos_tabla extends toba_componente
 		//Sincronizo con la base
 		$this->persistidor()->sincronizar_eliminados();
 		$this->resetear();
-	}
-	
-	/**
-	 * @deprecated Desde 0.8.4, usar eliminar_todo()
-	 */
-	function eliminar()
-	{
-		toba::logger()->obsoleto(__CLASS__, __METHOD__, "0.8.4", "Usar eliminar_todo");
-		$this->eliminar_todo();	
 	}
 
 	/**
@@ -1632,7 +1614,7 @@ class toba_datos_tabla extends toba_componente
 	/*--- Del AP a mi ---*/
 
 	/**
-	 * El AP avisa que terminó la sincronización
+	 * El AP avisa que terminï¿½ la sincronizaciï¿½n
 	 * @ignore 
 	 */
 	function notificar_fin_sincronizacion($filas=array())
@@ -1716,7 +1698,7 @@ class toba_datos_tabla extends toba_componente
 	
 	/**
 	 * Retorna el alias utilizado para desambiguar la tabla en uniones tales como JOINs
-	 * Se toma el primero seteado de: el alias definido, el rol en la relación o el nombre de la tabla
+	 * Se toma el primero seteado de: el alias definido, el rol en la relaciï¿½n o el nombre de la tabla
 	 * @return string
 	 */
 	function get_alias()
@@ -1732,7 +1714,7 @@ class toba_datos_tabla extends toba_componente
 
 	/**
 	 * La tabla posee alguna columna marcada como de 'carga externa'
-	 * Una columna externa no participa en la sincronización posterior, pero por necesidades casi siempre estáticas
+	 * Una columna externa no participa en la sincronizaciï¿½n posterior, pero por necesidades casi siempre estï¿½ticas
 	 * necesitan mantenerse junto al conjunto de datos.
 	 * @return boolean
 	 */
@@ -1813,7 +1795,7 @@ class toba_datos_tabla extends toba_componente
 	}
 	
 	/**
-	 * Determina si los datos cargados en la tabla difieren de los datos existentes en la base al inicio de la transacción
+	 * Determina si los datos cargados en la tabla difieren de los datos existentes en la base al inicio de la transacciï¿½n
 	 * @return boolean
 	 */	
 	function hay_cambios()
@@ -1833,7 +1815,7 @@ class toba_datos_tabla extends toba_componente
 	}
 
 	/**
-	 * Retorna verdadero si algún valor de la tabla cambio desde el inicio de la transacción
+	 * Retorna verdadero si algï¿½n valor de la tabla cambio desde el inicio de la transacciï¿½n
 	 * @return boolean
 	 */
 	function hay_cambios_fila($id_fila)

@@ -2,8 +2,8 @@
 
 /**
  * Esta clase maneja la VINCULACION entre operaciones. Conoce todos los lugares a los que la
- * operación actual puede acceder (considerando el USUARIO que lo solicito)
- * Para navegar hacia ellas puede construir URLs e incluirlos en algún TAG
+ * operaciï¿½n actual puede acceder (considerando el USUARIO que lo solicito)
+ * Para navegar hacia ellas puede construir URLs e incluirlos en algï¿½n TAG
  *
  * @see toba_vinculo
  * @package Centrales
@@ -30,39 +30,19 @@ class toba_vinculador
 	{
 		$this->prefijo = toba::memoria()->prefijo_vinculo();
 	}
-
-	/**
-	 * @deprecated Usar get_url
-	 * @see get_url
-	 */
-	function crear_vinculo($proyecto=null, $item=null, $parametros=array(), $opciones=array())
-	{
-		return $this->get_url($proyecto, $item, $parametros, $opciones);
-	}
-	
 	
 	/**
-	 * @deprecated Usar get_url
-	 * @see get_url
-	 **/
-	function crear_autovinculo($parametros=array(), $opciones=array())
-	{
-		return $this->get_url(null, null, $parametros, $opciones);
-	}
-	
-	
-	/**
-	 * Genera una url que apunta a una operación de un proyecto
+	 * Genera una url que apunta a una operaciï¿½n de un proyecto
 	 *
 	 * @param string $proyecto Proyecto destino, por defecto el actual
 	 * @param string $item Item destino, por defecto el actual
 	 * @param array $parametros Parametros pasados al item, es un arreglo asociativo id_parametro => valor
 	 * @param array $opciones Arreglo asociativo de opciones ellas son:
-	 * <code> zona => Activa la propagación automática del editable en la zona
+	 * <code> zona => Activa la propagaciï¿½n automï¿½tica del editable en la zona
 	 * cronometrar => Indica si la solicitud generada por este vinculo debe cronometrarse
 	 * param_html => Parametros para la construccion de HTML. Si esta presente se genera HTML en vez de una URL. Las claves asociativas son: frame, clase_css, texto, tipo [normal,popup], inicializacion, imagen_recurso_origen, imagen
-	 * texto => Texto del vínculo
-	 * menu => El vinculo esta solicitado por una opción menu?
+	 * texto => Texto del vï¿½nculo
+	 * menu => El vinculo esta solicitado por una opciï¿½n menu?
 	 * celda_memoria => Namespace de memoria a utilizar, por defecto el actual
 	 * servicio => Servicio solicitado, por defecto get_html
 	 * objetos_destino => array(array(proyecto, id_objeto), ...) Objetos destino del vinculo
@@ -155,130 +135,9 @@ class toba_vinculador
 //##################################################################################
 //########################   Solicitud DIRECTA de URLS  ############################
 //##################################################################################
-
-	/**
-	 * Generacion directa de una URL que representa un posible futuro acceso a la infraestructura
-	 * No se chequean permisos
-	 *
-	 * @param string $item_proyecto Proyecto al que pertenece el ítem destino (por defecto el actual)
-	 * @param string $item ID. del ítem destino (por defecto el actual)
-	 * @param array $parametros Párametros enviados al ítem, arreglo asociativo de strings
-	 * @param boolean $zona Activa la propagación automática del editable en la zona
-	 * @param boolean $cronometrar Indica si la solicitud generada por este vinculo debe cronometrarse
-	 * @param array $param_html 
-	 * @param boolean $menu El vinculo esta solicitado por el menu?
-	 * @param string $celda_memoria Namespace de memoria a utilizar, por defecto el actual
-	 * @param string $nombre_ventana Nombre con que se abrira la ventana hija en caso de ser popup
-	 * @return string URL hacia el ítem solicitado
-	 * @deprecated Desde 1.0 usar get_url o get_url_
-	 */
-	protected function generar_solicitud($item_proyecto=null,$item=null,$parametros=null,
-								$zona=false,$cronometrar=false,$param_html=null,
-								$menu=null,$celda_memoria=null, $servicio=null,
-								$objetos_destino=null, $prefijo=null, $nombre_ventana=null)
- 	{
- 		$separador = '&';
-		$escapador = toba::escaper();
-		//-[1]- Determino ITEM
-		//Por defecto se propaga el id de la operación actual, o una operación del mismo proyecto
-		$autovinculo = false;
-		if ($item_proyecto == null || $item == null) {
-			$item_solic = toba::memoria()->get_item_solicitado();
-			if($item_proyecto==null) { 
-				$item_proyecto = $item_solic[0];
-			}
-			if($item==null){
-				$item = $item_solic[1];
-				$autovinculo = true;
-			}
-		}
-		//Controlo que el usuario posea permisos para acceder al ITEM
-		if ( !$autovinculo ) {
-			//El control es solo dentro del proyecto actual
-			if ( toba::proyecto()->get_id() == $item_proyecto && 
-						!toba::proyecto()->puede_grupo_acceder_item($item)) {
-				toba::logger()->notice("VINCULADOR: Fallo la creacion de un vinculo al item '$item' porque el usuario no posee permisos para acceder al mismo.");
-				return null;	
-			}
-		}
-
-		$item_a_llamar = $escapador->escapeUrl($item_proyecto . apex_qs_separador . $item);
-		//-[2]- Determino parametros
-		$parametros_formateados = "";
-		if ($zona){//Hay que propagar la zona?
-			$parametros_formateados .= $this->get_qs_zona();
-		}
-		//Cual es el tipo de salida?
-		if (isset($servicio) && $servicio != apex_hilo_qs_servicio_defecto) {
-			$parametros_formateados .= $separador.apex_hilo_qs_servicio ."=". $escapador->escapeUrl($servicio);
-		}
-		if (isset($objetos_destino) && is_array($objetos_destino)) {
-			$objetos = array();
-			foreach ($objetos_destino as $obj) {
-				$objetos[] =  $escapador->escapeUrl($obj[0] . apex_qs_separador . $obj[1]);
-			}
-			$qs_objetos = implode(',', $objetos);
-			$parametros_formateados .= $separador.apex_hilo_qs_objetos_destino ."=". $qs_objetos;
-		}
-		//Cual es la celda de memoria del proximo request?
-		if(!isset($celda_memoria)) {
-			$celda_actual = toba::memoria()->get_celda_memoria_actual_id();
-			//Si es la celda por defecto, no explicitar ya que se asume
-			if ($celda_actual != apex_hilo_qs_celda_memoria_defecto) {
-				$celda_memoria = toba::memoria()->get_celda_memoria_actual_id();
-			}
-		}		
-		if (isset($celda_memoria)) {
-			$parametros_formateados .= $separador. apex_hilo_qs_celda_memoria ."=".  $escapador->escapeUrl($celda_memoria);
-		}
-		//La proxima pagina va a CRONOMETRARSE?
-		if($cronometrar){
-			$parametros_formateados .= $separador. apex_hilo_qs_cronometro ."=1";
-		}
-		//Formateo paremetros directos
-		if(isset($parametros) && is_array($parametros)){
-			foreach($parametros as $clave => $valor){
-                if (null !== $valor && null !== $clave) {
-                    $parametros_formateados .= $separador."$clave=".  $escapador->escapeUrl($valor);
-                }
-			}
-		}
-		//Obtengo el prefijo del vinculo
-		if ( ! isset($prefijo) ) {
-			$prefijo = $this->prefijo;	
-		} elseif (strpos($prefijo,'?') === false) {
-			$prefijo = $prefijo . '?';
-		}
-		//Genero la URL que invoca la solicitud
-		$vinculo = (substr($prefijo, -1, 1) == '?') ? $prefijo : $prefijo . $separador; 
-		$vinculo .=  apex_hilo_qs_item . "=" . $item_a_llamar;
-		if(trim($parametros_formateados)!="") {
-			$encriptar_qs = toba::proyecto()->get_parametro('encriptar_qs');
-			if($encriptar_qs){
-				$claves = toba::instalacion()->get_claves_encriptacion();
-				//Le concateno un string unico al texto que quiero encriptar asi evito que conozca 
-				//la clave alguien que ve los parametros encriptados y sin encriptar
-				$parametros_formateados .= $parametros_formateados . $separador."jmb76=". uniqid("");
-				$vinculo = $vinculo . $separador . apex_hilo_qs_parametros ."=". toba::encriptador()->cifrar_para_web($parametros_formateados, $claves['get']);
-			}else{
-				$vinculo = $vinculo . $parametros_formateados;
-			}
-		}
-		//El vinculo esta solicitado por el menu?
-		//Esto se maneja directamente $_GET por performance (NO encriptar todo el menu)
-		if($menu){
-			$vinculo .= $separador . apex_hilo_qs_menu ."=1";
-		}		
-		//Genero HTML o devuelvo el VINCULO
-		if(is_array($param_html)) {
-			return $this->generar_html($vinculo, $param_html, $nombre_ventana);
-		} else {
-			return $vinculo;
-		}
-	}
 	
 	/**
-	 * Retorna el querystring propagando la zona actual (si es que hay y está cargada)
+	 * Retorna el querystring propagando la zona actual (si es que hay y estï¿½ cargada)
 	 * @return string
 	 */
 	function get_qs_zona()
@@ -430,12 +289,12 @@ class toba_vinculador
 	/**
 	 * Genera un salto de javascript directo a una pagina
 	 *
-	 * @param string $item_proyecto Proyecto al que pertenece el ítem destino (por defecto el actual)
-	 * @param string $item ID. del ítem destino (por defecto el actual)
+	 * @param string $item_proyecto Proyecto al que pertenece el ï¿½tem destino (por defecto el actual)
+	 * @param string $item ID. del ï¿½tem destino (por defecto el actual)
 	 * @param array $parametros Parametros pasados a la OPERACION (Array asociativo de strings)
 	 * @param boolean $zona Activa la propagacion automatica del editable de la ZONA
 	 * @param boolean $cronometrar Indica si la solicitud generada por este vinculo debe cronometrarse
-	 * @return string Comando JS que contiene el salto de página
+	 * @return string Comando JS que contiene el salto de pï¿½gina
 	 */
 	function navegar_a($item_proyecto="",$item="",$parametros=null,
 								$zona=false,$cronometrar=false)
@@ -477,7 +336,7 @@ class toba_vinculador
 	}
 	
 	/**
-	 * Método de debug que dumpea el estado actual de los vinculos registrados
+	 * Mï¿½todo de debug que dumpea el estado actual de los vinculos registrados
 	 */
 	function info()
 	{

@@ -46,7 +46,7 @@
 	}
 
 	/**
-	 * Si $var está seteada la devuelve, sino devuelve el valor por defecto
+	 * Si $var estï¿½ seteada la devuelve, sino devuelve el valor por defecto
 	 * de la misma
 	 * @param mixed $var
 	 * @param mixed $default
@@ -60,11 +60,11 @@
 	}
 
 	/**
-	 * Devuelve el nombre de la clase de acuerdo a la extensión de proyecto
+	 * Devuelve el nombre de la clase de acuerdo a la extensiï¿½n de proyecto
 	 * que se indique
 	 * @param string $nombre
 	 * @param string $proyecto
-	 * @param array $extensiones arreglo asociativo con 2 parámetros: el 1ro es
+	 * @param array $extensiones arreglo asociativo con 2 parï¿½metros: el 1ro es
 	 * extension_toba y el 2do extension_proyecto. Se obtiene de
 	 * toba::proyecto()->get_clases_extendidas()
 	 */
@@ -236,7 +236,7 @@
 
 	/**
 	 * Elimina los campos del array con valor null. No se modifica el arreglo
-	 * pasado por parámetro, se devuelve uno nuevo con las componentes vacías
+	 * pasado por parï¿½metro, se devuelve uno nuevo con las componentes vacï¿½as
 	 * eliminadas
 	 * @param array $array
 	 * @return array
@@ -255,7 +255,7 @@
 	}
 
 	/**
-	 * Borra todos los subarrays vacíos de $array. Modifica la variable de entrada
+	 * Borra todos los subarrays vacï¿½os de $array. Modifica la variable de entrada
 	 * @param array $array
 	 */
 	function array_borrar_subarrays_vacios(&$array)
@@ -268,8 +268,8 @@
 	}
 
 	/**
-	 * Si el parámetro no es un arreglo o es un arreglo sin la componente 0 mete
-	 * el parámetro dentro de un arreglo
+	 * Si el parï¿½metro no es un arreglo o es un arreglo sin la componente 0 mete
+	 * el parï¿½metro dentro de un arreglo
 	 * @param mixed $elem
 	 * @return array
 	 */
@@ -339,7 +339,7 @@
 	function sl(){ return salto_linea(); }
 
 	function tecla_acceso($etiqueta)
-	//Toma una etiqueta e intenta extraer el caracter de acceso rápido
+	//Toma una etiqueta e intenta extraer el caracter de acceso rï¿½pido
 	// Ej: Proce&sar retornar array('<u>P</u>rocesar', 'P')
 	{
 		$escapador = toba::escaper();
@@ -595,7 +595,7 @@
 
 
 	/**
-	 * Clase que otorga rangos para asignación de tabs
+	 * Clase que otorga rangos para asignaciï¿½n de tabs
 	 * @package Varios
 	 */
 	class toba_manejador_tabs
@@ -623,7 +623,7 @@
 	}
 
 	/**
-	*	El objeto_de_mentira intenta superar su ejecución sin causar ningun error ni warning
+	*	El objeto_de_mentira intenta superar su ejecuciï¿½n sin causar ningun error ni warning
 	*	Util para simulaciones
 	* @ignore
 	*/
@@ -742,51 +742,9 @@
 			case '~':
 				return preg_match($valor2, $valor1);		//$valor2 es el pattern
 			default:
-				toba_logger::instancia()->error("El operador $operador no está soportado");
+				toba_logger::instancia()->error("El operador $operador no estï¿½ soportado");
 				throw new toba_error('Operador no soportado');
 		}
-	}
-
-	/**
-	 * Funcion que hashea con un metodo especifico y un salt
-	 * @param type $clave
-	 * @param type $metodo
-	 * @param type $sal
-	 * @return type
-	 * @deprecated desde version 3.0.11
-	 * @see toba_hash
-	 */
-	function encriptar_con_sal($clave, $metodo, $sal=null)
-	{
-		if (version_compare(PHP_VERSION, '5.3.2') >= 0 || $metodo == 'bcrypt') {
-			$hasher = new toba_hash($metodo);
-			if (is_null($sal)) {									//Hash nuevo
-				return $hasher->hash($clave);
-			} else {											//Verificacion
-				$resultado = $hasher->get_hash_verificador($clave, $sal);
-				if (strlen($resultado) > 13) {	//Si es menor a 13 hubo error, puede ser que el hash
-					return $resultado;		//se hubiera generado con el metodo anterior
-				}
-			}
-		}
-
-		if (is_null($sal)) {
-			$sal = get_salt();
-		} else {
-			$sal = substr($sal, 0, 10);
-		}		
-		//Si el mecanismo es bcrypt no deberia haber llegado hasta aquí, por lo tanto la respuesta tiene que garantizar que falle
-		return ($metodo != 'bcrypt') ? $sal . hash($metodo, $sal . $clave): hash('sha256', get_salt().$resultado);
-	}
-
-	/**
-	 * Funcion que retorna un salt generado (no seguro)
-	 * @return type
-	 * @deprecated desde version 3.0.11
-	 */
-	function get_salt()
-	{
-		return substr(md5(uniqid(rand(), true)), 0, 10);
 	}
 
 	function dormir($tiempo)

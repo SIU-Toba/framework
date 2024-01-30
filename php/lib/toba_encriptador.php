@@ -26,128 +26,10 @@ class toba_encriptador
 		}
 		return self::$instancia;	
 	}	
-	
-	/**
-	 * Funcion que cifra un texto en base a una clave de instalacion
-	 * @param mixed $no_encriptado
-	 * @param mixed $clave
-	 * @return mixed
-	 * @deprecated desde version 3.0.11
-	 */
-	function cifrar($no_encriptado, $clave="get")
-	{
-		$cifrado = $this->Encrypt($no_encriptado,$this->clave[$clave]);
-		if ($clave == 'get') {
-			return urlencode($cifrado);
-		} else {
-			return $cifrado;	
-		}
-	}
-	
-	/**
-	 *  Funcion que descifra un texto en base a una clave de instalacion
-	 * @param mixed $encriptado
-	 * @param mixed $clave
-	 * @return mixed
-	 * @deprecated desde version 3.0.11
-	 */
-	function descifrar($encriptado, $clave="get")
-	{
-		$descifrado = $this->Decrypt($encriptado,$this->clave[$clave]);
-		if ($clave == 'get') {
-			return urldecode($descifrado);
-		} else {
-			return $descifrado;	
-		}		
-	}
 
 	//-------------------------------------------------------------
 	// Segun ADOdb: Session Encryption by Ari Kuorikoski <ari.kuorikoski@finebyte.com>
 	//-------------------------------------------------------------
-	/**
-	 * 
-	 * @param type $txt
-	 * @param type $encrypt_key
-	 * @return type
-	 * @deprecated desde version 3.0.11
-	 */
-	function keyED($txt,$encrypt_key)
-	{
-		$encrypt_key = md5($encrypt_key);
-		$ctr=0;
-		$tmp = "";
-		for ($i=0;$i<strlen($txt);$i++){
-				if ($ctr==strlen($encrypt_key)) $ctr=0;
-				$tmp.= substr($txt,$i,1) ^ substr($encrypt_key,$ctr,1);
-				$ctr++;
-		}
-		return $tmp;
-	}
-
-	/**
-	 * Funcion que encripta un texto en base a una clave
-	 * @param string $txt
-	 * @param mixed $key
-	 * @return mixed
-	 * @deprecated desde version 3.0.11
-	 */
-	function Encrypt($txt,$key)
-	{
-		srand((double)microtime()*1000000);
-		$encrypt_key = md5(rand(0,32000));
-		$ctr=0;
-		$tmp = "";
-		for ($i=0;$i<strlen($txt);$i++)
-		{
-		if ($ctr==strlen($encrypt_key)) $ctr=0;
-		$tmp.= substr($encrypt_key,$ctr,1) .
-		(substr($txt,$i,1) ^ substr($encrypt_key,$ctr,1));
-		$ctr++;
-		}
-		return base64_encode($this->keyED($tmp,$key));
-	}
-
-	/**
-	 * Funcion que desencripta un texto en bae a una clave
-	 * @param mixed $txt
-	 * @param mixed $key
-	 * @return mixed
-	 * @deprecated desde version 3.0.11
-	 */
-	function Decrypt($txt,$key)
-	{
-		$txt = $this->keyED(base64_decode($txt),$key);
-		$tmp = "";
-		for ($i=0;$i<strlen($txt);$i++){
-				$md5 = substr($txt,$i,1);
-				$i++;
-				$tmp.= (substr($txt,$i,1) ^ $md5);
-		}
-		return $tmp;
-	}
-
-	/**
-	 * Funcion que genera una clave aleatoria
-	 * @return mixed
-	 * @deprecated desde version 3.0.11
-	 */
-	function RandPass()
-	{
-		$randomPassword = "";
-		srand((double)microtime()*1000000);
-		for($i=0;$i<8;$i++)
-		{
-				$randnumber = rand(48,120);
-
-				while (($randnumber >= 58 && $randnumber <= 64) || ($randnumber >= 91 && $randnumber <= 96))
-				{
-						$randnumber = rand(48,120);
-				}
-
-				$randomPassword .= chr($randnumber);
-		}
-		return $randomPassword;
-	}
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	/**
@@ -182,7 +64,7 @@ class toba_encriptador
 	function encriptar($dato, $clave)
 	{
 		if (! extension_loaded('php_openssl') && ! extension_loaded('Openssl')) {
-			throw new toba_error('La extensión para openssl no se encuentra cargada, verifique la instalación.');
+			throw new toba_error('La extensiï¿½n para openssl no se encuentra cargada, verifique la instalaciï¿½n.');
 		}
 		$cipher = new Cryptor($this->default_algo, $this->default_hash, $this->default_formato);
 		return $cipher->encryptString($dato, $clave);
@@ -197,7 +79,7 @@ class toba_encriptador
 	function desencriptar($dato, $clave)
 	{
 		if (! extension_loaded('php_openssl') && ! extension_loaded('Openssl')) {
-			throw new toba_error('La extensión para openssl no se encuentra cargada, verifique la instalación.');
+			throw new toba_error('La extensiï¿½n para openssl no se encuentra cargada, verifique la instalaciï¿½n.');
 		}
 		$cipher = new Cryptor($this->default_algo, $this->default_hash, $this->default_formato);
 		return $cipher->decryptString($dato, $clave);
@@ -207,7 +89,7 @@ class toba_encriptador
 	//							FUNCIONES CON UTILIDAD A FUTURO
 	//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	/**
-	 * Permite fijar el algoritmo de des/encriptación (default aes-256-ctr)
+	 * Permite fijar el algoritmo de des/encriptaciï¿½n (default aes-256-ctr)
 	 * @param type $algo
 	 */
 	function set_algoritmo($algo)

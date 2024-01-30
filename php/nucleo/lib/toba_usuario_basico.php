@@ -26,7 +26,7 @@ class toba_usuario_basico extends toba_usuario
 			}
 			return false;
 		} else {
-			//--- Autentificación
+			//--- Autentificaciï¿½n
 			$algoritmo = $datos_usuario['autentificacion'];
 			if ($algoritmo != 'plano')  {
 				if ($algoritmo == 'md5') {
@@ -142,23 +142,6 @@ class toba_usuario_basico extends toba_usuario
 	}
 
 	/**
-	*	@deprecated Desde 1.5 usar get_perfiles_funcionales
-	*/
-	function get_grupos_acceso()
-	{
-		return $this->get_perfiles_funcionales();
-	}
-
-	/**
-	* @deprecated 3.0.0
-	* @see toba_usuario_basico::get_perfiles_datos()
-	*/
-	function get_perfil_datos()
-	{
-		return $this->perfil_datos;
-	}
-
-	/**
 	 * Retorna un array con los perfiles de datos del usuario
 	 * @return array
 	 */
@@ -198,8 +181,8 @@ class toba_usuario_basico extends toba_usuario
 	{
 		$parametro = strtolower(trim($parametro));
 		if ( !($parametro=='a'||$parametro=='b'||$parametro=='c') ) {
-			toba::logger()->error("Consulta de parámetro de usuario: El parámetro '$parametro' es invalido.");
-			throw new toba_error('Consulta de parámetro de usuario: El parámetro no se encuentra o es invalido, revise el log.');
+			toba::logger()->error("Consulta de parï¿½metro de usuario: El parï¿½metro '$parametro' es invalido.");
+			throw new toba_error('Consulta de parï¿½metro de usuario: El parï¿½metro no se encuentra o es invalido, revise el log.');
 		}
 		//Las opciones correctas son 'a','b' o 'c'
 		$nombre_parametro = 'parametro_'. $parametro;

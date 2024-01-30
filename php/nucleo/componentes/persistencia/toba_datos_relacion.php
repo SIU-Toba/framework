@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Mantiene un conjunto relacionado de @see toba_datos_tabla , brindando servicios para cargar y sincronizar esta relación con algún medio de persistencia (general una BD relacional)
+ * Mantiene un conjunto relacionado de @see toba_datos_tabla , brindando servicios para cargar y sincronizar esta relaciï¿½n con algï¿½n medio de persistencia (general una BD relacional)
  * 
- * TODO En el dump_esquema incluir la posición actual de los cursores
+ * TODO En el dump_esquema incluir la posiciï¿½n actual de los cursores
  * @package Componentes\Persistencia
  */
 class toba_datos_relacion extends toba_componente 
@@ -33,7 +33,7 @@ class toba_datos_relacion extends toba_componente
 	}
 	
 	/**
-	 * Método interno para iniciar el componente una vez construido
+	 * Mï¿½todo interno para iniciar el componente una vez construido
 	 * @ignore
 	 */
 	function inicializar($parametros=array())
@@ -59,7 +59,7 @@ class toba_datos_relacion extends toba_componente
 	 */
 	function destruir()
 	{
-		//Esta clase es la encargada de guardarle los valores en sesion a cada relación
+		//Esta clase es la encargada de guardarle los valores en sesion a cada relaciï¿½n
 		//Se asume que las relaciones siempre se cargan en el mismo orden
 		$this->_relaciones_mapeos = array();
 		$this->_relaciones_mapeos_eliminados = array();
@@ -74,7 +74,7 @@ class toba_datos_relacion extends toba_componente
 	}
 
 	/**
-	 * Carga los datos_tabla y les pone los topes mínimos y máximos
+	 * Carga los datos_tabla y les pone los topes mï¿½nimos y mï¿½ximos
 	 */
 	private function crear_tablas()
 	{
@@ -91,7 +91,7 @@ class toba_datos_relacion extends toba_componente
 	}
 
 	/**
-	 * Para cada relación definida crea una toba_relacion_entre_tablas
+	 * Para cada relaciï¿½n definida crea una toba_relacion_entre_tablas
 	 * Determina cual es la tabla raiz
 	 */
 	private function crear_relaciones()
@@ -132,7 +132,7 @@ class toba_datos_relacion extends toba_componente
 	}
 
 	/**
-	 * Deshabilita la tabla o las tablas recibidas para la carga y la sincronización
+	 * Deshabilita la tabla o las tablas recibidas para la carga y la sincronizaciï¿½n
 	 */
 	function desactivar_tablas($tablas)
 	{
@@ -233,7 +233,7 @@ class toba_datos_relacion extends toba_componente
 			echo "var $var_mapeo = ".toba_js::arreglo($mapeo, true).";\n";
 			echo toba_js::cerrar();
 	
-			//Calculo la cantidad de filas padres e hijas involucradas en la relación
+			//Calculo la cantidad de filas padres e hijas involucradas en la relaciï¿½n
 			$cant_padres = 0;
 			$cant_hijos = 0;
 			$mapeo_hijos = array();
@@ -245,7 +245,7 @@ class toba_datos_relacion extends toba_componente
 			}
 			$cant_hijos = count(array_unique($mapeo_hijos));
 			
-			//Incluyo la relación
+			//Incluyo la relaciï¿½n
 			$diagrama .=  $padre_id . " -> " . $hijo_id . 
 						" [fontsize=6,color=gray, label=\"$cant_padres - $cant_hijos\"".
 						//Esta truchada es para arreglar otra ceguera del IE
@@ -263,7 +263,7 @@ class toba_datos_relacion extends toba_componente
 	function orden_sincronizacion()
 	{
 		if ($this->_info_estructura['sinc_orden_automatico']) {
-			//-- Se construye el orden topológico
+			//-- Se construye el orden topolï¿½gico
 			$sorter = new Structures_Graph_Manipulator_TopologicalSorter();
 			$deps = $this->get_tablas_activas();
 			$rel = $this->get_relaciones_activas();
@@ -293,7 +293,7 @@ class toba_datos_relacion extends toba_componente
 
 	/**
 	 * Retorna el orden hacia adelante en el cual se deben cargar las tablas
-	 * Por defecto es el mismo que el orden de sincronización
+	 * Por defecto es el mismo que el orden de sincronizaciï¿½n
 	 * @return array Arreglo id_tabla => toba_datos_tabla
 	 */
 	function orden_carga()
@@ -334,7 +334,7 @@ class toba_datos_relacion extends toba_componente
 	//-------------------------------------------------------------------------------
 
 	/**
-	 * Retorna los identificadores de los datos_tabla incluídos en la relación
+	 * Retorna los identificadores de los datos_tabla incluï¿½dos en la relaciï¿½n
 	 * @return array
 	 */
 	function get_lista_tablas()
@@ -343,8 +343,8 @@ class toba_datos_relacion extends toba_componente
 	}
 
 	/**
-	 * Retorna una referencia a una tabla perteneciente a la relación
-	 * @param string $tabla Id. de la tabla en la relación
+	 * Retorna una referencia a una tabla perteneciente a la relaciï¿½n
+	 * @param string $tabla Id. de la tabla en la relaciï¿½n
 	 * @return toba_datos_tabla
 	 */
 	function tabla($tabla)
@@ -358,7 +358,7 @@ class toba_datos_relacion extends toba_componente
 	}
 
 	/**
-	 * Retorna las tablas de una relación
+	 * Retorna las tablas de una relaciï¿½n
 	 * @return array de toba_datos_tabla
 	 */
 	function get_tablas()
@@ -367,7 +367,7 @@ class toba_datos_relacion extends toba_componente
 	}
 
 	/**
-	 * Retorna las tablas que están habilitadas para la carga y la sincronización
+	 * Retorna las tablas que estï¿½n habilitadas para la carga y la sincronizaciï¿½n
 	 * @return array de toba_datos_tabla
 	 */
 	function get_tablas_activas()
@@ -386,7 +386,7 @@ class toba_datos_relacion extends toba_componente
 	}
 
 		/**
-	 * Retorna relaciones de las tablas que están habilitadas para la carga y la sincronización
+	 * Retorna relaciones de las tablas que estï¿½n habilitadas para la carga y la sincronizaciï¿½n
 	 * @return array de toba_datos_tabla
 	 */
 	function get_relaciones_activas()
@@ -405,8 +405,8 @@ class toba_datos_relacion extends toba_componente
 	}
 
 	/**
-	 * Determina si una tabla es parte de la relación
-	 * @param string $tabla Id. de la tabla en la relación
+	 * Determina si una tabla es parte de la relaciï¿½n
+	 * @param string $tabla Id. de la tabla en la relaciï¿½n
 	 * @return boolean
 	 */
 	function existe_tabla($tabla)
@@ -415,8 +415,8 @@ class toba_datos_relacion extends toba_componente
 	}
 
 	/**
-	 * Retorna al estado inicial todas las tablas incluídas
-	 * Para volver a utilizar estas tablas se debe cargar nuevamente la relación con datos
+	 * Retorna al estado inicial todas las tablas incluï¿½das
+	 * Para volver a utilizar estas tablas se debe cargar nuevamente la relaciï¿½n con datos
 	 */
 	function resetear()
 	{
@@ -427,7 +427,7 @@ class toba_datos_relacion extends toba_componente
 	}
 	
 	/**
-	 * Asegura que ningún cursor de alguna tabla se encuentre posicionado en ninguna fila específica
+	 * Asegura que ningï¿½n cursor de alguna tabla se encuentre posicionado en ninguna fila especï¿½fica
 	 */	
 	function resetear_cursores()
 	{
@@ -437,13 +437,13 @@ class toba_datos_relacion extends toba_componente
 	}
 	
 	/**
-	 * Ventana para validaciones específicas, se ejecuta justo antes de la sincronización
+	 * Ventana para validaciones especï¿½ficas, se ejecuta justo antes de la sincronizaciï¿½n
 	 * @ventana
 	 */
 	protected function evt__validar(){}
 
 	/**
-	 *	Valida cada una de las tablas incluídas en la relación
+	 *	Valida cada una de las tablas incluï¿½das en la relaciï¿½n
 	 */
 	function disparar_validacion_tablas()
 	{
@@ -469,7 +469,7 @@ class toba_datos_relacion extends toba_componente
 	//-------------------------------------------------------------------------------
 
 	/**
-	 * Retorna una referenca al Adm.Persistencia de la relación
+	 * Retorna una referenca al Adm.Persistencia de la relaciï¿½n
 	 * @return toba_ap_relacion_db
 	 */
 	function persistidor()
@@ -497,17 +497,9 @@ class toba_datos_relacion extends toba_componente
 	}
 	
 	/**
-	 * @deprecated usar persistidor() a secas
-	 */
-	function get_persistidor()
-	{
-		return $this->persistidor();
-	}
-	
-	/**
 	 * Utiliza la carga por clave del administrador de persistencia
-	 * Carga la tabla raiz de la relación y a partir de allí ramifica la carga a sus relaciones
-	 * @param array $clave Arreglo asociativo campo-valor por el cual filtrar la relación, si no se explicita se cargan todos los datos disponibles
+	 * Carga la tabla raiz de la relaciï¿½n y a partir de allï¿½ ramifica la carga a sus relaciones
+	 * @param array $clave Arreglo asociativo campo-valor por el cual filtrar la relaciï¿½n, si no se explicita se cargan todos los datos disponibles
 	 * @return boolean Falso, si no se encontraron registros
 	 */
 	function cargar($clave=array())
@@ -545,8 +537,8 @@ class toba_datos_relacion extends toba_componente
 
 	/**
 	* Fuerza a que los datos_tabla contenidos marquen todos sus filas como nuevas
-	* Esto implica que a la hora de la sincronización se van a generar INSERTS para todas las filas.
-	* Se utiliza para forzar una clonación completa de los datos una relación.
+	* Esto implica que a la hora de la sincronizaciï¿½n se van a generar INSERTS para todas las filas.
+	* Se utiliza para forzar una clonaciï¿½n completa de los datos una relaciï¿½n.
 	*/
 	function forzar_insercion()
 	{
@@ -564,7 +556,7 @@ class toba_datos_relacion extends toba_componente
 			$this->disparar_validacion_tablas();
 			$this->evt__validar();
 			$this->persistidor()->sincronizar();
-			//Se notifica el fin de la sincronización a las tablas
+			//Se notifica el fin de la sincronizaciï¿½n a las tablas
 			foreach ($this->_dependencias as $dependencia) {
 				$dependencia->notificar_fin_sincronizacion();
 			}
@@ -599,7 +591,7 @@ class toba_datos_relacion extends toba_componente
 		}
 		$this->evt__validar();
 		$this->persistidor()->sincronizar(false, $filas_tablas);
-		//Se notifica el fin de la sincronización a las tablas
+		//Se notifica el fin de la sincronizaciï¿½n a las tablas
 		foreach ($this->_dependencias as $id => $dependencia) {
 			if (isset($filas_tablas[$id])) {
 				$dependencias->notificar_fin_sincronizacion($filas_tablas[$id]);
@@ -608,7 +600,7 @@ class toba_datos_relacion extends toba_componente
 	}
 	
 	/**
-	 * Elimina y sincroniza en el medio de persistencia todos los datos cargados en la relación
+	 * Elimina y sincroniza en el medio de persistencia todos los datos cargados en la relaciï¿½n
 	 */
 	function eliminar_todo()
 	{
@@ -617,18 +609,7 @@ class toba_datos_relacion extends toba_componente
 	}
 	
 	/**
-	 * Usar eliminar_todo, es más explícito
-	 * @deprecated Desde 0.8.4, usar eliminar_todo, es más explícito
-	 * @see eliminar_todo()
-	 */
-	function eliminar()
-	{
-		toba::logger()->obsoleto(__CLASS__, __METHOD__, "0.8.4", "Usar eliminar_todo");
-		$this->eliminar_todo();	
-	}
-	
-	/**
-	 * Retorna el id de las tablas que no tienen padres en la relación
+	 * Retorna el id de las tablas que no tienen padres en la relaciï¿½n
 	 * @return array
 	 */
 	function get_tablas_raiz()
@@ -683,15 +664,15 @@ class toba_datos_relacion extends toba_componente
 	}
 
 	/**
-	 * Carga en el nodo xml los datos cargados en el DR. Funciona sólo para relaciones que se modelan como un árbol, no grafos.
+	 * Carga en el nodo xml los datos cargados en el DR. Funciona sï¿½lo para relaciones que se modelan como un ï¿½rbol, no grafos.
 	 * @param SimpleXMLElement $xml Es el nodo XML donde se van a cargar todos los datos
 	 */
 	
 	function get_xml($xml){
 
-		// Controla que haya una única tabla raiz
+		// Controla que haya una ï¿½nica tabla raiz
 		if(count($this->_tablas_raiz) != 1)
-			throw new toba_error_def('El datos_relacion no posee una única tabla raiz.');
+			throw new toba_error_def('El datos_relacion no posee una ï¿½nica tabla raiz.');
 
 		// Recupera los registros de la tabla raiz para armar cada unidad del XML.
 		$datos_raiz = $this->_dependencias[$this->_tablas_raiz[0]]->get_filas();
@@ -705,26 +686,26 @@ class toba_datos_relacion extends toba_componente
 	
 	/**
 	 * Arma un nodo XML para un registro de un datos tabla, con sus columnas como atributos y sus registros de tablas hijas como nuevos nodos internos
-	 * Es un método recursivo con la siguiente estructura:
+	 * Es un mï¿½todo recursivo con la siguiente estructura:
 	 * a) Setea el cursor en el registro dado de la tabla dada
-	 * b) agrega los datos del registro en el que se está parado como atributos del nodo xml recibido
+	 * b) agrega los datos del registro en el que se estï¿½ parado como atributos del nodo xml recibido
 	 * c) Para cada tabla hija agrega un nodo al nodo dado.
-	 * d) Para cada registro de cada tabla hija, agrega un nodo al nodo creado en c) y llama recursivamente a la función
+	 * d) Para cada registro de cada tabla hija, agrega un nodo al nodo creado en c) y llama recursivamente a la funciï¿½n
 	 *
-	 * @param SimpleXMLElement $xml es el nodo donde se va a agregar la información
+	 * @param SimpleXMLElement $xml es el nodo donde se va a agregar la informaciï¿½n
 	 * @param string $tabla la tabla de la que se van a sacar los datos
 	 * @clave int $clave es la clave del registro de la tabla del que se van a sacar los datos
 	 */
 
 	protected function armar_xml($xml,$tabla,$clave)
 	{
-		// Setea el cursor de la tabla (esto además está seteando un cursor en las tablas hijas
+		// Setea el cursor de la tabla (esto ademï¿½s estï¿½ seteando un cursor en las tablas hijas
 		$this->_dependencias[$tabla]->set_cursor($clave);
 		
 		// Agrega los datos del registro seleccionado como atributos
 		$this->_dependencias[$tabla]->get_xml($xml);
 		
-		// Recupera las tablas hijas de la tabla que se está recorriendo
+		// Recupera las tablas hijas de la tabla que se estï¿½ recorriendo
 		$tablas_hijas = $this->get_tablas_hijas($tabla);
 
 		// Para cada tabla hija, agrega un nodo al nodo dado
@@ -732,7 +713,7 @@ class toba_datos_relacion extends toba_componente
 			$id_filas_hijas = $this->_dependencias[$tabla_hija]->get_id_filas();
 			$xml2 = $xml->addChild($tabla_hija);
 			
-			// Para cada registro de las tablas hijas seleccionado según el cursor, agrego un nodo y llamo recursivamente
+			// Para cada registro de las tablas hijas seleccionado segï¿½n el cursor, agrego un nodo y llamo recursivamente
 			foreach($id_filas_hijas as $id_fila_hija){
 				$xml3 = $xml2->addChild('registro');
 				$this->armar_xml($xml3,$tabla_hija,$id_fila_hija);
@@ -759,8 +740,8 @@ class toba_datos_relacion extends toba_componente
 		
 		// Controlo que se haya encontrado la tabla
 		if(!$id_objeto_padre){
-			toba_logger::instancia()->error("No se puede obtener el conjunto de tablas hija de la tabla $tabla, que no pertenece a la relación.");
-			throw new toba_error_def('La tabla no pertenece a la relación, revise el log');
+			toba_logger::instancia()->error("No se puede obtener el conjunto de tablas hija de la tabla $tabla, que no pertenece a la relaciï¿½n.");
+			throw new toba_error_def('La tabla no pertenece a la relaciï¿½n, revise el log');
 		}
 		// Busco todos los id de objeto de las tablas hijas
 		$objetos_hijos = array();

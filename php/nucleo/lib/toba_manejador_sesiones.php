@@ -64,7 +64,7 @@ class toba_manejador_sesiones
             $handler->configure_settings();
 
             if (session_id() != '') {
-                    throw new toba_error('Ya existe una sesión abierta, probablemente tenga activado session.auto_start = 1 en el php.ini');
+                    throw new toba_error('Ya existe una sesiï¿½n abierta, probablemente tenga activado session.auto_start = 1 en el php.ini');
             }
             if (! toba_nucleo::instancia()->es_acceso_rest()) {
                     session_name(toba::instalacion()->get_session_name());
@@ -98,9 +98,9 @@ class toba_manejador_sesiones
 			$this->procesar_acceso_proyecto($datos_iniciales);
 		}
 		$this->autenticar($id_usuario, $clave, $datos_iniciales);
-		if ($this->contrasenia_vencida) {	//Si se vencio la contraseña del usuario redirecciono al item correspondiente
+		if ($this->contrasenia_vencida) {	//Si se vencio la contraseï¿½a del usuario redirecciono al item correspondiente
 			$this->contrasenia_vencida = false;
-			throw new  toba_error_login_contrasenia_vencida('La contraseña actual del usuario ha caducado');
+			throw new  toba_error_login_contrasenia_vencida('La contraseï¿½a actual del usuario ha caducado');
 		}
 		$this->procesar_acceso_instancia($id_usuario, $datos_iniciales);
 
@@ -170,7 +170,7 @@ class toba_manejador_sesiones
 		//Verificar que el usuario nuevo esta en la lista de posibles fijada por el app_launcher
 		$mapeo = $this->recuperar_mapeo_usuarios($nuevo , $this->_usuarios_posibles);
 		if (empty($mapeo)) {
-			throw new toba_error_seguridad('Es intentando acceder a un usuario no válido' );
+			throw new toba_error_seguridad('Es intentando acceder a un usuario no vï¿½lido' );
 		}
 		//Si todo va bien.
 		$this->procesar_salida_proyecto('Logout por cambio de usuario');			//Redirije a la pantalla de login, quizas hay que hacer algo distinto por ejemplo, no borrar la sesion
@@ -178,7 +178,7 @@ class toba_manejador_sesiones
 	}
 
 	/**
-	*	Entrada a un proyecto desde la operación de inicializacion de sesion
+	*	Entrada a un proyecto desde la operaciï¿½n de inicializacion de sesion
 	*/
 	function iniciar_sesion_proyecto($datos_iniciales)
 	{
@@ -196,7 +196,7 @@ class toba_manejador_sesiones
 	}
 
 	/**
-	 * Delega la autenticación del proyecto a un objeto
+	 * Delega la autenticaciï¿½n del proyecto a un objeto
 	 * @param toba_autenticable $autenticacion Objeto responsable de la autenticacion
 	 */
 	function set_autenticacion(toba_autenticable $autenticacion)
@@ -366,7 +366,7 @@ class toba_manejador_sesiones
 	}
 
 	/**
-	 * Retorna los perfiles funcionales activos en la sesión actual
+	 * Retorna los perfiles funcionales activos en la sesiï¿½n actual
 	 * @return array
 	 */
 	function get_perfiles_funcionales_activos()
@@ -397,15 +397,6 @@ class toba_manejador_sesiones
 		return $this->perfiles_funcionales_activos = array_unique($finales);
 	}
 
-	/**
-	* @deprecated Desde 1.5 usar get_perfiles_funcionales
-	*/
-	function get_grupos_acceso()
-	{
-		return $this->get_perfiles_funcionales();
-
-	}
-
 	function verificar_cambio_perfil_activo()
 	{
 		if (isset($_POST[apex_sesion_qs_cambio_pf]) && toba::proyecto()->permite_cambio_perfiles()) {
@@ -418,20 +409,6 @@ class toba_manejador_sesiones
 				$this->set_perfiles_funcionales_activos($this->get_perfiles_funcionales());
 			}
 			toba::memoria()->set_dato('usuario_perfil_funcional_seleccionado', $perfil_solicitado);
-		}
-	}
-
-	/**
-	*	Determina el perfil de datos del usuario actual
-	* @deprecated 3.0.0
-	* @see toba_manejador_sesiones::get_perfiles_datos
-     	*/
-	function get_perfil_datos()
-	{
-		if( (toba_editor::modo_prueba() && ( ! toba_editor::acceso_recursivo() ) ) ) {
-			return toba_editor::get_perfil_datos_previsualizacion();
-		} else {
-			return $this->usuario()->get_perfil_datos();
 		}
 	}
 
@@ -454,19 +431,6 @@ class toba_manejador_sesiones
 			$this->perfiles_datos_activos = $this->get_perfiles_datos();
 		}
 		return $this->perfiles_datos_activos;
-	}
-
-	/**
-	* @deprecated 3.0.0
-	* @see toba_manejador_sesiones::set_perfiles_datos_activos()
-	*/
-	function set_perfil_datos_activo($id_perfil)
-	{
-		if (! is_array($id_perfil)) {
-			if (! is_null($id_perfil)) {
-				$this->set_perfiles_datos_activos(array($id_perfil));
-			}
-		}
 	}
 
 	/**
@@ -541,7 +505,7 @@ class toba_manejador_sesiones
 				$this->registrar_activacion_sesion();
 				$this->control_cambio_usuario();
 			} catch ( toba_error $e ) {
-				toba::logger()->debug('Pérdida de sesión: '. $e->getMessage());
+				toba::logger()->debug('Pï¿½rdida de sesiï¿½n: '. $e->getMessage());
 				$this->logout($e->getMessage());
 				$this->comprobar_acceso_anonimo();
 			}
@@ -749,11 +713,11 @@ class toba_manejador_sesiones
 			$tiempo_desconectado = ((time()-$ultimo_acceso)/60);//Tiempo desde el ultimo REQUEST
 			if ( $tiempo_desconectado >= $ventana) {
 				toba::notificacion()->agregar('Usted ha permanecido varios minutos sin interactuar
-							con el servidor. Por razones de seguridad su sesión ha sido eliminada.
+							con el servidor. Por razones de seguridad su sesiï¿½n ha sido eliminada.
 							Por favor vuelva a registrarse si desea continuar utilizando el sistema.
 							Disculpe las molestias ocasionadas.');
-				toba_logger::instancia()->error("Se excedió la ventana temporal ($ventana m.)");
-				throw new toba_error_autorizacion('Se excedió la ventana temporal');
+				toba_logger::instancia()->error("Se excediï¿½ la ventana temporal ($ventana m.)");
+				throw new toba_error_autorizacion('Se excediï¿½ la ventana temporal');
 			}
 		}
 		// Controlo el tiempo maximo de sesion
@@ -762,11 +726,11 @@ class toba_manejador_sesiones
 			$inicio_sesion = $_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['info_sesion']['inicio'];
 			$tiempo_total = ((time()-$inicio_sesion)/60);//Tiempo desde que se inicio la sesion
 			if ( $tiempo_total >= $maximo) {
-				toba::notificacion()->agregar('Se ha superado el tiempo de sesión permitido
+				toba::notificacion()->agregar('Se ha superado el tiempo de sesiï¿½n permitido
 							Por favor vuelva a registrarse si desea continuar utilizando el sistema.
 							Disculpe las molestias ocasionadas.');
-				toba_logger::instancia()->error("Se excedió el tiempo máximo de sesión ($maximo m.)");
-				throw new toba_error_autorizacion('Se excedió el tiempo máximo de sesión');
+				toba_logger::instancia()->error("Se excediï¿½ el tiempo mï¿½ximo de sesiï¿½n ($maximo m.)");
+				throw new toba_error_autorizacion('Se excediï¿½ el tiempo mï¿½ximo de sesiï¿½n');
 			}
 		}
 
@@ -802,7 +766,7 @@ class toba_manejador_sesiones
 	function abortar_sesion_proyecto($proyecto, $obs=null)
 	{
 		$id = $this->get_id_sesion($proyecto);
-		toba::logger()->debug("Abortando la sesión '$id' del proyecto '$proyecto'.",'toba');
+		toba::logger()->debug("Abortando la sesiï¿½n '$id' del proyecto '$proyecto'.",'toba');
 		toba::instancia()->cerrar_sesion($id, $obs);
 		$this->borrar_segmento_proyecto($proyecto);
 	}
@@ -990,16 +954,16 @@ class toba_manejador_sesiones
 			throw new toba_error('La IP esta bloqueada. Contactese con el administrador');
 		}
 		if ($this->invocar_metodo_usuario('es_usuario_bloqueado', array($id_usuario))) {
-			throw new toba_error('El usuario se encuentra bloqueado. Contáctese con el administrador');
+			throw new toba_error('El usuario se encuentra bloqueado. Contï¿½ctese con el administrador');
 		}
 		// Disparo la autenticacion
 		if ($this->get_autenticacion() != null) {
 			$estado = $this->autenticacion->autenticar($id_usuario, $clave, $datos_iniciales);
 		} else {
-			throw new toba_error_seguridad('No existe la autenticación propuesta');
+			throw new toba_error_seguridad('No existe la autenticaciï¿½n propuesta');
 		}
 		if (!$estado) {
-			$error = 'La combinación usuario/clave es incorrecta';
+			$error = 'La combinaciï¿½n usuario/clave es incorrecta';
 			$this->invocar_metodo_usuario('registrar_error_login', array($id_usuario, $ip, $error));
 			$proyecto = toba::proyecto()->get_id();
 			$cant_max_intentos = toba_parametros::get_intentos_validacion($proyecto);
@@ -1018,15 +982,15 @@ class toba_manejador_sesiones
 				if ( $supero_tope_intentos_en_ventana ) {
 					if ($bloquear_usuario) {
 						$this->invocar_metodo_usuario('bloquear_usuario',array($id_usuario));
-						toba_logger::instancia()->error("$error. Ha superado el límite de inicios de sesión. El usuario ha sido bloqueado.");
-						throw new toba_error_autenticacion("$error. Ha superado el límite de inicios de sesión.");
+						toba_logger::instancia()->error("$error. Ha superado el lï¿½mite de inicios de sesiï¿½n. El usuario ha sido bloqueado.");
+						throw new toba_error_autenticacion("$error. Ha superado el lï¿½mite de inicios de sesiï¿½n.");
 					}elseif ($lanzar_excepcion) {
-						toba_logger::instancia()->error("$error. Ha superado el límite de inicios de sesión.|$intentos");
-						throw new toba_error_autenticacion_intentos("$error. Ha superado el límite de inicios de sesión.");
+						toba_logger::instancia()->error("$error. Ha superado el lï¿½mite de inicios de sesiï¿½n.|$intentos");
+						throw new toba_error_autenticacion_intentos("$error. Ha superado el lï¿½mite de inicios de sesiï¿½n.");
 					} else {
 						$this->invocar_metodo_usuario('bloquear_ip',array($ip));
 						toba_logger::instancia()->error("$error. La IP ha sido bloqueada.");
-						throw new toba_error_autenticacion("$error. Ha superado el límite de inicios de sesión.");
+						throw new toba_error_autenticacion("$error. Ha superado el lï¿½mite de inicios de sesiï¿½n.");
 					}
 				}
 			}
@@ -1040,7 +1004,7 @@ class toba_manejador_sesiones
 				$this->_usuarios_posibles = $this->generar_mapeo_usuarios($usr_posibles);
 			}
 		} else {
-			throw new toba_error_seguridad('No existe la autenticación propuesta');
+			throw new toba_error_seguridad('No existe la autenticaciï¿½n propuesta');
 		}
 	}
 
@@ -1240,7 +1204,7 @@ class toba_manejador_sesiones
                         $handler =  '\toba_session_memcached_handler';
                         break;
                     default:
-                        throw new \toba_error_ini_sesion('El handler de sesión elegido no es válido');
+                        throw new \toba_error_ini_sesion('El handler de sesiï¿½n elegido no es vï¿½lido');
                 }
             }
             return new $handler();
