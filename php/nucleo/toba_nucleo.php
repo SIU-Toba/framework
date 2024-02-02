@@ -192,16 +192,12 @@ class toba_nucleo
 			$this->solicitud->registrar();
 			$this->finalizar_contexto_rest();
 		} catch (Error $e) {
-			toba::logger()->crit($e, 'toba');			
-			echo toba::escaper()->escapeJs($e->getMessage()) . "\n\n";
+			toba::logger()->crit($e, 'toba');
+            $this->echoErrorFormatoJson($e);
 			toba::logger()->guardar();
 		} catch (Exception $e) {
-            $codigo = $e->getCode();
-            if (is_int($codigo) && $codigo !== 0) {
-                header('Error Inesperado', true, 500);
-            }
-			toba::logger()->crit($e, 'toba');
-			echo toba::escaper()->escapeJs($e->getMessage()) . "\n\n";
+            toba::logger()->crit($e, 'toba');
+            $this->echoErrorFormatoJson($e);
 			toba::logger()->guardar();
 		}
 		if (! is_null($app)) {
@@ -615,6 +611,26 @@ class toba_nucleo
             return $item;
         }
 
+    /**
+     * Envia un header con el status correspondiente
+     * y el mensaje de error en formato JSON
+     * @param type $e
+     */
+    protected function echoErrorFormatoJson($e)
+    {
+        $status=500;
+        $codigo = $e->getCode();
+        if (is_int($codigo) && $codigo !== 0) {
+            $status = $codigo;
+        }
 
+        $msg = [
+            'error' => $status,
+            'mensaje' => 'Error interno',
+            'descripcion' => $e->getMessage()];
+
+        header('Error Inesperado', true, $status);
+		echo toba::escaper()->escapeJs(json_encode($msg)) . "\n\n";
+    }
 }
 ?>
