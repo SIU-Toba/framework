@@ -50,7 +50,7 @@ class toba_manejador_archivos
 	}
 
 	/**
-	 * Similar al file_exists de php pero incluye al include_path en la bï¿½squeda
+	 * Similar al file_exists de php pero incluye al include_path en la búsqueda
 	 * @param string $file
 	 * @return boolean
 	 */
@@ -109,7 +109,7 @@ class toba_manejador_archivos
 	}
 
 	/**
-	 * Retorna un path convertido a la plataforma actual de ejecuciï¿½n (unix o windows)
+	 * Retorna un path convertido a la plataforma actual de ejecución (unix o windows)
 	 * @param string $candidato
 	 * @return string
 	 */
@@ -132,7 +132,7 @@ class toba_manejador_archivos
 		$archivos_ok = array();
 		if( ! is_dir( $directorio ) ) {
 			toba_logger::instancia()->error("BUSCAR ARCHIVOS: El directorio '$directorio' es INVALIDO");
-			throw new toba_error('BUSCAR ARCHIVOS: El directorio solicitado no es vï¿½lido o no tiene permisos');
+			throw new toba_error('BUSCAR ARCHIVOS: El directorio solicitado no es válido o no tiene permisos');
 		}
 
 		if (in_array($directorio, $exclude_dirs, true)) {
@@ -176,7 +176,7 @@ class toba_manejador_archivos
 	{
 		if( ! is_dir( $directorio ) ) {
 			toba_logger::instancia()->error("BUSCAR ARCHIVOS: El directorio '$directorio' es INVALIDO");
-			throw new toba_error('BUSCAR ARCHIVOS: El directorio solicitado no es vï¿½lido o no tiene permisos');
+			throw new toba_error('BUSCAR ARCHIVOS: El directorio solicitado no es válido o no tiene permisos');
 		}
 		$archivos = array();
 		$d = dir( $directorio );
@@ -210,7 +210,7 @@ class toba_manejador_archivos
 		$dirs = array();
 		if( ! is_dir( $directorio ) ) {
 			toba_logger::instancia()->error("BUSCAR SUBDIRECTORIOS: El directorio '$directorio' es INVALIDO");
-			throw new toba_error('BUSCAR SUBDIRECTORIOS: El directorio solicitado no es vï¿½lido o no tiene permisos');
+			throw new toba_error('BUSCAR SUBDIRECTORIOS: El directorio solicitado no es válido o no tiene permisos');
 		}
 		$dir = opendir($directorio);
 		if ($dir !== false) {
@@ -242,7 +242,7 @@ class toba_manejador_archivos
 	{
 		if( ! is_dir( $origen ) ) {
 			toba_logger::instancia()->error("COPIAR DIRECTORIO: El directorio de origen '$origen' es INVALIDO");
-			throw new toba_error('COPIAR DIRECTORIO: El directorio de origen no es vï¿½lido o no tiene permisos');
+			throw new toba_error('COPIAR DIRECTORIO: El directorio de origen no es válido o no tiene permisos');
 		}
 		$ok = true;
 		if( ! is_dir( $destino ) ) {
@@ -288,7 +288,7 @@ class toba_manejador_archivos
 	{
 		if( ! is_dir( $directorio ) ) {
 			toba_logger::instancia()->error("ELIMINAR DIRECTORIO: El directorio '$directorio' es INVALIDO");
-			throw new toba_error('ELIMINAR DIRECTORIO: El directorio solicitado no es vï¿½lido o no tiene permisos');
+			throw new toba_error('ELIMINAR DIRECTORIO: El directorio solicitado no es válido o no tiene permisos');
 		}
 		$ok = true;
 		$dir = opendir( $directorio );

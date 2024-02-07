@@ -45,7 +45,7 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 	protected function html_generar_campos_hidden()
 	{
 		$nombre_campos = $this->_cuadro->get_nombres_parametros();
-		//Campos de comunicaciï¿½n con JS
+		//Campos de comunicación con JS
 		echo toba_form::hidden($nombre_campos['submit'], '');
 		echo toba_form::hidden($nombre_campos['seleccion'], '');
 		echo toba_form::hidden($nombre_campos['extra'], '');
@@ -171,7 +171,7 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 
 	/**
 	 * Genera el html que el cuadro muestra cuando no tiene datos cargados
-	 * @param string $texto Texto a mostrar en base a la definiciï¿½n del componente
+	 * @param string $texto Texto a mostrar en base a la definición del componente
 	 */
 	function html_mensaje_cuadro_vacio($texto)
 	{
@@ -501,7 +501,7 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 			if(isset($columnas[$a]["clave"])) {
 				if(isset($datos[$id_fila][$columnas[$a]["clave"]])) {
 					$valor_real = $datos[$id_fila][$columnas[$a]["clave"]];
-					//-- Hace el saneamiento para evitar inyecciï¿½n XSS
+					//-- Hace el saneamiento para evitar inyección XSS
 					if (!isset($columnas[$a]['permitir_html']) || $columnas[$a]['permitir_html'] == 0) {
 						  $valor_real = texto_plano($valor_real);
 					}
@@ -615,7 +615,7 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 	 */
 	protected function html_cuadro_cabecera_columnas()
 	{
-		//ï¿½Alguna columna tiene tï¿½tulo?
+		//¿Alguna columna tiene título?
 		$alguna_tiene_titulo = false;
 		$columnas = $this->_cuadro->get_columnas();
 		foreach(array_keys($columnas) as $clave) {
@@ -666,7 +666,7 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 				} else {
 					//Guarda el html de la columna para sacarlo una fila mas abajo
 					$html_columnas_agrupadas .= $html_columna;
-					//Si es la primera columna de la agrupaciï¿½n saca un unico <td> del ancho de la agrupacion
+					//Si es la primera columna de la agrupación saca un unico <td> del ancho de la agrupacion
 					if (! isset($grupo_actual) || $grupo_actual != $columnas[$a]['grupo']) {
 						$grupo_actual = $columnas[$a]['grupo'];
 						$cant_col = count(array_unique($columnas_agrupadas[$grupo_actual]));		//Cuando se fija manualmente el grupo y se re procesa la definicion trae la misma columna + de una vez
@@ -704,7 +704,7 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 		/**
 		 * @todo por ahora las imagenes del ornamientos queda fijado en Toba ( Despues veremos )
 		 */
-		//--- ï¿½Es ordenable?
+		//--- ¿Es ordenable?
 		if (	isset($eventos['ordenar'])
 				&& $columnas[$indice]["no_ordenar"] != 1
 				/*&& $this->_tipo_salida == 'html' */) {
@@ -718,7 +718,7 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 						$sel = "_sel";//orden ACTIVO
 					}
 
-					//Comunicaciï¿½n del evento
+					//Comunicación del evento
 					$parametros = array('orden_sentido'=>$sen[0], 'orden_columna'=>$columna);
 					$evento_js = toba_js::evento('ordenar', $eventos['ordenar'], $parametros);
 					$js = "$objeto_js.set_evento($evento_js);";

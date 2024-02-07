@@ -124,7 +124,7 @@ class toba_usuario implements toba_interface_usuario
 			$id = toba::instancia()->get_db()->sentencia_preparar($sql);
 			toba::instancia()->get_db()->sentencia_ejecutar($id, array( 'usuario'=> $usuario));
 		} catch(toba_error_db $e) {
-			toba::logger()->debug('No se pudo forzar el cambio de contraseï¿½a en el usuario '. $usuario);
+			toba::logger()->debug('No se pudo forzar el cambio de contraseña en el usuario '. $usuario);
 			throw new toba_error_usuario('Hubo problemas al modificar el usuario ');
 		}
 	}
@@ -161,7 +161,7 @@ class toba_usuario implements toba_interface_usuario
 	}
 		
 	/**
-	 *  Verifica la composicion y largo de una contraseï¿½a de usuario, lanza excepcion cuando falla la validacion,
+	 *  Verifica la composicion y largo de una contraseña de usuario, lanza excepcion cuando falla la validacion,
 	 *  de lo contrario retorna true.
 	 * @param string $pwd
 	 * @param int $largo_minimo

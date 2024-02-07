@@ -2,7 +2,7 @@
 /**
  * Este componente permite unificar la carga y entrega de datos y servicios a una jerarquia completa de componentes de interface (especialmente a los cis)
  * 
- * Separar la carga y utilizaciï¿½n de los datos (inicio y fin de una transaccion de negocios)
+ * Separar la carga y utilización de los datos (inicio y fin de una transaccion de negocios)
  * permite:
  *  -Lograr una maxima independencia entre la logica de pantalla y de la de negocio, 
  *  -Tener un lugar centralizado para brindar servicios comunes a una jerarquia de componentes
@@ -28,7 +28,7 @@ class toba_cn extends toba_componente
 	
 
 	/**
-	 * Ventana de extensiï¿½n que se ejecuta al iniciar el componente en todos los pedidos en los que participa.
+	 * Ventana de extensión que se ejecuta al iniciar el componente en todos los pedidos en los que participa.
 	 * @ventana
 	 */
 	function ini()
@@ -64,7 +64,7 @@ class toba_cn extends toba_componente
 	 * Se inicia una transaccion de base de datos y dentro de ella se llama a :
 	 * @see evt__validar_datos()
 	 * @see evt__procesar_especifico()
-	 *  Una vez terminada la transacciï¿½n se invoca a la limpieza de memoria
+	 *  Una vez terminada la transacción se invoca a la limpieza de memoria
 	 * 
 	 * @todo Ver la posibilidad de usar ignore_user_abort() para evitar problemas con medios no transaccionales
 	 */

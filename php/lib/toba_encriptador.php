@@ -64,7 +64,7 @@ class toba_encriptador
 	function encriptar($dato, $clave)
 	{
 		if (! extension_loaded('php_openssl') && ! extension_loaded('Openssl')) {
-			throw new toba_error('La extensiï¿½n para openssl no se encuentra cargada, verifique la instalaciï¿½n.');
+			throw new toba_error('La extensión para openssl no se encuentra cargada, verifique la instalación.');
 		}
 		$cipher = new Cryptor($this->default_algo, $this->default_hash, $this->default_formato);
 		return $cipher->encryptString($dato, $clave);
@@ -79,7 +79,7 @@ class toba_encriptador
 	function desencriptar($dato, $clave)
 	{
 		if (! extension_loaded('php_openssl') && ! extension_loaded('Openssl')) {
-			throw new toba_error('La extensiï¿½n para openssl no se encuentra cargada, verifique la instalaciï¿½n.');
+			throw new toba_error('La extensión para openssl no se encuentra cargada, verifique la instalación.');
 		}
 		$cipher = new Cryptor($this->default_algo, $this->default_hash, $this->default_formato);
 		return $cipher->decryptString($dato, $clave);
@@ -89,7 +89,7 @@ class toba_encriptador
 	//							FUNCIONES CON UTILIDAD A FUTURO
 	//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	/**
-	 * Permite fijar el algoritmo de des/encriptaciï¿½n (default aes-256-ctr)
+	 * Permite fijar el algoritmo de des/encriptación (default aes-256-ctr)
 	 * @param type $algo
 	 */
 	function set_algoritmo($algo)
