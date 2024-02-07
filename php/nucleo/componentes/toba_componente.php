@@ -88,7 +88,7 @@ abstract class toba_componente
 	}
 	
 	/**
-	 * Alternativa para que la reutilizaciï¿½n de un mismo componente en un mismo request se siga comportando como antes de [3050], es decir el ultimo creado pisa la memoria del 1ero.
+	 * Alternativa para que la reutilización de un mismo componente en un mismo request se siga comportando como antes de [3050], es decir el ultimo creado pisa la memoria del 1ero.
 	 */
 	static function set_modo_compatible_manejo_sesion($compatible)
 	{
@@ -96,7 +96,7 @@ abstract class toba_componente
 	}
 	
 	/**
-	 * Mï¿½todo interno para iniciar el componente una vez construido
+	 * Método interno para iniciar el componente una vez construido
 	 * @ignore 
 	 */
 	function inicializar($parametros=array())
@@ -108,8 +108,8 @@ abstract class toba_componente
 	}
 	
 	/**
-	 * Ventana de extensiï¿½n que se ejecuta al iniciar el componente en todos los pedidos en los que participa.
-	 * Como la ventana es previa a la atenciï¿½n de eventos y servicios es un punto ideal para la configuraciï¿½n global del componente
+	 * Ventana de extensión que se ejecuta al iniciar el componente en todos los pedidos en los que participa.
+	 * Como la ventana es previa a la atención de eventos y servicios es un punto ideal para la configuración global del componente
 	 * @ventana
 	 */
 	function ini() {}
@@ -137,7 +137,7 @@ abstract class toba_componente
 	}
 
 	/**
-	 * Shortcut de @see toba_logger::debug() que incluye informaciï¿½n bï¿½sica del componente actual
+	 * Shortcut de @see toba_logger::debug() que incluye información básica del componente actual
 	 */
 	protected function log($txt)
 	{
@@ -153,7 +153,7 @@ abstract class toba_componente
 	}
 
 	/**
-	 * Retorna el nombre del componente segï¿½n se definiï¿½ en el editor
+	 * Retorna el nombre del componente según se definió en el editor
 	 * @return string
 	 */
 	function get_nombre()
@@ -162,7 +162,7 @@ abstract class toba_componente
 	}
 
 	/**
-	 * Retorna el tï¿½tulo del componente (nombre visible al usuario)
+	 * Retorna el título del componente (nombre visible al usuario)
 	 * @return string
 	 */
 	function get_titulo()
@@ -189,7 +189,7 @@ abstract class toba_componente
 	}
 
 	/**
-	 * Retorna un parï¿½metro estï¿½tico definido en las prop. bï¿½sicas del componente
+	 * Retorna un parámetro estático definido en las prop. básicas del componente
 	 * @param string $parametro Puede ser a,b,c,d,e,f
 	 */
 	function get_parametro($parametro)
@@ -233,7 +233,7 @@ abstract class toba_componente
 	 * Retorna un mensaje asociado al componente
 	 *
 	 * @param mixed $indice Indice del mensaje en el componente
-	 * @param mixed $parametros Parï¿½metros posicionales a ser reemplazados en el mensaje (puede ser uno solo o un array)
+	 * @param mixed $parametros Parámetros posicionales a ser reemplazados en el mensaje (puede ser uno solo o un array)
 	 * @return string Mensaje parseado
 	 * @see toba_mensajes
 	 */
@@ -267,7 +267,7 @@ abstract class toba_componente
 	 * Informa un mensaje predefinido al usuario, usando toba::notificacion() y toba::mensajes()
 	 *
 	 * @param mixed $indice Indice del mensaje predefinido
-	 * @param mixed $parametros Parï¿½metros posicionales a ser reemplazados en el mensaje (puede ser uno solo o un array)
+	 * @param mixed $parametros Parámetros posicionales a ser reemplazados en el mensaje (puede ser uno solo o un array)
 	 * @param string $nivel Severidad: info o error
 	 * 
  	 * @see toba_mensajes
@@ -537,7 +537,7 @@ abstract class toba_componente
 	}	
 	
 	/**
-	 * Agregar dinï¿½micamente una dependencia al componente actual
+	 * Agregar dinámicamente una dependencia al componente actual
 	 *
 	 * @param string $identificador ID. de la dependencia
 	 * @param string $proyecto 
@@ -553,7 +553,7 @@ abstract class toba_componente
 	}
 
 	/**
-	 * Agregar dinï¿½micamente una dependencia al componente actual utilizando
+	 * Agregar dinámicamente una dependencia al componente actual utilizando
 	 *
 	 * @param string $identificador ID. del componente
 	 * @param string $proyecto 
@@ -610,7 +610,7 @@ abstract class toba_componente
 	}
 
 	/**
-	 * Retorna verdadero si la dependencia fue construida y asociada en este pedido de pï¿½gina
+	 * Retorna verdadero si la dependencia fue construida y asociada en este pedido de página
 	 * @return boolean
 	 */
 	function dependencia_cargada($id)

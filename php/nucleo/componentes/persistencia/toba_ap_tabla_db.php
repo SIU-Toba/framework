@@ -5,7 +5,7 @@ define("apex_db_registros_separador","%");
  * Administrador de persistencia a una tabla de DB desde un @see toba_datos_tabla
  * Supone que la tabla de datos se va a mapear a algun tipo de estructura en una base de datos
  *
- * TODO Poder desactivar el control de sincronizacion (ï¿½se necesita esto?)
+ * TODO Poder desactivar el control de sincronizacion (¿se necesita esto?)
  * TODO Como se implementa la carga de columnas externas??
  * TODO Donde se hacen los controles pre-sincronizacion (nulos db)??
  * TODO Hay que definir el manejo de claves (en base a toba_datos_relacion)
@@ -87,7 +87,7 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 	}
 
 	/**
-	 * Shorcut a toba::logger()->debug incluyendo infomaciï¿½n bï¿½sica del componente
+	 * Shorcut a toba::logger()->debug incluyendo infomación básica del componente
 	 */
 	protected function log($txt)
 	{
@@ -95,7 +95,7 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 	}
 
 	/**
-	 * Mï¿½todo de debug que retorna las propiedades internas
+	 * Método de debug que retorna las propiedades internas
 	 * @return array
 	 */
 	function info()
@@ -132,15 +132,15 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 	}
 
 	/**
-	 * Carga una columna separada del proceso comï¿½n de carga
-	 * Se brinda una query que carga una o mï¿½s columnas denominadas como 'externas'
-	 * Una columna externa no participa en la sincronizaciï¿½n posterior, pero por necesidades casi siempre estï¿½ticas
+	 * Carga una columna separada del proceso común de carga
+	 * Se brinda una query que carga una o más columnas denominadas como 'externas'
+	 * Una columna externa no participa en la sincronización posterior, pero por necesidades casi siempre estéticas
 	 * necesitan mantenerse junto al conjunto de datos.
 	 *
 	 * @param string $sql Query de carga que devolvera un registro conteniendo las columnas 'externas'
 	 * @param array $col_parametros Columnas que espera recibir el sql, en la sql necesitan esta el campo entre % (%nombre_campo%)
-	 * @param array $col_resultado Columnas del registro resultante que se tomarï¿½n para rellenar la tabla
-	 * @param boolean $sincro_continua En cada pedido de pï¿½gina ejecuta la sql para actualizar los valores de las columnas
+	 * @param array $col_resultado Columnas del registro resultante que se tomarán para rellenar la tabla
+	 * @param boolean $sincro_continua En cada pedido de página ejecuta la sql para actualizar los valores de las columnas
 	 * @param boolean $estricto Indica si es imperioso que la columna externa posea un estado o se
 	 * permite que no posea valor.
 	 */
@@ -156,17 +156,17 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 	}
 
 	/**
-	 * Carga una columna separada del proceso comï¿½n de carga
-	 * Se brinda un DAO que carga una o mï¿½s columnas denominadas como 'externas'
-	 * Una columna externa no participa en la sincronizaciï¿½n posterior, pero por necesidades casi siempre estï¿½ticas
+	 * Carga una columna separada del proceso común de carga
+	 * Se brinda un DAO que carga una o más columnas denominadas como 'externas'
+	 * Una columna externa no participa en la sincronización posterior, pero por necesidades casi siempre estéticas
 	 * necesitan mantenerse junto al conjunto de datos.
 	 *
-	 * @param string $mï¿½todo Mï¿½todo que obtiene los datos.
-	 * @param string $clase  Clase a la que pertenece el mï¿½todo.	Si es NULL usa el mismo AP
+	 * @param string $método Método que obtiene los datos.
+	 * @param string $clase  Clase a la que pertenece el método.	Si es NULL usa el mismo AP
 	 * @param string $include Archivo donde se encuentra la clase.	Si es NULL usa el mismo AP
 	 * @param array $col_parametros Columnas que espera recibir el DAO.
-	 * @param array $col_resultado Columnas del registro resultante que se tomarï¿½n para rellenar la tabla
-	 * @param boolean $sincro_continua En cada pedido de pï¿½gina ejecuta el DAO para actualizar los valores de las columnas
+	 * @param array $col_resultado Columnas del registro resultante que se tomarán para rellenar la tabla
+	 * @param boolean $sincro_continua En cada pedido de página ejecuta el DAO para actualizar los valores de las columnas
 	 * @param boolean $estricto Indica si es imperioso que la columna externa posea un estado o se
 	 * permite que no posea valor.
 	 */
@@ -186,16 +186,16 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 	}
 
 	/**
-	 * Carga una columna separada del proceso comï¿½n de carga
-	 * Se brinda un Datos Tabla  que carga una o mï¿½s columnas denominadas como 'externas'
-	 * Una columna externa no participa en la sincronizaciï¿½n posterior, pero por necesidades casi siempre estï¿½ticas
+	 * Carga una columna separada del proceso común de carga
+	 * Se brinda un Datos Tabla  que carga una o más columnas denominadas como 'externas'
+	 * Una columna externa no participa en la sincronización posterior, pero por necesidades casi siempre estéticas
 	 * necesitan mantenerse junto al conjunto de datos.
 	 *
 	 * @param string $tabla Identificador del objeto_datos_tabla a utilizar.
-	 * @param string $metodo Mï¿½todo que obtiene los datos.
+	 * @param string $metodo Método que obtiene los datos.
 	 * @param array $col_parametros Columnas que espera recibir el DAO.
-	 * @param array $col_resultado Columnas del registro resultante que se tomarï¿½n para rellenar la tabla
-	 * @param boolean $sincro_continua En cada pedido de pï¿½gina ejecuta el DAO para actualizar los valores de las columnas
+	 * @param array $col_resultado Columnas del registro resultante que se tomarán para rellenar la tabla
+	 * @param boolean $sincro_continua En cada pedido de página ejecuta el DAO para actualizar los valores de las columnas
 	 * @param boolean $estricto Indica si es imperioso que la columna externa posea un estado o se
 	 * permite que no posea valor.
 	 */
@@ -228,10 +228,10 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 	}
 
 	/**
-	 * Activa el mecanismo de baja lï¿½gica
+	 * Activa el mecanismo de baja lógica
 	 * En este mecanismo en lugar de hacer DELETES actualiza una columna
 	 *
-	 * @param string $columna Columna que determina la baja lï¿½gica
+	 * @param string $columna Columna que determina la baja lógica
 	 * @param mixed $valor Valor que toma la columna al dar de baja un registro
 	 */
 	function activar_baja_logica($columna, $valor)
@@ -255,7 +255,7 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 	}
 
 	/**
-	 * Activa/Desactiva el uso automï¿½tico del trim sobre datos en el insert o update
+	 * Activa/Desactiva el uso automático del trim sobre datos en el insert o update
 	 * @param boolean $usar
 	 */
 	function set_usar_trim($usar)
@@ -269,7 +269,7 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 	}
 
 	/**
-	 * Activa/Desactiva un mecanismo de chequeo de concurrencia en la ediciï¿½n
+	 * Activa/Desactiva un mecanismo de chequeo de concurrencia en la edición
 	 */
 	function set_lock_optimista($usar=true)
 	{
@@ -287,7 +287,7 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 	 */
 	function pertenece_a_tabla(&$col, $tabla)
 	{
-		// si no estï¿½ seteado $col['tabla'] entonces no puede ser un ap
+		// si no está seteado $col['tabla'] entonces no puede ser un ap
 		// multitabla, por tanto todas las columnas perteneces a la tabla $this->_tabla
 		// porque no hay otra ;)
 		return !isset($col['tabla']) || $tabla == $col['tabla'];
@@ -322,7 +322,7 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 
 	/**
 	 * Carga el datos_tabla asociaciado a partir de una clausula where personalizada
-	 * @param string $clausula Clï¿½usula where que serï¿½ anexada con un AND a las clï¿½usulas bï¿½sicas de la tabla
+	 * @param string $clausula Cláusula where que será anexada con un AND a las cláusulas básicas de la tabla
 	 * @param boolean $anexar_datos Si es false borra todos los datos actuales de la tabla, sino los mantiene y adjunto los nuevos
 	 * @param boolean $usar_cursores En caso de anexar datos, fuerza a que los padres de la fila sean los cursores actuales de las tablas padre
 	 * @return boolean Falso si no se encontro ningun registro
@@ -342,7 +342,7 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 	 * @param array $from Tablas extra que participan (la actual se incluye automaticamente)
 	 * @param boolean $anexar_datos Si es false borra todos los datos actuales de la tabla, sino los mantiene y adjunto los nuevos
 	 * @param boolean $usar_cursores En caso de anexar datos, fuerza a que los padres de la fila sean los cursores actuales de las tablas padre
-	 * @return boolean Falso si no se encontro ningï¿½n registro
+	 * @return boolean Falso si no se encontro ningún registro
 	 */
 	function cargar_con_where_from_especifico($where=null, $from=null, $anexar_datos=false, $usar_cursores=false)
 	{
@@ -356,7 +356,7 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 	 * Carga el datos_tabla asociado CON una query SQL directa
 	 * @param boolean $anexar_datos Si es false borra todos los datos actuales de la tabla, sino los mantiene y adjunto los nuevos
 	 * @param boolean $usar_cursores En caso de anexar datos, fuerza a que los padres de la fila sean los cursores actuales de las tablas padre
-	 * @return boolean Falso si no se encontro ningï¿½n registro
+	 * @return boolean Falso si no se encontro ningún registro
 	 */
 	function cargar_con_sql($sql, $anexar_datos=false, $usar_cursores=false)
 	{
@@ -366,7 +366,7 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 			$datos = $db->consultar($sql);
 		}catch(toba_error_db $e){
 			$mensaje = $e->get_mensaje_motor();
-			$mensaje = "Error cargando la tabla <b>$this->_tabla</b>, a continuaciï¿½n el mensaje de la base:<br>".$mensaje;
+			$mensaje = "Error cargando la tabla <b>$this->_tabla</b>, a continuación el mensaje de la base:<br>".$mensaje;
 			$e->set_mensaje_motor($mensaje);
 			toba::logger()->error( get_class($this). ' - '.
 									'Error cargando datos. ' .$e->getMessage() );
@@ -380,7 +380,7 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 	 * @param array $datos Datos a cargar en formato RecordSet. No incluye las columnas externas.
 	 * @param boolean $anexar_datos Si es false borra todos los datos actuales de la tabla, sino los mantiene y adjunto los nuevos
 	 * @param boolean $usar_cursores En caso de anexar datos, fuerza a que los padres de la fila sean los cursores actuales de las tablas padre
-	 * @return boolean Falso si no se encontro ningï¿½n registro
+	 * @return boolean Falso si no se encontro ningún registro
 	 */
 	function cargar_con_datos($datos, $anexar_datos=false, $usar_cursores=false)
 	{
@@ -421,8 +421,8 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 
 	/**
 	 * Sincroniza los cambios en los registros de esta tabla con la base de datos
-	 * Sï¿½lo se utiliza cuando la tabla no estï¿½ involucrada en algun datos_relacion, sino
-	 * la sincronizaciï¿½n es guiada por ese objeto
+	 * Sólo se utiliza cuando la tabla no está involucrada en algun datos_relacion, sino
+	 * la sincronización es guiada por ese objeto
 	 * @return integer Cantidad de registros modificados
 	 * @throws toba_error En case de error en la sincronizacion, se aborta la transaccion (si se esta utilizando)
 	 */
@@ -442,10 +442,10 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 			return $modificaciones;
 		} catch(toba_error $e) {
 			if($this->_utilizar_transaccion) {
-				toba::logger()->info("Abortando transacciï¿½n en {$this->_fuente}", 'toba');
+				toba::logger()->info("Abortando transacción en {$this->_fuente}", 'toba');
 				abortar_transaccion($this->_fuente);
 			}
-			toba::logger()->debug("Relanzando excepciï¿½n. ".$e, 'toba');
+			toba::logger()->debug("Relanzando excepción. ".$e, 'toba');
 			throw $e;
 		}
 	}
@@ -614,7 +614,7 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 	}
 
 	/**
-	 * Actualiza en los registros los valores generados por el motor durante la transacciï¿½n
+	 * Actualiza en los registros los valores generados por el motor durante la transacción
 	 * @ignore
 	 */
 	protected function actualizar_columnas_predeterminadas_db($filas=array())
@@ -633,36 +633,36 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 	}
 
 	/**
-	 * Ventana para incluï¿½r validaciones (disparar una excepcion) o disparar procesos previo a sincronizar con la base de datos
-	 * La transacciï¿½n con la bd ya fue iniciada (si es que esta definida)
+	 * Ventana para incluír validaciones (disparar una excepcion) o disparar procesos previo a sincronizar con la base de datos
+	 * La transacción con la bd ya fue iniciada (si es que esta definida)
 	 * @ventana
 	 */
 	function evt__pre_sincronizacion(){}
 
 	/**
-	 * Ventana para incluï¿½r validaciones (disparar una excepcion) o disparar procesos antes de terminar de sincronizar con la base de datos
-	 * La transacciï¿½n con la bd aï¿½n no se terminï¿½ (si es que esta definida)
+	 * Ventana para incluír validaciones (disparar una excepcion) o disparar procesos antes de terminar de sincronizar con la base de datos
+	 * La transacción con la bd aún no se terminó (si es que esta definida)
 	 * @ventana
 	 */
 	function evt__post_sincronizacion(){}
 
 
 	/**
-	 * Ventana para manejar la pï¿½rdida de sincronizaciï¿½n con la tabla en la base de datos
-	 * El escenario es que ejecuto un update/delete usando los valores de las columnas originales y no arrojo resultados, con lo que se asume que alguien mï¿½s modifico el registro en el medio
-	 * La transacciï¿½n con la bd aï¿½n no se terminï¿½ (si es que esta definida)
+	 * Ventana para manejar la pérdida de sincronización con la tabla en la base de datos
+	 * El escenario es que ejecuto un update/delete usando los valores de las columnas originales y no arrojo resultados, con lo que se asume que alguien más modifico el registro en el medio
+	 * La transacción con la bd aún no se terminó (si es que esta definida)
 	 *
-	 * @param integer $id_fila Id. de fila de la tabla en la cual se encontrï¿½ el problema
+	 * @param integer $id_fila Id. de fila de la tabla en la cual se encontró el problema
 	 * @param string $sql_origen Sentencia que se intento ejecutar
 	 * @ventana
 	 */
 	function evt__perdida_sincronizacion($id_fila, $sql_origen)
 	{
-		$mensaje_usuario = "Error de concurrencia en la ediciï¿½n de los datos.<br><br>".
-							"Mientras Ud. editaba esta informaciï¿½n, la misma fue modificada por alguien mï¿½s. ".
-							"Para garantizar consistencia sï¿½lo podrï¿½ guardar cambios luego de reiniciar la ediciï¿½n.<br>";
+		$mensaje_usuario = "Error de concurrencia en la edición de los datos.<br><br>".
+							"Mientras Ud. editaba esta información, la misma fue modificada por alguien más. ".
+							"Para garantizar consistencia sólo podrá guardar cambios luego de reiniciar la edición.<br>";
 
-		//--Hace una consulta SQL contra la tabla para averiguar puntualmente cuï¿½l fue el cambio que llevo a esta situaciï¿½n
+		//--Hace una consulta SQL contra la tabla para averiguar puntualmente cuál fue el cambio que llevo a esta situación
 		$columnas = array();
 		foreach ($this->_columnas as $col) {
 			if(!$col['externa'] && $col['tipo'] != 'B') {
@@ -696,7 +696,7 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 				if ($modificado) {
 					$anterior = isset($fila_original[$col]) ? "'".$fila_original[$col]."'" : 'NULL';
 					$actual = isset($fila_base[$col]) ? "'".$fila_base[$col]."'" : 'NULL';
-					$diff .= "<li>$col: tenï¿½a el valor $anterior y ahora tiene $actual </li>";
+					$diff .= "<li>$col: tenía el valor $anterior y ahora tiene $actual </li>";
 				}
 			}
 			$diff .= '</ul>';
@@ -711,42 +711,42 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 
 
 	/**
-	 * Ventana de extensiï¿½n previo a la inserciï¿½n de un registro durante una sincronizaciï¿½n con la base
+	 * Ventana de extensión previo a la inserción de un registro durante una sincronización con la base
 	 * @param mixed $id_registro Clave interna del registro
 	 * @ventana
 	 */
 	protected function evt__pre_insert($id_registro){}
 
 	/**
-	 * Ventana de extensiï¿½n posterior a la inserciï¿½n de un registro durante una sincronizaciï¿½n con la base
+	 * Ventana de extensión posterior a la inserción de un registro durante una sincronización con la base
 	 * @param mixed $id_registro Clave interna del registro
 	 * @ventana
 	 */
 	protected function evt__post_insert($id_registro){}
 
 	/**
-	 * Ventana de extensiï¿½n previo a la actualizaciï¿½n de un registro durante una sincronizaciï¿½n con la base
+	 * Ventana de extensión previo a la actualización de un registro durante una sincronización con la base
 	 * @param mixed $id_registro Clave interna del registro
 	 * @ventana
 	 */
 	protected function evt__pre_update($id_registro){}
 
 	/**
-	 * Ventana de extensiï¿½n posterior a la actualizaciï¿½n de un registro durante una sincronizaciï¿½n con la base
+	 * Ventana de extensión posterior a la actualización de un registro durante una sincronización con la base
 	 * @param mixed $id_registro Clave interna del registro
 	 * @ventana
 	 */
 	protected function evt__post_update($id_registro){}
 
 	/**
-	 * Ventana de extensiï¿½n previa al borrado de un registro durante una sincronizaciï¿½n con la base
+	 * Ventana de extensión previa al borrado de un registro durante una sincronización con la base
 	 * @param mixed $id_registro Clave interna del registro
 	 * @ventana
 	 */
 	protected function evt__pre_delete($id_registro){}
 
 	/**
-	 * Ventana de extensiï¿½n posterior al borrado de un registro durante una sincronizaciï¿½n con la base
+	 * Ventana de extensión posterior al borrado de un registro durante una sincronización con la base
 	 * @param mixed $id_registro Clave interna del registro
 	 * @ventana
 	 */
@@ -782,7 +782,7 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 	/**
 	 * Genera la sentencia WHERE del estilo ( nombre_columna = valor ) respetando el tipo de datos
 	 * @param array $clave Arreglo asociativo clave - valor de la clave a filtrar
-	 * @param boolean $alias ï¿½til para cuando se generan SELECTs complejos
+	 * @param boolean $alias Útil para cuando se generan SELECTs complejos
 	 * @return array Clausulas where
 	 *
 	 * @ignore
@@ -887,7 +887,7 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 		if (isset($this->_sql_carga)) {
 			return $this->generar_sql_select($this->_sql_carga['where'], $this->_sql_carga['from'], $campos);
 		} else {
-			throw new toba_error_def("AP-TABLA Db: La tabla no ha sido cargada en este pedido de pï¿½gina");
+			throw new toba_error_def("AP-TABLA Db: La tabla no ha sido cargada en este pedido de página");
 		}
 	}
 
@@ -1070,7 +1070,7 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 	{
 		$id = array();
 		if (! $this->_lock_optimista) {
-			//Sin lock optimista arma el where sï¿½lo con las claves
+			//Sin lock optimista arma el where sólo con las claves
 			foreach($this->_clave as $clave){
 				$id[$clave] = $this->_cambios[$id_registro]['clave'][$clave];
 			}
@@ -1272,8 +1272,8 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 			if (method_exists($this, $nombre_metodo)) {
 				$datos = call_user_func_array(array($this,$nombre_metodo), array_values($param_dao));
 			}else {
-				$this->log(' ERROR en la carga de una columna externa. El mï¿½todo: '. $nombre_metodo .' no esta definido', 'error');
-				throw new toba_error_def('AP_TABLA_DB: ERROR en la carga de una columna externa. Mï¿½todo no definido, revise el log');
+				$this->log(' ERROR en la carga de una columna externa. El método: '. $nombre_metodo .' no esta definido', 'error');
+				throw new toba_error_def('AP_TABLA_DB: ERROR en la carga de una columna externa. Método no definido, revise el log');
 			}
 		}
 		return $datos;
@@ -1292,8 +1292,8 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 		$dt = toba_constructor::get_runtime($id, 'toba_datos_tabla');
 		 if (! method_exists($dt, $nombre_metodo)) {
 			$clase = get_class($dt);
-			$this->log("ERROR en la carga de una columna externa. No existe el mï¿½todo '$nombre_metodo' de la clase '$clase'", 'error');
-			throw new toba_error_def('AP_TABLA_DB: ERROR en la carga de una columna externa. Mï¿½todo no definido, revise el log');
+			$this->log("ERROR en la carga de una columna externa. No existe el método '$nombre_metodo' de la clase '$clase'", 'error');
+			throw new toba_error_def('AP_TABLA_DB: ERROR en la carga de una columna externa. Método no definido, revise el log');
 		}
 		$datos = call_user_func_array(array($dt, $nombre_metodo), array_values($param_dt));
 		return $datos;
@@ -1312,8 +1312,8 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 		if (method_exists($obj, $nombre_metodo)) {
 				$datos = call_user_func_array(array($obj,$nombre_metodo), array_values($param_clase));
 		}else {
-			$this->log(' ERROR en la carga de una columna externa. El mï¿½todo: '. $nombre_metodo .' no esta definido en la clase de consulta '. $parametros['clase'], 'error');
-			throw new toba_error_def('AP_TABLA_DB: ERROR en la carga de una columna externa. Mï¿½todo no definido, revise el log');
+			$this->log(' ERROR en la carga de una columna externa. El método: '. $nombre_metodo .' no esta definido en la clase de consulta '. $parametros['clase'], 'error');
+			throw new toba_error_def('AP_TABLA_DB: ERROR en la carga de una columna externa. Método no definido, revise el log');
 		}
 		return $datos;
 	}
@@ -1344,8 +1344,8 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 			}
 		}
 		if (empty($campos_externos) && $es_obligatoria) {
-			$this->log('El mï¿½todo de carga masiva no devuelve los campos clave, no se puede adjuntar los datos externos', 'error');
-			throw new toba_error_def('AP_TABLA_DB: ERROR El mï¿½todo de carga no devuelve los campos clave, no se puede adjuntar los datos externos');
+			$this->log('El método de carga masiva no devuelve los campos clave, no se puede adjuntar los datos externos', 'error');
+			throw new toba_error_def('AP_TABLA_DB: ERROR El método de carga no devuelve los campos clave, no se puede adjuntar los datos externos');
 		}
 		$claves = array_keys($datos);
 		foreach($claves as $id) {
@@ -1400,7 +1400,7 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 			foreach( $parametros['col_parametro'] as $col_llave ) {
 				if (isset($evento) && isset($this->_secuencias[$col_llave])) {
 					toba_logger::instancia()->error("AP_TABLA: [{$this->_tabla}]:\n No puede actualizarse en linea un valor que dependende de una secuencia ($col_llave)");
-					throw new toba_error_def('AP_TABLA_DB: No puede actualizarse en lï¿½nea un valor secuencia, revise el log');
+					throw new toba_error_def('AP_TABLA_DB: No puede actualizarse en línea un valor secuencia, revise el log');
 				}
 				if (!isset($fila[$col_llave])) {
 					$estan_todos = false;

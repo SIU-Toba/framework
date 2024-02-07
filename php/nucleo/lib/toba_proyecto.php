@@ -1,8 +1,8 @@
 <?php
 /**
- * Brinda servicios de informaciï¿½n sobre el proyecto actualmente cargado en el framework:
- *  - Informaciï¿½n del archivo de configuraciï¿½n proyecto.ini, cacheandolo en la memoria
- *  - Informaciï¿½n de la definiciï¿½n bï¿½sica en el editor (e.i. los metadatos)
+ * Brinda servicios de información sobre el proyecto actualmente cargado en el framework:
+ *  - Información del archivo de configuración proyecto.ini, cacheandolo en la memoria
+ *  - Información de la definición básica en el editor (e.i. los metadatos)
  *
  * @package Centrales
  */
@@ -19,7 +19,7 @@ class toba_proyecto
 	const prefijo_punto_acceso = 'apex_pa_';
 
 	/**
-	 * Retorna el id del proyecto actualmente cargado en el pedido de pï¿½gina
+	 * Retorna el id del proyecto actualmente cargado en el pedido de página
 	 */
 	static function get_id()
 	{
@@ -81,7 +81,7 @@ class toba_proyecto
 		$this->memoria =& toba::manejador_sesiones()->segmento_info_proyecto($proyecto);
 		if (!$this->memoria) {
 			$this->memoria = self::cargar_info_basica();
-			//toba::logger()->debug('Inicializaciï¿½n de TOBA_PROYECTO: ' . $this->id,'toba');
+			//toba::logger()->debug('Inicialización de TOBA_PROYECTO: ' . $this->id,'toba');
 		}
 		$path_ini = self::get_path().'/proyecto.ini';
 		if (file_exists($path_ini)) {
@@ -93,8 +93,8 @@ class toba_proyecto
 
 
 	/**
-	 * Retorna el valor de un parï¿½metro generico del proyecto (ej. descripcion) cacheado en la memoria
-	 * @return toba_error si el parametro no se encuentra definido, sino el valor del parï¿½metro
+	 * Retorna el valor de un parámetro generico del proyecto (ej. descripcion) cacheado en la memoria
+	 * @return toba_error si el parametro no se encuentra definido, sino el valor del parámetro
 	 */
 	function get_parametro($seccion, $parametro=null, $obligatorio=true)
 	{
@@ -113,8 +113,8 @@ class toba_proyecto
 				return null;
 			}else{
 				if ($obligatorio) {
-					toba_logger::instancia()->error("INFO_PROYECTO: El parï¿½metro '$id' no se encuentra definido.");
-					throw new toba_error('INFO_PROYECTO: El parï¿½metro solicitado no se encuentra definido, revise el log.');
+					toba_logger::instancia()->error("INFO_PROYECTO: El parámetro '$id' no se encuentra definido.");
+					throw new toba_error('INFO_PROYECTO: El parámetro solicitado no se encuentra definido, revise el log.');
 				} else {
 					return null;
 				}
@@ -135,7 +135,7 @@ class toba_proyecto
 	//----------------------------------------------------------------
 
 	/**
-	 * Retorna el nï¿½mero de versiï¿½n propio del proyecto
+	 * Retorna el número de versión propio del proyecto
 	 * @return toba_version
 	 */
 	function get_version()
@@ -280,7 +280,7 @@ class toba_proyecto
 	/**
 	 * Retorna el path y url del directorio temporal navegable del proyecto (mi_proyecto/www/temp);
 	 * En caso de no existir, crea el directorio
-	 * Si se pasa un path relativo como parï¿½metro retorna el path absoluto del archivo en el directorio temporal
+	 * Si se pasa un path relativo como parámetro retorna el path absoluto del archivo en el directorio temporal
 	 * @return array con claves 'path' (en el sist.arch.) y 'url' (URL navegable)
 	 */
 	function get_www_temp($archivo='')
@@ -391,7 +391,7 @@ class toba_proyecto
 	 * @param unknown_type $solo_primer_nivel
 	 * @param string $proyecto Por defecto el actual
 	 * @param string $grupos_acceso Por defecto el del usuario actual
-	 * @return array RecordSet contienendo informaciï¿½n de los items
+	 * @return array RecordSet contienendo información de los items
 	 */
 	function get_items_menu($proyecto=null, $grupos_acceso=null)
 	{
@@ -439,7 +439,7 @@ class toba_proyecto
 																								'get_items_accesibles',
 																								false);
 				} else {
-					//-- Si no tiene grupo, busca aquellos items que son pï¿½blicos
+					//-- Si no tiene grupo, busca aquellos items que son públicos
 					$this->indice_items_accesibles = $this->recuperar_datos_compilados_grupo('toba_mc_gene__items_',
 																								array('publicos'),
 																								'get_items_accesibles',
@@ -512,7 +512,7 @@ class toba_proyecto
 	}
 
 	/**
-	 * Retorna la descripciï¿½n asociada a un permiso global particular del proy. actual
+	 * Retorna la descripción asociada a un permiso global particular del proy. actual
 	 */
 	function get_descripcion_permiso($permiso)
 	{
@@ -602,8 +602,8 @@ class toba_proyecto
 			$rs = toba_proyecto_db::get_info_servicio_web($proyecto, $id);
 		}
 		if (empty($rs)) {
-			toba_logger::instancia()->error("No se puede encontrar la definiciï¿½n del Servicio Web '$id' en el proyecto '$proyecto'");
-			throw new toba_error('No se puede encontrar la definiciï¿½n del Servicio Web en el proyecto ');
+			toba_logger::instancia()->error("No se puede encontrar la definición del Servicio Web '$id' en el proyecto '$proyecto'");
+			throw new toba_error('No se puede encontrar la definición del Servicio Web en el proyecto ');
 		}
 		return $rs;
 	}
@@ -665,7 +665,7 @@ class toba_proyecto
 			case apex_tipo_gadget_interno:
 
 							if (! isset($info['subclase']) || ! isset($info['subclase_archivo'])) {
-								throw new toba_error_def('La definiciï¿½n de subclase para el gadget esta incompleta');
+								throw new toba_error_def('La definición de subclase para el gadget esta incompleta');
 							} else {
 								$clase = $info['subclase'];
 								require_once($info['subclase_archivo']);
@@ -674,7 +674,7 @@ class toba_proyecto
 							}
 							break;
 			default:
-							throw new toba_error_def('El tipo de gadget recuperado no es vï¿½lido.');
+							throw new toba_error_def('El tipo de gadget recuperado no es válido.');
 		}
 		if (isset($info['titulo'])) {$objeto->set_titulo($info['titulo']);}
 		if (isset($info['descripcion'])) {$objeto->set_descripcion($info['descripcion']);}

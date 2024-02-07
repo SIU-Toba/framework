@@ -2,8 +2,8 @@
 
 /**
  * Esta clase maneja la VINCULACION entre operaciones. Conoce todos los lugares a los que la
- * operaciï¿½n actual puede acceder (considerando el USUARIO que lo solicito)
- * Para navegar hacia ellas puede construir URLs e incluirlos en algï¿½n TAG
+ * operación actual puede acceder (considerando el USUARIO que lo solicito)
+ * Para navegar hacia ellas puede construir URLs e incluirlos en algún TAG
  *
  * @see toba_vinculo
  * @package Centrales
@@ -32,17 +32,17 @@ class toba_vinculador
 	}
 	
 	/**
-	 * Genera una url que apunta a una operaciï¿½n de un proyecto
+	 * Genera una url que apunta a una operación de un proyecto
 	 *
 	 * @param string $proyecto Proyecto destino, por defecto el actual
 	 * @param string $item Item destino, por defecto el actual
 	 * @param array $parametros Parametros pasados al item, es un arreglo asociativo id_parametro => valor
 	 * @param array $opciones Arreglo asociativo de opciones ellas son:
-	 * <code> zona => Activa la propagaciï¿½n automï¿½tica del editable en la zona
+	 * <code> zona => Activa la propagación automática del editable en la zona
 	 * cronometrar => Indica si la solicitud generada por este vinculo debe cronometrarse
 	 * param_html => Parametros para la construccion de HTML. Si esta presente se genera HTML en vez de una URL. Las claves asociativas son: frame, clase_css, texto, tipo [normal,popup], inicializacion, imagen_recurso_origen, imagen
-	 * texto => Texto del vï¿½nculo
-	 * menu => El vinculo esta solicitado por una opciï¿½n menu?
+	 * texto => Texto del vínculo
+	 * menu => El vinculo esta solicitado por una opción menu?
 	 * celda_memoria => Namespace de memoria a utilizar, por defecto el actual
 	 * servicio => Servicio solicitado, por defecto get_html
 	 * objetos_destino => array(array(proyecto, id_objeto), ...) Objetos destino del vinculo
@@ -137,7 +137,7 @@ class toba_vinculador
 //##################################################################################
 	
 	/**
-	 * Retorna el querystring propagando la zona actual (si es que hay y estï¿½ cargada)
+	 * Retorna el querystring propagando la zona actual (si es que hay y está cargada)
 	 * @return string
 	 */
 	function get_qs_zona()
@@ -289,12 +289,12 @@ class toba_vinculador
 	/**
 	 * Genera un salto de javascript directo a una pagina
 	 *
-	 * @param string $item_proyecto Proyecto al que pertenece el ï¿½tem destino (por defecto el actual)
-	 * @param string $item ID. del ï¿½tem destino (por defecto el actual)
+	 * @param string $item_proyecto Proyecto al que pertenece el ítem destino (por defecto el actual)
+	 * @param string $item ID. del ítem destino (por defecto el actual)
 	 * @param array $parametros Parametros pasados a la OPERACION (Array asociativo de strings)
 	 * @param boolean $zona Activa la propagacion automatica del editable de la ZONA
 	 * @param boolean $cronometrar Indica si la solicitud generada por este vinculo debe cronometrarse
-	 * @return string Comando JS que contiene el salto de pï¿½gina
+	 * @return string Comando JS que contiene el salto de página
 	 */
 	function navegar_a($item_proyecto="",$item="",$parametros=null,
 								$zona=false,$cronometrar=false)
@@ -336,7 +336,7 @@ class toba_vinculador
 	}
 	
 	/**
-	 * Mï¿½todo de debug que dumpea el estado actual de los vinculos registrados
+	 * Método de debug que dumpea el estado actual de los vinculos registrados
 	 */
 	function info()
 	{
