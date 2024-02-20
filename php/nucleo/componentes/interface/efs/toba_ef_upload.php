@@ -76,7 +76,7 @@ class toba_ef_upload extends toba_ef
 		$salida .= $this->get_html_iconos_utilerias();
 		return $salida;
 	}
-	
+
 	function get_estado_input()
 	{
 		if (isset($this->estado)) {
@@ -85,7 +85,13 @@ class toba_ef_upload extends toba_ef
 			return null;
 		}
 	}
-	
+
+    function set_estado($estado)
+	{
+        parent::set_estado($estado);
+        $this->archivo_subido[$this->id_form] = (null !== $estado);
+	}
+
 	function cargar_estado_post()
 	{
 		$this->archivo_cargado[$this->id_form] = toba::memoria()->get_dato_sincronizado($this->id_form."_cargado");
@@ -100,7 +106,7 @@ class toba_ef_upload extends toba_ef
 
 	function es_archivo_vacio()
 	{
-		return $_FILES[$this->id_form]['error'] == UPLOAD_ERR_NO_FILE;
+		return (isset($_FILES[$this->id_form]) && $_FILES[$this->id_form]['error'] === UPLOAD_ERR_NO_FILE);
 	}
 	
 	function tiene_estado()
