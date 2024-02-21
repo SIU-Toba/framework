@@ -48,7 +48,7 @@ class toba_xml {
 		}
 
 		if ($conv_utf8) {
-			$this->xml->text(utf8_e_seguro($valor));
+			$this->xml->text(utf8_e_seguro($valor??''));
 		} else {
 			$this->xml->text($valor);
 		}

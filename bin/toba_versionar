@@ -1,7 +1,60 @@
 #!/bin/sh
-export TOBA_DIR=/usr/local/proyectos/toba_trunk
+
+echo "============================="
+echo "Inicio ejecución BUMP VERSION"
+echo "============================="
+
+cd `dirname $0`
+#cd ..
+TOBA_DIR=`dirname $(pwd)`
 export PATH="$toba_dir/bin:$PATH"
-toba nucleo versionar -r $1 -u cambiar_usuario
-dirdestino=/tmp/toba
-scp $dirdestino/* repositorio.siu.edu.ar:/var/www/downloads/toba
-rm -f /tmp/toba/*
+
+TOBA_VERSION=$1
+if [ -z "$TOBA_VERSION" ] ; then
+  read -p "Ingresar la versión a asignar (ej: v1.0.0, develop):" TOBA_VERSION
+fi
+eval "TOBA_VERSION='$TOBA_VERSION'"
+
+if [ -z "$TOBA_VERSION" ]; then
+    echo "Versión incorrecta"
+    exit 1
+fi
+
+TOBA_VERSION_SIMPLE=`echo $TOBA_VERSION | sed 's/^v//'`
+
+echo "Se asigna la versión '$TOBA_VERSION' en el archivo 'version'"
+
+echo -n $TOBA_VERSION > $TOBA_DIR/version
+
+echo "Se asigna la versión '$TOBA_VERSION_SIMPLE' en el archivo 'composer.json'"
+regex=".*\"version\": .*$"
+replace="    \"version\": \"v$TOBA_VERSION_SIMPLE\","
+sed -i "s|$regex|$replace|" $TOBA_DIR/composer.json
+
+echo "Se asigna la versión '$TOBA_VERSION_SIMPLE' en el archivo 'package.json'"
+replace="  \"version\": \"v$TOBA_VERSION_SIMPLE\","
+sed -i "s|$regex|$replace|" $TOBA_DIR/package.json
+
+
+for PROYECTO in "toba_editor" "toba_usuarios" "toba_referencia"; do
+
+  echo "Se asigna la versión '$TOBA_VERSION_SIMPLE' en el archivo 'apex_proyecto.sql' de $PROYECTO"
+
+  regex=".*, --version$"
+  replace="\t'$TOBA_VERSION_SIMPLE', --version"
+  sed -i "s|$regex|$replace|" $TOBA_DIR/proyectos/$PROYECTO/metadatos/tablas/apex_proyecto.sql
+
+  echo "Se asigna la versión '$TOBA_VERSION_SIMPLE' en el archivo 'toba_mc_gene__basicos.php' de $PROYECTO"
+  regex="'version'.*"
+  replace="'version' => '$TOBA_VERSION_SIMPLE',"
+  sed -i "s|$regex|$replace|" $TOBA_DIR/proyectos/$PROYECTO/metadatos_compilados/gene/toba_mc_gene__basicos.php
+
+  echo "Se asigna la versión '$TOBA_VERSION_SIMPLE' en el archivo 'proyecto.ini' de $PROYECTO"
+  regex="^version = .*$"
+  replace="version = $TOBA_VERSION_SIMPLE"
+  sed -i "s|$regex|$replace|" $TOBA_DIR/proyectos/$PROYECTO/proyecto.ini
+
+done
+
+echo "============================="
+echo "Fin."

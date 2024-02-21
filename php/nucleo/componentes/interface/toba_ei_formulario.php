@@ -1165,13 +1165,14 @@ class toba_ei_formulario extends toba_ei
 	 * @param string $ef Identificador del ef
 	 * @param string $ancho_etiqueta Ancho de la etiqueta del ef. Si no se setea, usa la definida en el editor.
 	 * Recordar incluír las medidas (px, %, etc.). 
+     * @return string
 	 */	
 	protected function get_html_ef($ef, $ancho_etiqueta=null, $con_etiqueta=true)
 	{
 		$salida = '';
 		if (! in_array($ef, $this->_lista_ef_post)) {
 			//Si el ef no se encuentra en la lista posibles, es probable que se alla quitado con una restriccion o una desactivacion manual
-			return;
+			return '';
 		}
 		$es_fieldset = ($this->_elemento_formulario[$ef] instanceof toba_ef_fieldset);
 		$id_ef = $this->_elemento_formulario[$ef]->get_id_form();		

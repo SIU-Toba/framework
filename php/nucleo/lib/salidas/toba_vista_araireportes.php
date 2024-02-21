@@ -69,7 +69,7 @@ class toba_vista_araireportes
         }
 
         //Seteo el parametro
-        $this->parametros[$nombre] = utf8_e_seguro($valor);
+        $this->parametros[$nombre] = utf8_e_seguro($valor??'');
     }
 
     /**
