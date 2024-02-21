@@ -4,6 +4,12 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.4.2](https://github.com/SIU-Toba/framework/releases/tag/v3.4.2) (2024-02-22)
+- Se corrige bug en `ef_upload` que afectaba uso en `toba_ei_formularios_ml`
+- Actualizacion de seguridad de paquetes JS:
+     * CKEditor4: v4.24
+- Se corrige warnings durante la exportación de perfiles propios en modo produccion
+
 [3.4.1](https://github.com/SIU-Toba/framework/releases/tag/v3.4.1) (2024-01-19)
 - Se corrige problema en la clase `toba_logger_ws` que impedia visualizar la documentación de las APIs Rest.
 
