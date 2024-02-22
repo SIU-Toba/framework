@@ -187,7 +187,7 @@ class toba_autenticacion_saml_onelogin extends toba_autenticacion implements tob
 	protected function recuperar_usuario_toba()
 	{
 		$atributos_usuario = $this->get_atributos_usuario();
-		$id_usuario = utf8_d_seguro($atributos_usuario[$this->atributo_usuario][0]);
+		$id_usuario = utf8_d_seguro($atributos_usuario[$this->atributo_usuario][0]??'');
 		$datos_usuario = false;
 
 		$subclase = $this->get_subclase_usuario_proyecto();

@@ -139,7 +139,7 @@ class toba_autenticacion
 	{
 		$atributos = $this->get_atributos_usuario();
 		if (isset($atributos['uniqueIdentifier']) && ! empty($atributos['uniqueIdentifier'])) {
-			return  utf8_d_seguro($atributos['uniqueIdentifier'][0]);
+			return  utf8_d_seguro($atributos['uniqueIdentifier'][0]??'');
 		}
 	}
 

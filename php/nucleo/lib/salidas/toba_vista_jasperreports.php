@@ -112,7 +112,7 @@ class toba_vista_jasperreports
 				break;	
 			case 'S':
 				$tipo = "java.lang.String";
-				$valor = utf8_e_seguro($valor);	
+				$valor = utf8_e_seguro($valor??'');
 				break;
 			case 'E':
 				$tipo = "java.lang.Integer";				
@@ -125,11 +125,11 @@ class toba_vista_jasperreports
 				break;
 			 case 'L':
 				$tipo = "java.util.Locale";
-				$valor = utf8_e_seguro($valor);    
+				$valor = utf8_e_seguro($valor??'');
 				break;			
 			default:
 				$tipo = "java.lang.String";
-				$valor = utf8_e_seguro($valor);	
+				$valor = utf8_e_seguro($valor??'');
 				break;
 		}
 
