@@ -4,6 +4,11 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.4.3](https://github.com/SIU-Toba/framework/releases/tag/v3.4.3) (2024-03-12)
+- Corrige warnings en `toba_ei_calendario`
+- Downgrade de paquete JS:
+     * CKEditor4: v4.22
+
 [3.4.2](https://github.com/SIU-Toba/framework/releases/tag/v3.4.2) (2024-02-22)
 - Se corrige bug en `ef_upload` que afectaba uso en `toba_ei_formularios_ml`
 - Actualizacion de seguridad de paquetes JS:
