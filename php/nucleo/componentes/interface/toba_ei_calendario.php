@@ -952,7 +952,7 @@ class calendario //extends activecalendar
 		$day = $this->mkActiveDate('Y-m-d', $this->mkActiveTime(0,0,1,$this->actmonth,$var,$this->actyear));
 		$hasContent = $this->content($day);
 		$out='';
-		if ($hasContent) {
+		if (! empty($hasContent)) {
 			foreach($hasContent as $content) {
 				$out .= toba::output()->get('Calendario')->getEventwithContent($this->cssEventContent, $content);
 			}
@@ -965,8 +965,8 @@ class calendario //extends activecalendar
 	 */
 	function content($var)
 	{
-		$hasContent = false;	
-		if ($this->calEventContent) {
+		$hasContent = [];	
+		if (! empty($this->calEventContent)) {
 			for ($x=0; $x<count($this->calEventContent); $x++) {
 				$eventContent = $this->calEventContent[$x];
 				foreach($eventContent as $eventTime => $eventContent) {
@@ -1034,9 +1034,9 @@ class calendario //extends activecalendar
 	private $javaScriptDay=false;
 	private $monthNames=false;
 	private $dayNames=false;
-	private $calEventContent=false;
-	private $calEventContentUrl=false;
-	private $calEventContentId=false;
+	private $calEventContent=[];
+	private $calEventContentUrl=[];
+	private $calEventContentId=[];
 	private $calInit=0;
 	
 	/*
@@ -1503,7 +1503,7 @@ class calendario //extends activecalendar
 	{
 		$hasContent = false;
 
-		if ($this->calEventContent) {
+		if (! empty($this->calEventContent)) {
 			$checkTime = $this->mkActiveTime(0,0,1,$this->actmonth,$var,$this->actyear);
 
 			for ($x=0;$x<count($this->calEventContent);$x++) {

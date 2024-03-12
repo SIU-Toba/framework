@@ -1,7 +1,7 @@
 {
     "name": "siu-toba/framework",
     "description": "Framework de desarrollo web",
-    "version": "v3.4.2",
+    "version": "v3.4.3",
     "authors": [
         {
             "name": "SIU",
@@ -78,7 +78,7 @@
         "post-install-cmd": [
             "@putenv COMPOSER=./proyectos/toba_editor/composer.json",
             "composer run-script post-install-cmd ",
-            "yarn add ckeditor4@4.24 jquery@3.6 jquery-migrate@3.3 siu-js-app-launcher@1.0.6  --modules-folder www/js/packages/",
+            "yarn add ckeditor4@4.22 jquery@3.6 jquery-migrate@3.3 siu-js-app-launcher@1.0.6  --modules-folder www/js/packages/",
             "yarn ",
             "@php bin/instalar_assets.php"
         ],
