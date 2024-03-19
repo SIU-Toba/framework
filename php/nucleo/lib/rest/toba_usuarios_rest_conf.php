@@ -12,8 +12,13 @@ class toba_usuarios_rest_conf implements
 {
 
 	protected $modelo_proyecto;
+    
 	static private $env_config = 'API_BASIC_CLIENTES';
-
+	static private $env_config_ak = 'API_KEYS_CLIENTES';
+    
+    static private $passwd_index = 'password';
+    static private $apk_index = 'api_key';
+    
 	function __construct(\toba_modelo_proyecto $proyecto)
 	{
 		$this->modelo_proyecto = $proyecto;
@@ -25,12 +30,12 @@ class toba_usuarios_rest_conf implements
 	 */
 	function es_valido($usuario, $password)
 	{ //se usa para basic
-		$usuarios_ini = $this->get_config_usuarios($this->modelo_proyecto);
+		$usuarios_ini = $this->get_config_usuarios($this->modelo_proyecto, self::$env_config, self::$passwd_index);
 
 		foreach ($usuarios_ini->get_entradas() as $key => $u) {
 			if ($key === $usuario) {
-				if (isset($u['password'])) {
-					return $u['password'] == $password;
+				if (isset($u[self::$passwd_index])) {
+					return $u[self::$passwd_index] == $password;
 				} else {
 					rest::app()->logger->info('Se encontro al usuario "' . $usuario . '", pero no tiene una entrada password en rest_usuario.ini');
 				}
@@ -45,12 +50,12 @@ class toba_usuarios_rest_conf implements
 	 */
 	function get_password($usuario)
 	{ //se usa para digest, ya que se requiere el password plano
-		$usuarios_ini = $this->get_config_usuarios($this->modelo_proyecto);
+		$usuarios_ini = $this->get_config_usuarios($this->modelo_proyecto, self::$env_config, self::$passwd_index);
 
 		foreach ($usuarios_ini->get_entradas() as $key => $u) {
 			if ($key === $usuario) {
-				if (isset($u['password'])) {
-					return $u['password'];
+				if (isset($u[self::$passwd_index])) {
+					return $u[self::$passwd_index];
 				} else {
 					rest::app()->logger->info('Se encontro al usuario "' . $usuario . '", pero no tiene una entrada password en rest_usuario.ini');
 				}
@@ -66,10 +71,10 @@ class toba_usuarios_rest_conf implements
 	 */
 	function get_usuario_api_key($api_key)
 	{
-		$usuarios_ini = $this->get_config_usuarios($this->modelo_proyecto);
+		$usuarios_ini = $this->get_config_usuarios($this->modelo_proyecto, self::$env_config_ak, self::$apk_index);
 
 		foreach ($usuarios_ini->get_entradas() as $username => $u) {
-			if (isset($u['api_key']) && $u['api_key'] === $api_key) {
+			if (isset($u[self::$apk_index]) && $u[self::$apk_index] === $api_key) {
 				return $username;
 			}
 		}
@@ -77,9 +82,16 @@ class toba_usuarios_rest_conf implements
 		return NULL;
 	}
 
-	private function get_config_usuarios($modelo_proyecto)
+    /**
+     * Recupera valores desde entorno o archivo ini
+     * @param toba_modelo_proyecto $modelo_proyecto
+     * @param string $env_var 
+     * @param sting $indice
+     * @return \toba_ini
+     */
+	private function get_config_usuarios($modelo_proyecto, $env_var, $indice)
 	{
-		$env_value = \getenv(self::$env_config);
+		$env_value = \getenv($env_var);
 		if (false === $env_value) {
 			$usuarios = toba_modelo_rest::get_ini_usuarios($modelo_proyecto);
 		} else {
@@ -87,7 +99,7 @@ class toba_usuarios_rest_conf implements
 			$datos = parse_rest_config_str($env_value);
 			$usuarios = new toba_ini();
 			foreach($datos as $dato) {
-				$usuarios->agregar_entrada($dato[0], ['password' => $dato[1]]);
+				$usuarios->agregar_entrada($dato[0], [$indice => $dato[1]]);
 			}
 		}
 		return $usuarios;
