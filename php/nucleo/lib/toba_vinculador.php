@@ -30,26 +30,6 @@ class toba_vinculador
 	{
 		$this->prefijo = toba::memoria()->prefijo_vinculo();
 	}
-
-	/**
-	 * @deprecated Usar get_url
-	 * @see get_url
-	 */
-	function crear_vinculo($proyecto=null, $item=null, $parametros=array(), $opciones=array())
-	{
-		return $this->get_url($proyecto, $item, $parametros, $opciones);
-	}
-	
-	
-	/**
-	 * @deprecated Usar get_url
-	 * @see get_url
-	 **/
-	function crear_autovinculo($parametros=array(), $opciones=array())
-	{
-		return $this->get_url(null, null, $parametros, $opciones);
-	}
-	
 	
 	/**
 	 * Genera una url que apunta a una operación de un proyecto
@@ -170,7 +150,7 @@ class toba_vinculador
 	 * @param string $celda_memoria Namespace de memoria a utilizar, por defecto el actual
 	 * @param string $nombre_ventana Nombre con que se abrira la ventana hija en caso de ser popup
 	 * @return string URL hacia el ítem solicitado
-	 * @deprecated Desde 1.0 usar get_url o get_url_
+	 * usar get_url o get_url_
 	 */
 	protected function generar_solicitud($item_proyecto=null,$item=null,$parametros=null,
 								$zona=false,$cronometrar=false,$param_html=null,
@@ -276,7 +256,6 @@ class toba_vinculador
 			return $vinculo;
 		}
 	}
-	
 	/**
 	 * Retorna el querystring propagando la zona actual (si es que hay y está cargada)
 	 * @return string

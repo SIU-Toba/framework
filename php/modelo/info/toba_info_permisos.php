@@ -91,14 +91,6 @@ class toba_info_permisos
 		return toba_contexto_info::get_db()->consultar($sql);
 	}	
 	
-	/**
-	 * @deprecated Desde 1.5 Usar get_perfiles_funcionales
-	 */
-	static function get_grupos_acceso($proyecto=null)
-	{
-		return self::get_perfiles_funcionales($proyecto);
-	}
-	
 	static function get_perfiles_datos($proyecto=null)
 	{
 		if (!isset($proyecto)) {

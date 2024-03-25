@@ -333,14 +333,6 @@ abstract class toba_componente
 	//-------------------------------------------------------------------------------
 	//-----------------   Memoria de propiedades     --------------------------------
 	//-------------------------------------------------------------------------------
-
-	/**
-	 * @deprecated Usar $this->set_propiedades_sesion
-	 */
-	function mantener_estado_sesion()
-	{
-		return array();
-	}
 	
 	/**
 	 * Determina las propiedades que se almacenaran en sesion
@@ -348,11 +340,6 @@ abstract class toba_componente
 	 */
 	protected function definir_propiedades_sesion()
 	{
-		//--- Compat. hacia atras
-		$props = $this->mantener_estado_sesion();
-		if (! empty($props) && is_array($props)) {
-			$this->set_propiedades_sesion($props);
-		}
 		//--- Metodo de descubrir propiedades que empiezen con s__
 		$props = reflexion_buscar_propiedades($this, 's__');
 		if (! empty($props)) {

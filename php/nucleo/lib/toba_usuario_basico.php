@@ -28,14 +28,8 @@ class toba_usuario_basico extends toba_usuario
 		} else {
 			//--- Autentificación
 			$algoritmo = $datos_usuario['autentificacion'];
-			if ($algoritmo != 'plano')  {
-				if ($algoritmo == 'md5') {
-					$clave = hash($algoritmo, $clave);
-				} else {
-					$clave = encriptar_con_sal($clave, $algoritmo, $datos_usuario['clave']);
-				}
-			}
-			if( ! hash_equals($datos_usuario['clave'], $clave) ) {
+			$hasher = new toba_hash($algoritmo);
+			if( ! $hasher->verify($clave, $datos_usuario['clave']) ) {
 				if ($usar_log) {
 					toba::logger()->error("El usuario '$id_usuario' ingreso una clave incorrecta", 'toba');
 				}
@@ -139,23 +133,6 @@ class toba_usuario_basico extends toba_usuario
 	function get_perfiles_funcionales()
 	{
 		return $this->grupos_acceso;
-	}
-
-	/**
-	*	@deprecated Desde 1.5 usar get_perfiles_funcionales
-	*/
-	function get_grupos_acceso()
-	{
-		return $this->get_perfiles_funcionales();
-	}
-
-	/**
-	* @deprecated 3.0.0
-	* @see toba_usuario_basico::get_perfiles_datos()
-	*/
-	function get_perfil_datos()
-	{
-		return $this->perfil_datos;
 	}
 
 	/**
