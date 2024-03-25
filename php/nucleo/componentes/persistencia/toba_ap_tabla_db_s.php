@@ -9,7 +9,6 @@ class toba_ap_tabla_db_s extends toba_ap_tabla_db
 	{
 		parent::__construct($datos_tabla);
 
-		$this->inicializar();
 		$this->ini();
 	}
 
