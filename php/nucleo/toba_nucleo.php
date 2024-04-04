@@ -627,7 +627,7 @@ class toba_nucleo
         $msg = [
             'error' => $status,
             'mensaje' => 'Error interno',
-            'descripcion' => $e->getMessage()];
+            'descripcion' => utf8_e_seguro($e->getMessage())];
 
         header('Error Inesperado', true, $status);
 		echo toba::escaper()->escapeJs(json_encode($msg)) . "\n\n";
