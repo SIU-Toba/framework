@@ -125,13 +125,12 @@ class pantalla_visor extends toba_ei_pantalla
 		}
 		
 		if (isset($encabezado['fecha'])) {
-			$fecha_ref = new toba_fecha();
-			$fecha_log = new toba_fecha();
-			$fecha_log->set_timestamp(strtotime($encabezado['fecha']));
+			$fecha_ref = new DateTime();
+			$fecha_log = new DateTime($encabezado['fecha']);
 			
-			$fecha = $fecha_log->get_timestamp_pantalla(); 
-			if ($fecha_ref->es_igual_que($fecha_log)) {
-				$fecha = 'Hoy  ' . date('H:i:s', strtotime($encabezado['fecha']));
+			$fecha = $fecha_log->format('d/m/Y H:i:s');
+			if ($fecha_ref->format('Y-m-d') === $fecha_log->format('Y-m-d')){
+				$fecha = 'Hoy  ' . $fecha_log->format('H:i:s');
 			}		
 			$string .= "<span id='div_lapso' style='font-weight:bold;font-size:12px;'>". $escapador->escapeHtml($fecha)."</span><br>";
 		}
