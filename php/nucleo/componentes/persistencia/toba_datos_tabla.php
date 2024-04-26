@@ -13,7 +13,7 @@
 class toba_datos_tabla extends toba_componente 
 {
 	protected $_info_estructura;
-	protected $_info_columnas;
+	protected $_info_columnas = array();
 	protected $_info_externas;
 	protected $_info_externas_col;
 	protected $_persistidor;						// Mantiene el persistidor del OBJETO

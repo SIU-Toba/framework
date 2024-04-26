@@ -48,13 +48,14 @@ abstract class toba_componente
 	 */
 	protected $controlador;
 		
-	function __construct( $definicion )
+	function __construct( $definicion = array())
 	{
 		//--- Compatibilidad con el metodo anterior de mantener cosas en sesion
 		$this->definir_propiedades_sesion();
 		// Compatibilidad hacia atras en el ID
 		$this->_id[0] = $definicion['_info']['proyecto'];
 		$this->_id[1] = $definicion['_info']['objeto'];
+		if(is_array($definicion))
 		//Cargo las variables internas que forman la definicion
 		foreach (array_keys($definicion) as $parte) {
 			$this->_definicion_partes[] = $parte;
