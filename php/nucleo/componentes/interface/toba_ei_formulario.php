@@ -1073,8 +1073,10 @@ class toba_ei_formulario extends toba_ei
 				if (isset($atributos['etiqueta_ancho'])) {
 					$etiqueta_ancho = $atributos['etiqueta_ancho'];
 				}				
-				$html = $this->get_html_ef($atributos['id'], $etiqueta_ancho, $etiqueta_mostrar);				
-				$salida = str_replace($original, $html, $salida);
+				$html = $this->get_html_ef($atributos['id'], $etiqueta_ancho, $etiqueta_mostrar);
+				if ($html !== null){
+					$salida = str_replace($original, $html, $salida);
+				}
 			}
 			echo $salida;
 		} else {
