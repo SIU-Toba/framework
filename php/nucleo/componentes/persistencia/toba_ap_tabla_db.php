@@ -71,14 +71,6 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 	}
 
 	/**
-	 * Ventana para agregar configuraciones particulares antes de que el objeto sea construido en su totalidad
-	 * @deprecated
-	 * @see ini
-	 * @ventana
-	 */
-	protected function inicializar(){}
-
-	/**
 	 * Ventana para agregar configuraciones particulares despues de la construccion
 	 * @ventana
 	 */

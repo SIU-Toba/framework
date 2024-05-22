@@ -50,20 +50,6 @@ class toba_manejador_archivos
 	}
 
 	/**
-	 * Ejecuta un comando dado (deprecated)
-	 * @param string $cmd
-	 * @param mixed $stdout
-	 * @param mixed $stderr
-	 * @return integer
-	 * @deprecated since version 3.0.0
-	 * @use toba_manejador_procesos::ejecutar
-	 */
-	static function ejecutar($cmd, &$stdout, &$stderr)
-	{
-		return toba_manejador_procesos::ejecutar($cmd, $stdout, $stderr);
-	}
-
-	/**
 	 * Similar al file_exists de php pero incluye al include_path en la búsqueda
 	 * @param string $file
 	 * @return boolean

@@ -169,15 +169,6 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 		}
 	}
 
-
-	/**
-	 * Genera el pie del cuadro
-	 * @deprecated
-	 */
-	protected function html_pie()
-	{
-	}
-
 	/**
 	 * Genera el html que el cuadro muestra cuando no tiene datos cargados
 	 * @param string $texto Texto a mostrar en base a la definición del componente
@@ -218,70 +209,6 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 		$objeto_js = $this->_cuadro->get_id_objeto_js();
 		$columnas = $this->_cuadro->get_columnas();
 		echo toba::output()->get('CuadroSalidaHtml')->getSelectorOrdenamiento($id, $objeto_js, $columnas);
-	}
-
-	/**
-	 *  Envia la botonera del selector
-	 *  @deprecated
-	 *  @see manejador_salida_toba
-	 */
-	protected function html_botonera_selector()
-	{
-		$objeto_js = $this->_cuadro->get_id_objeto_js();
-		//Saco la botonera para subir/bajar filas
-		echo "<div id='botonera_selector' class='ei-ml-botonera'>";
-		echo toba_form::button_html("{$objeto_js}_subir", toba_recurso::imagen_toba('nucleo/orden_subir.gif', true),
-								"onclick='{$objeto_js}.subir_fila_selector();'", 0, '<', 'Sube una posición la fila seleccionada');
-		echo toba_form::button_html("{$objeto_js}_bajar", toba_recurso::imagen_toba('nucleo/orden_bajar.gif', true),
-								"onclick='{$objeto_js}.bajar_fila_selector();' ", 0, '>', 'Baja una posición la fila seleccionada');
-		echo '</div>';
-	}
-
-	/**
-	 * Genera la cabecera con los titulos del selector
-	 * @deprecated
-	 * @see manejador_salida_toba
-	 */
-	protected function html_cabecera_selector()
-	{
-		echo "<thead>
-						<th class='ei-ml-columna'>Activar</th>
-						<th class='ei-ml-columna'>Columna</th>
-						<th class='ei-ml-columna' colspan='2'>Sentido</th>
-				</thead>";
-	}
-
-	/**
-	 *  Genera el cuerpo del selector
-	 *  @deprecated
-	 *  @see manejador_salida_toba
-	 */
-	protected function html_cuerpo_selector()
-	{
-		$columnas = $this->_cuadro->get_columnas();
-		$objeto_js = $this->_cuadro->get_id_objeto_js();
-
-		$cuerpo = '';
-		foreach($columnas as $col) {
-			if ($col['no_ordenar'] != 1) {
-				//Saco el contenedor de la fila y un checkbox para seleccionar.
-				$cuerpo .= "<tr id='fila_{$col['clave']}'  onclick=\"$objeto_js.seleccionar_fila_selector('{$col['clave']}');\" class='ei-ml-fila'><td>";
-				$cuerpo .= 	toba_form::checkbox('check_'.$col['clave'], null, '0','ef-checkbox', "onclick=\"$objeto_js.activar_fila_selector('{$col['clave']}');\" ");
-				$cuerpo .= "</td><td> {$col['titulo']}</td><td>";
-
-				//Saco el radiobutton para el sentido ascendente
-				$id = $col['clave'].'0';
-				$cuerpo .=  "<label class='ef-radio' for='$id'><input type='radio' id='$id' name='radio_{$col['clave']}' value='asc'  disabled/>Ascendente</label>";
-				$cuerpo .= '</td><td>' ;
-
-				//Saco el radiobutton para el sentido descendente
-				$id = $col['clave'].'1';
-				$cuerpo .= "<label class='ef-radio' for='$id'><input type='radio' id='$id' name='radio_{$col['clave']}' value='des'  disabled/>Descendente</label>";
-				$cuerpo .= '</td></tr>';
-			}
-		}
-		$cuerpo .= "<tr class='ei-botonera'><td colspan='4'>". toba_form::button('botonazo', 'Aplicar' ,  "onclick=\"$objeto_js.aplicar_criterio_ordenamiento();\"").'</td></tr>';
-		echo $cuerpo;
 	}
 
 	//-------------------------------------------------------------------------------
@@ -907,29 +834,6 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 	//-------------------------------------------------------------------------------
 	//-- Elementos visuales independientes
 	//-------------------------------------------------------------------------------
-    /**
-     *  Genera el HTML correspondiente a la sumarizacion de los datos
-     *  @deprecated
-     */
-	protected function html_cuadro_sumarizacion($datos, $titulo=null , $ancho=null, $css='col-num-p1')
-	{
-		if(isset($ancho)) $ancho = "width='$ancho'";
-		echo "<table $ancho class='ei-cuadro-cc-tabla-sum'>";
-		//Titulo
-		if(isset($titulo)){
-			echo "<tr>\n";
-			echo "<td class='ei-cuadro-col-tit' colspan='2'>$titulo</td>\n";
-			echo "</tr>\n";
-		}
-		//Datos
-		foreach($datos as $desc => $valor){
-			echo "<tr>\n";
-			echo "<td class='ei-cuadro-col-tit'>$desc</td>\n";
-			echo "<td class='$css'>$valor</td>\n";
-			echo "</tr>\n";
-		}
-		echo "</table>\n";
-	}
 
 	/**
      * Genera el HTML correspondiente a la barra de paginacion
