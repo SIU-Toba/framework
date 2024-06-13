@@ -16,7 +16,7 @@
 			return $s;
 		}
 
-		return utf8_encode($s);
+		return mb_convert_encoding($s, 'UTF-8');
 	}
 
 	/**
@@ -27,7 +27,7 @@
 	function utf8_d_seguro($s)
 	{
 		if (mb_detect_encoding($s, "UTF-8", true) == "UTF-8") {
-			return utf8_decode($s);
+			return mb_convert_encoding($s, 'LATIN1', 'UTF-8');
 		}
 
 		return $s;
