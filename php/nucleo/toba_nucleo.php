@@ -17,6 +17,9 @@ if (! defined('apex_pa_pwd_largo_minimo')) {
 	define('apex_pa_pwd_largo_minimo', '8');
 }
 
+if (! defined('apex_pa_permisos_compilados')) {
+	define('apex_pa_permisos_compilados', '1');	
+}
 /**
  * Clase que brinda las puertas de acceso al núcleo de toba
  * @package Centrales
@@ -488,7 +491,9 @@ class toba_nucleo
 			require_once( self::get_directorio_compilacion() . '/gene/toba_mc_gene__basicos.php' );
 			$grupos_acceso = toba::manejador_sesiones()->get_perfiles_funcionales_activos();
 			foreach( $grupos_acceso as $grupo ) {
-				require_once( self::get_directorio_compilacion() . '/gene/toba_mc_gene__grupo_'.$grupo.'.php' );
+				if ($this->usar_perfiles_compilados($item[0])) {
+					require_once( self::get_directorio_compilacion() . '/gene/toba_mc_gene__grupo_'.$grupo.'.php' );
+				}
 			}
 		}
 	}
@@ -510,6 +515,18 @@ class toba_nucleo
 		}
 	}
 
+	function usar_perfiles_compilados($proyecto=null)
+	{
+		$proyecto = isset($proyecto) ? $proyecto : toba_proyecto::get_id();
+		$flag = toba::instancia()->get_directiva_compilacion_perfiles($proyecto);
+		if(!isset($flag) && $proyecto == toba_proyecto::get_id()) {
+			//Mecanismo obsoleto
+			return (defined('apex_pa_perfiles_compilados') && apex_pa_perfiles_compilados == 1);
+		}else{
+			return $flag;
+		}		
+	}	
+	
 	static function get_directorio_compilacion()
 	{
 		if(!self::$dir_compilacion) self::$dir_compilacion = toba_proyecto::get_path() . '/metadatos_compilados';
