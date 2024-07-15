@@ -185,7 +185,7 @@ class toba_ei_cuadro_salida_xml extends toba_ei_cuadro_salida
 		$descripcion = $indice_cortes[$nodo['corte']]['descripcion'];
 		$valor = implode(", ",$nodo['descripcion']);
 		$this->_objeto_toba_salida .= '<'.$this->xml_ns.'cc>';
-		if (trim($descripcion) != '') {
+		if (null !== $descripcion && trim($descripcion) != '') {
 			$this->_objeto_toba_salida .= strip_tags($descripcion.' '.$valor);
 		} else {
 			$this->_objeto_toba_salida .= strip_tags($valor);
@@ -203,7 +203,7 @@ class toba_ei_cuadro_salida_xml extends toba_ei_cuadro_salida
 		$indice_cortes = $this->_cuadro->get_indice_cortes();
 		$descripcion = $indice_cortes[$nodo['corte']]['descripcion'];
 		$valor = implode(", ",$nodo['descripcion']);
-		if (trim($descripcion) != '') {
+		if (null !== $descripcion && trim($descripcion) != '') {
 			return 'Resumen ' . $descripcion . ': <b>' . $valor . '</b>';
 		} else {
 			return 'Resumen <b>' . $valor . '</b>';

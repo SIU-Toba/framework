@@ -44,10 +44,13 @@
 	                                 |(^[\\s]*)
 	                                 |(^[\\t]*)/ixm", "", $com);
 	    $com = str_replace("\r", "", $com);
-	    $com = trim(preg_replace("/([\\t])+/", "\t", $com));
-		$com = trim(preg_replace("/\\*\\//", "", $com));
+        $aux = preg_replace("/([\\t])+/", "\t", $com);
+	    $com = trim($aux ?? '');
+        $aux = preg_replace("/\\*\\//", "", $com);
+		$com = trim($aux ?? '');
 		if ($sin_tags) {
-			$com = trim(preg_replace("/@.*/", "", $com));
+            $aux = preg_replace("/@.*/", "", $com);
+			$com = trim($aux ?? '');
 		}
 		return $com;
 	}

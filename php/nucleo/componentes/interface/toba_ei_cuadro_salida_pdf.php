@@ -210,7 +210,7 @@ class toba_ei_cuadro_salida_pdf extends toba_ei_cuadro_salida
 			$size = $this->_pdf_cabecera_cc_0_letra;
 		}
 		$this->_objeto_toba_salida->separacion($this->_pdf_sep_cc);
-		if (trim($descripcion) != '') {
+		if (null !== $descripcion && trim($descripcion) != '') {
 			$this->_objeto_toba_salida->texto("<b>$descripcion " . $valor . '</b>', $size, $opciones);
 		} else {
 			$this->_objeto_toba_salida->texto('<b>' . $valor . '</b>', $size, $opciones);
@@ -230,7 +230,7 @@ class toba_ei_cuadro_salida_pdf extends toba_ei_cuadro_salida
 
 		$descripcion = $indice_cortes[$nodo['corte']]['descripcion'];
 		$valor = implode(", ",$nodo['descripcion']);
-		if (trim($descripcion) != '') {
+		if (null !== $descripcion && trim($descripcion) != '') {
 			return 'Resumen ' . $descripcion . ': <b>' . $valor . '</b>';
 		} else {
 			return 'Resumen <b>' . $valor . '</b>';
