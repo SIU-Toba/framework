@@ -285,7 +285,7 @@ class toba_db_postgres7 extends toba_db
 	function insert_masivo($tabla,$datos,$delimitador="\t",$valor_nulo="\\N") {
                 $funciono = true;
                 // se genera el sql equivalente para los logs
-                $sql = "-- COPY $tabla FROM stdin de ".count($elementos)." filas.";
+                $sql = "-- COPY $tabla FROM stdin de ".count($datos)." filas.";
                 $sql = $this->pegar_estampilla_log($sql);
                 try {
                    if ($this->registrar_ejecucion) {

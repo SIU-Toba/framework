@@ -178,7 +178,7 @@ class toba_ei_cuadro_salida_excel extends toba_ei_cuadro_salida
 			$altura = $this->_excel_cabecera_cc_0_altura;
 		}
 		$span = $this->_cuadro->get_cantidad_columnas_total();
-		if (trim($descripcion) != '') {
+		if (null !== $descripcion && trim($descripcion) != '') {
 			$contenido = "$descripcion " . $valor;
 		} else {
 			$contenido = $valor;
@@ -199,7 +199,7 @@ class toba_ei_cuadro_salida_excel extends toba_ei_cuadro_salida
 		$indice_cortes = $this->_cuadro->get_indice_cortes();
 		$descripcion = $indice_cortes[$nodo['corte']]['descripcion'];
 		$valor = implode(", ",$nodo['descripcion']);
-		if (trim($descripcion) != '') {
+		if (null !== $descripcion && trim($descripcion) != '') {
 			return 'Resumen ' . $descripcion . ': '.$valor;
 		} else {
 			return 'Resumen ' . $valor;

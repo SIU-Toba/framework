@@ -385,9 +385,23 @@ class toba_auditoria_tablas_postgres
 		toba_logger::instancia()->var_dump($tablas);*/
 		$sql = '';
 		foreach ($tablas as $t) {
-				$sql .= " CREATE TRIGGER tauditoria_$t AFTER INSERT OR UPDATE OR DELETE
-					ON $schema." . $t . " FOR EACH ROW 
-					EXECUTE PROCEDURE {$this->schema_logs}.sp_$t(); \n";
+			$sql .= "
+				DO
+				$$
+					BEGIN
+						IF NOT EXISTS (
+							SELECT	1
+							FROM	pg_trigger
+							WHERE	tgname = 'tauditoria_$t'
+						) THEN
+							CREATE TRIGGER tauditoria_$t AFTER INSERT OR UPDATE OR DELETE
+							ON $schema." . $t . " FOR EACH ROW 
+							EXECUTE PROCEDURE {$this->schema_logs}.sp_$t();
+						END IF;
+					END
+					$$
+					\n;
+				";
 		}
 		$this->conexion->ejecutar($sql);
 	}
@@ -536,7 +550,7 @@ class toba_auditoria_tablas_postgres
 		$sql = "SELECT 
 					aud.*,
 					CASE 
-						WHEN aud.auditoria_operacion = 'U' THEN 'Modificación'
+						WHEN aud.auditoria_operacion = 'U' THEN 'ModificaciÃ³n'
 						WHEN aud.auditoria_operacion = 'I' THEN 'Alta'
 						WHEN aud.auditoria_operacion = 'D' THEN 'Baja'
 					END as operacion_nombre

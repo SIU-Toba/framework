@@ -286,7 +286,7 @@ class toba_ef_html extends toba_ef
 	function get_consumo_javascript()
 	{
 		$consumo = parent::get_consumo_javascript();
-		$consumo[] = "packages/ckeditor4/ckeditor";
+        $consumo[] = "utilidades/ckeditor4/ckeditor";
 		return $consumo;
 	}
 
