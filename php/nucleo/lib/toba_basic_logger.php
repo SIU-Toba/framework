@@ -137,7 +137,7 @@ trait toba_basic_logger
 	//-----------------------------------------------------------------------------------------------------------//
 	protected function truncar_msg($msg)
 	{
-		if (strlen($msg) > self::$limite_mensaje) {
+		if (null !== $msg && strlen($msg) > self::$limite_mensaje) {
 			$msg = substr($msg, 0, self::$limite_mensaje).
 					"..TEXTO CORTADO POR EXCEDER EL LIMITE DE ".
 					self::$limite_mensaje.
@@ -155,7 +155,7 @@ trait toba_basic_logger
 			}
 			$error_log_extra = "...SIGUE...";
 			$msg_error_log = $msg;
-			if (strlen($msg_error_log) > $error_log_max) {
+			if (null !== $msg && strlen($msg_error_log) > $error_log_max) {
 				$msg_error_log = substr($msg_error_log, 0 , $error_log_max - strlen($error_log_extra));
 				$msg_error_log .= $error_log_extra;
 			}
