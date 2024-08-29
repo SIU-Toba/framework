@@ -4,6 +4,9 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.4.5](https://github.com/SIU-Toba/framework/releases/tag/v3.4.5) (2024-08-29)
+- Corrige salida de `deprecateds` al enviar mensajes al logger
+
 [3.4.4](https://github.com/SIU-Toba/framework/releases/tag/v3.4.4) (2024-07-18)
 - Mueve dependencia `CKEditor` en preparación para migración a v5
 - Corrige notices en salidas de `ei_cuadro` y armado de log de `insert_masivo`
