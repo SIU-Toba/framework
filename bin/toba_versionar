@@ -24,7 +24,7 @@ TOBA_VERSION_SIMPLE=`echo $TOBA_VERSION | sed 's/^v//'`
 
 echo "Se asigna la versión '$TOBA_VERSION' en el archivo 'version'"
 
-echo -n $TOBA_VERSION > $TOBA_DIR/version
+echo -n $TOBA_VERSION > $TOBA_DIR/VERSION
 
 echo "Se asigna la versión '$TOBA_VERSION_SIMPLE' en el archivo 'composer.json'"
 regex=".*\"version\": .*$"
