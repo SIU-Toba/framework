@@ -237,38 +237,55 @@ class consultas_instancia
 		if (isset($filtro)) {
 			if (isset($filtro['nombre'])) {
 				$quote = quote("%{$filtro['nombre']}%");
-				$where[] = "(nombre ILIKE $quote)";
+				$where[] = "(u.nombre ILIKE $quote)";
 			}
 			if (isset($filtro['usuario'])) {
 				$quote = quote("%{$filtro['usuario']}%");
-				$where[] = "(usuario ILIKE $quote)";
+				$where[] = "(u.usuario ILIKE $quote)";
 			}
 		}
 		return $where;
 	}
 	
-	static function get_cantidad_usuarios()
+	static function get_cantidad_usuarios($filtro = null)
 	{
-		$sql = 'SELECT count(usuario) as cantidad FROM apex_usuario;';
+        $where = '';
+        $condiciones = self::armar_where_usuarios($filtro);
+		if (! empty($condiciones)) {
+			$where .= ' WHERE ' . implode(' AND ', $condiciones);
+		}
+
+		$sql = "SELECT count(usuario) as cantidad FROM apex_usuario u $where ;";
 		$rs = toba::db('toba_usuarios')->consultar_fila($sql);
 		return ($rs !== false) ? $rs['cantidad'] : 0;
 	}
 
-	static function get_cantidad_usuarios_proyecto($proyecto)
+	static function get_cantidad_usuarios_proyecto($proyecto, $filtro = null)
 	{
 		$proyecto = quote($proyecto);
-		$sql = "SELECT count(usuario) as cantidad FROM apex_usuario_proyecto WHERE proyecto = $proyecto";
-		$rs = toba::db('toba_usuarios')->consultar_fila($sql);
+		$sql = "SELECT count(usuario) as cantidad FROM apex_usuario_proyecto u WHERE proyecto = $proyecto ";
+        $condiciones = self::armar_where_usuarios($filtro);
+		if (! empty($condiciones)) {
+			$sql .= ' AND ' . implode(' AND ', $condiciones);
+		}
+
+		$rs = toba::db('toba_usuarios')->consultar_fila($sql . ';');
 		return ($rs !== false) ? $rs['cantidad'] : 0; 
 	}
 
-	static function get_cantidad_usuarios_no_vinculados($proyecto = null)
+	static function get_cantidad_usuarios_no_vinculados($proyecto = null, $filtro = null)
 	{
 		$where_proyecto = (isset($proyecto)) ? ' WHERE up.proyecto = ' . quote($proyecto): '';
 		$sql = 'SELECT count(usuario) as cantidad 
-			    FROM apex_usuario 
-			    WHERE usuario NOT IN (SELECT up.usuario FROM apex_usuario_proyecto up '. $where_proyecto. ' );';		
-		$rs = toba::db('toba_usuarios')->consultar_fila($sql);
+			    FROM apex_usuario u
+			    WHERE usuario NOT IN (SELECT up.usuario FROM apex_usuario_proyecto up '. $where_proyecto. ' )';
+
+        $condiciones = self::armar_where_usuarios($filtro);
+		if (! empty($condiciones)) {
+			$sql .= ' AND ' . implode(' AND ', $condiciones);
+		}
+
+		$rs = toba::db('toba_usuarios')->consultar_fila($sql . ';');
 		return ($rs !== false) ? $rs['cantidad'] : 0;
 	}
 	
@@ -282,7 +299,7 @@ class consultas_instancia
 		$limit = self::armar_offset_pagina($tamanio, $pagina);
 		$sql = "SELECT 	usuario,
 						nombre
-				FROM apex_usuario
+				FROM apex_usuario u
 				$where
 				ORDER BY usuario 
 				$limit;";
