@@ -4,6 +4,11 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.4.6](https://github.com/SIU-Toba/framework/releases/tag/v3.4.6) (2024-09-05)
+- Corrige paginado en ABM de Usuarios usando filtro explicito
+- Actualizacion de seguridad de paquete:
+     * phpoffice/phpspreadsheet: v1.29.1
+
 [3.4.5](https://github.com/SIU-Toba/framework/releases/tag/v3.4.5) (2024-08-29)
 - Corrige salida de `deprecateds` al enviar mensajes al logger
 
