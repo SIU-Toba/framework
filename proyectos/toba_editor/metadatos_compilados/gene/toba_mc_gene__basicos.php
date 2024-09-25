@@ -50,7 +50,7 @@ class toba_mc_gene__basicos
   'log_archivo' => 1,
   'log_archivo_nivel' => 7,
   'fuente_datos' => 'instancia',
-  'version' => '3.0.11',
+  'version' => '3.4.6',
   'version_fecha' => '2017-09-27',
   'version_detalle' => 'SIU-Toba. Ambiente de desarrollo WEB.
 Desarrollado por el programa SIU (2003-2017)',

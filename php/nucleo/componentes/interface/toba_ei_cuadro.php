@@ -524,7 +524,7 @@ class toba_ei_cuadro extends toba_ei
 
 	/**
 	 * @ignore
-	 * @return <type>
+	 * @return array
 	 */
 	function get_estructura_datos()
 	{
@@ -708,7 +708,7 @@ class toba_ei_cuadro extends toba_ei
 	{
 		if (isset($this->_info_cuadro["clave_datos_tabla"]) && $this->_info_cuadro["clave_datos_tabla"] == '1') {			//Se usa Clave del DT
 			$this->_columnas_clave = array( apex_datos_clave_fila );
-		} elseif (trim($this->_info_cuadro["columnas_clave"]) != '') {
+		} elseif (isset($this->_info_cuadro["columnas_clave"]) && trim($this->_info_cuadro["columnas_clave"]) != '') {
 			$this->_columnas_clave = explode(",",$this->_info_cuadro["columnas_clave"]);		//Clave usuario
 			$this->_columnas_clave = array_map("trim", $this->_columnas_clave);
 		} else {
@@ -897,8 +897,8 @@ class toba_ei_cuadro extends toba_ei
 
 	/**
 	 * Indica si la clave que se pasa por parametro es igual a la fila actualmente seleccionada.
-	 * @param <type> $clave_fila
-	 * @return <type>
+	 * @param string $clave_fila
+	 * @return boolean
 	 */
 	function es_clave_fila_seleccionada($clave_fila)
 	{
@@ -1791,9 +1791,9 @@ class toba_ei_cuadro extends toba_ei
 
 	/**
 	 * @ignore
-	 * @param <type> $columna
-	 * @param <type> $sentido
-	 * @return <type>
+	 * @param string $columna
+	 * @param string $sentido
+	 * @return boolean
 	 */
 	function es_sentido_ordenamiento_seleccionado($columna, $sentido)
 	{
@@ -2119,10 +2119,10 @@ class toba_ei_cuadro extends toba_ei
 			}
 		}else{
 			if ($this->_info_cuadro["eof_invisible"]!=1){
-				if(trim($this->_info_cuadro["eof_customizado"])!=""){
-					$texto = $this->_info_cuadro["eof_customizado"];
+				if(isset($this->_info_cuadro['eof_customizado']) && trim($this->_info_cuadro['eof_customizado'])!=''){
+					$texto = $this->_info_cuadro['eof_customizado'];
 				}else{
-					$texto = "No hay datos cargados";
+					$texto = 'No hay datos cargados';
 				}
 				$this->generar_mensaje_cuadro_vacio($texto);
 			}

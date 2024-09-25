@@ -107,7 +107,11 @@ class ci_creador_objeto extends toba_ci
 	
 	function conf__tipos()
 	{
-		return toba_info_editores::get_info_tipos_componente($this->destino['tipo'], true, $this->destino['objeto']);
+        //No da para hacer null coaeslece con null como resultado
+        $tipo = (isset($this->destino['item'])) ? $this->destino['item']: null;
+        $objeto = (isset($this->destino['objeto'])) ? $this->destino['objeto']: null;
+        
+		return toba_info_editores::get_info_tipos_componente($tipo, true, $objeto);
 	}
 	
 	function evt__tipos__seleccionar($clase)

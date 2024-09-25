@@ -34,7 +34,7 @@ class toba_impr_html implements toba_impresion
 	protected function generar_html_encabezado()
 	{
 		echo "<html><head>";
-		$estilo = toba::proyecto()->get_parametro('estilo');
+		//$estilo = toba::proyecto()->get_parametro('estilo');
 		echo toba_recurso::link_css("toba_impr", 'screen');
 		echo toba_recurso::link_css("toba_impr", 'print');
 		 echo "<style type='text/css' media='print'>
@@ -78,21 +78,21 @@ class toba_impr_html implements toba_impresion
 	
 	function titulo( $texto )
 	{
-		if( trim($texto) != '' ) {
+		if(null !== $texto && trim($texto) != '' ) {
 			echo "<div class='imp-titulo'>$texto</div>\n";			
 		}
 	}
 	
 	function subtitulo( $texto )
 	{
-		if( trim($texto) != '' ) {
+		if(null !== $texto && trim($texto) != '' ) {
 			echo "<div class='imp-subtitulo'>$texto</div>\n";			
 		}
 	}
 
 	function mensaje( $texto )
 	{
-		if( trim($texto) != '' ) {
+		if(null !== $texto && trim($texto) != '' ) {
 			echo "<div class='imp-mensaje'>$texto</div>\n";			
 		}
 	}

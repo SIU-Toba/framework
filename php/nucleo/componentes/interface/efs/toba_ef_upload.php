@@ -27,8 +27,11 @@ class toba_ef_upload extends toba_ef
 		// Controlar las extensiones válidas...
 		if (isset($parametros['upload_extensiones']) && trim($parametros['upload_extensiones']) != '') {
 			$this->extensiones_validas = array();
-			foreach (explode(',', $parametros['upload_extensiones']) as $valor)
-				$this->extensiones_validas[] = strtolower(trim($valor));
+			foreach (explode(',', $parametros['upload_extensiones']) as $valor) {
+                if (null !== $valor) {
+                    $this->extensiones_validas[] = strtolower(trim($valor));
+                }
+            }				
 		}		
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio, $parametros);
 	}	
@@ -73,7 +76,7 @@ class toba_ef_upload extends toba_ef
 		$salida .= $this->get_html_iconos_utilerias();
 		return $salida;
 	}
-	
+
 	function get_estado_input()
 	{
 		if (isset($this->estado)) {
@@ -82,7 +85,13 @@ class toba_ef_upload extends toba_ef
 			return null;
 		}
 	}
-	
+
+    function set_estado($estado)
+	{
+        parent::set_estado($estado);
+        $this->archivo_subido[$this->id_form] = (null !== $estado);
+	}
+
 	function cargar_estado_post()
 	{
 		$this->archivo_cargado[$this->id_form] = toba::memoria()->get_dato_sincronizado($this->id_form."_cargado");
@@ -97,7 +106,7 @@ class toba_ef_upload extends toba_ef
 
 	function es_archivo_vacio()
 	{
-		return $_FILES[$this->id_form]["error"] == UPLOAD_ERR_NO_FILE;
+		return (isset($_FILES[$this->id_form]) && $_FILES[$this->id_form]['error'] === UPLOAD_ERR_NO_FILE);
 	}
 	
 	function tiene_estado()
@@ -108,7 +117,8 @@ class toba_ef_upload extends toba_ef
 	
 	/**
 	 * Valida que cumpla con la lista de extensiones válidas definidas.
-	 * También chequea los {@link http://www.php.net/manual/en/features.file-upload.errors.php mensajes de error de upload} de php
+	 * También chequea los http://www.php.net/manual/en/features.file-upload.errors.php mensajes de error de upload de php
+     * 
 	 * @return unknown
 	 */
 	function validar_estado()
@@ -118,7 +128,7 @@ class toba_ef_upload extends toba_ef
 			return $padre;	
 		}
 		if (isset($this->archivo_subido[$this->id_form]) && $this->archivo_subido[$this->id_form]) {
-			$id = $this->estado['error'];
+			$id = $this->estado['error']??'NFW';
 			switch($id){
 				case UPLOAD_ERR_OK:
 					break;

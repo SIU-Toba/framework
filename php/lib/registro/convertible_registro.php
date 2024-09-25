@@ -1,8 +1,7 @@
 <?php
-/* 
+/**
  * Si una clase implementa esta interfaz se dice que es convertible a toba_registro
  */
-
 interface convertible_registro
 {
 	/**

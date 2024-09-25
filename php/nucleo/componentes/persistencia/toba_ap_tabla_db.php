@@ -2,7 +2,7 @@
 define("apex_db_registros_separador","%");
 
 /**
- * Administrador de persistencia a una tabla de DB desde un {@link toba_datos_tabla datos_tabla}
+ * Administrador de persistencia a una tabla de DB desde un @see toba_datos_tabla
  * Supone que la tabla de datos se va a mapear a algun tipo de estructura en una base de datos
  *
  * TODO Poder desactivar el control de sincronizacion (¿se necesita esto?)
@@ -178,7 +178,7 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 	 * @param boolean $estricto Indica si es imperioso que la columna externa posea un estado o se
 	 * permite que no posea valor.
 	 */
-	function activar_proceso_carga_externa_dao($metodo, $clase=null, $include=null, $col_parametros, $col_resultado, $sincro_continua=true, $estricto=true, $carga_masiva = 0, $metodo_masivo = '')
+	function activar_proceso_carga_externa_dao($metodo, $clase=null, $include=null, $col_parametros=[], $col_resultado=[], $sincro_continua=true, $estricto=true, $carga_masiva = 0, $metodo_masivo = '')
 	{
 		$proximo = count($this->_proceso_carga_externa);
 		$this->_proceso_carga_externa[$proximo]["tipo"] = "dao";
@@ -765,7 +765,7 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 	//-------------------------------------------------------------------------------
 
 	/**
-	 * Shortcut de {@link toba_db::ejecutar() toba::db()->ejecutar}
+	 * Shortcut de @see toba_db::ejecutar()
 	 */
 	protected function ejecutar_sql($sql, $id_fila=null)
 	{
@@ -1275,10 +1275,10 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 			if (!class_exists($parametros['clase'])) {
 				require_once($parametros['include']);
 			}
-			$datos = call_user_func_array(array($parametros['clase'],$nombre_metodo), $param_dao);
+			$datos = call_user_func_array(array($parametros['clase'],$nombre_metodo), array_values($param_dao));
 		} else {
 			if (method_exists($this, $nombre_metodo)) {
-				$datos = call_user_func_array(array($this,$nombre_metodo), $param_dao);
+				$datos = call_user_func_array(array($this,$nombre_metodo), array_values($param_dao));
 			}else {
 				$this->log(' ERROR en la carga de una columna externa. El método: '. $nombre_metodo .' no esta definido', 'error');
 				throw new toba_error_def('AP_TABLA_DB: ERROR en la carga de una columna externa. Método no definido, revise el log');
@@ -1303,7 +1303,7 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 			$this->log("ERROR en la carga de una columna externa. No existe el método '$nombre_metodo' de la clase '$clase'", 'error');
 			throw new toba_error_def('AP_TABLA_DB: ERROR en la carga de una columna externa. Método no definido, revise el log');
 		}
-		$datos = call_user_func_array(array($dt, $nombre_metodo), $param_dt);
+		$datos = call_user_func_array(array($dt, $nombre_metodo), array_values($param_dt));
 		return $datos;
 	}
 
@@ -1318,7 +1318,7 @@ abstract class toba_ap_tabla_db implements toba_ap_tabla
 		//Recupero el objeto asociado a la clase php
 		$obj = toba::consulta_php($parametros['clase']);
 		if (method_exists($obj, $nombre_metodo)) {
-				$datos = call_user_func_array(array($obj,$nombre_metodo), $param_clase);
+				$datos = call_user_func_array(array($obj,$nombre_metodo), array_values($param_clase));
 		}else {
 			$this->log(' ERROR en la carga de una columna externa. El método: '. $nombre_metodo .' no esta definido en la clase de consulta '. $parametros['clase'], 'error');
 			throw new toba_error_def('AP_TABLA_DB: ERROR en la carga de una columna externa. Método no definido, revise el log');

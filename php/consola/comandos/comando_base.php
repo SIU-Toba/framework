@@ -5,7 +5,9 @@
  * Class comando_base.
  * @package consola
  */
+
 require_once('comando_toba.php');
+
 class comando_base extends comando_toba
 {
         /**

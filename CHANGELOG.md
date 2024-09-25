@@ -4,6 +4,101 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.4.6](https://github.com/SIU-Toba/framework/releases/tag/v3.4.6) (2024-09-05)
+- Corrige paginado en ABM de Usuarios usando filtro explicito
+- Actualizacion de seguridad de paquete:
+     * phpoffice/phpspreadsheet: v1.29.1
+
+[3.4.5](https://github.com/SIU-Toba/framework/releases/tag/v3.4.5) (2024-08-29)
+- Corrige salida de `deprecateds` al enviar mensajes al logger
+
+[3.4.4](https://github.com/SIU-Toba/framework/releases/tag/v3.4.4) (2024-07-18)
+- Mueve dependencia `CKEditor` en preparación para migración a v5
+- Corrige notices en salidas de `ei_cuadro` y armado de log de `insert_masivo`
+- Corrige problema al regenerar el esquema de auditoria con triggers desactivados (credits: hfmartinez85)
+- Actualiza imagen base de desarrollo
+- Agrega mecanismo para gestionar autenticacion por `api-keys` via env-var
+
+[3.4.3](https://github.com/SIU-Toba/framework/releases/tag/v3.4.3) (2024-03-12)
+- Corrige warnings en `toba_ei_calendario`
+- Downgrade de paquete JS:
+     * CKEditor4: v4.22
+
+[3.4.2](https://github.com/SIU-Toba/framework/releases/tag/v3.4.2) (2024-02-22)
+- Se corrige bug en `ef_upload` que afectaba uso en `toba_ei_formularios_ml`
+- Actualizacion de seguridad de paquetes JS:
+     * CKEditor4: v4.24
+- Se corrige warnings durante la exportación de perfiles propios en modo produccion
+
+[3.4.1](https://github.com/SIU-Toba/framework/releases/tag/v3.4.1) (2024-01-19)
+- Se corrige problema en la clase `toba_logger_ws` que impedia visualizar la documentación de las APIs Rest.
+
+[3.4.0](https://github.com/SIU-Toba/framework/releases/tag/v3.4.0) (2023-12-06)
+- Se incrementa el requerimiento de plataforma a PHP 8.1+
+- Se actualizan los siguientes paquetes 
+     * guzzle/guzzle: v7.8.1
+     * phpmailer/phpmailer: v6.8.1
+     * phpoffice/phpspreadsheet: v1.29.0
+     * rospdf/pdf-php: v0.12.67
+     * vlucas/phpdotenv: v5.6.0
+     * nikic/php-parser: v4.17.1
+     * onelogin/php-saml: v4.1.0
+     * laminas/escaper: v2.13.0
+     * jpGraph/jpGraph: v4.4.1
+     * firebase/php-jwt: v6.10.0
+     * symfony/security-csrf: v5.4.27
+     * symfony/yaml: v4.4.45
+     * siu-toba/rest: v3.1.0
+     * siu-toba/structures_graph: v1.2.0
+     * siu/arai-json-migrator: v2.0.0
+     * siu/interfaces-manejador-salida-toba: v1.4.0
+
+- Se corrige error al intentar migrar la auditoria (relacionado con cambio para columnas `IDENTITY`)
+- Se corrige error al intentar formatear valores nulos en exportaciones de `ei_cuadro`
+- Se incluye mecanismo para configurar la versión de API a consumir en `cliente.ini`
+- Se agrega soporte en DT para las columnas tipo `IDENTITY`
+- Se mejora el soporte de auditoria para fuentes que no tienen asignado un schema en metadatos
+- Se mejora el soporte a publicación de proyectos sin alias
+- Se agrega un formato custom para la moneda en `toba_vista_excel` debido a modificaciones en Phpspreadsheet
+- La clase `toba_vistar_jasperreports` cierra explicitamente la conexión a BD ante un problema (credits: lleonardis)
+- Se corrige carga de claves en la instalación mediante archivo YAML (credits: tomasdelvechio)
+- Se agrega validación de prefijos al `ef_cuit` y posibilidad de setear lista especifica por BC
+- Se corrige la modificacion del perfil de datos al cambiar el perfil funcional (credits: lleonardis)
+- ABM de usuarios puede conectarse a `Arai-Usuarios` en Api@v1 o Api@v2 según configuración
+- Se corrige la decodificación en las notificaciones JS
+- Se ajustan scripts del evento `post-install` de composer
+- Se corrige validación `ef_fecha_hora` (credits: rdsmiranda) 
+- Se cambia el paquete que verificaba los tokens CSRF por el componente Symfony
+- Se modifica el archivo `docker-compose.yml` para uso local en el framework
+- Se eliminan archivos de templates que no se utilizaban.
+- Se explicita el identificador de la fuente en consultas de toba_usuarios
+- Se pasa a modo estricto las búsquedas en arreglos en el framework.
+- Se eliminan parámetros nulos en los vinculos para que no falle el escapado de los mismos
+- Se realizan modificaciones varias a toba_editor que incluyen la visualización de código y mecanismo de instalación
+- Se corrige la selección del fin de semana en `ei_calendario`
+- Se corrige problema con la propagación de la zona durante la exportación de un `ei_cuadro`
+- Se contempla el uso de una env `JAVA_HOSTS` para utilizar `toba_vistar_jasperreports` contra un contenedor docker (credits: tomasdelvechio)
+- Se corrige error en la instanciación de `toba_logger`
+- Se modifican tipos de datos en las tablas de logs del framework y se agregan nuevas columnas en tabla de usuarios
+- La auditoria ya no utiliza tablas temporales para obtener información del usuario (ATENCION: Requiere migración)
+
+[3.3.26](https://github.com/SIU-Toba/framework/releases/tag/v3.3.26) (2023-06-30)
+- Cierra explicitamente la conexión JDBC en `toba_vistar_jasperreports` para prevenir proceso zombie
+- Corrige uso del parametro `alias-nucleo` en el comando `instalar`
+- Corrige lectura contenido de archivo al instalar usando la configuración por archivo yaml (credits tomasdelvechio)
+- Corrige validacion de estado en `ef_fecha_hora` (credits: rdsmiranda)
+- Se ajusta archivo `docker-compose.yml` para trabajo local y elimina templates sin uso
+- Actualizacion de seguridad/funcionalidad de paquetes
+     * guzzlehttp/guzzle: v6.5.8
+     * siu/manejador-salida-toba: v1.1.4
+
+[3.3.25](https://github.com/SIU-Toba/framework/releases/tag/v3.3.25) (2022-06-13)
+- Fix instanciacion de `toba_logger` en `toba_ei_formulario`, `toba_ei_filtro` y `toba_ei_formulario_ml`
+- Actualizacion de seguridad de paquetes
+     * phpmailer/phpmailer: v6.5.4
+     * phpoffice/phpspreadsheet: v1.23.0
+     * guzzlehttp/guzzle: v6.5.7
+
 [3.3.24](https://github.com/SIU-Toba/framework/releases/tag/v3.3.24) (2022-04-25)
 - Fix eliminacion repetida de columnas en `toba_ei_cuadro`
 - Fix regresion en objeto JS que maneja la comunicacion con el server

@@ -367,8 +367,16 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 		//Recorro los schemas de las fuentes del proyecto
 		$schemas = array();
 		foreach($fuentes as $id_fuente) {			
-			$schemas[$id_fuente] = aplanar_matriz(toba_info_editores::get_schemas_fuente($this->proyecto->get_id(), $id_fuente), 'schema');
-		}		
+                    $lista_metadatos = toba_info_editores::get_schemas_fuente($this->proyecto->get_id(), $id_fuente);
+                    if (! empty($lista_metadatos)) {
+                        $schemas[$id_fuente] = aplanar_matriz($lista_metadatos, 'schema');
+                    } else {                    //Si la fuente no tiene schemas fijos en metadatos pero si configurado en bases.ini
+                        $info_bases_ini = $this->proyecto->get_parametros_db_negocio();
+                        if (! empty($info_bases_ini)) {
+                            $schemas[$id_fuente] = ['schema' => $info_bases_ini['schema']];
+                        }
+                    }
+		}
 		
 		if (! is_null($fuente) && !empty($lista_schemas)) {
 			$aux = array_intersect($schemas[$fuente], $lista_schemas);

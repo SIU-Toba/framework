@@ -552,19 +552,24 @@ class comando_instalacion extends comando_toba
 	}
 
 
-	protected function definir_alias_nucleo()
+	protected function definir_alias_nucleo($param = array())
 	{
-		$this->consola->enter();
-		$this->consola->subtitulo('Definir el nombre del ALIAS del núcleo Toba');
-		$this->consola->mensaje('Este alias se utiliza para consumir todo el contenido navegable de Toba');
-		$this->consola->enter();
-		$resultado = $this->consola->dialogo_ingresar_texto( 'Nombre del Alias (por defecto "toba")', false );
-		if ( $resultado == '' ) {
-			return '/toba';
-		} else {
-			return '/'.$resultado;
-		}
-
+            if (isset($param['--alias-nucleo'])) {
+                # si lo indicamos en linea de comando con --alias-nucleo usamos ese
+                $resultado = trim($param['--alias-nucleo']);
+            } else {
+                # si no lo indicamos con --alias-nucleo lo pedimos por consola
+                $this->consola->enter();
+                $this->consola->subtitulo('Definir el nombre del ALIAS del núcleo Toba');
+                $this->consola->mensaje('Este alias se utiliza para consumir todo el contenido navegable de Toba');
+                $this->consola->enter();
+                $resultado = $this->consola->dialogo_ingresar_texto( 'Nombre del Alias (por defecto "toba")', false );
+            }
+            if ( $resultado == '' ) {
+                return '/toba';
+            } else {
+                return '/'.$resultado;
+            }
 	}
 
 	protected function definir_tipo_instalacion_produccion()

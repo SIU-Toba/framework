@@ -1,6 +1,7 @@
 <?php
 /**
  * Clase base de los Controles
+ * 
  * @package Centrales
  */
 abstract class toba_control
@@ -56,7 +57,8 @@ class toba_puntos_control
 	// ------------------------------------------------------------------------------------
 
 	/**
-	 * @ignore.
+	 * @ignore
+     * 
 	 * @return toba_puntos_control
 	 */
 	static function instancia()
@@ -72,7 +74,9 @@ class toba_puntos_control
 	// ------------------------------------------------------------------------------------
 
 	/**
-	 * @ignore. Retorna el bloque de memoria de trabajo de los puntos de control
+     * Retorna el bloque de memoria de trabajo de los puntos de control
+     * 
+	 * @ignore 
 	 */
 	private function &get_bloque()
 	{
@@ -80,7 +84,9 @@ class toba_puntos_control
 	}
 
 	/**
-	 * @ignore. Establece el valor de un parametro de un punto de control en particular.
+     * Establece el valor de un parametro de un punto de control en particular.
+     * 
+	 * @ignore 
 	 */
 	private function set_valor($punto_control, $parametro, $valor)
 	{
@@ -99,7 +105,9 @@ class toba_puntos_control
 	}
 
 	/**
-	 * @ignore. Crea un punto de control.
+     * Crea un punto de control.
+     * 
+	 * @ignore 
 	 */
 	private function crear_punto_control($punto_control, &$valores_item)
 	{
@@ -152,7 +160,9 @@ class toba_puntos_control
 	}
 
 	/**
-	 * @ignore. Retorna los controles de un punto de control.
+     * Retorna los controles de un punto de control.
+     * 
+	 * @ignore
 	 */
 	private function &get_controles($punto_control)
 	{
@@ -165,7 +175,9 @@ class toba_puntos_control
 	}
 
 	/**
-	 * @ignore. Ejecuta un control de un punto de control.
+     * Ejecuta un control de un punto de control.
+     * 
+	 * @ignore
 	 */
 	private function ejecutar_control($componente, $punto_control, $control)
 	{
@@ -184,8 +196,9 @@ class toba_puntos_control
 	}
 
 	/**
-	* @ignore. Almacena el resultado de la ejecucion del control.
-	*/
+     * Almacena el resultado de la ejecucion del control.
+	 * @ignore
+	 */
 	private function set_resultado_control($punto_control, $control)
 	{
 		$data =& $this->get_bloque();
@@ -202,8 +215,9 @@ class toba_puntos_control
 	}
 
 	/**
-	* @ignore. Actualiza el resultado de la ejecucion del punto de control.
-	*/
+     * Actualiza el resultado de la ejecucion del punto de control.
+     * @ignore 
+	 */
 	private function set_resultado($control)
 	{
 		// Recupero bloque de datos
@@ -267,7 +281,8 @@ class toba_puntos_control
 	/**
 	 * Retorna los valores a utilizar por el punto de control
 	 * para enviarle a los controles.
-	 * @param toba_cn $controlador
+     * 
+	 * @param object $controlador toba_cn
 	 */
 	public function get_valores_punto($punto_control)
 	{
@@ -353,6 +368,7 @@ class toba_puntos_control
 
 	/**
 	 * Ejecuta los puntos de control de un ci sobre un componente para un evento especifico.
+     * 
 	 * @param $id del ci en ejecucion (Se utiliza para determinar si debo retener o no los resultados.).
 	 * @param $componente sobre el que se produce el evento.
 	 * @param $evento disparado.

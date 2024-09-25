@@ -1,6 +1,8 @@
 <?php
-namespace JpGraph\Themes;
 
+namespace JpGraph\themes;
+
+use JpGraph\Theme;
 /**
 * Green Theme class
 */

@@ -34,7 +34,7 @@ class comando_toba extends comando
 	{
 		$resultado = '';
 		if (file_exists($nombre)) {
-			$resultado = file_get_contents($nombre);
+			$resultado = rtrim(file_get_contents($nombre));
 		}
 		return $resultado;
 	}

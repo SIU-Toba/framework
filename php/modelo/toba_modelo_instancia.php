@@ -643,7 +643,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 
 	private function guardar_archivo($archivo, $contenido, $append = false)
 	{
-		$flags = null;
+		$flags = 0;
 		if ($append) {
 			$flags = FILE_APPEND;
 		}

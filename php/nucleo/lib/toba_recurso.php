@@ -99,7 +99,7 @@ class toba_recurso
 	 * @param string $tooltip Ayuda o tooltip que se muestra (por def. ninguna)
 	 * @param string $mapa (no oblig.)
 	 */
-	static function imagen_proyecto($imagen,$html=false,$ancho=null, $alto=null,$tooltip=null,$mapa=null, $proyecto=null)
+	static function imagen_proyecto(string $imagen, $html=false,$ancho=null, $alto=null,$tooltip=null,$mapa=null, $proyecto=null)
 	{
 		if (toba::proyecto()->personalizacion_activa()) {
 			$www = toba::proyecto()->get_www_pers("img/".$imagen);
@@ -110,7 +110,7 @@ class toba_recurso
 			}
 		} else {
 			$version = toba::memoria()->get_dato_instancia('proyecto_revision_recursos_cliente');
-			$agregado_url = (!  is_null($version) && trim($imagen) != '') ? "?av=$version": '';
+			$agregado_url = (! is_null($version) && trim($imagen) != '') ? "?av=$version": '';
 			$src = toba_recurso::url_proyecto($proyecto) . "/img/" . $imagen. $agregado_url;
 		}
 

@@ -75,10 +75,8 @@ class toba_manejador_sesiones
 	static function enviar_csrf_hidden()
 	{        
 		$tm = toba::memoria();
-		if ($tm->existe_dato_operacion(apex_sesion_csrt)) {
-			$valor = $tm->get_dato_operacion(apex_sesion_csrt);
-			echo toba_form::hidden(apex_sesion_csrt, $valor);
-		}
+        $valor = (!$tm->existe_dato_operacion(apex_sesion_csrt)) ? $tm->fijar_csrf_token(): $tm->get_dato_operacion(apex_sesion_csrt);
+		echo toba_form::hidden(apex_sesion_csrt, $valor);
 	}
 
 	//------------------------------------------------------------------
@@ -478,6 +476,7 @@ class toba_manejador_sesiones
 	 */
 	function set_perfiles_datos_activos($perfiles)
 	{
+		$this->perfiles_datos_activos = [];
 		if (is_array($perfiles) && ! empty($perfiles)) {
 			$disponibles = $this->get_perfiles_datos();									//Controlo que no sea algun perfil que este por fuera de los asignados al usuario
 			$df = array_diff($perfiles, $disponibles);
@@ -868,7 +867,7 @@ class toba_manejador_sesiones
 	{
 		$subclase = toba::proyecto()->get_parametro('sesion_subclase');
 		$archivo = toba::proyecto()->get_parametro('sesion_subclase_archivo');
-		if (trim($archivo) != '' && trim($subclase) != '') {
+		if (null !== $archivo && null !== $subclase && trim($archivo) != '' && trim($subclase) != '') {
 			$pm = toba::proyecto()->get_parametro('pm_sesion');
 			toba_cargador::cargar_clase_archivo($pm, $archivo, toba::proyecto()->get_id());
 		}
@@ -878,7 +877,7 @@ class toba_manejador_sesiones
 	{
 		$archivo = toba::proyecto()->get_parametro('usuario_subclase_archivo');
 		$subclase = toba::proyecto()->get_parametro('usuario_subclase');
-		if (trim($archivo) != '' && trim($subclase) != '') {
+		if (null !== $archivo && null !== $subclase && trim($archivo) != '' && trim($subclase) != '') {
 			$pm = toba::proyecto()->get_parametro('pm_usuario');
 			toba_cargador::cargar_clase_archivo($pm, $archivo, toba::proyecto()->get_id());
 		}
@@ -887,10 +886,10 @@ class toba_manejador_sesiones
 	private function get_usuario_proyecto($id_usuario)
 	{
 		$subclase = toba::proyecto()->get_parametro('usuario_subclase');
-		if (trim($subclase) == '') {
-			$subclase = 'toba_usuario_basico';
+		if (null !== $subclase && trim($subclase) != '') {
+            $this->cargar_clase_usuario();			
 		} else {
-			$this->cargar_clase_usuario();
+			$subclase = 'toba_usuario_basico';
 		}
 		return new $subclase($id_usuario);
 	}
@@ -899,10 +898,16 @@ class toba_manejador_sesiones
 		return $this->invocar_metodo_usuario('autenticar', array($id_usuario, $clave, $datos_iniciales) );
 	}
 
+    /**
+     * Invoca un metodo especifico de la clase de usuario
+     * @param string $metodo
+     * @param array $parametros Debe ser arreglo posicional SI O SI!!
+     * @return type
+     */
 	private function invocar_metodo_usuario($metodo, $parametros)
 	{
 		$subclase = toba::proyecto()->get_parametro('usuario_subclase');
-		if (trim($subclase)  == '') {
+		if (is_null($subclase) || trim($subclase)  == '') {
 			$subclase = 'toba_usuario_basico';
 		} else {
 			$this->cargar_clase_usuario();
@@ -914,7 +919,7 @@ class toba_manejador_sesiones
 	private function get_sesion_proyecto()
 	{
 		$subclase = toba::proyecto()->get_parametro('sesion_subclase');
-		if (trim($subclase)  == '') {
+		if (is_null($subclase) || trim($subclase)  == '') {
 			$subclase = 'toba_sesion';
 		} else {
 			$this->cargar_clase_sesion();
@@ -1241,4 +1246,3 @@ class toba_manejador_sesiones
             return new $handler();
         }
 }
-?>

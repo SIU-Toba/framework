@@ -1156,7 +1156,7 @@ class toba_ef_editable_textarea extends toba_ef_editable
 	{
 		parent::set_estado($estado);
 		if ($this->maximo) {
-			if (strlen($this->estado) > $this->maximo) {
+			if (null !== $this->estado && strlen($this->estado) > $this->maximo) {
 				$this->estado = substr($this->estado, 0, $this->maximo);
 			}
 		}

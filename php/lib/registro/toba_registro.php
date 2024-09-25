@@ -1,10 +1,12 @@
 <?php
 /**
- * Clase que representa un registro interviniente en la personalizacion
+ * Clase que representa un registro interviniente en la personalizacion.
+ * 
  * @package Centrales
  * @subpackage Personalizacion
  */
-abstract class toba_registro {
+abstract class toba_registro 
+{
 	const registro_insert = 'registro_insert';
 	const registro_update = 'registro_update';
 	const registro_delete = 'registro_delete';
@@ -37,7 +39,7 @@ abstract class toba_registro {
 	 * Si es verdadero todos los strings que se pasen como parametro $valor a
 	 * add_columna van a ser convertidos automáticamente a latin1 si están en
 	 * utf8
-	 * @param <type> $param
+	 * @param string $param
 	 */
 	function set_conversion_auto_latin1($param)
 	{
@@ -59,7 +61,7 @@ abstract class toba_registro {
 			throw  new toba_error('REGISTRO: No se puede agregar una columna cuyo nombre es vacío');
 		}
 		if ($this->conversion_auto_latin1) {
-			$valor = utf8_d_seguro($valor);
+			$valor = utf8_d_seguro($valor??'');
 		}
 		
 		if ($valor == toba_personalizacion::nulo) {

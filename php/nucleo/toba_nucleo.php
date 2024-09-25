@@ -113,13 +113,19 @@ class toba_nucleo
 			$this->finalizar_contexto_ejecucion();
 		} catch (Error $e) {
 			toba::logger()->crit($e, 'toba');
-			echo toba::escaper()->escapeHtml($e->getMessage()) . "\n\n";
+			echo toba::escaper()->escapeHtml($e->getMessage()) . PHP_EOL;
 		} catch (Exception $e) {
 			toba::logger()->crit($e, 'toba');
-			echo toba::escaper()->escapeHtml($e->getMessage()) . "\n\n";
+			echo toba::escaper()->escapeHtml($e->getMessage()) . PHP_EOL;
 		}
 		//toba::logger()->debug('Tiempo utilizado: ' . toba::cronometro()->tiempo_acumulado() . ' seg.');
-		toba::logger()->guardar();
+        
+        //Agrega try/catch por si acaso no es un directorio actualizable
+        try {
+            toba::logger()->guardar();
+        } catch (toba_error $e) {
+            echo toba::escaper()->escapeHtml($e->getMessage()) . PHP_EOL;
+        }
 	}
 
 	/**
@@ -190,6 +196,10 @@ class toba_nucleo
 			echo toba::escaper()->escapeJs($e->getMessage()) . "\n\n";
 			toba::logger()->guardar();
 		} catch (Exception $e) {
+            $codigo = $e->getCode();
+            if (is_int($codigo) && $codigo !== 0) {
+                header('Error Inesperado', true, 500);
+            }
 			toba::logger()->crit($e, 'toba');
 			echo toba::escaper()->escapeJs($e->getMessage()) . "\n\n";
 			toba::logger()->guardar();
@@ -320,7 +330,7 @@ class toba_nucleo
 
 	protected function iniciar_contexto_ejecucion()
 	{
-		if (!ini_get('safe_mode') && strpos(ini_get('disable_functions'), 'set_time_limit') === FALSE) {
+		if (strpos(ini_get('disable_functions'), 'set_time_limit') === FALSE) {
 			set_time_limit(0);
 		}
 		$this->controlar_requisitos_basicos();
@@ -334,7 +344,7 @@ class toba_nucleo
 
 	protected function iniciar_contexto_consola()
 	{
-		if (!ini_get('safe_mode') && strpos(ini_get('disable_functions'), 'set_time_limit') === FALSE) {
+		if (strpos(ini_get('disable_functions'), 'set_time_limit') === FALSE) {
 			set_time_limit(0);
 		}
 		$this->controlar_requisitos_basicos();
@@ -353,7 +363,7 @@ class toba_nucleo
 
 	protected function iniciar_contexto_rest()
 	{
-		if (!ini_get('safe_mode') && strpos(ini_get('disable_functions'), 'set_time_limit') === FALSE) {
+		if (strpos(ini_get('disable_functions'), 'set_time_limit') === FALSE) {
 			set_time_limit(0);
 		}
 		$this->controlar_requisitos_basicos();

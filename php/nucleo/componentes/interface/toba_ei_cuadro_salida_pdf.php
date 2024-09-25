@@ -91,13 +91,13 @@ class toba_ei_cuadro_salida_pdf extends toba_ei_cuadro_salida
 
 		//-- Genera la tablas
 		$ancho = null;
-		if (strpos($this->_pdf_tabla_ancho, '%') !== false) {
-			$ancho = $this->_objeto_toba_salida->get_ancho(str_replace('%', '', $this->_pdf_tabla_ancho));
-		} else {
-			$ancho = $this->_pdf_tabla_ancho;
-		}
-		$opciones = array('width' => $ancho, 'cols' => $estilos);
-		$opciones = array_merge($opciones, $this->get_opciones_columnas());
+        if (isset($this->_pdf_tabla_ancho)) {
+            $ancho = $this->_pdf_tabla_ancho;
+            if (strpos($this->_pdf_tabla_ancho, '%') !== false) {
+                $ancho = $this->_objeto_toba_salida->get_ancho(str_replace('%', '', $this->_pdf_tabla_ancho));
+            }
+        }
+		$opciones = array_merge(['width' => $ancho, 'cols' => $estilos], $this->get_opciones_columnas());
 		$this->_objeto_toba_salida->tabla(array('datos_tabla'=>$datos, 'titulos_columnas'=>$titulos), true, $this->_pdf_letra_tabla, $opciones);
 		$this->_objeto_toba_salida->separacion($this->_pdf_sep_tabla);
 	}
@@ -112,30 +112,30 @@ class toba_ei_cuadro_salida_pdf extends toba_ei_cuadro_salida
 
 	/**
 	 * @ignore
-	 * @param <type> $columnas
-	 * @param <type> $datos_cuadro
-	 * @param <type> $id_fila
-	 * @param <type> $formateo
+	 * @param array $columnas
+	 * @param array $datos_cuadro
+	 * @param string $id_fila
+	 * @param string $formateo
 	 * @return string
 	 */
 	function generar_layout_fila($columnas, $datos_cuadro, $id_fila, $formateo)
 	{
 		$fila = array();
 		foreach (array_keys($columnas) as $a) {
-			$valor = "";
+			$valor = '';
 			if(isset($columnas[$a]["clave"])){
 				if(isset($datos_cuadro[$id_fila][$columnas[$a]["clave"]])){
 					$valor_real = $datos_cuadro[$id_fila][$columnas[$a]["clave"]];
 				}else{
-					$valor_real = '';
+					$valor_real = null;
 				}
 				//Hay que formatear?
-				if(isset($columnas[$a]["formateo"])){
+				if(isset($columnas[$a]["formateo"]) && null !== $valor_real){
 					$funcion = "formato_" . $columnas[$a]["formateo"];
 					//Formateo el valor
 					$valor = $formateo->$funcion($valor_real);
 				} else {
-					$valor = $valor_real;
+					$valor = $valor_real ?? '';
 				}
 			}
 			$fila[$columnas[$a]["clave"]] = $valor;
@@ -210,7 +210,7 @@ class toba_ei_cuadro_salida_pdf extends toba_ei_cuadro_salida
 			$size = $this->_pdf_cabecera_cc_0_letra;
 		}
 		$this->_objeto_toba_salida->separacion($this->_pdf_sep_cc);
-		if (trim($descripcion) != '') {
+		if (null !== $descripcion && trim($descripcion) != '') {
 			$this->_objeto_toba_salida->texto("<b>$descripcion " . $valor . '</b>', $size, $opciones);
 		} else {
 			$this->_objeto_toba_salida->texto('<b>' . $valor . '</b>', $size, $opciones);
@@ -230,7 +230,7 @@ class toba_ei_cuadro_salida_pdf extends toba_ei_cuadro_salida
 
 		$descripcion = $indice_cortes[$nodo['corte']]['descripcion'];
 		$valor = implode(", ",$nodo['descripcion']);
-		if (trim($descripcion) != '') {
+		if (null !== $descripcion && trim($descripcion) != '') {
 			return 'Resumen ' . $descripcion . ': <b>' . $valor . '</b>';
 		} else {
 			return 'Resumen <b>' . $valor . '</b>';
@@ -287,7 +287,7 @@ class toba_ei_cuadro_salida_pdf extends toba_ei_cuadro_salida
 				$datos[$clave] = $valor;
 			}else{
 				unset($titulos[$clave]);
-				$datos[$clave] = null;
+				$datos[$clave] = '';
 			}
 		}
 		return $datos;

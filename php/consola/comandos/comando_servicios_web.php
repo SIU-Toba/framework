@@ -117,6 +117,7 @@ class comando_servicios_web extends comando_toba
 	 *  --usuario Nombre usuario para autenticar (REST)
 	 *  --usuario_pwd Password para autenticacion basica (REST)
 	 *  --auth_tipo ssl|digest|basic indica el tipo de autenticacion a utilizar en el servidor (default digest)
+     *  --version Indica el nro de version de API a consumir (Tipicamente 1.0, 2.3, etc)
 	 *  --all Configura todos los WS consumibles con los mismos datos
 	 */	
 	function opcion__cli_configurar()
@@ -243,7 +244,7 @@ class comando_servicios_web extends comando_toba
 	
 	private function cliente_rest_configurar($parametros)
 	{
-		$url_sistema = $cert_cli = $key_cli = $cert_pwd = $usr = $usr_pwd = null;
+		$url_sistema = $cert_cli = $key_cli = $cert_pwd = $usr = $usr_pwd = $version_api =null;
 		$proyecto = $this->get_proyecto();
 		$id_servicio = (isset($parametros['-s'])) ? $parametros['-s'] : $this->get_servicio_cli();		
 		$servicio = toba_modelo_catalogo::get_servicio_web($proyecto, $id_servicio, $this->consola, 'rest');		
@@ -274,8 +275,13 @@ class comando_servicios_web extends comando_toba
 		if (isset($parametros['-u']) && trim($parametros['-u']) != '') {
 			$url_sistema = $parametros['-u'];
 		}
+
+        if (isset($parametros['--version']) && 1 === preg_match('/^\d\.\d$/', $parametros['--version'])) {
+            $version_api = $parametros['--version'];
+        }
+
 		//Genero la config para el servicio especificado (analizar si se pueden configurar varios distintos)			
-		$servicio->generar_configuracion_cliente($cert_CA, $url_sistema, $cert_cli, $key_cli, $cert_pwd,$usr, $usr_pwd, $auth);
+		$servicio->generar_configuracion_cliente($cert_CA, $url_sistema, $cert_cli, $key_cli, $cert_pwd,$usr, $usr_pwd, $auth, $version_api);
 	}
 	
 	//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//

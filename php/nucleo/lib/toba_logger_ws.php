@@ -41,7 +41,7 @@ class toba_logger_ws extends AbstractLogger
 		$this->proyecto_actual = (isset($proyecto)) ? $proyecto : $this->get_proyecto_actual();
 		$this->mapeo_niveles = array_flip($this->get_niveles());
 		$this->id_solicitud = toba::solicitud()->get_id();
-		$this->modo_salida = toba_basic_logger::$MODO_FILE;
+		$this->modo_salida = self::$MODO_FILE;
 	}
 
 	/**
@@ -54,7 +54,7 @@ class toba_logger_ws extends AbstractLogger
 		$this->modo_archivo = false;
 	}
 	
-	public function log($level, $message, array $context = array())
+	public function log($level, $message, array $context = array()): void
 	{
 		if (! $this->activo) {			//Si no estoy logueando ni me gasto.
 			return;
@@ -142,28 +142,28 @@ class toba_logger_ws extends AbstractLogger
 		$dir_log = $this->directorio_logs();
 		$path_completo = realpath($dir_log) . '/' . $this->archivo_log;		
 		switch($this->modo_salida) {
-			case toba_basic_logger::$MODO_ERR:
+			case self::$MODO_ERR:
 					$stream_source = 'php://stderr';
 					break;
-			case toba_basic_logger::$MODO_STD;
+			case self::$MODO_STD;
 					$stream_source = 'php://stdout';
 					break;
-			case toba_basic_logger::$MODO_FILE:
+			case self::$MODO_FILE:
 			default :
 					$stream_source = 'file://' . $path_completo;
 		}
 		
-		if (file_exists($path_completo)) {
-			$excede_tamanio = (filesize($path_completo) > apex_log_archivo_tamanio * 1024);
-			if (apex_log_archivo_tamanio != null && $excede_tamanio) {
-				$this->ciclar_archivos_logs($dir_log, $this->archivo_log);
-			}
-			$this->stream_handler = fopen($stream_source, 'a');
-		} elseif ($this->modo_archivo) {
-			$this->stream_handler = fopen($stream_source, 'x');
-		} else {
-			$this->stream_handler = fopen($stream_source, 'a');
-		}
+        if (file_exists($path_completo)) {
+            $excede_tamanio = (filesize($path_completo) > apex_log_archivo_tamanio * 1024);
+            if (apex_log_archivo_tamanio != null && $excede_tamanio) {
+                $this->ciclar_archivos_logs($dir_log, $this->archivo_log);
+            }
+            $this->stream_handler = fopen($stream_source, 'a');
+        } elseif ($this->modo_archivo) {
+            $this->stream_handler = fopen($stream_source, 'x');
+        } else {
+            $this->stream_handler = fopen($stream_source, 'a');
+        }        
 	}
 
 	protected function stream_log($mensaje)
@@ -171,14 +171,19 @@ class toba_logger_ws extends AbstractLogger
 		if (! isset($this->stream_handler)) {
 			$this->instanciar_handler();
 		}
+        
+        if (false === $this->stream_handler) {
+            throw new Exception('No se pudo abrir el recurso para el log ');
+        }
+        
 		if (false === fwrite($this->stream_handler, $mensaje)) {
-                    throw new Exception('No se pudo escribir el log para el source especificado ');
-                }
+            throw new Exception('No se pudo escribir el log para el source especificado ');
+        }
 	}
 
 	protected function armar_mensaje($mensaje, $nivel)
 	{
-		return  "[" . $this->id_solicitud . "][" .$this->proyecto_actual . "][" . $this->ref_niveles[$nivel] ."] "  . $mensaje . PHP_EOL;
+		return  '[' . date('Y-m-d h:i:s') . '][' .$this->id_solicitud . '][' .$this->proyecto_actual . '][' . $this->ref_niveles[$nivel] .'] '  . $mensaje . PHP_EOL;
 	}
 
 	//------------------------------------------------------------------------------------------------------------------------------//

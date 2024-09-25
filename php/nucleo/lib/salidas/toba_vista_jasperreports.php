@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Genera un pdf a travÃ©s de una api bÃ¡sica
+ * Genera un pdf a través de una api básica
  * @package SalidaGrafica
  */
 class toba_vista_jasperreports
@@ -31,7 +31,7 @@ class toba_vista_jasperreports
 	{
 		$this->temp_salida = toba::proyecto()->get_path_temp().'/'.uniqid('jasper_').'.pdf';		
 		$this->cargar_jasper();
-		/*Creamos una variable tipo arreglo que contendrÃ¡ los parÃ¡metros */
+		/*Creamos una variable tipo arreglo que contendrá los parámetros */
 		$this->parametros = new Java("java.util.HashMap");		
 	}
 	
@@ -65,7 +65,7 @@ class toba_vista_jasperreports
 		//Incluimos la libreria JavaBridge
 		require_once($path. '/JavaBridge/java/Java.inc');
 		
-		//Creamos una variable que va a contener todas las librerÃ­as java presentes
+		//Creamos una variable que va a contener todas las librerías java presentes
 		$path_libs =  $path .'/JasperReports';
 		$classpath = '';
 		try {
@@ -77,7 +77,7 @@ class toba_vista_jasperreports
 			toba::logger()->error($et->getMessage());		//No se encontro el directorio, asi que no agrega nada al path y sigue el comportamiento que tenia con opendir			
 		}
 		try {
-			//AÃ±adimos las librerÃ­as
+			//Añadimos las librerías
 			java_require($classpath);
 
 			//Creamos el objeto JasperReport que permite obtener el reporte
@@ -112,7 +112,7 @@ class toba_vista_jasperreports
 				break;	
 			case 'S':
 				$tipo = "java.lang.String";
-				$valor = utf8_e_seguro($valor);	
+				$valor = utf8_e_seguro($valor??'');
 				break;
 			case 'E':
 				$tipo = "java.lang.Integer";				
@@ -125,11 +125,11 @@ class toba_vista_jasperreports
 				break;
 			 case 'L':
 				$tipo = "java.util.Locale";
-				$valor = utf8_e_seguro($valor);    
+				$valor = utf8_e_seguro($valor??'');
 				break;			
 			default:
 				$tipo = "java.lang.String";
-				$valor = utf8_e_seguro($valor);	
+				$valor = utf8_e_seguro($valor??'');
 				break;
 		}
 
@@ -199,7 +199,7 @@ class toba_vista_jasperreports
 	//------------------------------------------------------------------------
 	
 	/**
-	 * Cambia la ubicaciÃ³n del archivo .jasper
+	 * Cambia la ubicación del archivo .jasper
 	 * @param $path String
 	 */
 	function set_path_reporte($path) 
@@ -303,7 +303,7 @@ class toba_vista_jasperreports
 		//Uno todos los metareportes para generar un solo archivo
 		$master_print = $this->unir_metareportes();
 
-		////Exportamos el informe y lo guardamos como pdf en el directorio donde estÃ¡n los reportes
+		//Exportamos el informe y lo guardamos como pdf en el directorio donde están los reportes
 		$export_manager = new JavaClass("net.sf.jasperreports.engine.JasperExportManager");
 		$export_manager->exportReportToPdfFile($master_print, $this->temp_salida);		
 	}
@@ -326,7 +326,8 @@ class toba_vista_jasperreports
 			$this->parametros->put($jrxpath->PARAMETER_XML_DATA_DOCUMENT, $document);		
 			$print = $this->jasper->fillReport($this->path_reporte, $this->parametros);			
 		}  else {													//El conjunto de datos viene de una db o datasource
-			if (! isset($this->conexion)) {
+                    try {
+                        if (! isset($this->conexion)) {
 				$this->conexion = $this->instanciar_conexion_default();
 			}			 
 			if ($this->conexion instanceof toba_db) {						//Si es una base toba, le configuro el schema
@@ -336,7 +337,14 @@ class toba_vista_jasperreports
 			}
 			//Creo el reporte finalmente con la conexion JDBC
 			$print = $this->jasper->fillReport($this->path_reporte, $this->parametros, $con1);
-			$con1->close();
+                    } catch (\Exception $e) {
+                        toba::logger()->error('Error en la ejecución del reporte');
+                        toba::logger()->error($e->getMessage());
+                        throw $e;
+                    } finally {
+                        toba::logger()->debug("Jasper JDBC close Connection");
+                        $con1->close();
+                    }
 		}		
 		$this->lista_jrprint[] = $print;
 	}
@@ -387,13 +395,13 @@ class toba_vista_jasperreports
 	protected function configurar_bd(&$conexion)
 	{
 		$params = $conexion->get_parametros();
-		//Creamos la conexiÃ³n JDBC
+		//Creamos la conexión JDBC
 		$con = new Java("org.altic.jasperReports.JdbcConnection");
 		//Seteamos el driver jdbc
 		$con->setDriver("org.postgresql.Driver");
 		$port = (isset($params['puerto'])) ? ":".$params['puerto'] : '';
 		$con->setConnectString("jdbc:postgresql://".$params['profile'].$port.'/'.$params['base']);
-		//Especificamos los datos de la conexiÃ³n, cabe aclarar que esta conexion es la del servidor de producciÃ³n
+		//Especificamos los datos de la conexión, cabe aclarar que esta conexion es la del servidor de producción
 		$con->setUser($params['usuario']);
 		$con->setPassword($params['clave']);
 		$con1 = $con->getConnection();
@@ -427,4 +435,3 @@ class toba_vista_jasperreports
 	
 
 }
-?>

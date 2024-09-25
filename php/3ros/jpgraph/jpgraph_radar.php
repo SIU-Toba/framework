@@ -1,7 +1,7 @@
 <?php
+
 namespace JpGraph;
 
-use JpGraph\Graph;
 /*=======================================================================
  // File:        JPGRAPH_RADAR.PHP
  // Description: Radar plot extension for JpGraph

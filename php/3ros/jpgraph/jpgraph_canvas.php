@@ -1,7 +1,7 @@
 <?php
+
 namespace JpGraph;
 
-use JpGraph\Graph;
 /*=======================================================================
  // File:        JPGRAPH_CANVAS.PHP
  // Description: Canvas drawing extension for JpGraph

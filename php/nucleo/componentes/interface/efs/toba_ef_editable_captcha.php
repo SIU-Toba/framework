@@ -23,7 +23,7 @@ class toba_ef_editable_captcha extends toba_ef_editable
 			throw new toba_error('<b>toba_ef_editable_captcha:</b> Necesita instalar en PHP el soporte para la extensión GD.');
 		}
 		
-		$this->antispam = new toba_imagen_captcha();
+		$this->antispam = new toba_imagen_captcha(['captchaId' => $id]);
 		$parametros['estado_defecto'] = false;
 		
 		parent::__construct($padre, $nombre_formulario, $id,$etiqueta, $descripcion, $dato, $obligatorio, $parametros);
@@ -115,7 +115,7 @@ class toba_ef_editable_captcha extends toba_ef_editable
 	function generar_texto_aleatorio()
 	{
 		$this->antispam->createCode($this->longitud);
-		$this->texto = $this->antispam->getCode();
+		$this->texto = $this->antispam->get_codigo();
 	}
 	
 	function get_input()
@@ -123,6 +123,9 @@ class toba_ef_editable_captcha extends toba_ef_editable
 		$this->input_extra .= $this->get_estilo_visualizacion_pixeles();
 		$this->input_extra .= $this->get_info_placeholder();	
 		$this->estado  = false;
+        
+        //Fuerza la generacion de un codigo, de lo contrario no hay texto a comparar
+        $this->generar_texto_aleatorio();
 		$longitud = strlen($this->texto); //la longitud maxima de caracteres del ef
 		$tab = ' tabindex="'.$this->padre->get_tab_index().'"';		
 		$text_input  = toba_form::text($this->id_form, $this->estado, $this->es_solo_lectura(), $longitud, $this->tamano, $this->clase_css, $this->javascript.' '.$this->input_extra.$tab);
@@ -162,7 +165,7 @@ class toba_ef_editable_captcha extends toba_ef_editable
 	{
 		if (isset($_POST[$this->id_form])) {
 			$texto_ef = trim($_POST[$this->id_form]);
-			$this->estado = ($this->antispam->check($texto_ef)) ? true : false;
+			$this->estado = ($this->antispam->check($texto_ef, $this->get_id())) ? true : false;
 		} else {
 			$this->estado = false;
 		}

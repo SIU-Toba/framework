@@ -86,7 +86,7 @@ class administracion_proceso_gui implements toba_proceso_gui
 		
 	}
 	
-	function linea_completa($base='', $caracter_relleno)
+	function linea_completa($base='', $caracter_relleno='-')
 	{
 		if (self::$display_ancho > 100) {
 			$ancho = 100;

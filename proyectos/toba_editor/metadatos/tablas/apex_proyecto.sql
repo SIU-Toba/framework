@@ -51,7 +51,7 @@ INSERT INTO apex_proyecto (proyecto, descripcion, descripcion_corta, estilo, con
 	'7', --log_archivo_nivel
 	'instancia', --fuente_datos
 	NULL, --pagina_tipo
-	'3.0.11', --version
+	'3.4.6', --version
 	'2017-09-27', --version_fecha
 	'SIU-Toba. Ambiente de desarrollo WEB.
 Desarrollado por el programa SIU (2003-2017)', --version_detalle

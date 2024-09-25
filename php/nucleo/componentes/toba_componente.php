@@ -137,7 +137,7 @@ abstract class toba_componente
 	}
 
 	/**
-	 * Shortcut de {@link toba_logger::debug() toba::logger()->debug} que incluye información básica del componente actual
+	 * Shortcut de @see toba_logger::debug() que incluye información básica del componente actual
 	 */
 	protected function log($txt)
 	{

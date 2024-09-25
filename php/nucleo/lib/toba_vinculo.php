@@ -155,7 +155,7 @@ class toba_vinculo
 	
 	function get_target()
 	{
-		return $this->target;	
+		return $this->target??'';	
 	}
 	
 	function set_servicio($srv)
