@@ -44,7 +44,10 @@ class toba_registro_conflictos
 	protected function generar_log($path)
 	{
 		$handle = fopen($path, 'w');
-
+        if (false === $handle) {
+            throw new Exception('No se pudo escribir el archivo de log de conflictos');
+        }
+        
 		$fatal		= toba_registro_conflicto::fatal;
 		$warning	= toba_registro_conflicto::warning;
 
