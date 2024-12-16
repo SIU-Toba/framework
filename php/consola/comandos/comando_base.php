@@ -232,20 +232,22 @@ class comando_base extends comando_toba
                 $secuencias = $db->get_lista_secuencias();
                 $db->abrir_transaccion();
                 foreach ($secuencias as $datos) {
-                        $sql_nuevo = "SELECT
-                                                                max(CASE {$datos['campo']}::varchar ~ '^[0-9]+$' WHEN true THEN {$datos['campo']}::bigint ELSE 0 END) as nuevo
-                                                  FROM {$datos['tabla']}
-                        ";
+                    if (substr($datos['tipo'], 0, 3) == 'int') {
+                        $sql_nuevo = "
+                            SELECT
+                                max(CASE {$datos['campo']}::varchar ~ '^[0-9]+$' WHEN true THEN {$datos['campo']}::bigint ELSE 0 END) as nuevo
+                            FROM {$datos['tabla']} ";
                         $res = $db->consultar($sql_nuevo, null, true);
-                        $nuevo = $res[0]['nuevo'];
-                        //Si no hay un maximo, es el primero del grupo
-                        if ($nuevo == NULL) {
-                                $nuevo = 1;
-                        }
+                        $nuevo = $res[0]['nuevo'] ?? 1;
 
-                        $sql = "SELECT setval('{$datos['nombre']}', $nuevo)";
-                        $db->consultar( $sql );
-                        $this->consola->progreso_avanzar();
+                        //Si no hay un maximo, es el primero del grupo
+                        $seqName = (isset($datos['nombre'])) ? $datos['nombre'] : $datos['secuencia'];
+                        if (null !== $seqName && trim($seqName) != '') {
+                            //var_dump("SELECT setval('$seqName', $nuevo);");
+                            $db->consultar( "SELECT setval('$seqName', $nuevo);" );
+                        }
+                    }
+                    $this->consola->progreso_avanzar();
                 }
                 $db->cerrar_transaccion();
                 $this->consola->progreso_fin();
