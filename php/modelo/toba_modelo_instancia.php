@@ -535,15 +535,21 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		$archivo = $this->get_dir().'/'. self::archivo_lista_secuencias;
 		toba_logger::instancia()->debug('Exportando SECUENCIAS');
 		$schema = $this->get_db()->get_schema();
+
 		$lista = array();
-		foreach ( toba_db_secuencias::get_lista() as $seq => $datos ) {
-				$lista[$seq] =  $this->get_db()->consultar_fila("SELECT last_value FROM {$schema}.{$seq};");
+        $valores = $this->get_db()->get_lista_secuencias_exportacion($schema);
+		foreach($valores as $datos) {
+            $seq = $datos['nombre'];
+            $lista[$seq] =  $datos['valor'];
 		}
 	
 		toba_logger::instancia()->debug('Exportando SECUENCIAS tablas log');
-		foreach ( toba_db_secuencias::get_lista_secuencias_tablas_log() as $seq => $datos ) {
-			$lista[$seq] =  $this->get_db()->consultar_fila("SELECT last_value FROM {$schema}_logs.{$seq};");
+        $valores = $this->get_db()->get_lista_secuencias_exportacion($schema.'_logs');
+        foreach($valores as $datos) {
+            $seq = $datos['nombre'];
+            $lista[$seq] =  $datos['valor'];
 		}
+
 		if (! empty($lista)) {
 			file_put_contents($archivo, json_encode($lista, JSON_PRETTY_PRINT));
 		}
@@ -1201,9 +1207,12 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		$sec_archivo = toba_db_secuencias::get_lista();			//Leo las secuencias alcanzadas por el id de desarrollo
 		$tmpsec = $this->get_db()->get_lista_secuencias();		//Recupero todas las secuencias de  la fuente
 		foreach($tmpsec as $fila) {
-			$indx = str_replace('"', '', $fila['nombre']);
-			$secbd[$indx] = $fila;
-		}		
+            $nombre = $fila['nombre'] ?? $fila['secuencia'] ?? '';
+            if ('' != trim($nombre)) {
+                $indx = str_replace('"', '', $nombre);
+                $secbd[$indx] = $fila;
+            }
+		}
 		 $resultado = array_diff_key($secbd, $sec_archivo);		//Quito las que estan en el archivo
 		 return $resultado;		
 	}

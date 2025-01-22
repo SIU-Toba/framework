@@ -918,37 +918,64 @@ class toba_db_postgres7 extends toba_db
 	 * @param string $esquema
 	 * @return array
 	 */
-	function get_lista_secuencias($esquema=null)
-	{
-            //alter sequence my_sequence owned by my_table_manually.id;
-		$where = '';
-		if (! is_null($esquema)) {
-			$esquema = $this->quote($esquema);
-			$where .= " AND n.nspname = $esquema" ;
-		} elseif (isset($this->schema)) {
-			$esquema = $this->quote($this->schema);
-			$where .= " AND n.nspname = $esquema" ;
-		}
-		$sql = "
+    public function get_lista_secuencias(?string $esquema = null):array
+    {
+        //alter sequence my_sequence owned by my_table_manually.id;
+        $where = '';
+        if (! is_null($esquema)) {
+            $esquema = $this->quote($esquema);
+            $where .= " AND n.nspname = $esquema" ;
+        } elseif (isset($this->schema)) {
+            $esquema = $this->quote($this->schema);
+            $where .= " AND n.nspname = $esquema" ;
+        }
+        $sql = '
 			SELECT
 				c.relname as tabla,
 				a.attname as campo,
-				substring(pg_get_serial_sequence(c.relname, a.attname) ,  n.nspname || '\.(.*)' )  as nombre     --- Elimina el nombre del schema
+                t.typname as tipo,
+                substring(pg_get_expr(d.adbin, a.attrelid) from  \'nextval%#"[a-z_.]+#"%\' for \'#\' ) as secuencia, 
+				substring(pg_get_serial_sequence( n.nspname || \'.\' || c.relname, a.attname),  n.nspname || \'\.(.*)\' )  as nombre     --- Elimina el nombre del schema
 			FROM
-				pg_catalog.pg_attribute a
-            LEFT JOIN pg_catalog.pg_attrdef adef ON a.attrelid=adef.adrelid AND a.attnum=adef.adnum
-            LEFT JOIN pg_catalog.pg_type t ON a.atttypid=t.oid
-            LEFT JOIN pg_catalog.pg_class c ON a.attrelid=c.oid
-            LEFT JOIN pg_catalog.pg_namespace as n ON c.relnamespace = n.oid
+                 pg_catalog.pg_attribute a
+            JOIN pg_catalog.pg_attrdef adef ON a.attrelid=adef.adrelid AND a.attnum=adef.adnum
+            JOIN pg_catalog.pg_type t ON a.atttypid=t.oid
+            JOIN pg_catalog.pg_class c ON a.attrelid=c.oid
+            JOIN pg_catalog.pg_namespace as n ON c.relnamespace = n.oid
+            JOIN pg_catalog.pg_attrdef d ON ( d.adrelid = a.attrelid AND d.adnum = a.attnum)
 			WHERE
-			 	pg_get_serial_sequence(c.relname, a.attname) IS NOT NULL
+			 	(
+                    pg_get_expr(d.adbin, a.attrelid) IS NOT NULL
+                OR
+                    pg_get_serial_sequence( n.nspname || \'.\' || c.relname, a.attname) IS NOT NULL
+                )
 			 	AND a.attnum > 0 
-                AND NOT a.attisdropped
-			 	$where
-			ORDER BY a.attname;
-		";
-		return $this->consultar($sql);
-	}
+                AND a.attnotnull = true
+                AND NOT a.attisdropped '.
+                $where .
+            ' ORDER BY a.attname';
+        return $this->consultar($sql);
+    }
+
+    /**
+     * Retorna lista de secuencias usando vista de pg_catalog
+     * @param string|null $esquema
+     * @return array
+     */
+    public function get_lista_secuencias_exportacion(?string $esquema = null): array
+    {
+        $where = '';
+        if (! is_null($esquema)) {
+            $esquema = $this->quote($esquema);
+            $where .= " schemaname = $esquema" ;
+        } elseif (isset($this->schema)) {
+            $esquema = $this->quote($this->schema);
+            $where .= " schemaname = $esquema" ;
+        }
+
+        $sql = 'SELECT sequencename as nombre, coalesce(last_value, start_value) as valor FROM pg_catalog.pg_sequences WHERE '. $where;
+        return $this->consultar($sql);
+    }
 
 	/**
 	* Busca la definicion de un TABLA. Cachea los resultados por un pedido de pagina
