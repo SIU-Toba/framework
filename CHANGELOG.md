@@ -4,6 +4,14 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.4.7](https://github.com/SIU-Toba/framework/releases/tag/v3.4.7) (2025-01-28)
+- Corrige mecanismo de actualización de secuencias
+- Corrige declaracion de metodos en `toba_usuarios` para evitar notices
+- Se actualizan los siguientes paquetes 
+     * phpoffice/phpspreadsheet: v1.29.4
+     * symfony/process: v6.4.15
+
+
 [3.4.6](https://github.com/SIU-Toba/framework/releases/tag/v3.4.6) (2024-09-05)
 - Corrige paginado en ABM de Usuarios usando filtro explicito
 - Actualizacion de seguridad de paquete:
