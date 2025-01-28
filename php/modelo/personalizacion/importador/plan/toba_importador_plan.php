@@ -40,7 +40,7 @@ class toba_importador_plan implements Iterator {
 		$this->borrados = $this->get_borrados($xml);
 	}
 
-	function rewind()
+	function rewind():void
 	{
 		$this->nuevos->rewind();
 		$this->modificados->rewind();
@@ -51,19 +51,19 @@ class toba_importador_plan implements Iterator {
 	/**
 	 * @return toba_importador_plan_item
 	 */
-	function current()
+	function current():mixed
 	{
 		$xml_item = $this->it_actual->current();
 		$item_plan =  new  toba_importador_plan_item($this->path_metadatos, $this->tipo_actual, (string)$xml_item['id'], (string)$xml_item['path']);
 		return $item_plan;
 	}
 
-	function key()
+	function key():mixed
 	{
 		return $this->it_actual->key();
 	}
 
-	function next()
+	function next():void
 	{
 		$this->it_actual->next();
 		if (!$this->it_actual->valid()) {
@@ -72,7 +72,7 @@ class toba_importador_plan implements Iterator {
 
 	}
 
-	function valid()
+	function valid():bool
 	{
 		return $this->it_actual->valid();
 	}

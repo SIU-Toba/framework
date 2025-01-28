@@ -104,7 +104,7 @@ class admin_instancia
 		return toba::db('toba_usuarios')->consultar($sql);
 	}
 	
-	function eliminar_bloqueo($ip)
+	static function eliminar_bloqueo($ip)
 	{
 		$ip = quote($ip);
 		$schema_logs = toba::instancia()->get_db()->get_schema(). '_logs';
@@ -112,34 +112,34 @@ class admin_instancia
 		toba::db('toba_usuarios')->ejecutar($sql);
 	}
 	
-	function eliminar_bloqueos()
+	static function eliminar_bloqueos()
 	{
 		$schema_logs = toba::instancia()->get_db()->get_schema(). '_logs';
 		$sql = "DELETE FROM $schema_logs.apex_log_ip_rechazada;";
 		toba::db('toba_usuarios')->ejecutar($sql);
 	}
 	
-	function eliminar_bloqueo_usuario($usuario)
+	static function eliminar_bloqueo_usuario($usuario)
 	{
 		$usuario = quote($usuario);
 		$sql = "UPDATE apex_usuario SET bloqueado = 0 WHERE usuario = $usuario";
 		toba::db('toba_usuarios')->ejecutar($sql);
 	}
 	
-	function eliminar_bloqueo_usuarios()
+	static function eliminar_bloqueo_usuarios()
 	{
 		$sql = 'UPDATE apex_usuario SET bloqueado = 0 WHERE bloqueado = 1';
 		toba::db('toba_usuarios')->ejecutar($sql);	
 	}
 	
-	function agregar_bloqueo_usuario($usuario)
+	static function agregar_bloqueo_usuario($usuario)
 	{
 		$usuario = quote($usuario);
 		$sql = "UPDATE apex_usuario SET bloqueado = 1 WHERE usuario = $usuario";
 		toba::db('toba_usuarios')->ejecutar($sql);
 	}	
 	
-	function agregar_bloqueo_usuarios()
+	static function agregar_bloqueo_usuarios()
 	{
 		$sql = 'UPDATE apex_usuario SET bloqueado = 1 WHERE bloqueado = 0';
 		toba::db('toba_usuarios')->ejecutar($sql);	

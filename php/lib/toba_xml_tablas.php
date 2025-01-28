@@ -47,7 +47,7 @@ class toba_xml_tablas
 			} else {
 				$valor = utf8_e_seguro($valor??'');
 				$clave = utf8_e_seguro($clave);
-				$actual->appendChild($this->xml->createElement($clave, $valor));
+				$actual->appendChild($this->xml->createElement($clave, $valor??''));
 			}			
 		}
 	}

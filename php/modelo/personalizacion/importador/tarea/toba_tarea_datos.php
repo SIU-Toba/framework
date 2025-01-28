@@ -51,27 +51,27 @@ class toba_tarea_datos implements Iterator {
 	/**
 	 * @return toba_registro
 	 */
-	public function current()
+	public function current():mixed
 	{
 		return $this->it_registros->current();
 	}
 
-	public function key() 
+	public function key():mixed
 	{
 		return $this->it_registros->key();
 	}
 	
-	public function next() 
+	public function next():void
 	{
 		$this->it_registros->next();
 	}
 
-	public function rewind()
+	public function rewind():void
 	{
 		$this->it_registros->rewind();
 	}
 
-	public function valid()
+	public function valid():bool
 	{
 		return $this->it_registros->valid();
 	}
