@@ -4,6 +4,9 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.4.8](https://github.com/SIU-Toba/framework/releases/tag/v3.4.8) (2025-01-29)
+- Hotfix en mecanismo de actualización de secuencias
+
 [3.4.7](https://github.com/SIU-Toba/framework/releases/tag/v3.4.7) (2025-01-28)
 - Corrige mecanismo de actualización de secuencias
 - Corrige declaracion de metodos en `toba_usuarios` para evitar notices
