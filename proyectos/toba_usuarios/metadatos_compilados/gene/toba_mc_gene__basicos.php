@@ -50,7 +50,7 @@ class toba_mc_gene__basicos
   'log_archivo' => 1,
   'log_archivo_nivel' => 7,
   'fuente_datos' => 'toba_usuarios',
-  'version' => '3.4.7',
+  'version' => '3.4.8',
   'version_fecha' => NULL,
   'version_detalle' => NULL,
   'version_link' => NULL,
