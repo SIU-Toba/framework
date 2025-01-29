@@ -540,14 +540,14 @@ class toba_modelo_instancia extends toba_modelo_elemento
         $valores = $this->get_db()->get_lista_secuencias_exportacion($schema);
 		foreach($valores as $datos) {
             $seq = $datos['nombre'];
-            $lista[$seq] =  $datos['valor'];
+            $lista[$seq]['last_value'] =  $datos['valor'];
 		}
 	
 		toba_logger::instancia()->debug('Exportando SECUENCIAS tablas log');
         $valores = $this->get_db()->get_lista_secuencias_exportacion($schema.'_logs');
         foreach($valores as $datos) {
             $seq = $datos['nombre'];
-            $lista[$seq] =  $datos['valor'];
+            $lista[$seq]['last_value'] =  $datos['valor'];
 		}
 
 		if (! empty($lista)) {
