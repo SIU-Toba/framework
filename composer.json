@@ -11,6 +11,7 @@
     "require": {
         "php": ">=7.3",
         "ext-curl": "*",
+        "ext-mbstring": "*",
         "dapphp/securimage": "dev-nextgen",
         "guiguiboy/php-cli-progress-bar": "dev-master",
         "guzzlehttp/psr7": "~2.4",
