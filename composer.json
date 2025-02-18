@@ -25,16 +25,16 @@
         "psr/log": "~1.0|~2.0|~3.0",
         "rospdf/pdf-php": "~0.12",
         "siu-toba/numbers_words": "0.18.0.1",
-        "siu-toba/rest": "~3.1",
+        "siu-toba/rest": "dev-feature/fixesPHP8.3",
         "siu-toba/services_json": "^1.0.3.3",
         "siu-toba/ssl-cert-utils": "~1.0",
         "siu-toba/structures_graph": "~1.2",
         "siu/arai-json-migrator": "~2.0",
-        "symfony/security-csrf": "^5.4",
-        "laminas/laminas-escaper": "~2.13.0",
+        "symfony/security-csrf": "~5.4|~6.0|~7.0",
+        "laminas/laminas-escaper": "~2.16.0",
         "siu/manejador-salida-toba": "~1.2",
         "siu/interfaces-manejador-salida-toba": "~1.4",
-        "symfony/yaml": "~4.4|~5.4|~6.0",
+        "symfony/yaml": "~4.4|~5.4|~6.0|~7.0",
         "vlucas/phpdotenv": "~5.6"
     },
     "conflict": {
@@ -45,7 +45,6 @@
         "greenlion/php-sql-parser": "@dev",
         "php-webdriver/webdriver": "~1.8",
         "simpletest/simpletest": "*",
-        "siu/arai-cli": "*",
         "siu/arai-crypto": "*",
         "siu/arai-json-parser": "*",
         "siu/manejador-salida-bootstrap": "~1.4"
