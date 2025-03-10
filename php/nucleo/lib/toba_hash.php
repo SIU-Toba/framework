@@ -58,12 +58,12 @@ class toba_hash
 
 		case 'SHA512':
 					$vueltas = ($this->rounds < 1000) ? $this->rounds * 1000: $this->rounds + 5000;
-					$salt = sprintf('$6$rounds=%d$', $this->rounds);
+					$salt = sprintf('$6$rounds=%d$', $vueltas);
 					 break;
 
 		case 'SHA256':
 					$vueltas = ($this->rounds < 1000) ? $this->rounds * 1000: $this->rounds + 5000;
-					$salt = sprintf('$5$rounds=%d$', $this->rounds);
+					$salt = sprintf('$5$rounds=%d$', $vueltas);
 					 break;
 
 		case 'MD5':  	$salt = '$1$';
