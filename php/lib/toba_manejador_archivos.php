@@ -71,8 +71,10 @@ class toba_manejador_archivos
 	static function existe_archivo_en_path($file)
 	{
 		$fp = @fopen($file, 'r', true);
-		$ok = ($fp) ? true : false;
-		@fclose($fp);
+		$ok = (false !== $fp);	//Si falla el fopen devuelve false
+		if ($ok) {
+			fclose($fp);
+		}
 		return $ok;
 	}
 
