@@ -48,6 +48,8 @@ trait toba_basic_logger
 	protected $es_php_compatible = true;
 	protected $modo_archivo = true;
 	protected $modo_salida;
+
+	protected $stream_handler;
 	
 	public function get_proyecto_actual()
 	{
