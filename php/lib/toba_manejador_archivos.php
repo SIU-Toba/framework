@@ -70,7 +70,7 @@ class toba_manejador_archivos
 	 */
 	static function existe_archivo_en_path($file)
 	{
-		$fp = @fopen($file, 'r', true);
+		$fp = fopen($file, 'r', true);
 		$ok = (false !== $fp);	//Si falla el fopen devuelve false
 		if ($ok) {
 			fclose($fp);
@@ -308,17 +308,19 @@ class toba_manejador_archivos
 		}
 		$ok = true;
 		$dir = opendir( $directorio );
-		while ( false !== ($archivo = readdir($dir))) {
-			$path = $directorio.'/'.$archivo;
-			if ( $archivo != "." && $archivo!=".." ) {
-				if ( is_dir( $path ) ) {
-				   $ok = self::eliminar_directorio($path) && $ok;
-				} else {
-				   $ok = unlink($path) && $ok;
-				}
-			}
-		}
-		closedir( $dir );
+        if (false !== $dir) {
+            while ( false !== ($archivo = readdir($dir))) {
+                $path = $directorio.'/'.$archivo;
+                if ( $archivo != "." && $archivo!=".." ) {
+                    if ( is_dir( $path ) ) {
+                       $ok = self::eliminar_directorio($path) && $ok;
+                    } else {
+                       $ok = unlink($path) && $ok;
+                    }
+                }
+            }
+            closedir( $dir );
+        }
 		$ok = rmdir($directorio) && $ok;
 		return $ok;
 	}
@@ -335,21 +337,23 @@ class toba_manejador_archivos
 			return chmod($path, $filemode);
 		}
 		$dh = opendir($path);
-		while ($file = readdir($dh)) {
-			if($file != '.' && $file != '..') {
-				$fullpath = $path.'/'.$file;
-				if(!is_dir($fullpath)) {
-					if (!chmod($fullpath, $filemode)) {
-						return FALSE;
-					}
-				} else {
-					if (! self::chmod_recursivo($fullpath, $filemode)) {
-						return FALSE;
-					}
-				}
-			}
-		}
-		closedir($dh);
+        if (false !== $dh) {
+            while ($file = readdir($dh)) {
+                if($file != '.' && $file != '..') {
+                    $fullpath = $path.'/'.$file;
+                    if(!is_dir($fullpath)) {
+                        if (!chmod($fullpath, $filemode)) {
+                            return FALSE;
+                        }
+                    } else {
+                        if (! self::chmod_recursivo($fullpath, $filemode)) {
+                            return FALSE;
+                        }
+                    }
+                }
+            }
+            closedir($dh);
+        }
 		if(chmod($path, $filemode)) {
 			return TRUE;
 		} else {
@@ -402,7 +406,7 @@ class toba_manejador_archivos
 	  */
 	static function es_directorio_vacio($dir)
 	{
-		$dh = @opendir($dir);
+		$dh = opendir($dir);
 		if ($dh !== false) {
 			while ($file = readdir($dh)) {
 				if ($file != '.' && $file != '..') {
