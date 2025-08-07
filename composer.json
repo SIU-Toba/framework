@@ -25,7 +25,7 @@
         "psr/log": "~1.0|~2.0|~3.0",
         "rospdf/pdf-php": "~0.12",
         "siu-toba/numbers_words": "0.18.0.1",
-        "siu-toba/rest": "dev-feature/fixesPHP8.3",
+        "siu-toba/rest": "~3.2",
         "siu-toba/services_json": "^1.0.3.3",
         "siu-toba/ssl-cert-utils": "~1.0",
         "siu-toba/structures_graph": "~1.2",
