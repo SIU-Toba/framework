@@ -4,6 +4,8 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.4.9](https://github.com/SIU-Toba/framework/releases/tag/v3.4.9) (2025-09-29)
+
 [3.4.8](https://github.com/SIU-Toba/framework/releases/tag/v3.4.8) (2025-01-29)
 - Hotfix en mecanismo de actualización de secuencias
 
