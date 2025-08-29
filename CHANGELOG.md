@@ -6,6 +6,13 @@
 
 [3.4.9](https://github.com/SIU-Toba/framework/releases/tag/v3.4.9) (2025-09-29)
 
+- Fix en `toba_rest` que no reflejaba operación detras de un proxy-reverso
+- Fix en la codificación de parámetros AJAX (credits: rdsmiranda)
+- Fix en `toba_logger` que generaba `notice`
+- Fix en invocación `toba_db::sentencia_fuente` 
+- Fix en `toba_manejador_archivos` que interferia con la exportación via `fop`
+- Fix al tratamiento de strings en `ef_multi_seleccion_doble`
+
 [3.4.8](https://github.com/SIU-Toba/framework/releases/tag/v3.4.8) (2025-01-29)
 - Hotfix en mecanismo de actualización de secuencias
 
