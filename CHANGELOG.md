@@ -4,8 +4,10 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
-[3.4.9](https://github.com/SIU-Toba/framework/releases/tag/v3.4.9) (2025-09-29)
-
+[3.4.9](https://github.com/SIU-Toba/framework/releases/tag/v3.4.9) (2025-09-03)
+- Agrega wrappers faltantes en `toba_db`
+- Fix `path disclosure` cuando se intenta acceder a un metadato_compilado
+- Fix en `ei_cuadro_salida_pdf` cuando se incluyen valores nulos
 - Fix en `toba_rest` que no reflejaba operación detras de un proxy-reverso
 - Fix en la codificación de parámetros AJAX (credits: rdsmiranda)
 - Fix en `toba_logger` que generaba `notice`
