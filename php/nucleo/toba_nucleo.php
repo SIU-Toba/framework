@@ -483,6 +483,10 @@ class toba_nucleo
 		if ($this->utilizar_metadatos_compilados() ) {
 			// Arbol de componentes de la operacion
 			$id = toba_manejador_archivos::nombre_valido( $item[1] );
+            if (! file_exists(self::get_directorio_compilacion() . '/oper/toba_mc_oper__' . $id . '.php' )) {
+                toba_logger::instancia()->error("El objeto '$id' no fue instanciado porque su archivo no existe");
+                throw new toba_error_def('El objeto no existe o no fue instanciado, revise el log');
+            }
 			require_once( self::get_directorio_compilacion() . '/oper/toba_mc_oper__' . $id . '.php' );
 			// Datos BASICOS
 			require_once( self::get_directorio_compilacion() . '/gene/toba_mc_gene__basicos.php' );
@@ -522,6 +526,10 @@ class toba_nucleo
 		if (strpos($clase,'toba_mc_')!==false) {
 			$subdir = substr($clase,8,4);
 			$archivo = self::get_directorio_compilacion() . '/' . $subdir . '/' . $clase . '.php';
+            if (! file_exists($archivo )) {
+                toba_logger::instancia()->error("El objeto '$clase' no fue encontrado");
+                throw new toba_error_def('La clase no fue instanciada, revise el log');
+            }
 			require_once($archivo);
 			return;
 		}

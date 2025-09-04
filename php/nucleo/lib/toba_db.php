@@ -28,6 +28,22 @@
     }
 
     /**
+    *	@see toba_db::consultar()
+    */
+    function sentencia_consultar_fuente(string $sql, ?array $parametros=[], ?string $id_fuente=null, $tipo_fetch=null)
+    {
+        return toba::db($id_fuente)->consultar_sentencia($sql, $parametros, $tipo_fetch ?? toba_db_fetch_asoc);
+    }
+
+    /**
+    *	@see toba_db::ejecutar()
+    */
+    function sentencia_ejecutar_fuente(string $sql, ?array $parametros=[], ?string $id_fuente=null)
+    {
+        return toba::db($id_fuente)->ejecutar_sentencia($sql, $parametros);
+    }
+
+    /**
     *	@see toba_db::ejecutar_transaccion()
     */
     function ejecutar_transaccion($sentencias_sql, $id_fuente=null)

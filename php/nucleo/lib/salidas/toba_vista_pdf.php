@@ -209,22 +209,22 @@ class toba_vista_pdf
 
 	function titulo( $texto )
 	{
-		$this->pdf->ezText(utf8_encode("<b>$texto</b>"), 11, array( 'justification' => 'center' ));
+		$this->pdf->ezText(utf8_e_seguro("<b>$texto</b>"), 11, array( 'justification' => 'center' ));
 	}
 
 	function subtitulo( $texto )
 	{
-		$this->pdf->ezText(utf8_encode("<b>$texto</b>"), 9, array( 'justification' => 'left' ));
+		$this->pdf->ezText(utf8_e_seguro("<b>$texto</b>"), 9, array( 'justification' => 'left' ));
 	}
 
 	function mensaje( $texto )
 	{
-		$this->pdf->ezText(utf8_encode("<i>$texto</i>"), 8, array( 'justification' => 'left' ));
+		$this->pdf->ezText(utf8_e_seguro("<i>$texto</i>"), 8, array( 'justification' => 'left' ));
 	}
 
 	function texto( $texto, $tamanio=8, $opciones=array( 'justification' => 'left'))
 	{
-		$this->pdf->ezText(utf8_encode($texto), $tamanio, $opciones);
+		$this->pdf->ezText(utf8_e_seguro($texto), $tamanio, $opciones);
 	}
 
 	/**
@@ -252,8 +252,8 @@ class toba_vista_pdf
 	 */
 	function tabla( $datos, $ver_titulos_col=false, $tamanio=8, $opciones=array() ){
 		$ver_tit_col = $ver_titulos_col? 1 : 0;
-		$texto_tit_col = isset($datos['titulos_columnas'])? array_map('utf8_encode',$datos['titulos_columnas']) : '';
-		$texto_titulo_tabla = isset($datos['titulo_tabla'])? utf8_encode($datos['titulo_tabla']) : '';
+		$texto_tit_col = isset($datos['titulos_columnas'])? array_map('utf8_e_seguro',$datos['titulos_columnas']) : '';
+		$texto_titulo_tabla = isset($datos['titulo_tabla'])? utf8_e_seguro($datos['titulo_tabla']) : '';
 		$opciones_def = array(
 						'splitRows'=>0,
 						'rowGap' => 1,
@@ -269,7 +269,16 @@ class toba_vista_pdf
 		$opciones = array_merge($opciones_def, $opciones);
 		$data_lista = array();
 		foreach($datos['datos_tabla'] as $fila) {
-			$data_lista[] = array_map('utf8_encode', $fila);
+            $fila_procesada = [];
+            foreach ($fila as $klave => $columna) {
+                if (null !== $columna) {
+                    $fila_procesada[$klave] = utf8_e_seguro($columna);
+                }
+            }
+            
+            if (! empty($fila_procesada)) {
+                $data_lista[] = $fila_procesada;
+            }
 		}
 		$this->pdf->ezTable($data_lista, $texto_tit_col, $texto_titulo_tabla, $opciones);
 	}
