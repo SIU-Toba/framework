@@ -529,7 +529,7 @@ class toba_ef_multi_seleccion_doble extends toba_ef_multi_seleccion
 		$imgs[] = toba_recurso::imagen_toba('nucleo/paginacion/si_anterior.gif', false);
 		$claves = array();
 		foreach (array_keys($this->opciones) as $clave) {
-			$claves[] = texto_plano($clave);
+			$claves[] = texto_plano(trim($clave));
 		}
 		$orden_opciones = toba_js::arreglo($claves);
 		return parent::parametros_js().",".toba_js::arreglo($imgs, false).', '.$orden_opciones;

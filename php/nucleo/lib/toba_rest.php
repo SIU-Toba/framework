@@ -153,6 +153,19 @@ class toba_rest
 		$app->container->singleton('rest_quoter', function () {
 			return toba::db();
 		});
+
+
+        $config = $this->get_config_proxy();
+        $config['encoding'] = $app->config('encoding');
+        //Inyecto request con configuracion explicita por si esta detras de un proxy
+		$app->container->singleton('request', function() use ($config) {
+				$req = new request(true);
+				$req->set_host($config['host']);
+				$req->set_port($config['puerto']);
+                $req->set_esquema($config['scheme']);
+				$req->set_encoding_datos($config['encoding']);
+				return $req;
+		});
 	}
 
 	protected function get_metodos_autenticacion()
@@ -311,4 +324,14 @@ class toba_rest
 
 		return $datos_api;
 	}
+
+    protected function get_config_proxy():array
+    {
+        $host = explode(':', toba_http::get_nombre_servidor());
+        return [
+            'scheme' => toba_http::usa_protocolo_seguro() ? 'https': 'http',
+            'puerto' => toba_http::get_puerto(),
+            'host' => current($host),
+        ];
+    }
 }

@@ -5,7 +5,7 @@
  */
 class toba_constructor
 {
-	static $objetos_runtime_instanciados = array();		// Referencias a los objetos creados
+	static $objetos_runtime_instanciados = array(); // Referencias a los objetos creados
 	static $cache_infos = array();
 	static $refresco_forzado = false;
 
@@ -58,14 +58,14 @@ class toba_constructor
 					$instancia_nro = count(self::$objetos_runtime_instanciados[$id['componente']]);
 				}				
 			}
-			$datos['_const_instancia_numero'] = $instancia_nro;			
-		} elseif (is_null($datos['basica']['carpeta']) || $datos['basica']['carpeta'] != '1')  {					//**** Creacion de ITEMS
+			$datos['_const_instancia_numero'] = $instancia_nro;
+		} elseif (is_null($datos['basica']['carpeta']) || $datos['basica']['carpeta'] != '1')  {  //**** Creacion de ITEMS
 			$clase = "toba_solicitud_".$datos['basica']['item_solic_tipo'];
 		} else {
 			toba_logger::instancia()->error('La operación invocada no existe: ' . var_export($id, true));
 			throw new toba_error_seguridad('La operación invocada no existe o no se encontro, revise el log ');
 		}
-		return array($tipo, $clase, $datos);		
+		return array($tipo, $clase, $datos);
 	}
 
 	protected static function cargar_clase(&$datos, $id_proyecto)
@@ -76,7 +76,7 @@ class toba_constructor
 	static function get_runtime_objeto($id, $tipo, $clase, $datos)
 	{
 		$objeto = new $clase( $datos );
-		if ($tipo != 'toba_item') {		//**** Creacion de OBJETOS		
+		if ($tipo != 'toba_item') {  //**** Creacion de OBJETOS
 			//Controlo que pertenezca a la clase definida
 			if (! $objeto instanceof $datos['_info']['clase']) {
 				$clase_actual = get_class($objeto);
@@ -148,7 +148,7 @@ class toba_constructor
 			return self::$objetos_runtime_instanciados[$id['componente']][$numero_instancia];
 		} else {
 			toba_logger::instancia()->error("El objeto '{$id['componente']}' no fue instanciado");
-			throw new toba_error_def('El objeto no existe o no fue instanciado, revise el log');				
+			throw new toba_error_def('El objeto no existe o no fue instanciado, revise el log');
 		}
 	}
 	
@@ -166,6 +166,11 @@ class toba_constructor
 			$clase = 'toba_mc_item__' . toba_manejador_archivos::nombre_valido( $id['componente'] );
 		} else {
 			$clase = 'toba_mc_comp__' . $id['componente'];
+		}
+
+		if (! class_exists($clase, true)) {
+			toba_logger::instancia()->error("El objeto '{$id['componente']}' no fue instanciado");
+			throw new toba_error_def('El objeto no existe o no fue instanciado, revise el log');
 		}
 		return call_user_func( array( $clase, 'get_metadatos' ) );
 	}

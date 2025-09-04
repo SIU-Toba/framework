@@ -81,7 +81,7 @@ vinculador = new function() {
 	 */
 	vinculador.concatenar_parametros_url = function(vinculo, parametros) {
 		for (var i in parametros) {
-			vinculo += '&' + i + '=' + encodeURI(parametros[i]);
+			vinculo += '&' + i + '=' + encodeURIComponent(parametros[i]);
 		}
 		return vinculo;
 	};

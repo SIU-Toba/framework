@@ -760,6 +760,32 @@ class toba_db
 		return $this->sentencias[$id]['id']->rowCount();
 	}
 		
+    /**
+     * Wrapper que recibe la SQL y la consulta como si fuera una sentencia
+     * haciendo ambos pasos aqui dentro
+     *	@throws toba_error_db en caso de error
+     */
+    function consultar_sentencia(string $sql, array $parametros): mixed
+    {
+        $id = $this->sentencia_preparar($sql, []);
+        $data = $this->sentencia_consultar($id, $parametros);
+        $this->sentencia_eliminar($id);
+        return $data;
+    }
+
+    /**
+     * Wrapper que recibe la SQL y la ejecuta como si fuera una sentencia
+     * haciendo ambos pasos aqui dentro
+     *	@throws toba_error_db en caso de error
+     */
+    function ejecutar_sentencia(string $sql, array $parametros): mixed
+    {
+        $id = $this->sentencia_preparar($sql, []);
+        $data = $this->sentencia_ejecutar($id, $parametros);
+        $this->sentencia_eliminar($id);
+        return $data;
+    }
+
 	//------------------------------------------------------------------------
 	//------------ TRANSACCIONES ---------------------------------------------
 	//------------------------------------------------------------------------

@@ -109,7 +109,7 @@ class toba_notificacion
 		foreach($this->mensajes as $mensaje){
 			$texto = toba_parser_ayuda::parsear($mensaje[0]);
 			$texto = str_replace("'", '"', $texto);
-			$texto = $escapador ->escapeJs(toba_js::string($texto));
+			$texto = $escapador->escapeJs(toba_js::string($texto));
 			//Mensaje para debug
 			if (isset($mensaje[2]) && trim($mensaje[2]) != '') {
 				$texto_debug = toba_parser_ayuda::parsear($mensaje[2]);
