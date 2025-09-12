@@ -5,6 +5,7 @@ use SIUToba\rest\seguridad\autenticacion\autenticacion_basic_http;
 use SIUToba\rest\seguridad\autenticacion\oauth2\oauth_token_decoder_web;
 use SIUToba\rest\seguridad\autenticacion\usuarios_usuario_password;
 use SIUToba\rest\seguridad\autorizacion\autorizacion_scopes;
+use  SIUToba\rest\http\request;
 
 /**
  * Clase que instancia la libreria necesaria para atender un pedido REST
@@ -161,7 +162,7 @@ class toba_rest
 		$app->container->singleton('request', function() use ($config) {
 				$req = new request(true);
 				$req->set_host($config['host']);
-				$req->set_port($config['puerto']);
+				$req->set_puerto($config['puerto']);
                 $req->set_esquema($config['scheme']);
 				$req->set_encoding_datos($config['encoding']);
 				return $req;
