@@ -12,11 +12,8 @@
         "php": ">=8.3",
         "ext-curl": "*",
         "ext-mbstring": "*",
-        "dapphp/securimage": "dev-nextgen",
-        "guiguiboy/php-cli-progress-bar": "dev-master",
         "guzzlehttp/psr7": "~2.4",
         "guzzlehttp/guzzle": "~7.8",
-        "ioncube/php-openssl-cryptor": "dev-master",
         "nikic/php-parser": "~4.0",
         "onelogin/php-saml": "~4.0",
         "paragonie/random-lib": "~2.0",
@@ -24,7 +21,6 @@
         "phpoffice/phpspreadsheet": "~1.30",
         "psr/log": "~1.0|~2.0|~3.0",
         "rospdf/pdf-php": "~0.12",
-        "siu-toba/numbers_words": "0.18.0.1",
         "siu-toba/rest": "~3.2",
         "siu-toba/services_json": "^1.0.3.3",
         "siu-toba/ssl-cert-utils": "~1.0",
@@ -54,7 +50,11 @@
         "siu/arai-cli": "Librería cliente de los componentes ARAI",
         "siu/arai-reportes": "Permite imprimir reportes via un servidor Jasper desde SIU-Toba",
         "siu/manejador-salida-bootstrap": "Permite generar un marcado HTML responsive",
-        "siu/rdi": "Permite almacenar documentos en un ECM"
+        "siu/rdi": "Permite almacenar documentos en un ECM",
+        "siu-toba/numbers_words": "Permite convertir importes de numero a letras",
+        "guiguiboy/php-cli-progress-bar": "Permite mostrar una barra de progreso en comandos de consola",
+        "dapphp/securimage": "Permite generar imagenes para captcha",
+        "ioncube/php-openssl-cryptor": "Permite encriptar/desencriptar de manera sencilla"
     },
     "autoload": {
         "psr-4": {
