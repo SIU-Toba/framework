@@ -40,7 +40,9 @@ abstract class toba_componente
 	protected $_exportacion_path;
 	protected $_propiedades_sesion = array();			//Arreglo de propiedades que se persisten en sesion
 	protected $_parametros;								// Parametros de inicializacion provistos por el controlador
-	protected $_inicializado = false;	
+	protected $_inicializado = false;
+    protected $_const_instancia_numero;                 //Por completitud, analizar linea 62
+    protected $toba__descripcion_objeto;
 
 	/**
 	 * Contiene el componente controlador o padre del componente actual

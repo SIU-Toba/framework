@@ -18,7 +18,8 @@ class toba_ei_filtro extends toba_ei
 	protected $_rango_tabs;					// Rango de números disponibles para asignar al taborder
 	protected $_carga_opciones_ef;			//Encargado de cargar las opciones de los efs
 	protected $_clase_formateo = 'toba_formateo';
-
+    protected $_flag_out = false;			// indica si el filtro genero output
+    //
 	//Salida PDF
 	protected $_pdf_letra_tabla = 8;
 	protected $_pdf_tabla_ancho;

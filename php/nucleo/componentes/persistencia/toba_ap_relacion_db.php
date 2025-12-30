@@ -8,6 +8,7 @@ class toba_ap_relacion_db implements toba_ap_relacion
 	protected $_objeto_relacion; 				//toba_datos_relacion que persiste
 	protected $_utilizar_transaccion;			//Determina si la sincronizacion con la DB se ejecuta dentro de una transaccion
 	protected $_retrazar_constraints=false;		//Intenta retrasar el chequeo de claves foraneas hasta el fin de la transacción
+    protected $objeto_relacion;
 	
 	/**
 	 * @param toba_datos_relacion $objeto_relacion Relación que persiste
