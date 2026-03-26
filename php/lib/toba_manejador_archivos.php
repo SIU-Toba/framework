@@ -70,11 +70,9 @@ class toba_manejador_archivos
 	 */
 	static function existe_archivo_en_path($file)
 	{
-		$fp = fopen($file, 'r', true);
-		$ok = (false !== $fp);	//Si falla el fopen devuelve false
-		if ($ok) {
-			fclose($fp);
-		}
+		$path_absoluto = stream_resolve_include_path($file);
+		$ok = (false !== $path_absoluto && file_exists($path_absoluto));
+		
 		return $ok;
 	}
 
