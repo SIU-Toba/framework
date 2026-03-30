@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bc776f44e05add4529e8423bb27f4984",
+    "content-hash": "dd5ed06fe32dca9e17982cfdd3f1a245",
     "packages": [
         {
             "name": "composer/pcre",
@@ -242,16 +242,16 @@
         },
         {
             "name": "firebase/php-jwt",
-            "version": "v6.11.1",
+            "version": "v7.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/firebase/php-jwt.git",
-                "reference": "d1e91ecf8c598d073d0995afa8cd5c75c6e19e66"
+                "reference": "e41f1bd7dbe3c5455c3f72d4338cfeb083b71931"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/firebase/php-jwt/zipball/d1e91ecf8c598d073d0995afa8cd5c75c6e19e66",
-                "reference": "d1e91ecf8c598d073d0995afa8cd5c75c6e19e66",
+                "url": "https://api.github.com/repos/firebase/php-jwt/zipball/e41f1bd7dbe3c5455c3f72d4338cfeb083b71931",
+                "reference": "e41f1bd7dbe3c5455c3f72d4338cfeb083b71931",
                 "shasum": ""
             },
             "require": {
@@ -259,6 +259,7 @@
             },
             "require-dev": {
                 "guzzlehttp/guzzle": "^7.4",
+                "phpfastcache/phpfastcache": "^9.2",
                 "phpspec/prophecy-phpunit": "^2.0",
                 "phpunit/phpunit": "^9.5",
                 "psr/cache": "^2.0||^3.0",
@@ -299,9 +300,9 @@
             ],
             "support": {
                 "issues": "https://github.com/firebase/php-jwt/issues",
-                "source": "https://github.com/firebase/php-jwt/tree/v6.11.1"
+                "source": "https://github.com/firebase/php-jwt/tree/v7.0.4"
             },
-            "time": "2025-04-09T20:32:01+00:00"
+            "time": "2026-03-27T21:17:19+00:00"
         },
         {
             "name": "graham-campbell/result-type",
@@ -576,16 +577,16 @@
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "2.8.0",
+            "version": "2.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "21dc724a0583619cd1652f673303492272778051"
+                "reference": "7d0ed42f28e42d61352a7a79de682e5e67fec884"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/21dc724a0583619cd1652f673303492272778051",
-                "reference": "21dc724a0583619cd1652f673303492272778051",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/7d0ed42f28e42d61352a7a79de682e5e67fec884",
+                "reference": "7d0ed42f28e42d61352a7a79de682e5e67fec884",
                 "shasum": ""
             },
             "require": {
@@ -601,6 +602,7 @@
             "require-dev": {
                 "bamarni/composer-bin-plugin": "^1.8.2",
                 "http-interop/http-factory-tests": "0.9.0",
+                "jshttp/mime-db": "1.54.0.1",
                 "phpunit/phpunit": "^8.5.44 || ^9.6.25"
             },
             "suggest": {
@@ -672,7 +674,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/psr7/issues",
-                "source": "https://github.com/guzzle/psr7/tree/2.8.0"
+                "source": "https://github.com/guzzle/psr7/tree/2.9.0"
             },
             "funding": [
                 {
@@ -688,7 +690,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-08-23T21:21:41+00:00"
+            "time": "2026-03-10T16:41:02+00:00"
         },
         {
             "name": "ircmaxell/security-lib",
@@ -742,16 +744,16 @@
         },
         {
             "name": "justinrainbow/json-schema",
-            "version": "5.3.1",
+            "version": "5.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jsonrainbow/json-schema.git",
-                "reference": "b5a44b6391a3bbb75c9f2b73e1ef03d6045e1e20"
+                "reference": "a0b7c13588b102d7d6536823e96d1c88d3dba85e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jsonrainbow/json-schema/zipball/b5a44b6391a3bbb75c9f2b73e1ef03d6045e1e20",
-                "reference": "b5a44b6391a3bbb75c9f2b73e1ef03d6045e1e20",
+                "url": "https://api.github.com/repos/jsonrainbow/json-schema/zipball/a0b7c13588b102d7d6536823e96d1c88d3dba85e",
+                "reference": "a0b7c13588b102d7d6536823e96d1c88d3dba85e",
                 "shasum": ""
             },
             "require": {
@@ -801,9 +803,9 @@
             ],
             "support": {
                 "issues": "https://github.com/jsonrainbow/json-schema/issues",
-                "source": "https://github.com/jsonrainbow/json-schema/tree/5.3.1"
+                "source": "https://github.com/jsonrainbow/json-schema/tree/5.3.3"
             },
-            "time": "2025-12-12T08:56:22+00:00"
+            "time": "2026-03-24T18:47:53+00:00"
         },
         {
             "name": "laminas/laminas-escaper",
@@ -1430,7 +1432,7 @@
         },
         {
             "name": "pear/pear-core-minimal",
-            "version": "v1.10.17",
+            "version": "v1.10.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pear/pear-core-minimal.git",
@@ -1618,16 +1620,16 @@
         },
         {
             "name": "phpoffice/phpspreadsheet",
-            "version": "1.30.1",
+            "version": "1.30.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPOffice/PhpSpreadsheet.git",
-                "reference": "fa8257a579ec623473eabfe49731de5967306c4c"
+                "reference": "09cdde5e2f078b9a3358dd217e2c8cb4dac84be2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPOffice/PhpSpreadsheet/zipball/fa8257a579ec623473eabfe49731de5967306c4c",
-                "reference": "fa8257a579ec623473eabfe49731de5967306c4c",
+                "url": "https://api.github.com/repos/PHPOffice/PhpSpreadsheet/zipball/09cdde5e2f078b9a3358dd217e2c8cb4dac84be2",
+                "reference": "09cdde5e2f078b9a3358dd217e2c8cb4dac84be2",
                 "shasum": ""
             },
             "require": {
@@ -1650,12 +1652,11 @@
                 "markbaker/complex": "^3.0",
                 "markbaker/matrix": "^3.0",
                 "php": ">=7.4.0 <8.5.0",
-                "psr/http-client": "^1.0",
-                "psr/http-factory": "^1.0",
                 "psr/simple-cache": "^1.0 || ^2.0 || ^3.0"
             },
             "require-dev": {
                 "dealerdirect/phpcodesniffer-composer-installer": "dev-main",
+                "doctrine/instantiator": "^1.5",
                 "dompdf/dompdf": "^1.0 || ^2.0 || ^3.0",
                 "friendsofphp/php-cs-fixer": "^3.2",
                 "mitoteam/jpgraph": "^10.3",
@@ -1702,6 +1703,9 @@
                 },
                 {
                     "name": "Adrien Crivelli"
+                },
+                {
+                    "name": "Owen Leibman"
                 }
             ],
             "description": "PHPSpreadsheet - Read, Create and Write Spreadsheet documents in PHP - Spreadsheet engine",
@@ -1718,9 +1722,9 @@
             ],
             "support": {
                 "issues": "https://github.com/PHPOffice/PhpSpreadsheet/issues",
-                "source": "https://github.com/PHPOffice/PhpSpreadsheet/tree/1.30.1"
+                "source": "https://github.com/PHPOffice/PhpSpreadsheet/tree/1.30.2"
             },
-            "time": "2025-10-26T16:01:04+00:00"
+            "time": "2026-01-11T05:58:24+00:00"
         },
         {
             "name": "phpoption/phpoption",
@@ -2387,20 +2391,20 @@
         },
         {
             "name": "siu-toba/jwt-util",
-            "version": "v1.1.0",
+            "version": "v2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SIU-Toba/jwt-util.git",
-                "reference": "3365a677191e334f1888fde34501e0eb47963dd7"
+                "reference": "170bbc083fff871e57c28d235ce70ccbc15c1d0e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SIU-Toba/jwt-util/zipball/3365a677191e334f1888fde34501e0eb47963dd7",
-                "reference": "3365a677191e334f1888fde34501e0eb47963dd7",
+                "url": "https://api.github.com/repos/SIU-Toba/jwt-util/zipball/170bbc083fff871e57c28d235ce70ccbc15c1d0e",
+                "reference": "170bbc083fff871e57c28d235ce70ccbc15c1d0e",
                 "shasum": ""
             },
             "require": {
-                "firebase/php-jwt": "~6.11",
+                "firebase/php-jwt": "~7.0",
                 "php": ">=8.1.0"
             },
             "require-dev": {
@@ -2423,29 +2427,29 @@
             "homepage": "http://www.siu.edu.ar",
             "support": {
                 "issues": "https://github.com/SIU-Toba/jwt-util/issues",
-                "source": "https://github.com/SIU-Toba/jwt-util/tree/v1.1.0"
+                "source": "https://github.com/SIU-Toba/jwt-util/tree/v2.1.0"
             },
-            "time": "2025-06-11T19:16:16+00:00"
+            "time": "2026-02-23T21:10:18+00:00"
         },
         {
             "name": "siu-toba/rest",
-            "version": "v3.2.0",
+            "version": "v4.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SIU-Toba/rest.git",
-                "reference": "0db02f0f2aabc38aeb0f743a1ee1a0e72f5acd45"
+                "reference": "23fe534c04f6eaa121fe8f43c42fdc16fa192477"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SIU-Toba/rest/zipball/0db02f0f2aabc38aeb0f743a1ee1a0e72f5acd45",
-                "reference": "0db02f0f2aabc38aeb0f743a1ee1a0e72f5acd45",
+                "url": "https://api.github.com/repos/SIU-Toba/rest/zipball/23fe534c04f6eaa121fe8f43c42fdc16fa192477",
+                "reference": "23fe534c04f6eaa121fe8f43c42fdc16fa192477",
                 "shasum": ""
             },
             "require": {
                 "doctrine/cache": "~2.2.0",
                 "ext-mbstring": "*",
                 "php": ">=8.1.0",
-                "siu-toba/jwt-util": "~1.1",
+                "siu-toba/jwt-util": "~2.0",
                 "siu-toba/ssl-cert-utils": "~1.2"
             },
             "require-dev": {
@@ -2462,9 +2466,9 @@
             "homepage": "http://toba.siu.edu.ar",
             "support": {
                 "issues": "https://github.com/SIU-Toba/rest/issues",
-                "source": "https://github.com/SIU-Toba/rest/tree/v3.2.0"
+                "source": "https://github.com/SIU-Toba/rest/tree/v4.0.0"
             },
-            "time": "2025-06-11T20:20:10+00:00"
+            "time": "2026-03-10T22:21:49+00:00"
         },
         {
             "name": "siu-toba/services_json",
@@ -2839,16 +2843,16 @@
         },
         {
             "name": "symfony/password-hasher",
-            "version": "v7.4.0",
+            "version": "v7.4.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/password-hasher.git",
-                "reference": "aa075ce6f54fe931f03c1e382597912f4fd94e1e"
+                "reference": "376755eb9c9857d78aedb68341ad2f46d1908b29"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/password-hasher/zipball/aa075ce6f54fe931f03c1e382597912f4fd94e1e",
-                "reference": "aa075ce6f54fe931f03c1e382597912f4fd94e1e",
+                "url": "https://api.github.com/repos/symfony/password-hasher/zipball/376755eb9c9857d78aedb68341ad2f46d1908b29",
+                "reference": "376755eb9c9857d78aedb68341ad2f46d1908b29",
                 "shasum": ""
             },
             "require": {
@@ -2891,7 +2895,7 @@
                 "password"
             ],
             "support": {
-                "source": "https://github.com/symfony/password-hasher/tree/v7.4.0"
+                "source": "https://github.com/symfony/password-hasher/tree/v7.4.6"
             },
             "funding": [
                 {
@@ -2911,7 +2915,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-08-13T16:46:49+00:00"
+            "time": "2026-02-11T16:03:16+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -3167,16 +3171,16 @@
         },
         {
             "name": "symfony/security-core",
-            "version": "v7.4.0",
+            "version": "v7.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/security-core.git",
-                "reference": "fe4d25e5700a2f3b605bf23f520be57504ae5c51"
+                "reference": "958a70725a8d669bec6721f4cd318d209712e944"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/security-core/zipball/fe4d25e5700a2f3b605bf23f520be57504ae5c51",
-                "reference": "fe4d25e5700a2f3b605bf23f520be57504ae5c51",
+                "url": "https://api.github.com/repos/symfony/security-core/zipball/958a70725a8d669bec6721f4cd318d209712e944",
+                "reference": "958a70725a8d669bec6721f4cd318d209712e944",
                 "shasum": ""
             },
             "require": {
@@ -3234,7 +3238,7 @@
             "description": "Symfony Security Component - Core Library",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/security-core/tree/v7.4.0"
+                "source": "https://github.com/symfony/security-core/tree/v7.4.4"
             },
             "funding": [
                 {
@@ -3254,20 +3258,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-11-21T15:26:00+00:00"
+            "time": "2026-01-14T09:36:49+00:00"
         },
         {
             "name": "symfony/security-csrf",
-            "version": "v7.4.0",
+            "version": "v7.4.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/security-csrf.git",
-                "reference": "ec41009e83589d0b3d86bd131d07e6fc8ecf35ab"
+                "reference": "d01adcd3141bec95e4cfd338f6b4482f1dd6a42b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/security-csrf/zipball/ec41009e83589d0b3d86bd131d07e6fc8ecf35ab",
-                "reference": "ec41009e83589d0b3d86bd131d07e6fc8ecf35ab",
+                "url": "https://api.github.com/repos/symfony/security-csrf/zipball/d01adcd3141bec95e4cfd338f6b4482f1dd6a42b",
+                "reference": "d01adcd3141bec95e4cfd338f6b4482f1dd6a42b",
                 "shasum": ""
             },
             "require": {
@@ -3308,7 +3312,7 @@
             "description": "Symfony Security Component - CSRF Library",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/security-csrf/tree/v7.4.0"
+                "source": "https://github.com/symfony/security-csrf/tree/v7.4.6"
             },
             "funding": [
                 {
@@ -3328,7 +3332,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-11-21T15:26:00+00:00"
+            "time": "2026-02-11T16:03:16+00:00"
         },
         {
             "name": "symfony/service-contracts",
@@ -3419,16 +3423,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v7.4.1",
+            "version": "v7.4.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "24dd4de28d2e3988b311751ac49e684d783e2345"
+                "reference": "58751048de17bae71c5aa0d13cb19d79bca26391"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/24dd4de28d2e3988b311751ac49e684d783e2345",
-                "reference": "24dd4de28d2e3988b311751ac49e684d783e2345",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/58751048de17bae71c5aa0d13cb19d79bca26391",
+                "reference": "58751048de17bae71c5aa0d13cb19d79bca26391",
                 "shasum": ""
             },
             "require": {
@@ -3471,7 +3475,7 @@
             "description": "Loads and dumps YAML files",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/yaml/tree/v7.4.1"
+                "source": "https://github.com/symfony/yaml/tree/v7.4.6"
             },
             "funding": [
                 {
@@ -3491,7 +3495,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-12-04T18:11:45+00:00"
+            "time": "2026-02-09T09:33:46+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -3579,6 +3583,63 @@
         }
     ],
     "packages-dev": [
+        {
+            "name": "dapphp/securimage",
+            "version": "4.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dapphp/securimage.git",
+                "reference": "aabde76d839d75a238970661187f83312c2eeda7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dapphp/securimage/zipball/aabde76d839d75a238970661187f83312c2eeda7",
+                "reference": "aabde76d839d75a238970661187f83312c2eeda7",
+                "shasum": ""
+            },
+            "require": {
+                "ext-gd": "*",
+                "php": ">=5.4"
+            },
+            "suggest": {
+                "ext-pdo": "For database storage support",
+                "ext-pdo_mysql": "For MySQL database support",
+                "ext-pdo_sqlite": "For SQLite3 database support"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Securimage\\": "./"
+                },
+                "classmap": [
+                    "securimage.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Drew Phillips",
+                    "email": "drew@drew-phillips.com"
+                }
+            ],
+            "description": "PHP CAPTCHA Library",
+            "homepage": "https://www.phpcaptcha.org",
+            "keywords": [
+                "Forms",
+                "anti-spam",
+                "captcha",
+                "security"
+            ],
+            "support": {
+                "issues": "https://github.com/dapphp/securimage/issues",
+                "source": "https://github.com/dapphp/securimage/tree/4.0.2"
+            },
+            "abandoned": true,
+            "time": "2020-05-30T10:05:48+00:00"
+        },
         {
             "name": "greenlion/php-sql-parser",
             "version": "v4.7.0",
@@ -3850,11 +3911,11 @@
         },
         {
             "name": "siu/manejador-salida-bootstrap",
-            "version": "v1.4.0",
+            "version": "v1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://gitlab.siu.edu.ar/siu/manejador-salida-bootstrap.git",
-                "reference": "a5bdcc56034c1a264a485430aaeff7c1cbbbdbc9"
+                "reference": "d9167e2110cffd1d8f2445144cdaee41c7b1b553"
             },
             "require": {
                 "siu/interfaces-manejador-salida-toba": "~1.4"
@@ -3880,7 +3941,7 @@
                 }
             ],
             "description": "Implementacion del patron 'Abstract Factory' para la salida Bootstrap",
-            "time": "2023-12-01T13:58:36+00:00"
+            "time": "2026-03-17T21:44:10+00:00"
         },
         {
             "name": "symfony/process",
@@ -3961,5 +4022,5 @@
         "ext-mbstring": "*"
     },
     "platform-dev": {},
-    "plugin-api-version": "2.9.0"
+    "plugin-api-version": "2.6.0"
 }
