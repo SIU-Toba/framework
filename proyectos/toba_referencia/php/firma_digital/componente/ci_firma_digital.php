@@ -137,9 +137,8 @@ class ci_firma_digital extends toba_ci
 		$datos_persona['fecha_nac'] = $datos['fecha_nac'];
 		
 		//Generar PDF
-		require_once(toba_dir() . '/php/3ros/ezpdf/class.ezpdf.php');
 		$pdf = new Cezpdf();
-		$pdf->selectFont(toba_dir() . '/php/3ros/ezpdf/fonts/Helvetica.afm');
+		$pdf->selectFont(toba_dir() . '/vendor/rospdf/pdf-php/src/fonts/Helvetica.afm');
 		$pdf->ezText('Ejemplo Firma Digital. Tiene un attachment XML', 14);
 		$pdf->ezText('');
 		$pdf->ezText("ID: {$datos['id']}", 14);
