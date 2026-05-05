@@ -397,7 +397,7 @@ class toba_proyecto
 	{
 		if (!isset($proyecto)) { $proyecto = $this->id;}
 		if (!isset($grupos_acceso)) { $grupos_acceso = toba::manejador_sesiones()->get_perfiles_funcionales_activos();}
-		if ( toba::nucleo()->utilizar_metadatos_compilados( $proyecto ) ) {
+		if (toba::nucleo()->utilizar_metadatos_compilados($proyecto) && toba::nucleo()->usar_perfiles_compilados($proyecto)) {
 			$rs = $this->recuperar_datos_compilados_grupo(	'toba_mc_gene__grupo_',
 													$grupos_acceso,
 													'get_items_menu',
@@ -430,7 +430,7 @@ class toba_proyecto
 		//Recupero los items y los formateo en un indice consultable
 		if(!isset($this->indice_items_accesibles)) {
 			$this->indice_items_accesibles = array();
-			if ( toba::nucleo()->utilizar_metadatos_compilados( $this->id, 'compilados' ) ) {
+			if (toba::nucleo()->utilizar_metadatos_compilados($this->id, 'compilados' ) && toba::nucleo()->usar_perfiles_compilados($this->id)) {
 				///-- Metadatos compilados
 				if (! empty($grupos_acceso)) {
 					//-- Busca los items accesibles por grupo
@@ -462,7 +462,7 @@ class toba_proyecto
 	function get_items_zona($zona, $grupos_acceso=null)
 	{
 		if (!isset($grupos_acceso)) { $grupos_acceso = toba::manejador_sesiones()->get_perfiles_funcionales_activos();}
-		if ( toba::nucleo()->utilizar_metadatos_compilados( $this->id ) ) {
+		if (toba::nucleo()->utilizar_metadatos_compilados($this->id) && toba::nucleo()->usar_perfiles_compilados($this->id)) {
 			$rs = $this->recuperar_datos_compilados_grupo(	'toba_mc_gene__grupo_',
 															$grupos_acceso,
 															'get_items_zona__'.$zona,
@@ -492,7 +492,7 @@ class toba_proyecto
 
 	function get_perfiles_funcionales_asociados($perfil)
 	{
-		if ( toba::nucleo()->utilizar_metadatos_compilados( $this->id ) ) {
+		if (toba::nucleo()->utilizar_metadatos_compilados($this->id) && toba::nucleo()->usar_perfiles_compilados($this->id)) {
 			$rs = $this->recuperar_datos_compilados_grupo(	'toba_mc_gene__grupo_',  array($perfil),	'get_membresia', true);
 			$perfiles = $rs;
 			foreach ($rs as $perfil_miembro) {
@@ -512,7 +512,7 @@ class toba_proyecto
 	function get_lista_permisos($grupos_acceso=null)
 	{
 		$grupos_acceso = isset($grupos_acceso) ? $grupos_acceso : toba::manejador_sesiones()->get_perfiles_funcionales_activos();
-		if ( toba::nucleo()->utilizar_metadatos_compilados( $this->id ) ) {
+		if (toba::nucleo()->utilizar_metadatos_compilados($this->id) && toba::nucleo()->usar_perfiles_compilados($this->id)) {
 			$rs = $this->recuperar_datos_compilados_grupo('toba_mc_gene__grupo_', $grupos_acceso, 'get_lista_permisos');
 		} else {
 			$rs = toba_proyecto_db::get_lista_permisos($this->id, $grupos_acceso);
