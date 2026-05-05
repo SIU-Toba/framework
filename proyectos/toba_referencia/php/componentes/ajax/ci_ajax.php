@@ -22,13 +22,13 @@ class ci_ajax extends toba_ci
 	 */
 	function conf__form_datos_param(toba_ei_formulario $form)
 	{
-		$inicio = new toba_fecha();
-		$fin = new toba_fecha();
-		$fin->set_timestamp($inicio->get_fecha_desplazada_meses(1));
+		$inicio = new DateTime();
+		$fin = new DateTime();
+		$fin->modify('+1 month'); // Agrega un mes a la fecha de inicio
 		$datos = array(
 				'valor_diario' => '15.25',
-				'fecha_inicio' =>  $inicio->get_fecha_db(),
-				'fecha_fin' => $fin->get_fecha_db()
+				'fecha_inicio' =>  $inicio->format('Y-m-d'),
+				'fecha_fin' => $fin->format('Y-m-d')
 		);
 		$form->set_datos($datos);
 	}
@@ -39,9 +39,10 @@ class ci_ajax extends toba_ci
 	function ajax__calcular($parametros, toba_ajax_respuesta $respuesta)
 	{
 		//--- Calculo el valor total en base a las fechas y el valor diario
-		$fecha1 = toba_fecha::desde_pantalla($parametros['fecha_inicio']);
-		$fecha2 = toba_fecha::desde_pantalla($parametros['fecha_fin']);
-		$cant_dias = $fecha1->diferencia_dias($fecha2);
+		$fecha1 = new DateTime($parametros['fecha_inicio']);
+		$fecha2 = new DateTime($parametros['fecha_fin']);
+		$diferencia = $fecha1->diff($fecha2);
+		$cant_dias = $diferencia->days;
 		$total = $cant_dias * $parametros['valor_diario'];
 		
 		//-- Paso la información a JS
@@ -116,24 +117,26 @@ class ci_ajax extends toba_ci
 		if (trim($dia) == '') {
 			return true;
 		}
+		
 		$es_valido = true;
-		$fecha = toba_fecha::desde_pantalla($dia);
-		$anio = $fecha->get_parte('año');
+		$fecha = new DateTime($dia);
+		$anio = fecha->format('Y');
+
 		//--- Se forma un cache de feriados por año para evitar ir al WS en cada pedido, esto es un ejemplo de juguete!
 		if (! isset($this->s__cache_feriados[$anio])) {
 			$client = new SoapClient('http://webservices.mininterior.gov.ar/Feriados/Service.svc?wsdl');
-			$d1 = mktime(0, 0, 0, 1, 1, $anio);
-			$d2 = mktime(0, 0, 0, 12, 31, $anio);
-			$feriados = $client->FeriadosEntreFechasAsXml(array('d1'=>$d1, 'd2'=>$d2));
+			$d1 = new DateTime("$anio-01-01");
+			$d2 = new DateTime("$anio-12-31");
+			$feriados = $client->FeriadosEntreFechasAsXml(array('d1'=>$d1->getTimestamp(), 'd2'=>$d2->getTimestamp()));
 			$this->s__cache_feriados[$anio] = $feriados->FeriadosEntreFechasAsXmlResult;
 		}
 		$feriados = simplexml_load_string($this->s__cache_feriados[$anio]);
 		foreach ($feriados as $feriado) {
-			$fecha_feriado = new toba_fecha((string) $feriado->FechaEfectiva);
-			if ($fecha_feriado->es_igual_que($fecha)) {
+			$fecha_feriado = new DateTime((string) $feriado->FechaEfectiva);
+			if ($fecha_feriado->format('Y-m-d') === $fecha->format('Y-m-d')) {
 				$es_valido = false;
-				$mensaje = 'El '.$fecha->get_fecha_pantalla().'
-								 es '. trim((string) utf8_decode($feriado->Descripcion)).
+				$mensaje = 'El '.$fecha->format('Y-m-d').'
+								es '. trim((string) utf8_decode($feriado->Descripcion)).
 								' por '.trim((string) utf8_decode($feriado->TipoDescripcion));
 				break;		
 			}

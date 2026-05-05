@@ -932,7 +932,11 @@ class calendario //extends activecalendar
 	 */
 	function setEventContent($day, $content)
 	{
+		$eventContent = array(); // inicializo el array
 		$eventContent[$day] = $content;
+		if (!$this->calEventContent){
+			$this->calEventContent = array();
+		}
 		$this->calEventContent[] = $eventContent;
 	}
 

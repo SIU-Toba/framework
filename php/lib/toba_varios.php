@@ -747,48 +747,6 @@
 		}
 	}
 
-	/**
-	 * Funcion que hashea con un metodo especifico y un salt
-	 * @param type $clave
-	 * @param type $metodo
-	 * @param type $sal
-	 * @return type
-	 * @deprecated desde version 3.0.11
-	 * @see toba_hash
-	 */
-	function encriptar_con_sal($clave, $metodo, $sal=null)
-	{
-		if (version_compare(PHP_VERSION, '5.3.2') >= 0 || $metodo == 'bcrypt') {
-			$hasher = new toba_hash($metodo);
-			if (is_null($sal)) {									//Hash nuevo
-				return $hasher->hash($clave);
-			} else {											//Verificacion
-				$resultado = $hasher->get_hash_verificador($clave, $sal);
-				if (strlen($resultado) > 13) {	//Si es menor a 13 hubo error, puede ser que el hash
-					return $resultado;		//se hubiera generado con el metodo anterior
-				}
-			}
-		}
-
-		if (is_null($sal)) {
-			$sal = get_salt();
-		} else {
-			$sal = substr($sal, 0, 10);
-		}		
-		//Si el mecanismo es bcrypt no deberia haber llegado hasta aquí, por lo tanto la respuesta tiene que garantizar que falle
-		return ($metodo != 'bcrypt') ? $sal . hash($metodo, $sal . $clave): hash('sha256', get_salt().$resultado);
-	}
-
-	/**
-	 * Funcion que retorna un salt generado (no seguro)
-	 * @return type
-	 * @deprecated desde version 3.0.11
-	 */
-	function get_salt()
-	{
-		return substr(md5(uniqid(rand(), true)), 0, 10);
-	}
-
 	function dormir($tiempo)
 	{
 		if (class_exists('inst_timer')) {

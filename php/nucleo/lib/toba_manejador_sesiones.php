@@ -397,15 +397,6 @@ class toba_manejador_sesiones
 		return $this->perfiles_funcionales_activos = array_unique($finales);
 	}
 
-	/**
-	* @deprecated Desde 1.5 usar get_perfiles_funcionales
-	*/
-	function get_grupos_acceso()
-	{
-		return $this->get_perfiles_funcionales();
-
-	}
-
 	function verificar_cambio_perfil_activo()
 	{
 		if (isset($_POST[apex_sesion_qs_cambio_pf]) && toba::proyecto()->permite_cambio_perfiles()) {
@@ -418,20 +409,6 @@ class toba_manejador_sesiones
 				$this->set_perfiles_funcionales_activos($this->get_perfiles_funcionales());
 			}
 			toba::memoria()->set_dato('usuario_perfil_funcional_seleccionado', $perfil_solicitado);
-		}
-	}
-
-	/**
-	*	Determina el perfil de datos del usuario actual
-	* @deprecated 3.0.0
-	* @see toba_manejador_sesiones::get_perfiles_datos
-     	*/
-	function get_perfil_datos()
-	{
-		if( (toba_editor::modo_prueba() && ( ! toba_editor::acceso_recursivo() ) ) ) {
-			return toba_editor::get_perfil_datos_previsualizacion();
-		} else {
-			return $this->usuario()->get_perfil_datos();
 		}
 	}
 
@@ -454,19 +431,6 @@ class toba_manejador_sesiones
 			$this->perfiles_datos_activos = $this->get_perfiles_datos();
 		}
 		return $this->perfiles_datos_activos;
-	}
-
-	/**
-	* @deprecated 3.0.0
-	* @see toba_manejador_sesiones::set_perfiles_datos_activos()
-	*/
-	function set_perfil_datos_activo($id_perfil)
-	{
-		if (! is_array($id_perfil)) {
-			if (! is_null($id_perfil)) {
-				$this->set_perfiles_datos_activos(array($id_perfil));
-			}
-		}
 	}
 
 	/**

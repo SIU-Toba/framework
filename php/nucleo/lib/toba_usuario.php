@@ -37,11 +37,16 @@ class toba_usuario implements toba_interface_usuario
 		return array();	
 	}
 
-	function get_perfiles_datos() 
+	function get_perfiles_datos()
 	{
 		return null;
 	}
-	
+	//-------- Agrego get_perfil_datos
+	function get_perfil_datos()
+	{
+		return null;
+	}
+
 	//-------- Bloqueos --------------------------------------
 
 	static function es_ip_rechazada($ip){}
@@ -57,15 +62,6 @@ class toba_usuario implements toba_interface_usuario
 	function get_restricciones_funcionales($perfiles = null)
 	{
 		return array();
-	}
-
-	/**
-	* @deprecated 3.0.0
-	* @see toba_usuario_basico::get_perfiles_datos()
-	*/
-	function get_perfil_datos()
-	{
-		return null;
 	}
 
 	//------------------------ Generacion de claves ---------------------------

@@ -172,7 +172,6 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 
 	/**
 	 * Genera el pie del cuadro
-	 * @deprecated
 	 */
 	protected function html_pie()
 	{
@@ -222,7 +221,7 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 
 	/**
 	 *  Envia la botonera del selector
-	 *  @deprecated
+
 	 *  @see manejador_salida_toba
 	 */
 	protected function html_botonera_selector()
@@ -239,7 +238,6 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 
 	/**
 	 * Genera la cabecera con los titulos del selector
-	 * @deprecated
 	 * @see manejador_salida_toba
 	 */
 	protected function html_cabecera_selector()
@@ -253,7 +251,7 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 
 	/**
 	 *  Genera el cuerpo del selector
-	 *  @deprecated
+
 	 *  @see manejador_salida_toba
 	 */
 	protected function html_cuerpo_selector()
@@ -909,7 +907,7 @@ class toba_ei_cuadro_salida_html extends toba_ei_cuadro_salida
 	//-------------------------------------------------------------------------------
     /**
      *  Genera el HTML correspondiente a la sumarizacion de los datos
-     *  @deprecated
+
      */
 	protected function html_cuadro_sumarizacion($datos, $titulo=null , $ancho=null, $css='col-num-p1')
 	{

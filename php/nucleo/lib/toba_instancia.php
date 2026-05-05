@@ -518,16 +518,6 @@ class toba_instancia
 		}
 	}
 
-
-
-	/**
-	* @deprecated Usar get_perfiles_funcionales
-	*/
-	function get_grupos_acceso($usuario, $proyecto)
-	{
-		return $this->get_perfiles_funcionales($usuario, $proyecto);
-	}
-
 	/**
 	*	Utilizada en el login automatico
 	*/

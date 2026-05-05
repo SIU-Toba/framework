@@ -497,14 +497,6 @@ class toba_datos_relacion extends toba_componente
 	}
 	
 	/**
-	 * @deprecated usar persistidor() a secas
-	 */
-	function get_persistidor()
-	{
-		return $this->persistidor();
-	}
-	
-	/**
 	 * Utiliza la carga por clave del administrador de persistencia
 	 * Carga la tabla raiz de la relación y a partir de allí ramifica la carga a sus relaciones
 	 * @param array $clave Arreglo asociativo campo-valor por el cual filtrar la relación, si no se explicita se cargan todos los datos disponibles
@@ -614,17 +606,6 @@ class toba_datos_relacion extends toba_componente
 	{
 		$this->persistidor()->eliminar_todo();
 		$this->resetear();
-	}
-	
-	/**
-	 * Usar eliminar_todo, es más explícito
-	 * @deprecated Desde 0.8.4, usar eliminar_todo, es más explícito
-	 * @see eliminar_todo()
-	 */
-	function eliminar()
-	{
-		toba::logger()->obsoleto(__CLASS__, __METHOD__, "0.8.4", "Usar eliminar_todo");
-		$this->eliminar_todo();	
 	}
 	
 	/**

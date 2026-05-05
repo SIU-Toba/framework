@@ -877,15 +877,6 @@ class toba_ei_cuadro extends toba_ei
 		}
 	}
 
-	 /**
-	*	@deprecated Desde 0.8.3. Usar get_clave_seleccionada
-	*/
-	function get_clave()
-	{
-		toba::logger()->obsoleto(__CLASS__, __FUNCTION__, "0.8.3", "Usar get_clave_seleccionada");
-		return $this->get_clave_seleccionada();
-	}
-
 	/**
 	*	En caso de existir una fila seleccionada, retorna su clave
 	*	@return array Arreglo asociativo id_clave => valor_clave
