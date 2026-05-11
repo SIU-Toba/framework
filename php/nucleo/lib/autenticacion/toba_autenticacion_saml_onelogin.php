@@ -11,6 +11,7 @@ class toba_autenticacion_saml_onelogin extends toba_autenticacion implements tob
 	protected $proyecto_login;
 	protected $settingsInfo=array();
 	protected $idp = '';
+    protected $auth_context;
 
 	function __construct()
 	{
@@ -49,13 +50,23 @@ class toba_autenticacion_saml_onelogin extends toba_autenticacion implements tob
 				$this->SPCert = $parametros[$sp_name]['x509cert'];
 			}
 
+            if (isset($parametros[$sp_name]['auth_context'])) {
+                $this->auth_context = explode(',' , $parametros[$sp_name]['auth_context']);
+            }
+
 			if (!isset($parametros[$sp_name]['proyecto_login'])) {
 				throw new toba_error("Debe definir proyecto_login en ".$archivo_ini_instalacion);
 			}
 			$this->proyecto_login = trim($parametros[$sp_name]['proyecto_login']);
 
 			//Creo configuracion del SP
-			$this->settingsInfo= array ('strict' => $verificaPeer,  'sp' => $this->get_sp_config());
+			$this->settingsInfo = array ('strict' => $verificaPeer,  'sp' => $this->get_sp_config());
+
+            //Si hay especificado uno o varios authNContext a requerir, se incluyen en la parte correcta
+            if (isset($this->auth_context)) {
+                $this->settingsInfo['security']['requestedAuthnContext'] = $this->auth_context;
+            }
+
 			//Agrego configuracion del IdP
 			if (isset($parametros[$sp_name]['idp'])) {
 				$this->idp = $parametros[$sp_name]['idp'];
@@ -202,12 +213,12 @@ class toba_autenticacion_saml_onelogin extends toba_autenticacion implements tob
 	protected function get_sp_config()
 	{
 		//Arma el entityID en base a una URL fija de toba
-                   $entityID = $this->getProyectoUrl();
+        $entityID = $this->getProyectoUrl();
 		$info =  array ('entityId' => $entityID.'/' . $this->auth_source,
 					'assertionConsumerService' => array ( 'url' => $entityID.'/?acs'),
 					'singleLogoutService' => array ('url' => $entityID.'/?sls'	),
-					'NameIDFormat' =>$this->atributo_usuario
-                                    	);
+					'NameIDFormat' => $this->atributo_usuario
+                );
 
 		//Agrega PK y Certificado para cuando se verifica la conexion con strict
 		if (isset($this->SPCert) && trim($this->SPCert) != '') {
