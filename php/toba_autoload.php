@@ -390,6 +390,7 @@ class toba_autoload
 		'toba_usuarios_rest_jwt' => 'nucleo/lib/rest/toba_usuarios_rest_jwt.php',
 		'toba_usuarios_rest_ssl' => 'nucleo/lib/rest/toba_usuarios_rest_ssl.php',
 		'toba_imagen_captcha' => 'nucleo/lib/salidas/toba_imagen_captcha.php',
+		'toba_imagen_captcha_empty' => 'nucleo/lib/salidas/toba_imagen_captcha_empty.php',
 		'toba_impr_html' => 'nucleo/lib/salidas/toba_impr_html.php',
 		'toba_impresion' => 'nucleo/lib/salidas/toba_impresion.php',
 		'toba_vista_araireportes' => 'nucleo/lib/salidas/toba_vista_araireportes.php',

@@ -1,6 +1,8 @@
 <?php
 
-
+/**
+ * @deprecated
+ */ 
 class toba_imagen_captcha extends Securimage
 {
 	
@@ -110,6 +112,6 @@ class toba_imagen_captcha extends Securimage
 		unset($vars['correct_code']);
 		
 		return $vars;
-	}	
+	}
 }
 ?>
