@@ -26,7 +26,7 @@ class toba_ef_editable_captcha extends toba_ef_editable
 		}
         $this->legacyEf = class_exists('Securimage');
 
-        if ($this->legacyEf) {
+        if ($this->es_legacy_ef()) {
             $this->antispam = new toba_imagen_captcha(['captchaId' => $id]);
         } else {
             $this->antispam = new toba_imagen_captcha_empty(); //Capaz que esta se puede usar para inyectar alguna lib diabolica estilo G3
@@ -117,12 +117,22 @@ class toba_ef_editable_captcha extends toba_ef_editable
 		$this->longitud = $longitud;
 	}
 
+    function es_legacy_ef():bool
+    {
+        return $this->legacyEf;
+    }
+    
+    function set_antispam_obj($obj)
+    {
+        $this->antispam = $obj;
+    }
+        
 	/**
 	 * Genera el texto aleatorio que se muestra en la imagen distorsionada.
 	 */
 	function generar_texto_aleatorio()
 	{
-        if ($this->legacyEf) {
+        if ($this->es_legacy_ef()) {
             $this->antispam->createCode($this->longitud);
             $this->texto = $this->antispam->get_codigo();
         }
@@ -134,22 +144,21 @@ class toba_ef_editable_captcha extends toba_ef_editable
 		$this->input_extra .= $this->get_info_placeholder();
 		$this->estado  = false;
                 
-		if ($this->legacyEf) {
+		if ($this->es_legacy_ef()) {                //Formato con securimage
 			return $this->get_input_legacy();
-		} else {
-            $longitud = 0;
-            $tab = ' tabindex="'.$this->padre->get_tab_index().'"';
-            
-			return '<p> No hay un captcha disponible </p>' .
-                toba_form::text($this->id_form, $this->estado, true, $longitud, $this->tamano, $this->clase_css, $this->javascript.' '.$this->input_extra.$tab);
-		}
+		} elseif (isset($this->antispam)) {         //Genera el widget de la interface
+            return $this->get_input_new();
+		} 
+        
+        //Deja un msg advirtiendo que no hay captcha
+        return '<p> Necesita una clase que implemente toba_captcha_interface </p>';
 	}
     
     function cargar_estado_post()
     {
         if (isset($_POST[$this->id_form])) {
             $texto_ef = trim($_POST[$this->id_form]);
-            $this->estado = ($this->legacyEf && $this->antispam->check($texto_ef, $this->get_id())) ? true : false;
+            $this->estado = ($this->es_legacy_ef() && $this->antispam->check($texto_ef, $this->get_id())) ? true : false;
         } else {
             $this->estado = false;
         }
@@ -203,6 +212,35 @@ class toba_ef_editable_captcha extends toba_ef_editable
 		$input .= $this->get_html_iconos_utilerias();
 
 		return $input;
+	}
+    
+    protected function get_input_new()
+    {
+        $salida_real =  $this->antispam->get_widget();
+        $tab = ' tabindex="'.$this->padre->get_tab_index().'"';
+        
+        $text_input  = toba_form::hidden($this->id_form, $this->estado, true, 0, $this->tamano, $this->clase_css, $this->javascript.' '.$this->input_extra.$tab);
+        $input = "<div>
+					<div align='absmiddle' class='{$this->css_captcha}'>
+                        $salida_real
+					</div>
+					<div class='{$this->clase_css}'>
+						$text_input
+					</div>
+				</div>";
+
+		$input .= $this->get_html_iconos_utilerias();
+
+		return $input;
+    }
+        
+    public function parametros_js()
+	{
+        if (! $this->es_legacy_ef()) {
+            $this->obligatorio = false;
+        }
+		
+		return parent::parametros_js();
 	}
 }
 ?>

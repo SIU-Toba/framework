@@ -95,12 +95,9 @@ class toba_imagen_captcha_empty // buscar metodo faltantes
     public function get_input()
     {
         $this->estado  = false;
-        $refrescar = $audio = '';
         $text_input = 'Este ef reemplaza la version deprecada de ef_captcha, por favor cambielo';
-
         $input = "<div>
 					<div align='absmiddle' class='{$this->css_captcha}'>
-						<img id='{$this->id}-captcha' src='$url' /> $refrescar $audio
 					</div>
 					<div class='{$this->clase_css}'>
 						 $text_input

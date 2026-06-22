@@ -202,6 +202,7 @@ class toba_referencia_autoload
 		'ci_memoria' => 'varios/ci_memoria.php',
 		'ci_uso_del_menu' => 'varios/uso_del_menu/ci_uso_del_menu.php',
 		'ci_personas' => 'zona/ci_personas.php',
+		'GCaptchav2' => 'varios/GCaptchav2.php',
 	);
 }
 ?>
