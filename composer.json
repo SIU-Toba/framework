@@ -43,8 +43,7 @@
         "simpletest/simpletest": "*",
         "siu/arai-crypto": "*",
         "siu/arai-json-parser": "*",
-        "siu/manejador-salida-bootstrap": "~1.4",
-        "dapphp/securimage": "~4.0"
+        "siu/manejador-salida-bootstrap": "~1.4"
     },
     "suggest": {
         "simplesamlphp/simplesamlphp": "Permite conectarse a un IDP centralizado (see onelogin)",

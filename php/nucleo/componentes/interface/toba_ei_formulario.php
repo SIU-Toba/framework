@@ -754,6 +754,7 @@ class toba_ei_formulario extends toba_ei
 	 * @todo Este esquema solo se banca un solo ef_captcha. Para poder bancarse mas habria que 
 	 * pensar por ejemplo, pasarle al GET "id_ef + text-captcha" para identificar que texto se 
 	 * quiere recuperar. De todas maneras para que mas de un captcha???.
+	 * @deprecated since 3.5.0
 	 */	
 	function servicio__mostrar_captchas_efs()
 	{
@@ -765,12 +766,14 @@ class toba_ei_formulario extends toba_ei
 			$texto = null;
 		}
 		
-		$antispam = new toba_imagen_captcha();		
-		if (isset($parametros)) {
-			$antispam->set_parametros_captcha($parametros);
-		}
-				
-		$antispam->show();
+        if (class_exists('Securimage')) {
+            $antispam = new toba_imagen_captcha();
+            if (isset($parametros)) {
+                $antispam->set_parametros_captcha($parametros);
+            }
+
+            $antispam->show();
+        }
 	}
 
 	/**
