@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "39c8993e8db029c57933e7a3f9ee15df",
+    "content-hash": "837a4192683754e7ecf44c1f0e0f9620",
     "packages": [
         {
             "name": "composer/pcre",
@@ -367,21 +367,21 @@
         },
         {
             "name": "guzzlehttp/guzzle",
-            "version": "7.15.2",
+            "version": "7.15.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "744101956d78b7c1384d0cbf379db13e859167bf"
+                "reference": "ae311b8f045ea93ce7b1c9cdb7cec06c53f944bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/744101956d78b7c1384d0cbf379db13e859167bf",
-                "reference": "744101956d78b7c1384d0cbf379db13e859167bf",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/ae311b8f045ea93ce7b1c9cdb7cec06c53f944bc",
+                "reference": "ae311b8f045ea93ce7b1c9cdb7cec06c53f944bc",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "guzzlehttp/promises": "^2.5.1",
+                "guzzlehttp/promises": "^2.5.2",
                 "guzzlehttp/psr7": "^2.13",
                 "php": "^7.2.5 || ^8.0",
                 "psr/http-client": "^1.0",
@@ -475,7 +475,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/guzzle/issues",
-                "source": "https://github.com/guzzle/guzzle/tree/7.15.2"
+                "source": "https://github.com/guzzle/guzzle/tree/7.15.3"
             },
             "funding": [
                 {
@@ -491,20 +491,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-07-26T23:23:20+00:00"
+            "time": "2026-08-05T19:48:21+00:00"
         },
         {
             "name": "guzzlehttp/promises",
-            "version": "2.5.1",
+            "version": "2.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/promises.git",
-                "reference": "9ad1e4fc607446a055b95870c7f668e93b5cff29"
+                "reference": "2823687acff28b2dbe67b2508a6b300e2c3fa4ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/promises/zipball/9ad1e4fc607446a055b95870c7f668e93b5cff29",
-                "reference": "9ad1e4fc607446a055b95870c7f668e93b5cff29",
+                "url": "https://api.github.com/repos/guzzle/promises/zipball/2823687acff28b2dbe67b2508a6b300e2c3fa4ce",
+                "reference": "2823687acff28b2dbe67b2508a6b300e2c3fa4ce",
                 "shasum": ""
             },
             "require": {
@@ -559,7 +559,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/promises/issues",
-                "source": "https://github.com/guzzle/promises/tree/2.5.1"
+                "source": "https://github.com/guzzle/promises/tree/2.5.2"
             },
             "funding": [
                 {
@@ -575,7 +575,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-07-08T15:48:39+00:00"
+            "time": "2026-08-05T19:30:54+00:00"
         },
         {
             "name": "guzzlehttp/psr7",
@@ -2437,16 +2437,16 @@
         },
         {
             "name": "siu-toba/rest",
-            "version": "v4.0.0",
+            "version": "dev-develop",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SIU-Toba/rest.git",
-                "reference": "23fe534c04f6eaa121fe8f43c42fdc16fa192477"
+                "reference": "44094a2ffc58f053c8c68ff68dba08f128b90be7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SIU-Toba/rest/zipball/23fe534c04f6eaa121fe8f43c42fdc16fa192477",
-                "reference": "23fe534c04f6eaa121fe8f43c42fdc16fa192477",
+                "url": "https://api.github.com/repos/SIU-Toba/rest/zipball/44094a2ffc58f053c8c68ff68dba08f128b90be7",
+                "reference": "44094a2ffc58f053c8c68ff68dba08f128b90be7",
                 "shasum": ""
             },
             "require": {
@@ -2459,6 +2459,7 @@
             "require-dev": {
                 "phpunit/phpunit": "^9.5"
             },
+            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -2470,17 +2471,17 @@
             "homepage": "http://toba.siu.edu.ar",
             "support": {
                 "issues": "https://github.com/SIU-Toba/rest/issues",
-                "source": "https://github.com/SIU-Toba/rest/tree/v4.0.0"
+                "source": "https://github.com/SIU-Toba/rest/tree/develop"
             },
-            "time": "2026-03-10T22:21:49+00:00"
+            "time": "2026-05-29T19:38:53+00:00"
         },
         {
             "name": "siu-toba/services_json",
-            "version": "1.0.3.4",
+            "version": "1.0.3.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SIU-Toba/Services_JSON.git",
-                "reference": "46b34cd0104b8d28f02fd7d88ba8dbdeec1ec079"
+                "reference": "fcbc6efc0dd47eda3caf2266c98656dde392bf35"
             },
             "require": {
                 "pear/pear_exception": "*"
@@ -2514,7 +2515,7 @@
                 "issues": "http://pear.php.net/bugs/search.php?cmd=display&package_name[]=Services_JSON",
                 "source": "https://github.com/pear/Services_JSON"
             },
-            "time": "2021-09-17T17:24:13+00:00"
+            "time": "2026-08-10T19:54:54+00:00"
         },
         {
             "name": "siu-toba/ssl-cert-utils",
@@ -3967,7 +3968,8 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "greenlion/php-sql-parser": 20
+        "greenlion/php-sql-parser": 20,
+        "siu-toba/rest": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
