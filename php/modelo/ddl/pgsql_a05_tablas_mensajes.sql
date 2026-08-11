@@ -15,8 +15,8 @@ CREATE TABLE apex_msg_tipo
 ---------------------------------------------------------------------------------------------------
 (  
 	msg_tipo                	 	varchar(20)    NOT NULL,
-   descripcion                	TEXT   NOT NULL,
-   icono                      	varchar(60)    NULL,
+   descripcion                      TEXT   NOT NULL,
+   icono                            varchar(60)    NULL,
    CONSTRAINT  "apex_msg_tipo_pk" PRIMARY KEY ("msg_tipo")
 );
 --#################################################################################################
@@ -34,20 +34,22 @@ CREATE TABLE apex_msg
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
 (  
-	msg 			    					int8           DEFAULT nextval('"apex_msg_seq"'::text) NOT NULL, 
-	indice          					varchar(255)    NOT NULL,
-	proyecto  							varchar(15)    NOT NULL,
+   msg 			    				int8           DEFAULT nextval('"apex_msg_seq"'::text) NOT NULL, 
+   indice          					varchar(255)    NOT NULL,
+   proyecto  						varchar(15)    NOT NULL,
    msg_tipo       					varchar(20)    NOT NULL,
    descripcion_corta            	varchar(50)    NULL,
-   mensaje_a	                  TEXT        NULL,
-   mensaje_b	                  TEXT        NULL,
-   mensaje_c	                  TEXT        NULL,
-   mensaje_customizable          TEXT        NULL,
+   mensaje_a	                    TEXT        NULL,
+   mensaje_b	                    TEXT        NULL,
+   mensaje_c	                    TEXT        NULL,
+   mensaje_customizable             TEXT        NULL,
    CONSTRAINT  "apex_msg_pk" PRIMARY KEY ("msg", "proyecto"),
 --   CONSTRAINT  "apex_msg_msg_uk" UNIQUE ("indice"),
    CONSTRAINT  "apex_msg_fk_proy" FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
    CONSTRAINT  "apex_msg_fk_tipo" FOREIGN KEY ("msg_tipo") REFERENCES "apex_msg_tipo" ("msg_tipo") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
+CREATE INDEX idx_apex_msg_indice ON apex_msg (trim(indice), proyecto);
+
 --#################################################################################################
 
 CREATE SEQUENCE apex_item_msg_seq INCREMENT 1 MINVALUE 0 MAXVALUE 9223372036854775807 CACHE 1;
@@ -64,18 +66,18 @@ CREATE TABLE apex_item_msg
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
 (  
-	item_msg          		   	int8           DEFAULT nextval('"apex_item_msg_seq"'::text) NOT NULL, 
+   item_msg          		   	int8           DEFAULT nextval('"apex_item_msg_seq"'::text) NOT NULL, 
    msg_tipo          		   	varchar(20)    NOT NULL,
-	indice          					varchar(255)    NOT NULL,
-   item_id      						int8        	NULL, 
+   indice          				varchar(255)    NOT NULL,
+   item_id      				int8        	NULL, 
    item_proyecto       		   	varchar(15)    NOT NULL,
    item                		   	varchar(60)    NOT NULL,
-   descripcion_corta            	varchar(50)    NULL,
-   mensaje_a	                  TEXT        NULL,
-   mensaje_b	                  TEXT        NULL,
-   mensaje_c	                  TEXT        NULL,
+   descripcion_corta            varchar(50)    NULL,
+   mensaje_a	                TEXT        NULL,
+   mensaje_b	                TEXT        NULL,
+   mensaje_c	                TEXT        NULL,
    mensaje_customizable         TEXT        NULL,
-	parametro_patron					TEXT	NULL,
+   parametro_patron				TEXT	NULL,
    CONSTRAINT  "apex_item_msg_pk"   PRIMARY KEY ("item_msg","item_proyecto"),
    CONSTRAINT  "apex_item_msg_uk" UNIQUE ("indice"),
    CONSTRAINT  "apex_item_msg_fk_item" FOREIGN KEY ("item", "item_proyecto") REFERENCES "apex_item" ("item", "proyecto") ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE,
