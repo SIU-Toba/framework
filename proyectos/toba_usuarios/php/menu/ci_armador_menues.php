@@ -201,7 +201,11 @@ class ci_armador_menues extends toba_ci
 			//Armo un arreglo con los ids recuperados en forma de padre/hijo
 			$ids_recuperados = array();			
 			foreach ($datos as $klave => $ids_enviados) {
-				$aux = explode('^', $ids_enviados);
+				if ($ids_enviados !== null) {
+					$aux = explode('^', $ids_enviados);
+				} else {
+					$aux = array();
+				}
 				$ids_recuperados = array_merge($ids_recuperados, $aux);
 				$datos[$klave] = $aux;
 			}

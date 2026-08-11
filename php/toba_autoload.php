@@ -64,7 +64,6 @@ class toba_autoload
 		'toba_editor_archivos' => 'lib/toba_editor_archivos.php',
 		'toba_encriptador' => 'lib/toba_encriptador.php',
 		'toba_extractor_clases' => 'lib/toba_extractor_clases.php',
-		'toba_fecha' => 'lib/toba_fecha.php',
 		'toba_ini' => 'lib/toba_ini.php',
 		'toba_manejador_archivos' => 'lib/toba_manejador_archivos.php',
 		'toba_parametros' => 'lib/toba_parametros.php',

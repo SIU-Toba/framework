@@ -1442,15 +1442,6 @@ class toba_datos_tabla extends toba_componente
 		}
 		return $this->_persistidor;
 	}
-	
-	/**
-	 * @deprecated  Usar persistidor() a secas
-	 */
-	function get_persistidor()
-	{
-		return $this->persistidor();
-	}
-	
 
 
 	/**
@@ -1586,15 +1577,6 @@ class toba_datos_tabla extends toba_componente
 		//Sincronizo con la base
 		$this->persistidor()->sincronizar_eliminados();
 		$this->resetear();
-	}
-	
-	/**
-	 * @deprecated Desde 0.8.4, usar eliminar_todo()
-	 */
-	function eliminar()
-	{
-		toba::logger()->obsoleto(__CLASS__, __METHOD__, "0.8.4", "Usar eliminar_todo");
-		$this->eliminar_todo();	
 	}
 
 	/**

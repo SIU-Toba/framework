@@ -481,15 +481,6 @@ class toba_proyecto
 		return $grupos;
 	}
 
-	/**
-	 * @deprecated Desde 1.5 usar get_perfiles_funcionales_usuario_anonimo
-	 */
-	function get_grupos_acceso_usuario_anonimo()
-	{
-		return $this->get_perfiles_funcionales_usuario_anonimo();
-	}
-
-
 	function get_perfiles_funcionales_asociados($perfil)
 	{
 		if ( toba::nucleo()->utilizar_metadatos_compilados( $this->id ) ) {

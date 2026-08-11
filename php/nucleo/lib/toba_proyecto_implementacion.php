@@ -37,23 +37,6 @@ class toba_proyecto_implementacion
 		";
 		return $db->consultar_fila($sql);
 	}
-		
-	/**
-	*	Devuelve el perfil de datos de un usuario
-	* @deprecated 3.0.0
-	* @see toba_proyecto_implementacion::get_perfiles_datos_usuario()
-	*/	 	
-	static function get_perfil_datos($usuario, $proyecto)
-	{
-		$datos = self::get_perfiles_datos_usuario($usuario, $proyecto);
-		if(empty($datos)) {
-			$result = null;
-		} else {
-			$anx = current($datos);
-			$result = $anx['perfil_datos'];
-		}			
-		return $result;
-	}
 	
 	/**
 	 * Devuelve los perfiles de datos del usuario en el proyecto

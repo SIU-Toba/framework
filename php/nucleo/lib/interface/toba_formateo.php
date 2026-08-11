@@ -86,13 +86,17 @@ class toba_formateo
 	
 	function formato_moneda($valor)
 	{
+		// Si el valor es nulo, lo pongo en cero para evitar errores
+		if ($valor === null){
+			$valor = 0.0;
+		}
 		//Es trucho forzar desde aca, los datos tienen que esta bien
 		//if($valor<0)$valor=0;
 		if ($this->tipo_salida != 'excel') {
-			return '$'.$this->get_separador(). number_format($valor,2,',','.');
+			return '$'.$this->get_separador(). number_format((float)$valor, 2, ',', '.');
 		} else {
 			return array($valor, array('numberFormat' => 
-						 array('formatCode' => toba_vista_excel::FORMAT_CURRENCY_CUSTOM)
+						array('formatCode' => toba_vista_excel::FORMAT_CURRENCY_CUSTOM)
 				));
 		}
 	}

@@ -172,17 +172,6 @@ class toba_db_postgres7 extends toba_db
 
 	/**
 	 * Retraza o activa el chequeo de constraints
-	 * @deprecated since version 3.0.1
-	 * @see retrasar_constraints()
-	 * @param boolean $retrazar
-	 */
-	function retrazar_constraints($retrazar = true)
-	{
-		$this->retrasar_constraints($retrazar);
-	}
-
-	/**
-	 * Retraza o activa el chequeo de constraints
 	 * @param boolean $retrasar
 	 */
 	function retrasar_constraints($retrasar = true)
