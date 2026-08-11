@@ -261,6 +261,7 @@ class toba_ef_html extends toba_ef
 	protected $fckeditor;
 	protected $colapsada = false;
 	protected $js_config;
+    protected $config_file;
     
     static protected $config_global; 
     static protected $skin;

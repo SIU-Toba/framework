@@ -3,6 +3,9 @@ php_referencia::instancia()->agregar(__FILE__);
 
 class extension_cuadro_sumarizacion_a extends toba_ei_cuadro
 {
+    protected $_pdf_cortar_hoja_cc_0;
+    protected $_excel_cortar_hoja_cc_0;
+    
 	function ini()
 	{
 		$this->_pdf_cortar_hoja_cc_0 = true;

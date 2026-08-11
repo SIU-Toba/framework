@@ -24,8 +24,10 @@ class toba_ei_filtro extends toba_ei
 	protected $_pdf_letra_tabla = 8;
 	protected $_pdf_tabla_ancho;
 	protected $_pdf_tabla_opciones = array();
-	
-	
+    
+    protected $_info_filtro;
+    protected $_info_filtro_col;
+		
 	final function __construct($definicion)
 	{
 		parent::__construct($definicion);
@@ -979,7 +981,7 @@ class toba_ei_filtro extends toba_ei
 		}
 		if($tmpxml) {
 			$xml = '<'.$this->xml_ns.'tabla'.$this->xml_ns_url;
-			if (trim($this->_info["titulo"])=="" && (!isset($this->xml_titulo) || $this->xml_titulo == '')) {
+			if (isset($this->_info["titulo"]) && trim($this->_info["titulo"])=="" && (!isset($this->xml_titulo) || $this->xml_titulo == '')) {
 				$this->xml_set_titulo('Filtro');
 			} 
 			$xml .= $this->xml_get_att_comunes();

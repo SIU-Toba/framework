@@ -43,6 +43,7 @@ abstract class toba_componente
 	protected $_inicializado = false;
     protected $_const_instancia_numero;                 //Por completitud, analizar linea 62
     protected $toba__descripcion_objeto;
+    protected $toba__indice_objetos_serializados;
 
 	/**
 	 * Contiene el componente controlador o padre del componente actual
