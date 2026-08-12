@@ -14,6 +14,7 @@ define('apex_ei_evt_no_maneja_datos', -1);
  * @package Componentes
  * @wiki Referencia/Objetos
  */
+#[\AllowDynamicProperties]
 abstract class toba_componente
 {
 	static protected $_modo_memoria_compatible = false;		//Dos componentes con el mismo id creados en un request reusan la misma celda de memoria?
