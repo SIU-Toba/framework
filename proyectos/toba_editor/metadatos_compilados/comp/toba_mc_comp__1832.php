@@ -191,16 +191,6 @@ class toba_mc_comp__1832
   array (
     0 => 
     array (
-      'pantalla' => 33000028,
-      'proyecto' => 'toba_editor',
-      'objeto_ci' => 1832,
-      'dep_id' => 33000046,
-      'orden' => 0,
-      'identificador_pantalla' => '2',
-      'identificador_dep' => 'form_schemas',
-    ),
-    1 => 
-    array (
       'pantalla' => 33000029,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1832,
@@ -208,6 +198,16 @@ class toba_mc_comp__1832
       'orden' => 0,
       'identificador_pantalla' => '3',
       'identificador_dep' => 'form_auditoria',
+    ),
+    1 => 
+    array (
+      'pantalla' => 33000028,
+      'proyecto' => 'toba_editor',
+      'objeto_ci' => 1832,
+      'dep_id' => 33000046,
+      'orden' => 0,
+      'identificador_pantalla' => '2',
+      'identificador_dep' => 'form_schemas',
     ),
     2 => 
     array (
@@ -227,38 +227,47 @@ class toba_mc_comp__1832
       'pantalla' => 988,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1832,
-      'evento_id' => 441,
+      'evento_id' => 462,
       'identificador_pantalla' => '1',
-      'identificador_evento' => 'guardar',
+      'identificador_evento' => 'eliminar',
     ),
     1 => 
     array (
       'pantalla' => 988,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1832,
-      'evento_id' => 462,
+      'evento_id' => 441,
       'identificador_pantalla' => '1',
-      'identificador_evento' => 'eliminar',
+      'identificador_evento' => 'guardar',
     ),
     2 => 
     array (
       'pantalla' => 33000028,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1832,
-      'evento_id' => 441,
+      'evento_id' => 462,
       'identificador_pantalla' => '2',
-      'identificador_evento' => 'guardar',
+      'identificador_evento' => 'eliminar',
     ),
     3 => 
     array (
       'pantalla' => 33000028,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1832,
-      'evento_id' => 462,
+      'evento_id' => 441,
       'identificador_pantalla' => '2',
-      'identificador_evento' => 'eliminar',
+      'identificador_evento' => 'guardar',
     ),
     4 => 
+    array (
+      'pantalla' => 33000029,
+      'proyecto' => 'toba_editor',
+      'objeto_ci' => 1832,
+      'evento_id' => 462,
+      'identificador_pantalla' => '3',
+      'identificador_evento' => 'eliminar',
+    ),
+    5 => 
     array (
       'pantalla' => 33000029,
       'proyecto' => 'toba_editor',
@@ -266,15 +275,6 @@ class toba_mc_comp__1832
       'evento_id' => 441,
       'identificador_pantalla' => '3',
       'identificador_evento' => 'guardar',
-    ),
-    5 => 
-    array (
-      'pantalla' => 33000029,
-      'proyecto' => 'toba_editor',
-      'objeto_ci' => 1832,
-      'evento_id' => 462,
-      'identificador_pantalla' => '3',
-      'identificador_evento' => 'eliminar',
     ),
   ),
   '_info_dependencias' => 

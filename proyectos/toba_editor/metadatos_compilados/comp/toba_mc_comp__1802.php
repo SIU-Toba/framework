@@ -233,16 +233,6 @@ class toba_mc_comp__1802
   array (
     0 => 
     array (
-      'pantalla' => 976,
-      'proyecto' => 'toba_editor',
-      'objeto_ci' => 1802,
-      'dep_id' => 769,
-      'orden' => 1,
-      'identificador_pantalla' => 'seleccion',
-      'identificador_dep' => 'filtro',
-    ),
-    1 => 
-    array (
       'pantalla' => 977,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1802,
@@ -250,6 +240,16 @@ class toba_mc_comp__1802
       'orden' => 1,
       'identificador_pantalla' => 'edicion',
       'identificador_dep' => 'editor',
+    ),
+    1 => 
+    array (
+      'pantalla' => 976,
+      'proyecto' => 'toba_editor',
+      'objeto_ci' => 1802,
+      'dep_id' => 769,
+      'orden' => 1,
+      'identificador_pantalla' => 'seleccion',
+      'identificador_dep' => 'filtro',
     ),
     2 => 
     array (

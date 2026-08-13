@@ -233,16 +233,6 @@ class toba_mc_comp__10000021
   array (
     0 => 
     array (
-      'pantalla' => 10000009,
-      'proyecto' => 'toba_editor',
-      'objeto_ci' => 10000021,
-      'dep_id' => 10000033,
-      'orden' => 1,
-      'identificador_pantalla' => 'pant_edicion',
-      'identificador_dep' => 'detalle',
-    ),
-    1 => 
-    array (
       'pantalla' => 10000008,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 10000021,
@@ -250,6 +240,16 @@ class toba_mc_comp__10000021
       'orden' => 1,
       'identificador_pantalla' => 'pant_listado',
       'identificador_dep' => 'cuadro',
+    ),
+    1 => 
+    array (
+      'pantalla' => 10000009,
+      'proyecto' => 'toba_editor',
+      'objeto_ci' => 10000021,
+      'dep_id' => 10000033,
+      'orden' => 1,
+      'identificador_pantalla' => 'pant_edicion',
+      'identificador_dep' => 'detalle',
     ),
     2 => 
     array (
