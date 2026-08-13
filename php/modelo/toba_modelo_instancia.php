@@ -30,6 +30,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	private $nombre_log;					// Nombre que llevan los archivos de LOG
 	private $datos_ini;
 	private $directorios_carga;
+    protected $lista_secuencias;
 	
 	function __construct( toba_modelo_instalacion $instalacion, $identificador )
 	{

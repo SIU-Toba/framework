@@ -21,6 +21,8 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	private $aplicacion_modelo;
 	private $prefijo_dir_metadatos = 'metadatos';
 	private $ini_proyecto;
+    protected $cant_reg_exp;
+    
 	const dump_prefijo_componentes = 'dump_';
 	const dump_prefijo_permisos = 'grupo_acceso__';
 	const compilar_archivo_referencia = 'tabla_tipos';
