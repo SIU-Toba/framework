@@ -238,8 +238,8 @@ class toba_vista_excel
 				$inicio = $origen[0] + $x;	//Desplazado X columnas a derecha horizontalmente
 				//-- Pone el titulo de la columna
 				if (isset($valor) || !isset($opciones[$clave]['borrar_estilos_nulos'])) {
-					$hoja->setCellValueByColumnAndRow($inicio, $origen[1],utf8_e_seguro(strval($valor)));
-					$hoja->getStyleByColumnAndRow($inicio, $origen[1])->applyFromArray($estilo_titulos);
+					$hoja->setCellValue([ $inicio, $origen[1] ],utf8_e_seguro(strval($valor)));
+					$hoja->getStyle([ $inicio, $origen[1] ])->applyFromArray($estilo_titulos);
 				}
 				//-- Maneja la agrupacion
 				if (! empty($agrupacion)) {
@@ -248,19 +248,19 @@ class toba_vista_excel
 					} else {
 					 	$grupo_actual = '';
 					}
-					$hoja->setCellValueByColumnAndRow($inicio, $origen[1]-1, utf8_e_seguro(strval($grupo_actual)));
-					$hoja->getStyleByColumnAndRow($inicio, $origen[1]-1)->applyFromArray($estilo_titulos);
+					$hoja->setCellValue([ $inicio, $origen[1]-1 ], utf8_e_seguro(strval($grupo_actual)));
+					$hoja->getStyle([ $inicio, $origen[1]-1 ])->applyFromArray($estilo_titulos);
 					if ($ultimo_grupo != $grupo_actual) {
 						if (isset($agrupacion[$grupo_actual]) && count($agrupacion[$grupo_actual]) > 1) {
 							//Hay que mergear horizontalmente, segun la cantidad de columnas en el grupo
 							$fin = $inicio + (count($agrupacion[$grupo_actual]) - 1);
-							$hoja->mergeCellsByColumnAndRow($inicio, $origen[1]-1, $fin, $origen[1]-1);
+							$hoja->mergeCells([ $inicio, $origen[1]-1 ], $fin, $origen[1]-1);
 						}
 					}
 					if ($grupo_actual == '') {
 						//El grupo es vacio o no tiene grupo, hay que mergear verticalmente esta unica fila
-						$hoja->setCellValueByColumnAndRow($inicio, $origen[1]-1, utf8_e_seguro(strval($valor)));
-						$hoja->mergeCellsByColumnAndRow($inicio, $origen[1]-1, $inicio, $origen[1]);
+						$hoja->setCellValue([ $inicio, $origen[1]-1 ], utf8_e_seguro(strval($valor)));
+						$hoja->mergeCells([ $inicio, $origen[1]-1 ], $inicio, $origen[1]);
 					}
 					$ultimo_grupo = $grupo_actual;
 				}
@@ -276,7 +276,7 @@ class toba_vista_excel
 			$x = 0;
 			foreach($filas as $clave => $valor) {
 				$columnas[$clave] = $x +1;				//El indice arranca en base 1..no puedo mapear mal la columna
-				$hoja->setCellValueByColumnAndRow($origen[0] + $x, $origen[1] + $y, utf8_e_seguro(strval($valor)));
+				$hoja->setCellValue([ $origen[0] + $x, $origen[1] + $y ], utf8_e_seguro(strval($valor)));
 				if (! isset($opciones[$clave]['estilo']['borders'])) {
 					$opciones[$clave]['estilo']['borders']= array('bottom' => $borde, 'top' => $borde, 'left' => $borde, 'right' => $borde);
 				}
@@ -284,7 +284,7 @@ class toba_vista_excel
 				if (!isset($valor) && isset($opciones[$clave]['borrar_estilos_nulos'])) {
 					$opciones[$clave]['estilo'] = array();
 				}
-				$hoja->getStyleByColumnAndRow($origen[0] + $x, $origen[1] + $y)->applyFromArray($opciones[$clave]['estilo']);
+				$hoja->getStyle($origen[0] + $x, $origen[1] + $y)->applyFromArray($opciones[$clave]['estilo']);
 				if (isset($opciones[$clave]['ancho'])) {
 					if ($opciones[$clave]['ancho'] == 'auto') {
 						$hoja->getColumnDimensionByColumn($origen[0] + $x)->setAutoSize(true);
@@ -304,8 +304,8 @@ class toba_vista_excel
 			$total = "=SUM($desde:$hasta)";
 			$destino_x = $origen[0]+$columnas[$clave] -1;			//Quito lo que agregue antes a $columnas[$clave] el origen ya tiene base 1
 			$destino_y =  $origen[1] + $y;
-			$hoja->setCellValueByColumnAndRow($destino_x, $destino_y, utf8_e_seguro(strval($total)) );
-			$estilo = $hoja->getStyleByColumnAndRow($destino_x, $destino_y);
+			$hoja->setCellValue([$destino_x, $destino_y], utf8_e_seguro(strval($total)) );
+			$estilo = $hoja->getStyle([$destino_x, $destino_y]);
 			unset($opciones[$clave]['estilo']['borders']);
 			$estilo->applyFromArray($opciones[$clave]['estilo']);
 			$estilo->getFont()->setBold(true);
@@ -351,18 +351,18 @@ class toba_vista_excel
 			$this->cursor[1]++;
  		}
 		$hoja = $this->excel->getActiveSheet();
- 		$hoja->setCellValueByColumnAndRow($origen[0], $origen[1],utf8_e_seguro(strval($texto)) );
+ 		$hoja->setCellValue([ $origen[0], $origen[1] ],utf8_e_seguro(strval($texto)) );
  		$hoja->setBreak('A1',  Worksheet::BREAK_COLUMN );
- 		$estilo = $hoja->getStyleByColumnAndRow($origen[0], $origen[1]);
+ 		$estilo = $hoja->getStyle([$origen[0], $origen[1]]);
  		$estilo->applyFromArray($estilos);
  		if (isset($altura)) {
  			$hoja->getRowDimension($origen[1])->setRowHeight($altura);
  		}
 		if ($celdas_ancho > 1) {
 			$fin = ($origen[0] + $celdas_ancho) -1;
-			$hoja->mergeCellsByColumnAndRow($origen[0], $origen[1], $fin, $origen[1]);
+			$hoja->mergeCells([$origen[0], $origen[1]], $fin, $origen[1]);
 	 		for($i=$origen[0]+1; $i<=$fin; $i++) {
-	 			$estilo = $hoja->getStyleByColumnAndRow($i, $origen[1]);
+	 			$estilo = $hoja->getStyle($i, $origen[1]);
 	 			$estilo->applyFromArray($estilos);
 	 		}
 		}
