@@ -12,7 +12,7 @@ class ci_cascadas extends toba_testing_pers_ci
 		$this->set_propiedades_sesion($props);
 	}
 	
-	function get_combo_dao2($pal1, $pal2)
+	static function get_combo_dao2($pal1, $pal2)
 	{
 		return array(
 				array('clave' => $pal1."_".$pal2, 'valor' => "$pal1 - $pal2"),
@@ -20,7 +20,7 @@ class ci_cascadas extends toba_testing_pers_ci
 			);
 	}
 	
-	function get_radio_esclavo($par='')
+	static function get_radio_esclavo($par='')
 	{
 		return array(
 				array(1, "Uno $par"),
@@ -28,12 +28,12 @@ class ci_cascadas extends toba_testing_pers_ci
 			);
 	}
 	
-	function get_editable_dao($par1, $par2)
+	static function get_editable_dao($par1, $par2)
 	{
 		return "Valores: $par1, $par2";	
 	}
 	
-	function get_datos_multi($par1)
+	static function get_datos_multi($par1)
 	{
 		return array(
 			array('uno', $par1 . ' - 1'),
@@ -43,19 +43,19 @@ class ci_cascadas extends toba_testing_pers_ci
 		);	
 	}
 	
-	function get_combo_temp($popup)
+	static function get_combo_temp($popup)
 	{
 		return array(
 				array($popup, $popup)
 			);
 	}
 	
-	function get_popup($clave, $oculto=null)
+	static function get_popup($clave, $oculto=null)
 	{
 		return "Descripción: $clave ($oculto)";	
 	}
 	
-	function get_datos_multi_claves($par1)
+	static function get_datos_multi_claves($par1)
 	{
 		return array(
 			array('clave1' => 'a1', 'clave2' => 'a2', 'valor' => $par1 . ' - 1'),
@@ -66,7 +66,7 @@ class ci_cascadas extends toba_testing_pers_ci
 		
 	}
 	
-	function get_combo_dao_comp2($pal1, $pal2)
+	static function get_combo_dao_comp2($pal1, $pal2)
 	{
 		return array(
 				array('clave1' => $pal1, 'clave2' => $pal2, 'clave3' => $pal1.'_'.$pal2, 'valor' => "$pal1 - $pal2"),
@@ -74,7 +74,7 @@ class ci_cascadas extends toba_testing_pers_ci
 			);
 	}	
 	
-	function get_fijo($clave)
+	static function get_fijo($clave)
 	{
 		return "Se selecciono la clave $clave";
 	}

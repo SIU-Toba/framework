@@ -27,7 +27,7 @@
         "siu-toba/structures_graph": "~1.2",
         "siu/arai-json-migrator": "~2.0",
         "symfony/security-csrf": "~5.4|~6.0|~7.0",
-        "laminas/laminas-escaper": "~2.16.0",
+        "laminas/laminas-escaper": "~2.18.0",
         "siu/manejador-salida-toba": "~1.2",
         "siu/interfaces-manejador-salida-toba": "~1.4",
         "symfony/yaml": "~4.4|~5.4|~6.0|~7.0",
