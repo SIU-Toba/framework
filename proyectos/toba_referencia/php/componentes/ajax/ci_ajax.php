@@ -133,8 +133,8 @@ class ci_ajax extends toba_ci
 			if ($fecha_feriado->es_igual_que($fecha)) {
 				$es_valido = false;
 				$mensaje = 'El '.$fecha->get_fecha_pantalla().'
-								 es '. trim((string) utf8_decode($feriado->Descripcion)).
-								' por '.trim((string) utf8_decode($feriado->TipoDescripcion));
+								 es '. trim((string) utf8_d_seguro($feriado->Descripcion)).
+								' por '.trim((string) utf8_d_seguro($feriado->TipoDescripcion));
 				break;		
 			}
 		}
@@ -267,7 +267,7 @@ class ci_ajax extends toba_ci
 	
 	function ajax__api_bajo_nivel($parametros, toba_ajax_respuesta $respuesta)
 	{
-		$html_wikipedia = utf8_decode(file_get_contents(dirname(__FILE__).'/ejemplo_ajax.html'));
+		$html_wikipedia = utf8_d_seguro(file_get_contents(dirname(__FILE__).'/ejemplo_ajax.html'));
 		$respuesta->agregar_cadena('html_puro', '<div style="height:400px;overflow:auto">'.$html_wikipedia.'</div>');
 		$respuesta->agregar_cadena('javascript', 'alert("Transferido también este alert")');
 	}
