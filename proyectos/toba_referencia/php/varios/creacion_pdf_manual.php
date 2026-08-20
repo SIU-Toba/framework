@@ -29,8 +29,8 @@ $datos = array(
 );
 $pdf->ezTable($datos, array('col1' => 'Columna 1', 'col2' => 'Columna 2'), utf8_encode('Titulo Tabla'), $opciones);
 
-$pdf->ezText(utf8_encode("\nCódigo fuente"), 14);
-$pdf->ezText(utf8_encode("\n" . file_get_contents(__FILE__)), 10);
+$pdf->ezText(utf8_e_seguro("\nCódigo fuente"), 14);
+$pdf->ezText(utf8_e_seguro("\n" . file_get_contents(__FILE__)), 10);
 $tmp = $pdf->ezOutput();
 
 header('Cache-Control: private');

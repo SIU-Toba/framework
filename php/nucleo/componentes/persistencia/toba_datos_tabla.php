@@ -1954,7 +1954,7 @@ class toba_datos_tabla extends toba_componente
         foreach($datos as $clave => $valor){
             //Chequeo explicitamente que no se trate de un campo blob
             if (!isset($this->_blobs[$id_fila][$clave])) {
-                $xml->addAttribute($clave, utf8_encode(strval($valor)));
+                $xml->addAttribute($clave, utf8_e_seguro(strval($valor)));
             }			
         }
 	}
