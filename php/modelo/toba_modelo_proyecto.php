@@ -2430,8 +2430,8 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	function get_grupo_acceso_admin()
 	{
 		$ga = $this->get_lista_grupos_acceso();
-		if ( count( $ga ) == 1 ) {
-			return $ga[0]['id'];
+		if ( count($ga) === 1 ) {
+			return current($ga)['id'];
 		} else {
 			//--- Si hay un grupo llamado 'admin' lo prefiere, sino toma el primero que encuentra
 			foreach ($ga as $grupo) {
@@ -2439,7 +2439,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 					return 'admin';
 				}
 			}
-			return $ga[0]['id'];
+			return current($ga)['id'];
 		}
 	}
 

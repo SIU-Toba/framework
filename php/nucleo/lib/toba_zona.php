@@ -125,9 +125,10 @@ class toba_zona
 	{
 		if (! isset($clave)) {
 			return $this->editable_info;
-		} else {
+		} elseif (isset($this->editable_info[$clave])) {
 			return $this->editable_info[$clave];
-		}
+		}        
+        return null;
 	}
 	
 	/**
