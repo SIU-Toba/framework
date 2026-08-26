@@ -254,13 +254,13 @@ class toba_vista_excel
 						if (isset($agrupacion[$grupo_actual]) && count($agrupacion[$grupo_actual]) > 1) {
 							//Hay que mergear horizontalmente, segun la cantidad de columnas en el grupo
 							$fin = $inicio + (count($agrupacion[$grupo_actual]) - 1);
-							$hoja->mergeCells([ $inicio, $origen[1]-1 ], $fin, $origen[1]-1);
+							$hoja->mergeCells([ $inicio, $origen[1]-1, $fin, $origen[1]-1 ]);
 						}
 					}
 					if ($grupo_actual == '') {
 						//El grupo es vacio o no tiene grupo, hay que mergear verticalmente esta unica fila
 						$hoja->setCellValue([ $inicio, $origen[1]-1 ], utf8_e_seguro(strval($valor)));
-						$hoja->mergeCells([ $inicio, $origen[1]-1 ], $inicio, $origen[1]);
+						$hoja->mergeCells([ $inicio, $origen[1]-1, $inicio, $origen[1] ]);
 					}
 					$ultimo_grupo = $grupo_actual;
 				}
@@ -284,7 +284,7 @@ class toba_vista_excel
 				if (!isset($valor) && isset($opciones[$clave]['borrar_estilos_nulos'])) {
 					$opciones[$clave]['estilo'] = array();
 				}
-				$hoja->getStyle($origen[0] + $x, $origen[1] + $y)->applyFromArray($opciones[$clave]['estilo']);
+				$hoja->getStyle([$origen[0] + $x, $origen[1] + $y])->applyFromArray($opciones[$clave]['estilo']);
 				if (isset($opciones[$clave]['ancho'])) {
 					if ($opciones[$clave]['ancho'] == 'auto') {
 						$hoja->getColumnDimensionByColumn($origen[0] + $x)->setAutoSize(true);
@@ -360,9 +360,9 @@ class toba_vista_excel
  		}
 		if ($celdas_ancho > 1) {
 			$fin = ($origen[0] + $celdas_ancho) -1;
-			$hoja->mergeCells([$origen[0], $origen[1]], $fin, $origen[1]);
+			$hoja->mergeCells([$origen[0], $origen[1], $fin, $origen[1] ]);
 	 		for($i=$origen[0]+1; $i<=$fin; $i++) {
-	 			$estilo = $hoja->getStyle($i, $origen[1]);
+	 			$estilo = $hoja->getStyle([$i, $origen[1]]);
 	 			$estilo->applyFromArray($estilos);
 	 		}
 		}
