@@ -28,9 +28,10 @@ class toba_vista_araireportes
     protected $uri;
     protected $extension = 'pdf';
     protected $id_reporte='';
-
+    protected $cliente;
+    
     protected static $servicio_reporte='reportes';
-
+    
     public function __construct()
     {
         $this->temp_salida = toba::proyecto()->get_path_temp().'/'.uniqid('jasper_');
