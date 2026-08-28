@@ -262,6 +262,18 @@ class toba_logger_ws extends AbstractLogger
 		return $this->nombre_archivo;
 	}
 
+	protected function armar_mensajes()
+	{
+		$texto = '';
+		$mascara_ok = $this->mascara_hasta($this->nivel_maximo);
+		for($a=0; $a < count($this->mensajes); $a++) {
+			if( $mascara_ok & $this->mascara($this->niveles[$a])) {
+				$texto .= '[' . date('Y-m-d h:i:s') . '][' .$this->id_solicitud . '][' . $this->ref_niveles[$this->niveles[$a]] . 	"][".$this->proyectos[$a]."] " . $this->mensajes[$a] . PHP_EOL;
+			}
+		}
+		return $texto;
+	}
+
 	/*protected function reemplazar_contexto($mensaje, array $context = array())
 	{
 		$replace = array();

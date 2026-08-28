@@ -251,6 +251,36 @@ class toba_mc_comp__2182
       'externa' => 0,
       'tabla' => NULL,
     ),
+    12 => 
+    array (
+      'objeto_proyecto' => 'toba_usuarios',
+      'objeto' => 2182,
+      'col_id' => 33000199,
+      'columna' => 'uid',
+      'tipo' => 'C',
+      'pk' => 0,
+      'secuencia' => NULL,
+      'largo' => 32,
+      'no_nulo' => NULL,
+      'no_nulo_db' => 0,
+      'externa' => 0,
+      'tabla' => NULL,
+    ),
+    13 => 
+    array (
+      'objeto_proyecto' => 'toba_usuarios',
+      'objeto' => 2182,
+      'col_id' => 33000200,
+      'columna' => 'p_uid',
+      'tipo' => 'C',
+      'pk' => 0,
+      'secuencia' => NULL,
+      'largo' => NULL,
+      'no_nulo' => NULL,
+      'no_nulo_db' => 0,
+      'externa' => 0,
+      'tabla' => NULL,
+    ),
   ),
   '_info_externas' => 
   array (

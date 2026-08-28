@@ -5,7 +5,7 @@ class ci_mecanismos_carga extends toba_testing_pers_ci
 	protected $registro;
 	protected $datos_ml;
 	
-	function set_propiedades_sesion()
+	function set_propiedades_sesion($props)
 	{
 		$atr = parent::set_propiedades_sesion(array('registro'));
 	}

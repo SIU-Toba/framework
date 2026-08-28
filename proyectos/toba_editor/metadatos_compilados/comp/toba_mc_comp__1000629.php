@@ -183,16 +183,6 @@ class toba_mc_comp__1000629
     ),
     1 => 
     array (
-      'pantalla' => 1000398,
-      'proyecto' => 'toba_editor',
-      'objeto_ci' => 1000629,
-      'dep_id' => 1000472,
-      'orden' => 1,
-      'identificador_pantalla' => 'basicas',
-      'identificador_dep' => 'prop_basicas',
-    ),
-    2 => 
-    array (
       'pantalla' => 33000025,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1000629,
@@ -200,6 +190,16 @@ class toba_mc_comp__1000629
       'orden' => 1,
       'identificador_pantalla' => 'pant_eventos',
       'identificador_dep' => 'eventos',
+    ),
+    2 => 
+    array (
+      'pantalla' => 1000398,
+      'proyecto' => 'toba_editor',
+      'objeto_ci' => 1000629,
+      'dep_id' => 1000472,
+      'orden' => 1,
+      'identificador_pantalla' => 'basicas',
+      'identificador_dep' => 'prop_basicas',
     ),
   ),
   '_info_evt_pantalla' => 
@@ -209,20 +209,29 @@ class toba_mc_comp__1000629
       'pantalla' => 1000398,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1000629,
-      'evento_id' => 1001023,
+      'evento_id' => 1001024,
       'identificador_pantalla' => 'basicas',
-      'identificador_evento' => 'procesar',
+      'identificador_evento' => 'eliminar',
     ),
     1 => 
     array (
       'pantalla' => 1000398,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1000629,
-      'evento_id' => 1001024,
+      'evento_id' => 1001023,
       'identificador_pantalla' => 'basicas',
-      'identificador_evento' => 'eliminar',
+      'identificador_evento' => 'procesar',
     ),
     2 => 
+    array (
+      'pantalla' => 33000025,
+      'proyecto' => 'toba_editor',
+      'objeto_ci' => 1000629,
+      'evento_id' => 1001024,
+      'identificador_pantalla' => 'pant_eventos',
+      'identificador_evento' => 'eliminar',
+    ),
+    3 => 
     array (
       'pantalla' => 33000025,
       'proyecto' => 'toba_editor',
@@ -230,15 +239,6 @@ class toba_mc_comp__1000629
       'evento_id' => 1001023,
       'identificador_pantalla' => 'pant_eventos',
       'identificador_evento' => 'procesar',
-    ),
-    3 => 
-    array (
-      'pantalla' => 33000025,
-      'proyecto' => 'toba_editor',
-      'objeto_ci' => 1000629,
-      'evento_id' => 1001024,
-      'identificador_pantalla' => 'pant_eventos',
-      'identificador_evento' => 'eliminar',
     ),
   ),
   '_info_dependencias' => 

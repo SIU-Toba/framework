@@ -305,16 +305,6 @@ class toba_mc_comp__1354
   array (
     0 => 
     array (
-      'pantalla' => 356,
-      'proyecto' => 'toba_editor',
-      'objeto_ci' => 1354,
-      'dep_id' => 23,
-      'orden' => 0,
-      'identificador_pantalla' => '0',
-      'identificador_dep' => 'base',
-    ),
-    1 => 
-    array (
       'pantalla' => 30000040,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1354,
@@ -323,7 +313,7 @@ class toba_mc_comp__1354
       'identificador_pantalla' => '4',
       'identificador_dep' => 'cuadro_layout',
     ),
-    2 => 
+    1 => 
     array (
       'pantalla' => 33000012,
       'proyecto' => 'toba_editor',
@@ -333,15 +323,25 @@ class toba_mc_comp__1354
       'identificador_pantalla' => '5',
       'identificador_dep' => 'cuadro_layout_impresion',
     ),
-    3 => 
+    2 => 
     array (
-      'pantalla' => 357,
+      'pantalla' => 356,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1354,
-      'dep_id' => 25,
+      'dep_id' => 23,
+      'orden' => 0,
+      'identificador_pantalla' => '0',
+      'identificador_dep' => 'base',
+    ),
+    3 => 
+    array (
+      'pantalla' => 30000040,
+      'proyecto' => 'toba_editor',
+      'objeto_ci' => 1354,
+      'dep_id' => 30000048,
       'orden' => 1,
-      'identificador_pantalla' => '1',
-      'identificador_dep' => 'dependencias',
+      'identificador_pantalla' => '4',
+      'identificador_dep' => 'form_layout',
     ),
     4 => 
     array (
@@ -355,16 +355,6 @@ class toba_mc_comp__1354
     ),
     5 => 
     array (
-      'pantalla' => 30000040,
-      'proyecto' => 'toba_editor',
-      'objeto_ci' => 1354,
-      'dep_id' => 30000048,
-      'orden' => 1,
-      'identificador_pantalla' => '4',
-      'identificador_dep' => 'form_layout',
-    ),
-    6 => 
-    array (
       'pantalla' => 356,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1354,
@@ -373,17 +363,17 @@ class toba_mc_comp__1354
       'identificador_pantalla' => '0',
       'identificador_dep' => 'prop_basicas',
     ),
-    7 => 
+    6 => 
     array (
-      'pantalla' => 358,
+      'pantalla' => 357,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1354,
-      'dep_id' => 30,
+      'dep_id' => 25,
       'orden' => 1,
-      'identificador_pantalla' => '2',
-      'identificador_dep' => 'pantallas_lista',
+      'identificador_pantalla' => '1',
+      'identificador_dep' => 'dependencias',
     ),
-    8 => 
+    7 => 
     array (
       'pantalla' => 359,
       'proyecto' => 'toba_editor',
@@ -392,6 +382,16 @@ class toba_mc_comp__1354
       'orden' => 1,
       'identificador_pantalla' => '3',
       'identificador_dep' => 'eventos',
+    ),
+    8 => 
+    array (
+      'pantalla' => 358,
+      'proyecto' => 'toba_editor',
+      'objeto_ci' => 1354,
+      'dep_id' => 30,
+      'orden' => 1,
+      'identificador_pantalla' => '2',
+      'identificador_dep' => 'pantallas_lista',
     ),
     9 => 
     array (

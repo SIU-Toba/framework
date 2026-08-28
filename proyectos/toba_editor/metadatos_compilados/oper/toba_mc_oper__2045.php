@@ -293,16 +293,6 @@ class toba_mc_comp__1707
     ),
     2 => 
     array (
-      'pantalla' => 1188,
-      'proyecto' => 'toba_editor',
-      'objeto_ci' => 1707,
-      'dep_id' => 1182,
-      'orden' => 1,
-      'identificador_pantalla' => 'consumo',
-      'identificador_dep' => 'form_consumo',
-    ),
-    3 => 
-    array (
       'pantalla' => 987,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1707,
@@ -310,6 +300,16 @@ class toba_mc_comp__1707
       'orden' => 1,
       'identificador_pantalla' => 'pant_dependencias',
       'identificador_dep' => 'dependencias',
+    ),
+    3 => 
+    array (
+      'pantalla' => 1188,
+      'proyecto' => 'toba_editor',
+      'objeto_ci' => 1707,
+      'dep_id' => 1182,
+      'orden' => 1,
+      'identificador_pantalla' => 'consumo',
+      'identificador_dep' => 'form_consumo',
     ),
   ),
   '_info_evt_pantalla' => 

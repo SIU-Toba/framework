@@ -387,19 +387,6 @@ class toba_mc_comp__2219
   array (
     0 => 
     array (
-      'identificador' => 'cuadro',
-      'proyecto' => 'toba_usuarios',
-      'objeto' => 2228,
-      'clase' => 'toba_ei_cuadro',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_cuadro.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
-      'fuente' => NULL,
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    1 => 
-    array (
       'identificador' => 'datos',
       'proyecto' => 'toba_usuarios',
       'objeto' => 2220,
@@ -411,7 +398,7 @@ class toba_mc_comp__2219
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
-    2 => 
+    1 => 
     array (
       'identificador' => 'editor',
       'proyecto' => 'toba_usuarios',
@@ -420,6 +407,19 @@ class toba_mc_comp__2219
       'clase_archivo' => 'nucleo/componentes/interface/toba_ci.php',
       'subclase' => 'ci_editor',
       'subclase_archivo' => 'perfiles/perfil_datos/ci_editor.php',
+      'fuente' => NULL,
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    2 => 
+    array (
+      'identificador' => 'cuadro',
+      'proyecto' => 'toba_usuarios',
+      'objeto' => 2228,
+      'clase' => 'toba_ei_cuadro',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_cuadro.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
       'fuente' => NULL,
       'parametros_a' => NULL,
       'parametros_b' => NULL,
@@ -1336,11 +1336,11 @@ class toba_mc_comp__2223
     ),
     1 => 
     array (
-      'identificador' => 'elementos',
+      'identificador' => 'perfil',
       'proyecto' => 'toba_usuarios',
-      'objeto' => 2225,
-      'clase' => 'toba_ei_formulario_ml',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
+      'objeto' => 2224,
+      'clase' => 'toba_ei_formulario',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
       'subclase' => NULL,
       'subclase_archivo' => NULL,
       'fuente' => 'toba_usuarios',
@@ -1349,11 +1349,11 @@ class toba_mc_comp__2223
     ),
     2 => 
     array (
-      'identificador' => 'perfil',
+      'identificador' => 'elementos',
       'proyecto' => 'toba_usuarios',
-      'objeto' => 2224,
-      'clase' => 'toba_ei_formulario',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
+      'objeto' => 2225,
+      'clase' => 'toba_ei_formulario_ml',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
       'subclase' => NULL,
       'subclase_archivo' => NULL,
       'fuente' => 'toba_usuarios',

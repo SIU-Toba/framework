@@ -9,6 +9,8 @@ class ci_servicios_ofrecidos extends toba_ci
 	protected $s__conf_disponibles;
 	protected $s__conf_activa;	
 	protected $s__parametros = array();
+    
+    protected $modelo_proyecto;
 
 	function ini__operacion()
 	{

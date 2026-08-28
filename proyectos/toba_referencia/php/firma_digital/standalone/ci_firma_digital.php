@@ -23,7 +23,6 @@ class ci_firma_digital extends toba_ci
 	
 	function generar_pdf()
 	{
-		require_once(toba_dir() . '/php/3ros/ezpdf/class.ezpdf.php');
 		
 		$pdf = new Cezpdf();
 		$pdf->selectFont(toba_dir() . '/php/3ros/ezpdf/fonts/Helvetica.afm');

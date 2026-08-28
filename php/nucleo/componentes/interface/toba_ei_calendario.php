@@ -460,13 +460,29 @@ class calendario //extends activecalendar
 	********************************************************************************
 	*/
 	protected $startYear=1971;
-	protected $endYear=2100;
-	
+	protected $endYear=2100;        
+    protected $timetoday;
+    protected $daytoday;
+    protected $monthtoday;
+    protected $yeartoday;
+    protected $weektoday;
+    protected $actday;
+    protected $actmonth;
+    protected $actyear;
+    protected $actweek;
+    protected $has31days;
+    protected $isSchalt;
+    protected $maxdays;
+    protected $firstday;
+    protected $firstdate;
+    protected $GMTDiff;    
+    protected $unixtime;
+    
 	protected $mostrar_semanas = true;
 	protected $mostrar_mes = true;
 	protected $solo_pasados = true;
 	protected $siempre_resalta_dia_actual = false;
-	
+    	
 	/*
 	********************************************************************************
 	Permitir la selección de los días sábado y domingo

@@ -3,7 +3,7 @@
  * Esta clase fue y será generada automáticamente. NO EDITAR A MANO.
  * @ignore
  */
-class toba_autoload
+class toba_autoload 
 {
 	static function existe_clase($nombre)
 	{
@@ -12,8 +12,8 @@ class toba_autoload
 
 	static function cargar($nombre)
 	{
-		if (self::existe_clase($nombre)) {
-			 require_once(dirname(__FILE__) .'/'. self::$clases[$nombre]);
+		if (self::existe_clase($nombre)) { 
+			 require_once(dirname(__FILE__) .'/'. self::$clases[$nombre]); 
 		}
 	}
 
@@ -185,6 +185,8 @@ class toba_autoload
 		'toba_migracion_2_6_0' => 'modelo/migraciones_instancia/toba_migracion_2_6_0.php',
 		'toba_migracion_3_0_0' => 'modelo/migraciones_instancia/toba_migracion_3_0_0.php',
 		'toba_migracion_3_1_0' => 'modelo/migraciones_instancia/toba_migracion_3_1_0.php',
+		'toba_migracion_3_3_0' => 'modelo/migraciones_instancia/toba_migracion_3_3_0.php',
+		'toba_migracion_3_4_0' => 'modelo/migraciones_instancia/toba_migracion_3_4_0.php',
 		'toba_codigo_clase' => 'modelo/moldes_codigo/toba_codigo_clase.php',
 		'toba_codigo_elemento' => 'modelo/moldes_codigo/toba_codigo_elemento.php',
 		'toba_codigo_metodo' => 'modelo/moldes_codigo/toba_codigo_metodo.php',
@@ -389,7 +391,9 @@ class toba_autoload
 		'toba_usuarios_rest_conf' => 'nucleo/lib/rest/toba_usuarios_rest_conf.php',
 		'toba_usuarios_rest_jwt' => 'nucleo/lib/rest/toba_usuarios_rest_jwt.php',
 		'toba_usuarios_rest_ssl' => 'nucleo/lib/rest/toba_usuarios_rest_ssl.php',
+		'toba_captcha_interface' => 'nucleo/lib/salidas/toba_captcha_interface.php',
 		'toba_imagen_captcha' => 'nucleo/lib/salidas/toba_imagen_captcha.php',
+		'toba_imagen_captcha_empty' => 'nucleo/lib/salidas/toba_imagen_captcha_empty.php',
 		'toba_impr_html' => 'nucleo/lib/salidas/toba_impr_html.php',
 		'toba_impresion' => 'nucleo/lib/salidas/toba_impresion.php',
 		'toba_vista_araireportes' => 'nucleo/lib/salidas/toba_vista_araireportes.php',
@@ -400,8 +404,8 @@ class toba_autoload
 		'toba_vista_xslfo' => 'nucleo/lib/salidas/toba_vista_xslfo.php',
 		'toba_vista_xslfo_callback_generacion' => 'nucleo/lib/salidas/toba_vista_xslfo_callback_generacion.php',
 		'toba_session_files_handler' => 'nucleo/lib/session_handlers/toba_session_files_handler.php',
-		'toba_session_memcached_handler' => 'nucleo/lib/session_handlers/toba_session_memcached_handler.php',
 		'toba_session_handler' => 'nucleo/lib/session_handlers/toba_session_handler.php',
+		'toba_session_memcached_handler' => 'nucleo/lib/session_handlers/toba_session_memcached_handler.php',
 		'toba_acciones_js' => 'nucleo/lib/toba_acciones_js.php',
 		'toba_admin_fuentes' => 'nucleo/lib/toba_admin_fuentes.php',
 		'toba_ajax_respuesta' => 'nucleo/lib/toba_ajax_respuesta.php',
@@ -504,7 +508,6 @@ class toba_autoload
 		'toba_solicitud_web' => 'nucleo/toba_solicitud_web.php',
 		'toba_autoload' => 'toba_autoload.php',
 		'toba_migracion' => 'modelo/migraciones/toba_migracion.php',
-                'PHP_Highlight' => '3ros/PHP_Highlight.php',
 	);
 }
 ?>

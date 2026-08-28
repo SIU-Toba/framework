@@ -315,16 +315,6 @@ class toba_mc_comp__2169
   array (
     0 => 
     array (
-      'pantalla' => 1128,
-      'proyecto' => 'toba_editor',
-      'objeto_ci' => 2169,
-      'dep_id' => 1079,
-      'orden' => 1,
-      'identificador_pantalla' => 'pant_edicion',
-      'identificador_dep' => 'formulario',
-    ),
-    1 => 
-    array (
       'pantalla' => 1127,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 2169,
@@ -332,6 +322,16 @@ class toba_mc_comp__2169
       'orden' => 1,
       'identificador_pantalla' => 'pant_seleccion',
       'identificador_dep' => 'cuadro',
+    ),
+    1 => 
+    array (
+      'pantalla' => 1128,
+      'proyecto' => 'toba_editor',
+      'objeto_ci' => 2169,
+      'dep_id' => 1079,
+      'orden' => 1,
+      'identificador_pantalla' => 'pant_edicion',
+      'identificador_dep' => 'formulario',
     ),
     2 => 
     array (

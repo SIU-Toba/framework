@@ -16,6 +16,11 @@ class Flickr_API {
                           'conn_timeout'    => 20,
                           'io_timeout'      => 60 );
 
+    private $_err_code;
+    private $_err_msg;
+    private $_http_body;
+    private $xml;
+    
     function __construct($params = array()) {
         if(isset($params['token'])) $this->token = $params['token'];
         foreach($params as $k => $v) {

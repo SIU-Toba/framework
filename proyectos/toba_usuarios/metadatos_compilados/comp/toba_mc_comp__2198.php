@@ -208,19 +208,6 @@ class toba_mc_comp__2198
     ),
     1 => 
     array (
-      'identificador' => 'form_membresia',
-      'proyecto' => 'toba_usuarios',
-      'objeto' => 30000108,
-      'clase' => 'toba_ei_formulario',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
-      'fuente' => 'toba_usuarios',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    2 => 
-    array (
       'identificador' => 'form_permisos',
       'proyecto' => 'toba_usuarios',
       'objeto' => 2208,
@@ -232,11 +219,24 @@ class toba_mc_comp__2198
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
-    3 => 
+    2 => 
     array (
       'identificador' => 'form_restricciones',
       'proyecto' => 'toba_usuarios',
       'objeto' => 2207,
+      'clase' => 'toba_ei_formulario',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
+      'fuente' => 'toba_usuarios',
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    3 => 
+    array (
+      'identificador' => 'form_membresia',
+      'proyecto' => 'toba_usuarios',
+      'objeto' => 30000108,
       'clase' => 'toba_ei_formulario',
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
       'subclase' => NULL,

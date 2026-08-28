@@ -14,6 +14,7 @@ class toba_ei_esquema extends toba_ei
 	protected $_contenido;				// Instrucciones GraphViz
 	protected $_archivo_generado;		// Archivo generado por las instrucciones
 	protected $_incluir_mapa = false;
+    protected $_info_esquema;
 	
 	final function __construct($id)
 	{

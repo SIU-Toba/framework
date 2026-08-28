@@ -149,25 +149,15 @@ class toba_mc_comp__1988
   array (
     0 => 
     array (
-      'pantalla' => 1059,
+      'pantalla' => 1000172,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1988,
-      'dep_id' => 934,
+      'dep_id' => 1000174,
       'orden' => 1,
-      'identificador_pantalla' => 'pant_basica',
-      'identificador_dep' => 'form_molde',
+      'identificador_pantalla' => 'pant_form',
+      'identificador_dep' => 'form_presentacion',
     ),
     1 => 
-    array (
-      'pantalla' => 1000171,
-      'proyecto' => 'toba_editor',
-      'objeto_ci' => 1988,
-      'dep_id' => 1000173,
-      'orden' => 1,
-      'identificador_pantalla' => 'pant_cuadro',
-      'identificador_dep' => 'form_cuadro',
-    ),
-    2 => 
     array (
       'pantalla' => 1000173,
       'proyecto' => 'toba_editor',
@@ -177,37 +167,27 @@ class toba_mc_comp__1988
       'identificador_pantalla' => 'pant_filtro',
       'identificador_dep' => 'form_filtro',
     ),
-    3 => 
+    2 => 
     array (
-      'pantalla' => 1000172,
+      'pantalla' => 1059,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1988,
-      'dep_id' => 1000174,
+      'dep_id' => 934,
       'orden' => 1,
-      'identificador_pantalla' => 'pant_form',
-      'identificador_dep' => 'form_presentacion',
+      'identificador_pantalla' => 'pant_basica',
+      'identificador_dep' => 'form_molde',
     ),
-    4 => 
+    3 => 
     array (
       'pantalla' => 1000171,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1988,
-      'dep_id' => 1000175,
-      'orden' => 2,
+      'dep_id' => 1000173,
+      'orden' => 1,
       'identificador_pantalla' => 'pant_cuadro',
-      'identificador_dep' => 'form_cuadro_carga',
+      'identificador_dep' => 'form_cuadro',
     ),
-    5 => 
-    array (
-      'pantalla' => 1000172,
-      'proyecto' => 'toba_editor',
-      'objeto_ci' => 1988,
-      'dep_id' => 1000176,
-      'orden' => 2,
-      'identificador_pantalla' => 'pant_form',
-      'identificador_dep' => 'cuadro_form_filas',
-    ),
-    6 => 
+    4 => 
     array (
       'pantalla' => 1000173,
       'proyecto' => 'toba_editor',
@@ -217,7 +197,7 @@ class toba_mc_comp__1988
       'identificador_pantalla' => 'pant_filtro',
       'identificador_dep' => 'ml_filtro_filas',
     ),
-    7 => 
+    5 => 
     array (
       'pantalla' => 1059,
       'proyecto' => 'toba_editor',
@@ -226,6 +206,26 @@ class toba_mc_comp__1988
       'orden' => 2,
       'identificador_pantalla' => 'pant_basica',
       'identificador_dep' => 'form_basico',
+    ),
+    6 => 
+    array (
+      'pantalla' => 1000171,
+      'proyecto' => 'toba_editor',
+      'objeto_ci' => 1988,
+      'dep_id' => 1000175,
+      'orden' => 2,
+      'identificador_pantalla' => 'pant_cuadro',
+      'identificador_dep' => 'form_cuadro_carga',
+    ),
+    7 => 
+    array (
+      'pantalla' => 1000172,
+      'proyecto' => 'toba_editor',
+      'objeto_ci' => 1988,
+      'dep_id' => 1000176,
+      'orden' => 2,
+      'identificador_pantalla' => 'pant_form',
+      'identificador_dep' => 'cuadro_form_filas',
     ),
     8 => 
     array (

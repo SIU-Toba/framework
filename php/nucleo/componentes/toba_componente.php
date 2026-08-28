@@ -14,6 +14,7 @@ define('apex_ei_evt_no_maneja_datos', -1);
  * @package Componentes
  * @wiki Referencia/Objetos
  */
+#[\AllowDynamicProperties]
 abstract class toba_componente
 {
 	static protected $_modo_memoria_compatible = false;		//Dos componentes con el mismo id creados en un request reusan la misma celda de memoria?
@@ -40,7 +41,10 @@ abstract class toba_componente
 	protected $_exportacion_path;
 	protected $_propiedades_sesion = array();			//Arreglo de propiedades que se persisten en sesion
 	protected $_parametros;								// Parametros de inicializacion provistos por el controlador
-	protected $_inicializado = false;	
+	protected $_inicializado = false;
+    protected $_const_instancia_numero;                 //Por completitud, analizar linea 62
+    protected $toba__descripcion_objeto;
+    protected $toba__indice_objetos_serializados;
 
 	/**
 	 * Contiene el componente controlador o padre del componente actual

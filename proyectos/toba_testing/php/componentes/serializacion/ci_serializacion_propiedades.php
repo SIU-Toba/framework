@@ -60,6 +60,7 @@ class objeto_manual
 {
 	public $nombre;
 	public $ci;
+	protected $id_ci;
 	
 	function __construct($nombre, $ci)
 	{

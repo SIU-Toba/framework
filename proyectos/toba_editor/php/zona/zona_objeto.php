@@ -2,8 +2,7 @@
 require_once('zona_editor.php');
 
 class zona_objeto extends zona_editor
-{
-
+{  
 	function cargar_info($editable=null)
 	{	//Carga el EDITABLE que se va a manejar dentro de la ZONA
 		$sql = '	SELECT	o.*,

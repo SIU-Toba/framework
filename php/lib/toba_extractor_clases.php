@@ -6,10 +6,10 @@
  * @author sp14ab
  */
 
-use PhpParser\ParserFactory;
 use PhpParser\Node\Stmt\Class_ as ClassNode;
 use PhpParser\Node\Stmt\Interface_ as InterfaceNode;
 use PhpParser\Node\Stmt\Trait_ as TraitNode;
+use PhpParser\ParserFactory;
 
 class toba_extractor_clases
 {
@@ -125,23 +125,30 @@ class toba_extractor_clases
 	protected function generar_arreglo($path_montaje, &$archivos, $extras = array())
 	{
 		$clases = $msg = '';
-		$parser = (new ParserFactory)->create(ParserFactory::PREFER_PHP7);
+		$parser = (new ParserFactory)->createForHostVersion();
 
 		foreach ($archivos as $archivo) {
 			try {
 				$sentencias = $parser->parse(file_get_contents($archivo));
 				$path = substr(str_replace($path_montaje, '', $archivo), 1); // Sacamos el $path_montaje para que quede relativo al mismo
-
+                if (null === $sentencias) {
+                    toba::logger()->error('El parser se rompio procesando el archivo: '. $path);
+                    continue;
+                }
+                                
 				foreach($sentencias as $nodo) {
 					if (! ($nodo instanceof ClassNode || $nodo instanceof TraitNode || $nodo instanceof InterfaceNode)) {
 						toba::logger()->debug($msg . $archivo);
 						$msg = '';
 						continue;
 					}
-					//Si extiende de alguna clase y esta estaba excluida, lo ignoro tambien
-					if (null !== $nodo->extends && \is_object($nodo->extends) && \in_array($nodo->extends->parts, $this->extends_excluidos, true)) {
-						continue;
-					}
+                    
+                    if ($nodo instanceof ClassNode) {
+                        //Si extiende de alguna clase y esta estaba excluida, lo ignoro tambien
+                        if (null !== $nodo->extends && \is_object($nodo->extends) && \in_array($nodo->extends->parts, $this->extends_excluidos, true)) {
+                            continue;
+                        }    
+                    }
 
 					$clase = $nodo->name->name;
 					$this->registrar_clase($path_montaje, $clase, $archivo);

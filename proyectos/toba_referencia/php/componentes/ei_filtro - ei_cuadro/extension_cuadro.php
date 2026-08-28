@@ -3,6 +3,8 @@ php_referencia::instancia()->agregar(__FILE__);
 
 class extension_cuadro extends toba_ei_cuadro
 {
+    protected $_pdf_tabla_ancho;
+    
 	function ini()
 	{
 		$this->_pdf_tabla_ancho = '30%';

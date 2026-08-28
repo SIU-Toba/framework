@@ -17,7 +17,8 @@ class toba_ei_grafico extends toba_ei
 	 * @var toba_ei_grafico_conf
 	 */
 	protected $_conf;
-	
+	protected $_info_grafico;
+    
 	protected $_archivo_generado;  // Archivo generado por las instrucciones
 	protected $s__path;
 

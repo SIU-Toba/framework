@@ -301,16 +301,6 @@ class toba_mc_comp__1363
     ),
     1 => 
     array (
-      'pantalla' => 362,
-      'proyecto' => 'toba_editor',
-      'objeto_ci' => 1363,
-      'dep_id' => 40,
-      'orden' => 1,
-      'identificador_pantalla' => '1',
-      'identificador_dep' => 'prop_basicas',
-    ),
-    2 => 
-    array (
       'pantalla' => 474,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1363,
@@ -319,7 +309,7 @@ class toba_mc_comp__1363
       'identificador_pantalla' => 'pant_cortes',
       'identificador_dep' => 'prop_cortes',
     ),
-    3 => 
+    2 => 
     array (
       'pantalla' => 363,
       'proyecto' => 'toba_editor',
@@ -329,7 +319,7 @@ class toba_mc_comp__1363
       'identificador_pantalla' => '2',
       'identificador_dep' => 'columnas_lista',
     ),
-    4 => 
+    3 => 
     array (
       'pantalla' => 364,
       'proyecto' => 'toba_editor',
@@ -338,6 +328,16 @@ class toba_mc_comp__1363
       'orden' => 1,
       'identificador_pantalla' => '3',
       'identificador_dep' => 'eventos',
+    ),
+    4 => 
+    array (
+      'pantalla' => 362,
+      'proyecto' => 'toba_editor',
+      'objeto_ci' => 1363,
+      'dep_id' => 40,
+      'orden' => 1,
+      'identificador_pantalla' => '1',
+      'identificador_dep' => 'prop_basicas',
     ),
     5 => 
     array (
@@ -405,29 +405,20 @@ class toba_mc_comp__1363
       'pantalla' => 363,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1363,
-      'evento_id' => 45,
+      'evento_id' => 46,
       'identificador_pantalla' => '2',
-      'identificador_evento' => 'eliminar',
+      'identificador_evento' => 'procesar',
     ),
     3 => 
     array (
       'pantalla' => 363,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1363,
-      'evento_id' => 46,
+      'evento_id' => 45,
       'identificador_pantalla' => '2',
-      'identificador_evento' => 'procesar',
+      'identificador_evento' => 'eliminar',
     ),
     4 => 
-    array (
-      'pantalla' => 474,
-      'proyecto' => 'toba_editor',
-      'objeto_ci' => 1363,
-      'evento_id' => 46,
-      'identificador_pantalla' => 'pant_cortes',
-      'identificador_evento' => 'procesar',
-    ),
-    5 => 
     array (
       'pantalla' => 474,
       'proyecto' => 'toba_editor',
@@ -435,6 +426,15 @@ class toba_mc_comp__1363
       'evento_id' => 45,
       'identificador_pantalla' => 'pant_cortes',
       'identificador_evento' => 'eliminar',
+    ),
+    5 => 
+    array (
+      'pantalla' => 474,
+      'proyecto' => 'toba_editor',
+      'objeto_ci' => 1363,
+      'evento_id' => 46,
+      'identificador_pantalla' => 'pant_cortes',
+      'identificador_evento' => 'procesar',
     ),
     6 => 
     array (

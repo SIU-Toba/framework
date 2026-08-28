@@ -143,16 +143,6 @@ class toba_mc_comp__1617
   array (
     0 => 
     array (
-      'pantalla' => 475,
-      'proyecto' => 'toba_editor',
-      'objeto_ci' => 1617,
-      'dep_id' => 132,
-      'orden' => 1,
-      'identificador_pantalla' => 'seleccion',
-      'identificador_dep' => 'archivos',
-    ),
-    1 => 
-    array (
       'pantalla' => 476,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 1617,
@@ -160,6 +150,16 @@ class toba_mc_comp__1617
       'orden' => 1,
       'identificador_pantalla' => 'resultado',
       'identificador_dep' => 'faltantes',
+    ),
+    1 => 
+    array (
+      'pantalla' => 475,
+      'proyecto' => 'toba_editor',
+      'objeto_ci' => 1617,
+      'dep_id' => 132,
+      'orden' => 1,
+      'identificador_pantalla' => 'seleccion',
+      'identificador_dep' => 'archivos',
     ),
     2 => 
     array (

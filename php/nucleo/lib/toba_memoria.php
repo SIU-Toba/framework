@@ -92,7 +92,7 @@ class toba_memoria
 		$this->parametros = array();
 		//-[0]- Recupero los parametros
 		foreach (array_keys($_GET) as $clave) {		
-			$this->parametros[utf8_decode($clave)] = utf8_decode($_GET[$clave]);			
+			$this->parametros[mb_convert_encoding($clave, 'LATIN1', 'UTF-8')] = mb_convert_encoding($_GET[$clave], 'LATIN1', 'UTF-8');
 		}
 		
 		 //-[1]- Busco el ID de referencia de la instanciacion anterior del HILO

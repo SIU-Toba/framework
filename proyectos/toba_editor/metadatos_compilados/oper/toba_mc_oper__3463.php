@@ -273,6 +273,16 @@ class toba_mc_comp__2286
   array (
     0 => 
     array (
+      'pantalla' => 1181,
+      'proyecto' => 'toba_editor',
+      'objeto_ci' => 2286,
+      'dep_id' => 1169,
+      'orden' => 1,
+      'identificador_pantalla' => 'pant_ubicacion',
+      'identificador_dep' => 'carpetas',
+    ),
+    1 => 
+    array (
       'pantalla' => 1183,
       'proyecto' => 'toba_editor',
       'objeto_ci' => 2286,
@@ -281,7 +291,7 @@ class toba_mc_comp__2286
       'identificador_pantalla' => 'pant_generacion',
       'identificador_dep' => 'ci_generacion',
     ),
-    1 => 
+    2 => 
     array (
       'pantalla' => 1182,
       'proyecto' => 'toba_editor',
@@ -290,16 +300,6 @@ class toba_mc_comp__2286
       'orden' => 1,
       'identificador_pantalla' => 'pant_nombre',
       'identificador_dep' => 'form_nombre',
-    ),
-    2 => 
-    array (
-      'pantalla' => 1181,
-      'proyecto' => 'toba_editor',
-      'objeto_ci' => 2286,
-      'dep_id' => 1169,
-      'orden' => 1,
-      'identificador_pantalla' => 'pant_ubicacion',
-      'identificador_dep' => 'carpetas',
     ),
     3 => 
     array (

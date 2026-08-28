@@ -344,19 +344,6 @@ class toba_mc_comp__33000087
   array (
     0 => 
     array (
-      'identificador' => 'cuadro',
-      'proyecto' => 'toba_usuarios',
-      'objeto' => 33000088,
-      'clase' => 'toba_ei_cuadro',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_cuadro.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
-      'fuente' => NULL,
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    1 => 
-    array (
       'identificador' => 'cuadro_sel_conf',
       'proyecto' => 'toba_usuarios',
       'objeto' => 33000089,
@@ -368,15 +355,28 @@ class toba_mc_comp__33000087
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
+    1 => 
+    array (
+      'identificador' => 'cuadro',
+      'proyecto' => 'toba_usuarios',
+      'objeto' => 33000088,
+      'clase' => 'toba_ei_cuadro',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_cuadro.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
+      'fuente' => NULL,
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
     2 => 
     array (
-      'identificador' => 'filtro',
+      'identificador' => 'form_muestra',
       'proyecto' => 'toba_usuarios',
-      'objeto' => 2199,
+      'objeto' => 33000090,
       'clase' => 'toba_ei_formulario',
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
-      'subclase' => 'form_proyecto',
-      'subclase_archivo' => 'perfiles/form_proyecto.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
       'fuente' => 'toba_usuarios',
       'parametros_a' => NULL,
       'parametros_b' => NULL,
@@ -396,13 +396,13 @@ class toba_mc_comp__33000087
     ),
     4 => 
     array (
-      'identificador' => 'form_muestra',
+      'identificador' => 'filtro',
       'proyecto' => 'toba_usuarios',
-      'objeto' => 33000090,
+      'objeto' => 2199,
       'clase' => 'toba_ei_formulario',
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
+      'subclase' => 'form_proyecto',
+      'subclase_archivo' => 'perfiles/form_proyecto.php',
       'fuente' => 'toba_usuarios',
       'parametros_a' => NULL,
       'parametros_b' => NULL,

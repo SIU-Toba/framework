@@ -12,7 +12,7 @@ use SIUToba\rest\seguridad\proveedor_autenticacion;
 
 class mock_autenticador extends SIUToba\rest\seguridad\proveedor_autenticacion
 {
-	public function get_usuario(SIUToba\rest\http\request $request = null)
+	public function get_usuario(?request $request = null)
 	{
 		$usuario = new rest_usuario();
 		$usuario->set_usuario('usuario1');

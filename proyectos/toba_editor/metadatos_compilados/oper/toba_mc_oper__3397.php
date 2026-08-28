@@ -243,45 +243,6 @@ class toba_mc_comp__1989
   array (
     0 => 
     array (
-      'identificador' => 'arbol_relaciones',
-      'proyecto' => 'toba_editor',
-      'objeto' => 2013,
-      'clase' => 'toba_ei_arbol',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_arbol.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
-      'fuente' => NULL,
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    1 => 
-    array (
-      'identificador' => 'consultas',
-      'proyecto' => 'toba_editor',
-      'objeto' => 1991,
-      'clase' => 'toba_ei_cuadro',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_cuadro.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
-      'fuente' => NULL,
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    2 => 
-    array (
-      'identificador' => 'dimensiones',
-      'proyecto' => 'toba_editor',
-      'objeto' => 2204,
-      'clase' => 'toba_ei_cuadro',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_cuadro.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
-      'fuente' => NULL,
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    3 => 
-    array (
       'identificador' => 'fuentes',
       'proyecto' => 'toba_editor',
       'objeto' => 1990,
@@ -293,7 +254,20 @@ class toba_mc_comp__1989
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
-    4 => 
+    1 => 
+    array (
+      'identificador' => 'tablas',
+      'proyecto' => 'toba_editor',
+      'objeto' => 1992,
+      'clase' => 'toba_ei_cuadro',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_cuadro.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
+      'fuente' => NULL,
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    2 => 
     array (
       'identificador' => 'servicios_web',
       'proyecto' => 'toba_editor',
@@ -306,13 +280,39 @@ class toba_mc_comp__1989
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
-    5 => 
+    3 => 
     array (
-      'identificador' => 'tablas',
+      'identificador' => 'consultas',
       'proyecto' => 'toba_editor',
-      'objeto' => 1992,
+      'objeto' => 1991,
       'clase' => 'toba_ei_cuadro',
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_cuadro.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
+      'fuente' => NULL,
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    4 => 
+    array (
+      'identificador' => 'dimensiones',
+      'proyecto' => 'toba_editor',
+      'objeto' => 2204,
+      'clase' => 'toba_ei_cuadro',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_cuadro.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
+      'fuente' => NULL,
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    5 => 
+    array (
+      'identificador' => 'arbol_relaciones',
+      'proyecto' => 'toba_editor',
+      'objeto' => 2013,
+      'clase' => 'toba_ei_arbol',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_arbol.php',
       'subclase' => NULL,
       'subclase_archivo' => NULL,
       'fuente' => NULL,
