@@ -4,6 +4,29 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.5.0](https://github.com/SIU-Toba/framework/releases/tag/v3.5.0) (2026-08-28)
+- Se eleva el requerimiento mínimo a PHP 8.3
+- Se depreca el uso de `ef_captcha` tal como venía (falta de soporte para Securimage),
+     ahora se deberá inyectar una subclase de `toba_captcha_interface` (ej: toba_referencia)
+- Se ajusta `toba_vista_excel` debido a las actualizaciones en phpSpreadsheet.
+- Se actualiza `toba_extractor_clases` debido a la actualización de dependencias
+- Se agrega índice a la tabla `apex_msg`
+- Se actualiza la imagen base para PHP y Postgres en el archivo `docker-compose.yml`
+- Se permite especificar un `AuthNContext` a requerir vía `saml_onelogin`
+- Se ajusta metodo `toba_manejador_archivos::existe_archivo_en_path()` para evitar warnings
+- Se corrige comportamiento en `toba_hash::get_salt()` para incluir mayor número de vueltas
+- Se actualizan los siguientes paquetes 
+     * phpoffice/phpspreadsheet: v5.9.0
+     * laminas/laminas-escaper: v2.18.0
+     * phpmailer/phpmailer: v7.1.0
+     * guzzlehttp/guzzle: v8.1.0
+     * siutoba/rest: v4.1.0
+     * robrichards/xmlseclibs: v3.1.5
+     * symfony/process: v7.4.5
+     * symfony/yaml: v7.4.13
+
+- Se devuelve un mensaje en formato JSON cuando se producen errores en el inicio del pedido rest
+
 [3.4.10](https://github.com/SIU-Toba/framework/releases/tag/v3.4.10) (2025-09-11)
 - Fix en instanciacion de `toba_rest` al generar la documentación de la api
 
