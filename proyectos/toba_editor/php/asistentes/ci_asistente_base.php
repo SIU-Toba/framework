@@ -64,7 +64,7 @@ class ci_asistente_base extends toba_ci
 	{
 		//-- Asume los nombres a partir de la operación 
 		$datos = $this->dep('datos')->tabla('molde')->get();
-		$nombre = strtolower(toba::zona()->get_info('nombre'));
+		$nombre = strtolower(toba::zona()->get_info('nombre') ?? '');
 		if (!isset($datos['prefijo_clases'])) {
 			$datos['prefijo_clases'] = '_'.toba_texto::nombre_valido_clase($nombre);
 		}
