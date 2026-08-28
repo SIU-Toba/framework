@@ -484,14 +484,14 @@ class toba_mc_comp__33000113
   array (
     0 => 
     array (
-      'identificador' => 'arbol_origen',
+      'identificador' => 'datos',
       'proyecto' => 'toba_usuarios',
-      'objeto' => 33000115,
-      'clase' => 'toba_ei_arbol',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_arbol.php',
-      'subclase' => 'arbol_perfiles_funcionales',
-      'subclase_archivo' => '/menu/arbol_perfiles_funcionales.php',
-      'fuente' => NULL,
+      'objeto' => 33000121,
+      'clase' => 'toba_datos_relacion',
+      'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_relacion.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
+      'fuente' => 'toba_usuarios',
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
@@ -510,31 +510,18 @@ class toba_mc_comp__33000113
     ),
     2 => 
     array (
-      'identificador' => 'datos',
+      'identificador' => 'arbol_origen',
       'proyecto' => 'toba_usuarios',
-      'objeto' => 33000121,
-      'clase' => 'toba_datos_relacion',
-      'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_relacion.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
-      'fuente' => 'toba_usuarios',
+      'objeto' => 33000115,
+      'clase' => 'toba_ei_arbol',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_arbol.php',
+      'subclase' => 'arbol_perfiles_funcionales',
+      'subclase_archivo' => '/menu/arbol_perfiles_funcionales.php',
+      'fuente' => NULL,
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
     3 => 
-    array (
-      'identificador' => 'filtro',
-      'proyecto' => 'toba_usuarios',
-      'objeto' => 2227,
-      'clase' => 'toba_ei_formulario',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
-      'subclase' => 'form_proyecto',
-      'subclase_archivo' => 'perfiles/form_proyecto.php',
-      'fuente' => 'toba_usuarios',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    4 => 
     array (
       'identificador' => 'form_armado',
       'proyecto' => 'toba_usuarios',
@@ -547,7 +534,7 @@ class toba_mc_comp__33000113
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
-    5 => 
+    4 => 
     array (
       'identificador' => 'form_basico',
       'proyecto' => 'toba_usuarios',
@@ -556,6 +543,19 @@ class toba_mc_comp__33000113
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
       'subclase' => NULL,
       'subclase_archivo' => NULL,
+      'fuente' => 'toba_usuarios',
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    5 => 
+    array (
+      'identificador' => 'filtro',
+      'proyecto' => 'toba_usuarios',
+      'objeto' => 2227,
+      'clase' => 'toba_ei_formulario',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
+      'subclase' => 'form_proyecto',
+      'subclase_archivo' => 'perfiles/form_proyecto.php',
       'fuente' => 'toba_usuarios',
       'parametros_a' => NULL,
       'parametros_b' => NULL,
