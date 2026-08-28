@@ -397,13 +397,13 @@ class toba_mc_comp__45000005
   array (
     0 => 
     array (
-      'identificador' => 'arbol',
+      'identificador' => 'restricciones',
       'proyecto' => 'toba_usuarios',
-      'objeto' => 45000001,
-      'clase' => 'toba_ei_arbol',
-      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_arbol.php',
-      'subclase' => 'arbol_restricciones_funcionales',
-      'subclase_archivo' => 'perfiles/restricciones_funcionales/arbol_restricciones_funcionales.php',
+      'objeto' => 45000004,
+      'clase' => 'toba_datos_tabla',
+      'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_tabla.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
       'fuente' => 'toba_usuarios',
       'parametros_a' => NULL,
       'parametros_b' => NULL,
@@ -423,6 +423,19 @@ class toba_mc_comp__45000005
     ),
     2 => 
     array (
+      'identificador' => 'arbol',
+      'proyecto' => 'toba_usuarios',
+      'objeto' => 45000001,
+      'clase' => 'toba_ei_arbol',
+      'clase_archivo' => 'nucleo/componentes/interface/toba_ei_arbol.php',
+      'subclase' => 'arbol_restricciones_funcionales',
+      'subclase_archivo' => 'perfiles/restricciones_funcionales/arbol_restricciones_funcionales.php',
+      'fuente' => 'toba_usuarios',
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    3 => 
+    array (
       'identificador' => 'filtro_proyectos',
       'proyecto' => 'toba_usuarios',
       'objeto' => 45000007,
@@ -434,26 +447,13 @@ class toba_mc_comp__45000005
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
-    3 => 
+    4 => 
     array (
       'identificador' => 'form_restriccion',
       'proyecto' => 'toba_usuarios',
       'objeto' => 45000003,
       'clase' => 'toba_ei_formulario',
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
-      'fuente' => 'toba_usuarios',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    4 => 
-    array (
-      'identificador' => 'restricciones',
-      'proyecto' => 'toba_usuarios',
-      'objeto' => 45000004,
-      'clase' => 'toba_datos_tabla',
-      'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_tabla.php',
       'subclase' => NULL,
       'subclase_archivo' => NULL,
       'fuente' => 'toba_usuarios',
