@@ -1,4 +1,4 @@
-<?PHP
+<?php
 
 /* Poidsy 0.6 - http://chris.smith.name/projects/poidsy
  * Copyright (c) 2008-2010 Chris Smith
@@ -22,27 +22,26 @@
  * SOFTWARE.
  */
 
- session_start();
+session_start();
 
- define('OPENID_TRUSTROOT', $_SESSION['trustroot']);
- define('OPENID_IMMEDIATE', true);
+define('OPENID_TRUSTROOT', $_SESSION['trustroot']);
+define('OPENID_IMMEDIATE', true);
 
- if (isset($_GET['openid_id'])) {
-  define('OPENID_URL', $_GET['openid_id']);
- }
+if (isset($_GET['openid_id'])) {
+    define('OPENID_URL', $_GET['openid_id']);
+}
 
- if (defined('OPENID_URL') || isset($_REQUEST['openid_mode'])) {
+if (defined('OPENID_URL') || isset($_REQUEST['openid_mode'])) {
 
-  require('../../processor.php');
+    require('../../processor.php');
 
- } else if (isset($_SESSION['openid']['error'])) {
-  if ($_SESSION['openid']['errorcode'] == 'noimmediate') {
-   echo '<script type="text/javascript">parent.doSubmit();</script>';
-  } else {
-   echo '<script type="text/javascript">parent.doError("Error: ' . $_SESSION['openid']['error'] . '");</script>';
-  }
-  unset($_SESSION['openid']['error']);
- } else if (isset($_SESSION['openid']['validated']) && $_SESSION['openid']['validated']) {
-  echo '<script type="text/javascript">parent.doSuccess("Logged in as ' . $_SESSION['openid']['identity'] . '");</script>';
- }
-?>
+} elseif (isset($_SESSION['openid']['error'])) {
+    if ($_SESSION['openid']['errorcode'] == 'noimmediate') {
+        echo '<script type="text/javascript">parent.doSubmit();</script>';
+    } else {
+        echo '<script type="text/javascript">parent.doError("Error: ' . $_SESSION['openid']['error'] . '");</script>';
+    }
+    unset($_SESSION['openid']['error']);
+} elseif (isset($_SESSION['openid']['validated']) && $_SESSION['openid']['validated']) {
+    echo '<script type="text/javascript">parent.doSuccess("Logged in as ' . $_SESSION['openid']['identity'] . '");</script>';
+}

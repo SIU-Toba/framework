@@ -1,15 +1,16 @@
 <?php
+
 require_once("tutorial/pant_tutorial.php");
 
-class pant_definicion extends pant_tutorial 
+class pant_definicion extends pant_tutorial
 {
-	function generar_layout()
-	{
-		$icono = toba_recurso::imagen_toba('objetos/multi_etapa.gif', true);
-		$icono_pant = toba_recurso::imagen_toba('objetos/pantalla.gif', true);
-		$arbol = toba_recurso::imagen_proyecto('tutorial/ci-arbol.png');
-		$tabs = toba_recurso::imagen_proyecto('tutorial/ci-tabs.png');
-		echo "
+    public function generar_layout()
+    {
+        $icono = toba_recurso::imagen_toba('objetos/multi_etapa.gif', true);
+        $icono_pant = toba_recurso::imagen_toba('objetos/pantalla.gif', true);
+        $arbol = toba_recurso::imagen_proyecto('tutorial/ci-arbol.png');
+        $tabs = toba_recurso::imagen_proyecto('tutorial/ci-tabs.png');
+        echo "
 			<div style='float:right;padding: 10px;width: 310px;'>
 			<img src='$arbol'><br>
 			<span class='caption'>Definición en el editor web de una operación con un CI de dos pantallas.
@@ -35,19 +36,19 @@ class pant_definicion extends pant_tutorial
 
 
 		";
-	}
+    }
 }
 
 //--------------------------------------------------------------
 
-class pant_ejemplo extends pant_tutorial 
+class pant_ejemplo extends pant_tutorial
 {
-	function generar_layout()
-	{
-		$vinculo = toba::vinculador()->get_url(null, 1000089, array(), array('celda_memoria'=>'ejemplo'));		
-		$arbol = toba_recurso::imagen_proyecto('tutorial/ci-arbol.png');
-		$tabs = toba_recurso::imagen_proyecto('tutorial/ci-tabs.png');
-		echo "
+    public function generar_layout()
+    {
+        $vinculo = toba::vinculador()->get_url(null, 1000089, array(), array('celda_memoria' => 'ejemplo'));
+        $arbol = toba_recurso::imagen_proyecto('tutorial/ci-arbol.png');
+        $tabs = toba_recurso::imagen_proyecto('tutorial/ci-tabs.png');
+        echo "
 
 			<p>
 				En el resto de este capítulo se trabajará con un ejemplo simple de 
@@ -88,28 +89,28 @@ class pant_ejemplo extends pant_tutorial
 			del CI de la operación.
 			</p>
 		";
-	}	
+    }
 }
 
 //--------------------------------------------------------------
 
-class pant_video extends pant_tutorial 
+class pant_video extends pant_tutorial
 {
-	function generar_layout()
-	{
-		echo mostrar_video('ci');		
-	}	
+    public function generar_layout()
+    {
+        echo mostrar_video('ci');
+    }
 }
 
 //--------------------------------------------------------------
 
-class pant_eventos extends pant_tutorial 
+class pant_eventos extends pant_tutorial
 {
-	function generar_layout()
-	{
-		$evt_cuadro = toba_recurso::imagen_proyecto('tutorial/ci-evento-cuadro.png');		
-		$evt_form_alta = toba_recurso::imagen_proyecto('tutorial/ci-evento-form-alta.png');
-		echo '
+    public function generar_layout()
+    {
+        $evt_cuadro = toba_recurso::imagen_proyecto('tutorial/ci-evento-cuadro.png');
+        $evt_form_alta = toba_recurso::imagen_proyecto('tutorial/ci-evento-form-alta.png');
+        echo '
 			</div>		
 			<p>
 			Un <strong>Evento</strong> representa la interacción del usuario. Al ser aplicaciones web, esta interacción
@@ -127,9 +128,9 @@ class pant_eventos extends pant_tutorial
 			es el id del evento tal como se definio en el editor.
 			</p>
 		';
-		//----------------------------------------------------------	
-			
-		echo "
+        //----------------------------------------------------------
+
+        echo "
 			<h3>Evento Selección del cuadro</h3>		
 			<p>
 			En el primer caso que vamos a tomar es el del <strong>cuadro</strong>. Cuando
@@ -140,7 +141,7 @@ class pant_eventos extends pant_tutorial
 			<img src='$evt_cuadro'><br>
 			</div>			
 		";
-		$codigo = '
+        $codigo = '
 <?php
 	class ci_abm_direcciones extends toba_ci
 	{
@@ -154,13 +155,13 @@ class pant_eventos extends pant_tutorial
 	}
 ?>
 ';
-		echo "<div class='codigo'>";
-		highlight_string($codigo);
-		echo "</div>";	
-		
-		//----------------------------------------------------------		
-		
-		echo "
+        echo "<div class='codigo'>";
+        highlight_string($codigo);
+        echo "</div>";
+
+        //----------------------------------------------------------
+
+        echo "
 		<h3 style='clear:both;'>Evento Alta del formulario</h3>
 		<p>
 			El segundo caso de evento lo vamos a tomar del formulario, cuando presionamos el botón
@@ -171,7 +172,7 @@ class pant_eventos extends pant_tutorial
 			<img src='$evt_form_alta'><br>
 		</div>		
 		";
-		$codigo = '
+        $codigo = '
 <?php
 //---Dentro de la subclase del CI
 
@@ -186,23 +187,23 @@ class pant_eventos extends pant_tutorial
 			$this->direcciones[$email] = $nueva_dir;
 		}
 ?>
-';	
-		echo "<div class='codigo'>";
-		highlight_string($codigo);
-		echo "</div>";	
-	}
+';
+        echo "<div class='codigo'>";
+        highlight_string($codigo);
+        echo "</div>";
+    }
 }
 
 //--------------------------------------------------------------
 
-class pant_configuracion extends pant_tutorial 
+class pant_configuracion extends pant_tutorial
 {
-	function generar_layout()
-	{
-		$pedido = toba_recurso::imagen_proyecto('tutorial/ci-pedido.png');
-		$conf_cuadro = toba_recurso::imagen_proyecto('tutorial/ci-conf-cuadro.png');		
-		$conf_form = toba_recurso::imagen_proyecto('tutorial/ci-conf-form.png');		
-		echo "
+    public function generar_layout()
+    {
+        $pedido = toba_recurso::imagen_proyecto('tutorial/ci-pedido.png');
+        $conf_cuadro = toba_recurso::imagen_proyecto('tutorial/ci-conf-cuadro.png');
+        $conf_form = toba_recurso::imagen_proyecto('tutorial/ci-conf-form.png');
+        echo "
 			<p>
 			Una vez atendidas las acciones del usuario, la operación se dispone a construir una nueva interface
 			a partir de sus componentes. Para ello primero se deben <strong>configurar</strong> los distintos
@@ -214,9 +215,9 @@ class pant_configuracion extends pant_tutorial
 			
 			<img style='padding:15px;' src='$pedido'>
 		";
-		
-		//-------------------------------------------------------------
-		echo "
+
+        //-------------------------------------------------------------
+        echo "
 			<h3>Configuración del Cuadro</h3>
 			<p>
 			Ya vimos como el formulario agregaba las direcciones en un arreglo, este arreglo
@@ -226,7 +227,7 @@ class pant_configuracion extends pant_tutorial
 				<img src='$conf_cuadro'><br>
 			</div>					
 		";
-		$codigo = '
+        $codigo = '
 <?php
 //---Dentro de la subclase del CI
 
@@ -235,13 +236,13 @@ class pant_configuracion extends pant_tutorial
 			$cuadro->set_datos($this->direcciones);
 		}
 ?>
-';			
-		echo "<div class='codigo'>";
-		highlight_string($codigo);
-		echo "</div>";			
+';
+        echo "<div class='codigo'>";
+        highlight_string($codigo);
+        echo "</div>";
 
-		//-------------------------------------------------------------
-		echo "
+        //-------------------------------------------------------------
+        echo "
 			<h3 style='clear:both'>Configuración del Formulario</h3>
 			<p>
 			Durante la configuración también vamos a cargar al formulario con datos, pero
@@ -253,7 +254,7 @@ class pant_configuracion extends pant_tutorial
 				<img src='$conf_form'><br>
 			</div>				
 		";
-		$codigo = '
+        $codigo = '
 <?php
 //---Dentro de la subclase del CI
 
@@ -264,28 +265,28 @@ class pant_configuracion extends pant_tutorial
 			}
 		}	
 	?>
-';			
-		echo "<div class='codigo'>";
-		highlight_string($codigo);
-		echo "</div>";	
+';
+        echo "<div class='codigo'>";
+        highlight_string($codigo);
+        echo "</div>";
 
-		echo "
+        echo "
 			<h3 style='clear:both'>Otras configuraciones</h3>
 			<p>
 			Además de componentes, el ci se puede configurar a sí mísmo (definiendo el método <em>conf</em>)
 			y a sus pantallas (<em>conf__idpant</em>)
 			</p>
 		";
-	}	
+    }
 }
 
 //--------------------------------------------------------------
 
-class pant_sesion extends pant_tutorial 
+class pant_sesion extends pant_tutorial
 {
-	function generar_layout()
-	{
-		echo "
+    public function generar_layout()
+    {
+        echo "
 			</p>
 			Para cerrar el circuito eventos-configuración es necesario que el ci pueda
 			<strong>recordar</strong> la información que va recolectando entre pedidos 
@@ -296,7 +297,7 @@ class pant_sesion extends pant_tutorial
 			en nuestro ejemplo mantendremos las direcciones y la selección actual en sesión:
 			</p>
 		";
-		$codigo = '
+        $codigo = '
 <?php
 	class ci_abm_direcciones extends toba_ci
 	{
@@ -305,21 +306,21 @@ class pant_sesion extends pant_tutorial
 		....
 	}
 ?>
-';			
-		echo "<div class='codigo'>";
-		highlight_string($codigo);
-		echo "</div>";			
-		
-	}	
+';
+        echo "<div class='codigo'>";
+        highlight_string($codigo);
+        echo "</div>";
+
+    }
 }
 
 //--------------------------------------------------------------
 
-class pant_navegacion extends pant_tutorial 
+class pant_navegacion extends pant_tutorial
 {
-	function generar_layout()
-	{
-		echo "
+    public function generar_layout()
+    {
+        echo "
 			<p>
 			Para terminar con el ejemplo y para que sea un poco más 'real' faltaría
 			que al momento de seleccionar una dirección se navegue hacia la segunda pantalla,
@@ -330,7 +331,7 @@ class pant_navegacion extends pant_tutorial
 			en los eventos que nos interesan:
 			</p>
 		";
-		$codigo = '
+        $codigo = '
 <?php
 ...
 	/**
@@ -364,14 +365,11 @@ class pant_navegacion extends pant_tutorial
 ...
 ?>	
 ';
-		echo "<div class='codigo'>";
-		highlight_string($codigo);
-		echo "</div>";		
-		$vinculo = toba::vinculador()->get_url(null, 1000089, array(), array('celda_memoria'=>'ejemplo'));
-		echo "<p style='font-size:150%;text-align:center;'>
+        echo "<div class='codigo'>";
+        highlight_string($codigo);
+        echo "</div>";
+        $vinculo = toba::vinculador()->get_url(null, 1000089, array(), array('celda_memoria' => 'ejemplo'));
+        echo "<p style='font-size:150%;text-align:center;'>
 				<a target='_blank' href='$vinculo'>Ver Ejemplo Completo</a></p>";
-	}	
+    }
 }
-
-
-?>

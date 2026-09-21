@@ -1,9 +1,10 @@
 <?php
+
 php_referencia::instancia()->agregar(__FILE__);
 
 class ci_esquemas extends toba_ci
 {
-	protected $fuente = '
+    protected $fuente = '
 digraph G {
 
         subgraph cluster_0 {
@@ -32,34 +33,34 @@ digraph G {
         end [shape=Msquare];
 }
 		';
-	function ini()
-	{
-		$this->set_propiedades_sesion(array('fuente'));
-	}
-		
-	//-------------------------------------------------------------------
-	//--- DEPENDENCIAS
-	//-------------------------------------------------------------------
+    public function ini()
+    {
+        $this->set_propiedades_sesion(array('fuente'));
+    }
 
-	function evt__fuente__modificacion($datos)
-	{
-		$this->fuente = $datos['fuente'];
-	}
-	
-	function conf__fuente()
-	{
-		return array('fuente' => $this->fuente);
-	}
-	
-	function conf__dirigido()
-	{
-		return $this->fuente;
-	}
-	
-	
-	function conf__svg()
-	{
-		return "digraph G {
+    //-------------------------------------------------------------------
+    //--- DEPENDENCIAS
+    //-------------------------------------------------------------------
+
+    public function evt__fuente__modificacion($datos)
+    {
+        $this->fuente = $datos['fuente'];
+    }
+
+    public function conf__fuente()
+    {
+        return array('fuente' => $this->fuente);
+    }
+
+    public function conf__dirigido()
+    {
+        return $this->fuente;
+    }
+
+
+    public function conf__svg()
+    {
+        return "digraph G {
 					A [URL=\"javascript: alert('Este es A')\"];
             		B [URL=\"javascript: alert('Este es B')\"];
             		C [URL=\"javascript: alert('Este es C')\"];
@@ -67,8 +68,6 @@ digraph G {
             		B ->C -> A;
 				}
 		";
-	}
+    }
 
 }
-
-?>

@@ -1,14 +1,15 @@
-<?php 
+<?php
+
 require_once("tutorial/pant_tutorial.php");
 
 class pant_introduccion extends pant_tutorial
 {
-	function generar_layout()
-	{
-		$ciclo = toba_recurso::imagen_proyecto('tutorial/cuadro-ciclo.png');
-		$intro = toba_recurso::imagen_proyecto('tutorial/cuadro-intro.png');
-		
-		echo "
+    public function generar_layout()
+    {
+        $ciclo = toba_recurso::imagen_proyecto('tutorial/cuadro-ciclo.png');
+        $intro = toba_recurso::imagen_proyecto('tutorial/cuadro-intro.png');
+
+        echo "
 			<div style='float:right;border: 1px solid gray;margin: 10px;background-color:white;'>
 				<img src='$intro'>
 			</div>			
@@ -22,15 +23,15 @@ class pant_introduccion extends pant_tutorial
 			</p>
 			<img style='clear:both' src='$ciclo' />			
 		";
-	}
+    }
 }
 
-class pant_conf_eventos extends pant_tutorial 
+class pant_conf_eventos extends pant_tutorial
 {
-	function generar_layout()
-	{
-		$intro = toba_recurso::imagen_proyecto('tutorial/cuadro-intro.png');		
-		echo "
+    public function generar_layout()
+    {
+        $intro = toba_recurso::imagen_proyecto('tutorial/cuadro-intro.png');
+        echo "
 			<p>
 				En la etapa de configuración es donde el cuadro necesita ser cargado con datos.
 				Para esto requiere una estructura del tipo <em>recordset</em> que no es más que 
@@ -46,7 +47,7 @@ class pant_conf_eventos extends pant_tutorial
 				<img src='$intro'>
 			</div>						
 		";
-		$codigo = '
+        $codigo = '
 <?php
 ...
 function conf__cuadro(toba_ei_cuadro $cuadro)
@@ -64,10 +65,10 @@ function conf__cuadro(toba_ei_cuadro $cuadro)
 ...
 ?>
 		';
-		echo "<div class='codigo'>";
-		highlight_string($codigo);
-		echo "</div>";
-		$codigo = '
+        echo "<div class='codigo'>";
+        highlight_string($codigo);
+        echo "</div>";
+        $codigo = '
 <?php
 ...
 function evt__cuadro__seleccion($seleccion)
@@ -77,36 +78,36 @@ function evt__cuadro__seleccion($seleccion)
 ...
 Array ( [fecha] => 2005-05-21)
 ?>';
-		echo "
+        echo "
 		<p>
 			El cuadro tiene la capacidad de enviar eventos relacionados con una fila específica de la grilla,
 			por ejemplo la selección con la <em>lupa</em>. En este caso el evento informa la clave de la fila seleccionada:
 		</p>
 		";
-		echo "<div class='codigo'>";
-		highlight_string($codigo);
-		echo "</div>";	
-	}
+        echo "<div class='codigo'>";
+        highlight_string($codigo);
+        echo "</div>";
+    }
 }
 
 //--------------------------------------------------------
 
-class pant_definicion extends pant_tutorial 
+class pant_definicion extends pant_tutorial
 {
-	function generar_layout()
-	{
+    public function generar_layout()
+    {
 
-	}
+    }
 }
 
 //--------------------------------------------------------
 
-class pant_filtros extends pant_tutorial 
+class pant_filtros extends pant_tutorial
 {
-	function generar_layout()
-	{
-		$filtro = toba_recurso::imagen_proyecto('tutorial/cuadro-filtro.png');
-		echo "
+    public function generar_layout()
+    {
+        $filtro = toba_recurso::imagen_proyecto('tutorial/cuadro-filtro.png');
+        echo "
 			<p>
 			Existen situaciones que requieren que el contenido de un cuadro varíe en base a criterios definidos por el usuario.
 			Estos criterios se pueden indicar a partir de un componente llamado  <strong>ei_filtro</strong>, cuyo aspecto y comportamiento
@@ -121,8 +122,8 @@ class pant_filtros extends pant_tutorial
 			y es en el control en donde estos criterios necesitan ser aplicados a los datos. Por ejemplo
 			</p>
 		";
-		
-		$codigo = '
+
+        $codigo = '
 <?php
 ...
 	function evt__filtro__filtrar($datos)
@@ -141,23 +142,23 @@ class pant_filtros extends pant_tutorial
 	}
 ...
 ?>
-		';	
-		echo "<div class='codigo'>";
-		highlight_string($codigo);
-		echo "</div>";	
-		
-		$vinculo = toba::vinculador()->get_url(null, 1000214, array(), array('celda_memoria'=>'ejemplo'));
-		echo "<p style='font-size:150%;text-align:center;'>
-			<a target='_blank' href='$vinculo'>Ver Ejemplo</a></p>";			
-	}
+		';
+        echo "<div class='codigo'>";
+        highlight_string($codigo);
+        echo "</div>";
+
+        $vinculo = toba::vinculador()->get_url(null, 1000214, array(), array('celda_memoria' => 'ejemplo'));
+        echo "<p style='font-size:150%;text-align:center;'>
+			<a target='_blank' href='$vinculo'>Ver Ejemplo</a></p>";
+    }
 }
 
-class pant_paginado extends pant_tutorial 
+class pant_paginado extends pant_tutorial
 {
-	function generar_layout()
-	{
-		$paginado = toba_recurso::imagen_proyecto('tutorial/cuadro-paginado.png');
-		echo "
+    public function generar_layout()
+    {
+        $paginado = toba_recurso::imagen_proyecto('tutorial/cuadro-paginado.png');
+        echo "
 			<div style='float:right;border: 1px solid gray;margin: 10px;background-color:white;'>
 				<img src='$paginado'>
 			</div>				
@@ -189,19 +190,19 @@ class pant_paginado extends pant_tutorial
 					<li>El mismo cuadro: En caso que el evento no se escuche, el cuadro tomará la iniciativa de ordenar por sí mismo el set de datos. Para esto debe tener el conjunto completo de datos. Si por ejemplo el cuadro está páginado y sólo se carga la página actual, el cuadro sólo podrá ordenar esa página
 				</ul>
 		";
-		
-		$vinculo = toba::vinculador()->get_url(null, 1000213, array(), array('celda_memoria'=>'ejemplo'));
-		echo "<p style='font-size:150%;text-align:center;'>
-			<a target='_blank' href='$vinculo'>Ver Ejemplo</a></p>";			
-	}
+
+        $vinculo = toba::vinculador()->get_url(null, 1000213, array(), array('celda_memoria' => 'ejemplo'));
+        echo "<p style='font-size:150%;text-align:center;'>
+			<a target='_blank' href='$vinculo'>Ver Ejemplo</a></p>";
+    }
 }
 
-class pant_cortes extends pant_tutorial 
+class pant_cortes extends pant_tutorial
 {
-	function generar_layout()
-	{
-		$cortes = toba_recurso::imagen_proyecto('tutorial/cuadro-cortes.png');		
-		echo "
+    public function generar_layout()
+    {
+        $cortes = toba_recurso::imagen_proyecto('tutorial/cuadro-cortes.png');
+        echo "
 			<div style='float:right;border: 1px solid gray;margin: 10px;background-color:white;'>
 				<img src='$cortes'>
 			</div>
@@ -215,10 +216,8 @@ class pant_cortes extends pant_tutorial
 			la descripción de la agrupación.
 			</p>
 		";
-		$vinculo = toba::vinculador()->get_url(null, '1240', array(), array('celda_memoria'=>'ejemplo'));
-		echo "<p style='font-size:150%;text-align:center;'>
-			<a target='_blank' href='$vinculo'>Ver Ejemplo</a></p>";		
-	}
+        $vinculo = toba::vinculador()->get_url(null, '1240', array(), array('celda_memoria' => 'ejemplo'));
+        echo "<p style='font-size:150%;text-align:center;'>
+			<a target='_blank' href='$vinculo'>Ver Ejemplo</a></p>";
+    }
 }
-
-?>

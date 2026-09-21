@@ -8,12 +8,12 @@ class toba_imagen_captcha_empty
     protected $image_width;
     protected $image_height;
     protected $line_color;
-    protected $text_color;    
-    
+    protected $text_color;
+
     protected $estado;
     protected $css_captcha = '';
     protected $clase_css = '';
-    
+
     public function __construct()
     {
         $this->inicializar();
@@ -115,12 +115,12 @@ class toba_imagen_captcha_empty
 
         return $input;
     }
-    
+
     public function get_widget()
     {
         return $this->get_input();
     }
-    
+
     public function get_script()
     {
         return '';

@@ -11,23 +11,25 @@ namespace JpGraph;
 // Copyright (c) Asial Corporation. All rights reserved.
 //========================================================================
 
-class ImgData_Diamonds extends ImgData {
+class ImgData_Diamonds extends ImgData
+{
     protected $name = 'Diamonds';
-    protected $an = array(MARK_IMG_DIAMOND =>'imgdata');
+    protected $an = array(MARK_IMG_DIAMOND => 'imgdata');
     protected $colors = array('lightblue','darkblue','gray',
    'blue','pink','purple','red','yellow');
-    protected $index  = array('lightblue' =>7,'darkblue'=>2,'gray'=>6,
-   'blue'=>4,'pink'=>1,'purple'=>5,'red'=>0,'yellow'=>3);
+    protected $index  = array('lightblue' => 7,'darkblue' => 2,'gray' => 6,
+   'blue' => 4,'pink' => 1,'purple' => 5,'red' => 0,'yellow' => 3);
 
     protected $maxidx = 7 ;
     protected $imgdata ;
 
-    function __construct() {
+    public function __construct()
+    {
         //==========================================================
         // File: diam_red.png
         //==========================================================
-        $this->imgdata[0][0]= 668 ;
-        $this->imgdata[0][1]=
+        $this->imgdata[0][0] = 668 ;
+        $this->imgdata[0][1] =
      'iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAMAAAC6CgRnAAAA/F'.
      'BMVEX///////+cAAD/AADOAABjAABrAADWGBjOCAj/CAj/GBj/'.
      'EBCcCAiMOTl7KSl7ISFzGBilGBjOEBBrCAjv5+eMQkK1QkKtMT'.
@@ -45,13 +47,13 @@ class ImgData_Diamonds extends ImgData {
      '+MC2D6unF+Cu0VJULQBAlsOQuueN3Hrp2nGUvqppemBZ0aU7Se'.
      'SXvYZFMKaLJn7MH3btJmZEMEmGSOreqy0SI/4ffo3uiUOYEACy'.
      'OFopmNWlP5uZd9uPWmUoxvK9ilO9NtBo6mS7KkZD0fOJYqgGBU'.
-     'S/T7OKCAA9tfsFOicXcbxt29cAAAAASUVORK5CYII=' ; 
+     'S/T7OKCAA9tfsFOicXcbxt29cAAAAASUVORK5CYII=' ;
 
         //==========================================================
         // File: diam_pink.png
         //==========================================================
-        $this->imgdata[1][0]= 262 ;
-        $this->imgdata[1][1]=
+        $this->imgdata[1][0] = 262 ;
+        $this->imgdata[1][1] =
      'iVBORw0KGgoAAAANSUhEUgAAABsAAAAbBAMAAAB/+ulmAAAAEl'.
      'BMVEX///+AgID/M5n/Zpn/zMz/mZn1xELhAAAAAXRSTlMAQObY'.
      'ZgAAAAFiS0dEAIgFHUgAAAAJcEhZcwAACxIAAAsSAdLdfvwAAA'.
@@ -59,13 +61,13 @@ class ImgData_Diamonds extends ImgData {
      'kKojuCswABf2X6UEEiC+WF+PyDfoGEuvwXogq3Rk1Y6W0tBSG8'.
      '6Uwpla6CmJnpoYKRsjjb/Y63vo9kIkLcZCCsbGYGwMRqIzEp1R'.
      'OBmFk9HQGA2N0ZEIz5HX+h/jailYpfz4dAAAAABJRU5ErkJggg'.
-     '==' ; 
+     '==' ;
 
         //==========================================================
         // File: diam_blue.png
         //==========================================================
-        $this->imgdata[2][0]= 662 ;
-        $this->imgdata[2][1]=
+        $this->imgdata[2][0] = 662 ;
+        $this->imgdata[2][1] =
      'iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAMAAAC6CgRnAAAA+V'.
      'BMVEX///+AgIAAAJwAAP8AAM4AAGMAAGsQEP8YGHMQEHMYGP8Q'.
      'EKUICJwICM5KSpQxMYQpKXsYGNYQEM4ICGsICP97e85aWpw5OY'.
@@ -83,13 +85,13 @@ class ImgData_Diamonds extends ImgData {
      '6ufXjfXLm6pxPACSJIpRFAa+/26DhuK6qjbiON40k0N3skjOvm'.
      'NijBmchF5mi+1jhQqDmWyIzPp1hUlrv8On5l+6mMm1tigFNyrt'.
      '5R97g+FKKyGKkTNKesXPJTZXOFIrUoKiypcTQVHjK4g8H2dWEQ'.
-     'B8bvUDLSQXSr41rmEAAAAASUVORK5CYII=' ; 
+     'B8bvUDLSQXSr41rmEAAAAASUVORK5CYII=' ;
 
         //==========================================================
         // File: diam_yellow.png
         //==========================================================
-        $this->imgdata[3][0]= 262 ;
-        $this->imgdata[3][1]=
+        $this->imgdata[3][0] = 262 ;
+        $this->imgdata[3][1] =
      'iVBORw0KGgoAAAANSUhEUgAAABsAAAAbBAMAAAB/+ulmAAAAEl'.
      'BMVEX///+AgIBmMwCZZgD/zADMmQD/QLMZAAAAAXRSTlMAQObY'.
      'ZgAAAAFiS0dEAIgFHUgAAAAJcEhZcwAACxIAAAsSAdLdfvwAAA'.
@@ -97,13 +99,13 @@ class ImgData_Diamonds extends ImgData {
      'kKojuCswABf2X6UEEiC+WF+PyDfoGEuvwXogq3Rk1Y6W0tBSG8'.
      '6Uwpla6CmJnpoYKRsjjb/Y63vo9kIkLcZCCsbGYGwMRqIzEp1R'.
      'OBmFk9HQGA2N0ZEIz5HX+h/jailYpfz4dAAAAABJRU5ErkJggg'.
-     '==' ; 
+     '==' ;
 
         //==========================================================
         // File: diam_lightblue.png
         //==========================================================
-        $this->imgdata[4][0]= 671 ;
-        $this->imgdata[4][1]=
+        $this->imgdata[4][0] = 671 ;
+        $this->imgdata[4][1] =
      'iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAMAAAC6CgRnAAAA/1'.
      'BMVEX///+AgIAAnP8A//8Azv8AY/8Aa/8I//8Y1v8Izv8Y//8Q'.
      '//8InP8Qzv8Ypf85jP8he/8Yc/8Ia/8pe/8p//8p1v9Ctf8xrf'.
@@ -121,13 +123,13 @@ class ImgData_Diamonds extends ImgData {
      'N9eXVzuL7/Hn29frdKaamgcgy67L3HFG9gDefV+dm5qme4YRXL'.
      'oVR374mRqUELZYosf84XAxISFRQuMh4rrH8YxGSP6HX6H97NNQ'.
      'KEAaR08qCeuSnx2a8zIPWqUowtKHSRK91rAw0elmVYQFVc8mhq'.
-     '7p5RD7Ps3IIwA9sfsFxFUX6eZ4Zh4AAAAASUVORK5CYII=' ; 
+     '7p5RD7Ps3IIwA9sfsFxFUX6eZ4Zh4AAAAASUVORK5CYII=' ;
 
         //==========================================================
         // File: diam_purple.png
         //==========================================================
-        $this->imgdata[5][0]= 657 ;
-        $this->imgdata[5][1]=
+        $this->imgdata[5][0] = 657 ;
+        $this->imgdata[5][1] =
      'iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAMAAAC6CgRnAAAA/F'.
      'BMVEX///////8xAP/OAP+cAP9jAP9rAP+cCP85CP/OEP9SKf/O'.
      'CP9CEP9zGP9rCP+lGP/WOf/WIf9KIf9jOf+MQv+EMf97If9zEP'.
@@ -145,13 +147,13 @@ class ImgData_Diamonds extends ImgData {
      'n3b3+rimAWAYhP3xnXd7P6oc9vadPsa1wYEs00dFQRAFehlX21'.
      '25Sg9NOgwF5jeNTjVL9om0TjDc1lmeCKZ17nFPzhPtSRt6J06R'.
      'WKUoeG3MoXRa/wjLHGLodwZcotPqjsYngnWslRBZH91hWTbpD2'.
-     'EdF1ECWW1SAAAAAElFTkSuQmCC' ; 
+     'EdF1ECWW1SAAAAAElFTkSuQmCC' ;
 
         //==========================================================
         // File: diam_gray.png
         //==========================================================
-        $this->imgdata[6][0]= 262 ;
-        $this->imgdata[6][1]=
+        $this->imgdata[6][0] = 262 ;
+        $this->imgdata[6][1] =
      'iVBORw0KGgoAAAANSUhEUgAAABsAAAAbBAMAAAB/+ulmAAAAEl'.
      'BMVEX//////wAzMzNmZmbMzMyZmZlq4Qo5AAAAAXRSTlMAQObY'.
      'ZgAAAAFiS0dEAIgFHUgAAAAJcEhZcwAACxIAAAsSAdLdfvwAAA'.
@@ -159,13 +161,13 @@ class ImgData_Diamonds extends ImgData {
      'kKojuCswABf2X6UEEiC+WF+PyDfoGEuvwXogq3Rk1Y6W0tBSG8'.
      '6Uwpla6CmJnpoYKRsjjb/Y63vo9kIkLcZCCsbGYGwMRqIzEp1R'.
      'OBmFk9HQGA2N0ZEIz5HX+h/jailYpfz4dAAAAABJRU5ErkJggg'.
-     '==' ; 
+     '==' ;
 
         //==========================================================
         // File: diam_blgr.png
         //==========================================================
-        $this->imgdata[7][0]= 262 ;
-        $this->imgdata[7][1]=
+        $this->imgdata[7][0] = 262 ;
+        $this->imgdata[7][1] =
      'iVBORw0KGgoAAAANSUhEUgAAABsAAAAbBAMAAAB/+ulmAAAAEl'.
      'BMVEX///+AgIBmzP9m///M//+Z//8hMmBVAAAAAXRSTlMAQObY'.
      'ZgAAAAFiS0dEAIgFHUgAAAAJcEhZcwAACxIAAAsSAdLdfvwAAA'.
@@ -173,8 +175,6 @@ class ImgData_Diamonds extends ImgData {
      'kKojuCswABf2X6UEEiC+WF+PyDfoGEuvwXogq3Rk1Y6W0tBSG8'.
      '6Uwpla6CmJnpoYKRsjjb/Y63vo9kIkLcZCCsbGYGwMRqIzEp1R'.
      'OBmFk9HQGA2N0ZEIz5HX+h/jailYpfz4dAAAAABJRU5ErkJggg'.
-     '==' ; 
+     '==' ;
     }
 }
-
-?>

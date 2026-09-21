@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the CodeAnalysis addon for PHP_CodeSniffer.
  *
@@ -16,7 +17,7 @@
 
 /**
  * Detects unconditional if- and elseif-statements.
- * 
+ *
  * This rule is based on the PMD rule catalog. The Unconditional If Statment
  * sniff detects statement conditions that are only set to one of the constant
  * values <b>true</b> or <b>false</b>
@@ -44,8 +45,6 @@
  */
 class Toba_Sniffs_CodeAnalysis_UnconditionalIfStatementSniff implements PHP_CodeSniffer_Sniff
 {
-
-
     /**
      * Registers the tokens that this sniff wants to listen for.
      *
@@ -89,7 +88,7 @@ class Toba_Sniffs_CodeAnalysis_UnconditionalIfStatementSniff implements PHP_Code
 
             if (in_array($code, PHP_CodeSniffer_Tokens::$emptyTokens) === true) {
                 continue;
-            } else if ($code !== T_TRUE && $code !== T_FALSE) {
+            } elseif ($code !== T_TRUE && $code !== T_FALSE) {
                 $goodCondition = true;
             }
         }
@@ -103,5 +102,3 @@ class Toba_Sniffs_CodeAnalysis_UnconditionalIfStatementSniff implements PHP_Code
 
 
 }//end class
-
-?>

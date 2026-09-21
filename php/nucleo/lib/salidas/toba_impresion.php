@@ -6,10 +6,8 @@
  */
 interface toba_impresion
 {
-	function titulo( $texto );
-	function subtitulo( $texto );
-	function mensaje( $texto );
-	function salto_pagina();
+    public function titulo($texto);
+    public function subtitulo($texto);
+    public function mensaje($texto);
+    public function salto_pagina();
 }
-
-?>

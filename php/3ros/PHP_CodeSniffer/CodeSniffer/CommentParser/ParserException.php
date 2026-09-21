@@ -1,4 +1,5 @@
 <?php
+
 /**
  * An exception to be thrown when a DocCommentParser finds an anomilty in a
  * doc comment.
@@ -30,7 +31,6 @@
  */
 class PHP_CodeSniffer_CommentParser_ParserException extends Exception
 {
-
     /**
      * The line where the exception occured, in relation to the doc comment.
      *
@@ -68,5 +68,3 @@ class PHP_CodeSniffer_CommentParser_ParserException extends Exception
 
 
 }//end class
-
-?>

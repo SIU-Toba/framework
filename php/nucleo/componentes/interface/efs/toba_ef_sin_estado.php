@@ -7,46 +7,46 @@
  */
 abstract class toba_ef_sin_estado extends toba_ef
 {
-	function __construct($padre,$nombre_formulario,$id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
-	{
-		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
-	}
+    public function __construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros)
+    {
+        parent::__construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros);
+    }
 
-	function set_estado($estado)
-	{
-		return false;
-	}
+    public function set_estado($estado)
+    {
+        return false;
+    }
 
-	function get_estado()
-	{
-		return null;
-	}
+    public function get_estado()
+    {
+        return null;
+    }
 
-	function tiene_estado()
-	{
-		return false;
-	}
+    public function tiene_estado()
+    {
+        return false;
+    }
 
-	function resetear_estado()
-	{
-		return false;
-	}
-	
-	function validar_estado()
-	{
-		return true;
-	}
+    public function resetear_estado()
+    {
+        return false;
+    }
 
-	function get_javascript()
-	//Devuelve el javascript del elemento
-	{
-		return "";
-	}
-	
-	function tiene_etiqueta()
-	{
-		return false;	
-	}		
+    public function validar_estado()
+    {
+        return true;
+    }
+
+    public function get_javascript()
+    //Devuelve el javascript del elemento
+    {
+        return "";
+    }
+
+    public function tiene_etiqueta()
+    {
+        return false;
+    }
 }
 #####################################################################################
 #####################################################################################
@@ -59,12 +59,12 @@ abstract class toba_ef_sin_estado extends toba_ef
  */
 class toba_ef_barra_divisora extends toba_ef_sin_estado
 {
-	protected $clase_css = 'ef-barra-divisora';
-	
-	function get_input()
-	{
-		echo "<div class='{$this->clase_css}' id='{$this->id_form}'>{$this->etiqueta}</div>\n";
-	}
+    protected $clase_css = 'ef-barra-divisora';
+
+    public function get_input()
+    {
+        echo "<div class='{$this->clase_css}' id='{$this->id_form}'>{$this->etiqueta}</div>\n";
+    }
 }
 
 #####################################################################################
@@ -78,37 +78,36 @@ class toba_ef_barra_divisora extends toba_ef_sin_estado
  */
 class toba_ef_fieldset extends toba_ef_sin_estado
 {
-	protected $fin;
-	
-	function __construct($padre,$nombre_formulario,$id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
-	{
-		$this->fin = (isset($parametros['fieldset_fin'])) ? ($parametros['fieldset_fin'] == 1) : false;
-		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
-	}
+    protected $fin;
 
-	static function get_lista_parametros()
-	{
-		$parametros[] = 'fieldset_fin';
-		return $parametros;
-	}	
-	
-	function get_input()
-	{
-		if(! $this->fin){
-			echo "<fieldset title='{$this->etiqueta}'>";
-			if (trim($this->etiqueta) != ''){
-				echo "<legend>{$this->etiqueta}</legend>";
-			}//if
-		} else {
-			echo "</fieldset>";
-		}//if externo
-	}
-	
-	function es_fieldset_cierre()
-	{
-		return $this->fin;
-	}
-}	
+    public function __construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros)
+    {
+        $this->fin = (isset($parametros['fieldset_fin'])) ? ($parametros['fieldset_fin'] == 1) : false;
+        parent::__construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros);
+    }
+
+    public static function get_lista_parametros()
+    {
+        $parametros[] = 'fieldset_fin';
+        return $parametros;
+    }
+
+    public function get_input()
+    {
+        if (! $this->fin) {
+            echo "<fieldset title='{$this->etiqueta}'>";
+            if (trim($this->etiqueta) != '') {
+                echo "<legend>{$this->etiqueta}</legend>";
+            }//if
+        } else {
+            echo "</fieldset>";
+        }//if externo
+    }
+
+    public function es_fieldset_cierre()
+    {
+        return $this->fin;
+    }
+}
 #####################################################################################
 #####################################################################################
-?>

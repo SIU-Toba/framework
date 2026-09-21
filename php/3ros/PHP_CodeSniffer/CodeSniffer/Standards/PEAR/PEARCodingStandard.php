@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PEAR Coding Standard.
  *
@@ -32,8 +33,6 @@ if (class_exists('PHP_CodeSniffer_Standards_CodingStandard', true) === false) {
  */
 class PHP_CodeSniffer_Standards_PEAR_PEARCodingStandard extends PHP_CodeSniffer_Standards_CodingStandard
 {
-
-
     /**
      * Return a list of external sniffs to include with this standard.
      *
@@ -56,4 +55,3 @@ class PHP_CodeSniffer_Standards_PEAR_PEARCodingStandard extends PHP_CodeSniffer_
 
 
 }//end class
-?>

@@ -1,31 +1,32 @@
-<?php 
+<?php
+
 class ml_paleta extends toba_ei_formulario_ml
 {
-	protected $colores = array('fondo', 'frente', 'borde');
+    protected $colores = array('fondo', 'frente', 'borde');
 
-	function ini()
-	{
-		toba_js::instancia()->cargar_consumos_globales(array('utilidades/colorselector'));
-	}
-	
-	function generar_input_ef($ef)
-	{
-		$escapador = toba::escaper();
-		parent::generar_input_ef($ef);
-		if (in_array($ef, $this->colores, true)) {
-			$fila = $this->ef($ef)->get_fila_actual();
-			$id_form = $this->ef($ef)->get_id_form();
-			$contenido = gif_nulo(16, 16);
-			echo "<span id='". $escapador->escapeHtmlAttr('css_'.$ef.'_'.$fila)."' onclick='colorpicker($$(\"". $escapador->escapeHtmlAttr($id_form)."\"))'
+    public function ini()
+    {
+        toba_js::instancia()->cargar_consumos_globales(array('utilidades/colorselector'));
+    }
+
+    public function generar_input_ef($ef)
+    {
+        $escapador = toba::escaper();
+        parent::generar_input_ef($ef);
+        if (in_array($ef, $this->colores, true)) {
+            $fila = $this->ef($ef)->get_fila_actual();
+            $id_form = $this->ef($ef)->get_id_form();
+            $contenido = gif_nulo(16, 16);
+            echo "<span id='". $escapador->escapeHtmlAttr('css_'.$ef.'_'.$fila)."' onclick='colorpicker($$(\"". $escapador->escapeHtmlAttr($id_form)."\"))'
 					title='Seleccionar otro color' class='css-preview' >". $contenido."</span>";
-		}
-	}
-	
-	
-	function extender_objeto_js()
-	{
+        }
+    }
 
-		echo "
+
+    public function extender_objeto_js()
+    {
+
+        echo "
 		function colorpicker(nodo)
 		{
 			document.nodo_colorpicker = nodo;
@@ -51,11 +52,11 @@ class ml_paleta extends toba_ei_formulario_ml
 			overlay();
 		}
 		";
-		$escapador = toba::escaper();
-		$id_js = $escapador->escapeJs($this->objeto_js); 
-		foreach ($this->colores as $color) {
-			$color_sf = $escapador->escapeJs($color);
-			echo "
+        $escapador = toba::escaper();
+        $id_js = $escapador->escapeJs($this->objeto_js);
+        foreach ($this->colores as $color) {
+            $color_sf = $escapador->escapeJs($color);
+            echo "
 			{$id_js}.evt__$color_sf"."__procesar = function(inicial, fila)
 			{
 				var id_ef = '$color_sf';
@@ -76,8 +77,6 @@ class ml_paleta extends toba_ei_formulario_ml
 				}
 			}
 			";
-		}
-	}
+        }
+    }
 }
-
-?>

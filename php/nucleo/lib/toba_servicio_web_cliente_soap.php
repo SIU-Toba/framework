@@ -1,23 +1,24 @@
 <?php
+
 /**
  * Clase que representa un cliente de WS SOAP
  * @package Centrales
  */
 class toba_servicio_web_cliente_soap extends toba_servicio_web_cliente
 {
-	protected $wsf;
+    protected $wsf;
 
-	
-	function __construct($opciones, $id_servicio, $proyecto = null) 
-	{
+
+    public function __construct($opciones, $id_servicio, $proyecto = null)
+    {
         parent::__construct($opciones, $id_servicio, $proyecto);
-		$this->wsf = new WSClient($this->opciones);
-	}
+        $this->wsf = new WSClient($this->opciones);
+    }
 
-	/**
+    /**
      * @return toba_servicio_web_cliente_soap
      */
-    static function conectar($id_servicio, $opciones=array(), $proyecto = null)
+    public static function conectar($id_servicio, $opciones = array(), $proyecto = null)
     {
         if (! isset($proyecto)) {
             $proyecto = toba_editor::activado() ? toba_editor::get_proyecto_cargado() : toba::proyecto()->get_id();
@@ -72,7 +73,7 @@ class toba_servicio_web_cliente_soap extends toba_servicio_web_cliente
      * @throws toba_error
      * @return WSSecurityToken
      */
-    static function get_ws_token($proyecto, $servicio)
+    public static function get_ws_token($proyecto, $servicio)
     {
         $security_token = null;
         self::get_modelo_proyecto($proyecto);
@@ -86,24 +87,25 @@ class toba_servicio_web_cliente_soap extends toba_servicio_web_cliente
 
             //Cargo las claves y armo el objeto WSF
             if (! file_exists($config['clave_cliente'])) {
-				toba::logger()->error("El archivo ".$config['clave_cliente']." no existe");
+                toba::logger()->error("El archivo ".$config['clave_cliente']." no existe");
                 throw new toba_error('El archivo con clave/certificado no existe');
             }
             $clave_cliente = ws_get_key_from_file($config['clave_cliente']);
 
             if (! file_exists($config['cert_cliente'])) {
-				toba::logger()->error("El archivo ".$config['cert_cliente']." no existe");
+                toba::logger()->error("El archivo ".$config['cert_cliente']." no existe");
                 throw new toba_error('El archivo con clave/certificado no existe');
             }
             $cert_cliente = ws_get_cert_from_file($config['cert_cliente']);
 
             if (! file_exists($config['cert_servidor'])) {
-				toba::logger()->error("El archivo ".$config['cert_servidor']." no existe");
+                toba::logger()->error("El archivo ".$config['cert_servidor']." no existe");
                 throw new toba_error('El archivo con clave/certificado no existe');
             }
             $cert_server = ws_get_cert_from_file($config['cert_servidor']);
 
-            $security_token = new WSSecurityToken(array("privateKey" => $clave_cliente,
+            $security_token = new WSSecurityToken(
+                array("privateKey" => $clave_cliente,
                     "receiverCertificate" => $cert_server,
                     "certificate" 		=> $cert_cliente
                 )
@@ -112,79 +114,78 @@ class toba_servicio_web_cliente_soap extends toba_servicio_web_cliente
         return $security_token;
     }
 
-	/**
-	 * @return WSClient
-	 */
-	function wsf()
-	{
-		return $this->wsf;
-	}
+    /**
+     * @return WSClient
+     */
+    public function wsf()
+    {
+        return $this->wsf;
+    }
 
-	/**
-	 * Envia un mensaje al servicio web y espera la respuesta
-	 * @param toba_servicio_web_mensaje $mensaje
-	 * @return toba_servicio_web_mensaje
-	 */
-	function request(toba_servicio_web_mensaje $mensaje)
-	{
-		try {
-			$message = $this->wsf->request($mensaje->wsf());
-			if (! toba::instalacion()->es_produccion()) {
-				toba::logger()->debug("Request: " . var_export($this->wsf->getLastRequest(), true));
-				toba::logger()->debug("Response: " . var_export($this->wsf->getLastResponse(), true));
-				toba::logger()->var_dump($this->wsf->getLastResponseHeaders());
-			}
+    /**
+     * Envia un mensaje al servicio web y espera la respuesta
+     * @param toba_servicio_web_mensaje $mensaje
+     * @return toba_servicio_web_mensaje
+     */
+    public function request(toba_servicio_web_mensaje $mensaje)
+    {
+        try {
+            $message = $this->wsf->request($mensaje->wsf());
+            if (! toba::instalacion()->es_produccion()) {
+                toba::logger()->debug("Request: " . var_export($this->wsf->getLastRequest(), true));
+                toba::logger()->debug("Response: " . var_export($this->wsf->getLastResponse(), true));
+                toba::logger()->var_dump($this->wsf->getLastResponseHeaders());
+            }
 
-			//-- INICIO PARCHE: Intenta parsear un Fault por bug en libreria WSF con esquema de seguridad..
-			if (is_a($message, 'WSMessage')) {
-				$inicio = "<soapenv:Fault";
-				if (substr($message->str, 0, strlen($inicio)) == $inicio) {
-					$xml = new SimpleXMLElement($message->str);
-					$ns = $xml->getDocNamespaces(true);
-					$childrens = $xml->children($ns['soapenv']);
-					$code = @(string) $childrens->Code->Value;
-					$reason = @(string) $childrens->Reason->Text;
-					$detail = @(string) $childrens->Detail->children($ns['soapenv']->children, true)->error;
-					throw new WSFault(str_replace("soapenv:", "", $code), $reason, null, $detail);
-				}
-			}
-			//--- FIN PARCHE
+            //-- INICIO PARCHE: Intenta parsear un Fault por bug en libreria WSF con esquema de seguridad..
+            if (is_a($message, 'WSMessage')) {
+                $inicio = "<soapenv:Fault";
+                if (substr($message->str, 0, strlen($inicio)) == $inicio) {
+                    $xml = new SimpleXMLElement($message->str);
+                    $ns = $xml->getDocNamespaces(true);
+                    $childrens = $xml->children($ns['soapenv']);
+                    $code = @(string) $childrens->Code->Value;
+                    $reason = @(string) $childrens->Reason->Text;
+                    $detail = @(string) $childrens->Detail->children($ns['soapenv']->children, true)->error;
+                    throw new WSFault(str_replace("soapenv:", "", $code), $reason, null, $detail);
+                }
+            }
+            //--- FIN PARCHE
 
-			return new toba_servicio_web_mensaje($message);
-		} catch (WSFault $fault) {
-			if (! toba::instalacion()->es_produccion()) {
-				toba::logger()->debug("Request: " . var_export($this->wsf->getLastRequest(), true));
-				toba::logger()->debug("Response: " . var_export($this->wsf->getLastResponse(), true));
-				toba::logger()->var_dump($this->wsf->getLastResponseHeaders());
-			}
-			$detalle = (isset($fault->Detail)) ? $fault->Detail: '';
-			$code = (isset($fault->Code)) ? $fault->Code: '';
-			self::get_modelo_proyecto($this->proyecto);
-			throw new toba_error_servicio_web($fault->Reason, $detalle, $code);
-		} catch (Exception $e) {
-			if (! toba::instalacion()->es_produccion()) {
-				toba::logger()->debug("Request: " . var_export($this->wsf->getLastRequest(), true));
-				toba::logger()->debug("Response: " . var_export($this->wsf->getLastResponse(), true));
-				toba::logger()->var_dump($this->wsf->getLastResponseHeaders());
-			}
-			throw new toba_error_comunicacion($e->getMessage(), $this->opciones, $this->wsf->getLastResponseHeaders());
-		}
-	}
+            return new toba_servicio_web_mensaje($message);
+        } catch (WSFault $fault) {
+            if (! toba::instalacion()->es_produccion()) {
+                toba::logger()->debug("Request: " . var_export($this->wsf->getLastRequest(), true));
+                toba::logger()->debug("Response: " . var_export($this->wsf->getLastResponse(), true));
+                toba::logger()->var_dump($this->wsf->getLastResponseHeaders());
+            }
+            $detalle = (isset($fault->Detail)) ? $fault->Detail : '';
+            $code = (isset($fault->Code)) ? $fault->Code : '';
+            self::get_modelo_proyecto($this->proyecto);
+            throw new toba_error_servicio_web($fault->Reason, $detalle, $code);
+        } catch (Exception $e) {
+            if (! toba::instalacion()->es_produccion()) {
+                toba::logger()->debug("Request: " . var_export($this->wsf->getLastRequest(), true));
+                toba::logger()->debug("Response: " . var_export($this->wsf->getLastResponse(), true));
+                toba::logger()->var_dump($this->wsf->getLastResponseHeaders());
+            }
+            throw new toba_error_comunicacion($e->getMessage(), $this->opciones, $this->wsf->getLastResponseHeaders());
+        }
+    }
 
-	function send(toba_servicio_web_mensaje $mensaje)
-	{
-		try {
-			$this->wsf->send($mensaje->wsf());
-		} catch (WSFault $fault) {
-			self::get_modelo_proyecto($this->proyecto);
-			toba::logger()->debug("Request: " .$this->wsf->getLastRequest());
-			toba::logger()->debug("Response: " .$this->wsf->getLastResponse());
-			$detalle = (isset($fault->Detail)) ? $fault->Detail: '';
-			throw new toba_error_servicio_web($fault->Reason, $fault->Code, $detalle);
-		} catch (Exception $e) {
-			throw new toba_error_comunicacion($e->getMessage(), $this->opciones, $this->wsf->getLastResponseHeaders());
-		}
-	}
+    public function send(toba_servicio_web_mensaje $mensaje)
+    {
+        try {
+            $this->wsf->send($mensaje->wsf());
+        } catch (WSFault $fault) {
+            self::get_modelo_proyecto($this->proyecto);
+            toba::logger()->debug("Request: " .$this->wsf->getLastRequest());
+            toba::logger()->debug("Response: " .$this->wsf->getLastResponse());
+            $detalle = (isset($fault->Detail)) ? $fault->Detail : '';
+            throw new toba_error_servicio_web($fault->Reason, $fault->Code, $detalle);
+        } catch (Exception $e) {
+            throw new toba_error_comunicacion($e->getMessage(), $this->opciones, $this->wsf->getLastResponseHeaders());
+        }
+    }
 
 }
-?>

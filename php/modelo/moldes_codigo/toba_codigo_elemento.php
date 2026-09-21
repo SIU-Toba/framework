@@ -1,11 +1,12 @@
 <?php
+
 /**
  * @ignore
  */
 abstract class toba_codigo_elemento
 {
     protected $nombre;
-    protected $identacion=0;
+    protected $identacion = 0;
     protected $caracteres_tab = 4;
     protected $grupo = null;
 

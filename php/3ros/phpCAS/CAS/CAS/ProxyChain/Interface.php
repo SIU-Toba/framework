@@ -40,7 +40,6 @@
  */
 interface CAS_ProxyChain_Interface
 {
-
     /**
      * Match a list of proxies.
      *

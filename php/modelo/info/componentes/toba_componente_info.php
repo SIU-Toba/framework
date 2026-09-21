@@ -12,7 +12,7 @@ abstract class toba_componente_info implements toba_nodo_arbol, toba_meta_clase
     protected $info_extra = "";
     protected $datos_resumidos;
 
-    public function __construct($datos, $carga_profundidad=true, $datos_resumidos=false)
+    public function __construct($datos, $carga_profundidad = true, $datos_resumidos = false)
     {
         $this->carga_profundidad = $carga_profundidad;
         $this->datos = $datos;
@@ -29,11 +29,11 @@ abstract class toba_componente_info implements toba_nodo_arbol, toba_meta_clase
         //Si hay objetos asociados...
         if (isset($this->datos['_info_dependencias']) &&
             count($this->datos['_info_dependencias']) > 0) {
-            for ($a=0; $a<count($this->datos['_info_dependencias']); $a++) {
+            for ($a = 0; $a < count($this->datos['_info_dependencias']); $a++) {
                 $clave['proyecto'] = $this->datos['_info_dependencias'][$a]['proyecto'];
                 $clave['componente'] = $this->datos['_info_dependencias'][$a]['objeto'];
                 $tipo = $this->datos['_info_dependencias'][$a]['clase'];
-                $this->subelementos[$a]= toba_constructor::get_info($clave, $tipo, $this->carga_profundidad, null, true, $this->datos_resumidos);
+                $this->subelementos[$a] = toba_constructor::get_info($clave, $tipo, $this->carga_profundidad, null, true, $this->datos_resumidos);
                 $this->subelementos[$a]->set_consumidor($this, $this->datos['_info_dependencias'][$a]);
             }
         }
@@ -92,7 +92,7 @@ abstract class toba_componente_info implements toba_nodo_arbol, toba_meta_clase
      * @param boolean $con_transaccion	Indica si la clonación se debe incluír en una transaccion
      * @return array Clave del objeto que resulta del clonado
      */
-    public function clonar($nuevos_datos, $dir_subclases=false, $con_transaccion = true)
+    public function clonar($nuevos_datos, $dir_subclases = false, $con_transaccion = true)
     {
         //Se busca el id del datos_relacion de la clase
         $id_dr = toba_info_editores::get_dr_de_clase($this->datos['_info']['clase']);
@@ -220,7 +220,7 @@ abstract class toba_componente_info implements toba_nodo_arbol, toba_meta_clase
         }
     }
 
-    protected function get_path_clonacion($id_punto, $proyecto, $path_default='')
+    protected function get_path_clonacion($id_punto, $proyecto, $path_default = '')
     {
         $path_final = $path_default;
         $pm = toba_pms::instancia()->get_instancia_pm_proyecto($proyecto, $id_punto);		//Instancio el pm para el proyecto
@@ -305,10 +305,10 @@ abstract class toba_componente_info implements toba_nodo_arbol, toba_meta_clase
         if (isset($this->datos['_info']['subclase_archivo'])) {
             // Administracion de la Subclase PHP}
             if (admin_util::existe_archivo_subclase($this->datos['_info']['subclase_archivo'], $this->datos['_info']['punto_montaje'])) {
-                $iconos[] = $this->get_utileria_editor_abrir_php(array('proyecto'=>$this->proyecto, 'componente' =>$this->id ));
-                $iconos[] = $this->get_utileria_editor_ver_php(array('proyecto'=>$this->proyecto, 'componente' =>$this->id ));
+                $iconos[] = $this->get_utileria_editor_abrir_php(array('proyecto' => $this->proyecto, 'componente' => $this->id ));
+                $iconos[] = $this->get_utileria_editor_ver_php(array('proyecto' => $this->proyecto, 'componente' => $this->id ));
             } else {
-                $iconos[] = $this->get_utileria_editor_ver_php(array('proyecto'=>$this->proyecto, 'componente' =>$this->id ), null, 'nucleo/php_inexistente.gif', false);
+                $iconos[] = $this->get_utileria_editor_ver_php(array('proyecto' => $this->proyecto, 'componente' => $this->id ), null, 'nucleo/php_inexistente.gif', false);
             }
         }
         //Editor
@@ -372,7 +372,7 @@ abstract class toba_componente_info implements toba_nodo_arbol, toba_meta_clase
     // ACCESO al EDITOR PHP
     //---------------------------------------------------------------------
 
-    public static function get_utileria_editor_parametros($id_componente, $subcomponente=null)
+    public static function get_utileria_editor_parametros($id_componente, $subcomponente = null)
     {
         $parametros[apex_hilo_qs_zona] = $id_componente['proyecto'] . apex_qs_separador . $id_componente['componente'];
         if ($subcomponente) {
@@ -381,7 +381,7 @@ abstract class toba_componente_info implements toba_nodo_arbol, toba_meta_clase
         return $parametros;
     }
 
-    public static function get_utileria_editor_abrir_php($id_componente, $subcomponente=null, $icono='reflexion/abrir.gif')
+    public static function get_utileria_editor_abrir_php($id_componente, $subcomponente = null, $icono = 'reflexion/abrir.gif')
     {
         $parametros = self::get_utileria_editor_parametros($id_componente, $subcomponente);
         $opciones = array('servicio' => 'ejecutar', 'zona' => true, 'celda_memoria' => 'ajax', 'menu' => true);
@@ -398,7 +398,7 @@ abstract class toba_componente_info implements toba_nodo_arbol, toba_meta_clase
         );
     }
 
-    public static function get_utileria_editor_ver_php($id_componente, $subcomponente=null, $icono = 'nucleo/php.gif', $plegado = true)
+    public static function get_utileria_editor_ver_php($id_componente, $subcomponente = null, $icono = 'nucleo/php.gif', $plegado = true)
     {
         $parametros = self::get_utileria_editor_parametros($id_componente, $subcomponente);
         $opciones = array('zona' => true, 'celda_memoria' => 'central', 'menu' => true);//validar' => false,

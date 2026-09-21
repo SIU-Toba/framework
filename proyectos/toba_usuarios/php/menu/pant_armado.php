@@ -1,39 +1,40 @@
 <?php
+
 class pant_armado extends toba_ei_pantalla
 {
-	function generar_layout()
-	{
-		$this->enviar_estilos();
-		echo '<table><tr><td>';
-		$this->dep('form_armado')->generar_html();
-		echo '</td><td><div style=\'height:400px;overflow:auto\'>';
-		$this->dep('arbol_origen')->generar_html();		
-		echo '</div></td></tr></table>';
-	}
-		
-	function extender_objeto_js()
-	{			
-		echo '$(function() {';
-		$this->codigo_generador_subitem();				 
-		$this->codigo_generador_item_carpeta();
-		echo "	
+    public function generar_layout()
+    {
+        $this->enviar_estilos();
+        echo '<table><tr><td>';
+        $this->dep('form_armado')->generar_html();
+        echo '</td><td><div style=\'height:400px;overflow:auto\'>';
+        $this->dep('arbol_origen')->generar_html();
+        echo '</div></td></tr></table>';
+    }
+
+    public function extender_objeto_js()
+    {
+        echo '$(function() {';
+        $this->codigo_generador_subitem();
+        $this->codigo_generador_item_carpeta();
+        echo "	
 			//Seteo los elementos del ei_arbol como draggeables
 			$('.menu-origen').draggable({
 				helper: 'original',
 				revert: true});\n";
-			
-		$this->codigo_accion_zona_dropeo();
-		if ($this->controlador()->es_edicion()) {
-			$this->generar_codigo_arbol_cliente();
-		} 
-		
-		echo "});\n";
-	}
-	
-	protected function codigo_accion_zona_dropeo()
-	{
-		//Define las acciones que efectua la dropzone cuando cae un elemento
-		echo "
+
+        $this->codigo_accion_zona_dropeo();
+        if ($this->controlador()->es_edicion()) {
+            $this->generar_codigo_arbol_cliente();
+        }
+
+        echo "});\n";
+    }
+
+    protected function codigo_accion_zona_dropeo()
+    {
+        //Define las acciones que efectua la dropzone cuando cae un elemento
+        echo "
 			$('div.menu').droppable({ 
 				greedy: true, 
 				accept: '.menu-origen', 
@@ -80,13 +81,13 @@ class pant_armado extends toba_ei_pantalla
 					nuevo.append(spn_ctrl).appendTo(contenedor);
 				}
 			}); \n";
-	}
-	
-	
-	protected function codigo_generador_item_carpeta()
-	{
-		//Crea efectivamente el elemento visual que representa a un item de nivel cero o una carpeta
-		echo "
+    }
+
+
+    protected function codigo_generador_item_carpeta()
+    {
+        //Crea efectivamente el elemento visual que representa a un item de nivel cero o una carpeta
+        echo "
 			newdl = function (id_elem, texto, es_carpeta) {
 				var clase = (es_carpeta)? 'menu-item carpeta' : 'menu-item';
 				var nuevo = $('<dl/>', { class: clase, 
@@ -128,11 +129,11 @@ class pant_armado extends toba_ei_pantalla
 				});
 				return nuevo;
 			};\n";
-	}
-	
-	protected function codigo_generador_subitem()
-	{	//Creo el subitem del elemento que representa una carpeta
-		echo "
+    }
+
+    protected function codigo_generador_subitem()
+    {	//Creo el subitem del elemento que representa una carpeta
+        echo "
 			newdt = function(id_elem, texto, id_padre) {				
 				var dt = $('<dt/>', {
 							class: 'menu-subitem',
@@ -158,12 +159,12 @@ class pant_armado extends toba_ei_pantalla
 				agregar_subnivel(id_padre, id_elem);	
 				return dt;
 			};\n";
-	}
-	
-	protected function generar_codigo_arbol_cliente()
-	{
-		//Genero el evt para el drop y las funciones que se encargan de ejecutarlo
-		echo "	var evt = jQuery.Event('drop');
+    }
+
+    protected function generar_codigo_arbol_cliente()
+    {
+        //Genero el evt para el drop y las funciones que se encargan de ejecutarlo
+        echo "	var evt = jQuery.Event('drop');
 				var cont = $('div.menu');
 				var pos = {left:'-500', top:'-70'}, offs= cont.position();
 				var dropfn = cont.droppable('option', 'drop');
@@ -184,22 +185,22 @@ class pant_armado extends toba_ei_pantalla
 					var ui = {draggable: elem, helper: elem, position: pos, offset: offs};
 					dropsmfn.call(carpeta,evt, ui);\n
 				};\n";
-		
-		//Genero el codigo que dispara los drops y crea la parte visual
-		$datos = $this->controlador()->buscar_datos_persistidos();
-		$aux_arbol = $this->controlador()->get_arreglo_js();
-		$escapador = toba::escaper();
-		foreach ($datos as $fila) {
-			echo  "simular_drop_item('". $escapador->escapeJs($fila['item']) . "');\n";				
-			if ($fila['carpeta'] != 1 && isset($aux_arbol[$fila['padre']])) {
-				echo "simular_drop_carpeta('". $escapador->escapeJs($fila['item']) . "', '". $escapador->escapeJs($fila['padre']) . "');\n";
-			}
-		}			
-	}
-	
-	protected function enviar_estilos()
-	{	//TODO:Esto quizas podria estar en el css del proyecto toba_usuarios... analizar!!
-		echo '<style>
+
+        //Genero el codigo que dispara los drops y crea la parte visual
+        $datos = $this->controlador()->buscar_datos_persistidos();
+        $aux_arbol = $this->controlador()->get_arreglo_js();
+        $escapador = toba::escaper();
+        foreach ($datos as $fila) {
+            echo  "simular_drop_item('". $escapador->escapeJs($fila['item']) . "');\n";
+            if ($fila['carpeta'] != 1 && isset($aux_arbol[$fila['padre']])) {
+                echo "simular_drop_carpeta('". $escapador->escapeJs($fila['item']) . "', '". $escapador->escapeJs($fila['padre']) . "');\n";
+            }
+        }
+    }
+
+    protected function enviar_estilos()
+    {	//TODO:Esto quizas podria estar en el css del proyecto toba_usuarios... analizar!!
+        echo '<style>
 				.menu {
 						position: relative;
 						background-color: #FFF;
@@ -265,6 +266,5 @@ class pant_armado extends toba_ei_pantalla
 						top: 1px;
 				}			
 			</style>';
-	}
+    }
 }
-?>

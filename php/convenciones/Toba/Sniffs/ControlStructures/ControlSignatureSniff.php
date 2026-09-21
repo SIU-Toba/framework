@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Verifies that control statements conform to their coding standards.
  *
@@ -32,15 +33,13 @@ if (class_exists('PHP_CodeSniffer_Standards_AbstractPatternSniff', true) === fal
  */
 class Toba_Sniffs_ControlStructures_ControlSignatureSniff extends PHP_CodeSniffer_Standards_AbstractPatternSniff
 {
-
-
     /**
      * Constructs a PEAR_Sniffs_ControlStructures_ControlSignatureSniff.
      */
     public function __construct()
     {
         parent::__construct(true);
-		$this->error_fijo = '[Control]';
+        $this->error_fijo = '[Control]';
 
     }//end __construct()
 
@@ -68,5 +67,3 @@ class Toba_Sniffs_ControlStructures_ControlSignatureSniff extends PHP_CodeSniffe
 
 
 }//end class
-
-?>

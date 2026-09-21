@@ -2,10 +2,10 @@
 
 class form_opciones extends toba_ei_formulario
 {
-	function extender_objeto_js()
-	{
-		$id_js = toba::escaper()->escapeJs($this->objeto_js);
-		echo "
+    public function extender_objeto_js()
+    {
+        $id_js = toba::escaper()->escapeJs($this->objeto_js);
+        echo "
 			{$id_js}.evt__identificador__validar = function() {
 				if (this.ef('con_destino').chequeado() && 
 					(this.ef('tipo').valor() == 'toba_ci' || 
@@ -68,9 +68,7 @@ class form_opciones extends toba_ei_formulario
 				return true;
 			}			
 		";
-	}
+    }
 
 
 }
-
-?>

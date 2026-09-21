@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the CodeAnalysis addon for PHP_CodeSniffer.
  *
@@ -33,8 +34,6 @@
  */
 class Toba_Sniffs_CodeAnalysis_UnusedFunctionParameterSniff implements PHP_CodeSniffer_Sniff
 {
-
-
     /**
      * Returns an array of tokens this test wants to listen for.
      *
@@ -83,10 +82,10 @@ class Toba_Sniffs_CodeAnalysis_UnusedFunctionParameterSniff implements PHP_CodeS
             // Ingorable tokens.
             if (in_array($code, PHP_CodeSniffer_Tokens::$emptyTokens) === true) {
                 continue;
-            } else if ($code === T_THROW && $emptyBody === true) {
+            } elseif ($code === T_THROW && $emptyBody === true) {
                 // Throw statement and an empty body indicate an interface method.
                 return;
-            } else if ($code === T_RETURN && $emptyBody === true) {
+            } elseif ($code === T_RETURN && $emptyBody === true) {
                 // Return statement and an empty body indicate an interface method.
                 $tmp = $phpcsFile->findNext(PHP_CodeSniffer_Tokens::$emptyTokens, ($next + 1), null, true);
                 if ($tmp === false) {
@@ -102,7 +101,7 @@ class Toba_Sniffs_CodeAnalysis_UnusedFunctionParameterSniff implements PHP_CodeS
 
                 // There is a return <token>.
                 if ($tmp !== false && $tokens[$tmp] === T_SEMICOLON) {
-                     return;
+                    return;
                 }
             }//end if
 
@@ -110,17 +109,17 @@ class Toba_Sniffs_CodeAnalysis_UnusedFunctionParameterSniff implements PHP_CodeS
 
             if ($code === T_VARIABLE && isset($params[$token['content']]) === true) {
                 unset($params[$token['content']]);
-            } else if ($code === T_DOUBLE_QUOTED_STRING) {
+            } elseif ($code === T_DOUBLE_QUOTED_STRING) {
                 // Tokenize double quote string.
                 $strTokens = token_get_all(sprintf('<?php %s;?>', $token['content']));
                 foreach ($strTokens as $tok) {
-					foreach (array_keys($params) as $par) {
-						if (is_array($tok) && strpos($tok[1], $par) !== false) {
-							unset($params[$par]);
-						}
-					}
+                    foreach (array_keys($params) as $par) {
+                        if (is_array($tok) && strpos($tok[1], $par) !== false) {
+                            unset($params[$par]);
+                        }
+                    }
 
-                    if (is_array($tok) === false || $tok[0] !== T_VARIABLE ) {
+                    if (is_array($tok) === false || $tok[0] !== T_VARIABLE) {
                         continue;
                     }
                     if (isset($params[$tok[1]]) === true) {
@@ -141,5 +140,3 @@ class Toba_Sniffs_CodeAnalysis_UnusedFunctionParameterSniff implements PHP_CodeS
 
 
 }//end class
-
-?>

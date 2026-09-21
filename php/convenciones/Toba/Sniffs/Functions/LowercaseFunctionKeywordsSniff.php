@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Squiz_Sniffs_Functions_LowercaseFunctionKeywordsSniff.
  *
@@ -30,8 +31,6 @@
  */
 class Toba_Sniffs_Functions_LowercaseFunctionKeywordsSniff implements PHP_CodeSniffer_Sniff
 {
-
-
     /**
      * Returns an array of tokens this test wants to listen for.
      *
@@ -75,5 +74,3 @@ class Toba_Sniffs_Functions_LowercaseFunctionKeywordsSniff implements PHP_CodeSn
 
 
 }//end class
-
-?>

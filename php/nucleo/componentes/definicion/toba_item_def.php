@@ -2,42 +2,42 @@
 
 class toba_item_def implements toba_componente_definicion
 {
-	static protected $db;
-	/**
-	 * Devuelve la estructura de tablas y cantidad de registros para representarlo
-	 * @return array
-	 */	
-	static function get_estructura()
-	{
-		$estructura[] = array( 	'tabla' => 'apex_item',
-								'registros' => '1',
-								'obligatorio' => true );
-		$estructura[] = array( 	'tabla' => 'apex_item_info',
-								'registros' => '1',
-								'obligatorio' => false );
-		$estructura[] = array( 	'tabla' => 'apex_item_objeto',
-								'registros' => 'n',
-								'obligatorio' => false );
-		$estructura[] = array( 	'tabla' => 'apex_item_permisos_tablas',
-								'registros' => 'n',
-								'obligatorio' => false );								
-		return $estructura;		
-	}
-	
-	/**
-	 * Devuelve la estructura que representa al item
-	 * @param string $proyecto
-	 * @param string $componente
-	 * @return array
-	 */
-	static function get_vista_extendida($proyecto, $componente=null)
-	{
-		$sql=array();
-		$proyecto = self::$db->quote($proyecto);
-		if (isset($componente)) {
-			$componente = self::$db->quote($componente);
-		}
-		$sql['basica']['sql'] = "SELECT	i.proyecto as			item_proyecto,	
+    protected static $db;
+    /**
+     * Devuelve la estructura de tablas y cantidad de registros para representarlo
+     * @return array
+     */
+    public static function get_estructura()
+    {
+        $estructura[] = array( 	'tabla' => 'apex_item',
+                                'registros' => '1',
+                                'obligatorio' => true );
+        $estructura[] = array( 	'tabla' => 'apex_item_info',
+                                'registros' => '1',
+                                'obligatorio' => false );
+        $estructura[] = array( 	'tabla' => 'apex_item_objeto',
+                                'registros' => 'n',
+                                'obligatorio' => false );
+        $estructura[] = array( 	'tabla' => 'apex_item_permisos_tablas',
+                                'registros' => 'n',
+                                'obligatorio' => false );
+        return $estructura;
+    }
+
+    /**
+     * Devuelve la estructura que representa al item
+     * @param string $proyecto
+     * @param string $componente
+     * @return array
+     */
+    public static function get_vista_extendida($proyecto, $componente = null)
+    {
+        $sql = array();
+        $proyecto = self::$db->quote($proyecto);
+        if (isset($componente)) {
+            $componente = self::$db->quote($componente);
+        }
+        $sql['basica']['sql'] = "SELECT	i.proyecto as			item_proyecto,	
 						i.item as								item,	
 						i.nombre	as							item_nombre,
 						i.descripcion as						item_descripcion,	
@@ -92,13 +92,13 @@ class toba_item_def implements toba_componente_definicion
 							LEFT OUTER JOIN	apex_pagina_tipo pt	ON (pt.pagina_tipo	= i.pagina_tipo	AND	pt.proyecto	= i.pagina_tipo_proyecto)
 							LEFT OUTER JOIN apex_molde_operacion m ON (i.item = m.item AND i.proyecto = m.proyecto)
 				WHERE	i.proyecto = $proyecto";
-		if ( isset($componente) ) {
-			$sql['basica']['sql'] .= "	AND		i.item =$componente ";	
-		}
-		$sql['basica']['sql'] .= "	ORDER BY i.item; ";		
-		$sql['basica']['registros']='1';	
-		$sql['basica']['obligatorio']=true;
-		$sql['objetos']['sql'] =	"SELECT	o.proyecto as		objeto_proyecto,
+        if (isset($componente)) {
+            $sql['basica']['sql'] .= "	AND		i.item =$componente ";
+        }
+        $sql['basica']['sql'] .= "	ORDER BY i.item; ";
+        $sql['basica']['registros'] = '1';
+        $sql['basica']['obligatorio'] = true;
+        $sql['objetos']['sql'] =	"SELECT	o.proyecto as		objeto_proyecto,
 						o.objeto	as						objeto,
 						o.nombre	as						objeto_nombre,
 						o.subclase as						objeto_subclase,
@@ -125,33 +125,32 @@ class toba_item_def implements toba_componente_definicion
 					AND		o.clase = c.clase	
 					AND		o.clase_proyecto = c.proyecto	
 					AND		io.proyecto	= $proyecto";
-		if ( isset($componente) ) {
-			$sql['objetos']['sql'] .= "	AND		io.item =$componente";	
-		}
-		$sql['objetos']['sql'] .= "	ORDER	BY	io.orden;";	
-		$sql['objetos']['registros']='n';
-		$sql['objetos']['obligatorio']=false;
-		return $sql;
-	}
-	
-	/**
-	 * Devuelve la estructura que representa el item
-	 * @param string $proyecto
-	 * @param string $componente
-	 * @return array
-	 */
-	static function get_vista_extendida_resumida($proyecto, $componente=null)
-	{
-		return self::get_vista_extendida($proyecto, $componente);
-	}
-	
-	/**
-	 * Indica la conexion  a utilizar
-	 * @param toba_db $db
-	 */
-	static function set_db($db)
-	{
-		self::$db = $db;
-	}		
+        if (isset($componente)) {
+            $sql['objetos']['sql'] .= "	AND		io.item =$componente";
+        }
+        $sql['objetos']['sql'] .= "	ORDER	BY	io.orden;";
+        $sql['objetos']['registros'] = 'n';
+        $sql['objetos']['obligatorio'] = false;
+        return $sql;
+    }
+
+    /**
+     * Devuelve la estructura que representa el item
+     * @param string $proyecto
+     * @param string $componente
+     * @return array
+     */
+    public static function get_vista_extendida_resumida($proyecto, $componente = null)
+    {
+        return self::get_vista_extendida($proyecto, $componente);
+    }
+
+    /**
+     * Indica la conexion  a utilizar
+     * @param toba_db $db
+     */
+    public static function set_db($db)
+    {
+        self::$db = $db;
+    }
 }
-?>

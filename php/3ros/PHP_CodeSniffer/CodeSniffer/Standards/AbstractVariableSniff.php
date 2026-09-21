@@ -1,4 +1,5 @@
 <?php
+
 /**
  * A class to find T_VARIABLE tokens.
  *
@@ -39,7 +40,6 @@ if (class_exists('PHP_CodeSniffer_Standards_AbstractScopeSniff', true) === false
  */
 abstract class PHP_CodeSniffer_Standards_AbstractVariableSniff extends PHP_CodeSniffer_Standards_AbstractScopeSniff
 {
-
     /**
      * The end token of the current function that we are in.
      *
@@ -93,7 +93,7 @@ abstract class PHP_CodeSniffer_Standards_AbstractVariableSniff extends PHP_CodeS
      *
      * @return void
      */
-    protected final function processTokenWithinScope(PHP_CodeSniffer_File $phpcsFile, $stackPtr, $currScope)
+    final protected function processTokenWithinScope(PHP_CodeSniffer_File $phpcsFile, $stackPtr, $currScope)
     {
         if ($this->currentFile !== $phpcsFile) {
             $this->currentFile   = $phpcsFile;
@@ -132,7 +132,7 @@ abstract class PHP_CodeSniffer_Standards_AbstractVariableSniff extends PHP_CodeS
         if ($this->_functionOpen === true) {
             if ($tokens[$stackPtr]['code'] === T_VARIABLE) {
                 $this->processVariable($phpcsFile, $stackPtr);
-            } else if ($tokens[$stackPtr]['code'] === T_DOUBLE_QUOTED_STRING) {
+            } elseif ($tokens[$stackPtr]['code'] === T_DOUBLE_QUOTED_STRING) {
                 // Check to see if this string has a variable in it.
                 $pattern = '|[^\\\]\$[a-zA-Z0-9_]+|';
                 if (preg_match($pattern, $tokens[$stackPtr]['content']) !== 0) {
@@ -159,7 +159,7 @@ abstract class PHP_CodeSniffer_Standards_AbstractVariableSniff extends PHP_CodeS
      *
      * @return void
      */
-    protected final function processTokenOutsideScope(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
+    final protected function processTokenOutsideScope(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         // These variables are not member vars.
@@ -213,5 +213,3 @@ abstract class PHP_CodeSniffer_Standards_AbstractVariableSniff extends PHP_CodeS
 
 
 }//end class
-
-?>

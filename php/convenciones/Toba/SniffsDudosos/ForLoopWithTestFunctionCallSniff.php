@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the CodeAnalysis addon for PHP_CodeSniffer.
  *
@@ -43,8 +44,6 @@
  */
 class Toba_Sniffs_CodeAnalysis_ForLoopWithTestFunctionCallSniff implements PHP_CodeSniffer_Sniff
 {
-
-
     /**
      * Registers the tokens that this sniff wants to listen for.
      *
@@ -89,9 +88,9 @@ class Toba_Sniffs_CodeAnalysis_ForLoopWithTestFunctionCallSniff implements PHP_C
 
             if ($position < 1) {
                 continue;
-            } else if ($position > 1) {
+            } elseif ($position > 1) {
                 break;
-            } else if ($code !== T_VARIABLE && $code !== T_STRING) {
+            } elseif ($code !== T_VARIABLE && $code !== T_STRING) {
                 continue;
             }
 
@@ -110,5 +109,3 @@ class Toba_Sniffs_CodeAnalysis_ForLoopWithTestFunctionCallSniff implements PHP_C
 
 
 }//end class
-
-?>

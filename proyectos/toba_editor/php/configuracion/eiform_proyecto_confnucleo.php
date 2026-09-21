@@ -1,17 +1,18 @@
-<?php 
+<?php
+
 //--------------------------------------------------------------------
 class eiform_proyecto_confnucleo extends toba_ei_formulario
 {
-	function extender_objeto_js()
-	{
-		$id_js = toba::escaper()->escapeJs($this->objeto_js);
-		echo "						
+    public function extender_objeto_js()
+    {
+        $id_js = toba::escaper()->escapeJs($this->objeto_js);
+        echo "						
 			{$id_js}.obtener_nombre_clase = function(archivo) {
 					var basename = archivo.replace( /.*\//, '' );
 					return basename.substring(0, basename.lastIndexOf('.'));
 			}
 			";
-		echo "
+        echo "
 			{$id_js}.evt__pm_sesion__procesar = function(inicial) {
 				if (!inicial) {
 					this.ef('sesion_subclase_archivo').cambiar_valor('');
@@ -32,7 +33,7 @@ class eiform_proyecto_confnucleo extends toba_ei_formulario
 				}
 			}
 			";
-		echo "
+        echo "
 			{$id_js}.evt__pm_usuario__procesar = function(inicial) {
 				if (!inicial) {
 					this.ef('usuario_subclase_archivo').cambiar_valor('');
@@ -53,7 +54,7 @@ class eiform_proyecto_confnucleo extends toba_ei_formulario
 				}
 			}
 			";
-		echo "
+        echo "
 			{$id_js}.evt__pm_impresion__procesar = function(inicial) {
 				if (!inicial) {
 					this.ef('salida_impr_html_a').cambiar_valor('');
@@ -74,7 +75,7 @@ class eiform_proyecto_confnucleo extends toba_ei_formulario
 				}
 			}
 			";
-		echo "
+        echo "
 			{$id_js}.evt__pm_contexto__procesar = function(inicial) {
 				if (!inicial) {
 					this.ef('ce_subclase_archivo').cambiar_valor('');
@@ -95,7 +96,5 @@ class eiform_proyecto_confnucleo extends toba_ei_formulario
 				}
 			}
 			";
-	}
+    }
 }
-
-?>

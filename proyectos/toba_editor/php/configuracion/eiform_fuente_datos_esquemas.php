@@ -1,14 +1,15 @@
 <?php
+
 class eiform_fuente_datos_esquemas extends toba_ei_formulario
 {
-	//-----------------------------------------------------------------------------------
-	//---- JAVASCRIPT -------------------------------------------------------------------
-	//-----------------------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------
+    //---- JAVASCRIPT -------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------
 
-	function extender_objeto_js()
-	{
-		$id_js = toba::escaper()->escapeJs($this->objeto_js);
-		echo "
+    public function extender_objeto_js()
+    {
+        $id_js = toba::escaper()->escapeJs($this->objeto_js);
+        echo "
 		//---- Procesamiento de EFs --------------------------------
 		var estado_original = [];
 		
@@ -50,6 +51,5 @@ class eiform_fuente_datos_esquemas extends toba_ei_formulario
 			}	
 		}
 		";
-	}
+    }
 }
-?>

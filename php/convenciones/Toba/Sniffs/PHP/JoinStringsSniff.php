@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Ensures that strings are not joined using the + operator.
  *
@@ -26,7 +27,6 @@
  */
 class Toba_Sniffs_PHP_JoinStringsSniff implements PHP_CodeSniffer_Sniff
 {
-
     /**
      * A list of tokenizers this sniff supports.
      *
@@ -70,7 +70,7 @@ class Toba_Sniffs_PHP_JoinStringsSniff implements PHP_CodeSniffer_Sniff
                 $error = 'Strings must not be joined using the + operator; use [\'string\', str].join(\'\') instead';
                 $phpcsFile->addError($error, $stackPtr);
             }
-        } else if ($tokens[$stackPtr]['content'] === 'join') {
+        } elseif ($tokens[$stackPtr]['content'] === 'join') {
             $next = $phpcsFile->findNext(PHP_CodeSniffer_Tokens::$emptyTokens, ($stackPtr + 1), null, true);
             if ($tokens[$next]['code'] !== T_OPEN_PARENTHESIS) {
                 return;
@@ -100,5 +100,3 @@ class Toba_Sniffs_PHP_JoinStringsSniff implements PHP_CodeSniffer_Sniff
 
 
 }//end class
-
-?>

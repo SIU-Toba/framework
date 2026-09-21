@@ -1,40 +1,40 @@
-<?php 
+<?php
+
 class form_varios extends toba_ei_formulario
 {
+    public function generar_input_ef($ef)
+    {
+        $escapador = toba::escaper();
+        switch ($ef) {
+            case 'edit_expreg':
+                $expresiones = array(
+                    'mail' => 'e-mail',
+                    'cuit' => 'cuit',
+                    'hora' => 'hora',
+                    'id_valido' => 'id válido'
+                );
+                parent::generar_input_ef($ef);
+                echo '<br>Validaciones: ';
+                $inicial = '';
+                $id_js = $escapador->escapeJs($this->objeto_js);
+                foreach ($expresiones as $id => $desc) {
+                    echo "$inicial<a href='javascript: {$id_js}.pedir_expreg(\"". $escapador->escapeHtmlAttr($id)."\");'>". $escapador->escapeHtml($desc)."</a>";
+                    $inicial = ', ';
+                }
+                break;
+            default:
+                parent::generar_input_ef($ef);
+        }
+    }
 
-	function generar_input_ef($ef)
-	{
-		$escapador = toba::escaper();
-		switch ($ef) {
-			case 'edit_expreg':
-				$expresiones = array(
-					'mail' => 'e-mail',
-					'cuit' => 'cuit',
-					'hora' => 'hora',
-					'id_valido' => 'id válido'
-				);
-				parent::generar_input_ef($ef);
-				echo '<br>Validaciones: ';
-				$inicial = '';
-				$id_js = $escapador->escapeJs($this->objeto_js);
-				foreach ($expresiones as $id => $desc) {
-					echo "$inicial<a href='javascript: {$id_js}.pedir_expreg(\"". $escapador->escapeHtmlAttr($id)."\");'>". $escapador->escapeHtml($desc)."</a>";
-					$inicial = ', ';
-				}
-				break;
-			default:
-				parent::generar_input_ef($ef);
-		}
-	}	
-	
-	//-----------------------------------------------------------------------------------
-	//---- JAVASCRIPT -------------------------------------------------------------------
-	//-----------------------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------
+    //---- JAVASCRIPT -------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------
 
-	function extender_objeto_js()
-	{
-		$id_js = toba::escaper()->escapeJs($this->objeto_js);
-		echo "
+    public function extender_objeto_js()
+    {
+        $id_js = toba::escaper()->escapeJs($this->objeto_js);
+        echo "
 		//---- Procesamiento de EFs --------------------------------
 		
 			
@@ -92,7 +92,5 @@ class form_varios extends toba_ei_formulario
 				vinculador.agregar_parametros(id_vinculo, {'punto_montaje': estado});
             }
 		";
-	}
+    }
 }
-
-?>

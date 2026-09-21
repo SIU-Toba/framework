@@ -2,17 +2,17 @@
 
 class eiform_ap extends toba_ei_formulario
 {
-	protected $js_abrir = '';
-	
-	function set_js_abrir($js)
-	{
-		$this->js_abrir = $js;
-	}
-		
-	function extender_objeto_js() 
-	{
-		$id_js = toba::escaper()->escapeJs($this->objeto_js);
-		echo "
+    protected $js_abrir = '';
+
+    public function set_js_abrir($js)
+    {
+        $this->js_abrir = $js;
+    }
+
+    public function extender_objeto_js()
+    {
+        $id_js = toba::escaper()->escapeJs($this->objeto_js);
+        echo "
 		{$id_js}.evt__ap_archivo__procesar = function(inicial) {
 			if (!inicial && this.ef('ap_clase').valor() == '') {
 				var archivo = this.ef('ap_archivo').valor();
@@ -65,6 +65,5 @@ class eiform_ap extends toba_ei_formulario
 			return false;
 		}
 		";
-	}
+    }
 }
-?>

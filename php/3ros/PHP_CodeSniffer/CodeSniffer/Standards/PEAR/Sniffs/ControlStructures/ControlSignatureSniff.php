@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Verifies that control statements conform to their coding standards.
  *
@@ -32,8 +33,6 @@ if (class_exists('PHP_CodeSniffer_Standards_AbstractPatternSniff', true) === fal
  */
 class PEAR_Sniffs_ControlStructures_ControlSignatureSniff extends PHP_CodeSniffer_Standards_AbstractPatternSniff
 {
-
-
     /**
      * Constructs a PEAR_Sniffs_ControlStructures_ControlSignatureSniff.
      */
@@ -67,5 +66,3 @@ class PEAR_Sniffs_ControlStructures_ControlSignatureSniff extends PHP_CodeSniffe
 
 
 }//end class
-
-?>

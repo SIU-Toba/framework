@@ -1,10 +1,11 @@
 <?php
+
 class form_carga_col_externas extends toba_ei_formulario
 {
-	function extender_objeto_js()
-	{
-		$id_js = toba::escaper()->escapeJs($this->objeto_js);
-		echo "
+    public function extender_objeto_js()
+    {
+        $id_js = toba::escaper()->escapeJs($this->objeto_js);
+        echo "
 				var mecanismos_carga = ['dao','sql'];
 
 				{$id_js}.evt__tipo_clase__procesar = function(inicial)
@@ -151,8 +152,6 @@ class form_carga_col_externas extends toba_ei_formulario
 					vinculador.agregar_parametros(id_vinculo, {'punto_montaje': estado});
 				}
 		";
-	}
+    }
 
 }
-
-?>

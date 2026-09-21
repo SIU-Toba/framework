@@ -18,7 +18,7 @@ class toba_migracion_3_5_0 extends toba_migracion
         $sql = array();
 
         $sql[] = 'CREATE INDEX IF NOT EXISTS idx_apex_msg_indice ON apex_msg (trim(indice), proyecto);';
-        
+
         $this->elemento->get_db()->ejecutar($sql);
 
         $sql = 'SET CONSTRAINTS ALL DEFERRED;';

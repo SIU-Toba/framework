@@ -1,10 +1,11 @@
 <?php
+
 class mapa extends toba_ei_mapa
 {
-	function extender_objeto_js()
-	{
-		$id_js = toba::escaper()->escapeJs($this->objeto_js);
-		echo "
+    public function extender_objeto_js()
+    {
+        $id_js = toba::escaper()->escapeJs($this->objeto_js);
+        echo "
 			var _iconSelectButton = imgDir + 'info_chico.gif';
 			{$id_js}.evt__mapa__iniciar = function()
 			{
@@ -19,7 +20,5 @@ class mapa extends toba_ei_mapa
 			}
 		";
 
-	}
+    }
 }
-
-?>

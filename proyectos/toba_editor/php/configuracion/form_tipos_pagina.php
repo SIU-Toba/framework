@@ -1,14 +1,15 @@
 <?php
+
 class form_tipos_pagina extends toba_ei_formulario
 {
-	//-----------------------------------------------------------------------------------
-	//---- JAVASCRIPT -------------------------------------------------------------------
-	//-----------------------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------
+    //---- JAVASCRIPT -------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------
 
-	function extender_objeto_js()
-	{
-		$id_js = toba::escaper()->escapeJs($this->objeto_js);
-		echo "
+    public function extender_objeto_js()
+    {
+        $id_js = toba::escaper()->escapeJs($this->objeto_js);
+        echo "
 		//---- Procesamiento de EFs --------------------------------
 		{$id_js}.modificar_vinculo__ef_clase_archivo = function(id_vinculo)
 		{
@@ -23,7 +24,6 @@ class form_tipos_pagina extends toba_ei_formulario
 			  }
 		  }
 		";
-	}
+    }
 
 }
-?>

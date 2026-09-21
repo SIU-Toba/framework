@@ -1,4 +1,4 @@
-<?PHP
+<?php
 
 /* Poidsy 0.6 - http://chris.smith.name/projects/poidsy
  * Copyright (c) 2008-2010 Chris Smith
@@ -22,49 +22,49 @@
  * SOFTWARE.
  */
 
- define('SREG_NICKNAME', 'nickname');
- define('SREG_EMAIL', 'email');
- define('SREG_FULLNAME', 'fullname');
- define('SREG_DOB', 'dob');
- define('SREG_GENDER', 'gender');
- define('SREG_POSTCODE', 'postcode');
- define('SREG_COUNTRY', 'country');
- define('SREG_LANGUAGE', 'language');
- define('SREG_TIMEZONE', 'timezone');
+define('SREG_NICKNAME', 'nickname');
+define('SREG_EMAIL', 'email');
+define('SREG_FULLNAME', 'fullname');
+define('SREG_DOB', 'dob');
+define('SREG_GENDER', 'gender');
+define('SREG_POSTCODE', 'postcode');
+define('SREG_COUNTRY', 'country');
+define('SREG_LANGUAGE', 'language');
+define('SREG_TIMEZONE', 'timezone');
 
- define('SREG_ALL', SREG_NICKNAME . ',' . SREG_EMAIL . ',' . SREG_FULLNAME
-             . ',' . SREG_DOB . ',' . SREG_GENDER . ',' . SREG_POSTCODE . ','
-             . SREG_COUNTRY . ',' . SREG_LANGUAGE . ', ' . SREG_TIMEZONE);
+define('SREG_ALL', SREG_NICKNAME . ',' . SREG_EMAIL . ',' . SREG_FULLNAME
+            . ',' . SREG_DOB . ',' . SREG_GENDER . ',' . SREG_POSTCODE . ','
+            . SREG_COUNTRY . ',' . SREG_LANGUAGE . ', ' . SREG_TIMEZONE);
 
- class SReg {
-
-  public function parseResponse() {
-   foreach (explode(',', SREG_ALL) as $reg) {
-    $reg = 'openid_sreg_' . $reg;
-    if (isset($_REQUEST[$reg])) {
-     $_SESSION['openid']['sreg'][substr($reg, 12)] = $_REQUEST[$reg];
+class SReg
+{
+    public function parseResponse()
+    {
+        foreach (explode(',', SREG_ALL) as $reg) {
+            $reg = 'openid_sreg_' . $reg;
+            if (isset($_REQUEST[$reg])) {
+                $_SESSION['openid']['sreg'][substr($reg, 12)] = $_REQUEST[$reg];
+            }
+        }
     }
-   }
-  }
 
-  public function decorate(&$args, $ns) {
-   if (defined('OPENID_SREG_REQUEST')) {
-    $args['openid.sreg.required'] = OPENID_SREG_REQUEST;
-   }
+    public function decorate(&$args, $ns)
+    {
+        if (defined('OPENID_SREG_REQUEST')) {
+            $args['openid.sreg.required'] = OPENID_SREG_REQUEST;
+        }
 
-   if (defined('OPENID_SREG_OPTIONAL')) {
-    $args['openid.sreg.optional'] = OPENID_SREG_OPTIONAL;
-   }
+        if (defined('OPENID_SREG_OPTIONAL')) {
+            $args['openid.sreg.optional'] = OPENID_SREG_OPTIONAL;
+        }
 
-   if (defined('OPENID_SREG_POLICY')) {
-    $args['openid.sreg.policy_url'] = OPENID_SREG_POLICY;
-   }
-  }
+        if (defined('OPENID_SREG_POLICY')) {
+            $args['openid.sreg.policy_url'] = OPENID_SREG_POLICY;
+        }
+    }
 
- }
+}
 
- $sreg = new SReg();
- $_POIDSY['decorators'][] = $sreg;
- $_POIDSY['handlers'][] = $sreg;
-
-?>
+$sreg = new SReg();
+$_POIDSY['decorators'][] = $sreg;
+$_POIDSY['handlers'][] = $sreg;

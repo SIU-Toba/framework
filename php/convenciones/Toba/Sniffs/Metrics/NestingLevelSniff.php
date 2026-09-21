@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Checks the nesting level for methods.
  *
@@ -28,7 +29,6 @@
  */
 class Toba_Sniffs_Metrics_NestingLevelSniff implements PHP_CodeSniffer_Sniff
 {
-
     /**
      * A nesting level than this value will throw a warning.
      *
@@ -94,7 +94,7 @@ class Toba_Sniffs_Metrics_NestingLevelSniff implements PHP_CodeSniffer_Sniff
         if ($nestingLevel > $this->absoluteNestingLevel) {
             $error = "Function's nesting level ($nestingLevel) exceeds allowed maximum of ".$this->absoluteNestingLevel;
             $phpcsFile->addError($error, $stackPtr);
-        } else if ($nestingLevel > $this->nestingLevel) {
+        } elseif ($nestingLevel > $this->nestingLevel) {
             $warning = "Function's nesting level ($nestingLevel) exceeds ".$this->nestingLevel.'; consider refactoring the function';
             $phpcsFile->addWarning($warning, $stackPtr);
         }
@@ -103,5 +103,3 @@ class Toba_Sniffs_Metrics_NestingLevelSniff implements PHP_CodeSniffer_Sniff
 
 
 }//end class
-
-?>

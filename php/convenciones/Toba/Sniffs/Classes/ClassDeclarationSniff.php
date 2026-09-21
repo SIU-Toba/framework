@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Class Declaration Test.
  *
@@ -35,8 +36,6 @@ if (class_exists('PEAR_Sniffs_Classes_ClassDeclarationSniff', true) === false) {
  */
 class Toba_Sniffs_Classes_ClassDeclarationSniff extends PEAR_Sniffs_Classes_ClassDeclarationSniff
 {
-
-
     /**
      * Returns an array of tokens this test wants to listen for.
      *
@@ -138,7 +137,7 @@ class Toba_Sniffs_Classes_ClassDeclarationSniff extends PEAR_Sniffs_Classes_Clas
             $error .= ' debe ser seguido de una línea en blanco y luego el tag de cierre de PHP';
             $phpcsFile->addError($error, $closeBrace);
         } else {
-			/*
+            /*
             $nextLine  = $tokens[$nextContent]['line'];
             $braceLine = $tokens[$closeBrace]['line'];
             if ($braceLine === $nextLine) {
@@ -153,7 +152,7 @@ class Toba_Sniffs_Classes_ClassDeclarationSniff extends PEAR_Sniffs_Classes_Clas
                 $error     .= ' must be followed by a single blank line; found '.$difference;
                 $phpcsFile->addError($error, $closeBrace);
             }
-			 */
+             */
         }//end if
 
         // Check the closing brace is on it's own line, but allow
@@ -189,14 +188,14 @@ class Toba_Sniffs_Classes_ClassDeclarationSniff extends PEAR_Sniffs_Classes_Clas
         }
 
         // Check after the name.
-		/*
+        /*
         $gap = $tokens[($className + 1)]['content'];
         if (strlen($gap) !== 1) {
             $found = strlen($gap);
             $error = "[Clases#declaracion] Expected 1 space after $name name; $found found";
             $phpcsFile->addError($error, $stackPtr);
         }*/
-		
+
         // Now check each of the parents.
         $parents    = array();
         $nextParent = ($className + 1);
@@ -246,5 +245,3 @@ class Toba_Sniffs_Classes_ClassDeclarationSniff extends PEAR_Sniffs_Classes_Clas
 
 
 }//end class
-
-?>

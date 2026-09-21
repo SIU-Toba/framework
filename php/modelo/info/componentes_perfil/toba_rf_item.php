@@ -2,73 +2,73 @@
 
 class toba_rf_item extends toba_rf
 {
-	protected $icono = "item.gif";
-	protected $expandir_deps_sin_pantalla;
-	
-	/**
-	 * @ignore
-	 * @param string $restriccion
-	 * @param string $proyecto
-	 * @param array $item
-	 * @param array $id_padre
-	 * @param boolean $expandir_dep_sueltas
-	 */
-	function __construct($restriccion, $proyecto, $item, $id_padre, $expandir_dep_sueltas=false) 
-	{
-		$this->id_padre = $id_padre;		
-		$this->restriccion = $restriccion;
-		$this->proyecto = $proyecto;
-		$this->item = $item;
-		$datos = $this->cargar_datos();
-		$this->imagen = $datos['imagen'];
-		$this->imagen_origen = $datos['imagen_recurso_origen'];
-		$this->expandir_deps_sin_pantalla = $expandir_dep_sueltas;
-		if ($datos['cant_dependencias'] > 0) {
-			$this->es_hoja = false;
-			//-- Solo debe cargarse inicialmente si existe alguna dependencia que tiene una restricción
-			if ($this->tiene_dependencia_con_restriccion($datos)) {
-				$this->cargar_hijos();
-			}
-		}
-		parent::__construct($datos['nombre'], null, $this->item);
-		if (! isset($datos['descripcion']) || empty($datos['descripcion'])) {
-			$this->nombre_largo = $this->nombre_corto;
-		} else {
-			$this->nombre_largo = $datos['descripcion'];
-		}
-		$this->get_imagen();
-	}
-	
-	/**
-	 * Devuelve el ID
-	 * @return string
-	 */
-	function get_id()
-	{
-		return 'item_'.parent::get_id();
-	}
-	
-	/**
-	 * Sincroniza cada uno de los hijos de este nodo
-	 */
-	function sincronizar()
-	{
-		if ($this->tiene_hijos_cargados()) {
-			foreach ($this->get_hijos() as $hijo) {
-				$hijo->sincronizar();
-			}
-		}
-	}
-	
-	/**
-	 * Carga las RF del item
-	 * @return array|false
-	 */
-	function cargar_datos()
-	{
-		$item = quote($this->item);
-		$proyecto = quote($this->proyecto);
-		$sql = "SELECT 		nombre,
+    protected $icono = "item.gif";
+    protected $expandir_deps_sin_pantalla;
+
+    /**
+     * @ignore
+     * @param string $restriccion
+     * @param string $proyecto
+     * @param array $item
+     * @param array $id_padre
+     * @param boolean $expandir_dep_sueltas
+     */
+    public function __construct($restriccion, $proyecto, $item, $id_padre, $expandir_dep_sueltas = false)
+    {
+        $this->id_padre = $id_padre;
+        $this->restriccion = $restriccion;
+        $this->proyecto = $proyecto;
+        $this->item = $item;
+        $datos = $this->cargar_datos();
+        $this->imagen = $datos['imagen'];
+        $this->imagen_origen = $datos['imagen_recurso_origen'];
+        $this->expandir_deps_sin_pantalla = $expandir_dep_sueltas;
+        if ($datos['cant_dependencias'] > 0) {
+            $this->es_hoja = false;
+            //-- Solo debe cargarse inicialmente si existe alguna dependencia que tiene una restricción
+            if ($this->tiene_dependencia_con_restriccion($datos)) {
+                $this->cargar_hijos();
+            }
+        }
+        parent::__construct($datos['nombre'], null, $this->item);
+        if (! isset($datos['descripcion']) || empty($datos['descripcion'])) {
+            $this->nombre_largo = $this->nombre_corto;
+        } else {
+            $this->nombre_largo = $datos['descripcion'];
+        }
+        $this->get_imagen();
+    }
+
+    /**
+     * Devuelve el ID
+     * @return string
+     */
+    public function get_id()
+    {
+        return 'item_'.parent::get_id();
+    }
+
+    /**
+     * Sincroniza cada uno de los hijos de este nodo
+     */
+    public function sincronizar()
+    {
+        if ($this->tiene_hijos_cargados()) {
+            foreach ($this->get_hijos() as $hijo) {
+                $hijo->sincronizar();
+            }
+        }
+    }
+
+    /**
+     * Carga las RF del item
+     * @return array|false
+     */
+    public function cargar_datos()
+    {
+        $item = quote($this->item);
+        $proyecto = quote($this->proyecto);
+        $sql = "SELECT 		nombre,
 							descripcion,
 							padre,
 							imagen_recurso_origen,
@@ -84,48 +84,48 @@ class toba_rf_item extends toba_rf
 					apex_item i
 				WHERE item = $item
 				AND proyecto = $proyecto";
-		return toba::db()->consultar_fila($sql);
-	}
+        return toba::db()->consultar_fila($sql);
+    }
 
-	/**
-	 * Define si existe alguna dependencia con RF
-	 * @param array $datos
-	 * @return boolean
-	 */
-	protected function tiene_dependencia_con_restriccion($datos)
-	{
-		return ($datos['cant_rest_ef'] > 0 ||
-				$datos['cant_rest_pant'] > 0 ||
-				$datos['cant_rest_evt'] > 0 ||
-				$datos['cant_rest_ei'] > 0 ||
-				$datos['cant_rest_cols'] > 0 ||
-				$datos['cant_rest_filtro_cols'] > 0);
-	}
-	
-	/**
-	 * Realiza la carga de los hijos del item
-	 */
-	function cargar_hijos()
-	{
-		$hijos = array();
-		$opciones = $this->buscar_hijos();
-		foreach ($opciones as $hijo) {
-			$hijos[] = new toba_rf_ci($this->restriccion, $this->proyecto, $this->item, $hijo['componente'], $this, true, $this->expandir_deps_sin_pantalla);
-		}
-		if (! empty($hijos)) {
-			$this->set_hijos($hijos);
-		}
-	}
-	
-	/**
-	 * Busca los hijos de este item
-	 * @return array
-	 */
-	function buscar_hijos()
-	{
-		$item = quote($this->item);
-		$proyecto = quote($this->proyecto);
-		$sql = "SELECT
+    /**
+     * Define si existe alguna dependencia con RF
+     * @param array $datos
+     * @return boolean
+     */
+    protected function tiene_dependencia_con_restriccion($datos)
+    {
+        return ($datos['cant_rest_ef'] > 0 ||
+                $datos['cant_rest_pant'] > 0 ||
+                $datos['cant_rest_evt'] > 0 ||
+                $datos['cant_rest_ei'] > 0 ||
+                $datos['cant_rest_cols'] > 0 ||
+                $datos['cant_rest_filtro_cols'] > 0);
+    }
+
+    /**
+     * Realiza la carga de los hijos del item
+     */
+    public function cargar_hijos()
+    {
+        $hijos = array();
+        $opciones = $this->buscar_hijos();
+        foreach ($opciones as $hijo) {
+            $hijos[] = new toba_rf_ci($this->restriccion, $this->proyecto, $this->item, $hijo['componente'], $this, true, $this->expandir_deps_sin_pantalla);
+        }
+        if (! empty($hijos)) {
+            $this->set_hijos($hijos);
+        }
+    }
+
+    /**
+     * Busca los hijos de este item
+     * @return array
+     */
+    public function buscar_hijos()
+    {
+        $item = quote($this->item);
+        $proyecto = quote($this->proyecto);
+        $sql = "SELECT
 					o.objeto as componente
 				FROM
 					apex_item_objeto io,
@@ -136,7 +136,6 @@ class toba_rf_item extends toba_rf
 					io.objeto = o.objeto AND
 					io.proyecto = o.proyecto AND
 					o.clase = 'toba_ci'";
-		return toba::db()->consultar($sql);
-	}
+        return toba::db()->consultar($sql);
+    }
 }
-?>

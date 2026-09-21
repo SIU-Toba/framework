@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Conoce como es la composicion interna de una clase del ambiente
  * Es utilizada para

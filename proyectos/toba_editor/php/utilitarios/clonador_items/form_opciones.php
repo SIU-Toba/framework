@@ -1,11 +1,12 @@
-<?php 
+<?php
+
 //--------------------------------------------------------------------
 class form_opciones extends toba_ei_formulario
 {
-	function extender_objeto_js()
-	{
-		$id_js = toba::escaper()->escapeJs($this->objeto_js);
-		echo "
+    public function extender_objeto_js()
+    {
+        $id_js = toba::escaper()->escapeJs($this->objeto_js);
+        echo "
 			{$id_js}.evt__con_subclases__procesar = function(inicial) {
 				if (this.ef('con_subclases').chequeado()) {
 					this.ef('carpeta_subclases').mostrar();
@@ -23,7 +24,5 @@ class form_opciones extends toba_ei_formulario
 				return true;
 			}
 		";
-	}
+    }
 }
-
-?>

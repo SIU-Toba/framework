@@ -1,11 +1,11 @@
 <?php
 require_once("tutorial/pant_tutorial.php");
 
-class pant_definicion extends pant_tutorial 
+class pant_definicion extends pant_tutorial
 {
-	function generar_layout()
-	{
-		echo "
+    public function generar_layout()
+    {
+        echo "
 			<p>
 			En el capítulo anterior (CI) se dejo de lado un aspecto muy importante de una operación:
 			la transacción con una base de datos. Las operaciones de Alta, Baja y Modificación
@@ -24,17 +24,17 @@ class pant_definicion extends pant_tutorial
 			 </ul>
 		";
 
-	}
+    }
 }
 
 //--------------------------------------------------------
 
-class pant_inmediata extends pant_tutorial 
+class pant_inmediata extends pant_tutorial
 {
-	function generar_layout()
-	{
-		$img = toba_recurso::imagen_proyecto('tutorial/persistencia-inmediato.png');		
-		echo "
+    public function generar_layout()
+    {
+        $img = toba_recurso::imagen_proyecto('tutorial/persistencia-inmediato.png');
+        echo "
 			<p>
 			Si los requisitos funcionales lo permiten, transaccionar inmediatamente cuando se produce el evento
 			es la forma más fácil y directa de programar una operación. Simplemente en cada 
@@ -45,7 +45,7 @@ class pant_inmediata extends pant_tutorial
 				<img src='$img'>
 			</div>					
 		";
-		$codigo = '
+        $codigo = '
 <?php
 ...
 
@@ -85,22 +85,22 @@ class pant_inmediata extends pant_tutorial
 ...
 ?>
 ';
-		echo "<div class='codigo'>";
-		highlight_string($codigo);
-		echo "</div>";	
-				
+        echo "<div class='codigo'>";
+        highlight_string($codigo);
+        echo "</div>";
 
-	}
+
+    }
 }
 
 //--------------------------------------------------------
 
-class pant_marco extends pant_tutorial 
+class pant_marco extends pant_tutorial
 {
-	function generar_layout()
-	{
-		$img = toba_recurso::imagen_proyecto('tutorial/persistencia-marco.png');				
-		echo "
+    public function generar_layout()
+    {
+        $img = toba_recurso::imagen_proyecto('tutorial/persistencia-marco.png');
+        echo "
 			<p>
 			El único problema con transaccionar contínuamente es que muchas veces es un requisito funcional
 			que la edición se maneje como una única transacción, que se cierra cuando el usuario decide presionar 
@@ -130,7 +130,7 @@ class pant_marco extends pant_tutorial
 				<span class='caption'>La operación forma una única transacción a nivel lógico</span>				
 			</div>				
 		";
-		$codigo = '
+        $codigo = '
 <?php
 ...
 
@@ -187,38 +187,38 @@ class pant_marco extends pant_tutorial
 ...
 ?>
 ';
-		echo "<div class='codigo'>";
-		highlight_string($codigo);
-		echo "</div>
+        echo "<div class='codigo'>";
+        highlight_string($codigo);
+        echo "</div>
 		<p>
 			Para poder utilizar estos componentes primero hay que definirlos en el editor, empezaremos
 			por definir un <strong>datos_tabla</strong> que es el componente encargado de persistir
 			una tabla de la base de datos.
 		</p>
 		
-		";	
-	}
+		";
+    }
 }
 
 //--------------------------------------------------------
 
-class pant_def_tablas extends pant_tutorial 
+class pant_def_tablas extends pant_tutorial
 {
-	function generar_layout()
-	{
-		echo mostrar_video('persistencia-tablas');
-	}
+    public function generar_layout()
+    {
+        echo mostrar_video('persistencia-tablas');
+    }
 }
 
 //--------------------------------------------------------
 
-class pant_relaciones extends pant_tutorial 
+class pant_relaciones extends pant_tutorial
 {
-	function generar_layout()
-	{
-		$vinculo = toba::vinculador()->get_url(null, 2658, array(), array('celda_memoria'=>'ejemplo'));
-		$img = toba_recurso::imagen_proyecto('tutorial/persistencia-modelo.png');
-		echo "
+    public function generar_layout()
+    {
+        $vinculo = toba::vinculador()->get_url(null, 2658, array(), array('celda_memoria' => 'ejemplo'));
+        $img = toba_recurso::imagen_proyecto('tutorial/persistencia-modelo.png');
+        echo "
 			A medida que se van creando operaciones más complejas, trabajar con tablas aisladas
 			empieza a quedar corto. El problema surge de las relaciones entre las tablas, podemos verlo
 			con un ejemplo.
@@ -248,29 +248,29 @@ class pant_relaciones extends pant_tutorial
 			<p>
 				Pasemos a ver cómo definir estas relaciones en el editor.
 			</p>
-		";		
-	}
+		";
+    }
 }
 
 //--------------------------------------------------------
 
-class pant_def_relaciones extends pant_tutorial 
+class pant_def_relaciones extends pant_tutorial
 {
-	function generar_layout()
-	{
-		echo mostrar_video('persistencia-relacion');
-	}
+    public function generar_layout()
+    {
+        echo mostrar_video('persistencia-relacion');
+    }
 }
 
 //--------------------------------------------------------
 
-class pant_carga extends pant_tutorial 
+class pant_carga extends pant_tutorial
 {
-	function generar_layout()
-	{
-		$img = toba_recurso::imagen_proyecto('tutorial/persistencia-carga.png');
-		$logger = toba_recurso::imagen_toba('logger.gif', true);
-		echo "
+    public function generar_layout()
+    {
+        $img = toba_recurso::imagen_proyecto('tutorial/persistencia-carga.png');
+        $logger = toba_recurso::imagen_toba('logger.gif', true);
+        echo "
 			<img style='float:right;padding: 10px;' src='$img'>
 			<p>
 			La transacción a nivel operación se inicia cuando el componente <em>datos_relacion</em>
@@ -290,8 +290,8 @@ class pant_carga extends pant_tutorial
 			del cuadro, pasándole la clave de la selección:
 			</p>
 		";
-		
-		$codigo = '
+
+        $codigo = '
 <?php
 	function evt__cuadro_personas__seleccion($id)
 	{
@@ -300,10 +300,10 @@ class pant_carga extends pant_tutorial
 	}		
 ?>
 ';
-		echo "<div class='codigo'>";
-		highlight_string($codigo);
-		echo "</div>";
-?>
+        echo "<div class='codigo'>";
+        highlight_string($codigo);
+        echo "</div>";
+        ?>
 <p>
 Si utilizamos el <?php echo $logger; ?> <strong>visor del logger</strong> durante la carga podemos ver las consultas
 que internamente utilizan los componentes para cargar la relación (en este caso con la persona '2').
@@ -367,20 +367,23 @@ WHERE
 </ul>
 </div>
 <?php
-	}
+    }
 }
 
 //--------------------------------------------------------
 
-class pant_api extends pant_tutorial 
+class pant_api extends pant_tutorial
 {
-	function generar_layout()
-	{
-		$vinculo = toba::vinculador()->get_url(null, 2658, array(), array('celda_memoria'=>'ejemplo'));		
-		$img = toba_recurso::imagen_proyecto('tutorial/persistencia-api.png');
-		$api = toba_parser_ayuda::parsear_api('Componentes/Persistencia/toba_datos_tabla#sec-method-summary',
-												 'documentación del datos_tabla', 'toba_editor');
-		echo "
+    public function generar_layout()
+    {
+        $vinculo = toba::vinculador()->get_url(null, 2658, array(), array('celda_memoria' => 'ejemplo'));
+        $img = toba_recurso::imagen_proyecto('tutorial/persistencia-api.png');
+        $api = toba_parser_ayuda::parsear_api(
+            'Componentes/Persistencia/toba_datos_tabla#sec-method-summary',
+            'documentación del datos_tabla',
+            'toba_editor'
+        );
+        echo "
 			<img style='float:right;padding: 10px;' src='$img'>
 			<p>
 			Una vez cargada la relación es posible consumir el API para manipular los registros en memoria.
@@ -413,7 +416,7 @@ class pant_api extends pant_tutorial
 			tomado directamente de la <a href='$vinculo' target='_blank'>operación</a>:
 			</p>
 		";
-		$codigo ='
+        $codigo = '
 <?php
 ...
 	//-------------------------------------------------------------------
@@ -499,21 +502,21 @@ class pant_api extends pant_tutorial
 ...	
 ?>
 ';
-		echo "<div class='codigo'>";
-		highlight_string($codigo);
-		echo "</div>";		
-	}
+        echo "<div class='codigo'>";
+        highlight_string($codigo);
+        echo "</div>";
+    }
 }
 
 //--------------------------------------------------------
 
-class pant_sincronizacion extends pant_tutorial 
+class pant_sincronizacion extends pant_tutorial
 {
-	function generar_layout()
-	{
-		$img = toba_recurso::imagen_proyecto('tutorial/persistencia-sincronizacion.png');
-		$logger = toba_recurso::imagen_toba('logger.gif', true);		
-		echo "
+    public function generar_layout()
+    {
+        $img = toba_recurso::imagen_proyecto('tutorial/persistencia-sincronizacion.png');
+        $logger = toba_recurso::imagen_toba('logger.gif', true);
+        echo "
 			<img style='float:right;padding: 10px;' src='$img'>
 			<p>
 			Finalmente la transacción finaliza sincronizando con el medio de persistencia, 
@@ -523,7 +526,7 @@ class pant_sincronizacion extends pant_tutorial
 			
 			</p>
 		";
-		$codigo = '
+        $codigo = '
 <?php
 ...
 	/**
@@ -557,10 +560,10 @@ class pant_sincronizacion extends pant_tutorial
 ...
 ?>
 		';
-		echo "<div class='codigo' style='clear:both'>";
-		highlight_string($codigo);
-		echo "</div>";	
-?>
+        echo "<div class='codigo' style='clear:both'>";
+        highlight_string($codigo);
+        echo "</div>";
+        ?>
 <p>
 Si utilizamos el <?php echo $logger; ?> <strong>visor del logger</strong> durante la sincronización podemos ver los comandos
 que generan los componentes para sincronizar la relación (en este caso se modifica la persona, un deporte y se agrego uno nuevo).
@@ -580,30 +583,42 @@ registro: 0 - UPDATE ref_persona_deportes SET persona = 2, deporte = 6, dia_sema
 </ul>
 </div>
 <?php
-	}
+    }
 }
 
 //--------------------------------------------------------
 
-class pant_masinfo extends pant_tutorial 
+class pant_masinfo extends pant_tutorial
 {
-	function generar_layout()
-	{
-		$wiki1 = toba_parser_ayuda::parsear_wiki('Referencia/Objetos/Persistencia', 
-													'Introducción a los componentes de persistencia',
-													'toba_editor');
-		$wiki2 = toba_parser_ayuda::parsear_wiki('Referencia/Objetos/datos_tabla', 
-													'Documentación del datos_tabla',
-													'toba_editor');
-		$wiki3 = toba_parser_ayuda::parsear_wiki('Referencia/Objetos/datos_relacion', 
-													'Documentación del datos_relacion',
-													'toba_editor');
-		$api1 = toba_parser_ayuda::parsear_api('Componentes/Persistencia/toba_datos_tabla',
-												 'Primitivas del datos_tabla', 'toba_editor');
-		$api2 = toba_parser_ayuda::parsear_api('Componentes/Persistencia/toba_datos_relacion',
-												 'Primitivas del datos_relacion', 'toba_editor');
-												 
-		echo "
+    public function generar_layout()
+    {
+        $wiki1 = toba_parser_ayuda::parsear_wiki(
+            'Referencia/Objetos/Persistencia',
+            'Introducción a los componentes de persistencia',
+            'toba_editor'
+        );
+        $wiki2 = toba_parser_ayuda::parsear_wiki(
+            'Referencia/Objetos/datos_tabla',
+            'Documentación del datos_tabla',
+            'toba_editor'
+        );
+        $wiki3 = toba_parser_ayuda::parsear_wiki(
+            'Referencia/Objetos/datos_relacion',
+            'Documentación del datos_relacion',
+            'toba_editor'
+        );
+        $api1 = toba_parser_ayuda::parsear_api(
+            'Componentes/Persistencia/toba_datos_tabla',
+            'Primitivas del datos_tabla',
+            'toba_editor'
+        );
+        $api2 = toba_parser_ayuda::parsear_api(
+            'Componentes/Persistencia/toba_datos_relacion',
+            'Primitivas del datos_relacion',
+            'toba_editor'
+        );
+
+        echo "
 			<ul>
 				<li>$wiki1
 				<li>$wiki2
@@ -612,7 +627,7 @@ class pant_masinfo extends pant_tutorial
 				<li>$api2
 			</ul>
 		";
-	}
+    }
 }
 
 

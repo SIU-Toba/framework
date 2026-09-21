@@ -32,7 +32,7 @@ DEFINE('LEDC_NAVY', 14);
 DEFINE('LEDC_INVERTGRAY', 15);
 
 // Check that mb_strlen() is available
-if( ! function_exists('mb_strlen') ) {
+if (! function_exists('mb_strlen')) {
     JpGraphError::RaiseL(25500);
     //'Multibyte strings must be enabled in the PHP installation in order to run the LED module
     // so that the function mb_strlen() is available. See PHP documentation for more information.'
@@ -46,9 +46,9 @@ if( ! function_exists('mb_strlen') ) {
 //========================================================================
 class DigitalLED74
 {
-    private $iLED_X = 4, $iLED_Y=7,
-
-        // fg-up, fg-down, bg
+    private $iLED_X = 4;
+    private $iLED_Y = 7;
+    private // fg-up, fg-down, bg
         $iColorSchema = array(
             LEDC_RED  => array('red','darkred:0.9','red:0.3'),// 0
             LEDC_GREEN  => array('green','darkgreen','green:0.3'),// 1
@@ -66,9 +66,8 @@ class DigitalLED74
             LEDC_STEELBLUE => array('steelblue','steelblue:0.65','steelblue:0.5'),
             LEDC_NAVY  => array('navy:1.3','navy:0.95','navy:0.8'),//14
             LEDC_INVERTGRAY => array('darkgray','lightgray:1.5','white')//15
-            ),
-
-        /* Each line of the character is encoded as a 4 bit value
+            );
+    private /* Each line of the character is encoded as a 4 bit value
          0      ____
          1      ___x
          2      __x_
@@ -205,22 +204,26 @@ class DigitalLED74
             'Э' => array(6,9,1,7,1,9,6),
             'Ю' => array(2,2,2,3,2,2,2),// need to add O
             'Я' => array(7,9,9,7,3,5,9)
-            ),
+            );
+    private $iSuperSampling = 3;
+    private $iMarg = 1;
+    private $iRad = 4;
 
-        $iSuperSampling = 3, $iMarg = 1, $iRad = 4;
-
-    function __construct($aRadius = 2, $aMargin= 0.6) {
+    public function __construct($aRadius = 2, $aMargin = 0.6)
+    {
         $this->iRad = $aRadius;
         $this->iMarg = $aMargin;
     }
 
-    function SetSupersampling($aSuperSampling = 2) {
+    public function SetSupersampling($aSuperSampling = 2)
+    {
         $this->iSuperSampling = $aSuperSampling;
     }
 
-    function _GetLED($aLedIdx, $aColor = 0) {
-        $width=  $this->iLED_X*$this->iRad*2 +  ($this->iLED_X+1)*$this->iMarg + $this->iRad ;
-        $height= $this->iLED_Y*$this->iRad*2 +  ($this->iLED_Y)*$this->iMarg + $this->iRad * 2;
+    public function _GetLED($aLedIdx, $aColor = 0)
+    {
+        $width =  $this->iLED_X * $this->iRad * 2 +  ($this->iLED_X + 1) * $this->iMarg + $this->iRad ;
+        $height = $this->iLED_Y * $this->iRad * 2 +  ($this->iLED_Y) * $this->iMarg + $this->iRad * 2;
 
         // Adjust radious for supersampling
         $rad = $this->iRad * $this->iSuperSampling;
@@ -228,35 +231,33 @@ class DigitalLED74
         // Margin in between "Led" dots
         $marg = $this->iMarg * $this->iSuperSampling;
 
-        $swidth = $width*$this->iSuperSampling;
-        $sheight = $height*$this->iSuperSampling;
+        $swidth = $width * $this->iSuperSampling;
+        $sheight = $height * $this->iSuperSampling;
 
         $simg = new RotImage($swidth, $sheight, 0, DEFAULT_GFORMAT, false);
         $simg->SetColor($this->iColorSchema[$aColor][2]);
-        $simg->FilledRectangle(0, 0, $swidth-1, $sheight-1);
+        $simg->FilledRectangle(0, 0, $swidth - 1, $sheight - 1);
 
-        if( array_key_exists($aLedIdx, $this->iLEDSpec) ) {
+        if (array_key_exists($aLedIdx, $this->iLEDSpec)) {
             $d = $this->iLEDSpec[$aLedIdx];
-        }
-        else {
+        } else {
             $d = array(0,0,0,0,0,0,0);
         }
 
-        for($r = 0; $r < 7; ++$r) {
+        for ($r = 0; $r < 7; ++$r) {
             $dr = $d[$r];
-            for($c = 0; $c < 4; ++$c) {
-                if( ($dr & pow(2,3-$c)) !== 0 ) {
+            for ($c = 0; $c < 4; ++$c) {
+                if (($dr & pow(2, 3 - $c)) !== 0) {
                     $color = $this->iColorSchema[$aColor][0];
-                }
-                else {
+                } else {
                     $color = $this->iColorSchema[$aColor][1];
                 }
 
-                $x = 2*$rad*$c+$rad + ($c+1)*$marg + $rad ;
-                $y = 2*$rad*$r+$rad + ($r+1)*$marg + $rad ;
+                $x = 2 * $rad * $c + $rad + ($c + 1) * $marg + $rad ;
+                $y = 2 * $rad * $r + $rad + ($r + 1) * $marg + $rad ;
 
                 $simg->SetColor($color);
-                $simg->FilledCircle($x,$y,$rad);
+                $simg->FilledCircle($x, $y, $rad);
             }
         }
 
@@ -268,28 +269,29 @@ class DigitalLED74
     }
 
 
-    function Stroke($aValStr, $aColor = 0, $aFileName = '') {
-    	$this->StrokeNumber($aValStr, $aColor, $aFileName);
+    public function Stroke($aValStr, $aColor = 0, $aFileName = '')
+    {
+        $this->StrokeNumber($aValStr, $aColor, $aFileName);
     }
 
 
-    function StrokeNumber($aValStr, $aColor = 0, $aFileName = '') {
-        if( $aColor < 0 || $aColor >= sizeof($this->iColorSchema) ) {
+    public function StrokeNumber($aValStr, $aColor = 0, $aFileName = '')
+    {
+        if ($aColor < 0 || $aColor >= sizeof($this->iColorSchema)) {
             $aColor = 0;
         }
 
-        if(($n = mb_strlen($aValStr,'utf8')) == 0) {
+        if (($n = mb_strlen($aValStr, 'utf8')) == 0) {
             $aValStr = ' ';
             $n = 1;
         }
 
-        for($i = 0; $i < $n; ++$i) {
+        for ($i = 0; $i < $n; ++$i) {
             $d = mb_substr($aValStr, $i, 1, 'utf8');
-            if(  ctype_digit($d) ) {
+            if (ctype_digit($d)) {
                 $d = (int)$d;
-            }
-            else {
-               $d = strtoupper($d);
+            } else {
+                $d = strtoupper($d);
             }
             $digit_img[$i] = $this->_GetLED($d, $aColor);
         }
@@ -297,13 +299,13 @@ class DigitalLED74
         $w = imagesx($digit_img[0]->img);
         $h = imagesy($digit_img[0]->img);
 
-        $number_img = new Image($w*$n, $h, DEFAULT_GFORMAT, false);
+        $number_img = new Image($w * $n, $h, DEFAULT_GFORMAT, false);
 
-        for($i = 0; $i < $n; ++$i) {
-            $number_img->Copy($digit_img[$i]->img, $i*$w, 0, 0, 0, $w, $h, $w, $h);
+        for ($i = 0; $i < $n; ++$i) {
+            $number_img->Copy($digit_img[$i]->img, $i * $w, 0, 0, 0, $w, $h, $w, $h);
         }
 
-        if( $aFileName != '' ) {
+        if ($aFileName != '') {
             $number_img->Stream($aFileName);
         } else {
             $number_img->Headers();
@@ -311,4 +313,3 @@ class DigitalLED74
         }
     }
 }
-?>

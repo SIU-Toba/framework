@@ -1,4 +1,5 @@
 <?php
+
 /*
 *
 */
@@ -35,7 +36,7 @@ class toba_molde_evento
         $this->datos['maneja_datos'] = 1;
     }
 
-    public function en_botonera($activar=true)
+    public function en_botonera($activar = true)
     {
         $estado = $activar ? 1 : 0;
         $this->datos['en_botonera'] = $estado;
@@ -60,7 +61,7 @@ class toba_molde_evento
         $this->datos['defecto'] = 1;
     }
 
-    public function set_imagen($url_relativa, $origen='apex')
+    public function set_imagen($url_relativa, $origen = 'apex')
     {
         if ($origen != 'apex' &&  $origen != 'proyecto') {
             throw new toba_error_asistentes("Molde EVENTO: El origen de la imagen debe ser 'apex' o 'proyecto'. Valor recibido: $origen");

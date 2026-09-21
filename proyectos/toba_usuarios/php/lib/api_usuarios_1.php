@@ -56,7 +56,7 @@ class api_usuarios_1 implements InterfaseApiUsuarios
         throw new toba_error(toba::escaper()->escapeJs($e->getMessage()));
     }
 
-    public function get_usuarios($filtro=array(), $excluir_aplicacion = null)
+    public function get_usuarios($filtro = array(), $excluir_aplicacion = null)
     {
         $query = $datos = array();
         $url = 'usuarios';

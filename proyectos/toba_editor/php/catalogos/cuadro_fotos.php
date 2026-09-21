@@ -2,24 +2,23 @@
 
 class cuadro_fotos extends toba_ei_cuadro
 {
-	protected $fotos_predefinidas = array();
-	
-	function set_fotos_predefinidas($fotos)
-	{
-		$this->fotos_predefinidas = $fotos;
-	}
-	
-	function conf_evt__defecto($evento, $f)
-	{
-		 $clave = $this->get_clave_fila($f);
-		 if (in_array($clave, $this->fotos_predefinidas, true)) {
-			$evento->anular();
-		 }
-	}
-	
-	function conf_evt__baja($evento, $f)
-	{
-		 return $this->conf_evt__defecto($evento, $f);
-	}	
+    protected $fotos_predefinidas = array();
+
+    public function set_fotos_predefinidas($fotos)
+    {
+        $this->fotos_predefinidas = $fotos;
+    }
+
+    public function conf_evt__defecto($evento, $f)
+    {
+        $clave = $this->get_clave_fila($f);
+        if (in_array($clave, $this->fotos_predefinidas, true)) {
+            $evento->anular();
+        }
+    }
+
+    public function conf_evt__baja($evento, $f)
+    {
+        return $this->conf_evt__defecto($evento, $f);
+    }
 }
-?>

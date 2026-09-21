@@ -1,4 +1,5 @@
 <?php
+
 /**
  * An exception thrown if the pattern being processed is not supposed to be
  * validating the code in question.
@@ -30,7 +31,4 @@
  */
 class PHP_CodeSniffer_Standards_IncorrectPatternException extends Exception
 {
-
 }//end class
-
-?>

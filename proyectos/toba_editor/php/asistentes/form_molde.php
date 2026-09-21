@@ -1,14 +1,15 @@
 <?php
+
 class form_molde extends toba_ei_formulario
 {
-	//-----------------------------------------------------------------------------------
-	//---- JAVASCRIPT -------------------------------------------------------------------
-	//-----------------------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------
+    //---- JAVASCRIPT -------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------
 
-	function extender_objeto_js()
-	{
-		$id_js = toba::escaper()->escapeJs($this->objeto_js);
-		echo "
+    public function extender_objeto_js()
+    {
+        $id_js = toba::escaper()->escapeJs($this->objeto_js);
+        echo "
 		//---- Procesamiento de EFs --------------------------------			  
 	  
 		{$id_js}.evt__punto_montaje__procesar = function(inicial) {
@@ -29,8 +30,6 @@ class form_molde extends toba_ei_formulario
 			vinculador.agregar_parametros(id_vinculo, {'punto_montaje': estado});
 		}
 		";
-	}
+    }
 
 }
-
-?>

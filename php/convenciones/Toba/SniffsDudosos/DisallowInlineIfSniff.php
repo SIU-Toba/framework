@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Squiz_Sniffs_Formatting_DisallowObEndFlushSniff.
  *
@@ -30,8 +31,6 @@
  */
 class Toba_Sniffs_PHP_DisallowInlineIfSniff implements PHP_CodeSniffer_Sniff
 {
-
-
     /**
      * Returns an array of tokens this test wants to listen for.
      *
@@ -61,5 +60,3 @@ class Toba_Sniffs_PHP_DisallowInlineIfSniff implements PHP_CodeSniffer_Sniff
 
 
 }//end class
-
-?>

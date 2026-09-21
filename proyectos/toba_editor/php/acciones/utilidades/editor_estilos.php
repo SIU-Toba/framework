@@ -1,12 +1,12 @@
 <?php
-	$plantilla = toba::memoria()->get_parametro('plantilla');
-	$escapador = toba::escaper();
-	if (isset($_POST['elem_nueva_plantilla'])) {
-		$archivo_css = toba::instalacion()->get_path().'/www/css/'.apex_proyecto_estilo.'.css';
-		$texto_css = $_POST['elem_nueva_plantilla'];
-		$texto_css = $escapador->escapeCss(str_replace(';', ";\n\t", $texto_css));
-		file_put_contents($archivo_css, $texto_css);
-	}
+$plantilla = toba::memoria()->get_parametro('plantilla');
+$escapador = toba::escaper();
+if (isset($_POST['elem_nueva_plantilla'])) {
+    $archivo_css = toba::instalacion()->get_path().'/www/css/'.apex_proyecto_estilo.'.css';
+    $texto_css = $_POST['elem_nueva_plantilla'];
+    $texto_css = $escapador->escapeCss(str_replace(';', ";\n\t", $texto_css));
+    file_put_contents($archivo_css, $texto_css);
+}
 ?>
 <form name="editor_estilos" method="post" action="">	
 <div style='padding-left: 5px;font-size: 10px;'>

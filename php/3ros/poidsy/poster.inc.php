@@ -1,4 +1,4 @@
-<?PHP
+<?php
 
 /* Poidsy 0.6 - http://chris.smith.name/projects/poidsy
  * Copyright (c) 2008-2010 Chris Smith
@@ -22,33 +22,32 @@
  * SOFTWARE.
  */
 
- class Poster {
+class Poster
+{
+    public static function post($url, $data)
+    {
+        $params = array(
+         'http' => array(
+             'method' => 'POST',
+                     'content' => $data,
+             'ignore_errors' => true
+         )
+        );
 
-  public static function post($url, $data) {
-   $params = array(
-	'http' => array(
-		'method' => 'POST',
-                'content' => $data,
-		'ignore_errors' => true
-	)
-   );
+        $ctx = stream_context_create($params);
+        $fp = @fopen($url, 'rb', false, $ctx);
 
-   $ctx = stream_context_create($params);
-   $fp = @fopen($url, 'rb', false, $ctx);
-   
-   if (!$fp) {
-    throw new Exception("Problem with $url");
-   }
-   
-   $response = @stream_get_contents($fp);
-   if ($response === false) {
-    throw new Exception("Problem reading data from $url");
-   }
+        if (!$fp) {
+            throw new Exception("Problem with $url");
+        }
 
-   return $response;
-  }
+        $response = @stream_get_contents($fp);
+        if ($response === false) {
+            throw new Exception("Problem reading data from $url");
+        }
+
+        return $response;
+    }
 
 
- }
-
-?>
+}

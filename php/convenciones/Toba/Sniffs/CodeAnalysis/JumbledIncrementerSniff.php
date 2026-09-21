@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the CodeAnalysis addon for PHP_CodeSniffer.
  *
@@ -16,7 +17,7 @@
 
 /**
  * Detects incrementer jumbling in for loops.
- * 
+ *
  * This rule is based on the PMD rule catalog. The jumbling incrementer sniff
  * detects the usage of one and the same incrementer into an outer and an inner
  * loop. Even it is intended this is confusing code.
@@ -47,8 +48,6 @@
  */
 class Toba_Sniffs_CodeAnalysis_JumbledIncrementerSniff implements PHP_CodeSniffer_Sniff
 {
-
-
     /**
      * Registers the tokens that this sniff wants to listen for.
      *
@@ -114,7 +113,7 @@ class Toba_Sniffs_CodeAnalysis_JumbledIncrementerSniff implements PHP_CodeSniffe
      *
      * @param array(integer=>array) $tokens Array with all code sniffer tokens.
      * @param array(string=>mixed)  $token  Current for loop token
-     * 
+     *
      * @return array(string) List of all found incrementer variables.
      */
     protected function findIncrementers(array $tokens, array $token)
@@ -133,7 +132,7 @@ class Toba_Sniffs_CodeAnalysis_JumbledIncrementerSniff implements PHP_CodeSniffe
             $code = $tokens[$next]['code'];
             if ($code === T_SEMICOLON) {
                 ++$semicolons;
-            } else if ($semicolons === 2 && $code === T_VARIABLE) {
+            } elseif ($semicolons === 2 && $code === T_VARIABLE) {
                 $incrementers[] = $tokens[$next]['content'];
             }
         }
@@ -144,5 +143,3 @@ class Toba_Sniffs_CodeAnalysis_JumbledIncrementerSniff implements PHP_CodeSniffe
 
 
 }//end class
-
-?>

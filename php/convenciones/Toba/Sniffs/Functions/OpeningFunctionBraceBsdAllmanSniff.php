@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Toba_Sniffs_Methods_OpeningMethodBraceBsdAllmanSniff.
  *
@@ -31,8 +32,6 @@
  */
 class Toba_Sniffs_Functions_OpeningFunctionBraceBsdAllmanSniff implements PHP_CodeSniffer_Sniff
 {
-
-
     /**
      * Registers the tokens that this sniff wants to listen for.
      *
@@ -118,5 +117,3 @@ class Toba_Sniffs_Functions_OpeningFunctionBraceBsdAllmanSniff implements PHP_Co
 
 
 }//end class
-
-?>

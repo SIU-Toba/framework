@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Squiz_Sniffs_Functions_FunctionDeclarationArgumentSpacingSniff.
  *
@@ -30,8 +31,6 @@
  */
 class Toba_Sniffs_Functions_FunctionDeclarationArgumentSpacingSniff implements PHP_CodeSniffer_Sniff
 {
-
-
     /**
      * Returns an array of tokens this test wants to listen for.
      *
@@ -143,7 +142,7 @@ class Toba_Sniffs_Functions_FunctionDeclarationArgumentSpacingSniff implements P
                                 $phpcsFile->addError($error, $nextToken);
                             }
                         }
-                    } else if ($gap !== 1) {
+                    } elseif ($gap !== 1) {
                         $error = "[Funciones#declaracion] Expected 1 space between comma and argument \"$arg\"; $gap found";
                         $phpcsFile->addError($error, $nextToken);
                     }//end if
@@ -197,7 +196,7 @@ class Toba_Sniffs_Functions_FunctionDeclarationArgumentSpacingSniff implements P
                 $error = "[Funciones#declaracion] Expected 0 spaces between brackets of function declaration; $space found";
                 $phpcsFile->addError($error, $stackPtr);
             }
-        } else if ($tokens[($closeBracket - 1)]['code'] === T_WHITESPACE) {
+        } elseif ($tokens[($closeBracket - 1)]['code'] === T_WHITESPACE) {
             $lastParam = array_pop($params);
             $arg       = $tokens[$lastParam]['content'];
             $gap       = strlen($tokens[($closeBracket - 1)]['content']);
@@ -209,5 +208,3 @@ class Toba_Sniffs_Functions_FunctionDeclarationArgumentSpacingSniff implements P
 
 
 }//end class
-
-?>

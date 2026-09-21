@@ -1,10 +1,11 @@
 <?php
+
 class eiform_eventos extends toba_ei_formulario
 {
-	function extender_objeto_js()
-	{
-		$id_js = toba::escaper()->escapeJs($this->objeto_js);
-		echo "
+    public function extender_objeto_js()
+    {
+        $id_js = toba::escaper()->escapeJs($this->objeto_js);
+        echo "
 			{$id_js}.evt__accion__procesar = function() {
 				if (this.ef('accion').valor() == 'V') {
 					this.ef('es_autovinculo').mostrar();
@@ -67,6 +68,5 @@ class eiform_eventos extends toba_ei_formulario
 			this.ef('accion_vin_item').mostrar(se_muestra, true);
 		}
 		";
-	}
+    }
 }
-?>

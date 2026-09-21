@@ -1,35 +1,44 @@
-<?php 
+<?php
+
 class toba_rf_componente_formulario extends toba_rf_componente
 {
-	function inicializar()
-	{
-		$this->cargar_efs();
-	}	
+    public function inicializar()
+    {
+        $this->cargar_efs();
+    }
 
-	function cargar_efs()
-	{
-		$efs = $this->cargar_datos_efs();
-		if(count($efs) > 0) {
-			$grupo = new toba_rf_grupo_efs('<b>CAMPOS</b>',$this);
-			$e = array();
-			foreach($efs as $ef) {
-				$e[] = new toba_rf_subcomponente_ef($ef['etiqueta'], $grupo, $ef['id'] , $ef['proyecto'], $this->item, 
-														$this->restriccion,
-														$ef['no_visible'],
-														$ef['no_editable'], $ef['formulario'], $ef['deshabilitar_rest_func']);		
-			}
-			$grupo->set_hijos($e);
-			$this->agregar_hijo($grupo);
-		}
-	}
+    public function cargar_efs()
+    {
+        $efs = $this->cargar_datos_efs();
+        if (count($efs) > 0) {
+            $grupo = new toba_rf_grupo_efs('<b>CAMPOS</b>', $this);
+            $e = array();
+            foreach ($efs as $ef) {
+                $e[] = new toba_rf_subcomponente_ef(
+                    $ef['etiqueta'],
+                    $grupo,
+                    $ef['id'],
+                    $ef['proyecto'],
+                    $this->item,
+                    $this->restriccion,
+                    $ef['no_visible'],
+                    $ef['no_editable'],
+                    $ef['formulario'],
+                    $ef['deshabilitar_rest_func']
+                );
+            }
+            $grupo->set_hijos($e);
+            $this->agregar_hijo($grupo);
+        }
+    }
 
-	function cargar_datos_efs()
-	{
-		$item = quote($this->item);
-		$restriccion = quote($this->restriccion);
-		$componente = quote($this->componente);
-		$proyecto = quote($this->proyecto);
-		$sql = "SELECT 	ef.objeto_ei_formulario as			formulario,
+    public function cargar_datos_efs()
+    {
+        $item = quote($this->item);
+        $restriccion = quote($this->restriccion);
+        $componente = quote($this->componente);
+        $proyecto = quote($this->proyecto);
+        $sql = "SELECT 	ef.objeto_ei_formulario as			formulario,
 						ef.objeto_ei_formulario_fila as		id,
 						ef.objeto_ei_formulario_proyecto as	proyecto,
 						ef.etiqueta as						etiqueta, 
@@ -49,22 +58,21 @@ class toba_rf_componente_formulario extends toba_rf_componente
 				AND		ef.objeto_ei_formulario = $componente
 				AND		ef.objeto_ei_formulario_proyecto = $proyecto
 				ORDER BY ef.orden";
-		return toba::db()->consultar($sql);
-	}
-	
-	function sincronizar()
-	{
-		if($this->no_visible_original != $this->no_visible_actual) {
-			if ($this->no_visible_actual == 1) {
-				$this->agregar_restriccion();
-			}else{
-				$this->eliminar_restriccion();
-			}
-		}
-		foreach ($this->get_hijos() as $hijo){
-			$hijo->sincronizar();
-		}
-	}
-	
+        return toba::db()->consultar($sql);
+    }
+
+    public function sincronizar()
+    {
+        if ($this->no_visible_original != $this->no_visible_actual) {
+            if ($this->no_visible_actual == 1) {
+                $this->agregar_restriccion();
+            } else {
+                $this->eliminar_restriccion();
+            }
+        }
+        foreach ($this->get_hijos() as $hijo) {
+            $hijo->sincronizar();
+        }
+    }
+
 }
-?>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Parses Class doc comments.
  *
@@ -33,7 +34,6 @@ if (class_exists('PHP_CodeSniffer_CommentParser_AbstractParser', true) === false
  */
 class PHP_CodeSniffer_CommentParser_ClassCommentParser extends PHP_CodeSniffer_CommentParser_AbstractParser
 {
-
     /**
      * The package element of this class.
      *
@@ -296,5 +296,3 @@ class PHP_CodeSniffer_CommentParser_ClassCommentParser extends PHP_CodeSniffer_C
 
 
 }//end class
-
-?>

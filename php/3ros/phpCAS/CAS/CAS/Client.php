@@ -50,7 +50,6 @@
 
 class CAS_Client
 {
-
     // ########################################################################
     //  HTML OUTPUT
     // ########################################################################
@@ -102,7 +101,8 @@ class CAS_Client
     {
         $this->_htmlFilterOutput(
             str_replace(
-                '__TITLE__', $title,
+                '__TITLE__',
+                $title,
                 (empty($this->_output_header)
                 ? '<html><head><title>__TITLE__</title></head><body><h1>__TITLE__</h1>'
                 : $this->_output_header)
@@ -130,11 +130,11 @@ class CAS_Client
     {
         $lang = $this->getLangObj();
         $this->_htmlFilterOutput(
-            empty($this->_output_footer)?
+            empty($this->_output_footer) ?
             ('<hr><address>phpCAS __PHPCAS_VERSION__ '
             .$lang->getUsingServer()
             .' <a href="__SERVER_BASE_URL__">__SERVER_BASE_URL__</a> (CAS __CAS_VERSION__)</a></address></body></html>')
-            :$this->_output_footer
+            : $this->_output_footer
         );
     }
 
@@ -297,9 +297,9 @@ class CAS_Client
     private function _getServerBaseURL()
     {
         // the URL is build only when needed
-        if ( empty($this->_server['base_url']) ) {
+        if (empty($this->_server['base_url'])) {
             $this->_server['base_url'] = 'https://' . $this->_getServerHostname();
-            if ($this->_getServerPort()!=443) {
+            if ($this->_getServerPort() != 443) {
                 $this->_server['base_url'] .= ':'
                 .$this->_getServerPort();
             }
@@ -318,11 +318,11 @@ class CAS_Client
      * @note It is recommended that CAS implementations ignore the "gateway"
      * parameter if "renew" is set
      */
-    public function getServerLoginURL($gateway=false,$renew=false)
+    public function getServerLoginURL($gateway = false, $renew = false)
     {
         phpCAS::traceBegin();
         // the URL is build only when needed
-        if ( empty($this->_server['login_url']) ) {
+        if (empty($this->_server['login_url'])) {
             $this->_server['login_url'] = $this->_getServerBaseURL();
             $this->_server['login_url'] .= 'login?service=';
             $this->_server['login_url'] .= urlencode($this->getURL());
@@ -402,16 +402,16 @@ class CAS_Client
     {
         phpCAS::traceBegin();
         // the URL is build only when needed
-        if ( empty($this->_server['service_validate_url']) ) {
+        if (empty($this->_server['service_validate_url'])) {
             switch ($this->getServerVersion()) {
-            case CAS_VERSION_1_0:
-                $this->_server['service_validate_url'] = $this->_getServerBaseURL()
-                .'validate';
-                break;
-            case CAS_VERSION_2_0:
-                $this->_server['service_validate_url'] = $this->_getServerBaseURL()
-                .'serviceValidate';
-                break;
+                case CAS_VERSION_1_0:
+                    $this->_server['service_validate_url'] = $this->_getServerBaseURL()
+                    .'validate';
+                    break;
+                case CAS_VERSION_2_0:
+                    $this->_server['service_validate_url'] = $this->_getServerBaseURL()
+                    .'serviceValidate';
+                    break;
             }
         }
         $url = $this->_buildQueryUrl($this->_server['service_validate_url'], 'service='.urlencode($this->getURL()));
@@ -427,11 +427,11 @@ class CAS_Client
     {
         phpCAS::traceBegin();
         // the URL is build only when needed
-        if ( empty($this->_server['saml_validate_url']) ) {
+        if (empty($this->_server['saml_validate_url'])) {
             switch ($this->getServerVersion()) {
-            case SAML_VERSION_1_1:
-                $this->_server['saml_validate_url'] = $this->_getServerBaseURL().'samlValidate';
-                break;
+                case SAML_VERSION_1_1:
+                    $this->_server['saml_validate_url'] = $this->_getServerBaseURL().'samlValidate';
+                    break;
             }
         }
 
@@ -449,14 +449,14 @@ class CAS_Client
     {
         phpCAS::traceBegin();
         // the URL is build only when needed
-        if ( empty($this->_server['proxy_validate_url']) ) {
+        if (empty($this->_server['proxy_validate_url'])) {
             switch ($this->getServerVersion()) {
-            case CAS_VERSION_1_0:
-                $this->_server['proxy_validate_url'] = '';
-                break;
-            case CAS_VERSION_2_0:
-                $this->_server['proxy_validate_url'] = $this->_getServerBaseURL().'proxyValidate';
-                break;
+                case CAS_VERSION_1_0:
+                    $this->_server['proxy_validate_url'] = '';
+                    break;
+                case CAS_VERSION_2_0:
+                    $this->_server['proxy_validate_url'] = $this->_getServerBaseURL().'proxyValidate';
+                    break;
             }
         }
         $url = $this->_buildQueryUrl($this->_server['proxy_validate_url'], 'service='.urlencode($this->getURL()));
@@ -473,14 +473,14 @@ class CAS_Client
     public function getServerProxyURL()
     {
         // the URL is build only when needed
-        if ( empty($this->_server['proxy_url']) ) {
+        if (empty($this->_server['proxy_url'])) {
             switch ($this->getServerVersion()) {
-            case CAS_VERSION_1_0:
-                $this->_server['proxy_url'] = '';
-                break;
-            case CAS_VERSION_2_0:
-                $this->_server['proxy_url'] = $this->_getServerBaseURL().'proxy';
-                break;
+                case CAS_VERSION_1_0:
+                    $this->_server['proxy_url'] = '';
+                    break;
+                case CAS_VERSION_2_0:
+                    $this->_server['proxy_url'] = $this->_getServerBaseURL().'proxy';
+                    break;
             }
         }
         return $this->_server['proxy_url'];
@@ -494,7 +494,7 @@ class CAS_Client
     public function getServerLogoutURL()
     {
         // the URL is build only when needed
-        if ( empty($this->_server['logout_url']) ) {
+        if (empty($this->_server['logout_url'])) {
             $this->_server['logout_url'] = $this->_getServerBaseURL().'logout';
         }
         return $this->_server['logout_url'];
@@ -557,9 +557,9 @@ class CAS_Client
      *
      * @return void
      */
-    public function setRequestImplementation ($className)
+    public function setRequestImplementation($className)
     {
-        $obj = new $className;
+        $obj = new $className();
         if (!($obj instanceof CAS_Request_RequestInterface)) {
             throw new CAS_InvalidArgumentException('$className must implement the CAS_Request_RequestInterface');
         }
@@ -582,7 +582,7 @@ class CAS_Client
      *
      * @return void
      */
-    public function setNoClearTicketsFromUrl ()
+    public function setNoClearTicketsFromUrl()
     {
         $this->_clearTicketsFromUrl = false;
     }
@@ -616,7 +616,7 @@ class CAS_Client
      *
      * @return void
      */
-    public function setPostAuthenticateCallback ($function, array $additionalArgs = array())
+    public function setPostAuthenticateCallback($function, array $additionalArgs = array())
     {
         $this->_postAuthenticateCallbackFunction = $function;
         $this->_postAuthenticateCallbackArgs = $additionalArgs;
@@ -646,7 +646,7 @@ class CAS_Client
      *
      * @return void
      */
-    public function setSingleSignoutCallback ($function, array $additionalArgs = array())
+    public function setSingleSignoutCallback($function, array $additionalArgs = array())
     {
         $this->_signoutCallbackFunction = $function;
         $this->_signoutCallbackArgs = $additionalArgs;
@@ -665,15 +665,15 @@ class CAS_Client
      *
      * @return null
      */
-    public function markAuthenticationCall ($auth)
+    public function markAuthenticationCall($auth)
     {
         // store where the authentication has been checked and the result
         $dbg = debug_backtrace();
-        $this->_authentication_caller = array (
+        $this->_authentication_caller = array(
             'file' => $dbg[1]['file'],
             'line' => $dbg[1]['line'],
             'method' => $dbg[1]['class'] . '::' . $dbg[1]['function'],
-            'result' => (boolean)$auth
+            'result' => (bool)$auth
         );
     }
     private $_authentication_caller;
@@ -683,7 +683,7 @@ class CAS_Client
      *
      * @return bool
      */
-    public function wasAuthenticationCalled ()
+    public function wasAuthenticationCalled()
     {
         return !empty($this->_authentication_caller);
     }
@@ -696,7 +696,7 @@ class CAS_Client
      *
      * @return bool
      */
-    public function wasAuthenticationCallSuccessful ()
+    public function wasAuthenticationCallSuccessful()
     {
         if (empty($this->_authentication_caller)) {
             throw new CAS_OutOfSequenceException('markAuthenticationCall() hasn\'t happened.');
@@ -712,7 +712,7 @@ class CAS_Client
      *
      * @return array Keys are 'file', 'line', and 'method'
      */
-    public function getAuthenticationCallerFile ()
+    public function getAuthenticationCallerFile()
     {
         if (empty($this->_authentication_caller)) {
             throw new CAS_OutOfSequenceException('markAuthenticationCall() hasn\'t happened.');
@@ -728,7 +728,7 @@ class CAS_Client
      *
      * @return array Keys are 'file', 'line', and 'method'
      */
-    public function getAuthenticationCallerLine ()
+    public function getAuthenticationCallerLine()
     {
         if (empty($this->_authentication_caller)) {
             throw new CAS_OutOfSequenceException('markAuthenticationCall() hasn\'t happened.');
@@ -744,7 +744,7 @@ class CAS_Client
      *
      * @return array Keys are 'file', 'line', and 'method'
      */
-    public function getAuthenticationCallerMethod ()
+    public function getAuthenticationCallerMethod()
     {
         if (empty($this->_authentication_caller)) {
             throw new CAS_OutOfSequenceException('markAuthenticationCall() hasn\'t happened.');
@@ -788,8 +788,8 @@ class CAS_Client
         $this->_setChangeSessionID($changeSessionID); // true : allow to change the session_id(), false session_id won't be change and logout won't be handle because of that
 
         // skip Session Handling for logout requests and if don't want it'
-        if (session_id()=="" && !$this->_isLogoutRequest()) {
-            phpCAS :: trace("Starting a new session");
+        if (session_id() == "" && !$this->_isLogoutRequest()) {
+            phpCAS::trace("Starting a new session");
             session_start();
         }
 
@@ -809,27 +809,27 @@ class CAS_Client
 
         //check version
         switch ($server_version) {
-        case CAS_VERSION_1_0:
-            if ( $this->isProxy() ) {
+            case CAS_VERSION_1_0:
+                if ($this->isProxy()) {
+                    phpCAS::error(
+                        'CAS proxies are not supported in CAS '.$server_version
+                    );
+                }
+                break;
+            case CAS_VERSION_2_0:
+                break;
+            case SAML_VERSION_1_1:
+                break;
+            default:
                 phpCAS::error(
-                    'CAS proxies are not supported in CAS '.$server_version
+                    'this version of CAS (`'.$server_version
+                    .'\') is not supported by phpCAS '.phpCAS::getVersion()
                 );
-            }
-            break;
-        case CAS_VERSION_2_0:
-            break;
-        case SAML_VERSION_1_1:
-            break;
-        default:
-            phpCAS::error(
-                'this version of CAS (`'.$server_version
-                .'\') is not supported by phpCAS '.phpCAS::getVersion()
-            );
         }
         $this->_server['version'] = $server_version;
 
         // check hostname
-        if ( empty($server_hostname)
+        if (empty($server_hostname)
             || !preg_match('/[\.\d\-abcdefghijklmnopqrstuvwxyz]*/', $server_hostname)
         ) {
             phpCAS::error('bad CAS server hostname (`'.$server_hostname.'\')');
@@ -837,7 +837,7 @@ class CAS_Client
         $this->_server['hostname'] = $server_hostname;
 
         // check port
-        if ( $server_port == 0
+        if ($server_port == 0
             || !is_int($server_port)
         ) {
             phpCAS::error('bad CAS server port (`'.$server_hostname.'\')');
@@ -845,7 +845,7 @@ class CAS_Client
         $this->_server['port'] = $server_port;
 
         // check URI
-        if ( !preg_match('/[\.\d\-_abcdefghijklmnopqrstuvwxyz\/]*/', $server_uri) ) {
+        if (!preg_match('/[\.\d\-_abcdefghijklmnopqrstuvwxyz\/]*/', $server_uri)) {
             phpCAS::error('bad CAS server URI (`'.$server_uri.'\')');
         }
         // add leading and trailing `/' and remove doubles
@@ -853,24 +853,24 @@ class CAS_Client
         $this->_server['uri'] = $server_uri;
 
         // set to callback mode if PgtIou and PgtId CGI GET parameters are provided
-        if ( $this->isProxy() ) {
-            $this->_setCallbackMode(!empty($_GET['pgtIou'])&&!empty($_GET['pgtId']));
+        if ($this->isProxy()) {
+            $this->_setCallbackMode(!empty($_GET['pgtIou']) && !empty($_GET['pgtId']));
         }
 
-        if ( $this->_isCallbackMode() ) {
+        if ($this->_isCallbackMode()) {
             //callback mode: check that phpCAS is secured
-            if ( !$this->_isHttps() ) {
+            if (!$this->_isHttps()) {
                 phpCAS::error('CAS proxies must be secured to use phpCAS; PGT\'s will not be received from the CAS server');
             }
         } else {
             //normal mode: get ticket and remove it from CGI parameters for
             // developers
             $ticket = (isset($_GET['ticket']) ? $_GET['ticket'] : null);
-            if (preg_match('/^[SP]T-/', $ticket) ) {
+            if (preg_match('/^[SP]T-/', $ticket)) {
                 phpCAS::trace('Ticket \''.$ticket.'\' found');
                 $this->setTicket($ticket);
                 unset($_GET['ticket']);
-            } else if ( !empty($ticket) ) {
+            } elseif (!empty($ticket)) {
                 //ill-formed ticket, halt
                 phpCAS::error('ill-formed ticket found in the URL (ticket=`'.htmlentities($ticket).'\')');
             }
@@ -964,7 +964,7 @@ class CAS_Client
      */
     public function getUser()
     {
-        if ( empty($this->_user) ) {
+        if (empty($this->_user)) {
             phpCAS::error(
                 'this method should be used only after '.__CLASS__
                 .'::forceAuthentication() or '.__CLASS__.'::isAuthenticated()'
@@ -1001,7 +1001,7 @@ class CAS_Client
      */
     public function getAttributes()
     {
-        if ( empty($this->_user) ) {
+        if (empty($this->_user)) {
             // if no user is set, there shouldn't be any attributes also...
             phpCAS::error(
                 'this method should be used only after '.__CLASS__
@@ -1058,10 +1058,10 @@ class CAS_Client
     {
         phpCAS::traceBegin();
         // Either way, the user is authenticated by CAS
-        if (isset( $_SESSION['phpCAS']['auth_checked'])) {
+        if (isset($_SESSION['phpCAS']['auth_checked'])) {
             unset($_SESSION['phpCAS']['auth_checked']);
         }
-        if ( $this->isAuthenticated() ) {
+        if ($this->isAuthenticated()) {
             phpCAS::trace('user already authenticated; renew');
             $this->redirectToCas(false, true);
         } else {
@@ -1080,7 +1080,7 @@ class CAS_Client
     {
         phpCAS::traceBegin();
 
-        if ( $this->isAuthenticated() ) {
+        if ($this->isAuthenticated()) {
             // the user is authenticated, nothing to be done.
             phpCAS::trace('no need to authenticate');
             $res = true;
@@ -1128,12 +1128,12 @@ class CAS_Client
     {
         phpCAS::traceBegin();
         $res = false;
-        if ( $this->isAuthenticated() ) {
+        if ($this->isAuthenticated()) {
             phpCAS::trace('user is authenticated');
             /* The 'auth_checked' variable is removed just in case it's set. */
             unset($_SESSION['phpCAS']['auth_checked']);
             $res = true;
-        } else if (isset($_SESSION['phpCAS']['auth_checked'])) {
+        } elseif (isset($_SESSION['phpCAS']['auth_checked'])) {
             // the previous request has redirected the client to the CAS server
             // with gateway=true
             unset($_SESSION['phpCAS']['auth_checked']);
@@ -1186,7 +1186,7 @@ class CAS_Client
         phpCAS::traceBegin();
         $res = false;
         $validate_url = '';
-        if ( $this->_wasPreviouslyAuthenticated() ) {
+        if ($this->_wasPreviouslyAuthenticated()) {
             if ($this->hasTicket()) {
                 // User has a additional ticket but was already authenticated
                 phpCAS::trace('ticket was present and will be discarded, use renewAuthenticate()');
@@ -1209,49 +1209,49 @@ class CAS_Client
         } else {
             if ($this->hasTicket()) {
                 switch ($this->getServerVersion()) {
-                case CAS_VERSION_1_0:
-                    // if a Service Ticket was given, validate it
-                    phpCAS::trace('CAS 1.0 ticket `'.$this->getTicket().'\' is present');
-                    $this->validateCAS10($validate_url, $text_response, $tree_response); // if it fails, it halts
-                    phpCAS::trace('CAS 1.0 ticket `'.$this->getTicket().'\' was validated');
-                    $_SESSION['phpCAS']['user'] = $this->getUser();
-                    $res = true;
-                    $logoutTicket = $this->getTicket();
-                    break;
-                case CAS_VERSION_2_0:
-                    // if a Proxy Ticket was given, validate it
-                    phpCAS::trace('CAS 2.0 ticket `'.$this->getTicket().'\' is present');
-                    $this->validateCAS20($validate_url, $text_response, $tree_response); // note: if it fails, it halts
-                    phpCAS::trace('CAS 2.0 ticket `'.$this->getTicket().'\' was validated');
-                    if ( $this->isProxy() ) {
-                        $this->_validatePGT($validate_url, $text_response, $tree_response); // idem
-                        phpCAS::trace('PGT `'.$this->_getPGT().'\' was validated');
-                        $_SESSION['phpCAS']['pgt'] = $this->_getPGT();
-                    }
-                    $_SESSION['phpCAS']['user'] = $this->getUser();
-                    if ($this->hasAttributes()) {
+                    case CAS_VERSION_1_0:
+                        // if a Service Ticket was given, validate it
+                        phpCAS::trace('CAS 1.0 ticket `'.$this->getTicket().'\' is present');
+                        $this->validateCAS10($validate_url, $text_response, $tree_response); // if it fails, it halts
+                        phpCAS::trace('CAS 1.0 ticket `'.$this->getTicket().'\' was validated');
+                        $_SESSION['phpCAS']['user'] = $this->getUser();
+                        $res = true;
+                        $logoutTicket = $this->getTicket();
+                        break;
+                    case CAS_VERSION_2_0:
+                        // if a Proxy Ticket was given, validate it
+                        phpCAS::trace('CAS 2.0 ticket `'.$this->getTicket().'\' is present');
+                        $this->validateCAS20($validate_url, $text_response, $tree_response); // note: if it fails, it halts
+                        phpCAS::trace('CAS 2.0 ticket `'.$this->getTicket().'\' was validated');
+                        if ($this->isProxy()) {
+                            $this->_validatePGT($validate_url, $text_response, $tree_response); // idem
+                            phpCAS::trace('PGT `'.$this->_getPGT().'\' was validated');
+                            $_SESSION['phpCAS']['pgt'] = $this->_getPGT();
+                        }
+                        $_SESSION['phpCAS']['user'] = $this->getUser();
+                        if ($this->hasAttributes()) {
+                            $_SESSION['phpCAS']['attributes'] = $this->getAttributes();
+                        }
+                        $proxies = $this->getProxies();
+                        if (!empty($proxies)) {
+                            $_SESSION['phpCAS']['proxies'] = $this->getProxies();
+                        }
+                        $res = true;
+                        $logoutTicket = $this->getTicket();
+                        break;
+                    case SAML_VERSION_1_1:
+                        // if we have a SAML ticket, validate it.
+                        phpCAS::trace('SAML 1.1 ticket `'.$this->getTicket().'\' is present');
+                        $this->validateSA($validate_url, $text_response, $tree_response); // if it fails, it halts
+                        phpCAS::trace('SAML 1.1 ticket `'.$this->getTicket().'\' was validated');
+                        $_SESSION['phpCAS']['user'] = $this->getUser();
                         $_SESSION['phpCAS']['attributes'] = $this->getAttributes();
-                    }
-                    $proxies = $this->getProxies();
-                    if (!empty($proxies)) {
-                        $_SESSION['phpCAS']['proxies'] = $this->getProxies();
-                    }
-                    $res = true;
-                    $logoutTicket = $this->getTicket();
-                    break;
-                case SAML_VERSION_1_1:
-                    // if we have a SAML ticket, validate it.
-                    phpCAS::trace('SAML 1.1 ticket `'.$this->getTicket().'\' is present');
-                    $this->validateSA($validate_url, $text_response, $tree_response); // if it fails, it halts
-                    phpCAS::trace('SAML 1.1 ticket `'.$this->getTicket().'\' was validated');
-                    $_SESSION['phpCAS']['user'] = $this->getUser();
-                    $_SESSION['phpCAS']['attributes'] = $this->getAttributes();
-                    $res = true;
-                    $logoutTicket = $this->getTicket();
-                    break;
-                default:
-                    phpCAS::trace('Protocoll error');
-                    break;
+                        $res = true;
+                        $logoutTicket = $this->getTicket();
+                        break;
+                    default:
+                        phpCAS::trace('Protocoll error');
+                        break;
                 }
             } else {
                 // no ticket given, not authenticated
@@ -1294,7 +1294,7 @@ class CAS_Client
      *
      * @return true if authenticated based soley on $_SESSION variable
      */
-    public function isSessionAuthenticated ()
+    public function isSessionAuthenticated()
     {
         return !empty($_SESSION['phpCAS']['user']);
     }
@@ -1311,9 +1311,9 @@ class CAS_Client
     {
         phpCAS::traceBegin();
 
-        if ( $this->_isCallbackMode() ) {
+        if ($this->_isCallbackMode()) {
             // Rebroadcast the pgtIou and pgtId to all nodes
-            if ($this->_rebroadcast&&!isset($_POST['rebroadcast'])) {
+            if ($this->_rebroadcast && !isset($_POST['rebroadcast'])) {
                 $this->_rebroadcast(self::PGTIOU);
             }
             $this->_callback();
@@ -1321,9 +1321,9 @@ class CAS_Client
 
         $auth = false;
 
-        if ( $this->isProxy() ) {
+        if ($this->isProxy()) {
             // CAS proxy: username and PGT must be present
-            if ( $this->isSessionAuthenticated() && !empty($_SESSION['phpCAS']['pgt']) ) {
+            if ($this->isSessionAuthenticated() && !empty($_SESSION['phpCAS']['pgt'])) {
                 // authentication already done
                 $this->_setUser($_SESSION['phpCAS']['user']);
                 if (isset($_SESSION['phpCAS']['attributes'])) {
@@ -1339,13 +1339,13 @@ class CAS_Client
                 }
 
                 $auth = true;
-            } elseif ( $this->isSessionAuthenticated() && empty($_SESSION['phpCAS']['pgt']) ) {
+            } elseif ($this->isSessionAuthenticated() && empty($_SESSION['phpCAS']['pgt'])) {
                 // these two variables should be empty or not empty at the same time
                 phpCAS::trace('username found (`'.$_SESSION['phpCAS']['user'].'\') but PGT is empty');
                 // unset all tickets to enforce authentication
                 unset($_SESSION['phpCAS']);
                 $this->setTicket('');
-            } elseif ( !$this->isSessionAuthenticated() && !empty($_SESSION['phpCAS']['pgt']) ) {
+            } elseif (!$this->isSessionAuthenticated() && !empty($_SESSION['phpCAS']['pgt'])) {
                 // these two variables should be empty or not empty at the same time
                 phpCAS::trace('PGT found (`'.$_SESSION['phpCAS']['pgt'].'\') but username is empty');
                 // unset all tickets to enforce authentication
@@ -1356,7 +1356,7 @@ class CAS_Client
             }
         } else {
             // `simple' CAS client (not a proxy): username must be present
-            if ( $this->isSessionAuthenticated() ) {
+            if ($this->isSessionAuthenticated()) {
                 // authentication already done
                 $this->_setUser($_SESSION['phpCAS']['user']);
                 if (isset($_SESSION['phpCAS']['attributes'])) {
@@ -1390,7 +1390,7 @@ class CAS_Client
      *
      * @return void
      */
-    public function redirectToCas($gateway=false,$renew=false)
+    public function redirectToCas($gateway = false, $renew = false)
     {
         phpCAS::traceBegin();
         $cas_url = $this->getServerLoginURL($gateway, $renew);
@@ -1462,7 +1462,7 @@ class CAS_Client
      *
      * @return void
      */
-    public function handleLogoutRequests($check_client=true, $allowed_clients=false)
+    public function handleLogoutRequests($check_client = true, $allowed_clients = false)
     {
         phpCAS::traceBegin();
         if (!$this->_isLogoutRequest()) {
@@ -1529,8 +1529,8 @@ class CAS_Client
                 }
                 // fix session ID
                 session_id($session_id);
-                $_COOKIE[session_name()]=$session_id;
-                $_GET[session_name()]=$session_id;
+                $_COOKIE[session_name()] = $session_id;
+                $_GET[session_name()] = $session_id;
 
                 // Overwrite session
                 session_start();
@@ -1578,7 +1578,7 @@ class CAS_Client
      *
      * @return string service ticket.
      */
-    public  function getTicket()
+    public function getTicket()
     {
         return $this->_ticket;
     }
@@ -1677,7 +1677,7 @@ class CAS_Client
      * @return bool true when successfull and issue a CAS_AuthenticationException
      * and false on an error
      */
-    public function validateCAS10(&$validate_url,&$text_response,&$tree_response)
+    public function validateCAS10(&$validate_url, &$text_response, &$tree_response)
     {
         phpCAS::traceBegin();
         $result = false;
@@ -1685,10 +1685,12 @@ class CAS_Client
         $validate_url = $this->getServerServiceValidateURL().'&ticket='.$this->getTicket();
 
         // open and read the URL
-        if ( !$this->_readURL($validate_url, $headers, $text_response, $err_msg) ) {
+        if (!$this->_readURL($validate_url, $headers, $text_response, $err_msg)) {
             phpCAS::trace('could not open URL \''.$validate_url.'\' to validate ('.$err_msg.')');
             throw new CAS_AuthenticationException(
-                $this, 'CAS 1.0 ticket not validated', $validate_url,
+                $this,
+                'CAS 1.0 ticket not validated',
+                $validate_url,
                 true/*$no_response*/
             );
             $result = false;
@@ -1697,15 +1699,23 @@ class CAS_Client
         if (preg_match('/^no\n/', $text_response)) {
             phpCAS::trace('Ticket has not been validated');
             throw new CAS_AuthenticationException(
-                $this, 'ST not validated', $validate_url, false/*$no_response*/,
-                false/*$bad_response*/, $text_response
+                $this,
+                'ST not validated',
+                $validate_url,
+                false/*$no_response*/,
+                false/*$bad_response*/,
+                $text_response
             );
             $result = false;
-        } else if (!preg_match('/^yes\n/', $text_response)) {
+        } elseif (!preg_match('/^yes\n/', $text_response)) {
             phpCAS::trace('ill-formed response');
             throw new CAS_AuthenticationException(
-                $this, 'Ticket not validated', $validate_url,
-                false/*$no_response*/, true/*$bad_response*/, $text_response
+                $this,
+                'Ticket not validated',
+                $validate_url,
+                false/*$no_response*/,
+                true/*$bad_response*/,
+                $text_response
             );
             $result = false;
         }
@@ -1748,7 +1758,7 @@ class CAS_Client
      * @return bool true when successfull and issue a CAS_AuthenticationException
      * and false on an error
      */
-    public function validateSA(&$validate_url,&$text_response,&$tree_response)
+    public function validateSA(&$validate_url, &$text_response, &$tree_response)
     {
         phpCAS::traceBegin();
         $result = false;
@@ -1756,7 +1766,7 @@ class CAS_Client
         $validate_url = $this->getServerSamlValidateURL();
 
         // open and read the URL
-        if ( !$this->_readURL($validate_url, $headers, $text_response, $err_msg) ) {
+        if (!$this->_readURL($validate_url, $headers, $text_response, $err_msg)) {
             phpCAS::trace('could not open URL \''.$validate_url.'\' to validate ('.$err_msg.')');
             throw new CAS_AuthenticationException($this, 'SA not validated', $validate_url, true/*$no_response*/);
         }
@@ -1765,57 +1775,69 @@ class CAS_Client
 
         // analyze the result depending on the version
         switch ($this->getServerVersion()) {
-        case SAML_VERSION_1_1:
-            // create new DOMDocument Object
-            $dom = new DOMDocument();
-            // Fix possible whitspace problems
-            $dom->preserveWhiteSpace = false;
-            // read the response of the CAS server into a DOM object
-            if (!($dom->loadXML($text_response))) {
-                phpCAS::trace('dom->loadXML() failed');
-                throw new CAS_AuthenticationException(
-                    $this, 'SA not validated', $validate_url,
-                    false/*$no_response*/, true/*$bad_response*/,
-                    $text_response
-                );
-                $result = false;
-            }
-            // read the root node of the XML tree
-            if (!($tree_response = $dom->documentElement)) {
-                phpCAS::trace('documentElement() failed');
-                throw new CAS_AuthenticationException(
-                    $this, 'SA not validated', $validate_url,
-                    false/*$no_response*/, true/*$bad_response*/,
-                    $text_response
-                );
-                $result = false;
-            } else if ( $tree_response->localName != 'Envelope' ) {
-                // insure that tag name is 'Envelope'
-                phpCAS::trace('bad XML root node (should be `Envelope\' instead of `'.$tree_response->localName.'\'');
-                throw new CAS_AuthenticationException(
-                    $this, 'SA not validated', $validate_url,
-                    false/*$no_response*/, true/*$bad_response*/,
-                    $text_response
-                );
-                $result = false;
-            } else if ($tree_response->getElementsByTagName("NameIdentifier")->length != 0) {
-                // check for the NameIdentifier tag in the SAML response
-                $success_elements = $tree_response->getElementsByTagName("NameIdentifier");
-                phpCAS::trace('NameIdentifier found');
-                $user = trim($success_elements->item(0)->nodeValue);
-                phpCAS::trace('user = `'.$user.'`');
-                $this->_setUser($user);
-                $this->_setSessionAttributes($text_response);
-                $result = true;
-            } else {
-                phpCAS::trace('no <NameIdentifier> tag found in SAML payload');
-                throw new CAS_AuthenticationException(
-                    $this, 'SA not validated', $validate_url,
-                    false/*$no_response*/, true/*$bad_response*/,
-                    $text_response
-                );
-                $result = false;
-            }
+            case SAML_VERSION_1_1:
+                // create new DOMDocument Object
+                $dom = new DOMDocument();
+                // Fix possible whitspace problems
+                $dom->preserveWhiteSpace = false;
+                // read the response of the CAS server into a DOM object
+                if (!($dom->loadXML($text_response))) {
+                    phpCAS::trace('dom->loadXML() failed');
+                    throw new CAS_AuthenticationException(
+                        $this,
+                        'SA not validated',
+                        $validate_url,
+                        false/*$no_response*/,
+                        true/*$bad_response*/,
+                        $text_response
+                    );
+                    $result = false;
+                }
+                // read the root node of the XML tree
+                if (!($tree_response = $dom->documentElement)) {
+                    phpCAS::trace('documentElement() failed');
+                    throw new CAS_AuthenticationException(
+                        $this,
+                        'SA not validated',
+                        $validate_url,
+                        false/*$no_response*/,
+                        true/*$bad_response*/,
+                        $text_response
+                    );
+                    $result = false;
+                } elseif ($tree_response->localName != 'Envelope') {
+                    // insure that tag name is 'Envelope'
+                    phpCAS::trace('bad XML root node (should be `Envelope\' instead of `'.$tree_response->localName.'\'');
+                    throw new CAS_AuthenticationException(
+                        $this,
+                        'SA not validated',
+                        $validate_url,
+                        false/*$no_response*/,
+                        true/*$bad_response*/,
+                        $text_response
+                    );
+                    $result = false;
+                } elseif ($tree_response->getElementsByTagName("NameIdentifier")->length != 0) {
+                    // check for the NameIdentifier tag in the SAML response
+                    $success_elements = $tree_response->getElementsByTagName("NameIdentifier");
+                    phpCAS::trace('NameIdentifier found');
+                    $user = trim($success_elements->item(0)->nodeValue);
+                    phpCAS::trace('user = `'.$user.'`');
+                    $this->_setUser($user);
+                    $this->_setSessionAttributes($text_response);
+                    $result = true;
+                } else {
+                    phpCAS::trace('no <NameIdentifier> tag found in SAML payload');
+                    throw new CAS_AuthenticationException(
+                        $this,
+                        'SA not validated',
+                        $validate_url,
+                        false/*$no_response*/,
+                        true/*$bad_response*/,
+                        $text_response
+                    );
+                    $result = false;
+                }
         }
         if ($result) {
             $this->_renameSession($this->getTicket());
@@ -2033,7 +2055,7 @@ class CAS_Client
     private function _getCallbackURL()
     {
         // the URL is built when needed only
-        if ( empty($this->_callback_url) ) {
+        if (empty($this->_callback_url)) {
             $final_uri = '';
             // remove the ticket if present in the URL
             $final_uri = 'https://';
@@ -2122,7 +2144,7 @@ class CAS_Client
     private function _initPGTStorage()
     {
         // if no SetPGTStorageXxx() has been used, default to file
-        if ( !is_object($this->_pgt_storage) ) {
+        if (!is_object($this->_pgt_storage)) {
             $this->setPGTStorageFile();
         }
 
@@ -2138,7 +2160,7 @@ class CAS_Client
      *
      * @return void
      */
-    private function _storePGT($pgt,$pgt_iou)
+    private function _storePGT($pgt, $pgt_iou)
     {
         // ensure that storage is initialized
         $this->_initPGTStorage();
@@ -2173,12 +2195,12 @@ class CAS_Client
     public function setPGTStorage($storage)
     {
         // check that the storage has not already been set
-        if ( is_object($this->_pgt_storage) ) {
+        if (is_object($this->_pgt_storage)) {
             phpCAS::error('PGT storage already defined');
         }
 
         // check to make sure a valid storage object was specified
-        if ( !($storage instanceof CAS_PGTStorage_AbstractStorage) ) {
+        if (!($storage instanceof CAS_PGTStorage_AbstractStorage)) {
             phpCAS::error('Invalid PGT storage object');
         }
 
@@ -2203,7 +2225,7 @@ class CAS_Client
      *
      * @return void
      */
-    public function setPGTStorageDb($dsn_or_pdo, $username='', $password='', $table='', $driver_options=null)
+    public function setPGTStorageDb($dsn_or_pdo, $username = '', $password = '', $table = '', $driver_options = null)
     {
         // create the storage object
         $this->setPGTStorage(new CAS_PGTStorage_Db($this, $dsn_or_pdo, $username, $password, $table, $driver_options));
@@ -2217,7 +2239,7 @@ class CAS_Client
      *
      * @return void
      */
-    public function setPGTStorageFile($path='')
+    public function setPGTStorageFile($path = '')
     {
         // create the storage object
         $this->setPGTStorage(new CAS_PGTStorage_File($this, $path));
@@ -2239,15 +2261,18 @@ class CAS_Client
     * @return bool true when successfull and issue a CAS_AuthenticationException
     * and false on an error
     */
-    private function _validatePGT(&$validate_url,$text_response,$tree_response)
+    private function _validatePGT(&$validate_url, $text_response, $tree_response)
     {
         phpCAS::traceBegin();
-        if ( $tree_response->getElementsByTagName("proxyGrantingTicket")->length == 0) {
+        if ($tree_response->getElementsByTagName("proxyGrantingTicket")->length == 0) {
             phpCAS::trace('<proxyGrantingTicket> not found');
             // authentication succeded, but no PGT Iou was transmitted
             throw new CAS_AuthenticationException(
-                $this, 'Ticket validated but no PGT Iou transmitted',
-                $validate_url, false/*$no_response*/, false/*$bad_response*/,
+                $this,
+                'Ticket validated but no PGT Iou transmitted',
+                $validate_url,
+                false/*$no_response*/,
+                false/*$bad_response*/,
                 $text_response
             );
         } else {
@@ -2255,20 +2280,26 @@ class CAS_Client
             $pgt_iou = trim($tree_response->getElementsByTagName("proxyGrantingTicket")->item(0)->nodeValue);
             if (preg_match('/PGTIOU-[\.\-\w]/', $pgt_iou)) {
                 $pgt = $this->_loadPGT($pgt_iou);
-                if ( $pgt == false ) {
+                if ($pgt == false) {
                     phpCAS::trace('could not load PGT');
                     throw new CAS_AuthenticationException(
-                        $this, 'PGT Iou was transmitted but PGT could not be retrieved',
-                        $validate_url, false/*$no_response*/,
-                        false/*$bad_response*/, $text_response
+                        $this,
+                        'PGT Iou was transmitted but PGT could not be retrieved',
+                        $validate_url,
+                        false/*$no_response*/,
+                        false/*$bad_response*/,
+                        $text_response
                     );
                 }
                 $this->_setPGT($pgt);
             } else {
                 phpCAS::trace('PGTiou format error');
                 throw new CAS_AuthenticationException(
-                    $this, 'PGT Iou was transmitted but has wrong format',
-                    $validate_url, false/*$no_response*/, false/*$bad_response*/,
+                    $this,
+                    'PGT Iou was transmitted but has wrong format',
+                    $validate_url,
+                    false/*$no_response*/,
+                    false/*$bad_response*/,
                     $text_response
                 );
             }
@@ -2290,7 +2321,7 @@ class CAS_Client
      *
      * @return a Proxy Ticket, or false on error.
      */
-    public function retrievePT($target_service,&$err_code,&$err_msg)
+    public function retrievePT($target_service, &$err_code, &$err_msg)
     {
         phpCAS::traceBegin();
 
@@ -2304,7 +2335,7 @@ class CAS_Client
         $cas_url = $this->getServerProxyURL().'?targetService='.urlencode($target_service).'&pgt='.$this->_getPGT();
 
         // open and read the URL
-        if ( !$this->_readURL($cas_url, $headers, $cas_response, $err_msg) ) {
+        if (!$this->_readURL($cas_url, $headers, $cas_response, $err_msg)) {
             phpCAS::trace('could not open URL \''.$cas_url.'\' to validate ('.$err_msg.')');
             $err_code = PHPCAS_SERVICE_PT_NO_SERVER_RESPONSE;
             $err_msg = 'could not retrieve PT (no response from the CAS server)';
@@ -2314,44 +2345,44 @@ class CAS_Client
 
         $bad_response = false;
 
-        if ( !$bad_response ) {
+        if (!$bad_response) {
             // create new DOMDocument object
             $dom = new DOMDocument();
             // Fix possible whitspace problems
             $dom->preserveWhiteSpace = false;
             // read the response of the CAS server into a DOM object
-            if ( !($dom->loadXML($cas_response))) {
+            if (!($dom->loadXML($cas_response))) {
                 phpCAS::trace('dom->loadXML() failed');
                 // read failed
                 $bad_response = true;
             }
         }
 
-        if ( !$bad_response ) {
+        if (!$bad_response) {
             // read the root node of the XML tree
-            if ( !($root = $dom->documentElement) ) {
+            if (!($root = $dom->documentElement)) {
                 phpCAS::trace('documentElement failed');
                 // read failed
                 $bad_response = true;
             }
         }
 
-        if ( !$bad_response ) {
+        if (!$bad_response) {
             // insure that tag name is 'serviceResponse'
-            if ( $root->localName != 'serviceResponse' ) {
+            if ($root->localName != 'serviceResponse') {
                 phpCAS::trace('localName failed');
                 // bad root node
                 $bad_response = true;
             }
         }
 
-        if ( !$bad_response ) {
+        if (!$bad_response) {
             // look for a proxySuccess tag
-            if ( $root->getElementsByTagName("proxySuccess")->length != 0) {
+            if ($root->getElementsByTagName("proxySuccess")->length != 0) {
                 $proxy_success_list = $root->getElementsByTagName("proxySuccess");
 
                 // authentication succeded, look for a proxyTicket tag
-                if ( $proxy_success_list->item(0)->getElementsByTagName("proxyTicket")->length != 0) {
+                if ($proxy_success_list->item(0)->getElementsByTagName("proxyTicket")->length != 0) {
                     $err_code = PHPCAS_SERVICE_OK;
                     $err_msg = '';
                     $pt = trim($proxy_success_list->item(0)->getElementsByTagName("proxyTicket")->item(0)->nodeValue);
@@ -2361,7 +2392,7 @@ class CAS_Client
                 } else {
                     phpCAS::trace('<proxySuccess> was found, but not <proxyTicket>');
                 }
-            } else if ($root->getElementsByTagName("proxyFailure")->length != 0) {
+            } elseif ($root->getElementsByTagName("proxyFailure")->length != 0) {
                 // look for a proxyFailure tag
                 $proxy_failure_list = $root->getElementsByTagName("proxyFailure");
 
@@ -2470,7 +2501,7 @@ class CAS_Client
         //get the ticket
         $sa = $this->getTicket();
 
-        $body=SAML_SOAP_ENV.SAML_SOAP_BODY.SAMLP_REQUEST.SAML_ASSERTION_ARTIFACT.$sa.SAML_ASSERTION_ARTIFACT_CLOSE.SAMLP_REQUEST_CLOSE.SAML_SOAP_BODY_CLOSE.SAML_SOAP_ENV_CLOSE;
+        $body = SAML_SOAP_ENV.SAML_SOAP_BODY.SAMLP_REQUEST.SAML_ASSERTION_ARTIFACT.$sa.SAML_ASSERTION_ARTIFACT_CLOSE.SAMLP_REQUEST_CLOSE.SAML_SOAP_BODY_CLOSE.SAML_SOAP_ENV_CLOSE;
 
         phpCAS::traceEnd($body);
         return ($body);
@@ -2498,29 +2529,29 @@ class CAS_Client
      * @return CAS_ProxiedService
      * @throws InvalidArgumentException If the service type is unknown.
      */
-    public function getProxiedService ($type)
+    public function getProxiedService($type)
     {
         switch ($type) {
-        case PHPCAS_PROXIED_SERVICE_HTTP_GET:
-        case PHPCAS_PROXIED_SERVICE_HTTP_POST:
-            $requestClass = $this->_requestImplementation;
-            $request = new $requestClass();
-            if (count($this->_curl_options)) {
-                $request->setCurlOptions($this->_curl_options);
-            }
-            $proxiedService = new $type($request, $this->_serviceCookieJar);
-            if ($proxiedService instanceof CAS_ProxiedService_Testable) {
-                $proxiedService->setCasClient($this);
-            }
-            return $proxiedService;
-        case PHPCAS_PROXIED_SERVICE_IMAP;
-            $proxiedService = new CAS_ProxiedService_Imap($this->getUser());
-            if ($proxiedService instanceof CAS_ProxiedService_Testable) {
-                $proxiedService->setCasClient($this);
-            }
-            return $proxiedService;
-        default:
-            throw new CAS_InvalidArgumentException("Unknown proxied-service type, $type.");
+            case PHPCAS_PROXIED_SERVICE_HTTP_GET:
+            case PHPCAS_PROXIED_SERVICE_HTTP_POST:
+                $requestClass = $this->_requestImplementation;
+                $request = new $requestClass();
+                if (count($this->_curl_options)) {
+                    $request->setCurlOptions($this->_curl_options);
+                }
+                $proxiedService = new $type($request, $this->_serviceCookieJar);
+                if ($proxiedService instanceof CAS_ProxiedService_Testable) {
+                    $proxiedService->setCasClient($this);
+                }
+                return $proxiedService;
+            case PHPCAS_PROXIED_SERVICE_IMAP:
+                $proxiedService = new CAS_ProxiedService_Imap($this->getUser());
+                if ($proxiedService instanceof CAS_ProxiedService_Testable) {
+                    $proxiedService->setCasClient($this);
+                }
+                return $proxiedService;
+            default:
+                throw new CAS_InvalidArgumentException("Unknown proxied-service type, $type.");
         }
     }
 
@@ -2539,7 +2570,7 @@ class CAS_Client
      * @throws CAS_ProxiedService_Exception If there is a failure getting the
      * url from the proxied service.
      */
-    public function initializeProxiedService (CAS_ProxiedService $proxiedService)
+    public function initializeProxiedService(CAS_ProxiedService $proxiedService)
     {
         $url = $proxiedService->getServiceUrl();
         if (!is_string($url)) {
@@ -2566,7 +2597,7 @@ class CAS_Client
      * @return true on success, false otherwise (in this later case, $err_code
      * gives the reason why it failed and $output contains an error message).
      */
-    public function serviceWeb($url,&$err_code,&$output)
+    public function serviceWeb($url, &$err_code, &$output)
     {
         try {
             $service = $this->getProxiedService(PHPCAS_PROXIED_SERVICE_HTTP_GET);
@@ -2606,7 +2637,7 @@ class CAS_Client
      *  case, $err_code gives the reason why it failed and $err_msg contains an
      *  error message).
      */
-    public function serviceMail($url,$serviceUrl,$flags,&$err_code,&$err_msg,&$pt)
+    public function serviceMail($url, $serviceUrl, $flags, &$err_code, &$err_msg, &$pt)
     {
         try {
             $service = $this->getProxiedService(PHPCAS_PROXIED_SERVICE_IMAP);
@@ -2713,7 +2744,7 @@ class CAS_Client
      *
      * @return CAS_ProxyChain_AllowedList
      */
-    public function getAllowedProxyChains ()
+    public function getAllowedProxyChains()
     {
         if (empty($this->_allowed_proxy_chains)) {
             $this->_allowed_proxy_chains = new CAS_ProxyChain_AllowedList();
@@ -2741,7 +2772,7 @@ class CAS_Client
      * @return bool true when successfull and issue a CAS_AuthenticationException
      * and false on an error
      */
-    public function validateCAS20(&$validate_url,&$text_response,&$tree_response)
+    public function validateCAS20(&$validate_url, &$text_response, &$tree_response)
     {
         phpCAS::traceBegin();
         phpCAS::trace($text_response);
@@ -2753,16 +2784,18 @@ class CAS_Client
             $validate_url = $this->getServerServiceValidateURL().'&ticket='.$this->getTicket();
         }
 
-        if ( $this->isProxy() ) {
+        if ($this->isProxy()) {
             // pass the callback url for CAS proxies
             $validate_url .= '&pgtUrl='.urlencode($this->_getCallbackURL());
         }
 
         // open and read the URL
-        if ( !$this->_readURL($validate_url, $headers, $text_response, $err_msg) ) {
+        if (!$this->_readURL($validate_url, $headers, $text_response, $err_msg)) {
             phpCAS::trace('could not open URL \''.$validate_url.'\' to validate ('.$err_msg.')');
             throw new CAS_AuthenticationException(
-                $this, 'Ticket not validated', $validate_url,
+                $this,
+                'Ticket not validated',
+                $validate_url,
                 true/*$no_response*/
             );
             $result = false;
@@ -2775,37 +2808,53 @@ class CAS_Client
         // CAS servers should only return data in utf-8
         $dom->encoding = "utf-8";
         // read the response of the CAS server into a DOMDocument object
-        if ( !($dom->loadXML($text_response))) {
+        if (!($dom->loadXML($text_response))) {
             // read failed
             throw new CAS_AuthenticationException(
-                $this, 'Ticket not validated', $validate_url,
-                false/*$no_response*/, true/*$bad_response*/, $text_response
+                $this,
+                'Ticket not validated',
+                $validate_url,
+                false/*$no_response*/,
+                true/*$bad_response*/,
+                $text_response
             );
             $result = false;
-        } else if ( !($tree_response = $dom->documentElement) ) {
+        } elseif (!($tree_response = $dom->documentElement)) {
             // read the root node of the XML tree
             // read failed
             throw new CAS_AuthenticationException(
-                $this, 'Ticket not validated', $validate_url,
-                false/*$no_response*/, true/*$bad_response*/, $text_response
+                $this,
+                'Ticket not validated',
+                $validate_url,
+                false/*$no_response*/,
+                true/*$bad_response*/,
+                $text_response
             );
             $result = false;
-        } else if ($tree_response->localName != 'serviceResponse') {
+        } elseif ($tree_response->localName != 'serviceResponse') {
             // insure that tag name is 'serviceResponse'
             // bad root node
             throw new CAS_AuthenticationException(
-                $this, 'Ticket not validated', $validate_url,
-                false/*$no_response*/, true/*$bad_response*/, $text_response
+                $this,
+                'Ticket not validated',
+                $validate_url,
+                false/*$no_response*/,
+                true/*$bad_response*/,
+                $text_response
             );
             $result = false;
-        } else if ($tree_response->getElementsByTagName("authenticationSuccess")->length != 0) {
+        } elseif ($tree_response->getElementsByTagName("authenticationSuccess")->length != 0) {
             // authentication succeded, extract the user name
             $success_elements = $tree_response->getElementsByTagName("authenticationSuccess");
-            if ( $success_elements->item(0)->getElementsByTagName("user")->length == 0) {
+            if ($success_elements->item(0)->getElementsByTagName("user")->length == 0) {
                 // no user specified => error
                 throw new CAS_AuthenticationException(
-                    $this, 'Ticket not validated', $validate_url,
-                    false/*$no_response*/, true/*$bad_response*/, $text_response
+                    $this,
+                    'Ticket not validated',
+                    $validate_url,
+                    false/*$no_response*/,
+                    true/*$bad_response*/,
+                    $text_response
                 );
                 $result = false;
             } else {
@@ -2813,7 +2862,7 @@ class CAS_Client
                 $this->_readExtraAttributesCas20($success_elements);
                 // Store the proxies we are sitting behind for authorization checking
                 $proxyList = array();
-                if ( sizeof($arr = $success_elements->item(0)->getElementsByTagName("proxy")) > 0) {
+                if (sizeof($arr = $success_elements->item(0)->getElementsByTagName("proxy")) > 0) {
                     foreach ($arr as $proxyElem) {
                         phpCAS::trace("Found Proxy: ".$proxyElem->nodeValue);
                         $proxyList[] = trim($proxyElem->nodeValue);
@@ -2824,8 +2873,11 @@ class CAS_Client
                 // Check if the proxies in front of us are allowed
                 if (!$this->getAllowedProxyChains()->isProxyListAllowed($proxyList)) {
                     throw new CAS_AuthenticationException(
-                        $this, 'Proxy not allowed', $validate_url,
-                        false/*$no_response*/, true/*$bad_response*/,
+                        $this,
+                        'Proxy not allowed',
+                        $validate_url,
+                        false/*$no_response*/,
+                        true/*$bad_response*/,
                         $text_response
                     );
                     $result = false;
@@ -2833,12 +2885,15 @@ class CAS_Client
                     $result = true;
                 }
             }
-        } else if ( $tree_response->getElementsByTagName("authenticationFailure")->length != 0) {
+        } elseif ($tree_response->getElementsByTagName("authenticationFailure")->length != 0) {
             // authentication succeded, extract the error code and message
             $auth_fail_list = $tree_response->getElementsByTagName("authenticationFailure");
             throw new CAS_AuthenticationException(
-                $this, 'Ticket not validated', $validate_url,
-                false/*$no_response*/, false/*$bad_response*/,
+                $this,
+                'Ticket not validated',
+                $validate_url,
+                false/*$no_response*/,
+                false/*$bad_response*/,
                 $text_response,
                 $auth_fail_list->item(0)->getAttribute('code')/*$err_code*/,
                 trim($auth_fail_list->item(0)->nodeValue)/*$err_msg*/
@@ -2846,8 +2901,11 @@ class CAS_Client
             $result = false;
         } else {
             throw new CAS_AuthenticationException(
-                $this, 'Ticket not validated', $validate_url,
-                false/*$no_response*/, true/*$bad_response*/,
+                $this,
+                'Ticket not validated',
+                $validate_url,
+                false/*$no_response*/,
+                true/*$bad_response*/,
                 $text_response
             );
             $result = false;
@@ -2893,13 +2951,13 @@ class CAS_Client
         // 		</cas:authenticationSuccess>
         // 	</cas:serviceResponse>
         //
-        if ( $success_elements->item(0)->getElementsByTagName("attributes")->length != 0) {
+        if ($success_elements->item(0)->getElementsByTagName("attributes")->length != 0) {
             $attr_nodes = $success_elements->item(0)->getElementsByTagName("attributes");
-            phpCas :: trace("Found nested jasig style attributes");
+            phpCas::trace("Found nested jasig style attributes");
             if ($attr_nodes->item(0)->hasChildNodes()) {
                 // Nested Attributes
                 foreach ($attr_nodes->item(0)->childNodes as $attr_child) {
-                    phpCas :: trace("Attribute [".$attr_child->localName."] = ".$attr_child->nodeValue);
+                    phpCas::trace("Attribute [".$attr_child->localName."] = ".$attr_child->nodeValue);
                     $this->_addAttributeToArray($extra_attributes, $attr_child->localName, $attr_child->nodeValue);
                 }
             }
@@ -2920,19 +2978,19 @@ class CAS_Client
             // 		</cas:authenticationSuccess>
             // 	</cas:serviceResponse>
             //
-            phpCas :: trace("Testing for rubycas style attributes");
+            phpCas::trace("Testing for rubycas style attributes");
             $childnodes = $success_elements->item(0)->childNodes;
             foreach ($childnodes as $attr_node) {
                 switch ($attr_node->localName) {
-                case 'user':
-                case 'proxies':
-                case 'proxyGrantingTicket':
-                    continue;
-                default:
-                    if (strlen(trim($attr_node->nodeValue))) {
-                        phpCas :: trace("Attribute [".$attr_node->localName."] = ".$attr_node->nodeValue);
-                        $this->_addAttributeToArray($extra_attributes, $attr_node->localName, $attr_node->nodeValue);
-                    }
+                    case 'user':
+                    case 'proxies':
+                    case 'proxyGrantingTicket':
+                        continue;
+                    default:
+                        if (strlen(trim($attr_node->nodeValue))) {
+                            phpCas::trace("Attribute [".$attr_node->localName."] = ".$attr_node->nodeValue);
+                            $this->_addAttributeToArray($extra_attributes, $attr_node->localName, $attr_node->nodeValue);
+                        }
                 }
             }
         }
@@ -2961,11 +3019,11 @@ class CAS_Client
             $attr_nodes = $success_elements->item(0)->getElementsByTagName("attribute");
             $firstAttr = $attr_nodes->item(0);
             if (!$firstAttr->hasChildNodes() && $firstAttr->hasAttribute('name') && $firstAttr->hasAttribute('value')) {
-                phpCas :: trace("Found Name-Value style attributes");
+                phpCas::trace("Found Name-Value style attributes");
                 // Nested Attributes
                 foreach ($attr_nodes as $attr_node) {
                     if ($attr_node->hasAttribute('name') && $attr_node->hasAttribute('value')) {
-                        phpCas :: trace("Attribute [".$attr_node->getAttribute('name')."] = ".$attr_node->getAttribute('value'));
+                        phpCas::trace("Attribute [".$attr_node->getAttribute('name')."] = ".$attr_node->getAttribute('value'));
                         $this->_addAttributeToArray($extra_attributes, $attr_node->getAttribute('name'), $attr_node->getAttribute('value'));
                     }
                 }
@@ -3049,7 +3107,7 @@ class CAS_Client
     {
         phpCAS::traceBegin();
         // the URL is built when needed only
-        if ( empty($this->_url) ) {
+        if (empty($this->_url)) {
             $final_uri = '';
             // remove the ticket if present in the URL
             $final_uri = ($this->_isHttps()) ? 'https' : 'http';
@@ -3060,7 +3118,7 @@ class CAS_Client
             $final_uri		.= $request_uri[0];
 
             if (isset($request_uri[1]) && $request_uri[1]) {
-                $query_string= $this->_removeParameterFromQueryString('ticket', $request_uri[1]);
+                $query_string = $this->_removeParameterFromQueryString('ticket', $request_uri[1]);
 
                 // If the query string still has anything left, append it to the final URI
                 if ($query_string !== '') {
@@ -3088,7 +3146,7 @@ class CAS_Client
             // explode the host list separated by comma and use the first host
             $hosts = explode(',', $_SERVER['HTTP_X_FORWARDED_HOST']);
             $server_url = $hosts[0];
-        } else if (!empty($_SERVER['HTTP_X_FORWARDED_SERVER'])) {
+        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_SERVER'])) {
             $server_url = $_SERVER['HTTP_X_FORWARDED_SERVER'];
         } else {
             if (empty($_SERVER['SERVER_NAME'])) {
@@ -3104,8 +3162,8 @@ class CAS_Client
                 $server_port = $_SERVER['HTTP_X_FORWARDED_PORT'];
             }
 
-            if ( ($this->_isHttps() && $server_port!=443)
-                || (!$this->_isHttps() && $server_port!=80)
+            if (($this->_isHttps() && $server_port != 443)
+                || (!$this->_isHttps() && $server_port != 80)
             ) {
                 $server_url .= ':';
                 $server_url .= $server_port;
@@ -3121,7 +3179,7 @@ class CAS_Client
      */
     private function _isHttps()
     {
-        if ( isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
+        if (isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
             return true;
         } else {
             return false;
@@ -3177,16 +3235,16 @@ class CAS_Client
                 session_destroy();
                 // set up a new session, of name based on the ticket
                 $session_id = preg_replace('/[^a-zA-Z0-9\-]/', '', $ticket);
-                phpCAS :: trace("Session ID: ".$session_id);
+                phpCAS::trace("Session ID: ".$session_id);
                 session_id($session_id);
                 session_start();
-                phpCAS :: trace("Restoring old session vars");
+                phpCAS::trace("Restoring old session vars");
                 $_SESSION = $old_session;
             } else {
-                phpCAS :: error('Session should only be renamed after successfull authentication');
+                phpCAS::error('Session should only be renamed after successfull authentication');
             }
         } else {
-            phpCAS :: trace("Skipping session rename since phpCAS is not handling the session.");
+            phpCAS::trace("Skipping session rename since phpCAS is not handling the session.");
         }
         phpCAS::traceEnd();
     }
@@ -3215,10 +3273,10 @@ class CAS_Client
         $failure,
         $cas_url,
         $no_response,
-        $bad_response='',
-        $cas_response='',
-        $err_code='',
-        $err_msg=''
+        $bad_response = '',
+        $cas_response = '',
+        $err_code = '',
+        $err_msg = ''
     ) {
         phpCAS::traceBegin();
         $lang = $this->getLangObj();
@@ -3226,23 +3284,23 @@ class CAS_Client
         printf($lang->getYouWereNotAuthenticated(), htmlentities($this->getURL()), $_SERVER['SERVER_ADMIN']);
         phpCAS::trace('CAS URL: '.$cas_url);
         phpCAS::trace('Authentication failure: '.$failure);
-        if ( $no_response ) {
+        if ($no_response) {
             phpCAS::trace('Reason: no response from the CAS server');
         } else {
-            if ( $bad_response ) {
+            if ($bad_response) {
                 phpCAS::trace('Reason: bad response from the CAS server');
             } else {
                 switch ($this->getServerVersion()) {
-                case CAS_VERSION_1_0:
-                    phpCAS::trace('Reason: CAS error');
-                    break;
-                case CAS_VERSION_2_0:
-                    if ( empty($err_code) ) {
-                        phpCAS::trace('Reason: no CAS error');
-                    } else {
-                        phpCAS::trace('Reason: ['.$err_code.'] CAS error: '.$err_msg);
-                    }
-                    break;
+                    case CAS_VERSION_1_0:
+                        phpCAS::trace('Reason: CAS error');
+                        break;
+                    case CAS_VERSION_2_0:
+                        if (empty($err_code)) {
+                            phpCAS::trace('Reason: no CAS error');
+                        } else {
+                            phpCAS::trace('Reason: ['.$err_code.'] CAS error: '.$err_msg);
+                        }
+                        break;
                 }
             }
             phpCAS::trace('CAS response: '.$cas_response);
@@ -3266,8 +3324,8 @@ class CAS_Client
     /**
      * Constants used for determining rebroadcast node type.
      */
-    const HOSTNAME = 0;
-    const IP = 1;
+    public const HOSTNAME = 0;
+    public const IP = 1;
 
     /**
      * Determine the node type from the URL.
@@ -3324,8 +3382,8 @@ class CAS_Client
     /**
      * Constants used for determining rebroadcast type (logout or pgtIou/pgtId).
      */
-    const LOGOUT = 0;
-    const PGTIOU = 1;
+    public const LOGOUT = 0;
+    public const PGTIOU = 1;
 
     /**
      * This method rebroadcasts logout/pgtIou requests. Can be LOGOUT,PGTIOU
@@ -3348,7 +3406,7 @@ class CAS_Client
         // Try to determine the IP address of the server
         if (!empty($_SERVER['SERVER_ADDR'])) {
             $ip = $_SERVER['SERVER_ADDR'];
-        } else if (!empty($_SERVER['LOCAL_ADDR'])) {
+        } elseif (!empty($_SERVER['LOCAL_ADDR'])) {
             // IIS 7
             $ip = $_SERVER['LOCAL_ADDR'];
         }
@@ -3376,7 +3434,7 @@ class CAS_Client
                 if ($type == self::LOGOUT) {
                     // Logout request
                     $request->setPostBody('rebroadcast=false&logoutRequest='.$_POST['logoutRequest']);
-                } else if ($type == self::PGTIOU) {
+                } elseif ($type == self::PGTIOU) {
                     // pgtIou/pgtId rebroadcast
                     $request->setPostBody('rebroadcast=false');
                 }
@@ -3385,7 +3443,7 @@ class CAS_Client
 
                 $multiRequest->addRequest($request);
             } else {
-                phpCAS::trace('Rebroadcast not sent to self: '.$this->_rebroadcast_nodes[$i].' == '.(!empty($ip)?$ip:'').'/'.(!empty($dns)?$dns:''));
+                phpCAS::trace('Rebroadcast not sent to self: '.$this->_rebroadcast_nodes[$i].' == '.(!empty($ip) ? $ip : '').'/'.(!empty($dns) ? $dns : ''));
             }
         }
         // We need at least 1 request
@@ -3397,5 +3455,3 @@ class CAS_Client
 
     /** @} */
 }
-
-?>

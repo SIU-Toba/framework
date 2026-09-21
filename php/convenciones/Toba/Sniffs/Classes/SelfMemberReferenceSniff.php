@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Squiz_Sniffs_Classes_ClassFileNameSniff.
  *
@@ -40,8 +41,6 @@ if (class_exists('PHP_CodeSniffer_Standards_AbstractScopeSniff', true) === false
  */
 class Toba_Sniffs_Classes_SelfMemberReferenceSniff extends PHP_CodeSniffer_Standards_AbstractScopeSniff
 {
-
-
     /**
      * Constructs a Squiz_Sniffs_Classes_SelfMemberReferenceSniff.
      */
@@ -72,7 +71,7 @@ class Toba_Sniffs_Classes_SelfMemberReferenceSniff extends PHP_CodeSniffer_Stand
                 $phpcsFile->addError($error, $className);
                 return;
             }
-        } else if ($tokens[$className]['code'] === T_STRING) {
+        } elseif ($tokens[$className]['code'] === T_STRING) {
             // Make sure this is another class reference.
             $declarationName = $phpcsFile->getDeclarationName($currScope);
             if ($declarationName === $tokens[$className]['content']) {
@@ -99,5 +98,3 @@ class Toba_Sniffs_Classes_SelfMemberReferenceSniff extends PHP_CodeSniffer_Stand
 
 
 }//end class
-
-?>

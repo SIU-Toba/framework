@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Parses class member comments.
  *
@@ -33,7 +34,6 @@ if (class_exists('PHP_CodeSniffer_CommentParser_ClassCommentParser', true) === f
  */
 class PHP_CodeSniffer_CommentParser_MemberCommentParser extends PHP_CodeSniffer_CommentParser_ClassCommentParser
 {
-
     /**
      * Represents a \@var tag in a member comment.
      *
@@ -82,5 +82,3 @@ class PHP_CodeSniffer_CommentParser_MemberCommentParser extends PHP_CodeSniffer_
 
 
 }//end class
-
-?>

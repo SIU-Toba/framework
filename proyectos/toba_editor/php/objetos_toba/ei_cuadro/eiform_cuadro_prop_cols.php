@@ -2,13 +2,13 @@
 
 class eiform_cuadro_prop_cols extends toba_ei_formulario
 {
-	function extender_objeto_js()
-	{
-		$id_js = toba::escaper()->escapeJs($this->objeto_js);
-		//--- Se insertan los css de cada estilo para hacer la visualización
-		$estilos = rs_convertir_asociativo(toba_info_editores::get_lista_estilos_columnas(), array('columna_estilo'), 'css');
-		echo 'var editor_col_css='.toba_js::arreglo($estilos, true);
-		echo "
+    public function extender_objeto_js()
+    {
+        $id_js = toba::escaper()->escapeJs($this->objeto_js);
+        //--- Se insertan los css de cada estilo para hacer la visualización
+        $estilos = rs_convertir_asociativo(toba_info_editores::get_lista_estilos_columnas(), array('columna_estilo'), 'css');
+        echo 'var editor_col_css='.toba_js::arreglo($estilos, true);
+        echo "
 			{$id_js}.evt__usar_vinculo__procesar = function(inicial) 
 			{
 				var se_muestra = (this.ef('usar_vinculo').valor() == '1');
@@ -45,6 +45,5 @@ class eiform_cuadro_prop_cols extends toba_ei_formulario
 			
 
 		";
-	}
+    }
 }
-?>

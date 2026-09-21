@@ -1,13 +1,13 @@
 <?php
 
-class pantalla_visor extends toba_ei_pantalla 
+class pantalla_visor extends toba_ei_pantalla
 {
-	public $analizador;
-	
-	function generar_layout()
-	{
-		parent::generar_layout();
-?>
+    public $analizador;
+
+    public function generar_layout()
+    {
+        parent::generar_layout();
+        ?>
 		<style type="text/css">
 		.cuerpo, .ci-cuerpo {
 			margin-top: 0px;
@@ -20,197 +20,197 @@ class pantalla_visor extends toba_ei_pantalla
 		}
 		</style>
 <?php
-		if ($this->controlador->debe_mostrar_visor()) {
-			$this->generar_html_fs();
-		}
-	}	
-	
-	function generar_html_fs()
-	{
-		if (! $this->controlador->existe_archivo_log()) {
-			echo ei_mensaje('No hay logs registrados para el proyecto '.	$this->controlador->get_proyecto());
-			return;
-		}			
-		$seleccion = $this->controlador->s__seleccion;
-		$niveles = toba::logger()->get_niveles();
-		$niveles = array_reverse($niveles);		
+                if ($this->controlador->debe_mostrar_visor()) {
+                    $this->generar_html_fs();
+                }
+    }
 
-		$res = $this->controlador->get_analizador()->get_pedido($seleccion);
-		//$encabezado = $this->controlador->get_analizador()->analizar_encabezado($res);			///CON ESTO PUEDO SACAR OPERACION, PROYECTO, IP, USUARIO ETC
+    public function generar_html_fs()
+    {
+        if (! $this->controlador->existe_archivo_log()) {
+            echo ei_mensaje('No hay logs registrados para el proyecto '.	$this->controlador->get_proyecto());
+            return;
+        }
+        $seleccion = $this->controlador->s__seleccion;
+        $niveles = toba::logger()->get_niveles();
+        $niveles = array_reverse($niveles);
 
-		//--- Opciones
-		$escapador = toba::escaper();
-		$selec = ($seleccion == 'ultima') ? 'Última solicitud' : "Solicitud {$seleccion}";
-		echo '<div>';
-		echo "<span class='logger-proyecto' title='". $escapador->escapeHtmlAttr($this->controlador->get_analizador()->get_archivo_nombre())."' style='text-align:right;'>";
-		
-		echo $escapador->escapeHtml(ucfirst($this->controlador->get_proyecto()));
+        $res = $this->controlador->get_analizador()->get_pedido($seleccion);
+        //$encabezado = $this->controlador->get_analizador()->analizar_encabezado($res);			///CON ESTO PUEDO SACAR OPERACION, PROYECTO, IP, USUARIO ETC
+
+        //--- Opciones
+        $escapador = toba::escaper();
+        $selec = ($seleccion == 'ultima') ? 'Última solicitud' : "Solicitud {$seleccion}";
+        echo '<div>';
+        echo "<span class='logger-proyecto' title='". $escapador->escapeHtmlAttr($this->controlador->get_analizador()->get_archivo_nombre())."' style='text-align:right;'>";
+
+        echo $escapador->escapeHtml(ucfirst($this->controlador->get_proyecto()));
 
 
-		echo "<span class='logger-selec'>". $escapador->escapeHtml($selec)."</span>";
-		
-		//--- Botones anterior/siguiente
-		if ($seleccion != 1) {
-			$this->generar_boton('anterior');			
-		}
-		if ($seleccion != 'ultima') {
-			$this->generar_boton('siguiente');
-			$this->generar_boton('ultima');
-		}
-		echo '</span>';
-		echo "<br><div id='logger_info_operacion'>";
-		echo $this->generar_html_info_operacion($res);
-		echo '</div>';
+        echo "<span class='logger-selec'>". $escapador->escapeHtml($selec)."</span>";
 
-		$valor_check = 0;
-		if ($this->controlador->get_estado_encabezados() === true) {
-			$valor_check = 1;
-		}
-		
-		$check = toba_form::checkbox('con_encabezados', $valor_check, 1, 'ef-checkbox', " onclick=\"". $escapador->escapeHtmlAttr($this->objeto_js).".evt__con_encabezados__click(this)\" ");
-		echo "<label>$check Ver Encabezados</label><br>";
-		echo "</div><hr style='clear:both' />";
+        //--- Botones anterior/siguiente
+        if ($seleccion != 1) {
+            $this->generar_boton('anterior');
+        }
+        if ($seleccion != 'ultima') {
+            $this->generar_boton('siguiente');
+            $this->generar_boton('ultima');
+        }
+        echo '</span>';
+        echo "<br><div id='logger_info_operacion'>";
+        echo $this->generar_html_info_operacion($res);
+        echo '</div>';
 
-		echo "<div style='clear:both;width:100%;overflow:auto;'>\n";
-		list($detalle, $cant_por_nivel) = $this->generar_html_detalles($res);
+        $valor_check = 0;
+        if ($this->controlador->get_estado_encabezados() === true) {
+            $valor_check = 1;
+        }
 
-		$display_encabezados = 'none';
-		if ($this->controlador->get_estado_encabezados() === true) {
-			$display_encabezados = '';
-		}
+        $check = toba_form::checkbox('con_encabezados', $valor_check, 1, 'ef-checkbox', " onclick=\"". $escapador->escapeHtmlAttr($this->objeto_js).".evt__con_encabezados__click(this)\" ");
+        echo "<label>$check Ver Encabezados</label><br>";
+        echo "</div><hr style='clear:both' />";
 
-		//--- Encabezado 
-		echo "<ul id='logger_encabezados' style='display:$display_encabezados;list-style-type: none;padding: 0;margin: 0'>";
-		echo $this->generar_html_encabezado($res);
-		echo '</ul>';
+        echo "<div style='clear:both;width:100%;overflow:auto;'>\n";
+        list($detalle, $cant_por_nivel) = $this->generar_html_detalles($res);
 
-		//---- Niveles
-		echo "<div style='clear:both;float:right;margin-left:10px;text-align:center;'>";
-		echo '<strong>Niveles</strong>';
-		echo "<ul class='logger-opciones'>";
-		foreach ($niveles as $nivel) {
-			$img = toba_recurso::imagen_proyecto('logger/'.strtolower($nivel).'.gif', true, null, null, "Filtrar el nivel: ". $escapador->escapeHtml($nivel));
-			$cant = ($cant_por_nivel[$nivel] != 0) ? "[{$cant_por_nivel[$nivel]}]" : '';
-			echo "<li id='". $escapador->escapeHtmlAttr("nivel_$nivel")."'><a href='#' onclick='mostrar_nivel(\"". $escapador->escapeHtmlAttr($nivel)."\")'>$img</a> ";
-			echo "<span id='". $escapador->escapeHtmlAttr("nivel_cant_$nivel")."'>". $escapador->escapeHtml($cant)."</span></li>\n";	
-		}
-		echo '</ul>';
-		echo '</div>';
+        $display_encabezados = 'none';
+        if ($this->controlador->get_estado_encabezados() === true) {
+            $display_encabezados = '';
+        }
 
-		$proyecto_actual = $this->controlador->get_proyecto();
-		$mostrar = $this->controlador->get_seleccion_modo_detalle();
-		$lista_valida = array($proyecto_actual => ucfirst($proyecto_actual), 'toba' => 'Nucleo', 'no_seteado' => 'Todos');
- 		//echo toba_recurso::imagen_proyecto('logger/ver_texto.gif', true, 16, 16, "Ver el texto original del log");
-		echo "<div style='clear:both;float:right;margin-left:10px;text-align:center;'><br>";		
-		echo '<strong>Mostrar mensajes</strong>';
-		echo "<ul id='logger_proyectos' class='logger-opciones'>";
-		echo '<li>'.toba_form::select('opciones_proyectos', $mostrar, $lista_valida,  null, 'onchange="'. $escapador->escapeHtmlAttr($this->objeto_js).'.mostrar_proyecto()"').'</li>';
-		echo '</ul>';		
-		echo '</div>';
-		
-		//--- Detalles
-		echo "<ol id='logger_detalle' style='list-style-type:none;padding:0;margin:0;margin-top:10px;'>";		
-		echo $detalle;
-		echo "</ol>\n";		
-		echo '</div>';
-	}	
-	
-	function generar_html_info_operacion($res)
-	{
-		$escapador = toba::escaper();
-		$encabezado = $this->controlador->get_analizador()->analizar_encabezado($res);
-		$string = '';
-		if (isset($encabezado['operacion'])) {			
-			$string .= "<span id='div_lapso' style='font-weight:bold;font-size:18px;'>". $escapador->escapeHtml($encabezado['operacion'])."</span><br>";
-		}
-		
-		if (isset($encabezado['fecha'])) {
-			$fecha_ref = new toba_fecha();
-			$fecha_log = new toba_fecha();
-			$fecha_log->set_timestamp(strtotime($encabezado['fecha']));
-			
-			$fecha = $fecha_log->get_timestamp_pantalla(); 
-			if ($fecha_ref->es_igual_que($fecha_log)) {
-				$fecha = 'Hoy  ' . date('H:i:s', strtotime($encabezado['fecha']));
-			}		
-			$string .= "<span id='div_lapso' style='font-weight:bold;font-size:12px;'>". $escapador->escapeHtml($fecha)."</span><br>";
-		}
+        //--- Encabezado
+        echo "<ul id='logger_encabezados' style='display:$display_encabezados;list-style-type: none;padding: 0;margin: 0'>";
+        echo $this->generar_html_encabezado($res);
+        echo '</ul>';
 
-		return $string;
-	}
+        //---- Niveles
+        echo "<div style='clear:both;float:right;margin-left:10px;text-align:center;'>";
+        echo '<strong>Niveles</strong>';
+        echo "<ul class='logger-opciones'>";
+        foreach ($niveles as $nivel) {
+            $img = toba_recurso::imagen_proyecto('logger/'.strtolower($nivel).'.gif', true, null, null, "Filtrar el nivel: ". $escapador->escapeHtml($nivel));
+            $cant = ($cant_por_nivel[$nivel] != 0) ? "[{$cant_por_nivel[$nivel]}]" : '';
+            echo "<li id='". $escapador->escapeHtmlAttr("nivel_$nivel")."'><a href='#' onclick='mostrar_nivel(\"". $escapador->escapeHtmlAttr($nivel)."\")'>$img</a> ";
+            echo "<span id='". $escapador->escapeHtmlAttr("nivel_cant_$nivel")."'>". $escapador->escapeHtml($cant)."</span></li>\n";
+        }
+        echo '</ul>';
+        echo '</div>';
 
-	function generar_html_encabezado($res)
-	{
-		$encabezado = $this->controlador->get_analizador()->analizar_encabezado($res);
-		$enc = '';
-		$escapador = toba::escaper();
-		//--- Encabezado		
-		foreach ($encabezado as $clave => $valor) {
-			$enc .= '<li><strong>'.$escapador->escapeHtml(ucfirst($clave))."</strong>: ". $escapador->escapeHtml($valor)."</li>\n";
-		}
-		$enc .= '<li><hr></li>';
-		return $enc;
-	}
-	
-	function generar_html_detalles($res)
-	{
-		$niveles = toba::logger()->get_niveles();
-		$cuerpo = $this->controlador->get_analizador()->analizar_cuerpo($res);
-		$cant_por_nivel = array();
-		foreach ($niveles as $nivel) {
-			$cant_por_nivel[$nivel] = 0;
-		}
-		$detalle = '';
-		$escapador = toba::escaper();
-		foreach ($cuerpo as $linea) {
-			//¿Es una sección?
-			if (substr($linea['mensaje'], 0, 10) == '[SECCION] ') {
-				$linea['mensaje'] = substr($linea['mensaje'], 10);
-				$img = '';
-				$clase = 'logger-seccion';			
-			} else {	//Es normal
-				$img = toba_recurso::imagen_proyecto('logger/'.strtolower($linea['nivel']).'.gif', true, null, null);
-				$clase = 'logger-normal';	
-			}
-			$detalle .= "<li class='". $escapador->escapeHtmlAttr($clase)."' nivel='". $escapador->escapeHtmlAttr($linea['nivel'])."' proyecto='". $escapador->escapeHtmlAttr($linea['proyecto'])."'>";
-			$detalle .= "$img ";
-			$detalle .= $this->txt2html($linea['mensaje']);
-			$detalle .= '</li>';	
-			$cant_por_nivel[$linea['nivel']]++;
-		}
-		return array($detalle, $cant_por_nivel);
-	}
+        $proyecto_actual = $this->controlador->get_proyecto();
+        $mostrar = $this->controlador->get_seleccion_modo_detalle();
+        $lista_valida = array($proyecto_actual => ucfirst($proyecto_actual), 'toba' => 'Nucleo', 'no_seteado' => 'Todos');
+        //echo toba_recurso::imagen_proyecto('logger/ver_texto.gif', true, 16, 16, "Ver el texto original del log");
+        echo "<div style='clear:both;float:right;margin-left:10px;text-align:center;'><br>";
+        echo '<strong>Mostrar mensajes</strong>';
+        echo "<ul id='logger_proyectos' class='logger-opciones'>";
+        echo '<li>'.toba_form::select('opciones_proyectos', $mostrar, $lista_valida, null, 'onchange="'. $escapador->escapeHtmlAttr($this->objeto_js).'.mostrar_proyecto()"').'</li>';
+        echo '</ul>';
+        echo '</div>';
 
-	
-	function txt2html($txt)	
-	{
-		$txt = trim($txt);
-		$texto_traza = '[TRAZA]';
-		$pos_traza = strpos($txt, $texto_traza);
-		$salto = strpos($txt, "\n", 0);
-		$escapador = toba::escaper();
-		
-		//¿Contiene una traza?		
-		if ($pos_traza !== false) {
-			$txt_anterior = $escapador->escapeHtml(substr($txt, 0, $pos_traza));
-			$txt_traza = trim(substr($txt, $pos_traza + strlen($texto_traza)));
-			$txt = "$txt_anterior <span class='logger-traza' onclick='toggle_nodo(this.nextSibling)'>". $escapador->escapeHtml($texto_traza)."</span><span class='logger-traza-detalle' style='display:none;'>". $escapador->escapeHtml($txt_traza)."</span>";
-		} elseif ($salto !== false) {
-			//Los saltos (\n) dentro del mensaje se considera que viene un dump de algo			
-			$txt = $escapador->escapeHtml(substr($txt, 0, $salto)).'<pre>'. substr($txt, $salto).'</pre>';
-		}
-		return $txt;
-	}		
-	
-	function extender_objeto_js() 
-	{
-		if (!$this->controlador->debe_mostrar_visor() || ! $this->controlador->existe_archivo_log()) {
-			return;	
-		}
-		$escapador = toba::escaper();
-		$niveles = toba::logger()->get_niveles();		
-		$parametros = array();
-?>
+        //--- Detalles
+        echo "<ol id='logger_detalle' style='list-style-type:none;padding:0;margin:0;margin-top:10px;'>";
+        echo $detalle;
+        echo "</ol>\n";
+        echo '</div>';
+    }
+
+    public function generar_html_info_operacion($res)
+    {
+        $escapador = toba::escaper();
+        $encabezado = $this->controlador->get_analizador()->analizar_encabezado($res);
+        $string = '';
+        if (isset($encabezado['operacion'])) {
+            $string .= "<span id='div_lapso' style='font-weight:bold;font-size:18px;'>". $escapador->escapeHtml($encabezado['operacion'])."</span><br>";
+        }
+
+        if (isset($encabezado['fecha'])) {
+            $fecha_ref = new toba_fecha();
+            $fecha_log = new toba_fecha();
+            $fecha_log->set_timestamp(strtotime($encabezado['fecha']));
+
+            $fecha = $fecha_log->get_timestamp_pantalla();
+            if ($fecha_ref->es_igual_que($fecha_log)) {
+                $fecha = 'Hoy  ' . date('H:i:s', strtotime($encabezado['fecha']));
+            }
+            $string .= "<span id='div_lapso' style='font-weight:bold;font-size:12px;'>". $escapador->escapeHtml($fecha)."</span><br>";
+        }
+
+        return $string;
+    }
+
+    public function generar_html_encabezado($res)
+    {
+        $encabezado = $this->controlador->get_analizador()->analizar_encabezado($res);
+        $enc = '';
+        $escapador = toba::escaper();
+        //--- Encabezado
+        foreach ($encabezado as $clave => $valor) {
+            $enc .= '<li><strong>'.$escapador->escapeHtml(ucfirst($clave))."</strong>: ". $escapador->escapeHtml($valor)."</li>\n";
+        }
+        $enc .= '<li><hr></li>';
+        return $enc;
+    }
+
+    public function generar_html_detalles($res)
+    {
+        $niveles = toba::logger()->get_niveles();
+        $cuerpo = $this->controlador->get_analizador()->analizar_cuerpo($res);
+        $cant_por_nivel = array();
+        foreach ($niveles as $nivel) {
+            $cant_por_nivel[$nivel] = 0;
+        }
+        $detalle = '';
+        $escapador = toba::escaper();
+        foreach ($cuerpo as $linea) {
+            //¿Es una sección?
+            if (substr($linea['mensaje'], 0, 10) == '[SECCION] ') {
+                $linea['mensaje'] = substr($linea['mensaje'], 10);
+                $img = '';
+                $clase = 'logger-seccion';
+            } else {	//Es normal
+                $img = toba_recurso::imagen_proyecto('logger/'.strtolower($linea['nivel']).'.gif', true, null, null);
+                $clase = 'logger-normal';
+            }
+            $detalle .= "<li class='". $escapador->escapeHtmlAttr($clase)."' nivel='". $escapador->escapeHtmlAttr($linea['nivel'])."' proyecto='". $escapador->escapeHtmlAttr($linea['proyecto'])."'>";
+            $detalle .= "$img ";
+            $detalle .= $this->txt2html($linea['mensaje']);
+            $detalle .= '</li>';
+            $cant_por_nivel[$linea['nivel']]++;
+        }
+        return array($detalle, $cant_por_nivel);
+    }
+
+
+    public function txt2html($txt)
+    {
+        $txt = trim($txt);
+        $texto_traza = '[TRAZA]';
+        $pos_traza = strpos($txt, $texto_traza);
+        $salto = strpos($txt, "\n", 0);
+        $escapador = toba::escaper();
+
+        //¿Contiene una traza?
+        if ($pos_traza !== false) {
+            $txt_anterior = $escapador->escapeHtml(substr($txt, 0, $pos_traza));
+            $txt_traza = trim(substr($txt, $pos_traza + strlen($texto_traza)));
+            $txt = "$txt_anterior <span class='logger-traza' onclick='toggle_nodo(this.nextSibling)'>". $escapador->escapeHtml($texto_traza)."</span><span class='logger-traza-detalle' style='display:none;'>". $escapador->escapeHtml($txt_traza)."</span>";
+        } elseif ($salto !== false) {
+            //Los saltos (\n) dentro del mensaje se considera que viene un dump de algo
+            $txt = $escapador->escapeHtml(substr($txt, 0, $salto)).'<pre>'. substr($txt, $salto).'</pre>';
+        }
+        return $txt;
+    }
+
+    public function extender_objeto_js()
+    {
+        if (!$this->controlador->debe_mostrar_visor() || ! $this->controlador->existe_archivo_log()) {
+            return;
+        }
+        $escapador = toba::escaper();
+        $niveles = toba::logger()->get_niveles();
+        $parametros = array();
+        ?>
 			var ultima_mod ='<?php echo $escapador->escapeJs($this->controlador->timestamp_archivo()); ?>';
 			var niveles = <?php echo toba_js::arreglo($niveles); ?>;
 			var niveles_actuales = {length: 0};
@@ -327,8 +327,8 @@ class pantalla_visor extends toba_ei_pantalla
 
 			<?php echo $escapador->escapeJs($this->objeto_js); ?>.mostrar_proyecto(true);
 <?php
-	}
-	
+    }
+
 }
 
 ?>

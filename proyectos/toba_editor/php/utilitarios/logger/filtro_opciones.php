@@ -1,10 +1,11 @@
 <?php
+
 class filtro_opciones extends toba_ei_formulario
 {
-	function extender_objeto_js()
-	{
-		$id_js = toba::escaper()->escapeJs($this->objeto_js);
-		echo " 
+    public function extender_objeto_js()
+    {
+        $id_js = toba::escaper()->escapeJs($this->objeto_js);
+        echo " 
 			{$id_js}.filtrar = function() {
 				this.set_evento(new evento_ei('filtrar', true, '' ));		
 			}
@@ -44,9 +45,8 @@ class filtro_opciones extends toba_ei_formulario
 			}
 		}
 		";
-	}
+    }
 
 
 
 }
-?>

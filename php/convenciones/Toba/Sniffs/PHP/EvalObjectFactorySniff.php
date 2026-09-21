@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Ensures that eval() is not used to create objects.
  *
@@ -26,8 +27,6 @@
  */
 class Toba_Sniffs_PHP_EvalObjectFactorySniff implements PHP_CodeSniffer_Sniff
 {
-
-
     /**
      * Returns an array of tokens this test wants to listen for.
      *
@@ -67,7 +66,7 @@ class Toba_Sniffs_PHP_EvalObjectFactorySniff implements PHP_CodeSniffer_Sniff
         for ($i = ($openBracket + 1); $i < $closeBracket; $i++) {
             if (in_array($tokens[$i]['code'], PHP_CodeSniffer_Tokens::$stringTokens) === true) {
                 $strings[$i] = $tokens[$i]['content'];
-            } else if ($tokens[$i]['code'] === T_VARIABLE) {
+            } elseif ($tokens[$i]['code'] === T_VARIABLE) {
                 $vars[$i] = $tokens[$i]['content'];
             }
         }
@@ -123,5 +122,3 @@ class Toba_Sniffs_PHP_EvalObjectFactorySniff implements PHP_CodeSniffer_Sniff
 
 
 }//end class
-
-?>

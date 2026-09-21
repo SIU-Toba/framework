@@ -551,5 +551,3 @@ HTTP header wurden bereits gesendet.<br>Fehler in der Datei <b>%s</b> in der Zei
 
 
 );
-
-?>

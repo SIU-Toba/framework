@@ -1,13 +1,14 @@
 <?php
+
 require_once("tutorial/pant_tutorial.php");
 
-class pant_introduccion extends pant_tutorial 
+class pant_introduccion extends pant_tutorial
 {
-	function generar_layout()
-	{
-		$operacion = toba_recurso::imagen_proyecto('tutorial/abms-operacion.png');
-		$arbol = toba_recurso::imagen_proyecto('tutorial/abms-arbol.png');
-		echo "
+    public function generar_layout()
+    {
+        $operacion = toba_recurso::imagen_proyecto('tutorial/abms-operacion.png');
+        $arbol = toba_recurso::imagen_proyecto('tutorial/abms-arbol.png');
+        echo "
 			<p>
 				Ya se han presentado los componentes principales en forma individual, resta
 				mostrar cómo integrarlos para formar una operación completa. El tipo de operación
@@ -30,31 +31,31 @@ class pant_introduccion extends pant_tutorial
 					<span class='caption'>Captura de la operación en ejecución</span></td>
 				</tr>
 			</table>
-		";		
-		$vinculo = toba::vinculador()->get_url(null, 2654, array(), array('celda_memoria'=>'ejemplo'));
-		echo "<p style='font-size:150%;text-align:center;'>
-				<a target='_blank' href='$vinculo'>Ejecutar Operación</a></p>";		
-	}
+		";
+        $vinculo = toba::vinculador()->get_url(null, 2654, array(), array('celda_memoria' => 'ejemplo'));
+        echo "<p style='font-size:150%;text-align:center;'>
+				<a target='_blank' href='$vinculo'>Ejecutar Operación</a></p>";
+    }
 }
 
 //--------------------------------------------------------------
 
-class pant_definicion extends pant_tutorial 
+class pant_definicion extends pant_tutorial
 {
-	function generar_layout()
-	{
-		echo mostrar_video('abms');
-	}
+    public function generar_layout()
+    {
+        echo mostrar_video('abms');
+    }
 }
 
 //--------------------------------------------------------------
 
 
-class pant_ci extends pant_tutorial 
+class pant_ci extends pant_tutorial
 {
-	function generar_layout()
-	{
-		$cod_carga_cuadro = 
+    public function generar_layout()
+    {
+        $cod_carga_cuadro =
 '<?php
 function conf__cuadro()
 {
@@ -63,7 +64,7 @@ function conf__cuadro()
 }
 ?>
 ';
-		$cod_seleccion = 
+        $cod_seleccion =
 '<?php
 function evt__cuadro__seleccion($seleccion)
 {
@@ -71,7 +72,7 @@ function evt__cuadro__seleccion($seleccion)
 }
 ?>
 ';
-		$cod_carga_form =
+        $cod_carga_form =
 '<?php
 function conf__formulario()
 {
@@ -81,7 +82,7 @@ function conf__formulario()
 }
 ?>
 ';
-		$cod_abm =
+        $cod_abm =
 '<?php
 function evt__formulario__alta($datos)
 {
@@ -106,7 +107,7 @@ function evt__formulario__baja()
 ?>
 ';
 
-		echo "
+        echo "
 			<p>
 				Una vez definidos los componentes resta programar la lógica de la operación. En este caso
 				la lógica es bien simple, sólo es necesario atender los eventos y configurar el cuadro y formulario.
@@ -140,8 +141,8 @@ function evt__formulario__baja()
 					".mostrar_php($cod_abm)."
 			</ul>
 		";
-		$vinculo = toba::vinculador()->get_url(null, 2654, array(), array('celda_memoria'=>'ejemplo'));
-		echo "<p style='font-size:150%;text-align:center;'>
-				<a target='_blank' href='$vinculo'>Ejecutar Operación</a></p>";				
-	}
+        $vinculo = toba::vinculador()->get_url(null, 2654, array(), array('celda_memoria' => 'ejemplo'));
+        echo "<p style='font-size:150%;text-align:center;'>
+				<a target='_blank' href='$vinculo'>Ejecutar Operación</a></p>";
+    }
 }

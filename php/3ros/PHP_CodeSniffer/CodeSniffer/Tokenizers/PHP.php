@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Tokenizes PHP code.
  *
@@ -26,7 +27,6 @@
  */
 class PHP_CodeSniffer_Tokenizers_PHP
 {
-
     /**
      * A list of tokens that are allowed to open a scope.
      *
@@ -182,7 +182,7 @@ class PHP_CodeSniffer_Tokenizers_PHP
      *
      * @return array
      */
-    public function tokenizeString($string, $eolChar='\n')
+    public function tokenizeString($string, $eolChar = '\n')
     {
         $tokens      = @token_get_all($string);
         $finalTokens = array();
@@ -375,7 +375,7 @@ class PHP_CodeSniffer_Tokenizers_PHP
                             if ($tokens[$i] === '(') {
                                 break;
                             }
-                        } else if ($tokens[$i][0] === T_VARIABLE) {
+                        } elseif ($tokens[$i][0] === T_VARIABLE) {
                             $newToken['code'] = T_ARRAY_HINT;
                             $newToken['type'] = 'T_ARRAY_HINT';
                             break;
@@ -394,5 +394,3 @@ class PHP_CodeSniffer_Tokenizers_PHP
 
 
 }//end class
-
-?>

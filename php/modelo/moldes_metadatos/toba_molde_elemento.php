@@ -1,4 +1,5 @@
 <?php
+
 /*
 *	Unidad METADATO/EXTENSION
 
@@ -29,8 +30,8 @@ class toba_molde_elemento
         $componente = array('proyecto' => $id[0], 'componente' => $id[1]);
         $this->datos = toba_constructor::get_runtime($componente);
         $this->datos->inicializar();
-        $datos = array(	'nombre'=>$this->clase.' generado automaticamente',
-                        'proyecto'=>$this->proyecto);
+        $datos = array(	'nombre' => $this->clase.' generado automaticamente',
+                        'proyecto' => $this->proyecto);
         if ($this->asistente->tiene_fuente_definida()) {
             $datos['fuente_datos_proyecto'] = $this->proyecto;
             $datos['fuente_datos'] = $this->asistente->get_fuente();

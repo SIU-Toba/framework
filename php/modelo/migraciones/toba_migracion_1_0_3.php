@@ -2,10 +2,10 @@
 
 class toba_migracion_1_0_3 extends toba_migracion
 {
-	function instancia__creacion_skins()
-	{
-		$sql[] = "INSERT INTO apex_estilo (estilo,descripcion) VALUES ('cubos','cubos');";
-		$sql[] = "
+    public function instancia__creacion_skins()
+    {
+        $sql[] = "INSERT INTO apex_estilo (estilo,descripcion) VALUES ('cubos','cubos');";
+        $sql[] = "
 			CREATE TABLE apex_objeto_db_registros_ext
 			(
 				objeto_proyecto    			   	varchar(15)		NOT NULL,
@@ -28,14 +28,14 @@ class toba_migracion_1_0_3 extends toba_migracion
 				es_resultado					smallint		NULL
 			);
 		";
-		$this->elemento->get_db()->ejecutar($sql);
-	}	
-	
-	
-	function proyecto__estilo_filtro()
-	{
-		$cant = 0;
-		$sql = "
+        $this->elemento->get_db()->ejecutar($sql);
+    }
+
+
+    public function proyecto__estilo_filtro()
+    {
+        $cant = 0;
+        $sql = "
 			UPDATE apex_objeto_eventos SET 
 				estilo = 'ei-boton-filtrar',
 				imagen_recurso_origen = 'apex',
@@ -44,10 +44,10 @@ class toba_migracion_1_0_3 extends toba_migracion
 				proyecto = '{$this->elemento->get_id()}' AND
 				identificador = 'filtrar'
 		";
-		$cant += $this->elemento->get_db()->ejecutar($sql);
-		
-		//--- Actualiza el Cancelar
-		$sql = "
+        $cant += $this->elemento->get_db()->ejecutar($sql);
+
+        //--- Actualiza el Cancelar
+        $sql = "
 			UPDATE apex_objeto_eventos
 			SET 
 				estilo = 'ei-boton-limpiar',
@@ -63,23 +63,20 @@ class toba_migracion_1_0_3 extends toba_migracion
 				obj.objeto = apex_objeto_eventos.objeto AND
 				apex_objeto_eventos.identificador = 'cancelar'
 		";
-		$cant += $this->elemento->get_db()->ejecutar($sql);
-		return $cant;
-	}
-	
-	
-	function proyecto__skins()
-	{
-		$sql = "
+        $cant += $this->elemento->get_db()->ejecutar($sql);
+        return $cant;
+    }
+
+
+    public function proyecto__skins()
+    {
+        $sql = "
 			UPDATE apex_proyecto
 				SET estilo = 'cubos'
 				WHERE 
 					proyecto='{$this->elemento->get_id()}' AND
 					estilo = 'toba'
 		";
-		return $this->elemento->get_db()->ejecutar($sql);
-	}
-}	
-
-
-?>
+        return $this->elemento->get_db()->ejecutar($sql);
+    }
+}

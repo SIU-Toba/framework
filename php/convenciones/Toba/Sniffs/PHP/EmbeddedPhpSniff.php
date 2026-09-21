@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Squiz_Sniffs_PHP_EmbeddedPhpSniff.
  *
@@ -30,8 +31,6 @@
  */
 class Toba_Sniffs_PHP_EmbeddedPhpSniff implements PHP_CodeSniffer_Sniff
 {
-
-
     /**
      * Returns an array of tokens this test wants to listen for.
      *
@@ -125,7 +124,7 @@ class Toba_Sniffs_PHP_EmbeddedPhpSniff implements PHP_CodeSniffer_Sniff
 
             $error = 'Blank line found at start of embedded PHP content';
             $phpcsFile->addError($error, $i);
-        } else if ($tokens[$firstContent]['line'] === $tokens[$stackPtr]['line']) {
+        } elseif ($tokens[$firstContent]['line'] === $tokens[$stackPtr]['line']) {
             $error = '[Clases#archivo] Opening PHP tag must be on a line by itself';
             $phpcsFile->addError($error, $stackPtr);
         }
@@ -149,7 +148,7 @@ class Toba_Sniffs_PHP_EmbeddedPhpSniff implements PHP_CodeSniffer_Sniff
 
             $error = 'Blank line found at end of embedded PHP content';
             $phpcsFile->addError($error, $i);
-        } else if ($tokens[$lastContent]['line'] === $tokens[$closingTag]['line']) {
+        } elseif ($tokens[$lastContent]['line'] === $tokens[$closingTag]['line']) {
             $error = '[Clases#archivo] Closing PHP tag must be on a line by itself';
             $phpcsFile->addError($error, $closingTag);
         }
@@ -249,5 +248,3 @@ class Toba_Sniffs_PHP_EmbeddedPhpSniff implements PHP_CodeSniffer_Sniff
 
 
 }//end class
-
-?>

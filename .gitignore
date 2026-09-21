@@ -32,4 +32,5 @@ proyectos/toba_referencia/metadatos_compilados/
 /proyectos/toba_editor/www/js/
 build/
 .phpdoc
-.php_cs.cache
+.php_cs*
+.php-cs*

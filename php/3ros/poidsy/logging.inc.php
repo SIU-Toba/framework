@@ -1,4 +1,4 @@
-<?PHP
+<?php
 
 /* Poidsy 0.6 - http://chris.smith.name/projects/poidsy
  * Copyright (c) 2008-2010 Chris Smith
@@ -22,46 +22,47 @@
  * SOFTWARE.
  */
 
-class Logger {
+class Logger
+{
+    public const ENABLE_LOGGING = true;
+    public const LOGGING_FILENAME = '/poidsy-debug.log';
+    public const TRUNCATE_ARGS = true;
 
- const ENABLE_LOGGING = true;
- const LOGGING_FILENAME = '/poidsy-debug.log';
- const TRUNCATE_ARGS = true;
+    private static $fh;
 
- private static $fh;
+    public static function log($message)
+    {
+        if (self::ENABLE_LOGGING) {
+            $dir_base = toba::instancia()->get_path_instalacion_proyecto(toba::proyecto()->get_id()). '/logs/';
+            if (self::$fh == null) {
+                self::$fh = fopen($dir_base . self::LOGGING_FILENAME, 'a');
+            }
 
- public static function log($message) {
-  if (self::ENABLE_LOGGING) {
-	  $dir_base = toba::instancia()->get_path_instalacion_proyecto(toba::proyecto()->get_id()). '/logs/';
-   if (self::$fh == null) {
-    self::$fh = fopen($dir_base . self::LOGGING_FILENAME, 'a');
-   }
+            $args = func_get_args();
+            $arg = call_user_func_array('sprintf', $args);
+            fputs(self::$fh, sprintf("[%s] %s: %s\n", date('r'), self::getCaller(), $arg));
+        }
+    }
 
-   $args = func_get_args();
-   $arg = call_user_func_array('sprintf', $args);
-   fputs(self::$fh, sprintf("[%s] %s: %s\n", date('r'), self::getCaller(), $arg));
-  }
- }
+    protected static function getCaller()
+    {
+        $traces = debug_backtrace(); // First one will be getCaller, next Log::logger
+        $trace = $traces[2];
 
- protected static function getCaller() {
-  $traces = debug_backtrace(); // First one will be getCaller, next Log::logger
-  $trace = $traces[2];
+        array_walk($trace['args'], array('Logger', 'formatArg'));
 
-  array_walk($trace['args'], array('Logger', 'formatArg'));
+        $class = isset($trace['class']) ? $trace['class'] : '';
+        $type = isset($trace['type']) ? $trace['type'] : '';
 
-  $class = isset($trace['class']) ? $trace['class'] : '';
-  $type = isset($trace['type']) ? $trace['type'] : '';
+        return sprintf('%s:%s %s%s%s(%s)', basename($trace['file']), $traces[1]['line'], $class, $type, $trace['function'], implode(', ', $trace['args']));
+    }
 
-  return sprintf('%s:%s %s%s%s(%s)', basename($trace['file']), $traces[1]['line'], $class, $type, $trace['function'], implode(', ', $trace['args']));
- }
-
- protected static function formatArg(&$value, $key) {
-  if (strlen($value) > 30 && self::TRUNCATE_ARGS) {
-   $value = substr($value, 0, 27) . '...';
-  }
-  $value = str_replace("\n", '  ', $value);
- }
+    protected static function formatArg(&$value, $key)
+    {
+        if (strlen($value) > 30 && self::TRUNCATE_ARGS) {
+            $value = substr($value, 0, 27) . '...';
+        }
+        $value = str_replace("\n", '  ', $value);
+    }
 
 }
-
-?>

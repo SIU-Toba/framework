@@ -1,49 +1,48 @@
-<?php 
+<?php
+
 require_once('tutorial/pant_tutorial.php');
 
 class ci_items extends toba_ci
 {
-
 }
 
 //----------------------------------------------------------
 
 class pant_definicion extends pant_tutorial
 {
-
-	function generar_layout()
-	{
-		echo "
+    public function generar_layout()
+    {
+        echo "
 			<p>
 			Si se piensa la aplicación como un <em>Catálogo de operaciones</em>, cada una de estas operaciones
 			se la puede pensar como un <strong>ítem</strong> de este catálogo. Para una mejor organización de estos ítems se los incluye en <em>carpetas</em>, conformando
 			un árbol. Por ejemplo se puede definir el siguiente árbol de ítems en el editor:
 			</p>
 		";
-		echo toba_recurso::imagen_proyecto('tutorial/item-arbol.png', true);
-		echo ' 
+        echo toba_recurso::imagen_proyecto('tutorial/item-arbol.png', true);
+        echo ' 
 			<p>
 			Y luego se puede ver el mismo árbol sólo que horizontalmente, formando el <strong>menú de la aplicación</strong>:
 			</p>
 		';
-		echo toba_recurso::imagen_proyecto('tutorial/menu.png', true);
-		echo '
+        echo toba_recurso::imagen_proyecto('tutorial/menu.png', true);
+        echo '
 			<p>Ahora veremos cómo armar este árbol a partir de dos acciones:
 				<ul><li>Creación de Carpetas</li><li>Creación de Items</li></ul>
 			</p>
 		';
-	}	
-	
+    }
+
 }
 
 //----------------------------------------------------------
 
 class pant_creacion extends pant_tutorial
 {
-	function generar_layout()
-	{
-		echo mostrar_video('items-crear');
-	}
+    public function generar_layout()
+    {
+        echo mostrar_video('items-crear');
+    }
 }
 
 //----------------------------------------------------------
@@ -51,9 +50,9 @@ class pant_creacion extends pant_tutorial
 
 class pant_php_plano extends pant_tutorial
 {
-	function generar_layout()
-	{
-		echo "<p>
+    public function generar_layout()
+    {
+        echo "<p>
 				Una vez creado un ítem podemos asociarle comportamientos:
 				<ul>
 				 <li><em>Con Componentes</em>: Es la forma recomendada para la mayoría de las operaciones, se ve más adelante en el tutorial.</li>
@@ -69,33 +68,33 @@ class pant_php_plano extends pant_tutorial
 			<p>Se puede definir el archivo en las propiedades básica de la operación
 			</p>
 			";
-			echo "<div style='text-align: center'>";
-			echo toba_recurso::imagen_proyecto('tutorial/item-php-plano.png', true);
-			echo "</div>";
-			$vinculo = toba::vinculador()->get_url(null, 1000077);
-			echo "<p>
+        echo "<div style='text-align: center'>";
+        echo toba_recurso::imagen_proyecto('tutorial/item-php-plano.png', true);
+        echo "</div>";
+        $vinculo = toba::vinculador()->get_url(null, 1000077);
+        echo "<p>
 				El código puede contener referencias a todo el API de toba, exceptuando a los componentes.
 				<a href='$vinculo' target='_blank'>Ver ejemplo</a>
 			</p>";
 
-	}	
+    }
 }
 
 //--------------------------------------------------------
 
-class pant_masinfo extends pant_tutorial 
+class pant_masinfo extends pant_tutorial
 {
-	function generar_layout()
-	{
-		$wiki1 = toba_parser_ayuda::parsear_wiki('Referencia/Operacion', 
-													'Documentación de una operación',
-													'toba_editor');
-		echo "
+    public function generar_layout()
+    {
+        $wiki1 = toba_parser_ayuda::parsear_wiki(
+            'Referencia/Operacion',
+            'Documentación de una operación',
+            'toba_editor'
+        );
+        echo "
 			<ul>
 				<li>$wiki1
 			</ul>
 		";
-	}
+    }
 }
-
-?>

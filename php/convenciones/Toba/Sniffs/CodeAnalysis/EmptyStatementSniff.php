@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the CodeAnalysis addon for PHP_CodeSniffer.
  *
@@ -44,7 +45,6 @@
  */
 class Toba_Sniffs_CodeAnalysis_EmptyStatementSniff implements PHP_CodeSniffer_Sniff
 {
-
     /**
      * List of block tokens that this sniff covers.
      *
@@ -125,5 +125,3 @@ class Toba_Sniffs_CodeAnalysis_EmptyStatementSniff implements PHP_CodeSniffer_Sn
 
 
 }//end class
-
-?>

@@ -8,12 +8,12 @@ class toba_ei_formulario_ml_molde extends toba_ei_formulario_molde
     //-- API de construccion
     //---------------------------------------------------
 
-    public function agregar_filas($estado=true)
+    public function agregar_filas($estado = true)
     {
         $this->datos->tabla('prop_basicas')->set_fila_columna_valor(0, 'filas_agregar', $estado);
     }
 
-    public function agregar_filas_js($tipo=1)
+    public function agregar_filas_js($tipo = 1)
     {
         $tipos_validos = array(0,1);			//1=javascript
         if (!in_array($tipo, $tipos_validos)) {

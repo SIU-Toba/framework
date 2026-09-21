@@ -1,34 +1,42 @@
-<?php 
+<?php
+
 class toba_rf_componente_cuadro extends toba_rf_componente
 {
-	function inicializar()
-	{
-		$this->cargar_columnas();
-	}	
+    public function inicializar()
+    {
+        $this->cargar_columnas();
+    }
 
-	function cargar_columnas()
-	{
-		$cols = $this->cargar_datos_columnas();
-		if(count($cols) > 0) {
-			$grupo = new toba_rf_grupo_columnas('<b>COLUMNAS</b>',$this);
-			$c = array();
-			foreach($cols as $col) {
-				$c[] = new toba_rf_subcomponente_columna($col['etiqueta'], $grupo, $col['id'], $col['proyecto'], $this->item, 
-														$this->restriccion,
-														$col['no_visible'], $col['cuadro']);		
-			}
-			$grupo->set_hijos($c);
-			$this->agregar_hijo($grupo);
-		}
-	}
+    public function cargar_columnas()
+    {
+        $cols = $this->cargar_datos_columnas();
+        if (count($cols) > 0) {
+            $grupo = new toba_rf_grupo_columnas('<b>COLUMNAS</b>', $this);
+            $c = array();
+            foreach ($cols as $col) {
+                $c[] = new toba_rf_subcomponente_columna(
+                    $col['etiqueta'],
+                    $grupo,
+                    $col['id'],
+                    $col['proyecto'],
+                    $this->item,
+                    $this->restriccion,
+                    $col['no_visible'],
+                    $col['cuadro']
+                );
+            }
+            $grupo->set_hijos($c);
+            $this->agregar_hijo($grupo);
+        }
+    }
 
-	function cargar_datos_columnas()
-	{
-		$item = quote($this->item);
-		$restriccion = quote($this->restriccion);
-		$componente = quote($this->componente);
-		$proyecto = quote($this->proyecto);
-		$sql = "SELECT 	col.objeto_cuadro_proyecto as 		proyecto,
+    public function cargar_datos_columnas()
+    {
+        $item = quote($this->item);
+        $restriccion = quote($this->restriccion);
+        $componente = quote($this->componente);
+        $proyecto = quote($this->proyecto);
+        $sql = "SELECT 	col.objeto_cuadro_proyecto as 		proyecto,
 						col.objeto_cuadro as				cuadro,
 						col.objeto_cuadro_col as			id,
 						col.titulo as						etiqueta, 
@@ -43,22 +51,21 @@ class toba_rf_componente_cuadro extends toba_rf_componente
 				WHERE	col.objeto_cuadro = $componente
 				AND		col.objeto_cuadro_proyecto = $proyecto
 				ORDER BY col.orden";
-		return toba::db()->consultar($sql);
-	}
-	
-	function sincronizar()
-	{
-		if($this->no_visible_original != $this->no_visible_actual) {
-			if ($this->no_visible_actual == 1) {
-				$this->agregar_restriccion();
-			}else{
-				$this->eliminar_restriccion();
-			}
-		}
-		foreach ($this->get_hijos() as $hijo){
-			$hijo->sincronizar();
-		}
-	}
-	
+        return toba::db()->consultar($sql);
+    }
+
+    public function sincronizar()
+    {
+        if ($this->no_visible_original != $this->no_visible_actual) {
+            if ($this->no_visible_actual == 1) {
+                $this->agregar_restriccion();
+            } else {
+                $this->eliminar_restriccion();
+            }
+        }
+        foreach ($this->get_hijos() as $hijo) {
+            $hijo->sincronizar();
+        }
+    }
+
 }
-?>

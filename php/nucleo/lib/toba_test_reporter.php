@@ -1,19 +1,21 @@
 <?php
+
 /**
  * Clase que genera el html para visualizar el resultado del testeo
  */
-class toba_test_reporter extends HtmlReporter 
+class toba_test_reporter extends HtmlReporter
 {
-
-    function paintHeader($test_name) {
+    public function paintHeader($test_name)
+    {
         print "<style type=\"text/css\">\n";
         print $this->getCss() . "\n";
         print "</style>\n";
         print "<h1>$test_name</h1>\n";
         flush();
     }
-    
-    function paintFooter($test_name) {
+
+    public function paintFooter($test_name)
+    {
         $colour = ($this->getFailCount() + $this->getExceptionCount() > 0 ? "red" : "green");
         print "<div style=\"";
         print "padding: 8px; margin-top: 1em; background-color: $colour; color: white;";
@@ -26,5 +28,3 @@ class toba_test_reporter extends HtmlReporter
         print "</div>\n";
     }
 }
-
-?>

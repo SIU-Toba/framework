@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PEAR_Sniffs_Functions_FunctionCallArgumentSpacingSniff.
  *
@@ -30,8 +31,6 @@
  */
 class Toba_Sniffs_Functions_FunctionCallArgumentSpacingSniff implements PHP_CodeSniffer_Sniff
 {
-
-
     /**
      * Returns an array of tokens this test wants to listen for.
      *
@@ -131,5 +130,3 @@ class Toba_Sniffs_Functions_FunctionCallArgumentSpacingSniff implements PHP_Code
 
 
 }//end class
-
-?>

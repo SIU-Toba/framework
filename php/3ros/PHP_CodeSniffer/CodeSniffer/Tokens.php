@@ -1,4 +1,5 @@
 <?php
+
 /**
  * The Tokens class contains weightings for tokens based on their
  * probability of occurance in a file.
@@ -69,7 +70,6 @@ define('T_REGULAR_EXPRESSION', 1034);
  */
 final class PHP_CodeSniffer_Tokens
 {
-
     /**
      * The token weightings.
      *
@@ -385,5 +385,3 @@ final class PHP_CodeSniffer_Tokens
 
 
 }//end class
-
-?>

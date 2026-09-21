@@ -17,7 +17,7 @@ class toba_ei_formulario_ml_info extends toba_ei_formulario_info
     //-- EVENTOS
     //---------------------------------------------------------------------
 
-    public function get_molde_subclase($multilinea=false)
+    public function get_molde_subclase($multilinea = false)
     {
         $molde = parent::get_molde_subclase(true);
         $molde->agregar_bloque($this->get_molde_eventos_sobre_fila());

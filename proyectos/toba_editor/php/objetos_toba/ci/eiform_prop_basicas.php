@@ -2,12 +2,11 @@
 
 class eiform_prop_basicas extends toba_ei_formulario
 {
-
-	function extender_objeto_js()
-	{
-		$id_js = toba::escaper()->escapeJs($this->objeto_js);
-		echo admin_util::get_js_editor();
-		echo "
+    public function extender_objeto_js()
+    {
+        $id_js = toba::escaper()->escapeJs($this->objeto_js);
+        echo admin_util::get_js_editor();
+        echo "
 			{$id_js}.evt__tipo_navegacion__procesar = function() {
 				if (this.ef('tipo_navegacion').valor() != 'wizard') {
 					this.ef('con_toc').ocultar();
@@ -43,9 +42,7 @@ class eiform_prop_basicas extends toba_ei_formulario
 				return true;		
 			}			
 		";
-	}
+    }
 
 
 }
-
-?>

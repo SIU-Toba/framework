@@ -32,7 +32,7 @@ class toba_datos_tabla_info extends toba_componente_info
      * @param boolean $con_transaccion	Indica si la clonación se debe incluír en una transaccion
      * @return array Clave del objeto que resulta del clonado
      */
-    public function clonar($nuevos_datos, $dir_subclases=false, $con_transaccion = true)
+    public function clonar($nuevos_datos, $dir_subclases = false, $con_transaccion = true)
     {
         $distinto = false;
         //-- Si difiere en el proyecto
@@ -77,18 +77,18 @@ class toba_datos_tabla_info extends toba_componente_info
         if (isset($this->datos['_info_estructura']['ap_sub_clase_archivo'])) {
             if (admin_util::existe_archivo_subclase($this->datos['_info_estructura']['ap_sub_clase_archivo'], $this->datos['_info_estructura']['ap_punto_montaje'])) {
                 $iconos[] = toba_componente_info::get_utileria_editor_abrir_php(
-                    array('proyecto'=>$this->proyecto, 'componente' =>$this->id ),
+                    array('proyecto' => $this->proyecto, 'componente' => $this->id ),
                     'ap',
                     'reflexion/abrir_ap.gif'
                 );
                 $iconos[] = toba_componente_info::get_utileria_editor_ver_php(
-                    array('proyecto'=>$this->proyecto, 'componente' =>$this->id ),
+                    array('proyecto' => $this->proyecto, 'componente' => $this->id ),
                     'ap',
                     'nucleo/php_ap.gif'
                 );
             } else {
                 $iconos[] = toba_componente_info::get_utileria_editor_ver_php(
-                    array('proyecto'=>$this->proyecto, 'componente' =>$this->id ),
+                    array('proyecto' => $this->proyecto, 'componente' => $this->id ),
                     'ap',
                     'nucleo/php_ap_inexistente.gif',
                     false
@@ -147,10 +147,10 @@ class toba_datos_tabla_info extends toba_componente_info
     *	Exporta la definicion de una manera entendible para el datos_tabla de la tabla
     *		donde se guardan los EFs del ei_formulario
     */
-    public function exportar_datos_efs($incluir_pk=false)
+    public function exportar_datos_efs($incluir_pk = false)
     {
         $datos = array();
-        $a=0;
+        $a = 0;
         foreach ($this->datos['_info_columnas'] as $columna) {
             // HACK: Evitamos que se carguen las columnas de las tablas extendidas
             // que son foreign keys para evitar repetición de columnas
@@ -202,7 +202,7 @@ class toba_datos_tabla_info extends toba_componente_info
                         }
                     }
                 }
-                $datos[$a]['orden'] = $a+100;
+                $datos[$a]['orden'] = $a + 100;
                 $a++;
             }
         }
@@ -213,10 +213,10 @@ class toba_datos_tabla_info extends toba_componente_info
     *	Exporta la definicion de una manera entendible para el datos_tabla de la tabla
     *		donde se guardan las columnas del ei_cuadro
     */
-    public function exportar_datos_columnas($incluir_pk=false)
+    public function exportar_datos_columnas($incluir_pk = false)
     {
         $datos = array();
-        $a=0;
+        $a = 0;
         foreach ($this->datos['_info_columnas'] as $columna) {
             if (((!$columna['pk']) || $incluir_pk) && $columna['secuencia'] == '') {
                 $datos[$a]['clave'] = $columna['columna'];

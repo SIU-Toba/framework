@@ -1,30 +1,30 @@
 <?php
+
 /**
  * Clase estatica que contiene utilerias para extender los formularios y generar el listado
  * de imagenes a elegir en el editor
  */
 class seleccion_imagenes
 {
+    public static function generar_input_ef($origen, $img, $objeto_js, $fila = '')
+    {
+        $escapador = toba::escaper();
+        $predeterminada = toba_recurso::imagen_toba('image-missing-16.png', false);
+        if ($img != '') {
+            $actual = admin_util::url_imagen_de_origen($img, $origen);
+        } else {
+            $actual = $predeterminada;
+        }
+        echo '<img nohack=\'1\' title=\'Elegir la imagen desde un listado\' onclick="'. $escapador->escapeHtmlAttr($objeto_js).'.elegir_imagen('. $escapador->escapeHtmlAttr($fila).')"
+					id=\''. $escapador->escapeHtmlAttr("editor_imagen_src$fila")."' src='$actual' " . 'onError=\'this.src="'. $escapador->escapeHtmlAttr($predeterminada).'"\' />';
+    }
 
-	static function generar_input_ef($origen, $img, $objeto_js, $fila='')
-	{
-		$escapador = toba::escaper();
-		$predeterminada = toba_recurso::imagen_toba('image-missing-16.png', false);
-		if ($img != '') {
-			$actual = admin_util::url_imagen_de_origen($img, $origen);
-		} else {
-			$actual = $predeterminada;	
-		}
-		echo '<img nohack=\'1\' title=\'Elegir la imagen desde un listado\' onclick="'. $escapador->escapeHtmlAttr($objeto_js).'.elegir_imagen('. $escapador->escapeHtmlAttr($fila).')"
-					id=\''. $escapador->escapeHtmlAttr("editor_imagen_src$fila")."' src='$actual' " . 'onError=\'this.src="'. $escapador->escapeHtmlAttr($predeterminada).'"\' />';		
-	}
-	
-	static function generar_js($objeto_js, $con_fila=false)
-	{
-		$ir_a_fila = ($con_fila) ? '.ir_a_fila(fila)' : '';
-		$mas_fila = ($con_fila) ? '+ fila' : '';
-		$id_js =  toba::escaper()->escapeJs($objeto_js);
-		echo "
+    public static function generar_js($objeto_js, $con_fila = false)
+    {
+        $ir_a_fila = ($con_fila) ? '.ir_a_fila(fila)' : '';
+        $mas_fila = ($con_fila) ? '+ fila' : '';
+        $id_js =  toba::escaper()->escapeJs($objeto_js);
+        echo "
 			$id_js.evt__imagen_recurso_origen__procesar = function(inicial, fila) {
 				if (! inicial) {
 					this.evt__imagen__procesar(inicial, fila);
@@ -107,60 +107,58 @@ class seleccion_imagenes
 				$id_js.elegir_imagen($id_js.fila_con_imagen, recursivo)
 			}
 		";
-	}
-	
-	static function generar_html_listado()
-	{
-		toba::memoria()->desactivar_reciclado();
-		$escapador = toba::escaper();
-		$src = toba::memoria()->get_parametro('imagen');
-		$recursivo = toba::memoria()->get_parametro('recursivo');
-		$origen = toba::memoria()->get_parametro('imagen_recurso_origen');
-		
-		$url = admin_util::url_imagen_de_origen('', $origen);
-		$dir = admin_util::dir_imagen_de_origen('', $origen);
+    }
 
-		echo "<div id='editor_imagen_opciones'>";
-		echo "Filtro: <input id='editor_imagen_filtro' onkeyup='filtrar_imagenes(this.value)' type='text' /> ";	
-		$checkeado = $recursivo ? 'checked' : '';
-		echo "<label><input type='checkbox'  onclick='recargar(this.checked ? 1 : 0)' $checkeado /> Recursivo</label>";
-		echo '</div><hr />';
-		echo "<div id='editor_imagen_listado'>";
-		echo '<table>';
-		$temp = toba_manejador_archivos::get_archivos_directorio($dir, '/(.)png|(.)gif|(.)jpg|(.)jpeg/', $recursivo);
-		$archivos = array();
-		foreach ($temp as $archivo) {
-			if (strpos($archivo, '/tabs/') === false) {
-				$archivos[] = $archivo;	
-			}
-		}
-		sort($archivos);
-		$columnas = 3;
-		$cant = 1;
-		$total = count($archivos);
-		foreach ($archivos as $archivo) {
-			if ($cant % $columnas == 1) {
-				echo '<tr>';
-			}
-			$relativo = substr($archivo, strlen($dir) + 1);
-			$archivo = basename($relativo);
-			echo "<td title='Seleccionar imagen' imagen='". $escapador->escapeHtmlAttr($relativo)."' onclick='seleccionar_imagen(this.getAttribute(\"imagen\"))'>
+    public static function generar_html_listado()
+    {
+        toba::memoria()->desactivar_reciclado();
+        $escapador = toba::escaper();
+        $src = toba::memoria()->get_parametro('imagen');
+        $recursivo = toba::memoria()->get_parametro('recursivo');
+        $origen = toba::memoria()->get_parametro('imagen_recurso_origen');
+
+        $url = admin_util::url_imagen_de_origen('', $origen);
+        $dir = admin_util::dir_imagen_de_origen('', $origen);
+
+        echo "<div id='editor_imagen_opciones'>";
+        echo "Filtro: <input id='editor_imagen_filtro' onkeyup='filtrar_imagenes(this.value)' type='text' /> ";
+        $checkeado = $recursivo ? 'checked' : '';
+        echo "<label><input type='checkbox'  onclick='recargar(this.checked ? 1 : 0)' $checkeado /> Recursivo</label>";
+        echo '</div><hr />';
+        echo "<div id='editor_imagen_listado'>";
+        echo '<table>';
+        $temp = toba_manejador_archivos::get_archivos_directorio($dir, '/(.)png|(.)gif|(.)jpg|(.)jpeg/', $recursivo);
+        $archivos = array();
+        foreach ($temp as $archivo) {
+            if (strpos($archivo, '/tabs/') === false) {
+                $archivos[] = $archivo;
+            }
+        }
+        sort($archivos);
+        $columnas = 3;
+        $cant = 1;
+        $total = count($archivos);
+        foreach ($archivos as $archivo) {
+            if ($cant % $columnas == 1) {
+                echo '<tr>';
+            }
+            $relativo = substr($archivo, strlen($dir) + 1);
+            $archivo = basename($relativo);
+            echo "<td title='Seleccionar imagen' imagen='". $escapador->escapeHtmlAttr($relativo)."' onclick='seleccionar_imagen(this.getAttribute(\"imagen\"))'>
 					<img nohack='1' src='". $escapador->escapeHtmlAttr($url.'/'.$relativo)."' />
 					<div>". $escapador->escapeHtml($archivo)."</div>
 				</td>\n";
-			
-			if ($cant % $columnas == 0) {
-				echo "</tr>\n";
-			}			
-			$cant++;
-		}
-		if ($cant % $columnas != 0) {
-			echo "</tr>\n";
-		}
-		echo '</table></div>';
-	}	
 
-	
+            if ($cant % $columnas == 0) {
+                echo "</tr>\n";
+            }
+            $cant++;
+        }
+        if ($cant % $columnas != 0) {
+            echo "</tr>\n";
+        }
+        echo '</table></div>';
+    }
+
+
 }
-
-?>

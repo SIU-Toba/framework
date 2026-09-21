@@ -14,35 +14,38 @@ namespace JpGraph;
 
 // include Theme classes
 foreach (glob(dirname(__FILE__) . '/themes/*.php') as $theme_class_script) {
-  require_once($theme_class_script);
+    require_once($theme_class_script);
 }
 
 //===================================================
 // CLASS
 // Description:
 //===================================================
-abstract class Theme {
+abstract class Theme
+{
     protected $color_index;
     protected $graph; /* mitoteam: absent in original sources */
 
-    function __construct() {
+    public function __construct()
+    {
         $this->color_index = 0;
     }
     /**
     *
     */
-    abstract function GetColorList();
+    abstract public function GetColorList();
 
     /**
     *
     */
-    abstract function ApplyPlot($plot);
+    abstract public function ApplyPlot($plot);
 
 
     /**
     *
     */
-    function SetupPlot($plot) {
+    public function SetupPlot($plot)
+    {
         if (is_array($plot)) {
             foreach ($plot as $obj) {
                 $this->ApplyPlot($obj);
@@ -55,7 +58,8 @@ abstract class Theme {
     /**
     *
     */
-    function ApplyGraph($graph) {
+    public function ApplyGraph($graph)
+    {
 
         $this->graph = $graph;
         $method_name = '';
@@ -76,13 +80,15 @@ abstract class Theme {
     /**
     *
     */
-    function PreStrokeApply($graph) {
+    public function PreStrokeApply($graph)
+    {
     }
 
     /**
     *
     */
-    function GetThemeColors($num = 30) {
+    public function GetThemeColors($num = 30)
+    {
         $result_list = array();
 
         $old_index = $this->color_index;
@@ -108,7 +114,8 @@ abstract class Theme {
     /**
     *
     */
-    function GetNextColor() {
+    public function GetNextColor()
+    {
         $color_list = $this->GetColorList();
 
         $color = null;
@@ -136,5 +143,3 @@ abstract class Theme {
     }
 
 } // Class
-
-?>

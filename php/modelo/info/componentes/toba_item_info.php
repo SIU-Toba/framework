@@ -9,13 +9,13 @@ class toba_item_info implements toba_nodo_arbol
     protected $nivel;					//Nivel del item en el arbol de items
     protected $grupos_acceso;			//Grupos que pueden acceder al item
     protected $camino;					//Arreglo de carpetas que componen la rama en donde pertenece el item
-    protected $items_hijos=array();		//Arreglo de hijos
-    protected $padre=null;				//Objeto item padre
+    protected $items_hijos = array();		//Arreglo de hijos
+    protected $padre = null;				//Objeto item padre
     protected $info_extra = '';
     protected $carga_profundidad;
     protected $datos_resumidos;
 
-    public function __construct($datos, $carga_profundidad=true, $datos_resumidos=false)
+    public function __construct($datos, $carga_profundidad = true, $datos_resumidos = false)
     {
         $this->datos = $datos;
         $this->id = $this->datos['basica']['item'];
@@ -33,8 +33,8 @@ class toba_item_info implements toba_nodo_arbol
     public function cargar_dependencias()
     {
         //Si hay objetos asociados...
-        if (isset($this->datos['objetos']) && count($this->datos['objetos'])>0) {
-            for ($a=0; $a<count($this->datos['objetos']); $a++) {
+        if (isset($this->datos['objetos']) && count($this->datos['objetos']) > 0) {
+            for ($a = 0; $a < count($this->datos['objetos']); $a++) {
                 $clave['proyecto'] = $this->datos['objetos'][$a]['objeto_proyecto'];
                 $clave['componente'] = $this->datos['objetos'][$a]['objeto'];
                 $tipo = $this->datos['objetos'][$a]['clase'];
@@ -135,7 +135,7 @@ class toba_item_info implements toba_nodo_arbol
                 $this->get_proyecto(),
                 $this->get_id(),
                 null,
-                array('celda_memoria'=>'central',
+                array('celda_memoria' => 'central',
                                                                         'validar' => false,
                                                                         'menu' => true )
             );
@@ -241,13 +241,13 @@ class toba_item_info implements toba_nodo_arbol
 
     public function es_buffer()
     {
-        return !($this->datos['basica']['act_buf']== 0 && $this->datos['basica']['act_buf_p']=="toba");
+        return !($this->datos['basica']['act_buf'] == 0 && $this->datos['basica']['act_buf_p'] == "toba");
     }
 
     public function es_patron()
     //--- Es un PATRON?? El patron <toba,especifico> representa la ausencia de PATRON
     {
-        return !($this->datos['basica']['act_pat']=="especifico" && $this->datos['basica']['act_pat_p']=="toba");
+        return !($this->datos['basica']['act_pat'] == "especifico" && $this->datos['basica']['act_pat_p'] == "toba");
     }
 
     public function es_accion()
@@ -356,7 +356,7 @@ class toba_item_info implements toba_nodo_arbol
                                 'imagen' => toba_recurso::imagen_proyecto("solic_consola.gif", false),
                                 'ayuda' => 'Solicitud de Consola'
                             );
-            } elseif ($this->get_tipo_solicitud()=="wddx") {
+            } elseif ($this->get_tipo_solicitud() == "wddx") {
                 $iconos[] = array(
                                 'imagen' => toba_recurso::imagen_proyecto("solic_wddx.gif", false),
                                 'ayuda' => 'Solicitud WDDX'
@@ -365,47 +365,47 @@ class toba_item_info implements toba_nodo_arbol
             if ($this->crono()) {
                 $iconos[] = array(
                     'imagen' => toba_recurso::imagen_toba("cronometro.gif", false),
-                    'ayuda'=> "La operación se cronometra"
+                    'ayuda' => "La operación se cronometra"
                 );
             }
             if ($this->es_publico()) {
                 $iconos[] = array(
                     'imagen' => toba_recurso::imagen_toba("usuarios/usuario.gif", false),
-                    'ayuda'=> "Operación pública"
+                    'ayuda' => "Operación pública"
                 );
             }
             if ($this->puede_redireccionar()) {
                 $iconos[] = array(
                     'imagen' => toba_recurso::imagen_toba("refrescar.png", false),
-                    'ayuda'=> "La operación puede redireccionar hacia otra."
+                    'ayuda' => "La operación puede redireccionar hacia otra."
                 );
             }
             if ($this->retrasa_envio_headers()) {
                 $iconos[] = array(
                     'imagen' => toba_recurso::imagen_toba("rehacer.png", false),
-                    'ayuda'=> "La operación retrasa el envio de headers al cliente."
+                    'ayuda' => "La operación retrasa el envio de headers al cliente."
                 );
             }
             if ($this->registra_solicitud() == 1) {
                 $iconos[] = array(
                     'imagen' => toba_recurso::imagen_toba("solicitudes.gif", false),
-                    'ayuda'=> "La operación se registra en el log"
+                    'ayuda' => "La operación se registra en el log"
                 );
             }
             if ($this->posee_accion_predefinida() && ! $this->existe_php_accion()) {
                 $iconos[] = array(
                     'imagen' => toba_recurso::imagen_toba("nucleo/php_inexistente.gif", false),
-                    'ayuda'=> "Existe un PHP plano asociado al item, pero el archivo no existe en el path especificado."
+                    'ayuda' => "Existe un PHP plano asociado al item, pero el archivo no existe en el path especificado."
                 );
             }
             if ($this->generado_con_wizard()) {
                 $iconos[] = array(
                     'imagen' => toba_recurso::imagen_toba("wizard.png", false),
-                    'ayuda'=> "La operación fue generada con un ASISTENTE",
+                    'ayuda' => "La operación fue generada con un ASISTENTE",
                     'vinculo' => toba::vinculador()->get_url(
                         toba_editor::get_id(),
                         "1000110",
-                        array("padre_p"=>$this->get_proyecto(), "padre_i"=>$this->get_id(),
+                        array("padre_p" => $this->get_proyecto(), "padre_i" => $this->get_id(),
                                             apex_hilo_qs_zona => $this->proyecto .apex_qs_separador. $this->id),
                         array(	'menu' => true,
                                         'celda_memoria' => 'central')
@@ -425,11 +425,11 @@ class toba_item_info implements toba_nodo_arbol
             // Ordenamiento, Nueva carpeta, nuevo item
             $utilerias[] = array(
                 'imagen' => toba_recurso::imagen_toba("nucleo/carpeta_nueva.gif", false),
-                'ayuda'=> "Crear SUBCARPETA en esta rama del CATALOGO",
+                'ayuda' => "Crear SUBCARPETA en esta rama del CATALOGO",
                 'vinculo' => toba::vinculador()->get_url(
                     toba_editor::get_id(),
                     "1000238",
-                    array("padre_p"=>$this->get_proyecto(), "padre_i"=>$this->get_id()),
+                    array("padre_p" => $this->get_proyecto(), "padre_i" => $this->get_id()),
                     array(	'menu' => true,
                                         'celda_memoria' => 'central')
                 ),
@@ -437,11 +437,11 @@ class toba_item_info implements toba_nodo_arbol
             );
             $utilerias[] = array(
                 'imagen' => toba_recurso::imagen_proyecto("item_nuevo.gif", false),
-                'ayuda'=> "Crear una nueva operación vacía en esta carpeta",
+                'ayuda' => "Crear una nueva operación vacía en esta carpeta",
                 'vinculo' => toba::vinculador()->get_url(
                     toba_editor::get_id(),
                     "1000240",
-                    array("padre_p"=>$this->get_proyecto(), "padre_i"=>$this->get_id()),
+                    array("padre_p" => $this->get_proyecto(), "padre_i" => $this->get_id()),
                     array(	'menu' => true,
                                         'celda_memoria' => 'central')
                 ),
@@ -455,7 +455,7 @@ class toba_item_info implements toba_nodo_arbol
                 'vinculo' => toba::vinculador()->get_url(
                     toba_editor::get_id(),
                     "1000247",
-                    array('destino_tipo' =>'toba_item',
+                    array('destino_tipo' => 'toba_item',
                                             'destino_proyecto' => $this->proyecto,
                                             'destino_id' => $this->id ),
                     array(	'menu' => true,
@@ -466,13 +466,13 @@ class toba_item_info implements toba_nodo_arbol
 
             // Accion!
             if ($this->posee_accion_predefinida() && $this->existe_php_accion()) {
-                $utilerias[] = $this->get_utileria_editor_abrir_php(array('proyecto'=>$this->proyecto, 'componente' =>$this->id ));
-                $utilerias[] = $this->get_utileria_editor_ver_php(array('proyecto'=>$this->proyecto, 'componente' =>$this->id ));
+                $utilerias[] = $this->get_utileria_editor_abrir_php(array('proyecto' => $this->proyecto, 'componente' => $this->id ));
+                $utilerias[] = $this->get_utileria_editor_ver_php(array('proyecto' => $this->proyecto, 'componente' => $this->id ));
             }
         }
         if (!$this->es_carpeta() &&
                 $this->get_tipo_solicitud() != 'consola' &&
-                $this->get_tipo_solicitud() !="wddx") {
+                $this->get_tipo_solicitud() != "wddx") {
             $utilerias[] = array(
                             'imagen' => toba_recurso::imagen_toba("instanciar.png", false),
                             'ayuda' => 'Ejecutar la operación',
@@ -502,7 +502,7 @@ class toba_item_info implements toba_nodo_arbol
         }
     }
 
-    public function get_utileria_editor_abrir_php($id_componente=null, $icono='reflexion/abrir.gif')
+    public function get_utileria_editor_abrir_php($id_componente = null, $icono = 'reflexion/abrir.gif')
     {
         $parametros = array();
         $parametros['archivo'] = $this->datos['basica']['item_act_accion_script'];
@@ -520,7 +520,7 @@ class toba_item_info implements toba_nodo_arbol
         );
     }
 
-    public function get_utileria_editor_ver_php($id_componente=null, $icono = 'nucleo/php.gif')
+    public function get_utileria_editor_ver_php($id_componente = null, $icono = 'nucleo/php.gif')
     {
         $parametros = array();
         $parametros['archivo'] = $this->datos['basica']['item_act_accion_script'];
@@ -615,7 +615,7 @@ class toba_item_info implements toba_nodo_arbol
      * @param boolean $con_transaccion	Indica si la clonación se debe incluír en una transaccion
      * @return array Clave del item que resulta del clonado
      */
-    public function clonar($nuevos_datos, $dir_subclases=false, $con_transaccion=true)
+    public function clonar($nuevos_datos, $dir_subclases = false, $con_transaccion = true)
     {
         $campos_extra = array('fuente_datos', 'fuente_datos_proyecto');
         //-- Cargo el DR asociado
@@ -648,7 +648,7 @@ class toba_item_info implements toba_nodo_arbol
 
         //--- Se clonan los hijos y se agregan como dependencias
         $dr->tabla('objetos')->eliminar_filas();
-        $i=0;
+        $i = 0;
         foreach ($this->subelementos as $hijo) {
             //-- Si se especifico un proyecto, se propaga
             $datos_objeto = array();

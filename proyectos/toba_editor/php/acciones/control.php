@@ -1,27 +1,27 @@
 <?php
-	$escapador = toba::escaper();
-	$js_cambiar_color_1 = " onmouseover=\"this.className='listado-tabn-m';\" ".
-                        "  onmouseout=\"this.className='listado-tabn';\"";
-	$js_cambiar_color_2 = " onmouseover=\"this.className='listado-barra-superior-tabn-m';\" ".
-                        "  onmouseout=\"this.className='listado-barra-superior-tabn';\"";
-                      
-	if (isset($_POST['admin_proyecto'])) {
-		toba_editor::set_proyecto_cargado($_POST['admin_proyecto']);
-		toba::memoria()->set_dato_instancia('proyecto', $_POST['admin_proyecto']);
-		$opciones = array('validar' => false);
-		$vinculo = toba::vinculador()->get_url(toba_editor::get_id(), 1000231, array(), $opciones);
-		
-		//-- Fuerza a recargar los datos de instalacion e instancia
-		toba_manejador_sesiones::recargar_info_instalacion();
-		toba_manejador_sesiones::recargar_info_instancia();
-		
-		//--- Refresca los otros frames
-		echo toba_js::abrir();
-		echo "top.location.href = '". $escapador->escapeJs($vinculo)."';";
-		echo toba_js::cerrar();
-	}
-	echo toba_form::abrir('cambiar_proyecto', '');
-	toba::manejador_sesiones()->enviar_csrf_hidden();
+$escapador = toba::escaper();
+$js_cambiar_color_1 = " onmouseover=\"this.className='listado-tabn-m';\" ".
+                    "  onmouseout=\"this.className='listado-tabn';\"";
+$js_cambiar_color_2 = " onmouseover=\"this.className='listado-barra-superior-tabn-m';\" ".
+                    "  onmouseout=\"this.className='listado-barra-superior-tabn';\"";
+
+if (isset($_POST['admin_proyecto'])) {
+    toba_editor::set_proyecto_cargado($_POST['admin_proyecto']);
+    toba::memoria()->set_dato_instancia('proyecto', $_POST['admin_proyecto']);
+    $opciones = array('validar' => false);
+    $vinculo = toba::vinculador()->get_url(toba_editor::get_id(), 1000231, array(), $opciones);
+
+    //-- Fuerza a recargar los datos de instalacion e instancia
+    toba_manejador_sesiones::recargar_info_instalacion();
+    toba_manejador_sesiones::recargar_info_instancia();
+
+    //--- Refresca los otros frames
+    echo toba_js::abrir();
+    echo "top.location.href = '". $escapador->escapeJs($vinculo)."';";
+    echo toba_js::cerrar();
+}
+echo toba_form::abrir('cambiar_proyecto', '');
+toba::manejador_sesiones()->enviar_csrf_hidden();
 ?>
 
 <style type='text/css'>
@@ -64,9 +64,9 @@ function abrir_toba_instancia(){
 </script>
 
 <?php
-	$js_editor = toba_recurso::js('editor.js');
-	$datos = toba_editor::get_parametros_previsualizacion_js();
-	$parametros_previsualizacion = toba_js::arreglo($datos, true);
+    $js_editor = toba_recurso::js('editor.js');
+$datos = toba_editor::get_parametros_previsualizacion_js();
+$parametros_previsualizacion = toba_js::arreglo($datos, true);
 ?>
 <SCRIPT language='JavaScript1.4' type='text/javascript' src='<?php echo $js_editor; ?>'></SCRIPT>
 <SCRIPT language='JavaScript1.4' type='text/javascript' >
@@ -97,28 +97,28 @@ function abrir_toba_instancia(){
 	        <a title='Oculta el frame izq. del editor' href="javascript: mostrar_ocultar_frame();"><img src="<?php echo $escapador->escapeHtmlAttr(toba_recurso::imagen_toba('nucleo/expandir_izq.gif', false)); ?>" id='imagen_manejo_frame' border='0' style='margin: 0px 0px 0px 0px;' alt='' /></a>		
 		 </td>
 <?php
-	echo "<td class='listado-barra-superior-tabi' title='Recarga el Proyecto en el Editor'>";
-	$js_cambio = "onclick='document.cambiar_proyecto.submit()'";
-	echo "<a href='#' $js_cambio>";
-	echo toba_recurso::imagen_toba('refrescar.png', true);
-	echo '</a>';
-	echo '</td>';
-	echo "<td class='listado-barra-superior-tabi2'>";
-	$actual = toba_editor::get_proyecto_cargado();
-	$instancia = toba_modelo_catalogo::instanciacion()->get_instancia(toba_editor::get_id_instancia_activa(), new toba_mock_proceso_gui);
-	$proyectos = array();
-	foreach ($instancia->get_lista_proyectos_vinculados() as $proy) {
-		$extra = toba_personalizacion::get_personalizacion_iniciada($proy) ? " (personalizado) " : "";
-		$proyectos[$proy] = $proy.$extra;
-	}
-	$js_cambio = "onchange='document.cambiar_proyecto.submit()'";
-	echo toba_form::select('admin_proyecto', $actual, $proyectos, 'ef-combo', $js_cambio);
-	echo '</td>';		
+    echo "<td class='listado-barra-superior-tabi' title='Recarga el Proyecto en el Editor'>";
+$js_cambio = "onclick='document.cambiar_proyecto.submit()'";
+echo "<a href='#' $js_cambio>";
+echo toba_recurso::imagen_toba('refrescar.png', true);
+echo '</a>';
+echo '</td>';
+echo "<td class='listado-barra-superior-tabi2'>";
+$actual = toba_editor::get_proyecto_cargado();
+$instancia = toba_modelo_catalogo::instanciacion()->get_instancia(toba_editor::get_id_instancia_activa(), new toba_mock_proceso_gui());
+$proyectos = array();
+foreach ($instancia->get_lista_proyectos_vinculados() as $proy) {
+    $extra = toba_personalizacion::get_personalizacion_iniciada($proy) ? " (personalizado) " : "";
+    $proyectos[$proy] = $proy.$extra;
+}
+$js_cambio = "onchange='document.cambiar_proyecto.submit()'";
+echo toba_form::select('admin_proyecto', $actual, $proyectos, 'ef-combo', $js_cambio);
+echo '</td>';
 
-	echo "<td class='listado-barra-superior-tabi'>";
-	$img = toba_recurso::imagen_toba('instanciar.png', true);
-	echo "<a title='Previsualiza el proyecto' href='javascript: top.frame_control.editor.previsualizar()'>$img</a>";
-	echo '</td>';		
+echo "<td class='listado-barra-superior-tabi'>";
+$img = toba_recurso::imagen_toba('instanciar.png', true);
+echo "<a title='Previsualiza el proyecto' href='javascript: top.frame_control.editor.previsualizar()'>$img</a>";
+echo '</td>';
 ?>
 
 		<td><?php echo gif_nulo(10, 1); ?></td>
@@ -131,28 +131,28 @@ function abrir_toba_instancia(){
         <a  href="<?php echo $escapador->escapeHtmlAttr(toba::vinculador()->get_url(toba_editor::get_id(), '3357')); ?>" class="list-obj"  target="<?php echo  apex_frame_centro; ?>">
 <?php
 
-		$ayuda = '<a target=wiki href='.get_url_desarrollos().'/trac/toba title=\\\'Documentación WIKI\\\'>';			
-		$ayuda .= '<img src='.toba_recurso::url_proyecto().'/doc/api/img/wiki-small.png ></a> ';
-		$ayuda .= '<a target=api href='.toba_recurso::url_proyecto().'/doc/api/index.html title=\\\'Documentación código PHP\\\'>';
-		$ayuda .= '<img src='.toba_recurso::url_proyecto().'/doc/api/img/php-small.png></a> ';
-		$ayuda .= '<a target=api_js href='.toba_recurso::url_proyecto().'/doc/api_js/index.html title=\\\'Documentación código Javascript\\\'>';
-		$ayuda .= '<img src='.toba_recurso::url_proyecto().'/doc/api/img/javascript-small.png></a>';
-		echo toba_recurso::imagen_toba('ayuda.png', true, null, null, $ayuda);
- ?></a></td>
+        $ayuda = '<a target=wiki href='.get_url_desarrollos().'/trac/toba title=\\\'Documentación WIKI\\\'>';
+$ayuda .= '<img src='.toba_recurso::url_proyecto().'/doc/api/img/wiki-small.png ></a> ';
+$ayuda .= '<a target=api href='.toba_recurso::url_proyecto().'/doc/api/index.html title=\\\'Documentación código PHP\\\'>';
+$ayuda .= '<img src='.toba_recurso::url_proyecto().'/doc/api/img/php-small.png></a> ';
+$ayuda .= '<a target=api_js href='.toba_recurso::url_proyecto().'/doc/api_js/index.html title=\\\'Documentación código Javascript\\\'>';
+$ayuda .= '<img src='.toba_recurso::url_proyecto().'/doc/api/img/javascript-small.png></a>';
+echo toba_recurso::imagen_toba('ayuda.png', true, null, null, $ayuda);
+?></a></td>
 
 		<td class='listado-tabi'>
 			<a title='Testing' href="<?php echo $escapador->escapeHtmlAttr(toba::vinculador()->get_url(toba_editor::get_id(), 1000270, null, array('menu' => true))); ?>" class="list-obj" target="<?php echo apex_frame_centro; ?>"><?php echo toba_recurso::imagen_toba('testing.gif', true); ?></a>
 		</td>
 
 <?php
-	$parametros = array();
-	$html_extra = array('id' => 'vinculo_logger',
-						'imagen' => 'logger.gif',
-						'imagen_recurso_origen' => 'apex',
-						'tipo' => 'popup',
-						'inicializacion' => '800,500,1,1',
-						'texto' => 'Logger');
-	$url = toba::vinculador()->get_url(toba_editor::get_id(), '1000003', $parametros, array('param_html' => $html_extra, 'celda_memoria' => 'logger'));
+   $parametros = array();
+$html_extra = array('id' => 'vinculo_logger',
+                    'imagen' => 'logger.gif',
+                    'imagen_recurso_origen' => 'apex',
+                    'tipo' => 'popup',
+                    'inicializacion' => '800,500,1,1',
+                    'texto' => 'Logger');
+$url = toba::vinculador()->get_url(toba_editor::get_id(), '1000003', $parametros, array('param_html' => $html_extra, 'celda_memoria' => 'logger'));
 ?>
          <td class='listado-tabi'><?php echo $url; ?></td>
          <td  class='listado-tabi'><a title='Cerrar la sesión' href="#" class="list-obj"  onclick='javascript:salir();return false;'>
@@ -165,62 +165,62 @@ function abrir_toba_instancia(){
 	</table>
 </td></tr>
 <?php
-	$item_actual = toba::memoria()->get_item_solicitado();
-	//------------ TABS
-	$tabs = array(
-		array(
-			'nombre' => 'Operaciones',
-			'imagen' => toba_recurso::imagen_proyecto('item.gif', true),
-			'url' => toba::vinculador()->get_url(toba_editor::get_id(), 1000239, null, array('menu' => true, 'celda_memoria' => 'lateral')),
-			'ayuda' => 'Operaciones disponibles en el Proyecto',
-		),
-		array(
-			'nombre' => 'Comp.',
-			'imagen' => toba_recurso::imagen_toba('objetos/objeto.gif', true),
-			'url' => toba::vinculador()->get_url(toba_editor::get_id(), 1240, null, array('menu' => true, 'celda_memoria' => 'lateral')),
-			'ayuda' => 'Componentes disponibles en el Proyecto',
-		),	
-		array(
-			'nombre' => 'Datos',
-			'imagen' => toba_recurso::imagen_toba('fuente.png', true),
-			'url' => toba::vinculador()->get_url(toba_editor::get_id(), 3397, null, array('menu' => true, 'celda_memoria' => 'lateral')),
-			'ayuda' => 'Acceso a datos',
-		),
-		array(
-			'nombre' => 'PHP',
-			'imagen' => toba_recurso::imagen_toba('nucleo/php.gif', true),
-			'url' => toba::vinculador()->get_url(toba_editor::get_id(), 30000012, null, array('menu' => true, 'celda_memoria' => 'lateral')),
-			'ayuda' => 'Código PHP del proyecto',
-		),	
-		array(
-			'nombre' => 'Conf.',
-			'imagen' => toba_recurso::imagen_toba('configurar.png', true),
-			'url' => toba::vinculador()->get_url(toba_editor::get_id(), 1000258, null, array('menu' => true, 'celda_memoria' => 'lateral')),
-			'ayuda' => 'Configuración general del proyecto',
-		),				
-	);
+    $item_actual = toba::memoria()->get_item_solicitado();
+//------------ TABS
+$tabs = array(
+    array(
+        'nombre' => 'Operaciones',
+        'imagen' => toba_recurso::imagen_proyecto('item.gif', true),
+        'url' => toba::vinculador()->get_url(toba_editor::get_id(), 1000239, null, array('menu' => true, 'celda_memoria' => 'lateral')),
+        'ayuda' => 'Operaciones disponibles en el Proyecto',
+    ),
+    array(
+        'nombre' => 'Comp.',
+        'imagen' => toba_recurso::imagen_toba('objetos/objeto.gif', true),
+        'url' => toba::vinculador()->get_url(toba_editor::get_id(), 1240, null, array('menu' => true, 'celda_memoria' => 'lateral')),
+        'ayuda' => 'Componentes disponibles en el Proyecto',
+    ),
+    array(
+        'nombre' => 'Datos',
+        'imagen' => toba_recurso::imagen_toba('fuente.png', true),
+        'url' => toba::vinculador()->get_url(toba_editor::get_id(), 3397, null, array('menu' => true, 'celda_memoria' => 'lateral')),
+        'ayuda' => 'Acceso a datos',
+    ),
+    array(
+        'nombre' => 'PHP',
+        'imagen' => toba_recurso::imagen_toba('nucleo/php.gif', true),
+        'url' => toba::vinculador()->get_url(toba_editor::get_id(), 30000012, null, array('menu' => true, 'celda_memoria' => 'lateral')),
+        'ayuda' => 'Código PHP del proyecto',
+    ),
+    array(
+        'nombre' => 'Conf.',
+        'imagen' => toba_recurso::imagen_toba('configurar.png', true),
+        'url' => toba::vinculador()->get_url(toba_editor::get_id(), 1000258, null, array('menu' => true, 'celda_memoria' => 'lateral')),
+        'ayuda' => 'Configuración general del proyecto',
+    ),
+);
 
-	echo "<tr  class='listado-barra-fila'><td class='ci-tabs-h-lista'>\n";		
-	echo "<ul  style='margin-top: 6px'>\n";
-	$id = 'id="tab_inicial"';
-	$i = 0;
-	foreach ($tabs as $tab) {
-		if ($i == 0) {
-			$class = 'ci-tabs-h-solapa-sel';
-		} else {
-			$class = 'ci-tabs-h-solapa';
-		}
-		echo "<li class='$class'>";
-		echo "<a $id href='".$escapador->escapeHtmlAttr($tab['url'])."' title='". $escapador->escapeHtmlAttr($tab['ayuda'])."'  onclick='seleccionar_tab(this)' target='".apex_frame_lista."'>{$tab['imagen']} {$tab['nombre']}</a>";
-		echo '</li>';
-		$id = '';
-		$i++;
-	}
-	echo toba_js::ejecutar('$$("tab_inicial").onclick()');	
-	echo '</ul>';
-	echo "</td></tr>\n";
+echo "<tr  class='listado-barra-fila'><td class='ci-tabs-h-lista'>\n";
+echo "<ul  style='margin-top: 6px'>\n";
+$id = 'id="tab_inicial"';
+$i = 0;
+foreach ($tabs as $tab) {
+    if ($i == 0) {
+        $class = 'ci-tabs-h-solapa-sel';
+    } else {
+        $class = 'ci-tabs-h-solapa';
+    }
+    echo "<li class='$class'>";
+    echo "<a $id href='".$escapador->escapeHtmlAttr($tab['url'])."' title='". $escapador->escapeHtmlAttr($tab['ayuda'])."'  onclick='seleccionar_tab(this)' target='".apex_frame_lista."'>{$tab['imagen']} {$tab['nombre']}</a>";
+    echo '</li>';
+    $id = '';
+    $i++;
+}
+echo toba_js::ejecutar('$$("tab_inicial").onclick()');
+echo '</ul>';
+echo "</td></tr>\n";
 ?>
 </table>
 <?php
-	echo toba_form::cerrar();
+    echo toba_form::cerrar();
 ?>

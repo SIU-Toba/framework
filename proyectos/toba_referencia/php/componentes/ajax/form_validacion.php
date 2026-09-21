@@ -1,17 +1,17 @@
-<?php 
+<?php
+
 php_referencia::instancia()->agregar(__FILE__);
 
 class form_validacion extends toba_ei_formulario_ml
 {
+    //-----------------------------------------------------------------------------------
+    //---- JAVASCRIPT -------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------
 
-	//-----------------------------------------------------------------------------------
-	//---- JAVASCRIPT -------------------------------------------------------------------
-	//-----------------------------------------------------------------------------------
-
-	function extender_objeto_js()
-	{
-		$id_js = toba::escaper()->escapeJs($this->objeto_js);
-		echo "
+    public function extender_objeto_js()
+    {
+        $id_js = toba::escaper()->escapeJs($this->objeto_js);
+        echo "
 			/**
 			 * Acción que se ejecuta cuando cambia una fecha
 			 */
@@ -46,9 +46,7 @@ class form_validacion extends toba_ei_formulario_ml
 			}
 
 		";
-	}
-	
-	
-}
+    }
 
-?>
+
+}

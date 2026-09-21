@@ -1,4 +1,5 @@
 <?php
+
 /**
  * The base class for all PHP_CodeSniffer documentation generators.
  *
@@ -31,7 +32,6 @@
  */
 class PHP_CodeSniffer_DocGenerators_Generator
 {
-
     /**
      * The name of the coding standard we are generating docs for.
      *
@@ -60,7 +60,7 @@ class PHP_CodeSniffer_DocGenerators_Generator
      *
      * @see generate()
      */
-    public function __construct($standard, array $sniffs=array())
+    public function __construct($standard, array $sniffs = array())
     {
         $this->_standard = $standard;
         $this->_sniffs   = $sniffs;
@@ -187,5 +187,3 @@ class PHP_CodeSniffer_DocGenerators_Generator
 
 
 }//end class
-
-?>

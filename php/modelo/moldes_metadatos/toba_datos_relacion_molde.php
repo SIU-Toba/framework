@@ -6,7 +6,7 @@
 class toba_datos_relacion_molde extends toba_molde_elemento_componente_datos
 {
     protected $clase = 'toba_datos_relacion';
-    protected $tablas= array();
+    protected $tablas = array();
     protected $definiciones = array();
     protected $relaciones = array();
     protected $columnas_relacionadas = array();
@@ -57,7 +57,7 @@ class toba_datos_relacion_molde extends toba_molde_elemento_componente_datos
         }
     }
 
-    public function crear_metodo_consulta($metodo, $sql, $parametros=null)
+    public function crear_metodo_consulta($metodo, $sql, $parametros = null)
     {
         foreach ($this->tablas as $tabla => $molde_dt) {
             $molde_dt->crear_metodo_consulta($metodo, $sql, $parametros);
@@ -119,7 +119,7 @@ class toba_datos_relacion_molde extends toba_molde_elemento_componente_datos
 
         //Alpha testing required..
         $fuente = $this->asistente->get_fuente();
-        foreach ($this->relaciones  as $tabla_padre => $tabla_hija) {
+        foreach ($this->relaciones as $tabla_padre => $tabla_hija) {
             $dt_padre = toba_info_editores::get_dt_de_tabla_fuente($tabla_padre, $fuente, $this->proyecto);
             $dt_hijo = toba_info_editores::get_dt_de_tabla_fuente($tabla_hija, $fuente, $this->proyecto);
             $this->datos->tabla('relaciones')->nueva_fila(array('identificador' =>  "$tabla_padre -> $tabla_hija", 'padre_id' => $tabla_padre , 'hijo_id' => $tabla_hija, 'padre_objeto' => $padre_obj['id'], 'hijo_objeto' => $hijo_obj['id']));

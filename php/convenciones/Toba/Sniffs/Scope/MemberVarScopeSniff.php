@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Verifies that class members have scope modifiers.
  *
@@ -32,8 +33,6 @@ if (class_exists('PHP_CodeSniffer_Standards_AbstractVariableSniff', true) === fa
  */
 class Toba_Sniffs_Scope_MemberVarScopeSniff extends PHP_CodeSniffer_Standards_AbstractVariableSniff
 {
-
-
     /**
      * Processes the function tokens within the class.
      *
@@ -90,5 +89,3 @@ class Toba_Sniffs_Scope_MemberVarScopeSniff extends PHP_CodeSniffer_Standards_Ab
 
 
 }//end class
-
-?>

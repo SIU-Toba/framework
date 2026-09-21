@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Esta clase representa los datos de una tarea. Provee
  * funcionalidades para que su contenido sea alterado externamente y también
@@ -6,74 +7,74 @@
  * @package Centrales
  * @subpackage Personalizacion
  */
-class toba_tarea_datos implements Iterator {
-	/**
-	 * Los registros que se van a incluir en la bd. Pueden ser registros de insert
-	 * o update
-	 * @var ArrayIterator
-	 */
-	protected $it_registros;
+class toba_tarea_datos implements Iterator
+{
+    /**
+     * Los registros que se van a incluir en la bd. Pueden ser registros de insert
+     * o update
+     * @var ArrayIterator
+     */
+    protected $it_registros;
 
 
-	/**
-	 * Los registros organizados por tablas. Se mantienen dos estructuras diferentes
-	 * debido a los distintos usos que se le va a dar a esta clase
-	 * @var array
-	 */
-	protected $tablas;
+    /**
+     * Los registros organizados por tablas. Se mantienen dos estructuras diferentes
+     * debido a los distintos usos que se le va a dar a esta clase
+     * @var array
+     */
+    protected $tablas;
 
-	function  __construct()
-	{
-		$this->it_registros =  new ArrayIterator(array());
-		$this->tablas = array();
-	}
+    public function __construct()
+    {
+        $this->it_registros =  new ArrayIterator(array());
+        $this->tablas = array();
+    }
 
-	/**
-	 * Agrega un registro al final del plan
-	 * @param toba_registro $registro
-	 */
-	function add_registro($registro)
-	{
-		$this->it_registros->append($registro);
-		$this->tablas[$registro->get_tabla()] = $registro;
-	}
+    /**
+     * Agrega un registro al final del plan
+     * @param toba_registro $registro
+     */
+    public function add_registro($registro)
+    {
+        $this->it_registros->append($registro);
+        $this->tablas[$registro->get_tabla()] = $registro;
+    }
 
-	/**
-	 * Devuelve todos los registros de una tabla
-	 * @param string $tabla
-	 * @return array
-	 */
-	function get_registros($tabla)
-	{
-		return (isset($this->tablas[$tabla])) ? $this->tablas[$tabla] : array();
-	}
+    /**
+     * Devuelve todos los registros de una tabla
+     * @param string $tabla
+     * @return array
+     */
+    public function get_registros($tabla)
+    {
+        return (isset($this->tablas[$tabla])) ? $this->tablas[$tabla] : array();
+    }
 
-	/**
-	 * @return toba_registro
-	 */
-	public function current():mixed
-	{
-		return $this->it_registros->current();
-	}
+    /**
+     * @return toba_registro
+     */
+    public function current(): mixed
+    {
+        return $this->it_registros->current();
+    }
 
-	public function key():mixed
-	{
-		return $this->it_registros->key();
-	}
-	
-	public function next():void
-	{
-		$this->it_registros->next();
-	}
+    public function key(): mixed
+    {
+        return $this->it_registros->key();
+    }
 
-	public function rewind():void
-	{
-		$this->it_registros->rewind();
-	}
+    public function next(): void
+    {
+        $this->it_registros->next();
+    }
 
-	public function valid():bool
-	{
-		return $this->it_registros->valid();
-	}
+    public function rewind(): void
+    {
+        $this->it_registros->rewind();
+    }
+
+    public function valid(): bool
+    {
+        return $this->it_registros->valid();
+    }
 }
-?>

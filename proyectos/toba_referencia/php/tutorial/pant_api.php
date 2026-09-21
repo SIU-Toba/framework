@@ -1,17 +1,23 @@
-<?php 
+<?php
+
 require_once("tutorial/pant_tutorial.php");
 
 class pant_fuente extends pant_tutorial
 {
-	function generar_layout()
-	{
-		$wiki = toba_parser_ayuda::parsear_wiki('Referencia/FuenteDatos', 
-													'Fuentes de Datos',
-													'toba_editor');		
-		$api = toba_parser_ayuda::parsear_api('Fuentes/toba_db',
-												 'toba_db', 'toba_editor');
+    public function generar_layout()
+    {
+        $wiki = toba_parser_ayuda::parsear_wiki(
+            'Referencia/FuenteDatos',
+            'Fuentes de Datos',
+            'toba_editor'
+        );
+        $api = toba_parser_ayuda::parsear_api(
+            'Fuentes/toba_db',
+            'toba_db',
+            'toba_editor'
+        );
 
-		$codigo1 = '<?php
+        $codigo1 = '<?php
 $sql = "SELECT id, nombre FROM tabla..."
 $rs = toba::db()->consultar($sql);
 if (! empty($rs)) {
@@ -23,8 +29,8 @@ if (! empty($rs)) {
 }
 //--- Si la consulta falla (por ej. no existe la tabla), tira una excepcion toba_error_db
 ?>
-';	
-		$codigo2 = '<?php
+';
+        $codigo2 = '<?php
 $sql = "UPDATE tabla SET nombre = id";
 
 toba::db()->abrir_transaccion();
@@ -36,7 +42,7 @@ echo "Se modificaron $cant registros";
 //--- Si el ejecutar falla (por ej. una restricción de clave foránea), tira una excepcion toba_error_db
 ?>
 ';
-		echo "
+        echo "
 			<p>Cuando se utilizan los componentes de datos (datos_tabla y datos_relacion)
 			se hace uso implícito de la base de negocios definida en el editor. A esta base 
 			se la denomina <strong>fuente de datos</strong> y puede ser accedida a través de una 
@@ -54,17 +60,17 @@ echo "Se modificaron $cant registros";
 			<ul><li>$wiki
 			<li>$api</ul>
 		";
-	}
+    }
 }
 
 //--------------------------------------------------------------
 
 class pant_vinculacion extends pant_tutorial
 {
-	function generar_layout()
-	{
-		$api = toba_parser_ayuda::parsear_api('Centrales/toba_vinculador', 'toba_vinculador', 'toba_editor');
-		$codigo = '<?php
+    public function generar_layout()
+    {
+        $api = toba_parser_ayuda::parsear_api('Centrales/toba_vinculador', 'toba_vinculador', 'toba_editor');
+        $codigo = '<?php
 //Forma general
 $url = toba::vinculador()->get_url($proyecto, $item, $parametros, $opciones);
 
@@ -77,7 +83,7 @@ $url = toba::vinculador()->get_url(null, null, $parametros, $opciones);
 echo "<a href=\'$url\'>Navegar</a>";
 ?>
 ';
-		echo "
+        echo "
 		<p>
 		Existe una clase que permite crear links entre items incluso de distintos proyectos, esta
 		clase recibe el nombre de <strong>vinculador</strong>. La utilidad es poder navegar hacia otras 
@@ -89,17 +95,17 @@ echo "<a href=\'$url\'>Navegar</a>";
 		".mostrar_php($codigo)."
 		<p>La interfaz completa de la API está publicada $api</p>
 		";
-	}	
+    }
 }
 
 //--------------------------------------------------------------
 
 class pant_memoria extends pant_tutorial
 {
-	function generar_layout()
-	{
-		$api = toba_parser_ayuda::parsear_api('Centrales/toba_memoria', 'toba_memoria', 'toba_editor');
-		$codigo = '<?php
+    public function generar_layout()
+    {
+        $api = toba_parser_ayuda::parsear_api('Centrales/toba_memoria', 'toba_memoria', 'toba_editor');
+        $codigo = '<?php
 //--- Guardar el par $clave=>$valor por lo que resta de la sesión
 toba::memoria()->set_dato_aplicacion($clave, $valor);		
 
@@ -115,7 +121,7 @@ toba::memoria()->set_dato_sincronizado($clave, $valor);
 toba::memoria()->get_dato_sincronizado($clave);
 ?>
 ';
-		echo "
+        echo "
 			<p>
 				Sabemos que las aplicaciones desarrolladas PHP en general no mantienen información
 				en memoria entre dos pedidos de página. La forma de recordar información de cada usuario
@@ -148,19 +154,19 @@ toba::memoria()->get_dato_sincronizado($clave);
 			niveles la clase $api brinda estas primitivas:
 			</p>
 			
-		";	
-		echo mostrar_php($codigo);
-	}	
+		";
+        echo mostrar_php($codigo);
+    }
 }
 
 //--------------------------------------------------------------
 
 class pant_logger extends pant_tutorial
 {
-	function generar_layout()
-	{
-		$api = toba_parser_ayuda::parsear_api('Debug/toba_logger', 'toba_logger', 'toba_editor');				
-		$codigo = '<?php
+    public function generar_layout()
+    {
+        $api = toba_parser_ayuda::parsear_api('Debug/toba_logger', 'toba_logger', 'toba_editor');
+        $codigo = '<?php
 //--- Guardar un mensaje de debug
 toba::logger()->debug($mensaje);
 
@@ -174,7 +180,7 @@ toba::logger()->var_dump($variable);
 toba::logger()->trace();
 ?>
 ';
-		echo "
+        echo "
 			<p>
 			Toba cuenta con una clase que va recolectando información
 			interna y se almacena en un archivo común de logs del proyecto ubicado en
@@ -185,10 +191,10 @@ toba::logger()->trace();
 			de debug del sistema. Para esto se consume la clase $api :
 			</p>
 		";
-		echo mostrar_php($codigo);
-		$img1 = toba_recurso::imagen_toba('logger.gif', true);
-		$img2 = toba_recurso::imagen_proyecto('tutorial/logger.png', true);
-		echo "
+        echo mostrar_php($codigo);
+        $img1 = toba_recurso::imagen_toba('logger.gif', true);
+        $img2 = toba_recurso::imagen_proyecto('tutorial/logger.png', true);
+        echo "
 			<p>
 				El archivo de logs generado puede ser analizado con una operación del editor
 				creada para ayudar al desarrollo. Este analizador puede ser accedido a través
@@ -196,36 +202,38 @@ toba::logger()->trace();
 			</p>
 			$img2
 		";
-	}	
+    }
 }
 
 //--------------------------------------------------------------
 
 class pant_mensajes extends pant_tutorial
 {
-	function generar_layout()
-	{
-		$api1 = toba_parser_ayuda::parsear_api('Fuentes/toba_mensajes', 'toba_mensajes', 'toba_editor');		
-		$api2 = toba_parser_ayuda::parsear_api('SalidaGrafica/toba_notificacion', 'toba_notificacion', 'toba_editor');		
-		$img = toba_recurso::imagen_proyecto('tutorial/notificacion.png', true);
-		$wiki = toba_parser_ayuda::parsear_wiki('Referencia/Mensajes', 
-													'Mensajes y Notificaciones',
-													'toba_editor');
-		$ejemplo = 	toba::vinculador()->get_url(null, 1000204, array(), array('celda_memoria'=>'ejemplo'));
-		
-		$codigo1 = '<?php
+    public function generar_layout()
+    {
+        $api1 = toba_parser_ayuda::parsear_api('Fuentes/toba_mensajes', 'toba_mensajes', 'toba_editor');
+        $api2 = toba_parser_ayuda::parsear_api('SalidaGrafica/toba_notificacion', 'toba_notificacion', 'toba_editor');
+        $img = toba_recurso::imagen_proyecto('tutorial/notificacion.png', true);
+        $wiki = toba_parser_ayuda::parsear_wiki(
+            'Referencia/Mensajes',
+            'Mensajes y Notificaciones',
+            'toba_editor'
+        );
+        $ejemplo = 	toba::vinculador()->get_url(null, 1000204, array(), array('celda_memoria' => 'ejemplo'));
+
+        $codigo1 = '<?php
 //Suponiendo que el mensaje ingresado es: \'Esta es la %1% instancia de un mensaje global de Toba. Fecha de hoy: %2%.\'
 $mensaje = toba::mensajes()->get("indice", array("primera", date("d/M/Y"));
 echo $mensaje;
 //La salida es: \'Esta es la primera instancia de un mensaje global de Toba. Fecha de hoy: 01/02/2007.\'
 ?>
 ';
-		$codigo2 = '<?php
+        $codigo2 = '<?php
 toba::notificacion()->agregar($mensaje);
 toba::notificacion()->agregar($mensaje, "info");
 ?>
-';		
-		echo "<p>
+';
+        echo "<p>
 			Para centralizar el manejo de mensajes y permitir su posterior personalización
 			Toba brinda la posibilidad de definir los mensajes en el mismo editor web y
 			posteriormente instanciarlos y notificarlos usando la API.
@@ -234,22 +242,18 @@ toba::notificacion()->agregar($mensaje, "info");
 		usando la clase $api1:
 		</p>
 		";
-		echo mostrar_php($codigo1);
-		echo "<p>
+        echo mostrar_php($codigo1);
+        echo "<p>
 			En lugar de mostrar el mensaje con un simple <em>echo</em> es posible notificarlo
 			utilizando la clase $api2: 
 		</p>";
-		echo mostrar_php($codigo2);
-		echo $img;
-		
-		echo "<h2>Más info</h2>
+        echo mostrar_php($codigo2);
+        echo $img;
+
+        echo "<h2>Más info</h2>
 		 <ul><li>$wiki
 			<li><a href='$ejemplo' target='_blank'>Ejemplo</a>
 		</ul>
 		";
-	}
+    }
 }
-
-
-
-?>

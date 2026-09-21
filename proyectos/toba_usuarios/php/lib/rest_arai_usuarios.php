@@ -15,7 +15,7 @@ class rest_arai_usuarios
      * Metodo para instanciar un cliente compatible de API
      * @param boolean $recargar Flag que determina si recarga la instancia
      */
-    public static function instancia($recargar=false)
+    public static function instancia($recargar = false)
     {
         if (!isset(self::$instancia) || $recargar) {
             $wrapper = new rest_arai_usuarios();

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Class Declaration Test.
  *
@@ -30,8 +31,6 @@
  */
 class Toba_Sniffs_PHP_ClassDeclarationSniff implements PHP_CodeSniffer_Sniff
 {
-
-
     /**
      * Returns an array of tokens this test wants to listen for.
      *
@@ -78,7 +77,7 @@ class Toba_Sniffs_PHP_ClassDeclarationSniff implements PHP_CodeSniffer_Sniff
             $error .= ' must be on the line after the definition';
             $phpcsFile->addError($error, $curlyBrace);
             return;
-        } else if ($braceLine > ($classLine + 1)) {
+        } elseif ($braceLine > ($classLine + 1)) {
             $difference  = ($braceLine - $classLine - 1);
             $difference .= ($difference === 1) ? ' line' : ' lines';
             $error       = 'Opening brace of a ';
@@ -112,5 +111,3 @@ class Toba_Sniffs_PHP_ClassDeclarationSniff implements PHP_CodeSniffer_Sniff
 
 
 }//end class
-
-?>

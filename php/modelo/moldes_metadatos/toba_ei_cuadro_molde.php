@@ -1,4 +1,5 @@
 <?php
+
 /*
 *
 */
@@ -55,7 +56,7 @@ class toba_ei_cuadro_molde extends toba_molde_elemento_componente_ei
 
     public function set_scroll($alto)
     {
-        if ((strpos($alto, '%')===false) && (strpos($alto, 'px')===false)) {
+        if ((strpos($alto, '%') === false) && (strpos($alto, 'px') === false)) {
             throw new toba_error_asistentes("MOLDE CUADRO: El alto del SCROLL debe definirse con el tipo de medida asociado ('%' o 'px'). Definido: $alto");
         }
         $this->datos->tabla('prop_basicas')->set_fila_columna_valor(0, 'scroll', 1);

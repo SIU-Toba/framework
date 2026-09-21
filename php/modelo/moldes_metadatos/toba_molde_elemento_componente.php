@@ -1,10 +1,11 @@
 <?php
+
 /*
 *
 */
 class toba_molde_elemento_componente extends toba_molde_elemento
 {
-    protected $clase_proyecto ='toba';
+    protected $clase_proyecto = 'toba';
     protected $subclase;
     protected $molde_php = null;					// Clase molde de codigo PHP
     protected $carpeta_archivo;

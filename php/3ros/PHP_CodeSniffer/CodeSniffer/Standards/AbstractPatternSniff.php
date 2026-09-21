@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Processes pattern strings and checks that the code conforms to the pattern.
  *
@@ -35,7 +36,6 @@ if (class_exists('PHP_CodeSniffer_Standards_IncorrectPatternException', true) ==
  */
 abstract class PHP_CodeSniffer_Standards_AbstractPatternSniff implements PHP_CodeSniffer_Sniff
 {
-
     /**
      * The parsed patterns array.
      *
@@ -72,7 +72,7 @@ abstract class PHP_CodeSniffer_Standards_AbstractPatternSniff implements PHP_Cod
      *
      * @param boolean $ignoreComments If true, comments will be ignored.
      */
-    public function __construct($ignoreComments=false)
+    public function __construct($ignoreComments = false)
     {
         $this->_ignoreComments      = $ignoreComments;
         $this->_supplementaryTokens = $this->registerSupplementary();
@@ -89,7 +89,7 @@ abstract class PHP_CodeSniffer_Standards_AbstractPatternSniff implements PHP_Cod
      * @return array(int)
      * @see process()
      */
-    public final function register()
+    final public function register()
     {
         $listenTypes = array();
         $patterns    = $this->getPatterns();
@@ -195,7 +195,7 @@ abstract class PHP_CodeSniffer_Standards_AbstractPatternSniff implements PHP_Cod
      * @return void
      * @see register()
      */
-    public final function process(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
+    final public function process(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
 
@@ -223,7 +223,7 @@ abstract class PHP_CodeSniffer_Standards_AbstractPatternSniff implements PHP_Cod
             if ($errors === false) {
                 // The pattern didn't match.
                 continue;
-            } else if (empty($errors) === true) {
+            } elseif (empty($errors) === true) {
                 // The pattern matched, but there were no errors.
                 break;
             }
@@ -236,9 +236,9 @@ abstract class PHP_CodeSniffer_Standards_AbstractPatternSniff implements PHP_Cod
             }
         }
         foreach ($allErrors as $stackPtr => $error) {
-			if (isset($this->error_fijo)) {
-				$error = $this->error_fijo.$error;
-			}
+            if (isset($this->error_fijo)) {
+                $error = $this->error_fijo.$error;
+            }
             $phpcsFile->addError($error, $stackPtr);
         }
 
@@ -325,7 +325,7 @@ abstract class PHP_CodeSniffer_Standards_AbstractPatternSniff implements PHP_Cod
                         }
 
                     }//end if
-                } else if ($pattern[$i]['type'] === 'skip') {
+                } elseif ($pattern[$i]['type'] === 'skip') {
                     // Skip to next piece of relevant code.
                     if ($pattern[$i]['to'] === 'parenthesis_closer') {
                         $to = 'parenthesis_opener';
@@ -351,9 +351,9 @@ abstract class PHP_CodeSniffer_Standards_AbstractPatternSniff implements PHP_Cod
 
                     // Skip to the opening token.
                     $stackPtr = ($tokens[$next][$to] - 1);
-                } else if ($pattern[$i]['type'] === 'string') {
+                } elseif ($pattern[$i]['type'] === 'string') {
                     $found = 'abc';
-                } else if ($pattern[$i]['type'] === 'newline') {
+                } elseif ($pattern[$i]['type'] === 'newline') {
                     $found = 'EOL';
                 }//end if
             }//end for
@@ -469,7 +469,7 @@ abstract class PHP_CodeSniffer_Standards_AbstractPatternSniff implements PHP_Cod
                     }
                 }//end if
 
-            } else if ($pattern[$i]['type'] === 'skip') {
+            } elseif ($pattern[$i]['type'] === 'skip') {
                 // Find the previous opener.
                 $next = $phpcsFile->findPrevious(PHP_CodeSniffer_Tokens::$blockOpeners, $stackPtr, null);
                 if ($next === false || isset($tokens[$next][$pattern[$i]['to']]) === false) {
@@ -487,7 +487,7 @@ abstract class PHP_CodeSniffer_Standards_AbstractPatternSniff implements PHP_Cod
 
                 // Skip to the closing token.
                 $stackPtr = ($tokens[$next][$pattern[$i]['to']] + 1);
-            } else if ($pattern[$i]['type'] === 'string') {
+            } elseif ($pattern[$i]['type'] === 'string') {
                 if ($tokens[$stackPtr]['code'] !== T_STRING) {
                     $hasError = true;
                 }
@@ -498,7 +498,7 @@ abstract class PHP_CodeSniffer_Standards_AbstractPatternSniff implements PHP_Cod
                 }
 
                 $stackPtr++;
-            } else if ($pattern[$i]['type'] === 'newline') {
+            } elseif ($pattern[$i]['type'] === 'newline') {
                 // Find the next token that contains a newline character.
                 $newline = 0;
                 for ($j = $stackPtr; $j < $phpcsFile->numTokens; $j++) {
@@ -583,7 +583,7 @@ abstract class PHP_CodeSniffer_Standards_AbstractPatternSniff implements PHP_Cod
      *
      * @return array(string)
      */
-    protected abstract function getPatterns();
+    abstract protected function getPatterns();
 
 
     /**
@@ -603,20 +603,20 @@ abstract class PHP_CodeSniffer_Standards_AbstractPatternSniff implements PHP_Cod
     }//end registerSupplementary()
 
 
-     /**
-      * Processes any tokens registered with registerSupplementary().
-      *
-      * @param PHP_CodeSniffer_File $phpcsFile The PHP_CodeSniffer file where to
-      *                                        process the skip.
-      * @param int                  $stackPtr  The position in the tokens stack to
-      *                                        process.
-      *
-      * @return void
-      * @see registerSupplementary()
-      */
+    /**
+     * Processes any tokens registered with registerSupplementary().
+     *
+     * @param PHP_CodeSniffer_File $phpcsFile The PHP_CodeSniffer file where to
+     *                                        process the skip.
+     * @param int                  $stackPtr  The position in the tokens stack to
+     *                                        process.
+     *
+     * @return void
+     * @see registerSupplementary()
+     */
     protected function processSupplementary(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
     {
-         return;
+        return;
 
     }//end processSupplementary()
 
@@ -651,12 +651,12 @@ abstract class PHP_CodeSniffer_Standards_AbstractPatternSniff implements PHP_Cod
                 $lastToken      = ($i - $firstToken);
                 $firstToken     = ($i + 4);
                 $i              = ($i + 3);
-            } else if (substr($pattern, $i, 3) === 'abc') {
+            } elseif (substr($pattern, $i, 3) === 'abc') {
                 $specialPattern = array('type' => 'string');
                 $lastToken      = ($i - $firstToken);
                 $firstToken     = ($i + 3);
                 $i              = ($i + 2);
-            } else if (substr($pattern, $i, 3) === 'EOL') {
+            } elseif (substr($pattern, $i, 3) === 'EOL') {
                 $specialPattern = array('type' => 'newline');
                 $lastToken      = ($i - $firstToken);
                 $firstToken     = ($i + 3);
@@ -718,12 +718,12 @@ abstract class PHP_CodeSniffer_Standards_AbstractPatternSniff implements PHP_Cod
 
         for ($from; $from >= 0; $from--) {
             switch ($pattern[$from]) {
-            case '(':
-                $skip['to'] = 'parenthesis_closer';
-                break;
-            case '{':
-                $skip['to'] = 'scope_closer';
-                break;
+                case '(':
+                    $skip['to'] = 'parenthesis_closer';
+                    break;
+                case '{':
+                    $skip['to'] = 'scope_closer';
+                    break;
             }
 
             if (isset($skip['to']) === true) {
@@ -777,5 +777,3 @@ abstract class PHP_CodeSniffer_Standards_AbstractPatternSniff implements PHP_Cod
 
 
 }//end class
-
-?>

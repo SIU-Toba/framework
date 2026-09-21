@@ -11,7 +11,7 @@ class recurso_info implements modelable
         return array('info' => [
                             'version' => array('type' => 'string'),
                             'api_version' => array('type' => 'string'),
-                            'api_major' => array('type'=> 'string'),
+                            'api_major' => array('type' => 'string'),
                             'api_minor' => array('type' => 'string')
                         ]);
     }
@@ -27,7 +27,7 @@ class recurso_info implements modelable
         $api = rest::app()->config('api_version');
         $api_major = rest::app()->config('api_major');
         $api_minor = rest::app()->config('api_minor');
-        
+
         if (is_null($version) || is_null($api) || is_null($api_major) || is_null($api_minor)) {
             rest::response()->error_negocio(['La informaci? solicitada no esta disponible'], 500);
         } else {

@@ -7,37 +7,34 @@
  */
 class toba_serializar_propiedades
 {
-	protected $_propiedades_toba = array();
+    protected $_propiedades_toba = array();
 
-	function __sleep()
-	{
-		$this->_propiedades_toba = array();
-		$this->_propiedades_toba['componentes'] = array();
-		$props = get_object_vars($this);
-		foreach ($props as $nombre => $valor) {
-			if ($valor instanceof toba_componente) {
-				$excluir[] = $nombre;
-				$this->_propiedades_toba['componente'][] = $nombre;
-				$this->$nombre = $this->$nombre->get_id();  
-			}
-		}
-		return array_keys($props);
-	}
-	
-	function __wakeup()
-	{
-		foreach ($this->_propiedades_toba as $tipo => $props) {
-			foreach ($props as $prop) {
-				if ($tipo == 'componente') {
-					$valor = $this->$prop;
-					$id = array('componente' => $valor[1], 'proyecto' => $valor[0]);
-					$this->$prop = toba_constructor::buscar_runtime($id);			
-				}
-			}
-		}
-	}
-	
+    public function __sleep()
+    {
+        $this->_propiedades_toba = array();
+        $this->_propiedades_toba['componentes'] = array();
+        $props = get_object_vars($this);
+        foreach ($props as $nombre => $valor) {
+            if ($valor instanceof toba_componente) {
+                $excluir[] = $nombre;
+                $this->_propiedades_toba['componente'][] = $nombre;
+                $this->$nombre = $this->$nombre->get_id();
+            }
+        }
+        return array_keys($props);
+    }
+
+    public function __wakeup()
+    {
+        foreach ($this->_propiedades_toba as $tipo => $props) {
+            foreach ($props as $prop) {
+                if ($tipo == 'componente') {
+                    $valor = $this->$prop;
+                    $id = array('componente' => $valor[1], 'proyecto' => $valor[0]);
+                    $this->$prop = toba_constructor::buscar_runtime($id);
+                }
+            }
+        }
+    }
+
 }
-
-
-?>

@@ -1,12 +1,13 @@
-<?php 
+<?php
+
 php_referencia::instancia()->agregar(__FILE__);
 
 class eiform_ocultar_desactivar2 extends toba_ei_formulario
 {
-	function extender_objeto_js()
-	{
-		$id_js = toba::escaper()->escapeJs($this->objeto_js);
-		echo "
+    public function extender_objeto_js()
+    {
+        $id_js = toba::escaper()->escapeJs($this->objeto_js);
+        echo "
 			{$id_js}.evt__a__procesar = function(inicial) {
 				if(!inicial) { //En el inicial no se afecta para que se perciba el ocultamiento desde el server
 					if (this.ef('a').chequeado()) {
@@ -47,8 +48,6 @@ class eiform_ocultar_desactivar2 extends toba_ei_formulario
 				}
 			} 
 		";
-	}
+    }
 
 }
-
-?>

@@ -1,23 +1,24 @@
 <?php
+
 class pant_firma_digital extends toba_ei_pantalla
 {
-	function generar_layout()
-	{
-		//-- Genera Applet
-		$this->dep('firmador')->generar_html();
-		
-		
-		//-- Genera selector de documentos
-		$sesion = $this->dep('firmador')->generar_sesion();
-		
-		//$url_actual = $this->dep('firmador')->get_url_base_actual(). $_SERVER['REQUEST_URI'];
-		
-		//JS lo necesita sin encodear y Java encodeado...
-		$escapador = toba::escaper();
-		$url_pdf_base =  $this->dep('firmador')->get_url_enviar_pdf(false)."&codigo=" . $escapador->escapeUrl($sesion);
-		$url_pdf_base_encodeado = $this->dep('firmador')->get_url_enviar_pdf(true)."&codigo=". $escapador->escapeUrl($sesion);
+    public function generar_layout()
+    {
+        //-- Genera Applet
+        $this->dep('firmador')->generar_html();
 
-		echo "
+
+        //-- Genera selector de documentos
+        $sesion = $this->dep('firmador')->generar_sesion();
+
+        //$url_actual = $this->dep('firmador')->get_url_base_actual(). $_SERVER['REQUEST_URI'];
+
+        //JS lo necesita sin encodear y Java encodeado...
+        $escapador = toba::escaper();
+        $url_pdf_base =  $this->dep('firmador')->get_url_enviar_pdf(false)."&codigo=" . $escapador->escapeUrl($sesion);
+        $url_pdf_base_encodeado = $this->dep('firmador')->get_url_enviar_pdf(true)."&codigo=". $escapador->escapeUrl($sesion);
+
+        echo "
 			<style type='text/css'>
 				#pdf {
 					float: right; 
@@ -56,19 +57,19 @@ class pant_firma_digital extends toba_ei_pantalla
 			}
 
 			function verDocumento(source) {".
-				$escapador->escapeJs($this->objeto_js) .".dep('firmador').ver_pdf_inline(source.value);
+                $escapador->escapeJs($this->objeto_js) .".dep('firmador').ver_pdf_inline(source.value);
 			}	
 			</script>
 		";
-		
-		echo "<div id='listado' style='display: none;float: left; width: 220px; margin-left: 20px; height: 600px;overflow:scroll;'>
+
+        echo "<div id='listado' style='display: none;float: left; width: 220px; margin-left: 20px; height: 600px;overflow:scroll;'>
 				<input id='todos' type='checkbox' onclick='seleccionarTodos(this)' /> 
 				<label for='todos'>Seleccionar Todos/Ninguno</label>
 			<br/><br/>
 		";
-		$cant_documentos = 68;
-		for ($i = 1; $i <= $cant_documentos; $i++) {
-			echo "	<input id='". $escapador->escapeHtmlAttr($i)."' 
+        $cant_documentos = 68;
+        for ($i = 1; $i <= $cant_documentos; $i++) {
+            echo "	<input id='". $escapador->escapeHtmlAttr($i)."' 
 						name='documentos' 
 						type='checkbox' 
 						onclick='toggleDocumento(this, this.checked)' 
@@ -77,10 +78,9 @@ class pant_firma_digital extends toba_ei_pantalla
 					/> 
 					<a href=\"javascript:verDocumento(document.getElementById('". $escapador->escapeHtmlAttr($i)."'))\">Documento ". $escapador->escapeHtml($i)."</a>
 					<br/>";
-		}
-		echo "</div>";
+        }
+        echo "</div>";
 
-	}
+    }
 
 }
-?>

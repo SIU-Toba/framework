@@ -1,11 +1,12 @@
-<?php 
+<?php
+
 require_once("tutorial/pant_tutorial.php");
 
 class pant_definicion extends pant_tutorial
 {
-	function generar_layout()
-	{
-		echo "
+    public function generar_layout()
+    {
+        echo "
 			<p>
 				SIU-Toba es un Ambiente de Desarrollo Web que utiliza a PHP como lenguaje de programación.
 				Lo llamamos <strong>Ambiente</strong> porque es una suite de distintas utilidades:
@@ -20,8 +21,8 @@ class pant_definicion extends pant_tutorial
 				comportamiento del proyecto creado. Durante el desarrollo estos metadatos son almacenados en una base de datos relacional denominada <strong>instancia</strong>.
 			</p>
 		";
-		$img = toba_recurso::imagen_proyecto('tutorial/esquema_general.png');
-		echo "
+        $img = toba_recurso::imagen_proyecto('tutorial/esquema_general.png');
+        echo "
 			<h3>Flujo de trabajo</h3>
 			<img src='$img' style='float:right; padding:10px;'>
 			<p>
@@ -39,19 +40,19 @@ class pant_definicion extends pant_tutorial
 			</p>
 		
 		";
-	}
+    }
 }
 
-class pant_directorios extends pant_tutorial 
+class pant_directorios extends pant_tutorial
 {
-	function generar_layout()
-	{
-		$comandos = toba_parser_ayuda::parsear_wiki('Referencia/Consola', 'comandos de consola', 'toba_editor');
-		$wiki = toba_parser_ayuda::parsear_wiki('WikiStart', 'wiki', 'toba_editor');
-		$puntos_de_acceso = toba_parser_ayuda::parsear_wiki('Referencia/PuntosDeAcceso', 'puntos de acceso', 'toba_editor');
-		$api = toba_parser_ayuda::parsear_api('index', 'se encuentra publicada', 'toba_editor');
-		$proyectos = toba_parser_ayuda::parsear_wiki('Proyectos#Internos', 'proyectos propios', 'toba_editor');
-		echo " 
+    public function generar_layout()
+    {
+        $comandos = toba_parser_ayuda::parsear_wiki('Referencia/Consola', 'comandos de consola', 'toba_editor');
+        $wiki = toba_parser_ayuda::parsear_wiki('WikiStart', 'wiki', 'toba_editor');
+        $puntos_de_acceso = toba_parser_ayuda::parsear_wiki('Referencia/PuntosDeAcceso', 'puntos de acceso', 'toba_editor');
+        $api = toba_parser_ayuda::parsear_api('index', 'se encuentra publicada', 'toba_editor');
+        $proyectos = toba_parser_ayuda::parsear_wiki('Proyectos#Internos', 'proyectos propios', 'toba_editor');
+        echo " 
 			<p>
 			La siguiente es una lista de los directorios más importantes de Toba y sus funcionalidades a alto nivel:
 			<ul class='lista-separada'>
@@ -116,18 +117,18 @@ class pant_directorios extends pant_tutorial
 						<li><strong>temp</strong>: Directorio temporal navegable común.
 					</ul>
 			</ul>
-		";	
-		
-	}
+		";
+
+    }
 }
 
-class pant_ejecucion extends pant_tutorial 
+class pant_ejecucion extends pant_tutorial
 {
-	function generar_layout()
-	{
-		$img = toba_recurso::imagen_proyecto('tutorial/esquema_ejecucion_general.png');
-		$img2 = toba_recurso::imagen_proyecto('tutorial/esquema_ejecucion_detalles.png');
-		echo "
+    public function generar_layout()
+    {
+        $img = toba_recurso::imagen_proyecto('tutorial/esquema_ejecucion_general.png');
+        $img2 = toba_recurso::imagen_proyecto('tutorial/esquema_ejecucion_detalles.png');
+        echo "
 		<p>
 			<img src='$img' style='float:right; padding:0px;'>		
 			En la introducción vimos que existe un <em>núcleo</em> o <em>Runtime</em> encargado de la ejecución.
@@ -153,17 +154,17 @@ class pant_ejecucion extends pant_tutorial
 			</div>
 		</p>
 		";
-	}
+    }
 }
 
 
-class pant_administracion extends pant_tutorial 
+class pant_administracion extends pant_tutorial
 {
-	function generar_layout()
-	{
-		$img = toba_recurso::imagen_proyecto('tutorial/administracion.png');		
-		$wiki = toba_parser_ayuda::parsear_wiki('Referencia/Deployment', 'Casos de Uso de Deployment', 'toba_editor');		
-		echo "
+    public function generar_layout()
+    {
+        $img = toba_recurso::imagen_proyecto('tutorial/administracion.png');
+        $wiki = toba_parser_ayuda::parsear_wiki('Referencia/Deployment', 'Casos de Uso de Deployment', 'toba_editor');
+        echo "
 			<p>
 				Cuando utilizamos el <strong>editor web</strong> de Toba, estamos definiendo un proyecto en base a <strong>metadatos</strong>, almacenados
 				en una base de datos definida durante la instalación.
@@ -190,8 +191,5 @@ class pant_administracion extends pant_tutorial
 				Para analizar en más profundidad estas y otras situaciones puede ver los <strong>$wiki</strong>
 			</p>			
 		";
-	}
+    }
 }
-
-
-?>

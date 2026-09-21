@@ -2,17 +2,17 @@
 
 class eiform_pantallas extends toba_ei_formulario
 {
-	protected $js_abrir = '';
-	
-	function set_js_abrir($js)
-	{
-		$this->js_abrir = $js;
-	}
-		
-	function extender_objeto_js()
-	{
-		$id_js = toba::escaper()->escapeJs($this->objeto_js);
-		echo "						
+    protected $js_abrir = '';
+
+    public function set_js_abrir($js)
+    {
+        $this->js_abrir = $js;
+    }
+
+    public function extender_objeto_js()
+    {
+        $id_js = toba::escaper()->escapeJs($this->objeto_js);
+        echo "						
 			{$id_js}.evt__subclase_archivo__procesar = function(inicial) {
 				if (!inicial && this.ef('subclase').valor() == '') {
 					var archivo = this.ef('subclase_archivo').valor();
@@ -40,25 +40,24 @@ class eiform_pantallas extends toba_ei_formulario
 				return false;
 			}";
 
-			
-		if ($this->existe_evento('extender')) {
-			echo"
+
+        if ($this->existe_evento('extender')) {
+            echo"
 			{$id_js}.modificar_vinculo__extender = function(id_vinculo)
 			{
 				var estado = this.ef('punto_montaje').get_estado();
 				vinculador.agregar_parametros(id_vinculo, {'punto_montaje': estado});
 			}";
-		}
-		
-		if ($this->existe_evento('personalizar')) {
-			echo "	
+        }
+
+        if ($this->existe_evento('personalizar')) {
+            echo "	
 			{$id_js}.modificar_vinculo__personalizar = function(id_vinculo)
 			{
 				var estado = this.ef('punto_montaje').get_estado();
 				vinculador.agregar_parametros(id_vinculo, {'punto_montaje': estado});
-			}";			
-		}
-		
-	}
+			}";
+        }
+
+    }
 }
-?>

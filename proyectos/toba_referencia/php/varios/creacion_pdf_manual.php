@@ -1,13 +1,14 @@
 <?php
+
 $pdf = new Cezpdf();
-$diff = array(193 => 'Aacute', 225 => 'aacute', 
-              201 => 'Eacute', 233 => 'eacute', 
-              205 => 'Iacute', 237 => 'iacute', 
-              209 => 'Ntilde', 241 => 'ntilde', 
-              211 => 'Oacute', 243 => 'oacute', 
+$diff = array(193 => 'Aacute', 225 => 'aacute',
+              201 => 'Eacute', 233 => 'eacute',
+              205 => 'Iacute', 237 => 'iacute',
+              209 => 'Ntilde', 241 => 'ntilde',
+              211 => 'Oacute', 243 => 'oacute',
               218 => 'Uacute', 250 => 'uacute',
               220 => 'Udieresis', 252 => 'udieresis');
-$pdf->selectFont('Helvetica', array('encoding' => 'WinAnsiEncoding', 'differences'=> $diff));
+$pdf->selectFont('Helvetica', array('encoding' => 'WinAnsiEncoding', 'differences' => $diff));
 $pdf->ezText('Tabla', 14);
 
 //-- Cuadro con datos
@@ -40,4 +41,3 @@ header('Content-Disposition: attachment; filename="Archivo.pdf"');
 header('Pragma: no-cache');
 header('Expires: 0');
 echo ltrim($tmp);
-?>

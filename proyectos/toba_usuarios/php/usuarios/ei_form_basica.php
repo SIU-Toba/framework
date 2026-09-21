@@ -1,4 +1,5 @@
 <?php
+
 class ei_form_basica extends toba_ei_formulario
 {
     public function desactivame_campos($campos)
@@ -9,7 +10,7 @@ class ei_form_basica extends toba_ei_formulario
             $this->desactivar_efs($desactivables);
         }
     }
-    
+
     public function extender_objeto_js()
     {
         $id_js = toba::escaper()->escapeJs($this->objeto_js);

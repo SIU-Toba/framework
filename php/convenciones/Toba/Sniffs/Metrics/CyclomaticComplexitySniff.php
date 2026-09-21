@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Checks the cyclomatic complexity (McCabe) for functions.
  *
@@ -32,7 +33,6 @@
  */
 class Toba_Sniffs_Metrics_CyclomaticComplexitySniff implements PHP_CodeSniffer_Sniff
 {
-
     /**
      * A complexity higher than this value will throw a warning.
      *
@@ -109,7 +109,7 @@ class Toba_Sniffs_Metrics_CyclomaticComplexitySniff implements PHP_CodeSniffer_S
         if ($complexity > $this->absoluteComplexity) {
             $error = "[Control#complejidad] Function's cyclomatic complexity ($complexity) exceeds allowed maximum of ".$this->absoluteComplexity;
             $phpcsFile->addError($error, $stackPtr);
-        } else if ($complexity > $this->complexity) {
+        } elseif ($complexity > $this->complexity) {
             $warning = "[Control#complejidad] Function's cyclomatic complexity ($complexity) exceeds ".$this->complexity.'; consider refactoring the function';
             $phpcsFile->addWarning($warning, $stackPtr);
         }
@@ -120,5 +120,3 @@ class Toba_Sniffs_Metrics_CyclomaticComplexitySniff implements PHP_CodeSniffer_S
 
 
 }//end class
-
-?>

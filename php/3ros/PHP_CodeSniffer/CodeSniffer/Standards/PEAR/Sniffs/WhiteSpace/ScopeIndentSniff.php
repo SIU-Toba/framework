@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PEAR_Sniffs_Whitespace_ScopeIndentSniff.
  *
@@ -36,7 +37,6 @@ if (class_exists('Generic_Sniffs_WhiteSpace_ScopeIndentSniff', true) === false) 
  */
 class PEAR_Sniffs_WhiteSpace_ScopeIndentSniff extends Generic_Sniffs_WhiteSpace_ScopeIndentSniff
 {
-
     /**
      * Any scope openers that should not cause an indent.
      *
@@ -45,5 +45,3 @@ class PEAR_Sniffs_WhiteSpace_ScopeIndentSniff extends Generic_Sniffs_WhiteSpace_
     protected $nonIndentingScopes = array(T_SWITCH);
 
 }//end class
-
-?>

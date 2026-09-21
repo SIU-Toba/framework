@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Toba_Sniffs_Formatting_SpaceAfterCastSniff.
  *
@@ -30,8 +31,6 @@
  */
 class Toba_Sniffs_Formatting_SpaceAfterCastSniff implements PHP_CodeSniffer_Sniff
 {
-
-
     /**
      * Returns an array of tokens this test wants to listen for.
      *
@@ -72,5 +71,3 @@ class Toba_Sniffs_Formatting_SpaceAfterCastSniff implements PHP_CodeSniffer_Snif
 
 
 }//end class
-
-?>

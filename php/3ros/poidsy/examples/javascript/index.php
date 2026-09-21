@@ -1,4 +1,4 @@
-<?PHP
+<?php
 
 /* Poidsy 0.6 - http://chris.smith.name/projects/poidsy
  * Copyright (c) 2008-2010 Chris Smith
@@ -22,26 +22,26 @@
  * SOFTWARE.
  */
 
- session_start();
+session_start();
 
- require('../../urlbuilder.inc.php');
+require('../../urlbuilder.inc.php');
 
- if (isset($_GET['cs'])) {
-  unset($_SESSION['openid']);
-  header('Location: ' . $_SERVER['SCRIPT_NAME']);
-  exit;
- }
+if (isset($_GET['cs'])) {
+    unset($_SESSION['openid']);
+    header('Location: ' . $_SERVER['SCRIPT_NAME']);
+    exit;
+}
 
- $_SESSION['trustroot'] = URLBuilder::getCurrentURL();
+$_SESSION['trustroot'] = URLBuilder::getCurrentURL();
 
- if (isset($_POST['openid_url']) || isset($_REQUEST['openid_mode'])) {
-  // Proxy for non-JS users
+if (isset($_POST['openid_url']) || isset($_REQUEST['openid_mode'])) {
+    // Proxy for non-JS users
 
-  require('../../processor.php');
+    require('../../processor.php');
 
- } else {
+} else {
 
-?>
+    ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
                       "http://www.w3.org/TR/html4/strict.dtd">
 <html>
@@ -101,26 +101,26 @@
    Other browsers (such as IE and Safari) allow these cookies to be sent even
    if they disallow setting of third-party cookies.
   </p>
-<?PHP
+<?php
 
- echo '<p>Time: ', date('r'), '. <a href="?cs">Clear session info</a></p>';
+     echo '<p>Time: ', date('r'), '. <a href="?cs">Clear session info</a></p>';
 
- if (isset($_SESSION['openid']['error'])) {
+    if (isset($_SESSION['openid']['error'])) {
 
-  echo '<div id="status" style="background-color: #a00;">An error occured: ', htmlentities($_SESSION['openid']['error']), '</div>';
-  unset($_SESSION['openid']['error']);
+        echo '<div id="status" style="background-color: #a00;">An error occured: ', htmlentities($_SESSION['openid']['error']), '</div>';
+        unset($_SESSION['openid']['error']);
 
- } else if (isset($_SESSION['openid']['validated']) && $_SESSION['openid']['validated']) {
+    } elseif (isset($_SESSION['openid']['validated']) && $_SESSION['openid']['validated']) {
 
-  echo '<div id="status" style="background-color: #0a0;">Logged in as ', htmlentities($_SESSION['openid']['identity']), '</div>';
+        echo '<div id="status" style="background-color: #0a0;">Logged in as ', htmlentities($_SESSION['openid']['identity']), '</div>';
 
- } else {
+    } else {
 
-  echo '<div id="status">Not logged in</div>';
+        echo '<div id="status">Not logged in</div>';
 
- }
-?>
-  <form action="<?PHP echo htmlentities($_SERVER['REQUEST_URI']); ?>"
+    }
+    ?>
+  <form action="<?php echo htmlentities($_SERVER['REQUEST_URI']); ?>"
 	method="post" onSubmit="tryJsLogin(); return false;" id="form">
    <input type="text" name="openid_url" id="openid_url">
    <input type="submit" value="Login">
@@ -128,6 +128,6 @@
   </form>
  </body>
 </html>
-<?PHP
- }
+<?php
+}
 ?>

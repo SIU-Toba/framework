@@ -81,7 +81,7 @@ class toba_ci_pantalla_info implements toba_nodo_arbol, toba_meta_clase
         }
     }
 
-    protected function get_path_clonacion($id_punto, $proyecto, $path_default='')
+    protected function get_path_clonacion($id_punto, $proyecto, $path_default = '')
     {
         $path_final = $path_default;
         $pm = toba_pms::instancia()->get_instancia_pm_proyecto($proyecto, $id_punto);		//Instancio el pm para el proyecto
@@ -147,7 +147,7 @@ class toba_ci_pantalla_info implements toba_nodo_arbol, toba_meta_clase
 
     public function get_utilerias()
     {
-        $param_editores = array(apex_hilo_qs_zona=> $this->proyecto. apex_qs_separador.
+        $param_editores = array(apex_hilo_qs_zona => $this->proyecto. apex_qs_separador.
                                                     $this->id,
                                 "pantalla" => $this->datos['identificador']);
         $iconos = array();
@@ -170,19 +170,19 @@ class toba_ci_pantalla_info implements toba_nodo_arbol, toba_meta_clase
             // Hay PHP asociado
             if (admin_util::existe_archivo_subclase($this->datos['subclase_archivo'], $this->datos['punto_montaje'])) {
                 $iconos[] = toba_componente_info::get_utileria_editor_ver_php(
-                    array(	'proyecto'=>$this->proyecto,
-                                                                                    'componente' =>$this->id ),
+                    array(	'proyecto' => $this->proyecto,
+                                                                                    'componente' => $this->id ),
                     $this->datos['identificador']
                 );
                 $iconos[] = toba_componente_info::get_utileria_editor_abrir_php(
-                    array(	'proyecto'=>$this->proyecto,
-                                                                                    'componente' =>$this->id ),
+                    array(	'proyecto' => $this->proyecto,
+                                                                                    'componente' => $this->id ),
                     $this->datos['identificador']
                 );
             } else {
                 $iconos[] = toba_componente_info::get_utileria_editor_ver_php(
-                    array(	'proyecto'=>$this->proyecto,
-                                                                                    'componente' =>$this->id ),
+                    array(	'proyecto' => $this->proyecto,
+                                                                                    'componente' => $this->id ),
                     $this->datos['identificador'],
                     'nucleo/php_inexistente.gif',
                     false

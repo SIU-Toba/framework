@@ -1,16 +1,16 @@
-<?php 
+<?php
+
 class form_propbasicas extends toba_ei_formulario
 {
+    //-----------------------------------------------------------------------------------
+    //---- JAVASCRIPT -------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------
 
-	//-----------------------------------------------------------------------------------
-	//---- JAVASCRIPT -------------------------------------------------------------------
-	//-----------------------------------------------------------------------------------
-
-	function extender_objeto_js()
-	{
-		$id_js = toba::escaper()->escapeJs($this->objeto_js);
-		echo admin_util::get_js_editor();		
-		echo "
+    public function extender_objeto_js()
+    {
+        $id_js = toba::escaper()->escapeJs($this->objeto_js);
+        echo admin_util::get_js_editor();
+        echo "
 		//---- Validacion de EFs -----------------------------------
 		
 		{$id_js}.evt__ancho__validar = function()
@@ -31,7 +31,5 @@ class form_propbasicas extends toba_ei_formulario
 			return true;		
 		}
 		";
-	}
+    }
 }
-
-?>

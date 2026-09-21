@@ -1,4 +1,5 @@
 <?php
+
 /**
  * A class to represent param tags within a function comment.
  *
@@ -33,7 +34,6 @@ if (class_exists('PHP_CodeSniffer_CommentParser_AbstractDocElement', true) === f
  */
 class PHP_CodeSniffer_CommentParser_ParameterElement extends PHP_CodeSniffer_CommentParser_AbstractDocElement
 {
-
     /**
      * The variable name of this parameter name, including the $ sign.
      *
@@ -322,5 +322,3 @@ class PHP_CodeSniffer_CommentParser_ParameterElement extends PHP_CodeSniffer_Com
 
 
 }//end class
-
-?>

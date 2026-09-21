@@ -37,10 +37,8 @@
  * @license  http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  * @link     https://wiki.jasig.org/display/CASC/phpCAS
  */
-abstract class CAS_Request_AbstractRequest
-implements CAS_Request_RequestInterface
+abstract class CAS_Request_AbstractRequest implements CAS_Request_RequestInterface
 {
-
     protected $url = null;
     protected $cookies = array();
     protected $headers = array();
@@ -65,7 +63,7 @@ implements CAS_Request_RequestInterface
      * @return void
      * @throws CAS_OutOfSequenceException If called after the Request has been sent.
      */
-    public function setUrl ($url)
+    public function setUrl($url)
     {
         if ($this->_sent) {
             throw new CAS_OutOfSequenceException('Request has already been sent cannot '.__METHOD__);
@@ -83,7 +81,7 @@ implements CAS_Request_RequestInterface
      * @return void
      * @throws CAS_OutOfSequenceException If called after the Request has been sent.
      */
-    public function addCookie ($name, $value)
+    public function addCookie($name, $value)
     {
         if ($this->_sent) {
             throw new CAS_OutOfSequenceException('Request has already been sent cannot '.__METHOD__);
@@ -102,7 +100,7 @@ implements CAS_Request_RequestInterface
      * @return void
      * @throws CAS_OutOfSequenceException If called after the Request has been sent.
      */
-    public function addCookies (array $cookies)
+    public function addCookies(array $cookies)
     {
         if ($this->_sent) {
             throw new CAS_OutOfSequenceException('Request has already been sent cannot '.__METHOD__);
@@ -119,7 +117,7 @@ implements CAS_Request_RequestInterface
      * @return void
      * @throws CAS_OutOfSequenceException If called after the Request has been sent.
      */
-    public function addHeader ($header)
+    public function addHeader($header)
     {
         if ($this->_sent) {
             throw new CAS_OutOfSequenceException('Request has already been sent cannot '.__METHOD__);
@@ -136,7 +134,7 @@ implements CAS_Request_RequestInterface
      * @return void
      * @throws CAS_OutOfSequenceException If called after the Request has been sent.
      */
-    public function addHeaders (array $headers)
+    public function addHeaders(array $headers)
     {
         if ($this->_sent) {
             throw new CAS_OutOfSequenceException('Request has already been sent cannot '.__METHOD__);
@@ -151,7 +149,7 @@ implements CAS_Request_RequestInterface
      * @return void
      * @throws CAS_OutOfSequenceException If called after the Request has been sent.
      */
-    public function makePost ()
+    public function makePost()
     {
         if ($this->_sent) {
             throw new CAS_OutOfSequenceException('Request has already been sent cannot '.__METHOD__);
@@ -168,7 +166,7 @@ implements CAS_Request_RequestInterface
      * @return void
      * @throws CAS_OutOfSequenceException If called after the Request has been sent.
      */
-    public function setPostBody ($body)
+    public function setPostBody($body)
     {
         if ($this->_sent) {
             throw new CAS_OutOfSequenceException('Request has already been sent cannot '.__METHOD__);
@@ -189,7 +187,7 @@ implements CAS_Request_RequestInterface
      * @return void
      * @throws CAS_OutOfSequenceException If called after the Request has been sent.
      */
-    public function setSslCaCert ($caCertPath,$validate_cn=true)
+    public function setSslCaCert($caCertPath, $validate_cn = true)
     {
         if ($this->_sent) {
             throw new CAS_OutOfSequenceException('Request has already been sent cannot '.__METHOD__);
@@ -208,7 +206,7 @@ implements CAS_Request_RequestInterface
      * @return bool TRUE on success, FALSE on failure.
      * @throws CAS_OutOfSequenceException If called multiple times.
      */
-    public function send ()
+    public function send()
     {
         if ($this->_sent) {
             throw new CAS_OutOfSequenceException('Request has already been sent cannot send again.');
@@ -225,7 +223,7 @@ implements CAS_Request_RequestInterface
      *
      * @return bool TRUE on success, FALSE on failure.
      */
-    abstract protected function sendRequest ();
+    abstract protected function sendRequest();
 
     /**
      * Store the response headers.
@@ -234,7 +232,7 @@ implements CAS_Request_RequestInterface
      *
      * @return void
      */
-    protected function storeResponseHeaders (array $headers)
+    protected function storeResponseHeaders(array $headers)
     {
         $this->_responseHeaders = array_merge($this->_responseHeaders, $headers);
     }
@@ -246,7 +244,7 @@ implements CAS_Request_RequestInterface
      *
      * @return void
      */
-    protected function storeResponseHeader ($header)
+    protected function storeResponseHeader($header)
     {
         $this->_responseHeaders[] = $header;
     }
@@ -258,7 +256,7 @@ implements CAS_Request_RequestInterface
      *
      * @return void
      */
-    protected function storeResponseBody ($body)
+    protected function storeResponseBody($body)
     {
         $this->_responseBody = $body;
     }
@@ -270,7 +268,7 @@ implements CAS_Request_RequestInterface
      *
      * @return void
      */
-    protected function storeErrorMessage ($message)
+    protected function storeErrorMessage($message)
     {
         $this->_errorMessage .= $message;
     }
@@ -285,7 +283,7 @@ implements CAS_Request_RequestInterface
      * @return array An array of header strings.
      * @throws CAS_OutOfSequenceException If called before the Request has been sent.
      */
-    public function getResponseHeaders ()
+    public function getResponseHeaders()
     {
         if (!$this->_sent) {
             throw new CAS_OutOfSequenceException('Request has not been sent yet. Cannot '.__METHOD__);
@@ -299,7 +297,7 @@ implements CAS_Request_RequestInterface
      * @return int
      * @throws CAS_OutOfSequenceException If called before the Request has been sent.
      */
-    public function getResponseStatusCode ()
+    public function getResponseStatusCode()
     {
         if (!$this->_sent) {
             throw new CAS_OutOfSequenceException('Request has not been sent yet. Cannot '.__METHOD__);
@@ -318,7 +316,7 @@ implements CAS_Request_RequestInterface
      * @return string
      * @throws CAS_OutOfSequenceException If called before the Request has been sent.
      */
-    public function getResponseBody ()
+    public function getResponseBody()
     {
         if (!$this->_sent) {
             throw new CAS_OutOfSequenceException('Request has not been sent yet. Cannot '.__METHOD__);
@@ -333,7 +331,7 @@ implements CAS_Request_RequestInterface
      * @return string
      * @throws CAS_OutOfSequenceException If called before the Request has been sent.
      */
-    public function getErrorMessage ()
+    public function getErrorMessage()
     {
         if (!$this->_sent) {
             throw new CAS_OutOfSequenceException('Request has not been sent yet. Cannot '.__METHOD__);

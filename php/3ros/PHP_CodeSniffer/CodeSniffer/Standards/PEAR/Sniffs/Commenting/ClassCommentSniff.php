@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Parses and verifies the doc comments for classes.
  *
@@ -49,8 +50,6 @@ if (class_exists('PEAR_Sniffs_Commenting_FileCommentSniff', true) === false) {
  */
 class PEAR_Sniffs_Commenting_ClassCommentSniff extends PEAR_Sniffs_Commenting_FileCommentSniff
 {
-
-
     /**
      * Returns an array of tokens this test wants to listen for.
      *
@@ -93,7 +92,7 @@ class PEAR_Sniffs_Commenting_ClassCommentSniff extends PEAR_Sniffs_Commenting_Fi
         if ($commentEnd !== false && $tokens[$commentEnd]['code'] === T_COMMENT) {
             $phpcsFile->addError("You must use \"/**\" style comments for a $type comment", $stackPtr);
             return;
-        } else if ($commentEnd === false || $tokens[$commentEnd]['code'] !== T_DOC_COMMENT) {
+        } elseif ($commentEnd === false || $tokens[$commentEnd]['code'] !== T_DOC_COMMENT) {
             $phpcsFile->addError("Missing $type doc comment", $stackPtr);
             return;
         }
@@ -205,7 +204,7 @@ class PEAR_Sniffs_Commenting_ClassCommentSniff extends PEAR_Sniffs_Commenting_Fi
             if (empty($content) === true) {
                 $error = 'Content missing for @version tag in doc comment';
                 $this->currentFile->addError($error, $errorPos);
-            } else if ((strstr($content, 'Release:') === false)) {
+            } elseif ((strstr($content, 'Release:') === false)) {
                 $error = "Invalid version \"$content\" in doc comment; consider \"Release: <package_version>\" instead";
                 $this->currentFile->addWarning($error, $errorPos);
             }
@@ -215,5 +214,3 @@ class PEAR_Sniffs_Commenting_ClassCommentSniff extends PEAR_Sniffs_Commenting_Fi
 
 
 }//end class
-
-?>

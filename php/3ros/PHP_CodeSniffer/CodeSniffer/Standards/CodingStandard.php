@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Bass Coding Standard class.
  *
@@ -28,8 +29,6 @@
  */
 class PHP_CodeSniffer_Standards_CodingStandard
 {
-
-
     /**
      * Return a list of external sniffs to include with this standard.
      *
@@ -69,5 +68,3 @@ class PHP_CodeSniffer_Standards_CodingStandard
 
 
 }//end class
-
-?>

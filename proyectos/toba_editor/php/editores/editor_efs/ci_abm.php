@@ -1,67 +1,68 @@
-<?php 
+<?php
+
 //--------------------------------------------------------------------
 class ci_abm extends toba_ci
 {
-	protected $es_nuevo = false;
-		
-	function ini()
-	{
-		$this->set_propiedades_sesion(array('es_nuevo'));
-	}
-		
-	function conf()
-	{
-		if ($this->es_nuevo) {
-			$this->pantalla()->eliminar_evento('eliminar');
-		}
-	}
-	
-	//---- Eventos CI -------------------------------------------------------
+    protected $es_nuevo = false;
 
-	function evt__procesar()
-	{
-		if ($this->es_nuevo) {
-			//Seteo los datos asociados al uso de este editor
-			$this->dependencia('relacion')->tabla('base')->set_fila_columna_valor(0, "proyecto", toba_editor::get_proyecto_cargado());
-		}		
-		$this->dependencia('relacion')->sincronizar();
-		$this->dependencia('relacion')->resetear();
-		$this->es_nuevo = false;
-	}
+    public function ini()
+    {
+        $this->set_propiedades_sesion(array('es_nuevo'));
+    }
 
-	function evt__cancelar()
-	{
-		$this->dependencia('relacion')->resetear();
-		$this->set_pantalla('seleccion');
-		$this->es_nuevo = false;
-	}
+    public function conf()
+    {
+        if ($this->es_nuevo) {
+            $this->pantalla()->eliminar_evento('eliminar');
+        }
+    }
 
-	function evt__nuevo()
-	{
-		$this->es_nuevo = true;	
-		$this->set_pantalla('edicion');
-	}
-	
-	function evt__eliminar()
-	{
-		$this->dependencia('relacion')->eliminar();
-	}
-	
-	//-------------------------------------------------------------------
-	//--- DEPENDENCIAS
-	//-------------------------------------------------------------------
+    //---- Eventos CI -------------------------------------------------------
 
-	//---- listado -------------------------------------------------------
+    public function evt__procesar()
+    {
+        if ($this->es_nuevo) {
+            //Seteo los datos asociados al uso de este editor
+            $this->dependencia('relacion')->tabla('base')->set_fila_columna_valor(0, "proyecto", toba_editor::get_proyecto_cargado());
+        }
+        $this->dependencia('relacion')->sincronizar();
+        $this->dependencia('relacion')->resetear();
+        $this->es_nuevo = false;
+    }
 
-	function evt__listado__seleccion($seleccion)
-	{
-		$this->dependencia('relacion')->cargar($seleccion);
-		$this->set_pantalla('edicion');
-	}
+    public function evt__cancelar()
+    {
+        $this->dependencia('relacion')->resetear();
+        $this->set_pantalla('seleccion');
+        $this->es_nuevo = false;
+    }
 
-	function conf__listado()
-	{
-		$sql = "
+    public function evt__nuevo()
+    {
+        $this->es_nuevo = true;
+        $this->set_pantalla('edicion');
+    }
+
+    public function evt__eliminar()
+    {
+        $this->dependencia('relacion')->eliminar();
+    }
+
+    //-------------------------------------------------------------------
+    //--- DEPENDENCIAS
+    //-------------------------------------------------------------------
+
+    //---- listado -------------------------------------------------------
+
+    public function evt__listado__seleccion($seleccion)
+    {
+        $this->dependencia('relacion')->cargar($seleccion);
+        $this->set_pantalla('edicion');
+    }
+
+    public function conf__listado()
+    {
+        $sql = "
 			SELECT 
 				ef.elemento_formulario,
 				ef.descripcion,
@@ -76,20 +77,18 @@ class ci_abm extends toba_ci
 				ef.proyecto = ".quote(toba_editor::get_proyecto_cargado()).'
 			ORDER BY obsoleto,ef.elemento_formulario
 		';
-		return consultar_fuente($sql);
-	}
+        return consultar_fuente($sql);
+    }
 
-	
-	function conf__form_base()
-	{
-		return 	$this->dependencia('relacion')->tabla('base')->get();
-	}
-	
-	function evt__form_base__modificacion($datos)
-	{
-		$this->dependencia('relacion')->tabla('base')->set($datos);
-	}
+
+    public function conf__form_base()
+    {
+        return 	$this->dependencia('relacion')->tabla('base')->get();
+    }
+
+    public function evt__form_base__modificacion($datos)
+    {
+        $this->dependencia('relacion')->tabla('base')->set($datos);
+    }
 
 }
-
-?>

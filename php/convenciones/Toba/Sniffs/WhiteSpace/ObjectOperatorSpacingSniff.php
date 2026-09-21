@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Squiz_Sniffs_WhiteSpace_ObjectOperatorSpacingSniff.
  *
@@ -30,8 +31,6 @@
  */
 class Toba_Sniffs_WhiteSpace_ObjectOperatorSpacingSniff implements PHP_CodeSniffer_Sniff
 {
-
-
     /**
      * Returns an array of tokens this test wants to listen for.
      *
@@ -79,5 +78,3 @@ class Toba_Sniffs_WhiteSpace_ObjectOperatorSpacingSniff implements PHP_CodeSniff
 
 
 }//end class
-
-?>

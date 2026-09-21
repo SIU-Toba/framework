@@ -37,10 +37,8 @@
  * @license  http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  * @link     https://wiki.jasig.org/display/CASC/phpCAS
  */
-class CAS_ProxiedService_Imap
-extends CAS_ProxiedService_Abstract
+class CAS_ProxiedService_Imap extends CAS_ProxiedService_Abstract
 {
-
     /**
      * The username to send via imap_open.
      *
@@ -55,7 +53,7 @@ extends CAS_ProxiedService_Abstract
      *
      * @return void
      */
-    public function __construct ($username)
+    public function __construct($username)
     {
         if (!is_string($username) || !strlen($username)) {
             throw new CAS_InvalidArgumentException('Invalid username.');
@@ -76,7 +74,7 @@ extends CAS_ProxiedService_Abstract
      * @return string
      * @throws Exception If no service url is available.
      */
-    public function getServiceUrl ()
+    public function getServiceUrl()
     {
         if (empty($this->_url)) {
             throw new CAS_ProxiedService_Exception('No URL set via '.get_class($this).'->getServiceUrl($url).');
@@ -97,7 +95,7 @@ extends CAS_ProxiedService_Abstract
      * @return void
      * @throws CAS_OutOfSequenceException If called after the stream has been opened.
      */
-    public function setServiceUrl ($url)
+    public function setServiceUrl($url)
     {
         if ($this->hasBeenOpened()) {
             throw new CAS_OutOfSequenceException('Cannot set the URL, stream already opened.');
@@ -124,7 +122,7 @@ extends CAS_ProxiedService_Abstract
      * @return void
      * @throws CAS_OutOfSequenceException If called after the stream has been opened.
      */
-    public function setMailbox ($mailbox)
+    public function setMailbox($mailbox)
     {
         if ($this->hasBeenOpened()) {
             throw new CAS_OutOfSequenceException('Cannot set the mailbox, stream already opened.');
@@ -152,7 +150,7 @@ extends CAS_ProxiedService_Abstract
      * @return void
      * @throws CAS_OutOfSequenceException If called after the stream has been opened.
      */
-    public function setOptions ($options)
+    public function setOptions($options)
     {
         if ($this->hasBeenOpened()) {
             throw new CAS_OutOfSequenceException('Cannot set options, stream already opened.');
@@ -179,7 +177,7 @@ extends CAS_ProxiedService_Abstract
      *			PHPCAS_SERVICE_PT_BAD_SERVER_RESPONSE
      *			PHPCAS_SERVICE_PT_FAILURE
      * @throws CAS_ProxiedService_Exception If there is a failure sending the request to the target service.	 */
-    public function open ()
+    public function open()
     {
         if ($this->hasBeenOpened()) {
             throw new CAS_OutOfSequenceException('Stream already opened.');
@@ -213,7 +211,7 @@ extends CAS_ProxiedService_Abstract
      *
      * @return bool
      */
-    protected function hasBeenOpened ()
+    protected function hasBeenOpened()
     {
         return !empty($this->_stream);
     }
@@ -233,7 +231,7 @@ extends CAS_ProxiedService_Abstract
      *
      * @return resource
      */
-    public function getStream ()
+    public function getStream()
     {
         if (!$this->hasBeenOpened()) {
             throw new CAS_OutOfSequenceException('Cannot access stream, not opened yet.');
@@ -249,7 +247,7 @@ extends CAS_ProxiedService_Abstract
      * @throws CAS_OutOfSequenceException If called before the stream has been
      * opened.
      */
-    public function getImapProxyTicket ()
+    public function getImapProxyTicket()
     {
         if (!$this->hasBeenOpened()) {
             throw new CAS_OutOfSequenceException('Cannot access errors, stream not opened yet.');
@@ -257,4 +255,3 @@ extends CAS_ProxiedService_Abstract
         return $this->getProxyTicket();
     }
 }
-?>

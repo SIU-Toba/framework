@@ -57,7 +57,7 @@ class toba_item_molde extends toba_molde_elemento
         $this->datos->tabla('base')->set_fila_columna_valor(0, 'solicitud_tipo', $id);
     }
 
-    public function set_tipo_pagina($id, $proyecto=null)
+    public function set_tipo_pagina($id, $proyecto = null)
     {
         if (!isset($proyecto)) {
             $proyecto = 'toba';
@@ -66,7 +66,7 @@ class toba_item_molde extends toba_molde_elemento
         $this->datos->tabla('base')->set_fila_columna_valor(0, 'pagina_tipo', $id);
     }
 
-    public function set_acceso_menu($estado=true, $orden=0)
+    public function set_acceso_menu($estado = true, $orden = 0)
     {
         $this->datos->tabla('base')->set_fila_columna_valor(0, 'menu', $estado);
         $this->datos->tabla('base')->set_fila_columna_valor(0, 'orden', $orden);
@@ -75,7 +75,7 @@ class toba_item_molde extends toba_molde_elemento
     public function cargar_grupos_acceso_activos()
     {
         foreach (toba_editor::get_perfiles_funcionales_previsualizacion() as $grupo) {
-            $this->datos->tabla('permisos')->nueva_fila(array('usuario_grupo_acc'=>$grupo));
+            $this->datos->tabla('permisos')->nueva_fila(array('usuario_grupo_acc' => $grupo));
         }
     }
 

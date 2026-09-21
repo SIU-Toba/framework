@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Toba_Sniffs_Whitespace_ScopeIndentSniff.
  *
@@ -32,7 +33,6 @@
  */
 class Toba_Sniffs_WhiteSpace_ScopeIndentSniff implements PHP_CodeSniffer_Sniff
 {
-
     /**
      * The number of spaces code should be indented.
      *
@@ -119,7 +119,7 @@ class Toba_Sniffs_WhiteSpace_ScopeIndentSniff implements PHP_CodeSniffer_Sniff
             $error  = '[Indentacion] Línea identada incorrectamente; se esperaban';
             $error .= ($expectedIndent - 1).' tabs, se encontraron ';
             $error .= ($tokens[$firstToken]['column'] - 1);
-			$error .= ' espacios (¿se estaran usando espacios en lugar de tabs?)';
+            $error .= ' espacios (¿se estaran usando espacios en lugar de tabs?)';
             $phpcsFile->addError($error, $stackPtr);
         }
 
@@ -164,7 +164,7 @@ class Toba_Sniffs_WhiteSpace_ScopeIndentSniff implements PHP_CodeSniffer_Sniff
             if ($tokens[$i]['code'] === T_START_HEREDOC) {
                 $inHereDoc = true;
                 continue;
-            } else if ($inHereDoc === true) {
+            } elseif ($inHereDoc === true) {
                 if ($tokens[$i]['code'] === T_END_HEREDOC) {
                     $inHereDoc = false;
                 }
@@ -223,7 +223,7 @@ class Toba_Sniffs_WhiteSpace_ScopeIndentSniff implements PHP_CodeSniffer_Sniff
                             // of the comment as there is a whitespace token before it.
                             $commentOpen = true;
                         }
-                    } else if ($commentOpen === true) {
+                    } elseif ($commentOpen === true) {
                         if ($content === '') {
                             // We are in a comment, but this line has nothing on it
                             // so let's skip it.
@@ -251,7 +251,7 @@ class Toba_Sniffs_WhiteSpace_ScopeIndentSniff implements PHP_CodeSniffer_Sniff
 
                         $error .= ($indent - 1).' tabs, se encontraron ';
                         $error .= ($column - 1);
-						$error .= ' (¿se estaran usando espacios en lugar de tabs?)';
+                        $error .= ' (¿se estaran usando espacios en lugar de tabs?)';
                         $phpcsFile->addError($error, $firstToken);
                     }
                 }
@@ -293,5 +293,3 @@ class Toba_Sniffs_WhiteSpace_ScopeIndentSniff implements PHP_CodeSniffer_Sniff
 
 
 }//end class
-
-?>

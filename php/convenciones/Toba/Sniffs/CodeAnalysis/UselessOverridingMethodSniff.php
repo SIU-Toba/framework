@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the CodeAnalysis addon for PHP_CodeSniffer.
  *
@@ -40,8 +41,6 @@
  */
 class Toba_Sniffs_CodeAnalysis_UselessOverridingMethodSniff implements PHP_CodeSniffer_Sniff
 {
-
-
     /**
      * Registers the tokens that this sniff wants to listen for.
      *
@@ -90,7 +89,7 @@ class Toba_Sniffs_CodeAnalysis_UselessOverridingMethodSniff implements PHP_CodeS
 
             if (in_array($code, PHP_CodeSniffer_Tokens::$emptyTokens) === true) {
                 continue;
-            } else if ($code === T_RETURN) {
+            } elseif ($code === T_RETURN) {
                 continue;
             }
 
@@ -140,11 +139,11 @@ class Toba_Sniffs_CodeAnalysis_UselessOverridingMethodSniff implements PHP_CodeS
 
             if ($code === T_OPEN_PARENTHESIS) {
                 ++$parenthesisCount;
-            } else if ($code === T_CLOSE_PARENTHESIS) {
+            } elseif ($code === T_CLOSE_PARENTHESIS) {
                 --$parenthesisCount;
-            } else if ($parenthesisCount === 1 && $code === T_COMMA) {
+            } elseif ($parenthesisCount === 1 && $code === T_COMMA) {
                 $parameters[] = '';
-            } else if (in_array($code, PHP_CodeSniffer_Tokens::$emptyTokens) === false) {
+            } elseif (in_array($code, PHP_CodeSniffer_Tokens::$emptyTokens) === false) {
                 $parameters[(count($parameters) - 1)] .= $tokens[$next]['content'];
             }
 
@@ -178,5 +177,3 @@ class Toba_Sniffs_CodeAnalysis_UselessOverridingMethodSniff implements PHP_CodeS
 
 
 }//end class
-
-?>

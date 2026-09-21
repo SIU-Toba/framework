@@ -1,13 +1,13 @@
 <?php
+
 php_referencia::instancia()->agregar(__FILE__);
 
 class extension_formulario extends toba_ei_formulario_ml
 {
-
-	function extender_objeto_js()
-	{
-		$id_js = toba::escaper()->escapeJs($this->objeto_js);
-		echo  "
+    public function extender_objeto_js()
+    {
+        $id_js = toba::escaper()->escapeJs($this->objeto_js);
+        echo  "
 			/**
 			 *	Redefine la creación de una fila para agregarle valores por defecto
 			 */
@@ -82,10 +82,8 @@ class extension_formulario extends toba_ei_formulario_ml
 					//alert('Voy a seleccionar la fila ' + fila);
 			}
 		";
-	}	
-	
-	
+    }
+
+
 
 }
-
-?>

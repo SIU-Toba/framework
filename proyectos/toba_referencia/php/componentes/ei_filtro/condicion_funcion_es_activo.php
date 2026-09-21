@@ -1,4 +1,5 @@
 <?php
+
 php_referencia::instancia()->agregar(__FILE__);
 
 /**
@@ -6,11 +7,9 @@ php_referencia::instancia()->agregar(__FILE__);
  */
 class condicion_funcion_es_activo extends toba_filtro_condicion
 {
-	function get_sql($campo, $valor)
-	{
-		$valor = toba::db()->quote($valor);
-		return "funcion_x($campo) = $valor";
-	}
+    public function get_sql($campo, $valor)
+    {
+        $valor = toba::db()->quote($valor);
+        return "funcion_x($campo) = $valor";
+    }
 }
-
-?>

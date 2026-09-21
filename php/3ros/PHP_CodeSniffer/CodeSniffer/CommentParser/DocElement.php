@@ -1,4 +1,5 @@
 <?php
+
 /**
  * A DocElement represents a logical element within a Doc Comment.
  *
@@ -28,8 +29,6 @@
  */
 interface PHP_CodeSniffer_CommentParser_DocElement
 {
-
-
     /**
      * Returns the name of the tag this element represents, omitting the @ symbol.
      *
@@ -101,5 +100,3 @@ interface PHP_CodeSniffer_CommentParser_DocElement
 
 
 }//end interface
-
-?>

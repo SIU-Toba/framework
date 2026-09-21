@@ -1,4 +1,5 @@
 <?php
+
 /**
  * A doc generator that outputs documentation in one big HTML file.
  *
@@ -34,8 +35,6 @@ require_once 'PHP/CodeSniffer/DocGenerators/Generator.php';
  */
 class PHP_CodeSniffer_DocGenerators_HTML extends PHP_CodeSniffer_DocGenerators_Generator
 {
-
-
     /**
      * Generates the documentation for a standard.
      *
@@ -218,7 +217,7 @@ class PHP_CodeSniffer_DocGenerators_HTML extends PHP_CodeSniffer_DocGenerators_G
         foreach ($doc->childNodes as $node) {
             if ($node->nodeName === 'standard') {
                 $this->printTextBlock($node);
-            } else if ($node->nodeName === 'code_comparison') {
+            } elseif ($node->nodeName === 'code_comparison') {
                 $this->printCodeComparisonBlock($node);
             }
         }
@@ -287,5 +286,3 @@ class PHP_CodeSniffer_DocGenerators_HTML extends PHP_CodeSniffer_DocGenerators_G
 
 
 }//end class
-
-?>

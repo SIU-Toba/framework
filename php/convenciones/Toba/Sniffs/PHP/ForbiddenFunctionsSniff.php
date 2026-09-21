@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Toba_Sniffs_PHP_ForbiddenFunctionsSniff.
  *
@@ -31,7 +32,6 @@
  */
 class Toba_Sniffs_PHP_ForbiddenFunctionsSniff implements PHP_CodeSniffer_Sniff
 {
-
     /**
      * A list of forbidden functions with their alternatives.
      *
@@ -94,5 +94,3 @@ class Toba_Sniffs_PHP_ForbiddenFunctionsSniff implements PHP_CodeSniffer_Sniff
 
 
 }//end class
-
-?>

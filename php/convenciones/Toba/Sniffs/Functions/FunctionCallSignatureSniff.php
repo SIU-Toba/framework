@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PEAR_Sniffs_Functions_FunctionCallSignatureSniff.
  *
@@ -28,8 +29,6 @@
  */
 class Toba_Sniffs_Functions_FunctionCallSignatureSniff implements PHP_CodeSniffer_Sniff
 {
-
-
     /**
      * Returns an array of tokens this test wants to listen for.
      *
@@ -122,4 +121,3 @@ class Toba_Sniffs_Functions_FunctionCallSignatureSniff implements PHP_CodeSniffe
 
 
 }//end class
-?>

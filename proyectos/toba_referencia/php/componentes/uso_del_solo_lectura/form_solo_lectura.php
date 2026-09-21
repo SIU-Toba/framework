@@ -1,12 +1,13 @@
 <?php
+
 php_referencia::instancia()->agregar(__FILE__);
 
 class form_solo_lectura extends toba_ei_formulario
 {
-	function extender_objeto_js()
-	{
-		$id_js = toba::escaper()->escapeJs($this->objeto_js);
-		echo "
+    public function extender_objeto_js()
+    {
+        $id_js = toba::escaper()->escapeJs($this->objeto_js);
+        echo "
 			var solo_lectura_activo = false;
 			{$id_js}.evt__readonly_cliente = function() {
 				solo_lectura_activo = !solo_lectura_activo;
@@ -33,8 +34,6 @@ class form_solo_lectura extends toba_ei_formulario
 			}
 		";
 
-	}
+    }
 
 }
-
-?>

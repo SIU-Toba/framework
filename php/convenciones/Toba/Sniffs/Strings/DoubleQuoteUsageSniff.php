@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Squiz_Sniffs_Strings_DoubleQuoteUsageSniff.
  *
@@ -30,8 +31,6 @@
  */
 class Toba_Sniffs_Strings_DoubleQuoteUsageSniff implements PHP_CodeSniffer_Sniff
 {
-
-
     /**
      * Returns an array of tokens this test wants to listen for.
      *
@@ -105,5 +104,3 @@ class Toba_Sniffs_Strings_DoubleQuoteUsageSniff implements PHP_CodeSniffer_Sniff
 
 
 }//end class
-
-?>

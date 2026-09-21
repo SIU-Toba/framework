@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Class Declaration Test.
  *
@@ -30,8 +31,6 @@
  */
 class PEAR_Sniffs_Classes_ClassDeclarationSniff implements PHP_CodeSniffer_Sniff
 {
-
-
     /**
      * Returns an array of tokens this test wants to listen for.
      *
@@ -78,7 +77,7 @@ class PEAR_Sniffs_Classes_ClassDeclarationSniff implements PHP_CodeSniffer_Sniff
             $error .= ' debe estar en la linea siguiente de su definicion';
             $phpcsFile->addError($error, $curlyBrace);
             return;
-        } else if ($braceLine > ($classLine + 1)) {
+        } elseif ($braceLine > ($classLine + 1)) {
             $difference  = ($braceLine - $classLine - 1);
             $difference .= ($difference === 1) ? ' linea' : ' lineas';
             $error       = '[Clases#declaracion] La llave de apertura de ';
@@ -102,7 +101,7 @@ class PEAR_Sniffs_Classes_ClassDeclarationSniff implements PHP_CodeSniffer_Sniff
                 $blankSpace = substr($prevContent, strpos($prevContent, $phpcsFile->eolChar));
                 $spaces     = strlen($blankSpace);
                 if ($spaces !== 0) {
-					$error = "[Clases#declaracion] Se esperaban 0 espacios antes de la llave; se encontraron $spaces";
+                    $error = "[Clases#declaracion] Se esperaban 0 espacios antes de la llave; se encontraron $spaces";
                     $phpcsFile->addError($error, $curlyBrace);
                 }
             }
@@ -112,5 +111,3 @@ class PEAR_Sniffs_Classes_ClassDeclarationSniff implements PHP_CodeSniffer_Sniff
 
 
 }//end class
-
-?>

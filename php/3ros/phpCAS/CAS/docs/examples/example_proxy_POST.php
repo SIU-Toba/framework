@@ -96,6 +96,6 @@ try {
     throw $e;
 }
 
-                                                             ?>
+?>
   </body>
 </html>

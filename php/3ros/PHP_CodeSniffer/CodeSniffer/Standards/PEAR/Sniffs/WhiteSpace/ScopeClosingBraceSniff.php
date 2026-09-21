@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PEAR_Sniffs_Whitespace_ScopeClosingBraceSniff.
  *
@@ -30,8 +31,6 @@
  */
 class PEAR_Sniffs_WhiteSpace_ScopeClosingBraceSniff implements PHP_CodeSniffer_Sniff
 {
-
-
     /**
      * Returns an array of tokens this test wants to listen for.
      *
@@ -111,5 +110,3 @@ class PEAR_Sniffs_WhiteSpace_ScopeClosingBraceSniff implements PHP_CodeSniffer_S
 
 
 }//end class
-
-?>

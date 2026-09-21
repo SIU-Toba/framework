@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Squiz_Sniffs_PHP_InnerFunctionsSniff.
  *
@@ -31,8 +32,6 @@
  */
 class Toba_Sniffs_PHP_NonExecutableCodeSniff implements PHP_CodeSniffer_Sniff
 {
-
-
     /**
      * Returns an array of tokens this test wants to listen for.
      *
@@ -203,5 +202,3 @@ class Toba_Sniffs_PHP_NonExecutableCodeSniff implements PHP_CodeSniffer_Sniff
 
 
 }//end class
-
-?>

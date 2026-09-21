@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Parses and verifies the doc comments for functions.
  *
@@ -47,7 +48,6 @@ if (class_exists('PHP_CodeSniffer_CommentParser_FunctionCommentParser', true) ==
  */
 class PEAR_Sniffs_Commenting_FunctionCommentSniff implements PHP_CodeSniffer_Sniff
 {
-
     /**
      * The name of the method that we are currently processing.
      *
@@ -132,7 +132,7 @@ class PEAR_Sniffs_Commenting_FunctionCommentSniff implements PHP_CodeSniffer_Sni
             $error = 'You must use "/**" style comments for a function comment';
             $phpcsFile->addError($error, $stackPtr);
             return;
-        } else if ($code !== T_DOC_COMMENT) {
+        } elseif ($code !== T_DOC_COMMENT) {
             $phpcsFile->addError('Missing function doc comment', $stackPtr);
             return;
         }
@@ -290,7 +290,7 @@ class PEAR_Sniffs_Commenting_FunctionCommentSniff implements PHP_CodeSniffer_Sni
             if ($this->commentParser->getReturn() === null) {
                 $error = 'Missing @return tag in function comment';
                 $this->currentFile->addError($error, $commentEnd);
-            } else if (trim($this->commentParser->getReturn()->getRawContent()) === '') {
+            } elseif (trim($this->commentParser->getReturn()->getRawContent()) === '') {
                 $error    = '@return tag is empty in function comment';
                 $errorPos = ($commentStart + $this->commentParser->getReturn()->getLine());
                 $this->currentFile->addError($error, $errorPos);
@@ -407,7 +407,7 @@ class PEAR_Sniffs_Commenting_FunctionCommentSniff implements PHP_CodeSniffer_Sni
 
                 if ($param->getVarName() === '') {
                     $error = 'Missing parameter name at position '.$pos;
-                     $this->currentFile->addError($error, $errorPos);
+                    $this->currentFile->addError($error, $errorPos);
                 }
 
                 if ($param->getType() === '') {
@@ -458,5 +458,3 @@ class PEAR_Sniffs_Commenting_FunctionCommentSniff implements PHP_CodeSniffer_Sni
 
 
 }//end class
-
-?>

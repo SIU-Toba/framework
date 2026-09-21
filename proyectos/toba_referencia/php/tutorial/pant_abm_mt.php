@@ -1,12 +1,13 @@
 <?php
+
 require_once("tutorial/pant_tutorial.php");
 
-class pant_introduccion extends pant_tutorial 
+class pant_introduccion extends pant_tutorial
 {
-	function generar_layout()
-	{
-		$arbol = toba_recurso::imagen_proyecto('tutorial/abm-mt-arbol.png');		
-		echo "
+    public function generar_layout()
+    {
+        $arbol = toba_recurso::imagen_proyecto('tutorial/abm-mt-arbol.png');
+        echo "
 			<p>
 				Cuando la entidad a editar en el ABM se compone de más de un tabla, la operación
 				se puede dividir en dos grandes etapas:
@@ -40,31 +41,31 @@ class pant_introduccion extends pant_tutorial
 				Guardar, donde se sincronizan con la base de datos.
 			</p>
 		";
-		$vinculo = toba::vinculador()->get_url(null, 2658, array(), array('celda_memoria'=>'ejemplo'));
-		echo "<p style='font-size:150%;text-align:center;'>
+        $vinculo = toba::vinculador()->get_url(null, 2658, array(), array('celda_memoria' => 'ejemplo'));
+        echo "<p style='font-size:150%;text-align:center;'>
 				<a target='_blank' href='$vinculo'>Ejecutar Operación</a></p>";
-	}
+    }
 }
 
 //--------------------------------------------------------------
 
-class pant_def_relacion extends pant_tutorial 
+class pant_def_relacion extends pant_tutorial
 {
-	function generar_layout()
-	{
-		
-	}
+    public function generar_layout()
+    {
+
+    }
 }
 
 //--------------------------------------------------------------
 
-class pant_ci_seleccion extends pant_tutorial 
+class pant_ci_seleccion extends pant_tutorial
 {
-	function generar_layout()
-	{
-		$eventos1 = toba_recurso::imagen_proyecto('tutorial/abm-mt-navegacion.png');				
-		$eventos2 = toba_recurso::imagen_proyecto('tutorial/abm-mt-edicion.png');
-		$codigo = 
+    public function generar_layout()
+    {
+        $eventos1 = toba_recurso::imagen_proyecto('tutorial/abm-mt-navegacion.png');
+        $eventos2 = toba_recurso::imagen_proyecto('tutorial/abm-mt-edicion.png');
+        $codigo =
 '<?php
 ...(parte de la extensión del CI principal)...
 
@@ -113,7 +114,7 @@ function evt__procesar()
 	
 ?>
 ';
-		echo "
+        echo "
 			<p>Una vez definidos los componentes se necesita programar la lógica del CI
 			principal, es decir el que maneja la navegación y la transacción a alto nivel. 
 			Lo más interesante en este CI es atrapar los distintos eventos:
@@ -145,19 +146,19 @@ function evt__procesar()
 			</p><br style='clear:both'>
 			".mostrar_php($codigo)."
 		";
-	}
+    }
 }
 
 //--------------------------------------------------------------
 
-class pant_ci_edicion extends pant_tutorial 
+class pant_ci_edicion extends pant_tutorial
 {
-	function generar_layout()
-	{
-		$tab1 = toba_recurso::imagen_proyecto('tutorial/abm-mt-tab1.png');
-		$tab2 = toba_recurso::imagen_proyecto('tutorial/abm-mt-tab2.png');
-		$tab3 = toba_recurso::imagen_proyecto('tutorial/abm-mt-tab3.png');
-		$codigo1 =	
+    public function generar_layout()
+    {
+        $tab1 = toba_recurso::imagen_proyecto('tutorial/abm-mt-tab1.png');
+        $tab2 = toba_recurso::imagen_proyecto('tutorial/abm-mt-tab2.png');
+        $tab3 = toba_recurso::imagen_proyecto('tutorial/abm-mt-tab3.png');
+        $codigo1 =
 '<?php
 function conf__form_persona()
 {
@@ -170,7 +171,7 @@ function evt__form_persona__modificacion($registro)
 }
 ?>
 ';
-		$codigo2 = 
+        $codigo2 =
 '<?php
 function conf__form_juegos()	
 {
@@ -182,7 +183,7 @@ function evt__form_juegos__modificacion($datos)
 	$this->get_relacion()->tabla("juegos")->procesar_filas($datos);	
 }
 ?>';
-		$codigo3 = 
+        $codigo3 =
 '<?php
 protected $s__deporte;
 
@@ -229,7 +230,7 @@ function evt__form_deportes__cancelar()
 }
 ?>
 ';
-	$codigo4 =
+        $codigo4 =
 '<?php
 function conf__cuadro_deportes()	
 {
@@ -270,7 +271,7 @@ function evt__form_deportes__cancelar()
 }
 ?>
 ';
-		echo "
+        echo "
 			<h2>Primer Tab: Formulario simple</h2>
 			<img src='$tab1'>
 			<p>En esta solapa se encuentra un formulario con un evento implícito <em>modificacion</em>.
@@ -331,10 +332,7 @@ function evt__form_deportes__cancelar()
 			
 			".mostrar_php($codigo4)."
 		";
-	}
+    }
 }
 
 //--------------------------------------------------------------
-
-
-?>

@@ -1,46 +1,47 @@
 <?php
+
 class form_armado extends toba_ei_formulario
 {
-	function validar_estado()
-	{
-		return true;
-	}
-	
-	function get_datos()
-	{
-		$registro = parent::get_datos();
-		$ids_arbol = $this->controlador()->get_ids_enviados();
-		foreach ($ids_arbol as $id) {
-			if ( isset($_POST[$id.'__hidden'])) {
-				$registro[$id] = $_POST[$id.'__hidden'];
-			}
-		}
-		return $registro;
-	}
-	
-	function generar_layout()
-	{
-		$this->generar_html_ef('nivel_inicial');
-		echo '<div id="contenedor_final" class="menu">
+    public function validar_estado()
+    {
+        return true;
+    }
+
+    public function get_datos()
+    {
+        $registro = parent::get_datos();
+        $ids_arbol = $this->controlador()->get_ids_enviados();
+        foreach ($ids_arbol as $id) {
+            if (isset($_POST[$id.'__hidden'])) {
+                $registro[$id] = $_POST[$id.'__hidden'];
+            }
+        }
+        return $registro;
+    }
+
+    public function generar_layout()
+    {
+        $this->generar_html_ef('nivel_inicial');
+        echo '<div id="contenedor_final" class="menu">
 				<ul style="list-style: none outside none;">&nbsp;</ul>
-			</div>';		
-	}
-	
-	protected function generar_input_ef($ef)
-	{
-		$this->_efs_generados[] = $ef;
-		 $id = $this->_elemento_formulario[$ef]->get_id_form();
-		echo toba_form::hidden($id, '');
-	}
+			</div>';
+    }
 
-	//-----------------------------------------------------------------------------------
-	//---- JAVASCRIPT -------------------------------------------------------------------
-	//-----------------------------------------------------------------------------------
+    protected function generar_input_ef($ef)
+    {
+        $this->_efs_generados[] = $ef;
+        $id = $this->_elemento_formulario[$ef]->get_id_form();
+        echo toba_form::hidden($id, '');
+    }
 
-	function extender_objeto_js()
-	{
-		//Envia los metodos que arman el arbol de items en JS.
-		echo "
+    //-----------------------------------------------------------------------------------
+    //---- JAVASCRIPT -------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------
+
+    public function extender_objeto_js()
+    {
+        //Envia los metodos que arman el arbol de items en JS.
+        echo "
 			var arbol = {};
 			//Agrego funcion para eliminar un componente del objeto por su valor
 			Array.prototype.removeByValue = function(val) {
@@ -82,6 +83,5 @@ class form_armado extends toba_ei_formulario
 			quitar_subnivel = function(padre, hijo) {			
 				arbol[padre].removeByValue(hijo);
 			}\n";
-	}
+    }
 }
-?>

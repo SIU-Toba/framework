@@ -16,7 +16,7 @@ class toba_ei_formulario_info extends toba_ei_info
     //-- EVENTOS
     //---------------------------------------------------------------------
 
-    public function get_molde_subclase($multilinea=false)
+    public function get_molde_subclase($multilinea = false)
     {
         $molde = $this->get_molde_vacio();
         // Redefinicion del LAYOUT

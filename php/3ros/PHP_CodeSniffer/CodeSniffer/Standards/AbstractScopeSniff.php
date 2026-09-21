@@ -1,4 +1,5 @@
 <?php
+
 /**
  * An AbstractScopeTest allows for tests that extend from this class to
  * listen for tokens within a particluar scope.
@@ -47,7 +48,6 @@
  */
 abstract class PHP_CodeSniffer_Standards_AbstractScopeSniff implements PHP_CodeSniffer_Sniff
 {
-
     /**
      * The token types that this test wishes to listen to within the scope.
      *
@@ -91,7 +91,7 @@ abstract class PHP_CodeSniffer_Standards_AbstractScopeSniff implements PHP_CodeS
      * @see PHP_CodeSniffer.getValidScopeTokeners()
      * @throws PHP_CodeSniffer_Test_Exception If the specified tokens array is empty.
      */
-    public function __construct(array $scopeTokens, array $tokens, $listenOutside=false)
+    public function __construct(array $scopeTokens, array $tokens, $listenOutside = false)
     {
         if (empty($scopeTokens) === true) {
             $error = 'The scope tokens list cannot be empty';
@@ -127,7 +127,7 @@ abstract class PHP_CodeSniffer_Standards_AbstractScopeSniff implements PHP_CodeS
      * @return array(int)
      * @see __constructor()
      */
-    public final function register()
+    final public function register()
     {
         if ($this->_listenOutside === false) {
             return $this->_scopeTokens;
@@ -148,14 +148,14 @@ abstract class PHP_CodeSniffer_Standards_AbstractScopeSniff implements PHP_CodeS
      * @return void
      * @see processTokenWithinScope()
      */
-    public final function process(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
+    final public function process(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
 
         if (in_array($tokens[$stackPtr]['code'], $this->_scopeTokens) === true) {
             $this->currScope = $stackPtr;
             $phpcsFile->addTokenListener($this, $this->_tokens);
-        } else if ($this->currScope !== null && isset($tokens[$this->currScope]['scope_closer']) === true && $stackPtr > $tokens[$this->currScope]['scope_closer']) {
+        } elseif ($this->currScope !== null && isset($tokens[$this->currScope]['scope_closer']) === true && $stackPtr > $tokens[$this->currScope]['scope_closer']) {
             $this->currScope = null;
             if ($this->_listenOutside === true) {
                 // This is a token outside the current scope, so notify the
@@ -166,7 +166,7 @@ abstract class PHP_CodeSniffer_Standards_AbstractScopeSniff implements PHP_CodeS
                 // tokens that live outside the current scope.
                 $phpcsFile->removeTokenListener($this, $this->_tokens);
             }
-        } else if ($this->currScope !== null) {
+        } elseif ($this->currScope !== null) {
             $this->processTokenWithinScope($phpcsFile, $stackPtr, $this->currScope);
         } else {
             $this->processTokenOutsideScope($phpcsFile, $stackPtr);
@@ -188,7 +188,7 @@ abstract class PHP_CodeSniffer_Standards_AbstractScopeSniff implements PHP_CodeS
      *
      * @return void
      */
-    protected abstract function processTokenWithinScope(PHP_CodeSniffer_File $phpcsFile, $stackPtr, $currScope);
+    abstract protected function processTokenWithinScope(PHP_CodeSniffer_File $phpcsFile, $stackPtr, $currScope);
 
 
     /**
@@ -209,5 +209,3 @@ abstract class PHP_CodeSniffer_Standards_AbstractScopeSniff implements PHP_CodeS
 
 
 }//end class
-
-?>

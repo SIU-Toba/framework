@@ -1,14 +1,15 @@
 <?php
+
 class form_layout extends toba_ei_formulario
 {
-	//-----------------------------------------------------------------------------------
-	//---- JAVASCRIPT -------------------------------------------------------------------
-	//-----------------------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------
+    //---- JAVASCRIPT -------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------
 
-	function extender_objeto_js()
-	{
-		echo toba::escaper()->escapeJs($this->objeto_js)
-			.".evt__tipo_layout__procesar = function(es_inicial)
+    public function extender_objeto_js()
+    {
+        echo toba::escaper()->escapeJs($this->objeto_js)
+            .".evt__tipo_layout__procesar = function(es_inicial)
 			{
 				if (this.ef('tipo_layout').tiene_estado()) {
 					this.ef('template').mostrar();
@@ -20,9 +21,9 @@ class form_layout extends toba_ei_formulario
 				}
 			}
 		";
-			
-		//Saco la siguiente configuracion para el ef_html, de manera que se elimine la identacion y todo caracter de separacion al enviarse al servidor
-		echo "
+
+        //Saco la siguiente configuracion para el ef_html, de manera que se elimine la identacion y todo caracter de separacion al enviarse al servidor
+        echo "
 			CKEDITOR.on( 'instanceReady', function( ev )	{
 				ev.editor
 					.dataProcessor
@@ -36,8 +37,6 @@ class form_layout extends toba_ei_formulario
 			});
 
 		";
-	}
+    }
 
 }
-
-?>

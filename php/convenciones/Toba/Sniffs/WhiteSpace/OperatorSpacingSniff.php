@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Sniffs_Squiz_WhiteSpace_OperatorSpacingSniff.
  *
@@ -30,8 +31,6 @@
  */
 class Toba_Sniffs_WhiteSpace_OperatorSpacingSniff implements PHP_CodeSniffer_Sniff
 {
-
-
     /**
      * Returns an array of tokens this test wants to listen for.
      *
@@ -157,14 +156,14 @@ class Toba_Sniffs_WhiteSpace_OperatorSpacingSniff implements PHP_CodeSniffer_Sni
             if ($tokens[($stackPtr - 1)]['code'] !== T_WHITESPACE) {
                 $error = "[Expresiones] Expected 1 space before \"$operator\"; 0 found";
                 $phpcsFile->addError($error, $stackPtr);
-            } else if ($tokens[($stackPtr + 1)]['code'] !== T_WHITESPACE) {
+            } elseif ($tokens[($stackPtr + 1)]['code'] !== T_WHITESPACE) {
                 $error = "[Expresiones] Expected 1 space after \"$operator\"; 0 found";
                 $phpcsFile->addError($error, $stackPtr);
-            } else if (strlen($tokens[($stackPtr + 1)]['content']) !== 1) {
+            } elseif (strlen($tokens[($stackPtr + 1)]['content']) !== 1) {
                 $found = strlen($tokens[($stackPtr + 1)]['content']);
                 $error = "[Expresiones] Expected 1 space after \"$operator\"; $found found";
                 $phpcsFile->addError($error, $stackPtr);
-            } else if (strlen($tokens[($stackPtr - 1)]['content']) !== 1) {
+            } elseif (strlen($tokens[($stackPtr - 1)]['content']) !== 1) {
                 // Don't throw an error for assignments, because other standards allow
                 // multiple spaces there to align multiple assignments.
                 if (in_array($tokens[$stackPtr]['code'], PHP_CodeSniffer_Tokens::$assignmentTokens) === false) {
@@ -180,5 +179,3 @@ class Toba_Sniffs_WhiteSpace_OperatorSpacingSniff implements PHP_CodeSniffer_Sni
 
 
 }//end class
-
-?>

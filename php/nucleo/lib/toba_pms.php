@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Esta clase representa los puntos de montaje del proyecto que está ejecutandose
  * @package Centrales
@@ -6,117 +7,116 @@
 
 class toba_pms
 {
-	// Cosas estáticas -----------------------------------------------------
+    // Cosas estáticas -----------------------------------------------------
 
-	static private $instancia;
+    private static $instancia;
 
-	static function instancia()
-	{
-		if (!isset(self::$instancia)) {
-			self::$instancia = new toba_pms();
-		}
-		return self::$instancia;
-	}
-		
-	// Cosas dinámicas -----------------------------------------------------
+    public static function instancia()
+    {
+        if (!isset(self::$instancia)) {
+            self::$instancia = new toba_pms();
+        }
+        return self::$instancia;
+    }
 
-	protected $pms;
+    // Cosas dinámicas -----------------------------------------------------
 
-	function  __construct()
-	{
-		$this->pms = $this->convertir(toba::proyecto()->get_info_pms());
-	}
+    protected $pms;
 
-	/**
-	 * Convierte un arreglo de pms de la base a un arreglo de toba_punto_montaje
-	 * @param array $pms
-	 */
-	protected function convertir($pms)
-	{
-		$rs = array();
-		foreach ($pms as $registro) {
-			$rs[] = toba_punto_montaje_factory::construir($registro);
-		}
+    public function __construct()
+    {
+        $this->pms = $this->convertir(toba::proyecto()->get_info_pms());
+    }
 
-		return $rs;
-	}
+    /**
+     * Convierte un arreglo de pms de la base a un arreglo de toba_punto_montaje
+     * @param array $pms
+     */
+    protected function convertir($pms)
+    {
+        $rs = array();
+        foreach ($pms as $registro) {
+            $rs[] = toba_punto_montaje_factory::construir($registro);
+        }
 
-	/**
-	 * Devuelve verdadero si el punto con etiqueta $etiqueta existe en el proyecto
-	 * @param string $etiqueta
-	 * @return boolean
-	 */
-	function existe($etiqueta)
-	{
-		foreach ($this->pms as $punto) {
-			if ($punto->get_etiqueta() == $etiqueta) {
-				return true;
-			}
-		}
+        return $rs;
+    }
 
-		return false;
-	}
+    /**
+     * Devuelve verdadero si el punto con etiqueta $etiqueta existe en el proyecto
+     * @param string $etiqueta
+     * @return boolean
+     */
+    public function existe($etiqueta)
+    {
+        foreach ($this->pms as $punto) {
+            if ($punto->get_etiqueta() == $etiqueta) {
+                return true;
+            }
+        }
 
-	/**
-	 * Devuelve verdadero si el punto con id $id existe en el proyecto
-	 * @param string $id
-	 * @return boolean
-	 */
-	function existe_por_id($id)
-	{
-		foreach ($this->pms as $punto) {
-			if ($punto->get_id() == $id) {
-				return true;
-			}
-		}
+        return false;
+    }
 
-		return false;
-	}
-	
-	/**
-	 * Devuelve un punto de montaje del proyecto actual con etiqueta $etiqueta
-	 * @param string $etiqueta
-	 * @return toba_punto_montaje
-	 */
-	function get($etiqueta)
-	{	
-		foreach ($this->pms as $punto) {
-			if ($punto->get_etiqueta() == $etiqueta) {
-				return $punto;
-			}
-		}
+    /**
+     * Devuelve verdadero si el punto con id $id existe en el proyecto
+     * @param string $id
+     * @return boolean
+     */
+    public function existe_por_id($id)
+    {
+        foreach ($this->pms as $punto) {
+            if ($punto->get_id() == $id) {
+                return true;
+            }
+        }
 
-		$proyecto = toba::proyecto()->get_id();
-		toba_logger::instancia()->error("PUNTOS DE MONTAJE: El punto de montaje con etiqueta '$etiqueta' no existe en el proyecto '$proyecto'");
-		throw new toba_error('PUNTOS DE MONTAJE: El punto de montaje con etiqueta pedida no existe en el proyecto');
-	}
+        return false;
+    }
 
-	/**
-	 * Devuelve un punto de montaje del proyecto actual con id $id
-	 * @param string $id
-	 * @return toba_punto_montaje
-	 */
-	function get_por_id($id)
-	{
-		foreach ($this->pms as $punto) {
-			if ($punto->get_id() == $id) {
-				return $punto;
-			}
-		}
-		$proyecto = toba::proyecto()->get_id();
-		toba_logger::instancia()->error("PUNTOS DE MONTAJE: El punto de montaje con id '$id' no existe en el proyecto '$proyecto'");
-		throw new toba_error('PUNTOS DE MONTAJE: El punto de montaje no existe en el proyecto');
-	}
-	
-	function get_instancia_pm_proyecto($proyecto, $id)
-	{		
-		$puntos = $this->convertir(toba::proyecto()->get_info_pms($proyecto));
-		foreach ($puntos as $punto) {
-			if ($punto->get_id() == $id) {
-				return $punto;
-			}
-		}
-	}
+    /**
+     * Devuelve un punto de montaje del proyecto actual con etiqueta $etiqueta
+     * @param string $etiqueta
+     * @return toba_punto_montaje
+     */
+    public function get($etiqueta)
+    {
+        foreach ($this->pms as $punto) {
+            if ($punto->get_etiqueta() == $etiqueta) {
+                return $punto;
+            }
+        }
+
+        $proyecto = toba::proyecto()->get_id();
+        toba_logger::instancia()->error("PUNTOS DE MONTAJE: El punto de montaje con etiqueta '$etiqueta' no existe en el proyecto '$proyecto'");
+        throw new toba_error('PUNTOS DE MONTAJE: El punto de montaje con etiqueta pedida no existe en el proyecto');
+    }
+
+    /**
+     * Devuelve un punto de montaje del proyecto actual con id $id
+     * @param string $id
+     * @return toba_punto_montaje
+     */
+    public function get_por_id($id)
+    {
+        foreach ($this->pms as $punto) {
+            if ($punto->get_id() == $id) {
+                return $punto;
+            }
+        }
+        $proyecto = toba::proyecto()->get_id();
+        toba_logger::instancia()->error("PUNTOS DE MONTAJE: El punto de montaje con id '$id' no existe en el proyecto '$proyecto'");
+        throw new toba_error('PUNTOS DE MONTAJE: El punto de montaje no existe en el proyecto');
+    }
+
+    public function get_instancia_pm_proyecto($proyecto, $id)
+    {
+        $puntos = $this->convertir(toba::proyecto()->get_info_pms($proyecto));
+        foreach ($puntos as $punto) {
+            if ($punto->get_id() == $id) {
+                return $punto;
+            }
+        }
+    }
 
 }
-?>

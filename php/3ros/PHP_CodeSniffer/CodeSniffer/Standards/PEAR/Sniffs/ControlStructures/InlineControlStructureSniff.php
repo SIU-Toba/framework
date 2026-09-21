@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PEAR_Sniffs_ControlStructures_InlineControlStructureSniff.
  *
@@ -35,7 +36,6 @@ if (class_exists('Generic_Sniffs_ControlStructures_InlineControlStructureSniff',
  */
 class PEAR_Sniffs_ControlStructures_InlineControlStructureSniff extends Generic_Sniffs_ControlStructures_InlineControlStructureSniff
 {
-
     /**
      * If true, an error will be thrown; otherwise a warning.
      *
@@ -44,5 +44,3 @@ class PEAR_Sniffs_ControlStructures_InlineControlStructureSniff extends Generic_
     protected $error = false;
 
 }//end class
-
-?>

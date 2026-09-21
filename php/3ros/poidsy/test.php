@@ -1,4 +1,4 @@
-<?PHP
+<?php
 
 /* Poidsy 0.6 - http://chris.smith.name/projects/poidsy
  * Copyright (c) 2008-2010 Chris Smith
@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
- // This file tests to see if your environment is compatible with Poidsy.
+// This file tests to see if your environment is compatible with Poidsy.
 
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
@@ -43,62 +43,65 @@
  <body>
   <h1>Poidsy compatibility test</h1>
   <table>
-<?PHP
+<?php
 
- function doTest($name, $result, $failinfo) {
-  echo '<tr><th>', htmlentities($name), '</th>';
-  echo '<td class="', $result ? 'succ' : 'error', '">';
-  echo $result ? 'Passed' : 'Failed';
-  echo '</td>';
-  if (!$result) { echo '<td>', $failinfo, '</td>'; }
-  echo '</tr>';
+ function doTest($name, $result, $failinfo)
+ {
+     echo '<tr><th>', htmlentities($name), '</th>';
+     echo '<td class="', $result ? 'succ' : 'error', '">';
+     echo $result ? 'Passed' : 'Failed';
+     echo '</td>';
+     if (!$result) {
+         echo '<td>', $failinfo, '</td>';
+     }
+     echo '</tr>';
  }
 
- echo '<tr><th colspan="2">Poidsy requirements</th></tr>';
- doTest('PHP Version', version_compare(PHP_VERSION, '5.2.10', '>='), 'Poidsy requires PHP version 5.2.10 or greater to run');
- doTest('Allow_url_fopen', ini_get('allow_url_fopen'), 'Poidsy requires allow_url_fopen to be configured to true');
+echo '<tr><th colspan="2">Poidsy requirements</th></tr>';
+doTest('PHP Version', version_compare(PHP_VERSION, '5.2.10', '>='), 'Poidsy requires PHP version 5.2.10 or greater to run');
+doTest('Allow_url_fopen', ini_get('allow_url_fopen'), 'Poidsy requires allow_url_fopen to be configured to true');
 
- echo '<tr><th colspan="2">Associate mode requirements</th></tr>';
- doTest('hash_hmac function', function_exists('hash_hmac'), 'Poidsy requires the hash_hmac function to use associate mode. It should be available in PHP 5.2.0 or greater, unless you\'ve explicitly disabled it when compiling PHP');
- doTest('Keycache writable', is_writable(dirname(__FILE__) . '/keycache.php'), 'Poidsy requires write access to the keycache.php file in its directory. Without it, Poidsy will be unable to use associate mode.');
- echo '<tr><th colspan="2">Diffie-Hellman key exchange requirements</th></tr>';
+echo '<tr><th colspan="2">Associate mode requirements</th></tr>';
+doTest('hash_hmac function', function_exists('hash_hmac'), 'Poidsy requires the hash_hmac function to use associate mode. It should be available in PHP 5.2.0 or greater, unless you\'ve explicitly disabled it when compiling PHP');
+doTest('Keycache writable', is_writable(dirname(__FILE__) . '/keycache.php'), 'Poidsy requires write access to the keycache.php file in its directory. Without it, Poidsy will be unable to use associate mode.');
+echo '<tr><th colspan="2">Diffie-Hellman key exchange requirements</th></tr>';
 
- $extensions = array(
-        array('modules' => array('gmp', 'php_gmp'),
-              'extension' => 'gmp'),
-        array('modules' => array('bcmath', 'php_bcmath'),
-              'extension' => 'bcmath')
-    );
+$extensions = array(
+       array('modules' => array('gmp', 'php_gmp'),
+             'extension' => 'gmp'),
+       array('modules' => array('bcmath', 'php_bcmath'),
+             'extension' => 'bcmath')
+   );
 
- $best = '';
- foreach ($extensions as $ext) {
-  if ($ext['extension'] && extension_loaded($ext['extension'])) {
-   $loaded = true;
-  } elseif (function_exists('dl')) {
-   foreach ($ext['modules'] as $module) {
-    if (@dl($module . "." . PHP_SHLIB_SUFFIX)) {
-     $loaded = true;
-     break;
+$best = '';
+foreach ($extensions as $ext) {
+    if ($ext['extension'] && extension_loaded($ext['extension'])) {
+        $loaded = true;
+    } elseif (function_exists('dl')) {
+        foreach ($ext['modules'] as $module) {
+            if (@dl($module . "." . PHP_SHLIB_SUFFIX)) {
+                $loaded = true;
+                break;
+            }
+        }
     }
-   }
-  }
 
-  if ($loaded) {
-   $best = $ext['extension'];
-   break; 
-  }
- }
+    if ($loaded) {
+        $best = $ext['extension'];
+        break;
+    }
+}
 
-  echo '<tr><th>Bigmath support</th>';
-  echo '<td class="', $best == 'gmp' ? 'succ' : ($best == 'bcmath' ? 'warn' : 'error'), '">';
-  echo $best != '' ? $best : 'Failed';
-  echo '</td>';
-  if ($best == 'bcmath') {
-   echo '<td>Your version of PHP has bcmath support, which is good enough for Poidsy to use, but is much slower than gmp.</td>';
-  } else if ($best == '') {
-   echo '<td>Your version of PHP doesn\'t have support for either gmp (preferred) or bcmath. Poidsy needs one of these libraries to perform D-H key exchange.</td>';
-  }
-  echo '</tr>';
+echo '<tr><th>Bigmath support</th>';
+echo '<td class="', $best == 'gmp' ? 'succ' : ($best == 'bcmath' ? 'warn' : 'error'), '">';
+echo $best != '' ? $best : 'Failed';
+echo '</td>';
+if ($best == 'bcmath') {
+    echo '<td>Your version of PHP has bcmath support, which is good enough for Poidsy to use, but is much slower than gmp.</td>';
+} elseif ($best == '') {
+    echo '<td>Your version of PHP doesn\'t have support for either gmp (preferred) or bcmath. Poidsy needs one of these libraries to perform D-H key exchange.</td>';
+}
+echo '</tr>';
 
 
 ?>

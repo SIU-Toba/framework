@@ -1,4 +1,5 @@
 <?php
+
 /**
 *	Interface grafica de usuario
 */

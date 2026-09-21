@@ -31,7 +31,7 @@ class api_usuarios_2 extends api_usuarios_1 implements InterfaseApiUsuarios
     //---- Auxiliares -------------------------------------------------------------------
     //-----------------------------------------------------------------------------------
 
-    public function get_usuarios($filtro=array(), $excluir_aplicacion = null)
+    public function get_usuarios($filtro = array(), $excluir_aplicacion = null)
     {
         $query = $datos = array();
         $url = 'usuarios';

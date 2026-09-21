@@ -5,42 +5,40 @@
  */
 class toba_asistente_adhoc extends toba_asistente
 {
-	/**
-	 * Genera el asistente
-	 */
-	function generar()
-	{
-		
-	}
-	
-	/**
-	 * Ejecuta la generacion 
-	 * @param array $id_item
-	 * @param mixed $retorno_opciones_generacion
-	 * @param boolean $con_transaccion
-	 * @return mixed
-	 */
-	function ejecutar($id_item, $retorno_opciones_generacion=null, $con_transaccion  = true)
-	{
-		try {
-			abrir_transaccion();
-			
-			foreach ($this->moldes as $molde) {
-				$molde->generar();
-			}
-			$this->generar_archivos_consultas();
-			$this->guardar_log_elementos_generados();
-			
-			cerrar_transaccion();
-			toba::notificacion()->agregar('La generación se realizó exitosamente','info');
-			return $this->log_elementos_creados;
-		} catch (toba_error $e) {
-			toba::logger()->error($e);
-			toba::notificacion()->agregar("Fallo en la generación: ".$e->getMessage(), 'error');
-			abortar_transaccion();
-		}		
-	}
-	
-}
+    /**
+     * Genera el asistente
+     */
+    public function generar()
+    {
 
-?>
+    }
+
+    /**
+     * Ejecuta la generacion
+     * @param array $id_item
+     * @param mixed $retorno_opciones_generacion
+     * @param boolean $con_transaccion
+     * @return mixed
+     */
+    public function ejecutar($id_item, $retorno_opciones_generacion = null, $con_transaccion  = true)
+    {
+        try {
+            abrir_transaccion();
+
+            foreach ($this->moldes as $molde) {
+                $molde->generar();
+            }
+            $this->generar_archivos_consultas();
+            $this->guardar_log_elementos_generados();
+
+            cerrar_transaccion();
+            toba::notificacion()->agregar('La generación se realizó exitosamente', 'info');
+            return $this->log_elementos_creados;
+        } catch (toba_error $e) {
+            toba::logger()->error($e);
+            toba::notificacion()->agregar("Fallo en la generación: ".$e->getMessage(), 'error');
+            abortar_transaccion();
+        }
+    }
+
+}

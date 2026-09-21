@@ -12,7 +12,7 @@ class toba_ei_filtro_info extends toba_ei_formulario_info
         return "filtro";
     }
 
-    public function get_molde_subclase($multilinea=false)
+    public function get_molde_subclase($multilinea = false)
     {
         $molde = $this->get_molde_vacio();
         // Redefinicion del LAYOUT

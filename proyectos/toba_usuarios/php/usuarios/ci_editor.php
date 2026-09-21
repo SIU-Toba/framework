@@ -142,7 +142,7 @@ class ci_editor extends toba_ci
     public function evt__form_proyectos__modificacion($datos)
     {
         //-- Perfil funcional -------------------------
-        $id = $this->datos('proyecto')->get_id_fila_condicion(array('proyecto'=>$this->s__proyecto));
+        $id = $this->datos('proyecto')->get_id_fila_condicion(array('proyecto' => $this->s__proyecto));
         foreach ($id as $clave) {
             $this->datos('proyecto')->eliminar_fila($clave);
         }
@@ -153,7 +153,7 @@ class ci_editor extends toba_ci
         }
 
         //-- Perfil datos -----------------------------
-        $id = $this->datos('proyecto_pd')->get_id_fila_condicion(array('proyecto'=>$this->s__proyecto));
+        $id = $this->datos('proyecto_pd')->get_id_fila_condicion(array('proyecto' => $this->s__proyecto));
         foreach ($id as $clave) {
             $this->datos('proyecto_pd')->eliminar_fila($clave);
         }
@@ -174,7 +174,7 @@ class ci_editor extends toba_ci
             $this->datos('proyecto')->eliminar_fila($clave);
         }
         //-- Perfil datos -----------------------------
-        $id = $this->datos('proyecto_pd')->get_id_fila_condicion(array('proyecto'=>$this->s__proyecto));
+        $id = $this->datos('proyecto_pd')->get_id_fila_condicion(array('proyecto' => $this->s__proyecto));
         foreach ($id as $clave) {
             $this->datos('proyecto_pd')->eliminar_fila($clave);
         }
@@ -192,7 +192,7 @@ class ci_editor extends toba_ci
             $datos = array();
             $datos['proyecto'] = $this->s__proyecto;
             //-- Perfil funcional -------------------------
-            $grupo_acc = $this->datos('proyecto')->get_filas(array('usuario'=> $this->s__usuario, 'proyecto'=>$this->s__proyecto));
+            $grupo_acc = $this->datos('proyecto')->get_filas(array('usuario' => $this->s__usuario, 'proyecto' => $this->s__proyecto));
             $ga_seleccionados = array();
             foreach ($grupo_acc as $ga) {
                 $ga_seleccionados[] = $ga['usuario_grupo_acc'];
@@ -201,7 +201,7 @@ class ci_editor extends toba_ci
 
             //-- Perfil datos -----------------------------
             $pd_seleccionados = array();
-            $perfil_datos = $this->datos('proyecto_pd')->get_filas(array('usuario'=> $this->s__usuario, 'proyecto'=>$this->s__proyecto));
+            $perfil_datos = $this->datos('proyecto_pd')->get_filas(array('usuario' => $this->s__usuario, 'proyecto' => $this->s__proyecto));
             foreach ($perfil_datos as $perfil) {
                 $pd_seleccionados[] = $perfil['usuario_perfil_datos'];
             }

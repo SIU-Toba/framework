@@ -1,25 +1,26 @@
-<?php 
+<?php
+
 
 class eiform_gatillos extends toba_ei_formulario_ml
 {
-	protected $tablas;
-	protected $contexto_opuesto;
+    protected $tablas;
+    protected $contexto_opuesto;
 
-	function set_tablas_utilizadas($tablas, $contexto_opuesto)
-	{
-		$this->tablas = $tablas;
-		$this->contexto_opuesto = $contexto_opuesto;
-	}
-	
-	//-----------------------------------------------------------------------------------
-	//---- JAVASCRIPT -------------------------------------------------------------------
-	//-----------------------------------------------------------------------------------
+    public function set_tablas_utilizadas($tablas, $contexto_opuesto)
+    {
+        $this->tablas = $tablas;
+        $this->contexto_opuesto = $contexto_opuesto;
+    }
 
-	function extender_objeto_js()
-	{
-		$escapador = toba::escaper();
-		echo $escapador->escapeJs($this->objeto_js)
-		.".evt__validar_datos = function()
+    //-----------------------------------------------------------------------------------
+    //---- JAVASCRIPT -------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------
+
+    public function extender_objeto_js()
+    {
+        $escapador = toba::escaper();
+        echo $escapador->escapeJs($this->objeto_js)
+        .".evt__validar_datos = function()
 		{
 			var tablas = new Array();
 			var repetidas = new Array();
@@ -56,6 +57,5 @@ class eiform_gatillos extends toba_ei_formulario_ml
 			return ok;
 		}
 		";
-	}
+    }
 }
-?>

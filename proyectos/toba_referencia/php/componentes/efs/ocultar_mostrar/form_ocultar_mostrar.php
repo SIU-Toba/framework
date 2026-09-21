@@ -1,13 +1,13 @@
-<?php 
+<?php
+
 php_referencia::instancia()->agregar(__FILE__);
 
 class form_ocultar_mostrar extends toba_ei_formulario
 {
-	
-	function extender_objeto_js()
-	{
-		$id_js = toba::escaper()->escapeJs($this->objeto_js);
-		echo "
+    public function extender_objeto_js()
+    {
+        $id_js = toba::escaper()->escapeJs($this->objeto_js);
+        echo "
 			{$id_js}.evt__efecto__procesar = function(es_inicial) 
 			{
 				if (! es_inicial) {
@@ -61,7 +61,5 @@ class form_ocultar_mostrar extends toba_ei_formulario
 				}
 			}			
 		";
-	}
+    }
 }
-
-?>

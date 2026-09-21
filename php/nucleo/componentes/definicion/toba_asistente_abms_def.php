@@ -2,27 +2,27 @@
 
 class toba_asistente_abms_def extends toba_asistente_def
 {
- 	static function get_estructura()
-	{
-		$estructura = parent::get_estructura();
-		$estructura[] = array( 	'tabla' => 'apex_molde_operacion_abms',
-								'registros' => '1',
-								'obligatorio' => true );
-		$estructura[] = array( 	'tabla' => 'apex_molde_operacion_abms_fila',
-								'registros' => 'n',
-								'obligatorio' => false );
-		return $estructura;		
-	}
+    public static function get_estructura()
+    {
+        $estructura = parent::get_estructura();
+        $estructura[] = array( 	'tabla' => 'apex_molde_operacion_abms',
+                                'registros' => '1',
+                                'obligatorio' => true );
+        $estructura[] = array( 	'tabla' => 'apex_molde_operacion_abms_fila',
+                                'registros' => 'n',
+                                'obligatorio' => false );
+        return $estructura;
+    }
 
-	static function get_vista_extendida($proyecto, $componente=null)
-	{
-		$sql = parent::get_vista_extendida($proyecto, $componente);
-		$proyecto = self::$db->quote($proyecto);
-		if (isset($componente)) {
-			$componente = self::$db->quote($componente);
-		}		
-		//------------- abms ----------------
-		$sql['molde_abms']['sql'] = "SELECT			proyecto  							,
+    public static function get_vista_extendida($proyecto, $componente = null)
+    {
+        $sql = parent::get_vista_extendida($proyecto, $componente);
+        $proyecto = self::$db->quote($proyecto);
+        if (isset($componente)) {
+            $componente = self::$db->quote($componente);
+        }
+        //------------- abms ----------------
+        $sql['molde_abms']['sql'] = "SELECT			proyecto  							,
 													molde								,
 													tabla								,
 													gen_usa_filtro						,
@@ -40,15 +40,15 @@ class toba_asistente_abms_def extends toba_asistente_def
 													datos_tabla_validacion				,
 													apdb_pre							
 							 FROM		apex_molde_operacion_abms 
-							 WHERE	proyecto=$proyecto ";	
-		if ( isset($componente) ) {
-			$sql['molde_abms']['sql'] .= "	AND		molde=$componente ";	
-		}
-		$sql['molde_abms']['sql'] .= "ORDER BY molde;";
-		$sql['molde_abms']['registros']='1';
-		$sql['molde_abms']['obligatorio']=true;
-		//------------ Columnas ----------------
-		$sql['molde_abms_fila']['sql'] = "SELECT	proyecto  							,
+							 WHERE	proyecto=$proyecto ";
+        if (isset($componente)) {
+            $sql['molde_abms']['sql'] .= "	AND		molde=$componente ";
+        }
+        $sql['molde_abms']['sql'] .= "ORDER BY molde;";
+        $sql['molde_abms']['registros'] = '1';
+        $sql['molde_abms']['obligatorio'] = true;
+        //------------ Columnas ----------------
+        $sql['molde_abms_fila']['sql'] = "SELECT	proyecto  							,
 													molde								,
 													fila								,
 													orden								,
@@ -78,13 +78,12 @@ class toba_asistente_abms_def extends toba_asistente_def
 													ef_carga_col_desc
 										 FROM		apex_molde_operacion_abms_fila
 										 WHERE	proyecto = $proyecto ";
-		if ( isset($componente) ) {
-			$sql['molde_abms_fila']['sql'] .= "	AND		molde=$componente ";
-		}
-		$sql['molde_abms_fila']['sql'] .= " ORDER BY orden;";
-		$sql['molde_abms_fila']['registros']='n';
-		$sql['molde_abms_fila']['obligatorio']=true;
-		return $sql;
-	}
+        if (isset($componente)) {
+            $sql['molde_abms_fila']['sql'] .= "	AND		molde=$componente ";
+        }
+        $sql['molde_abms_fila']['sql'] .= " ORDER BY orden;";
+        $sql['molde_abms_fila']['registros'] = 'n';
+        $sql['molde_abms_fila']['obligatorio'] = true;
+        return $sql;
+    }
 }
-?>

@@ -1,160 +1,171 @@
 <?php
+
 class toba_test extends UnitTestCase
 {
-	protected $separar_pruebas=false;
+    protected $separar_pruebas = false;
 
-	function separar_pruebas($estado=false)
-	{
-		$this->separar_pruebas = $estado;
-	}
+    public function separar_pruebas($estado = false)
+    {
+        $this->separar_pruebas = $estado;
+    }
 
-	function tearDown()
-	{
-		$this->restaurar_estado($this->sentencias_restauracion());
-	}
+    public function tearDown()
+    {
+        $this->restaurar_estado($this->sentencias_restauracion());
+    }
 
-	protected function sentencias_restauracion()
-	{
-		return array();
-	}
+    protected function sentencias_restauracion()
+    {
+        return array();
+    }
 
-	protected function restaurar_estado($sentencias)
-	{
-		foreach ($sentencias as $sql) {
-			$rs = toba_contexto_info::get_db()->ejecutar($sql);
-			if (!$rs)
-			    $this->Fail("Error restaurando estado:\n$sql\n".toba_contexto_info::get_db()->ErrorMsg());
-		}
-	}
+    protected function restaurar_estado($sentencias)
+    {
+        foreach ($sentencias as $sql) {
+            $rs = toba_contexto_info::get_db()->ejecutar($sql);
+            if (!$rs) {
+                $this->Fail("Error restaurando estado:\n$sql\n".toba_contexto_info::get_db()->ErrorMsg());
+            }
+        }
+    }
 
-	/*
-	*	Crea un runner customizado por toba (agrega separaciones en el LOG por test)
-	*/
-	function &_createRunner(&$reporter)
-	{
-		$runner = new toba_test_runner($this, $reporter);
-		if($this->separar_pruebas) {
-			$runner->separar_pruebas(true);
-		}
-		return $runner;
-	}
+    /*
+    *	Crea un runner customizado por toba (agrega separaciones en el LOG por test)
+    */
+    public function &_createRunner(&$reporter)
+    {
+        $runner = new toba_test_runner($this, $reporter);
+        if ($this->separar_pruebas) {
+            $runner->separar_pruebas(true);
+        }
+        return $runner;
+    }
 
-	function run($reporter)
-	{
-		$this->pre_run();
-		parent::run($reporter);
-		$this->post_run();
-	}
+    public function run($reporter)
+    {
+        $this->pre_run();
+        parent::run($reporter);
+        $this->post_run();
+    }
 
-	function pre_run()
-	{
-		toba_constructor::set_refresco_forzado(true);
-	}
+    public function pre_run()
+    {
+        toba_constructor::set_refresco_forzado(true);
+    }
 
-	function post_run(){}
+    public function post_run()
+    {
+    }
 
-	///---------- MOCK del HILO
-	function mentir_hilo()
-	{
-		global $solicitud;
-		$this->hilo_orig = $solicitud->hilo;
-		$solicitud->hilo = new hilo_version_test();
-	}
+    ///---------- MOCK del HILO
+    public function mentir_hilo()
+    {
+        global $solicitud;
+        $this->hilo_orig = $solicitud->hilo;
+        $solicitud->hilo = new hilo_version_test();
+    }
 
-	function restaurar_hilo()
-	{
-		global $solicitud;
-		$solicitud->hilo = $this->hilo_orig;
-	}
+    public function restaurar_hilo()
+    {
+        global $solicitud;
+        $solicitud->hilo = $this->hilo_orig;
+    }
 
 
-	function assertEqualArray($first, $second, $message = "%s") {
-		return $this->assertExpectation(
-				new EqualArrayExpectation($first),
-				$second,
-				$message);
-	}
+    public function assertEqualArray($first, $second, $message = "%s")
+    {
+        return $this->assertExpectation(
+            new EqualArrayExpectation($first),
+            $second,
+            $message
+        );
+    }
 
-	function get_proyecto() {
-		return toba_editor::activado() ? toba_editor::get_proyecto_cargado() : toba::proyecto()->get_id();
-	}
+    public function get_proyecto()
+    {
+        return toba_editor::activado() ? toba_editor::get_proyecto_cargado() : toba::proyecto()->get_id();
+    }
 
-	static function get_descripcion()
-	{}
+    public static function get_descripcion()
+    {
+    }
 }
 
 class EqualArrayExpectation extends SimpleExpectation
 {
-    var $_value;
+    public $_value;
 
 
-    function __construct($value, $message = '%s') {
+    public function __construct($value, $message = '%s')
+    {
         $this->SimpleExpectation($message);
         $this->_value = $value;
     }
 
-    function es_igual($array1, $array2, $component)
+    public function es_igual($array1, $array2, $component)
     {
-        if (\array_key_exists($component,$array1) AND \array_key_exists($component,$array2)){
+        if (\array_key_exists($component, $array1) and \array_key_exists($component, $array2)) {
 
-            if (($array2[$component] === NULL) AND ($array1[$component] === NULL)){
-                return true;}
+            if (($array2[$component] === null) and ($array1[$component] === null)) {
+                return true;
+            }
 
-            if (($array2[$component] === NULL) OR ($array1[$component] === NULL)){
-                return false;}
+            if (($array2[$component] === null) or ($array1[$component] === null)) {
+                return false;
+            }
 
 
-            if ($array2[$component] != $array1[$component]){
-                return false;}
-            else{
-                return true;}
-        }
-        else{
+            if ($array2[$component] != $array1[$component]) {
+                return false;
+            } else {
+                return true;
+            }
+        } else {
             return false;
         }
     }
 
-    function array_diff_assoc_recursive($array1, $array2)
+    public function array_diff_assoc_recursive($array1, $array2)
     {
-        foreach($array1 as $key => $value) {
-             if(is_array($value)){
-                  if(!is_array($array2[$key])){
-                       $difference[$key] = $value;
-                  }
-                  else {
-                       $new_diff = $this->array_diff_assoc_recursive($value, $array2[$key]);
-                       if($new_diff != FALSE) {
-                            $difference[$key] = $new_diff;
-                       }
-                   }
-              } elseif(! $this->es_igual($array1,$array2,$key)) {
-                   $difference[$key] = $value;
-              }
+        foreach ($array1 as $key => $value) {
+            if (is_array($value)) {
+                if (!is_array($array2[$key])) {
+                    $difference[$key] = $value;
+                } else {
+                    $new_diff = $this->array_diff_assoc_recursive($value, $array2[$key]);
+                    if ($new_diff != false) {
+                        $difference[$key] = $new_diff;
+                    }
+                }
+            } elseif (! $this->es_igual($array1, $array2, $key)) {
+                $difference[$key] = $value;
+            }
         }
-        foreach($array2 as $key => $value) {
-             if(is_array($value)){
-                  if(!is_array($array1[$key])){
-                       $difference[$key] = $value;
-                  }
-                  else {
-                       $new_diff = $this->array_diff_assoc_recursive($value, $array1[$key]);
-                       if($new_diff != FALSE) {
-                            $difference[$key] = $new_diff;
-                       }
-                   }
-              } elseif(! $this->es_igual($array2,$array1,$key)) {
-                   $difference[$key] = $value;
-              }
+        foreach ($array2 as $key => $value) {
+            if (is_array($value)) {
+                if (!is_array($array1[$key])) {
+                    $difference[$key] = $value;
+                } else {
+                    $new_diff = $this->array_diff_assoc_recursive($value, $array1[$key]);
+                    if ($new_diff != false) {
+                        $difference[$key] = $new_diff;
+                    }
+                }
+            } elseif (! $this->es_igual($array2, $array1, $key)) {
+                $difference[$key] = $value;
+            }
         }
         return !isset($difference) ? array() : $difference;
     }
 
-    function test($compare) {
+    public function test($compare)
+    {
         $diferencias = $this->array_diff_assoc_recursive($this->_value, $compare);
         return (count($diferencias) == 0);
     }
 
-    function testMessage($compare) {
+    public function testMessage($compare)
+    {
         if ($this->test($compare)) {
             return "Equal Array expectation [" . $this->_dumper->describeValue($this->_value) . "]";
         } else {
@@ -162,7 +173,7 @@ class EqualArrayExpectation extends SimpleExpectation
             $salida =  "Equal Array expectation fails " .
                     $this->_dumper->describeDifference($this->_value, $compare);
             ob_start();
-			echo ". ";
+            echo ". ";
             var_dump($diferencia);
             $salida .= ob_get_contents();
             ob_end_clean();
@@ -170,6 +181,3 @@ class EqualArrayExpectation extends SimpleExpectation
         }
     }
 }
-
-
-?>

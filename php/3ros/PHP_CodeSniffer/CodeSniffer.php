@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PHP_CodeSniffer tokenises PHP code and detects violations of a
  * defined set of coding standards.
@@ -60,7 +61,6 @@ if (interface_exists('PHP_CodeSniffer_Sniff', true) === false) {
  */
 class PHP_CodeSniffer
 {
-
     /**
      * The file or directory that is currently being processed.
      *
@@ -135,7 +135,7 @@ class PHP_CodeSniffer
      *
      * @see process()
      */
-    public function __construct($verbosity=0, $tabWidth=0)
+    public function __construct($verbosity = 0, $tabWidth = 0)
     {
         define('PHP_CODESNIFFER_VERBOSITY', $verbosity);
         define('PHP_CODESNIFFER_TAB_WIDTH', $tabWidth);
@@ -167,7 +167,7 @@ class PHP_CodeSniffer
         if (is_file(dirname(__FILE__).'/'.$path) === true) {
             // Check standard file locations based on class name.
             include dirname(__FILE__).'/'.$path;
-        } else if (is_file(dirname(__FILE__).'/CodeSniffer/Standards/'.$path) === true) {
+        } elseif (is_file(dirname(__FILE__).'/CodeSniffer/Standards/'.$path) === true) {
             // Check for included sniffs.
             include dirname(__FILE__).'/CodeSniffer/Standards/'.$path;
         } else {
@@ -252,7 +252,7 @@ class PHP_CodeSniffer
      * @return void
      * @throws PHP_CodeSniffer_Exception If files or standard are invalid.
      */
-    public function process($files, $standard, array $sniffs=array(), $local=false)
+    public function process($files, $standard, array $sniffs = array(), $local = false)
     {
         if (is_array($files) === false) {
             if (is_string($files) === false || $files === null) {
@@ -312,7 +312,7 @@ class PHP_CodeSniffer
      * @throws PHP_CodeSniffer_Exception If any of the tests failed in the
      *                                   registration process.
      */
-    public function getTokenListeners($standard, array $sniffs=array())
+    public function getTokenListeners($standard, array $sniffs = array())
     {
         if (is_dir($standard) === true) {
             // This is a custom standard.
@@ -381,7 +381,7 @@ class PHP_CodeSniffer
      *
      * @return null
      */
-    public function setTokenListeners($standard, array $sniffs=array())
+    public function setTokenListeners($standard, array $sniffs = array())
     {
         $this->listeners = $this->getTokenListeners($standard, $sniffs);
 
@@ -402,7 +402,7 @@ class PHP_CodeSniffer
      * @throws PHP_CodeSniffer_Exception If an included or excluded sniff does
      *                                   not exist.
      */
-    public static function getSniffFiles($dir, $standard=null)
+    public static function getSniffFiles($dir, $standard = null)
     {
         $di = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir));
 
@@ -435,7 +435,7 @@ class PHP_CodeSniffer
         if ($standard !== null && is_file("$dir/{$standard}CodingStandard.php") === true) {
             include_once "$dir/{$standard}CodingStandard.php";
             $standardClassName = "PHP_CodeSniffer_Standards_{$standard}_{$standard}CodingStandard";
-            $standardClass     = new $standardClassName;
+            $standardClass     = new $standardClassName();
 
             $included = $standardClass->getIncludedSniffs();
             foreach ($included as $sniff) {
@@ -443,7 +443,7 @@ class PHP_CodeSniffer
                     // Trying to include from a custom standard.
                     $sniffDir = $sniff;
                     $sniff    = basename($sniff);
-                } else if (is_file($sniff) === true) {
+                } elseif (is_file($sniff) === true) {
                     // Trying to include a custom sniff.
                     $sniffDir = $sniff;
                 } else {
@@ -476,7 +476,7 @@ class PHP_CodeSniffer
                     // Trying to exclude from a custom standard.
                     $sniffDir = $sniff;
                     $sniff    = basename($sniff);
-                } else if (is_file($sniff) === true) {
+                } elseif (is_file($sniff) === true) {
                     // Trying to exclude a custom sniff.
                     $sniffDir = $sniff;
                 } else {
@@ -533,7 +533,7 @@ class PHP_CodeSniffer
      * @return void
      * @throws Exception If there was an error opening the directory.
      */
-    public function processFiles($dir, $local=false)
+    public function processFiles($dir, $local = false)
     {
         try {
             if ($local === true) {
@@ -592,7 +592,7 @@ class PHP_CodeSniffer
      * @return void
      * @throws PHP_CodeSniffer_Exception If the file could not be processed.
      */
-    public function processFile($file, $contents=null)
+    public function processFile($file, $contents = null)
     {
         if (is_null($contents) === true && file_exists($file) === false) {
             throw new PHP_CodeSniffer_Exception("Source file $file does not exist");
@@ -627,7 +627,7 @@ class PHP_CodeSniffer
             $timeTaken = (time() - $startTime);
             if ($timeTaken === 0) {
                 echo 'DONE in < 1 second';
-            } else if ($timeTaken === 1) {
+            } elseif ($timeTaken === 1) {
                 echo 'DONE in 1 second';
             } else {
                 echo "DONE in $timeTaken seconds";
@@ -651,7 +651,7 @@ class PHP_CodeSniffer
      *
      * @return array
      */
-    public function prepareErrorReport($showWarnings=true)
+    public function prepareErrorReport($showWarnings = true)
     {
         $report = array(
                    'totals' => array(
@@ -755,7 +755,7 @@ class PHP_CodeSniffer
      *
      * @return int The number of error and warning messages shown.
      */
-    public function printXMLErrorReport($showWarnings=true)
+    public function printXMLErrorReport($showWarnings = true)
     {
         echo '<?xml version="1.0" encoding="UTF-8"?>'.PHP_EOL;
         echo '<phpcs version="@package_version@">'.PHP_EOL;
@@ -801,7 +801,7 @@ class PHP_CodeSniffer
      *
      * @return int The number of error and warning messages shown.
      */
-    public function printCheckstyleErrorReport($showWarnings=true)
+    public function printCheckstyleErrorReport($showWarnings = true)
     {
         echo '<?xml version="1.0" encoding="UTF-8"?>'.PHP_EOL;
         echo '<checkstyle version="@package_version@">'.PHP_EOL;
@@ -845,7 +845,7 @@ class PHP_CodeSniffer
      *
      * @return int The number of error and warning messages shown.
      */
-    public function printCSVErrorReport($showWarnings=true)
+    public function printCSVErrorReport($showWarnings = true)
     {
         echo 'File,Line,Column,Severity,Message'.PHP_EOL;
 
@@ -880,7 +880,7 @@ class PHP_CodeSniffer
      *
      * @return int The number of error and warning messages shown.
      */
-    public function printErrorReport($showWarnings=true)
+    public function printErrorReport($showWarnings = true)
     {
         $errorsShown = 0;
 
@@ -976,7 +976,7 @@ class PHP_CodeSniffer
      *
      * @return int The number of error and warning messages shown.
      */
-    public function printErrorReportSummary($showWarnings=true, $relativo=null)
+    public function printErrorReportSummary($showWarnings = true, $relativo = null)
     {
         $errorFiles = array();
 
@@ -984,7 +984,7 @@ class PHP_CodeSniffer
             $numWarnings = $file->getWarningCount();
             $numErrors   = $file->getErrorCount();
             $filename    = $file->getFilename();
-			// If verbose output is enabled, we show the results for all files,
+            // If verbose output is enabled, we show the results for all files,
             // but if not, we only show files that had errors or warnings.
             if (PHP_CODESNIFFER_VERBOSITY > 0 || $numErrors > 0 || ($numWarnings > 0 && $showWarnings === true)) {
                 $errorFiles[$filename] = array(
@@ -1014,9 +1014,9 @@ class PHP_CodeSniffer
         $totalFiles    = 0;
 
         foreach ($errorFiles as $file => $errors) {
-			if (isset($relativo)) {
-				$file = substr($file, strlen($relativo));
-			}
+            if (isset($relativo)) {
+                $file = substr($file, strlen($relativo));
+            }
             if ($showWarnings === true) {
                 $padding = (62 - strlen($file));
             } else {
@@ -1065,7 +1065,7 @@ class PHP_CodeSniffer
      *
      * @return void
      */
-    public function generateDocs($standard, array $sniffs=array(), $generator='Text')
+    public function generateDocs($standard, array $sniffs = array(), $generator = 'Text')
     {
         include_once 'PHP/CodeSniffer/DocGenerators/'.$generator.'.php';
 
@@ -1148,24 +1148,24 @@ class PHP_CodeSniffer
     {
         $newToken = array();
         switch (strtolower($token[1])) {
-        case 'false':
-            $newToken['type'] = 'T_FALSE';
-            break;
-        case 'true':
-            $newToken['type'] = 'T_TRUE';
-            break;
-        case 'null':
-            $newToken['type'] = 'T_NULL';
-            break;
-        case 'self':
-            $newToken['type'] = 'T_SELF';
-            break;
-        case 'parent':
-            $newToken['type'] = 'T_PARENT';
-            break;
-        default:
-            $newToken['type'] = 'T_STRING';
-            break;
+            case 'false':
+                $newToken['type'] = 'T_FALSE';
+                break;
+            case 'true':
+                $newToken['type'] = 'T_TRUE';
+                break;
+            case 'null':
+                $newToken['type'] = 'T_NULL';
+                break;
+            case 'self':
+                $newToken['type'] = 'T_SELF';
+                break;
+            case 'parent':
+                $newToken['type'] = 'T_PARENT';
+                break;
+            default:
+                $newToken['type'] = 'T_STRING';
+                break;
         }
 
         $newToken['code']    = constant($newToken['type']);
@@ -1192,78 +1192,78 @@ class PHP_CodeSniffer
         $newToken = array();
 
         switch ($token) {
-        case '{':
-            $newToken['type'] = 'T_OPEN_CURLY_BRACKET';
-            break;
-        case '}':
-            $newToken['type'] = 'T_CLOSE_CURLY_BRACKET';
-            break;
-        case '[':
-            $newToken['type'] = 'T_OPEN_SQUARE_BRACKET';
-            break;
-        case ']':
-            $newToken['type'] = 'T_CLOSE_SQUARE_BRACKET';
-            break;
-        case '(':
-            $newToken['type'] = 'T_OPEN_PARENTHESIS';
-            break;
-        case ')':
-            $newToken['type'] = 'T_CLOSE_PARENTHESIS';
-            break;
-        case ':':
-            $newToken['type'] = 'T_COLON';
-            break;
-        case '.':
-            $newToken['type'] = 'T_STRING_CONCAT';
-            break;
-        case '?':
-            $newToken['type'] = 'T_INLINE_THEN';
-            break;
-        case ';':
-            $newToken['type'] = 'T_SEMICOLON';
-            break;
-        case '=':
-            $newToken['type'] = 'T_EQUAL';
-            break;
-        case '*':
-            $newToken['type'] = 'T_MULTIPLY';
-            break;
-        case '/':
-            $newToken['type'] = 'T_DIVIDE';
-            break;
-        case '+':
-            $newToken['type'] = 'T_PLUS';
-            break;
-        case '-':
-            $newToken['type'] = 'T_MINUS';
-            break;
-        case '%':
-            $newToken['type'] = 'T_MODULUS';
-            break;
-        case '^':
-            $newToken['type'] = 'T_POWER';
-            break;
-        case '&':
-            $newToken['type'] = 'T_BITWISE_AND';
-            break;
-        case '|':
-            $newToken['type'] = 'T_BITWISE_OR';
-            break;
-        case '<':
-            $newToken['type'] = 'T_LESS_THAN';
-            break;
-        case '>':
-            $newToken['type'] = 'T_GREATER_THAN';
-            break;
-        case '!':
-            $newToken['type'] = 'T_BOOLEAN_NOT';
-            break;
-        case ',':
-            $newToken['type'] = 'T_COMMA';
-            break;
-        default:
-            $newToken['type'] = 'T_NONE';
-            break;
+            case '{':
+                $newToken['type'] = 'T_OPEN_CURLY_BRACKET';
+                break;
+            case '}':
+                $newToken['type'] = 'T_CLOSE_CURLY_BRACKET';
+                break;
+            case '[':
+                $newToken['type'] = 'T_OPEN_SQUARE_BRACKET';
+                break;
+            case ']':
+                $newToken['type'] = 'T_CLOSE_SQUARE_BRACKET';
+                break;
+            case '(':
+                $newToken['type'] = 'T_OPEN_PARENTHESIS';
+                break;
+            case ')':
+                $newToken['type'] = 'T_CLOSE_PARENTHESIS';
+                break;
+            case ':':
+                $newToken['type'] = 'T_COLON';
+                break;
+            case '.':
+                $newToken['type'] = 'T_STRING_CONCAT';
+                break;
+            case '?':
+                $newToken['type'] = 'T_INLINE_THEN';
+                break;
+            case ';':
+                $newToken['type'] = 'T_SEMICOLON';
+                break;
+            case '=':
+                $newToken['type'] = 'T_EQUAL';
+                break;
+            case '*':
+                $newToken['type'] = 'T_MULTIPLY';
+                break;
+            case '/':
+                $newToken['type'] = 'T_DIVIDE';
+                break;
+            case '+':
+                $newToken['type'] = 'T_PLUS';
+                break;
+            case '-':
+                $newToken['type'] = 'T_MINUS';
+                break;
+            case '%':
+                $newToken['type'] = 'T_MODULUS';
+                break;
+            case '^':
+                $newToken['type'] = 'T_POWER';
+                break;
+            case '&':
+                $newToken['type'] = 'T_BITWISE_AND';
+                break;
+            case '|':
+                $newToken['type'] = 'T_BITWISE_OR';
+                break;
+            case '<':
+                $newToken['type'] = 'T_LESS_THAN';
+                break;
+            case '>':
+                $newToken['type'] = 'T_GREATER_THAN';
+                break;
+            case '!':
+                $newToken['type'] = 'T_BOOLEAN_NOT';
+                break;
+            case ',':
+                $newToken['type'] = 'T_COMMA';
+                break;
+            default:
+                $newToken['type'] = 'T_NONE';
+                break;
 
         }//end switch
 
@@ -1295,7 +1295,7 @@ class PHP_CodeSniffer
      *
      * @return boolean
      */
-    public static function isCamelCaps($string, $classFormat=false, $public=true, $strict=true)
+    public static function isCamelCaps($string, $classFormat = false, $public = true, $strict = true)
     {
         // Check the first character first.
         if ($classFormat === false) {
@@ -1409,15 +1409,15 @@ class PHP_CodeSniffer
         } else {
             $lowerVarType = strtolower($varType);
             switch ($lowerVarType) {
-            case 'bool':
-                return 'boolean';
-            case 'double':
-            case 'real':
-                return 'float';
-            case 'int':
-                return 'integer';
-            case 'array()':
-                return 'array';
+                case 'bool':
+                    return 'boolean';
+                case 'double':
+                case 'real':
+                    return 'float';
+                case 'int':
+                    return 'integer';
+                case 'array()':
+                    return 'array';
             }//end switch
 
             if (strpos($lowerVarType, 'array(') !== false) {
@@ -1446,7 +1446,7 @@ class PHP_CodeSniffer
                 } else {
                     return 'array';
                 }//end if
-            } else if (in_array($lowerVarType, self::$allowedTypes) === true) {
+            } elseif (in_array($lowerVarType, self::$allowedTypes) === true) {
                 // A valid type, but not lower cased.
                 return $lowerVarType;
             } else {
@@ -1475,7 +1475,7 @@ class PHP_CodeSniffer
      * @return array
      * @see isInstalledStandard()
      */
-    public static function getInstalledStandards($includeGeneric=false, $standardsDir='')
+    public static function getInstalledStandards($includeGeneric = false, $standardsDir = '')
     {
         $installedStandards = array();
 
@@ -1582,7 +1582,7 @@ class PHP_CodeSniffer
      * @see getConfigData()
      * @throws PHP_CodeSniffer_Exception If the config file can not be written.
      */
-    public static function setConfigData($key, $value, $temp=false)
+    public static function setConfigData($key, $value, $temp = false)
     {
         if ($temp === false) {
             $configFile = dirname(__FILE__).'/CodeSniffer.conf';
@@ -1652,5 +1652,3 @@ class PHP_CodeSniffer
 
 
 }//end class
-
-?>

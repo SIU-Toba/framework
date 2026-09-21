@@ -1,4 +1,5 @@
 <?php
+
 class toba_session_memcached_handler extends toba_session_handler
 {
     protected $default_settings = array(
@@ -25,4 +26,3 @@ class toba_session_memcached_handler extends toba_session_handler
         'memcached.sess_remove_failed_servers' => 'Off',*/
     );
 }
-?>

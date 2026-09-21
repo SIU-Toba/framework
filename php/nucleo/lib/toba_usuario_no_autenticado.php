@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Usuario especial que se usa para el acceso público al sistema
  * @package Seguridad
@@ -6,38 +7,36 @@
  */
 class toba_usuario_no_autenticado extends toba_usuario
 {
+    public const NO_AUTENTICADO = 'no_autentificado';
 
-    const NO_AUTENTICADO = 'no_autentificado';
+    public function __construct()
+    {
+        parent::__construct(self::NO_AUTENTICADO);
+    }
 
-	function __construct()
-	{
-		parent::__construct(self::NO_AUTENTICADO);
-	}
+    /**
+    *	Retorna el identificador del usuario
+    */
+    public function get_id()
+    {
+        return self::NO_AUTENTICADO;
+    }
 
-	/**
-	*	Retorna el identificador del usuario
-	*/
-	function get_id()
-	{
-		return self::NO_AUTENTICADO;
-	}
+    /**
+    *	Retorna el nombre del usuario
+    */
+    public function get_nombre()
+    {
+        return 'Usuario no autentificado';
+    }
 
-	/**
-	*	Retorna el nombre del usuario
-	*/
-	function get_nombre()
-	{
-		return 'Usuario no autentificado';
-	}
+    public function get_perfiles_datos()
+    {
+        return array();
+    }
 
-	function get_perfiles_datos()
-	{
-		return array();
-	}
-
-        function requiere_segundo_factor()
-        {
-            return false;
-        }
+    public function requiere_segundo_factor()
+    {
+        return false;
+    }
 }
-?>

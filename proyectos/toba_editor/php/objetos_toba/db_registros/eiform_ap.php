@@ -1,24 +1,25 @@
 <?php
+
 class eiform_ap extends toba_ei_formulario
 {
-	protected $js_abrir = ''; 
-	protected $texto_recarga = null;
-	
-	function set_js_abrir($js)
-	{
-		$this->js_abrir = $js;
-	}
-	
-	function set_modo_recarga($texto)
-	{
-		$this->texto_recarga = $texto;
-	}
-	
-	function extender_objeto_js()
-	{
-		$escapador = toba::escaper();
-		$id_js = $escapador->escapeJs($this->objeto_js);
-		echo "
+    protected $js_abrir = '';
+    protected $texto_recarga = null;
+
+    public function set_js_abrir($js)
+    {
+        $this->js_abrir = $js;
+    }
+
+    public function set_modo_recarga($texto)
+    {
+        $this->texto_recarga = $texto;
+    }
+
+    public function extender_objeto_js()
+    {
+        $escapador = toba::escaper();
+        $id_js = $escapador->escapeJs($this->objeto_js);
+        echo "
 		{$id_js}.evt__ap_archivo__procesar = function(inicial) {
 			if (!inicial && this.ef('ap_clase').valor() == '') {
 				var archivo = this.ef('ap_archivo').valor();
@@ -111,10 +112,10 @@ class eiform_ap extends toba_ei_formulario
 		}		
 
 		";
-		
-		if ( isset($this->texto_recarga) ) {
-			$usar_confirm = ($this->texto_recarga == '') ? 'true' : 'false';
-			echo "
+
+        if (isset($this->texto_recarga)) {
+            $usar_confirm = ($this->texto_recarga == '') ? 'true' : 'false';
+            echo "
 				{$id_js}.evt__tabla__procesar = function(es_inicial)
 				{
 					if (! es_inicial && this.ef('tabla').get_estado() != apex_ef_no_seteado) {
@@ -133,7 +134,6 @@ class eiform_ap extends toba_ei_formulario
 					}
 				}
 		";
-		}
-	}
+        }
+    }
 }
-?>

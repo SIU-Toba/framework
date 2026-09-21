@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Parses function doc comments.
  *
@@ -48,7 +49,6 @@ if (class_exists('PHP_CodeSniffer_CommentParser_SingleElement', true) === false)
  */
 class PHP_CodeSniffer_CommentParser_FunctionCommentParser extends PHP_CodeSniffer_CommentParser_AbstractParser
 {
-
     /**
      * The parameter elements within this function comment.
      *
@@ -192,5 +192,3 @@ class PHP_CodeSniffer_CommentParser_FunctionCommentParser extends PHP_CodeSniffe
 
 
 }//end class
-
-?>

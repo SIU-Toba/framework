@@ -79,14 +79,14 @@ class toba_ci_info extends toba_ei_info
         }
     }
 
-    public function get_hijos($solo_pantallas=false)
+    public function get_hijos($solo_pantallas = false)
     {
         //Las dependencias son sus hijos
         //Hay una responsabilidad no bien limitada
         //Este objeto tiene las dependencias, cada pantalla debería poder sacar las que les concierne
         //Pero tambien este objeto debería saber cuales no son utilizadas por las pantallas
         $pantallas = array();
-        if ($this->carga_profundidad && count($this->datos['_info_ci_me_pantalla'])>0) {
+        if ($this->carga_profundidad && count($this->datos['_info_ci_me_pantalla']) > 0) {
             //Se ordena por la columna orden
             $datos_pantallas = rs_ordenar_por_columna($this->datos['_info_ci_me_pantalla'], 'orden');
             foreach ($datos_pantallas as $pantalla) {
@@ -331,7 +331,7 @@ class toba_ci_info extends toba_ei_info
 
 
         //**************** DEPENDENCIAS ***************
-        if (count($this->subelementos)>0) {
+        if (count($this->subelementos) > 0) {
             foreach ($this->subelementos as $id => $elemento) {
                 $es_ei = ($elemento instanceof toba_ei_info) && !($elemento instanceof toba_ci_info);
                 $rol = $elemento->rol_en_consumidor();
@@ -369,7 +369,7 @@ class toba_ci_info extends toba_ei_info
 
                             //Si es evento sobre fila brindo la oportunidad de configurarlo (caso ML y Cuadro)
                             if (isset($info['info']['sobre_fila']) && ($info['info']['sobre_fila'] == 1)) {
-                                $nombre ='conf_evt__' . $rol . '__' .$evento;
+                                $nombre = 'conf_evt__' . $rol . '__' .$evento;
                                 $parametros = array('toba_evento_usuario $evento', '$fila');
                                 $doc = array();
                                 $doc[] = 'Permite configurar el evento por fila.';

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PEAR_Sniffs_Files_LineLengthSniff.
  *
@@ -35,7 +36,6 @@ if (class_exists('Generic_Sniffs_Files_LineLengthSniff', true) === false) {
  */
 class PEAR_Sniffs_Files_LineLengthSniff extends Generic_Sniffs_Files_LineLengthSniff
 {
-
     /**
      * The limit that the length of a line should not exceed.
      *
@@ -53,5 +53,3 @@ class PEAR_Sniffs_Files_LineLengthSniff extends Generic_Sniffs_Files_LineLengthS
     protected $absoluteLineLimit = 0;
 
 }//end class
-
-?>

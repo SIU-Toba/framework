@@ -1,10 +1,11 @@
 <?php
+
 class form_zona extends toba_ei_formulario
 {
-	function extender_objeto_js()
-	{
-		$id_js = toba::escaper()->escapeJs($this->objeto_js);
-		echo "
+    public function extender_objeto_js()
+    {
+        $id_js = toba::escaper()->escapeJs($this->objeto_js);
+        echo "
 			{$id_js}.modificar_vinculo__ef_archivo = function(id_vinculo)
 			{
 				var estado = this.ef('punto_montaje').get_estado();
@@ -33,6 +34,5 @@ class form_zona extends toba_ei_formulario
 				}
 			}
 		";
-	}
+    }
 }
-?>

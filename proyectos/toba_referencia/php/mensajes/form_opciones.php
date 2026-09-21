@@ -1,15 +1,15 @@
-<?php 
+<?php
+
 class form_opciones extends toba_ei_formulario
 {
+    //-----------------------------------------------------------------------------------
+    //---- JAVASCRIPT -------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------
 
-	//-----------------------------------------------------------------------------------
-	//---- JAVASCRIPT -------------------------------------------------------------------
-	//-----------------------------------------------------------------------------------
-
-	function extender_objeto_js()
-	{
-		$id_js = toba::escaper()->escapeJs($this->objeto_js);
-		echo "
+    public function extender_objeto_js()
+    {
+        $id_js = toba::escaper()->escapeJs($this->objeto_js);
+        echo "
 		//---- Procesamiento de EFs --------------------------------
 		
 		{$id_js}.evt__origen__procesar = function(es_inicial)
@@ -24,7 +24,5 @@ class form_opciones extends toba_ei_formulario
 			this.ef('componente').mostrar(mostrar);		
 		}
 		";
-	}
+    }
 }
-
-?>

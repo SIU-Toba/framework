@@ -2,35 +2,35 @@
 
 class toba_ei_cuadro_def extends toba_ei_def
 {
- 	static function get_estructura()
-	{
-		$estructura = parent::get_estructura();
-		$estructura[] = array( 	'tabla' => 'apex_objeto_cuadro',
-								'registros' => '1',
-								'obligatorio' => true );
-		$estructura[] = array( 	'tabla' => 'apex_objeto_cuadro_cc',
-								'registros' => 'n',
-								'obligatorio' => false );
-		$estructura[] = array( 	'tabla' => 'apex_objeto_ei_cuadro_columna',
-								'registros' => 'n',
-								'obligatorio' => false );
-		$estructura[] = array( 	'tabla' => 'apex_objeto_cuadro_col_cc',
-								'registros' => 'n',
-								'obligatorio' => false );
-		return $estructura;		
-	}
+    public static function get_estructura()
+    {
+        $estructura = parent::get_estructura();
+        $estructura[] = array( 	'tabla' => 'apex_objeto_cuadro',
+                                'registros' => '1',
+                                'obligatorio' => true );
+        $estructura[] = array( 	'tabla' => 'apex_objeto_cuadro_cc',
+                                'registros' => 'n',
+                                'obligatorio' => false );
+        $estructura[] = array( 	'tabla' => 'apex_objeto_ei_cuadro_columna',
+                                'registros' => 'n',
+                                'obligatorio' => false );
+        $estructura[] = array( 	'tabla' => 'apex_objeto_cuadro_col_cc',
+                                'registros' => 'n',
+                                'obligatorio' => false );
+        return $estructura;
+    }
 
-	static function get_vista_extendida($proyecto, $componente=null)
-	{
-		$sql = parent::get_vista_extendida($proyecto, $componente);
-		
-		$proyecto = self::$db->quote($proyecto);
-		if (isset($componente)) {
-			$componente = self::$db->quote($componente);
-		}		
-				
-		//------------- Cuadro ----------------
-		$sql['_info_cuadro']['sql'] = "SELECT	titulo as titulo,		
+    public static function get_vista_extendida($proyecto, $componente = null)
+    {
+        $sql = parent::get_vista_extendida($proyecto, $componente);
+
+        $proyecto = self::$db->quote($proyecto);
+        if (isset($componente)) {
+            $componente = self::$db->quote($componente);
+        }
+
+        //------------- Cuadro ----------------
+        $sql['_info_cuadro']['sql'] = "SELECT	titulo as titulo,		
 										c.subtitulo						as	subtitulo,		
 										c.sql							as	sql,			
 										c.columnas_clave				as	columnas_clave,
@@ -64,15 +64,15 @@ class toba_ei_cuadro_def extends toba_ei_def
 										c.mostrar_total_registros	as mostrar_total_registros,
 										c.siempre_con_titulo	as siempre_con_titulo
 							 FROM		apex_objeto_cuadro c
-							 WHERE	objeto_cuadro_proyecto=$proyecto ";	
-		if ( isset($componente) ) {
-			$sql['_info_cuadro']['sql'] .= "	AND		objeto_cuadro=$componente ";	
-		}
-		$sql['_info_cuadro']['sql'] .= " ORDER BY objeto_cuadro;";
-		$sql['_info_cuadro']['registros']='1';
-		$sql['_info_cuadro']['obligatorio']=true;
-		//------------ Columnas ----------------
-		$sql['_info_cuadro_columna']['sql'] = "SELECT	c.orden	as orden,	
+							 WHERE	objeto_cuadro_proyecto=$proyecto ";
+        if (isset($componente)) {
+            $sql['_info_cuadro']['sql'] .= "	AND		objeto_cuadro=$componente ";
+        }
+        $sql['_info_cuadro']['sql'] .= " ORDER BY objeto_cuadro;";
+        $sql['_info_cuadro']['registros'] = '1';
+        $sql['_info_cuadro']['obligatorio'] = true;
+        //------------ Columnas ----------------
+        $sql['_info_cuadro_columna']['sql'] = "SELECT	c.orden	as orden,	
 												c.objeto_cuadro_col				as objeto_cuadro_col,
 												c.titulo						as titulo,
 												c.estilo_titulo					as estilo_titulo,		
@@ -100,15 +100,15 @@ class toba_ei_cuadro_def extends toba_ei_def
 												c.objeto_cuadro = ev.objeto AND
 												c.evento_asociado = ev.evento_id
 									 WHERE	objeto_cuadro_proyecto = $proyecto ";
-		if ( isset($componente) ) {
-			$sql['_info_cuadro_columna']['sql'] .= "	AND		objeto_cuadro=$componente ";
-		}
-		$sql['_info_cuadro_columna']['sql'] .= " AND ( c.desabilitado != '1' OR c.desabilitado IS NULL )
+        if (isset($componente)) {
+            $sql['_info_cuadro_columna']['sql'] .= "	AND		objeto_cuadro=$componente ";
+        }
+        $sql['_info_cuadro_columna']['sql'] .= " AND ( c.desabilitado != '1' OR c.desabilitado IS NULL )
 					 ORDER BY orden;";
-		$sql['_info_cuadro_columna']['registros']='n';
-		$sql['_info_cuadro_columna']['obligatorio']=true;
-		//------------ Cortes de Control ----------------
-		$sql['_info_cuadro_cortes']['sql'] = "SELECT	orden,		
+        $sql['_info_cuadro_columna']['registros'] = 'n';
+        $sql['_info_cuadro_columna']['obligatorio'] = true;
+        //------------ Cortes de Control ----------------
+        $sql['_info_cuadro_cortes']['sql'] = "SELECT	orden,		
 											columnas_id,	    		
 											columnas_descripcion,	
 											identificador		,	
@@ -121,15 +121,15 @@ class toba_ei_cuadro_def extends toba_ei_def
 											objeto_cuadro_cc
 									 FROM		apex_objeto_cuadro_cc	
 									 WHERE		objeto_cuadro_proyecto = $proyecto ";
-		if ( isset($componente) ) {
-			$sql['_info_cuadro_cortes']['sql'] .= "	AND		objeto_cuadro=$componente ";
-		}
-		$sql['_info_cuadro_cortes']['sql'] .= " ORDER BY orden;";
-		$sql['_info_cuadro_cortes']['registros']='n';
-		$sql['_info_cuadro_cortes']['obligatorio']=false;
+        if (isset($componente)) {
+            $sql['_info_cuadro_cortes']['sql'] .= "	AND		objeto_cuadro=$componente ";
+        }
+        $sql['_info_cuadro_cortes']['sql'] .= " ORDER BY orden;";
+        $sql['_info_cuadro_cortes']['registros'] = 'n';
+        $sql['_info_cuadro_cortes']['obligatorio'] = false;
 
-		//------------ Sumatorias en Cortes de Control ----------------
-		$sql['_info_sum_cuadro_cortes']['sql'] = "SELECT
+        //------------ Sumatorias en Cortes de Control ----------------
+        $sql['_info_sum_cuadro_cortes']['sql'] = "SELECT
 																									col_cc.objeto_cuadro_cc,
 																									col_cc.objeto_cuadro_proyecto,
 																									col_cc.objeto_cuadro,
@@ -149,13 +149,12 @@ class toba_ei_cuadro_def extends toba_ei_def
 																							AND		col_cc.objeto_cuadro = cc.objeto_cuadro
 																							AND		col_cc.objeto_cuadro_cc = cc.objeto_cuadro_cc
 																							AND		col_cc.objeto_cuadro_proyecto = $proyecto ";
-		if ( isset($componente) ) {
-			$sql['_info_sum_cuadro_cortes']['sql'] .= "	AND		col_cc.objeto_cuadro=$componente ";
-		}
-		$sql['_info_sum_cuadro_cortes']['sql'] .= " ORDER BY objeto_cuadro_col;";
-		$sql['_info_sum_cuadro_cortes']['registros']='n';
-		$sql['_info_sum_cuadro_cortes']['obligatorio']=false;
-		return $sql;
-	}
+        if (isset($componente)) {
+            $sql['_info_sum_cuadro_cortes']['sql'] .= "	AND		col_cc.objeto_cuadro=$componente ";
+        }
+        $sql['_info_sum_cuadro_cortes']['sql'] .= " ORDER BY objeto_cuadro_col;";
+        $sql['_info_sum_cuadro_cortes']['registros'] = 'n';
+        $sql['_info_sum_cuadro_cortes']['obligatorio'] = false;
+        return $sql;
+    }
 }
-?>

@@ -1,4 +1,5 @@
 <?php
+
 // +-----------------------------------------------------------------------+
 // | Copyright (c) 2002-2003 Richard Heyes                                 |
 // | All rights reserved.                                                  |
@@ -52,28 +53,28 @@ class Console_Table
     * The table headers
     * @var array
     */
-    var $_headers;
+    public $_headers;
 
 
     /**
     * The data of the table
     * @var array
     */
-    var $_data;
+    public $_data;
 
 
     /**
     * The max number of columns in a row
     * @var integer
     */
-    var $_max_cols;
+    public $_max_cols;
 
 
     /**
     * The max number of rows in the table
     * @var integer
     */
-    var $_max_rows;
+    public $_max_rows;
 
 
     /**
@@ -81,7 +82,7 @@ class Console_Table
     * when rows are added to the table.
     * @var array
     */
-    var $_cell_lengths;
+    public $_cell_lengths;
 
 
     /**
@@ -89,42 +90,42 @@ class Console_Table
     * things
     * @var array;
     */
-    var $_options;
+    public $_options;
 
 
     /**
     * How many spaces to use to pad the table
     * @var integer
     */
-    var $_padding;
+    public $_padding;
 
 
     /**
     * Column filters
     * @var array
     */
-    var $_filters;
+    public $_filters;
 
 
     /**
     * Columns to calculate totals for
     * @var array
     */
-    var $_calculateTotals;
+    public $_calculateTotals;
 
 
     /**
     * Alignment of the columns
     * @var array
     */
-    var $_col_align;
+    public $_col_align;
 
 
     /**
     * Default alignment of columns
     * @var int
     */
-    var $_defaultAlign;
+    public $_defaultAlign;
 
 
     /**
@@ -132,7 +133,7 @@ class Console_Table
     *
     * @param int $align Default alignment
     */
-    function __construct($align = CONSOLE_TABLE_ALIGN_LEFT)
+    public function __construct($align = CONSOLE_TABLE_ALIGN_LEFT)
     {
         $this->_headers      = array();
         $this->_data         = array();
@@ -154,9 +155,9 @@ class Console_Table
     * @param array $data         Data for the table
     * @param bool  $returnObject Whether to return the Console_Table object (default: No)
     */
-    static function fromArray($headers, $data, $returnObject = false)
+    public static function fromArray($headers, $data, $returnObject = false)
     {
-        if (!is_array($headers) OR !is_array($data)) {
+        if (!is_array($headers) or !is_array($data)) {
             return false;
         }
 
@@ -180,7 +181,7 @@ class Console_Table
     * @param int      $col      Column to apply filter to
     * @param callback $callback PHP callback to apply
     */
-    function addFilter($col, &$callback)
+    public function addFilter($col, &$callback)
     {
         $this->_filters[] = array($col, &$callback);
     }
@@ -196,7 +197,7 @@ class Console_Table
     *                      CONSOLE_TABLE_ALIGN_CENTER
     *                      CONSOLE_TABLE_ALIGN_RIGHT
     */
-    function setAlign($col_id, $align = CONSOLE_TABLE_ALIGN_LEFT)
+    public function setAlign($col_id, $align = CONSOLE_TABLE_ALIGN_LEFT)
     {
         // -1 = left, 0 = center, 1 = right
         if ($align == CONSOLE_TABLE_ALIGN_CENTER) {
@@ -218,7 +219,7 @@ class Console_Table
     *
     * @param array $cols Array of column IDs (0 is first column, 1 is second etc)
     */
-    function calculateTotalsFor($cols)
+    public function calculateTotalsFor($cols)
     {
         $this->_calculateTotals = $cols;
     }
@@ -229,7 +230,7 @@ class Console_Table
     *
     * @param array $headers The column headers
     */
-    function setHeaders($headers)
+    public function setHeaders($headers)
     {
         $this->_headers = $headers;
         $this->_updateRowsCols($headers);
@@ -242,7 +243,7 @@ class Console_Table
     * @param array $row    The row data to add
     * @param array $append Whether to append or prepend the row
     */
-    function addRow($row, $append = true)
+    public function addRow($row, $append = true)
     {
         $append ? $this->_data[] = array_values($row) : array_unshift($this->_data, array_values($row));
 
@@ -257,7 +258,7 @@ class Console_Table
     * @param array   $row    The data to insert
     * @param integer $row_id Row number to insert before
     */
-    function insertRow($row, $row_id = 0)
+    public function insertRow($row, $row_id = 0)
     {
         array_splice($this->_data, $row_id, 0, array($row));
 
@@ -272,7 +273,7 @@ class Console_Table
     * @param integer $col_id   The column index to populate
     * @param integer $row_id   If starting row is not zero, specify it here
     */
-    function addCol($col_data, $col_id = 0, $row_id = 0)
+    public function addCol($col_data, $col_id = 0, $row_id = 0)
     {
         foreach ($col_data as $col_cell) {
             $this->_data[$row_id++][$col_id] = $col_cell;
@@ -292,7 +293,7 @@ class Console_Table
     * @param integer $col_id Optional starting column ID
     * @param integer $row_id Optional starting row ID
     */
-    function addData($data, $col_id = 0, $row_id = 0)
+    public function addData($data, $col_id = 0, $row_id = 0)
     {
         foreach ($data as $row) {
             $starting_col = $col_id;
@@ -309,7 +310,7 @@ class Console_Table
     /**
     * Adds a Horizontal Seperator to the table
     */
-    function addSeparator()
+    public function addSeparator()
     {
         $this->_data[] = CONSOLE_TABLE_HORIZONTAL_RULE;
     }
@@ -319,7 +320,7 @@ class Console_Table
     * Returns the table in wonderful
     * ASCII art
     */
-    function getTable()
+    public function getTable()
     {
         $this->_applyFilters();
         $this->_calculateTotals();
@@ -332,7 +333,7 @@ class Console_Table
     /**
     * Calculates totals for columns
     */
-    function _calculateTotals()
+    public function _calculateTotals()
     {
         if (!empty($this->_calculateTotals)) {
 
@@ -357,7 +358,7 @@ class Console_Table
     /**
     * Applies any column filters to the data
     */
-    function _applyFilters()
+    public function _applyFilters()
     {
         if (!empty($this->_filters)) {
             foreach ($this->_filters as $filter) {
@@ -375,11 +376,11 @@ class Console_Table
     /**
     * Ensures column and row counts are correct
     */
-    function _validateTable()
+    public function _validateTable()
     {
-        for ($i=0; $i<$this->_max_rows; $i++) {
-            for ($j=0; $j<$this->_max_cols; $j++) {
-                if (!isset($this->_data[$i][$j]) AND $this->_data[$i] != CONSOLE_TABLE_HORIZONTAL_RULE) {
+        for ($i = 0; $i < $this->_max_rows; $i++) {
+            for ($j = 0; $j < $this->_max_cols; $j++) {
+                if (!isset($this->_data[$i][$j]) and $this->_data[$i] != CONSOLE_TABLE_HORIZONTAL_RULE) {
                     $this->_data[$i][$j] = '';
                 }
 
@@ -388,7 +389,7 @@ class Console_Table
             }
 
             if ($this->_data[$i] != CONSOLE_TABLE_HORIZONTAL_RULE) {
-                 ksort($this->_data[$i]);
+                ksort($this->_data[$i]);
             }
 
         }
@@ -400,14 +401,14 @@ class Console_Table
     /**
     * Builds the table
     */
-    function _buildTable()
+    public function _buildTable()
     {
         $return = array();
         $rows   = $this->_data;
 
-        for ($i=0; $i<count($rows); $i++) {
-            for ($j=0; $j<count($rows[$i]); $j++) {
-                if ($rows[$i] != CONSOLE_TABLE_HORIZONTAL_RULE AND strlen($rows[$i][$j]) < $this->_cell_lengths[$j]) {
+        for ($i = 0; $i < count($rows); $i++) {
+            for ($j = 0; $j < count($rows[$i]); $j++) {
+                if ($rows[$i] != CONSOLE_TABLE_HORIZONTAL_RULE and strlen($rows[$i][$j]) < $this->_cell_lengths[$j]) {
                     $rows[$i][$j] = str_pad($rows[$i][$j], $this->_cell_lengths[$j], ' ', $this->_col_align[$j]);
                 }
             }
@@ -438,7 +439,7 @@ class Console_Table
     * separation and table start/end etc
     *
     */
-    function _getSeparator()
+    public function _getSeparator()
     {
         foreach ($this->_cell_lengths as $cl) {
             $return[] = str_repeat('-', $cl);
@@ -457,16 +458,16 @@ class Console_Table
     /**
     * Returns header line for the table
     */
-    function _getHeaderLine()
+    public function _getHeaderLine()
     {
         // Make sure column count is correct
-        for ($i=0;  $i<$this->_max_cols; $i++) {
+        for ($i = 0;  $i < $this->_max_cols; $i++) {
             if (!isset($this->_headers[$i])) {
                 $this->_headers[$i] = '';
             }
         }
 
-        for ($i=0; $i<count($this->_headers); $i++) {
+        for ($i = 0; $i < count($this->_headers); $i++) {
             if (strlen($this->_headers[$i]) < $this->_cell_lengths[$i]) {
                 $this->_headers[$i] = str_pad($this->_headers[$i], $this->_cell_lengths[$i], ' ', $this->_col_align[$i]);
             }
@@ -486,7 +487,7 @@ class Console_Table
     /**
     * Update max cols/rows
     */
-    function _updateRowsCols($rowdata = null)
+    public function _updateRowsCols($rowdata = null)
     {
         // Update max cols
         $this->_max_cols = max($this->_max_cols, count($rowdata));
@@ -497,14 +498,17 @@ class Console_Table
         $this->_max_rows = end($temp) + 1;
 
         switch ($this->_defaultAlign) {
-            case CONSOLE_TABLE_ALIGN_CENTER: $pad = STR_PAD_BOTH; break;
-            case CONSOLE_TABLE_ALIGN_RIGHT:  $pad = STR_PAD_LEFT; break;
+            case CONSOLE_TABLE_ALIGN_CENTER: $pad = STR_PAD_BOTH;
+                break;
+            case CONSOLE_TABLE_ALIGN_RIGHT:  $pad = STR_PAD_LEFT;
+                break;
             default:
-            case CONSOLE_TABLE_ALIGN_LEFT:   $pad = STR_PAD_RIGHT; break;
+            case CONSOLE_TABLE_ALIGN_LEFT:   $pad = STR_PAD_RIGHT;
+                break;
         }
 
         // Set default column alignments
-        for ($i = count($this->_col_align); $i<$this->_max_cols; $i++) {
+        for ($i = count($this->_col_align); $i < $this->_max_cols; $i++) {
             $this->_col_align[$i] = $pad;
         }
 
@@ -518,11 +522,10 @@ class Console_Table
     *
     * @param array $row The row data
     */
-    function _calculateCellLengths($row)
+    public function _calculateCellLengths($row)
     {
-        for ($i=0; $i<count($row); $i++) {
-            $this->_cell_lengths[$i] = max(strlen($this->_headers[$i]??''), $this->_cell_lengths[$i]??0, strlen($row[$i]??''));
+        for ($i = 0; $i < count($row); $i++) {
+            $this->_cell_lengths[$i] = max(strlen($this->_headers[$i] ?? ''), $this->_cell_lengths[$i] ?? 0, strlen($row[$i] ?? ''));
         }
     }
 }
-?>

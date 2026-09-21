@@ -2,26 +2,26 @@
 
 class toba_componente_def implements toba_componente_definicion
 {
-	static protected $db;
-		
-	static function get_estructura()
-	{
-		$estructura[] = array( 	'tabla' => 'apex_objeto',
-								'registros' => '1',
-								'obligatorio' => true );
-		$estructura[] = array( 	'tabla' => 'apex_objeto_info',
-								'registros' => '1',
-								'obligatorio' => false );								
-		return $estructura;		
-	}
+    protected static $db;
 
-	static function get_vista_extendida($proyecto, $componente=null)
-	{
-		$proyecto = self::$db->quote($proyecto);
-		if (isset($componente)) {
-			$componente = self::$db->quote($componente);
-		}
-		$sql['_info']['sql'] = "	SELECT	o.proyecto         		as proyecto,                 
+    public static function get_estructura()
+    {
+        $estructura[] = array( 	'tabla' => 'apex_objeto',
+                                'registros' => '1',
+                                'obligatorio' => true );
+        $estructura[] = array( 	'tabla' => 'apex_objeto_info',
+                                'registros' => '1',
+                                'obligatorio' => false );
+        return $estructura;
+    }
+
+    public static function get_vista_extendida($proyecto, $componente = null)
+    {
+        $proyecto = self::$db->quote($proyecto);
+        if (isset($componente)) {
+            $componente = self::$db->quote($componente);
+        }
+        $sql['_info']['sql'] = "	SELECT	o.proyecto         		as proyecto,                 
 									o.objeto                    	as objeto,                   
 									o.anterior                  	as anterior,  
 									o.identificador					as identificador,               
@@ -80,22 +80,22 @@ class toba_componente_def implements toba_componente_definicion
 						WHERE	o.clase_proyecto = c.proyecto
 						AND			o.clase = c.clase
 						AND		o.proyecto= $proyecto";
-		if ( isset($componente) ) {
-			$sql['_info']['sql'] .= "	AND		o.objeto= $componente";
-		}
-		$sql['_info']['sql'] .= " ORDER BY o.objeto;";
-		$sql['_info']['registros']='1';	
-		$sql['_info']['obligatorio']=true;
-		return $sql;
-	}
-		
-	static function get_vista_dependencias($proyecto, $componente=null)
-	{
-		$proyecto = self::$db->quote($proyecto);
-		if (isset($componente)) {
-			$componente = self::$db->quote($componente);
-		}				
-		$sql['sql'] = 	"	SELECT	d.identificador as		identificador,
+        if (isset($componente)) {
+            $sql['_info']['sql'] .= "	AND		o.objeto= $componente";
+        }
+        $sql['_info']['sql'] .= " ORDER BY o.objeto;";
+        $sql['_info']['registros'] = '1';
+        $sql['_info']['obligatorio'] = true;
+        return $sql;
+    }
+
+    public static function get_vista_dependencias($proyecto, $componente = null)
+    {
+        $proyecto = self::$db->quote($proyecto);
+        if (isset($componente)) {
+            $componente = self::$db->quote($componente);
+        }
+        $sql['sql'] = 	"	SELECT	d.identificador as		identificador,
 							o.proyecto as					proyecto,
 							o.objeto as						objeto,
 							o.clase as						clase,
@@ -113,23 +113,22 @@ class toba_componente_def implements toba_componente_definicion
 					AND		o.clase = c.clase
 					AND		o.clase_proyecto = c.proyecto
 					AND		d.proyecto=$proyecto";
-		if ( isset($componente) ) {
-			$sql['sql'] .= "	AND		d.objeto_consumidor=$componente ";	
-		}
-		$sql['sql'] .= "			ORDER BY d.orden;";
-		$sql['registros']='n';
-		$sql['obligatorio']=false;
-		return $sql;
-	}
+        if (isset($componente)) {
+            $sql['sql'] .= "	AND		d.objeto_consumidor=$componente ";
+        }
+        $sql['sql'] .= "			ORDER BY d.orden;";
+        $sql['registros'] = 'n';
+        $sql['obligatorio'] = false;
+        return $sql;
+    }
 
-	static function get_vista_extendida_resumida($proyecto, $componente)
-	{
-		return self::get_vista_extendida($proyecto, $componente);
-	}
+    public static function get_vista_extendida_resumida($proyecto, $componente)
+    {
+        return self::get_vista_extendida($proyecto, $componente);
+    }
 
-	static function set_db($db)
-	{
-		self::$db = $db;
-	}	
+    public static function set_db($db)
+    {
+        self::$db = $db;
+    }
 }
-?>

@@ -42,7 +42,6 @@
 
 class CAS_ProxyChain_AllowedList
 {
-
     private $_chains = array();
 
     /**
@@ -116,4 +115,3 @@ class CAS_ProxyChain_AllowedList
         return false;
     }
 }
-?>

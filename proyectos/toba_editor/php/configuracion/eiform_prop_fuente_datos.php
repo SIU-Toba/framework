@@ -2,14 +2,13 @@
 
 class eiform_prop_fuente_datos extends toba_ei_formulario
 {
-
     //-----------------------------------------------------------------------------------
     //---- JAVASCRIPT -------------------------------------------------------------------
     //-----------------------------------------------------------------------------------
 
-    function extender_objeto_js()
+    public function extender_objeto_js()
     {
-	$id_js = toba::escaper()->escapeJs($this->objeto_js);
+        $id_js = toba::escaper()->escapeJs($this->objeto_js);
         echo "
 		//---- Procesamiento de EFs --------------------------------
 		
@@ -45,5 +44,3 @@ class eiform_prop_fuente_datos extends toba_ei_formulario
     }
 
 }
-
-?>

@@ -1,7 +1,7 @@
 <?php
-	$proyecto = toba::proyecto()->get_parametro('descripcion');
-	$ico = toba_recurso::imagen_proyecto('favicon.ico');
-	$escapador = toba::escaper();
+$proyecto = toba::proyecto()->get_parametro('descripcion');
+$ico = toba_recurso::imagen_proyecto('favicon.ico');
+$escapador = toba::escaper();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
 <html>

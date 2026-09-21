@@ -15,8 +15,8 @@ class toba_molde_zona extends toba_molde_elemento
         $componente = array('proyecto' => $id[0], 'componente' => $id[1]);
         $this->datos = toba_constructor::get_runtime($componente);
         $this->datos->inicializar();
-        $datos = array(	'nombre'=>$this->clase.' generado automaticamente',
-                        'proyecto'=>$this->proyecto);
+        $datos = array(	'nombre' => $this->clase.' generado automaticamente',
+                        'proyecto' => $this->proyecto);
         $this->ini();
     }
 

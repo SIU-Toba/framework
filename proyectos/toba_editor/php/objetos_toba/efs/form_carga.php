@@ -1,12 +1,12 @@
-<?php 
+<?php
+
 //--------------------------------------------------------------------
 class form_carga extends toba_ei_formulario
 {
-
-	function extender_objeto_js()
-	{
-		$id_js = toba::escaper()->escapeJs($this->objeto_js);
-		echo "
+    public function extender_objeto_js()
+    {
+        $id_js = toba::escaper()->escapeJs($this->objeto_js);
+        echo "
 			var mecanismos_carga = ['carga_metodo','carga_sql', 'carga_lista'];
 
 			{$id_js}.evt__punto_montaje__procesar = function(inicial)
@@ -72,11 +72,11 @@ class form_carga extends toba_ei_formulario
 						var mostrar = (actual == mecanismos_carga[i]);
 						this.cambiar_mecanismo(mecanismos_carga[i], mostrar, actual);
 					}";
-		if ($this->existe_ef('carga_permite_no_seteado')) {
-			echo "	{$id_js}.evt__carga_permite_no_seteado__procesar(inicial);";
-		}
+        if ($this->existe_ef('carga_permite_no_seteado')) {
+            echo "	{$id_js}.evt__carga_permite_no_seteado__procesar(inicial);";
+        }
 
-		echo "
+        echo "
 				}
 			}
 
@@ -169,8 +169,6 @@ class form_carga extends toba_ei_formulario
 				}
 			}
 		";
-	}
+    }
 
 }
-
-?>

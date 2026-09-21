@@ -24,7 +24,7 @@ class toba_datos_relacion_info extends toba_componente_info
     //-- Recorrible como ARBOL
     //---------------------------------------------------------------------
 
-    public function get_utilerias($icono_nuevo=true)
+    public function get_utilerias($icono_nuevo = true)
     {
         //ei_arbol($this->datos);
         $iconos = array();
@@ -58,21 +58,21 @@ class toba_datos_relacion_info extends toba_componente_info
             // Hay PHP asociado
             if (admin_util::existe_archivo_subclase($this->datos['_info_estructura']['ap_archivo'], $this->datos['_info_estructura']['punto_montaje'])) {
                 $iconos[] = toba_componente_info::get_utileria_editor_abrir_php(
-                    array(	'proyecto'=>$this->proyecto,
-                                                                                    'componente' =>$this->id ),
+                    array(	'proyecto' => $this->proyecto,
+                                                                                    'componente' => $this->id ),
                     'ap',
                     'reflexion/abrir_ap.gif'
                 );
                 $iconos[] = toba_componente_info::get_utileria_editor_ver_php(
-                    array(	'proyecto'=>$this->proyecto,
-                                                                                    'componente' =>$this->id ),
+                    array(	'proyecto' => $this->proyecto,
+                                                                                    'componente' => $this->id ),
                     'ap',
                     'nucleo/php_ap.gif'
                 );
             } else {
                 $iconos[] = toba_componente_info::get_utileria_editor_ver_php(
-                    array(	'proyecto'=>$this->proyecto,
-                                                                                    'componente' =>$this->id ),
+                    array(	'proyecto' => $this->proyecto,
+                                                                                    'componente' => $this->id ),
                     'ap',
                     'nucleo/php_ap_inexistente.gif',
                     false
@@ -141,7 +141,7 @@ class toba_datos_relacion_info extends toba_componente_info
      * @param boolean $con_transaccion	Indica si la clonación se debe incluír en una transaccion
      * @return array Clave del objeto que resulta del clonado
      */
-    public function clonar($nuevos_datos, $dir_subclases=false, $con_transaccion = true)
+    public function clonar($nuevos_datos, $dir_subclases = false, $con_transaccion = true)
     {
         //Se busca el id del datos_relacion de la clase
         $id_dr = toba_info_editores::get_dr_de_clase($this->datos['_info']['clase']);

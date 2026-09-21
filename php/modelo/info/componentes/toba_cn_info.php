@@ -9,7 +9,7 @@ class toba_cn_info extends toba_componente_info
         return "CN";
     }
 
-    public function set_asociado($asociado=true)
+    public function set_asociado($asociado = true)
     {
         $this->cn_asociado = $asociado;
     }
@@ -43,12 +43,12 @@ class toba_cn_info extends toba_componente_info
             if (isset($this->datos['_info_consumo']) &&
                 count($this->datos['_info_consumo']) > 0) {
                 $cantidad_subelementos = count($this->subelementos);
-                for ($a=0; $a<count($this->datos['_info_consumo']); $a++) {
+                for ($a = 0; $a < count($this->datos['_info_consumo']); $a++) {
                     $clave['proyecto'] = $this->datos['_info_consumo'][$a]['proyecto'];
                     $clave['componente'] = $this->datos['_info_consumo'][$a]['objeto'];
                     $tipo = $this->datos['_info_consumo'][$a]['clase'];
                     $id = $cantidad_subelementos + $a;
-                    $this->subelementos[$id]= toba_constructor::get_info($clave, $tipo, $this->carga_profundidad, null, true, $this->datos_resumidos);
+                    $this->subelementos[$id] = toba_constructor::get_info($clave, $tipo, $this->carga_profundidad, null, true, $this->datos_resumidos);
                     $this->subelementos[$id]->set_consumidor($this, $this->datos['_info_consumo'][$a]);
                     $this->subelementos[$id]->set_asociado();
                 }
@@ -81,7 +81,7 @@ class toba_cn_info extends toba_componente_info
     //-- METACLASE
     //---------------------------------------------------------------------
 
-    public function get_molde_subclase($multilinea=false)
+    public function get_molde_subclase($multilinea = false)
     {
         $molde = $this->get_molde_vacio();
         $molde->agregar(new toba_codigo_metodo_php('ini'));

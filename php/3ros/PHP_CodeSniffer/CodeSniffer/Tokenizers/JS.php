@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Tokenizes JS code.
  *
@@ -27,7 +28,6 @@
  */
 class PHP_CodeSniffer_Tokenizers_JS
 {
-
     /**
      * A list of tokens that are allowed to open a scope.
      *
@@ -225,7 +225,7 @@ class PHP_CodeSniffer_Tokenizers_JS
      *
      * @return array
      */
-    public function tokenizeString($string, $eolChar='\n')
+    public function tokenizeString($string, $eolChar = '\n')
     {
         $tokenTypes = array_keys($this->tokenValues);
 
@@ -336,7 +336,7 @@ class PHP_CodeSniffer_Tokenizers_JS
                         $inString = '';
                         continue;
                     }
-                } else if ($inString === '') {
+                } elseif ($inString === '') {
                     $inString = $char;
 
                     if (PHP_CODESNIFFER_VERBOSITY > 1) {
@@ -415,7 +415,7 @@ class PHP_CodeSniffer_Tokenizers_JS
 
                     $cleanBuffer = true;
                 }
-            } else if (in_array(strtolower($char), $tokenTypes) === true) {
+            } elseif (in_array(strtolower($char), $tokenTypes) === true) {
                 // No matter what token we end up using, we don't
                 // need the content in the buffer any more because we have
                 // found a valid token.
@@ -492,7 +492,7 @@ class PHP_CodeSniffer_Tokenizers_JS
                 if (PHP_CODESNIFFER_VERBOSITY > 1) {
                     echo "\t* looking for end of comment *".PHP_EOL;
                 }
-            } else if ($inComment !== '') {
+            } elseif ($inComment !== '') {
                 if ($this->commentTokens[$inComment] === null) {
                     // Comment ends at the next newline.
                     if (strpos($buffer, $eolChar) !== false) {
@@ -587,7 +587,7 @@ class PHP_CodeSniffer_Tokenizers_JS
                         for ($next = ($next + 1); $next < $numTokens; $next++) {
                             if (in_array($tokens[$next]['code'], PHP_CodeSniffer_Tokens::$emptyTokens) === false) {
                                 break;
-                            } else if (strpos($tokens[$next]['content'], $eolChar) !== false) {
+                            } elseif (strpos($tokens[$next]['content'], $eolChar) !== false) {
                                 // If this is the last token on the line.
                                 break;
                             }
@@ -601,7 +601,7 @@ class PHP_CodeSniffer_Tokenizers_JS
                             }
 
                             $token['code'] = T_REGULAR_EXPRESSION;
-                            $token['type'] ='T_REGULAR_EXPRESSION';
+                            $token['type'] = 'T_REGULAR_EXPRESSION';
                             $stackPtr      = $regexEnd;
                         }
                     }
@@ -714,5 +714,3 @@ class PHP_CodeSniffer_Tokenizers_JS
 
 
 }//end class
-
-?>

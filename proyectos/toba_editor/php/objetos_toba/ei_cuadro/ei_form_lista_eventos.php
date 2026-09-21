@@ -1,16 +1,17 @@
 <?php
+
 require_once('objetos_toba/eiform_abm_detalle.php');
 class ei_form_lista_eventos extends eiform_abm_detalle
 {
-	//-----------------------------------------------------------------------------------
-	//---- JAVASCRIPT -------------------------------------------------------------------
-	//-----------------------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------
+    //---- JAVASCRIPT -------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------
 
-	function extender_objeto_js()
-	{
-		parent::extender_objeto_js();
-		echo toba::escaper()->escapeJs($this->objeto_js)
-		.".evt__es_seleccion_multiple__procesar = function(es_inicial, fila)
+    public function extender_objeto_js()
+    {
+        parent::extender_objeto_js();
+        echo toba::escaper()->escapeJs($this->objeto_js)
+        .".evt__es_seleccion_multiple__procesar = function(es_inicial, fila)
 		{
 			if (! es_inicial) {
 				//Reseteo todos los checkbox ya que solo 1 puede estar activo
@@ -27,8 +28,6 @@ class ei_form_lista_eventos extends eiform_abm_detalle
 			}
 		}	
 		";
-	}
+    }
 
 }
-
-?>

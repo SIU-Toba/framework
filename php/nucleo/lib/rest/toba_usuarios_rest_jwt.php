@@ -6,25 +6,25 @@ use SIU\JWT\Decoder\AsimetricDecoder;
 
 class toba_usuarios_rest_jwt extends validador_jwt
 {
-	protected $modelo_proyecto;
+    protected $modelo_proyecto;
 
     protected $validador_jwt;
-    
+
     protected $decoder;
     protected $algoritmo;
     protected $usuario_id;
     protected $key_decoder;
 
-	function __construct(\toba_modelo_proyecto $proyecto)
-	{
+    public function __construct(\toba_modelo_proyecto $proyecto)
+    {
         parent::__construct();
 
-		$this->modelo_proyecto = $proyecto;
+        $this->modelo_proyecto = $proyecto;
 
         $this->cargar_ini_jwt();
 
         $this->generar_decoder();
-	}
+    }
 
     private function cargar_ini_jwt()
     {
@@ -54,12 +54,11 @@ class toba_usuarios_rest_jwt extends validador_jwt
     {
         $uid = $this->usuario_id;
 
-        if (!isset($data->$uid)){
-			toba_logger::instancia()->error("El identificador de usuario '$uid' no existe en los datos del token JWT.");
+        if (!isset($data->$uid)) {
+            toba_logger::instancia()->error("El identificador de usuario '$uid' no existe en los datos del token JWT.");
             throw new toba_error('El identificador solicitado no existe en los datos del token JWT.');
         }
 
         return $data->$uid;
     }
 }
-?>

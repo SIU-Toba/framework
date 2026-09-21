@@ -1,11 +1,12 @@
-<?php 
+<?php
+
 require_once("tutorial/pant_tutorial.php");
 
 class pant_concepto extends pant_tutorial
 {
-	function generar_layout()
-	{
-		echo "
+    public function generar_layout()
+    {
+        echo "
 			<p>
 			Los componentes son unidades o elementos que cubren distintos aspectos de una operación.
 			Construir una operación en base a componentes permite que:
@@ -26,15 +27,15 @@ class pant_concepto extends pant_tutorial
 			</p>
 			
 		";
-	}	
+    }
 }
 
 class pant_tipos extends pant_tutorial
 {
-	function generar_layout()
-	{
-		$img = toba_recurso::imagen_proyecto('tutorial/capas2.png');
-		echo "
+    public function generar_layout()
+    {
+        $img = toba_recurso::imagen_proyecto('tutorial/capas2.png');
+        echo "
 			Los componentes se categorizan según su función: interface, control o persistencia.
 			<img style='padding: 20px;float: right;' src='$img'>
 			<h3>Interface</h3>
@@ -60,26 +61,26 @@ class pant_tipos extends pant_tutorial
 			En estos componentes se describen las estructuras y asociaciones de las tablas involucradas en una operación y 
 			la forma en que los registros serán sincronizados al final de la misma.
 		";
-	}	
-	
+    }
+
 }
 
 
 
 class pant_creacion extends pant_tutorial
 {
-	function generar_layout()
-	{
-		echo mostrar_video('componente-crear');
-	}	
-	
+    public function generar_layout()
+    {
+        echo mostrar_video('componente-crear');
+    }
+
 }
 
-class pant_extension extends pant_tutorial 
+class pant_extension extends pant_tutorial
 {
-	function generar_layout()
-	{
-		$codigo_ej = '
+    public function generar_layout()
+    {
+        $codigo_ej = '
 <?php 
 	class ci_pago extends toba_ci
 	{		
@@ -117,10 +118,10 @@ class pant_extension extends pant_tutorial
 	}
 ?>
 		';
-		
-		$ventana = toba::instancia()->get_url_proyecto('toba_editor')."/doc/api/media/ventana.png";
-		$api = toba_parser_ayuda::parsear_api('li_Componentes', 'documentación API', 'toba_editor');		
-		echo "
+
+        $ventana = toba::instancia()->get_url_proyecto('toba_editor')."/doc/api/media/ventana.png";
+        $api = toba_parser_ayuda::parsear_api('li_Componentes', 'documentación API', 'toba_editor');
+        echo "
 			<p>
 			El comportamiento de un componente se basa en su definición y,
 			en distinta medida según el tipo, su extensión en código.
@@ -152,37 +153,36 @@ class pant_extension extends pant_tutorial
 			tomar un primer contacto. Como se ve en los comentarios del código, en este caso se consumieron las formas de extensión vistas:
 			</p>
 		";
-		echo "<div class='codigo'>";
-		highlight_string($codigo_ej);
-		echo "</div>";
-	}	
+        echo "<div class='codigo'>";
+        highlight_string($codigo_ej);
+        echo "</div>";
+    }
 }
 
 //--------------------------------------------------------
 
-class pant_masinfo extends pant_tutorial 
+class pant_masinfo extends pant_tutorial
 {
-	function generar_layout()
-	{
-		$wiki1 = toba_parser_ayuda::parsear_wiki('Referencia/Objetos', 
-													'Documentación de Componentes',
-													'toba_editor');
-		echo "
+    public function generar_layout()
+    {
+        $wiki1 = toba_parser_ayuda::parsear_wiki(
+            'Referencia/Objetos',
+            'Documentación de Componentes',
+            'toba_editor'
+        );
+        echo "
 			<ul>
 				<li>$wiki1
 			</ul>
 		";
-	}
+    }
 }
 
 class pant_video_extension extends pant_tutorial
 {
-	function generar_layout()
-	{
-		echo mostrar_video('componente-extender');
-	}	
-	
+    public function generar_layout()
+    {
+        echo mostrar_video('componente-extender');
+    }
+
 }
-
-
-?>

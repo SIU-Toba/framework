@@ -1,4 +1,5 @@
 <?php
+
 /**
  * A class to represent elements that have a value => comment format.
  *
@@ -36,7 +37,6 @@ if (class_exists('PHP_CodeSniffer_CommentParser_AbstractDocElement', true) === f
  */
 class PHP_CodeSniffer_CommentParser_PairElement extends PHP_CodeSniffer_CommentParser_AbstractDocElement
 {
-
     /**
      * The value of the tag.
      *
@@ -164,5 +164,3 @@ class PHP_CodeSniffer_CommentParser_PairElement extends PHP_CodeSniffer_CommentP
 
 
 }//end class
-
-?>

@@ -1,14 +1,15 @@
 <?php
+
 class cuadro_servicios_consumidos extends toba_ei_cuadro
 {
-	//-----------------------------------------------------------------------------------
-	//---- JAVASCRIPT -------------------------------------------------------------------
-	//-----------------------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------
+    //---- JAVASCRIPT -------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------
 
-	function extender_objeto_js()
-	{
-		$id_js = toba::escaper()->escapeJs($this->objeto_js);
-		echo "
+    public function extender_objeto_js()
+    {
+        $id_js = toba::escaper()->escapeJs($this->objeto_js);
+        echo "
 		//---- Eventos ---------------------------------------------
 		
 		{$id_js}.evt__test_conf = function()
@@ -26,7 +27,5 @@ class cuadro_servicios_consumidos extends toba_ei_cuadro
 			notificacion.mostrar();
 		}
 		";
-	}
+    }
 }
-
-?>

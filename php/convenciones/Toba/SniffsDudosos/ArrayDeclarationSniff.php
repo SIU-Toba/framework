@@ -1,4 +1,5 @@
 <?php
+
 /**
  * A test to ensure that arrays conform to the array coding standard.
  *
@@ -28,8 +29,6 @@
  */
 class Toba_Sniffs_Arrays_ArrayDeclarationSniff implements PHP_CodeSniffer_Sniff
 {
-
-
     /**
      * Returns an array of tokens this test wants to listen for.
      *
@@ -168,7 +167,7 @@ class Toba_Sniffs_Arrays_ArrayDeclarationSniff implements PHP_CodeSniffer_Sniff
         if ($tokens[$lastContent]['line'] !== ($tokens[$arrayEnd]['line'] - 1)) {
             $error = 'Closing parenthesis of array declaration must be on a new line';
             $phpcsFile->addError($error, $arrayEnd);
-        } else if ($tokens[$arrayEnd]['column'] !== $keywordStart) {
+        } elseif ($tokens[$arrayEnd]['column'] !== $keywordStart) {
             // Check the closing bracket is lined up under the a in array.
             $expected  = $keywordStart;
             $expected .= ($keywordStart === 0) ? ' space' : ' spaces';
@@ -288,7 +287,7 @@ class Toba_Sniffs_Arrays_ArrayDeclarationSniff implements PHP_CodeSniffer_Sniff
 
         if (empty($indices) === true) {
             $singleValue = true;
-        } else if (count($indices) === 1) {
+        } elseif (count($indices) === 1) {
             if ($lastToken === T_COMMA) {
                 // There may be another array value without a comma.
                 $exclude     = PHP_CodeSniffer_Tokens::$emptyTokens;
@@ -418,14 +417,14 @@ class Toba_Sniffs_Arrays_ArrayDeclarationSniff implements PHP_CodeSniffer_Sniff
                 $phpcsFile->addError("Array double arrow not aligned correctly; expected $expected but found $found", $index['arrow']);
                 continue;
             }
-			
+
             if ($tokens[$index['value']]['column'] !== $valueStart) {
                 $expected  = ($valueStart - (strlen($tokens[$index['arrow']]['content']) + $tokens[$index['arrow']]['column']));
                 $expected .= ($expected === 1) ? ' space' : ' spaces';
                 $found     = ($tokens[$index['value']]['column'] - (strlen($tokens[$index['arrow']]['content']) + $tokens[$index['arrow']]['column']));
                 $phpcsFile->addError("Array value not aligned correctly; expected $expected but found $found", $index['arrow']);
             }
-				*/
+                */
             // Check each line ends in a comma.
             if ($tokens[$index['value']]['code'] !== T_ARRAY) {
                 $nextComma = $phpcsFile->findNext(array(T_COMMA), ($index['value'] + 1));
@@ -448,5 +447,3 @@ class Toba_Sniffs_Arrays_ArrayDeclarationSniff implements PHP_CodeSniffer_Sniff
 
 
 }//end class
-
-?>

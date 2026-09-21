@@ -5,7 +5,7 @@
  */
 interface InterfaseApiUsuarios
 {
-    public function get_usuarios($filtro=array(), $excluir_aplicacion = null);
+    public function get_usuarios($filtro = array(), $excluir_aplicacion = null);
 
     public function get_usuario($identificador);
 

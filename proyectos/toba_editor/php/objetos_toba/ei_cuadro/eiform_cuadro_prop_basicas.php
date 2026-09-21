@@ -2,12 +2,12 @@
 
 class eiform_cuadro_prop_basicas extends toba_ei_formulario
 {
-	function extender_objeto_js() 
-	{
-		echo admin_util::get_js_editor();			
-		$id_js = toba::escaper()->escapeJs($this->objeto_js);
-		//$ef = $this->obtener_nombres_ef();
-		echo "
+    public function extender_objeto_js()
+    {
+        echo admin_util::get_js_editor();
+        $id_js = toba::escaper()->escapeJs($this->objeto_js);
+        //$ef = $this->obtener_nombres_ef();
+        echo "
 		{$id_js}.evt__clave_dbr__procesar = function (inicial) {
 			if( this.ef('clave_dbr').chequeado() ){
 				this.ef('columnas_clave').ocultar(true);
@@ -65,7 +65,7 @@ class eiform_cuadro_prop_basicas extends toba_ei_formulario
 			return true;			
 		}			
 		";
-	}
+    }
 }
 ?>
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Squiz_Sniffs_Operators_IncrementDecrementUsageSniff.
  *
@@ -31,8 +32,6 @@
  */
 class Toba_Sniffs_Operators_IncrementDecrementUsageSniff implements PHP_CodeSniffer_Sniff
 {
-
-
     /**
      * Returns an array of tokens this test wants to listen for.
      *
@@ -223,5 +222,3 @@ class Toba_Sniffs_Operators_IncrementDecrementUsageSniff implements PHP_CodeSnif
 
 
 }//end class
-
-?>

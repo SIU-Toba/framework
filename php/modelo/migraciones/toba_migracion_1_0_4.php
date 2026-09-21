@@ -2,26 +2,25 @@
 
 class toba_migracion_1_0_4 extends toba_migracion
 {
-	
-	function instancia__cambios_estructura()
-	{
-		/**
-		 * Se evita el mensaje 'ERROR: cannot ALTER TABLE "apex_objeto_ei_formulario_ef" because it has pending trigger events' de postgres 8.3.
-		 */
-		$sql = "SET CONSTRAINTS ALL IMMEDIATE;";
-		$this->elemento->get_db()->ejecutar($sql);
+    public function instancia__cambios_estructura()
+    {
+        /**
+         * Se evita el mensaje 'ERROR: cannot ALTER TABLE "apex_objeto_ei_formulario_ef" because it has pending trigger events' de postgres 8.3.
+         */
+        $sql = "SET CONSTRAINTS ALL IMMEDIATE;";
+        $this->elemento->get_db()->ejecutar($sql);
 
-		$sql = array();
-		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN popup_carga_desc_metodo varchar";
-		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN popup_carga_desc_clase varchar";
-		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN popup_carga_desc_include varchar";
-		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN oculto_relaja_obligatorio varchar";
-		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN selec_ancho varchar";
-		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN selec_cant_columnas varchar";
-		$sql[] = "ALTER TABLE apex_estilo ADD COLUMN proyecto varchar";
-		$sql[] = "ALTER TABLE apex_proyecto ADD COLUMN validacion_bloquear_usuario smallint";
-		$sql[] = "ALTER TABLE apex_objeto_cuadro_cc ADD COLUMN modo_inicio_colapsado smallint";
-		$sql[] = "
+        $sql = array();
+        $sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN popup_carga_desc_metodo varchar";
+        $sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN popup_carga_desc_clase varchar";
+        $sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN popup_carga_desc_include varchar";
+        $sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN oculto_relaja_obligatorio varchar";
+        $sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN selec_ancho varchar";
+        $sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN selec_cant_columnas varchar";
+        $sql[] = "ALTER TABLE apex_estilo ADD COLUMN proyecto varchar";
+        $sql[] = "ALTER TABLE apex_proyecto ADD COLUMN validacion_bloquear_usuario smallint";
+        $sql[] = "ALTER TABLE apex_objeto_cuadro_cc ADD COLUMN modo_inicio_colapsado smallint";
+        $sql[] = "
 				CREATE TABLE apex_ptos_control 
 				(
 				  proyecto VARCHAR(15) NOT NULL,
@@ -54,17 +53,17 @@ class toba_migracion_1_0_4 extends toba_migracion
 				  objeto					int4		NOT NULL
 				);
 		";
-		$this->elemento->get_db()->ejecutar($sql);
-	}		
+        $this->elemento->get_db()->ejecutar($sql);
+    }
 
-		/**
-		 * Se separa la carga de la cascada del ef_popup (carga de opciones)
-		 * de la carga de la descripción de la clave
-		 */
-		function proyecto__parametros_ef_popup()
-		{
-			$cant = 0;
-			$sql = "
+    /**
+     * Se separa la carga de la cascada del ef_popup (carga de opciones)
+     * de la carga de la descripción de la clave
+     */
+    public function proyecto__parametros_ef_popup()
+    {
+        $cant = 0;
+        $sql = "
 				UPDATE apex_objeto_ei_formulario_ef
 				SET 
 					popup_carga_desc_metodo = carga_metodo,
@@ -80,12 +79,9 @@ class toba_migracion_1_0_4 extends toba_migracion
 					carga_maestros IS NOT NULL AND
 					carga_maestros != ''
 			";
-			$cant += $this->elemento->get_db()->ejecutar($sql);
-			return $cant;
-		}
-		
-
-}	
+        $cant += $this->elemento->get_db()->ejecutar($sql);
+        return $cant;
+    }
 
 
-?>
+}

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Toba_Sniffs_ControlStructures_InlineControlStructureSniff.
  *
@@ -30,7 +31,6 @@
  */
 class Toba_Sniffs_ControlStructures_InlineControlStructureSniff implements PHP_CodeSniffer_Sniff
 {
-
     /**
      * A list of tokenizers this sniff supports.
      *
@@ -116,5 +116,3 @@ class Toba_Sniffs_ControlStructures_InlineControlStructureSniff implements PHP_C
 
 
 }//end class
-
-?>

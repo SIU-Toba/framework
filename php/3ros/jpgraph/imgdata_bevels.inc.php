@@ -11,22 +11,24 @@ namespace JpGraph;
 // Copyright (c) Asial Corporation. All rights reserved.
 //========================================================================
 
-class ImgData_Bevels extends ImgData {
+class ImgData_Bevels extends ImgData
+{
     protected $name = 'Round Bevels';
     protected $an = array(MARK_IMG_BEVEL => 'imgdata');
 
     protected $colors = array('green','purple','orange','red','yellow');
-    protected $index  = array('green'=>1,'purple'=>4,'orange'=>2,'red'=>0,'yellow'=>3);
+    protected $index  = array('green' => 1,'purple' => 4,'orange' => 2,'red' => 0,'yellow' => 3);
     protected $maxidx = 4 ;
 
     protected $imgdata ;
 
-    function __construct() {
+    public function __construct()
+    {
         //==========================================================
         // File: bullets_balls_red_013.png
         //==========================================================
-        $this->imgdata[0][0]= 337 ;
-        $this->imgdata[0][1]=
+        $this->imgdata[0][0] = 337 ;
+        $this->imgdata[0][1] =
      'iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAMAAAAMs7fIAAAAM1'.
      'BMVEX////////27t/f3+LFwcmNxMuxm62DmqKth1VpZmIWg6fv'.
      'HCa7K0BwMEytCjFnIyUlEBg9vhQvAAAAAXRSTlMAQObYZgAAAA'.
@@ -36,13 +38,13 @@ class ImgData_Bevels extends ImgData {
      'CJ5ahdhy0XKQkxld1kxb45j7dp0x2lBNOyVgQpMaoadX7Hs7zr'.
      'P1yKj47DKBnKaBKiSAkNss7O6PkMx6kIgYXISQJpcZCqdY6KR+'.
      'J1PkS5Xob/h7MNz8x6D3fz5DKQjpkZOBYAAAAABJRU5ErkJggg'.
-     '==' ; 
+     '==' ;
 
         //==========================================================
         // File: bullets_balls_green_013.png
         //==========================================================
-        $this->imgdata[1][0]= 344 ;
-        $this->imgdata[1][1]=
+        $this->imgdata[1][0] = 344 ;
+        $this->imgdata[1][1] =
      'iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAMAAAAMs7fIAAAAM1'.
      'BMVEX////////27t/e3+K3vriUub/Dm18j4xc3ob10k0ItqQlU'.
      'e5JBmwpxY1ENaKBgUh0iHgwsSre9AAAAAXRSTlMAQObYZgAAAA'.
@@ -52,13 +54,13 @@ class ImgData_Bevels extends ImgData {
      'nLmWmebmt5F5p2AR0+C9AWpLBjXRaZsCAT3SqklVp0YkAWaGtd'.
      'c5Z41/STYpPzW7BjyiRrwkVmQto/Cw9tNEMvsgcekyCyFPboIu'.
      'IsuXiKffYB4NK4r/h6d4g9HPPwCR7i8+GscIiiaonUAAAAAASU'.
-     'VORK5CYII=' ; 
+     'VORK5CYII=' ;
 
         //==========================================================
         // File: bullets_balls_oy_035.png
         //==========================================================
-        $this->imgdata[2][0]= 341 ;
-        $this->imgdata[2][1]=
+        $this->imgdata[2][0] = 341 ;
+        $this->imgdata[2][1] =
      'iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAMAAAAMs7fIAAAAM1'.
      'BMVEX////////27t/f3+K5tbqNwcjnkjXjbxR2i5anfEoNkbis'.
      'PBxpU0sZbZejKgdqIRIlERIwYtkYAAAAAXRSTlMAQObYZgAAAA'.
@@ -68,13 +70,13 @@ class ImgData_Bevels extends ImgData {
      'Y8SOMF0NogBj30ioGRGLZgiPvce1TbIRz6oBQEbOFGK0rIoxrn'.
      '5hDomMA1cfGRCaRVhjS3gkzheM+4HtnlkXcvdZhWG4qZawewe6'.
      '9Jnz/TKLB/ML6HUepn//QczazuwFO/0Ivpolhi4AAAAASUVORK'.
-     '5CYII=' ; 
+     '5CYII=' ;
 
         //==========================================================
         // File: bullets_balls_oy_036.png
         //==========================================================
-        $this->imgdata[3][0]= 340 ;
-        $this->imgdata[3][1]=
+        $this->imgdata[3][0] = 340 ;
+        $this->imgdata[3][1] =
      'iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAMAAAAMs7fIAAAAM1'.
      'BMVEX////////27t/e3+LO3hfYzz65ubiNwci6uQ12ipadgVGa'.
      'fwsNkbhnVkcaZ5dwSA8lFg7CEepmAAAAAXRSTlMAQObYZgAAAA'.
@@ -88,8 +90,8 @@ class ImgData_Bevels extends ImgData {
         //==========================================================
         // File: bullets_balls_pp_019.png
         //==========================================================
-        $this->imgdata[4][0]= 334 ;
-        $this->imgdata[4][1]=
+        $this->imgdata[4][0] = 334 ;
+        $this->imgdata[4][1] =
      'iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAMAAAAMs7fIAAAAM1'.
      'BMVEX////+/v7i4eO/w8eHxcvKroNVormtfkjrMN2BeXQrepPc'.
      'Esy4IL+OFaR7F25LHF8mFRh5XXtUAAAAAXRSTlMAQObYZgAAAA'.
@@ -98,10 +100,7 @@ class ImgData_Bevels extends ImgData {
      'ZV/7JfEwMvFIWUlkTMVNInbVv5ZeJqG7Smh2QTBwJBpsdizAZP'.
      '5NyW0awhK8kYodnZxS6ECvPRp2sI+y7PBv1mN02KH7h77QCJ8D'.
      '4VvY5NUgEmCwj6ZMzHtJRgRSXwC1gfcqJJH0GBnSnK1kUQ72DY'.
-     'CPBv+MCS/e0jib77eQAJxwiEWm7hFwAAAABJRU5ErkJggg==' ; 
+     'CPBv+MCS/e0jib77eQAJxwiEWm7hFwAAAABJRU5ErkJggg==' ;
 
     }
 }
-
-
-?>

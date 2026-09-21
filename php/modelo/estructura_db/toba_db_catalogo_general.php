@@ -2,9 +2,9 @@
 
 class toba_db_catalogo_general
 {
-	static function get_tablas()
-	{
-		return array (
+    public static function get_tablas()
+    {
+        return array(
   0 => 'apex_revision',
   1 => 'apex_instancia',
   2 => 'apex_proyecto',
@@ -140,8 +140,6 @@ class toba_db_catalogo_general
   132 => 'apex_servicio_web',
   133 => 'apex_servicio_web_param',
 );
-	}
+    }
 
 }
-
-?>

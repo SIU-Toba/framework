@@ -1,4 +1,5 @@
 <?php
+
 /**
  * An exception thrown by PHP_CodeSniffer when it encounters an unrecoverable error.
  *
@@ -30,7 +31,4 @@ require_once 'PEAR_Exception.php';
  */
 class PHP_CodeSniffer_Exception extends PEAR_Exception
 {
-
 }//end class
-
-?>

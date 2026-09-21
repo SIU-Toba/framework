@@ -1,119 +1,119 @@
-<?php 
+<?php
+
 class arbol_restricciones_funcionales extends toba_ei_arbol
 {
-	
-	protected $nodos_activos = array();
-	protected $nodos_inactivos = array();
+    protected $nodos_activos = array();
+    protected $nodos_inactivos = array();
 
-	protected function generar_campos_hidden()
-	{
-		parent::generar_campos_hidden();
-		echo toba_form::hidden($this->_submit.'__nodos_invisibles', '');
-		echo toba_form::hidden($this->_submit.'__nodos_visibles', '');
-	}
+    protected function generar_campos_hidden()
+    {
+        parent::generar_campos_hidden();
+        echo toba_form::hidden($this->_submit.'__nodos_invisibles', '');
+        echo toba_form::hidden($this->_submit.'__nodos_visibles', '');
+    }
 
-	private function cargar_estado_post()
-	{
-		$id_activos = $this->_submit.'__nodos_visibles';
-		if (isset($_POST[$id_activos]) && $_POST[$id_activos] != '') {
-			$this->nodos_activos = explode(apex_qs_sep_interno, $_POST[$id_activos]);
-		}
-		
-		$id_inactivos = $this->_submit.'__nodos_invisibles';
-		if (isset($_POST[$id_inactivos]) && $_POST[$id_inactivos] != '') {
-			$this->nodos_inactivos = explode(apex_qs_sep_interno, $_POST[$id_inactivos]);
-		}		
-	}
+    private function cargar_estado_post()
+    {
+        $id_activos = $this->_submit.'__nodos_visibles';
+        if (isset($_POST[$id_activos]) && $_POST[$id_activos] != '') {
+            $this->nodos_activos = explode(apex_qs_sep_interno, $_POST[$id_activos]);
+        }
 
-	function disparar_eventos()
-	{
-		$this->cargar_estado_post();		
-		//Aca valido los ids contra los enviados, para que nadie intente pasarse de vivo.
-		foreach ($this->nodos_activos as $id_nodo) {
-			$this->validar_id_nodo_recibido($id_nodo);
-		}		
-		foreach ($this->nodos_inactivos as $id_nodo) {
-			$this->validar_id_nodo_recibido($id_nodo);
-		}
-	
-		//Transmito el estado recuperado del post a cada nodo.
-		if (isset($this->_nodos_inicial) && ! empty($this->_nodos_inicial)) {
-			$raiz = $this->_nodos_inicial[0];
-			$raiz->propagar_estado_hijos($this->nodos_activos, $this->nodos_inactivos);
-		}		
-		parent::disparar_eventos();
-	}
-	
-	function generar_fila_nodo($nodo, $nivel)
-	{
-		$nodo->desactivar_envio_inputs();
-		return parent::generar_fila_nodo($nodo, $nivel);
-	}
-	
-	function servicio__ejecutar()
-	{
-		toba::memoria()->desactivar_reciclado();
-		$id_nodo = toba::memoria()->get_parametro('id_nodo');
-		$nodo = $this->reportar_evento_interno('cargar_nodo', $id_nodo);
-		if (isset($nodo) && $nodo !== apex_ei_evt_sin_rpta) {
-			$html = $this->recorrer_hijos(current($nodo), 0);
-			$html .= '[--toba--]';	
-			$html .= toba_js::abrir();
-			$html .= $this->actualizar_estado_js(current($nodo));
-			$html .= toba_js::cerrar();
-			$html .= '[--toba--]';	
-			echo $html;
-		} else {
-			toba::logger()->warning("toba_ei_arbol: No se pudo obtener el nodo que representa al ID $id_nodo");
-		}
-	}
-	
-	//-------------------------------------------------------------------------------------------------------------//
-	//						JAVASCRIPT
-	//-------------------------------------------------------------------------------------------------------------//
-	function recuperar_estado_nodos($nodo_raiz)
-	{		
-		$estado = array('activos' => array(), 'inactivos' => array());	
-		if (isset($nodo_raiz)) {
-			//Recopilo el estado de los nodos y los hijos
-			if ($nodo_raiz->tiene_hijos_cargados()) {			
-				foreach ($nodo_raiz->get_hijos() as $hijo) {
-					$aux = $hijo->recuperar_estado_recursivo();
-					$estado['activos'] = array_merge($estado['activos'], $aux['activos']);
-					$estado['inactivos'] = array_merge($estado['inactivos'], $aux['inactivos']);
-				}
-			}		
-		}
-		return $estado;		
-	}
-	
-	function actualizar_estado_js($nodo)
-	{
-		$js_code = '';		
-		$estado = $this->recuperar_estado_nodos($nodo);		//Busco el estado de los nodos
-		if (! empty($estado['activos'])) {
-			$js_code .= toba::escaper()->escapeJs($this->objeto_js) .'.agregar_activos(' . toba_js::arreglo(array_fill_keys($estado['activos'], true), true) . ');';
-		}
-		if (! empty($estado['inactivos'])) {
-			$js_code .= toba::escaper()->escapeJs($this->objeto_js) .'.agregar_inactivos(' . toba_js::arreglo(array_fill_keys($estado['inactivos'], true), true) . ');';
-		}		
-		return $js_code;
-	}	
-	
-	function extender_objeto_js()
-	{
-		parent::extender_objeto_js();
-		$img_oculto = toba_recurso::imagen_toba('no-visible.png', false);
-		$img_visible = toba_recurso::imagen_toba('visible.png', false);
-		$img_solo_lectura = toba_recurso::imagen_toba('no-editable.gif', false);
-		$img_editable = toba_recurso::imagen_toba('editable.gif', false);
-		
-		$escapador = toba::escaper();
-		$id_js = $escapador->escapeJs($this->objeto_js);
-		
-		echo 'var '. $escapador->escapeJs($this->objeto_js.'_nodo_rf_activas')." = []; \n";
-		echo 'var '. $escapador->escapeJs($this->objeto_js.'_nodo_rf_inactivas')." = [];\n";	
-		echo "			
+        $id_inactivos = $this->_submit.'__nodos_invisibles';
+        if (isset($_POST[$id_inactivos]) && $_POST[$id_inactivos] != '') {
+            $this->nodos_inactivos = explode(apex_qs_sep_interno, $_POST[$id_inactivos]);
+        }
+    }
+
+    public function disparar_eventos()
+    {
+        $this->cargar_estado_post();
+        //Aca valido los ids contra los enviados, para que nadie intente pasarse de vivo.
+        foreach ($this->nodos_activos as $id_nodo) {
+            $this->validar_id_nodo_recibido($id_nodo);
+        }
+        foreach ($this->nodos_inactivos as $id_nodo) {
+            $this->validar_id_nodo_recibido($id_nodo);
+        }
+
+        //Transmito el estado recuperado del post a cada nodo.
+        if (isset($this->_nodos_inicial) && ! empty($this->_nodos_inicial)) {
+            $raiz = $this->_nodos_inicial[0];
+            $raiz->propagar_estado_hijos($this->nodos_activos, $this->nodos_inactivos);
+        }
+        parent::disparar_eventos();
+    }
+
+    public function generar_fila_nodo($nodo, $nivel)
+    {
+        $nodo->desactivar_envio_inputs();
+        return parent::generar_fila_nodo($nodo, $nivel);
+    }
+
+    public function servicio__ejecutar()
+    {
+        toba::memoria()->desactivar_reciclado();
+        $id_nodo = toba::memoria()->get_parametro('id_nodo');
+        $nodo = $this->reportar_evento_interno('cargar_nodo', $id_nodo);
+        if (isset($nodo) && $nodo !== apex_ei_evt_sin_rpta) {
+            $html = $this->recorrer_hijos(current($nodo), 0);
+            $html .= '[--toba--]';
+            $html .= toba_js::abrir();
+            $html .= $this->actualizar_estado_js(current($nodo));
+            $html .= toba_js::cerrar();
+            $html .= '[--toba--]';
+            echo $html;
+        } else {
+            toba::logger()->warning("toba_ei_arbol: No se pudo obtener el nodo que representa al ID $id_nodo");
+        }
+    }
+
+    //-------------------------------------------------------------------------------------------------------------//
+    //						JAVASCRIPT
+    //-------------------------------------------------------------------------------------------------------------//
+    public function recuperar_estado_nodos($nodo_raiz)
+    {
+        $estado = array('activos' => array(), 'inactivos' => array());
+        if (isset($nodo_raiz)) {
+            //Recopilo el estado de los nodos y los hijos
+            if ($nodo_raiz->tiene_hijos_cargados()) {
+                foreach ($nodo_raiz->get_hijos() as $hijo) {
+                    $aux = $hijo->recuperar_estado_recursivo();
+                    $estado['activos'] = array_merge($estado['activos'], $aux['activos']);
+                    $estado['inactivos'] = array_merge($estado['inactivos'], $aux['inactivos']);
+                }
+            }
+        }
+        return $estado;
+    }
+
+    public function actualizar_estado_js($nodo)
+    {
+        $js_code = '';
+        $estado = $this->recuperar_estado_nodos($nodo);		//Busco el estado de los nodos
+        if (! empty($estado['activos'])) {
+            $js_code .= toba::escaper()->escapeJs($this->objeto_js) .'.agregar_activos(' . toba_js::arreglo(array_fill_keys($estado['activos'], true), true) . ');';
+        }
+        if (! empty($estado['inactivos'])) {
+            $js_code .= toba::escaper()->escapeJs($this->objeto_js) .'.agregar_inactivos(' . toba_js::arreglo(array_fill_keys($estado['inactivos'], true), true) . ');';
+        }
+        return $js_code;
+    }
+
+    public function extender_objeto_js()
+    {
+        parent::extender_objeto_js();
+        $img_oculto = toba_recurso::imagen_toba('no-visible.png', false);
+        $img_visible = toba_recurso::imagen_toba('visible.png', false);
+        $img_solo_lectura = toba_recurso::imagen_toba('no-editable.gif', false);
+        $img_editable = toba_recurso::imagen_toba('editable.gif', false);
+
+        $escapador = toba::escaper();
+        $id_js = $escapador->escapeJs($this->objeto_js);
+
+        echo 'var '. $escapador->escapeJs($this->objeto_js.'_nodo_rf_activas')." = []; \n";
+        echo 'var '. $escapador->escapeJs($this->objeto_js.'_nodo_rf_inactivas')." = [];\n";
+        echo "			
 			{$id_js}.agregar_activos = function(nuevos)
 			{
 				for (var key in nuevos) {
@@ -207,9 +207,8 @@ class arbol_restricciones_funcionales extends toba_ei_arbol
 				}
 				return true;
 			};";
-		if (! empty($this->_nodos_inicial)) {				
-			echo $this->actualizar_estado_js($this->_nodos_inicial[0]);
-		}
-	}			
+        if (! empty($this->_nodos_inicial)) {
+            echo $this->actualizar_estado_js($this->_nodos_inicial[0]);
+        }
+    }
 }
-?>

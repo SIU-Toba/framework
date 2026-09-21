@@ -1,4 +1,5 @@
 <?php
+
 /* vim: set expandtab tabstop=4 shiftwidth=4 foldmethod=marker: */
 /**
  * PEAR_Exception
@@ -102,9 +103,9 @@
  */
 class PEAR_Exception extends Exception
 {
-    const OBSERVER_PRINT = -2;
-    const OBSERVER_TRIGGER = -4;
-    const OBSERVER_DIE = -8;
+    public const OBSERVER_PRINT = -2;
+    public const OBSERVER_TRIGGER = -4;
+    public const OBSERVER_DIE = -8;
     protected $cause;
     private static $_observers = array();
     private static $_uniqueid = 0;
@@ -295,12 +296,12 @@ class PEAR_Exception extends Exception
     }
 
     public function getTraceSafe()
-    {   
+    {
         if (!isset($this->_trace)) {
             $this->_trace = $this->getTrace();
             if (empty($this->_trace)) {
                 $backtrace = debug_backtrace();
-                $this->_trace = array($backtrace[count($backtrace)-1]);
+                $this->_trace = array($backtrace[count($backtrace) - 1]);
             }
         }
         return $this->_trace;
@@ -354,26 +355,33 @@ class PEAR_Exception extends Exception
             $args = array();
             if (!empty($v['args'])) {
                 foreach ($v['args'] as $arg) {
-                    if (is_null($arg)) $args[] = 'null';
-                    elseif (is_array($arg)) $args[] = 'Array';
-                    elseif (is_object($arg)) $args[] = 'Object('.get_class($arg).')';
-                    elseif (is_bool($arg)) $args[] = $arg ? 'true' : 'false';
-                    elseif (is_int($arg) || is_double($arg)) $args[] = $arg;
-                    else {
+                    if (is_null($arg)) {
+                        $args[] = 'null';
+                    } elseif (is_array($arg)) {
+                        $args[] = 'Array';
+                    } elseif (is_object($arg)) {
+                        $args[] = 'Object('.get_class($arg).')';
+                    } elseif (is_bool($arg)) {
+                        $args[] = $arg ? 'true' : 'false';
+                    } elseif (is_int($arg) || is_double($arg)) {
+                        $args[] = $arg;
+                    } else {
                         $arg = (string)$arg;
                         $str = htmlspecialchars(substr($arg, 0, 16));
-                        if (strlen($arg) > 16) $str .= '&hellip;';
+                        if (strlen($arg) > 16) {
+                            $str .= '&hellip;';
+                        }
                         $args[] = "'" . $str . "'";
                     }
                 }
             }
-            $html .= '(' . implode(', ',$args) . ')'
+            $html .= '(' . implode(', ', $args) . ')'
                    . '</td>'
                    . '<td>' . (isset($v['file']) ? $v['file'] : 'unknown')
                    . ':' . (isset($v['line']) ? $v['line'] : 'unknown')
                    . '</td></tr>' . "\n";
         }
-        $html .= '<tr><td align="center">' . ($k+1) . '</td>'
+        $html .= '<tr><td align="center">' . ($k + 1) . '</td>'
                . '<td>{main}</td>'
                . '<td>&nbsp;</td></tr>' . "\n"
                . '</table>';
@@ -393,5 +401,3 @@ class PEAR_Exception extends Exception
         return $causeMsg . $this->getTraceAsString();
     }
 }
-
-?>

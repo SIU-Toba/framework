@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Squiz_Sniffs_Classes_ClassFileNameSniff.
  *
@@ -31,8 +32,6 @@
  */
 class Toba_Sniffs_Classes_ClassFileNameSniff implements PHP_CodeSniffer_Sniff
 {
-
-
     /**
      * Returns an array of tokens this test wants to listen for.
      *
@@ -65,7 +64,7 @@ class Toba_Sniffs_Classes_ClassFileNameSniff implements PHP_CodeSniffer_Sniff
         $fileName = basename($fullPath, '.php');
 
         if ($tokens[$decName]['content'] !== $fileName) {
-			$error = '[Clases#archivo] El nombre de la clase `';
+            $error = '[Clases#archivo] El nombre de la clase `';
             $error .= $tokens[$decName]['content'];
             $error .= '` no es igual al nombre del archivo ';
             $error .= '"'.$fileName.'".';
@@ -76,5 +75,3 @@ class Toba_Sniffs_Classes_ClassFileNameSniff implements PHP_CodeSniffer_Sniff
 
 
 }//end class
-
-?>

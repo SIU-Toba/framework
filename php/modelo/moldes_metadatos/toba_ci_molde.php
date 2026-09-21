@@ -1,4 +1,5 @@
 <?php
+
 /*
 *
 */
@@ -21,9 +22,9 @@ class toba_ci_molde extends toba_molde_elemento_componente_ei
     //-- API de construccion
     //---------------------------------------------------
 
-    public function agregar_pantalla($identificador, $etiqueta=null)
+    public function agregar_pantalla($identificador, $etiqueta = null)
     {
-        $datos = array('identificador'=>$identificador, 'etiqueta'=>$etiqueta, 'orden'=>$this->orden_pantalla);
+        $datos = array('identificador' => $identificador, 'etiqueta' => $etiqueta, 'orden' => $this->orden_pantalla);
         $id = $this->datos->tabla('pantallas')->nueva_fila($datos);
         $this->mapeo_pantallas[$identificador] = $id;
         $this->orden_pantalla++;
@@ -72,7 +73,7 @@ class toba_ci_molde extends toba_molde_elemento_componente_ei
 
     public function set_alto($alto)
     {
-        if ((strpos($alto, '%')===false) && (strpos($alto, 'px')===false)) {
+        if ((strpos($alto, '%') === false) && (strpos($alto, 'px') === false)) {
             throw new toba_error_asistentes("MOLDE CUADRO: El alto debe definirse con el tipo de medida asociado ('%' o 'px'). Definido: $alto");
         }
         $this->datos->tabla('prop_basicas')->set_fila_columna_valor(0, 'alto', $alto);
@@ -115,7 +116,7 @@ class toba_ci_molde extends toba_molde_elemento_componente_ei
 
     public function asociar_dependencia($id, $clave)
     {
-        $datos = array('proyecto'=>$this->proyecto, 'objeto_proveedor'=>$clave, 'identificador'=> $id);
+        $datos = array('proyecto' => $this->proyecto, 'objeto_proveedor' => $clave, 'identificador' => $id);
         $this->datos->tabla('dependencias')->nueva_fila($datos);
     }
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * A class to handle most of the parsing operations of a doc comment element.
  *
@@ -64,7 +65,6 @@ if (interface_exists('PHP_CodeSniffer_CommentParser_DocElement', true) === false
  */
 abstract class PHP_CodeSniffer_CommentParser_AbstractDocElement implements PHP_CodeSniffer_CommentParser_DocElement
 {
-
     /**
      * The element previous to this element.
      *
@@ -323,5 +323,3 @@ abstract class PHP_CodeSniffer_CommentParser_AbstractDocElement implements PHP_C
 
 
 }//end class
-
-?>

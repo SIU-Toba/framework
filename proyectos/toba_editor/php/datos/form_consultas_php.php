@@ -2,11 +2,10 @@
 
 class form_consultas_php extends toba_ei_formulario
 {
-	
-	function extender_objeto_js()
-	{
-		$id_js = toba::escaper()->escapeJs($this->objeto_js);
-		echo "                        
+    public function extender_objeto_js()
+    {
+        $id_js = toba::escaper()->escapeJs($this->objeto_js);
+        echo "                        
 			{$id_js}.evt__archivo__procesar = function(inicial) {
 				if (!inicial) {
 					var archivo = this.ef('archivo').valor();
@@ -33,9 +32,7 @@ class form_consultas_php extends toba_ei_formulario
 				}
 			}			
 		";
-	}
-	
+    }
+
 
 }
-
-?>

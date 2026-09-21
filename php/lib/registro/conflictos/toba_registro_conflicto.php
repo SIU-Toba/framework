@@ -2,46 +2,45 @@
 
 abstract class toba_registro_conflicto
 {
-	/**
-	 * Conflicto irresoluble
-	 */
-	const fatal = 'fatal';
+    /**
+     * Conflicto irresoluble
+     */
+    public const fatal = 'fatal';
 
-	/**
-	 * Conflicto resoluble
-	 */
-	const warning = 'warning';
+    /**
+     * Conflicto resoluble
+     */
+    public const warning = 'warning';
 
-	protected $tipo;
+    protected $tipo;
 
-	protected $numero;
-	/**
-	 * @var toba_registro
-	 */
-	protected $registro;
-	
-	protected $descripcion_componente; 
+    protected $numero;
+    /**
+     * @var toba_registro
+     */
+    protected $registro;
 
-	function __construct($registro)
-	{
-		$this->registro = $registro;
-	}
+    protected $descripcion_componente;
 
-	function get_tipo()
-	{
-		return $this->tipo;
-	}
+    public function __construct($registro)
+    {
+        $this->registro = $registro;
+    }
 
-	function get_numero()
-	{
-		return $this->numero;
-	}
+    public function get_tipo()
+    {
+        return $this->tipo;
+    }
 
-	function set_descripcion_componente($desc)
-	{
-		$this->descripcion_componente = $desc;
-	}
-	
-	abstract function get_descripcion();
+    public function get_numero()
+    {
+        return $this->numero;
+    }
+
+    public function set_descripcion_componente($desc)
+    {
+        $this->descripcion_componente = $desc;
+    }
+
+    abstract public function get_descripcion();
 }
-?>

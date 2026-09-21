@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Represents a PHP_CodeSniffer sniff for sniffing coding standards.
  *
@@ -33,8 +34,6 @@
  */
 interface PHP_CodeSniffer_Sniff
 {
-
-
     /**
      * Registers the tokens that this sniff wants to listen for.
      *
@@ -90,5 +89,3 @@ interface PHP_CodeSniffer_Sniff
 
 
 }//end interface
-
-?>

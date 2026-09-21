@@ -2,12 +2,11 @@
 
 class form_prop_basicas extends toba_ei_formulario
 {
-
-	function extender_objeto_js()
-	{
-		$id_js = toba::escaper()->escapeJs($this->objeto_js);
-		echo admin_util::get_js_editor();			
-		echo "
+    public function extender_objeto_js()
+    {
+        $id_js = toba::escaper()->escapeJs($this->objeto_js);
+        echo admin_util::get_js_editor();
+        echo "
 			{$id_js}.evt__filas_ordenar__procesar = function () {
 				var mostrar = this.ef('filas_ordenar').chequeado();
 				this.ef('columna_orden').mostrar(mostrar);
@@ -49,7 +48,5 @@ class form_prop_basicas extends toba_ei_formulario
 				return true;			
 			}					
 		";
-	}
+    }
 }
-
-?>

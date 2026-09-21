@@ -27,11 +27,11 @@ class toba_vista_araireportes
 
     protected $uri;
     protected $extension = 'pdf';
-    protected $id_reporte='';
+    protected $id_reporte = '';
     protected $cliente;
-    
-    protected static $servicio_reporte='reportes';
-    
+
+    protected static $servicio_reporte = 'reportes';
+
     public function __construct()
     {
         $this->temp_salida = toba::proyecto()->get_path_temp().'/'.uniqid('jasper_');
@@ -62,7 +62,7 @@ class toba_vista_araireportes
      * @param string $tipo 'D' = fecha, 'E' = entero, 'S' = string/char/varchar, 'F' = decimal/punto flotante, 'B': booleano, 'L': Locale
      * @param string $valor valor del parametro
      */
-    public function set_parametro($nombre='', $tipo='E', $valor=0)
+    public function set_parametro($nombre = '', $tipo = 'E', $valor = 0)
     {
         $tipos_parametros = array('D', 'E', 'S', 'F', 'B', 'L');
         if (! in_array($tipo, $tipos_parametros)) {
@@ -70,7 +70,7 @@ class toba_vista_araireportes
         }
 
         //Seteo el parametro
-        $this->parametros[$nombre] = utf8_e_seguro($valor??'');
+        $this->parametros[$nombre] = utf8_e_seguro($valor ?? '');
     }
 
     /**
@@ -143,7 +143,7 @@ class toba_vista_araireportes
         $this->url = self::$servicio_reporte . "/". toba::proyecto()->get_id();
     }
 
-    public function compilar_reporte($path_plantilla, $path_reporte=null)
+    public function compilar_reporte($path_plantilla, $path_reporte = null)
     {
         throw new toba_error('Compilacion no soportada por la  API');
     }
@@ -156,7 +156,8 @@ class toba_vista_araireportes
      * @param mixed $db
      */
     public function set_conexion($db)
-    {}
+    {
+    }
 
     /**
      * Setea un string xml con los datos para el reporte
@@ -192,8 +193,8 @@ class toba_vista_araireportes
             $this->modo_archivo = true;
         }
     }
-    
-    
+
+
     /**
      * Setea un string json con los datos para el reporte
      * @param string $json  String con los datos en formato json
@@ -203,7 +204,7 @@ class toba_vista_araireportes
         if (null === json_decode($json)) {
             throw new toba_error('Los datos enviados al reporte no tienen un formato valido o estan incompletos ');
         }
-        
+
         //Creo un archivo XML  para guardar el contenido
         $nombre = toba::proyecto()->get_path_temp().'/'. hash('sha256', uniqid(time()));
         toba_manejador_archivos::crear_archivo_con_datos($nombre, $json);
@@ -253,7 +254,7 @@ class toba_vista_araireportes
         }
 
         try {
-            $resp = $this->cliente->guzzle()->request('GET', $this->url, array('query' =>$data));
+            $resp = $this->cliente->guzzle()->request('GET', $this->url, array('query' => $data));
         } catch (RequestException $e) {
             toba::logger()->debug($e->getMessage());
             throw new toba_error_usuario('Se produjo un error al generar el reporte');

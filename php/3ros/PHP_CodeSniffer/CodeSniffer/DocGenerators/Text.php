@@ -1,4 +1,5 @@
 <?php
+
 /**
  * A doc generator that outputs text-based documentation.
  *
@@ -32,8 +33,6 @@ require_once 'PHP/CodeSniffer/DocGenerators/Generator.php';
  */
 class PHP_CodeSniffer_DocGenerators_Text extends PHP_CodeSniffer_DocGenerators_Generator
 {
-
-
     /**
      * Process the documentation for a single sniff.
      *
@@ -50,7 +49,7 @@ class PHP_CodeSniffer_DocGenerators_Text extends PHP_CodeSniffer_DocGenerators_G
         foreach ($doc->childNodes as $node) {
             if ($node->nodeName === 'standard') {
                 $this->printTextBlock($node);
-            } else if ($node->nodeName === 'code_comparison') {
+            } elseif ($node->nodeName === 'code_comparison') {
                 $this->printCodeComparisonBlock($node);
             }
         }
@@ -105,7 +104,7 @@ class PHP_CodeSniffer_DocGenerators_Text extends PHP_CodeSniffer_DocGenerators_G
                     // so we are done.
                     $lines[]  = $tempLine.$word;
                     $tempLine = '';
-                } else if (strlen($tempLine.$word) === 100) {
+                } elseif (strlen($tempLine.$word) === 100) {
                     // We are already at the edge, so we are done.
                     $lines[]  = $tempLine.$word;
                     $tempLine = '';
@@ -151,7 +150,7 @@ class PHP_CodeSniffer_DocGenerators_Text extends PHP_CodeSniffer_DocGenerators_G
                     // so we are done.
                     $firstTitleLines[] = $tempTitle.$word;
                     $tempTitle         = '';
-                } else if (strlen($tempTitle.$word) === 46) {
+                } elseif (strlen($tempTitle.$word) === 46) {
                     // We are already at the edge, so we are done.
                     $firstTitleLines[] = $tempTitle.$word;
                     $tempTitle         = '';
@@ -186,7 +185,7 @@ class PHP_CodeSniffer_DocGenerators_Text extends PHP_CodeSniffer_DocGenerators_G
                     // so we are done.
                     $secondTitleLines[] = $tempTitle.$word;
                     $tempTitle          = '';
-                } else if (strlen($tempTitle.$word) === 46) {
+                } elseif (strlen($tempTitle.$word) === 46) {
                     // We are already at the edge, so we are done.
                     $secondTitleLines[] = $tempTitle.$word;
                     $tempTitle          = '';
@@ -262,5 +261,3 @@ class PHP_CodeSniffer_DocGenerators_Text extends PHP_CodeSniffer_DocGenerators_G
 
 
 }//end class
-
-?>

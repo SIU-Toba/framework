@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PEAR_Sniffs_Files_IncludingFileSniff.
  *
@@ -32,7 +33,6 @@
  */
 class PEAR_Sniffs_Files_IncludingFileSniff implements PHP_CodeSniffer_Sniff
 {
-
     /**
      * Conditions that should use include_once
      *
@@ -112,7 +112,7 @@ class PEAR_Sniffs_Files_IncludingFileSniff implements PHP_CodeSniffer_Sniff
                 $error  = 'File is being conditionally included; ';
                 $error .= 'use "include_once" instead';
                 $phpcsFile->addError($error, $stackPtr);
-            } else if ($tokenCode === T_REQUIRE) {
+            } elseif ($tokenCode === T_REQUIRE) {
                 $error  = 'File is being conditionally included; ';
                 $error .= 'use "include" instead';
                 $phpcsFile->addError($error, $stackPtr);
@@ -123,7 +123,7 @@ class PEAR_Sniffs_Files_IncludingFileSniff implements PHP_CodeSniffer_Sniff
                 $error  = 'File is being unconditionally included; ';
                 $error .= 'use "require_once" instead';
                 $phpcsFile->addError($error, $stackPtr);
-            } else if ($tokenCode === T_INCLUDE) {
+            } elseif ($tokenCode === T_INCLUDE) {
                 $error  = 'File is being unconditionally included; ';
                 $error .= 'use "require" instead';
                 $phpcsFile->addError($error, $stackPtr);
@@ -134,5 +134,3 @@ class PEAR_Sniffs_Files_IncludingFileSniff implements PHP_CodeSniffer_Sniff
 
 
 }//end class
-
-?>

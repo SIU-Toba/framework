@@ -1,18 +1,18 @@
-<?php 
+<?php
+
 require_once('objetos_toba/eiform_abm_detalle.php');
 
-class ml_cols extends eiform_abm_detalle 
+class ml_cols extends eiform_abm_detalle
 {
+    //-----------------------------------------------------------------------------------
+    //---- JAVASCRIPT -------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------
 
-	//-----------------------------------------------------------------------------------
-	//---- JAVASCRIPT -------------------------------------------------------------------
-	//-----------------------------------------------------------------------------------
-
-	function extender_objeto_js()
-	{
-		parent::extender_objeto_js();
-		$id_js = toba::escaper()->escapeJs($this->objeto_js);
-		echo "
+    public function extender_objeto_js()
+    {
+        parent::extender_objeto_js();
+        $id_js = toba::escaper()->escapeJs($this->objeto_js);
+        echo "
 		//---- Procesamiento de EFs --------------------------------
 		
 		{$id_js}.evt__tipo__procesar = function(es_inicial, fila)
@@ -34,7 +34,5 @@ class ml_cols extends eiform_abm_detalle
 		}		
 		
 		";
-	}
+    }
 }
-
-?>

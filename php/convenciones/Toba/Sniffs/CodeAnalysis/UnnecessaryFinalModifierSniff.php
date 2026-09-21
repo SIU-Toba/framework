@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the CodeAnalysis addon for PHP_CodeSniffer.
  *
@@ -40,8 +41,6 @@
  */
 class Toba_Sniffs_CodeAnalysis_UnnecessaryFinalModifierSniff implements PHP_CodeSniffer_Sniff
 {
-
-
     /**
      * Registers the tokens that this sniff wants to listen for.
      *
@@ -95,5 +94,3 @@ class Toba_Sniffs_CodeAnalysis_UnnecessaryFinalModifierSniff implements PHP_Code
 
 
 }//end class
-
-?>

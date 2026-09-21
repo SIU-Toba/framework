@@ -1,4 +1,5 @@
 <?php
+
 /**
  * A class to represent single element doc tags.
  *
@@ -36,7 +37,6 @@ if (class_exists('PHP_CodeSniffer_CommentParser_AbstractDocElement', true) === f
  */
 class PHP_CodeSniffer_CommentParser_SingleElement extends PHP_CodeSniffer_CommentParser_AbstractDocElement
 {
-
     /**
      * The content that exists after the tag.
      *
@@ -157,5 +157,3 @@ class PHP_CodeSniffer_CommentParser_SingleElement extends PHP_CodeSniffer_Commen
 
 
 }//end class
-
-?>

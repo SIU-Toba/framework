@@ -1,13 +1,12 @@
 <?php
 require_once("tp_referencia.php");
 
-class tp_tutorial extends tp_referencia 
+class tp_tutorial extends tp_referencia
 {
-
-	protected function estilos_css()
-	{
-		parent::estilos_css();
-		?>
+    protected function estilos_css()
+    {
+        parent::estilos_css();
+        ?>
 		<style type="text/css">
 			.codigo {
 				padding: 10px; 
@@ -54,22 +53,22 @@ class tp_tutorial extends tp_referencia
 			}			
 		</style>			
 		<?php
-	}	
-	
-	function titulo_item()
-	{
-		return 'Tutorial';	
-	}
-	
+    }
+
+    public function titulo_item()
+    {
+        return 'Tutorial';
+    }
+
 }
 
 
-function mostrar_video($video, $ancho=992, $alto=487, $controlador_propio=false)
+function mostrar_video($video, $ancho = 992, $alto = 487, $controlador_propio = false)
 {
-	$url_base = get_url_desarrollos(true).'/toba_referencia_trunk/videos/';
-	$url_js = toba_recurso::url_proyecto().'/videos/';	
-	$url_controller = ($controlador_propio) ? $url_base.$video.'-cont.swf'  : $url_base.'controller.swf';
-	return '
+    $url_base = get_url_desarrollos(true).'/toba_referencia_trunk/videos/';
+    $url_js = toba_recurso::url_proyecto().'/videos/';
+    $url_controller = ($controlador_propio) ? $url_base.$video.'-cont.swf' : $url_base.'controller.swf';
+    return '
       <script type="text/javascript" src="'.$url_js.'swfobject.js"></script>
   	  <script type="text/javascript" src="'.$url_js.'cam_embed.js"></script>		
       <div id="flashcontent">	   		
@@ -91,14 +90,14 @@ function mostrar_video($video, $ancho=992, $alto=487, $controlador_propio=false)
          // ]]>
 
 	   </script>  	
-   ';	
+   ';
 }
 
 function mostrar_php($codigo)
 {
-	$salida = highlight_string($codigo, true);
-	$salida = str_replace('&lt;?php<br />', '', $salida);
-	$salida = str_replace('?&gt;<br />', '', $salida);
-	return "<div class='codigo'>".$salida."</div>";
+    $salida = highlight_string($codigo, true);
+    $salida = str_replace('&lt;?php<br />', '', $salida);
+    $salida = str_replace('?&gt;<br />', '', $salida);
+    return "<div class='codigo'>".$salida."</div>";
 }
 ?>

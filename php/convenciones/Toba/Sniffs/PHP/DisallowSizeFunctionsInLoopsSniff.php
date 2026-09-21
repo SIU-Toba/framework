@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Squiz_Sniffs_PHP_DisallowSizeFunctionsInLoopsSniff.
  *
@@ -28,7 +29,6 @@
  */
 class Toba_Sniffs_PHP_DisallowSizeFunctionsInLoopsSniff implements PHP_CodeSniffer_Sniff
 {
-
     /**
      * An array of functions we don't want in the condition of loops.
      *
@@ -79,5 +79,3 @@ class Toba_Sniffs_PHP_DisallowSizeFunctionsInLoopsSniff implements PHP_CodeSniff
 
 
 }//end class
-
-?>

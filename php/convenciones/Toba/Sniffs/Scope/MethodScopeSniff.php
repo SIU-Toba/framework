@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Verifies that class members have scope modifiers.
  *
@@ -32,8 +33,6 @@ if (class_exists('PHP_CodeSniffer_Standards_AbstractScopeSniff', true) === false
  */
 class Toba_Sniffs_Scope_MethodScopeSniff extends PHP_CodeSniffer_Standards_AbstractScopeSniff
 {
-
-
     /**
      * Constructs a Squiz_Sniffs_Scope_MethodScopeSniff.
      */
@@ -58,16 +57,14 @@ class Toba_Sniffs_Scope_MethodScopeSniff extends PHP_CodeSniffer_Standards_Abstr
         $tokens = $phpcsFile->getTokens();
 
         $modifier = $phpcsFile->findPrevious(PHP_CodeSniffer_Tokens::$scopeModifiers, $stackPtr);
-		if ($tokens[$modifier]['type'] === 'T_PUBLIC' && ($tokens[$modifier]['line'] === $tokens[$stackPtr]['line'])) {
+        if ($tokens[$modifier]['type'] === 'T_PUBLIC' && ($tokens[$modifier]['line'] === $tokens[$stackPtr]['line'])) {
             $name  = $phpcsFile->findNext(T_STRING, ($stackPtr + 1));
             $name  = $tokens[$name]['content'];
             $error = "[Funciones#declaracion] El metodo \"$name\" no debe indicar el public (se asume)";
             $phpcsFile->addWarning($error, $stackPtr);
-		}
+        }
 
     }//end processTokenWithinScope()
 
 
 }//end class
-
-?>

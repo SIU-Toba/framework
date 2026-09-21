@@ -1,19 +1,21 @@
 <?php
+
 class toba_session_handler
 {
     protected $default_settings = array();
     protected $settings = array();
 
-    function __construct()
-    {}
+    public function __construct()
+    {
+    }
 
     /**
      * Lee valores de los seteos desde env
      */
-    function read_env_settings()
+    public function read_env_settings()
     {
         $env_vars = \array_keys($this->default_settings);
-        foreach($env_vars as $clave) {
+        foreach ($env_vars as $clave) {
             $usable_env_name = \str_replace('.', '_', $clave);
             $search_key = \strtoupper('toba_'. $usable_env_name);
             $value = \getenv($search_key);
@@ -26,10 +28,10 @@ class toba_session_handler
     /**
      * Fija los valores indicados por el handler en php.ini
      */
-    function configure_settings()
+    public function configure_settings()
     {
         $confs = \array_merge($this->default_settings, $this->settings);
-        foreach($confs as $key => $value) {
+        foreach ($confs as $key => $value) {
             \ini_set($key, $value);
         }
     }
@@ -38,10 +40,9 @@ class toba_session_handler
      * Retorna un arreglo con los parametros configurados
      * @return array
      */
-    function get_options()
+    public function get_options()
     {
         $confs = \array_merge($this->default_settings, $this->settings);
         return $confs;
     }
 }
-?>

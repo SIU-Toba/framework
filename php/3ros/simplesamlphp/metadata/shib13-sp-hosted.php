@@ -1,4 +1,5 @@
 <?php
+
 /**
  * SAML 1.1 SP configuration for simpleSAMLphp.
  *
@@ -9,5 +10,5 @@
  * Example of hosted Shibboleth 1.3 SP.
  */
 $metadata['__DYNAMIC:1__'] = array(
-	'host' => '__DEFAULT__',
+    'host' => '__DEFAULT__',
 );

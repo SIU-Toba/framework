@@ -17,32 +17,41 @@ namespace JpGraph;
 // Description: Utility class to help generate data for function plots.
 // The class supports both parametric and regular functions.
 //===================================================
-class FuncGenerator {
-    private $iFunc='',$iXFunc='',$iMin,$iMax,$iStepSize;
+class FuncGenerator
+{
+    private $iFunc = '';
+    private $iXFunc = '';
+    private $iMin;
+    private $iMax;
+    private $iStepSize;
 
-    function __construct($aFunc,$aXFunc='') {
+    public function __construct($aFunc, $aXFunc = '')
+    {
         $this->iFunc = $aFunc;
         $this->iXFunc = $aXFunc;
     }
 
-    function E($aXMin,$aXMax,$aSteps=50) {
+    public function E($aXMin, $aXMax, $aSteps = 50)
+    {
         $this->iMin = $aXMin;
         $this->iMax = $aXMax;
-        $this->iStepSize = ($aXMax-$aXMin)/$aSteps;
+        $this->iStepSize = ($aXMax - $aXMin) / $aSteps;
 
-        if( $this->iXFunc != '' )
-        $t = 'for($i='.$aXMin.'; $i<='.$aXMax.'; $i += '.$this->iStepSize.') {$ya[]='.$this->iFunc.';$xa[]='.$this->iXFunc.';}';
-        elseif( $this->iFunc != '' )
-        $t = 'for($x='.$aXMin.'; $x<='.$aXMax.'; $x += '.$this->iStepSize.') {$ya[]='.$this->iFunc.';$xa[]=$x;} $x='.$aXMax.';$ya[]='.$this->iFunc.';$xa[]=$x;';
-        else
-        JpGraphError::RaiseL(24001);//('FuncGenerator : No function specified. ');
+        if ($this->iXFunc != '') {
+            $t = 'for($i='.$aXMin.'; $i<='.$aXMax.'; $i += '.$this->iStepSize.') {$ya[]='.$this->iFunc.';$xa[]='.$this->iXFunc.';}';
+        } elseif ($this->iFunc != '') {
+            $t = 'for($x='.$aXMin.'; $x<='.$aXMax.'; $x += '.$this->iStepSize.') {$ya[]='.$this->iFunc.';$xa[]=$x;} $x='.$aXMax.';$ya[]='.$this->iFunc.';$xa[]=$x;';
+        } else {
+            JpGraphError::RaiseL(24001);
+        }//('FuncGenerator : No function specified. ');
 
         @eval($t);
 
         // If there is an error in the function specifcation this is the only
         // way we can discover that.
-        if( empty($xa) || empty($ya) )
-        JpGraphError::RaiseL(24002);//('FuncGenerator : Syntax error in function specification ');
+        if (empty($xa) || empty($ya)) {
+            JpGraphError::RaiseL(24002);
+        }//('FuncGenerator : Syntax error in function specification ');
 
         return array($xa,$ya);
     }
@@ -53,81 +62,92 @@ class FuncGenerator {
 // CLASS DateScaleUtils
 // Description: Help to create a manual date scale
 //=============================================================================
-define('DSUTILS_MONTH',1); // Major and minor ticks on a monthly basis
-define('DSUTILS_MONTH1',1); // Major and minor ticks on a monthly basis
-define('DSUTILS_MONTH2',2); // Major ticks on a bi-monthly basis
-define('DSUTILS_MONTH3',3); // Major icks on a tri-monthly basis
-define('DSUTILS_MONTH6',4); // Major on a six-monthly basis
-define('DSUTILS_WEEK1',5); // Major ticks on a weekly basis
-define('DSUTILS_WEEK2',6); // Major ticks on a bi-weekly basis
-define('DSUTILS_WEEK4',7); // Major ticks on a quod-weekly basis
-define('DSUTILS_DAY1',8); // Major ticks on a daily basis
-define('DSUTILS_DAY2',9); // Major ticks on a bi-daily basis
-define('DSUTILS_DAY4',10); // Major ticks on a qoud-daily basis
-define('DSUTILS_YEAR1',11); // Major ticks on a yearly basis
-define('DSUTILS_YEAR2',12); // Major ticks on a bi-yearly basis
-define('DSUTILS_YEAR5',13); // Major ticks on a five-yearly basis
+define('DSUTILS_MONTH', 1); // Major and minor ticks on a monthly basis
+define('DSUTILS_MONTH1', 1); // Major and minor ticks on a monthly basis
+define('DSUTILS_MONTH2', 2); // Major ticks on a bi-monthly basis
+define('DSUTILS_MONTH3', 3); // Major icks on a tri-monthly basis
+define('DSUTILS_MONTH6', 4); // Major on a six-monthly basis
+define('DSUTILS_WEEK1', 5); // Major ticks on a weekly basis
+define('DSUTILS_WEEK2', 6); // Major ticks on a bi-weekly basis
+define('DSUTILS_WEEK4', 7); // Major ticks on a quod-weekly basis
+define('DSUTILS_DAY1', 8); // Major ticks on a daily basis
+define('DSUTILS_DAY2', 9); // Major ticks on a bi-daily basis
+define('DSUTILS_DAY4', 10); // Major ticks on a qoud-daily basis
+define('DSUTILS_YEAR1', 11); // Major ticks on a yearly basis
+define('DSUTILS_YEAR2', 12); // Major ticks on a bi-yearly basis
+define('DSUTILS_YEAR5', 13); // Major ticks on a five-yearly basis
 
 
-class DateScaleUtils {
-    public static $iMin=0, $iMax=0;
+class DateScaleUtils
+{
+    public static $iMin = 0;
+    public static $iMax = 0;
 
-    private static $starthour,$startmonth, $startday, $startyear;
-    private static $endmonth, $endyear, $endday;
-    private static $tickPositions=array(),$minTickPositions=array();
+    private static $starthour;
+    private static $startmonth;
+    private static $startday;
+    private static $startyear;
+    private static $endmonth;
+    private static $endyear;
+    private static $endday;
+    private static $tickPositions = array();
+    private static $minTickPositions = array();
     private static $iUseWeeks = true;
 
-    static function UseWeekFormat($aFlg) {
+    public static function UseWeekFormat($aFlg)
+    {
         self::$iUseWeeks = $aFlg;
     }
 
-    static function doYearly($aType,$aMinor=false) {
-        $i=0; $j=0;
+    public static function doYearly($aType, $aMinor = false)
+    {
+        $i = 0;
+        $j = 0;
         $m = self::$startmonth;
         $y = self::$startyear;
 
-        if( self::$startday == 1 ) {
-            self::$tickPositions[$i++] = mktime(0,0,0,$m,1,$y);
+        if (self::$startday == 1) {
+            self::$tickPositions[$i++] = mktime(0, 0, 0, $m, 1, $y);
         }
         ++$m;
 
 
-        switch( $aType ) {
+        switch ($aType) {
             case DSUTILS_YEAR1:
-                for($y=self::$startyear; $y <= self::$endyear; ++$y ) {
-                    if( $aMinor ) {
-                        while( $m <= 12 ) {
-                            if( !($y == self::$endyear && $m > self::$endmonth) ) {
-                                self::$minTickPositions[$j++] = mktime(0,0,0,$m,1,$y);
+                for ($y = self::$startyear; $y <= self::$endyear; ++$y) {
+                    if ($aMinor) {
+                        while ($m <= 12) {
+                            if (!($y == self::$endyear && $m > self::$endmonth)) {
+                                self::$minTickPositions[$j++] = mktime(0, 0, 0, $m, 1, $y);
                             }
                             ++$m;
                         }
-                        $m=1;
+                        $m = 1;
                     }
-                    self::$tickPositions[$i++] = mktime(0,0,0,1,1,$y);
+                    self::$tickPositions[$i++] = mktime(0, 0, 0, 1, 1, $y);
                 }
                 break;
             case DSUTILS_YEAR2:
-                $y=self::$startyear;
-                while( $y <= self::$endyear ) {
-                    self::$tickPositions[$i++] = mktime(0,0,0,1,1,$y);
-                    for($k=0; $k < 1; ++$k ) {
+                $y = self::$startyear;
+                while ($y <= self::$endyear) {
+                    self::$tickPositions[$i++] = mktime(0, 0, 0, 1, 1, $y);
+                    for ($k = 0; $k < 1; ++$k) {
                         ++$y;
-                        if( $aMinor ) {
-                            self::$minTickPositions[$j++] = mktime(0,0,0,1,1,$y);
+                        if ($aMinor) {
+                            self::$minTickPositions[$j++] = mktime(0, 0, 0, 1, 1, $y);
                         }
                     }
                     ++$y;
                 }
                 break;
             case DSUTILS_YEAR5:
-                $y=self::$startyear;
-                while( $y <= self::$endyear ) {
-                    self::$tickPositions[$i++] = mktime(0,0,0,1,1,$y);
-                    for($k=0; $k < 4; ++$k ) {
+                $y = self::$startyear;
+                while ($y <= self::$endyear) {
+                    self::$tickPositions[$i++] = mktime(0, 0, 0, 1, 1, $y);
+                    for ($k = 0; $k < 4; ++$k) {
                         ++$y;
-                        if( $aMinor ) {
-                            self::$minTickPositions[$j++] = mktime(0,0,0,1,1,$y);
+                        if ($aMinor) {
+                            self::$minTickPositions[$j++] = mktime(0, 0, 0, 1, 1, $y);
                         }
                     }
                     ++$y;
@@ -136,92 +156,97 @@ class DateScaleUtils {
         }
     }
 
-    static function doDaily($aType,$aMinor=false) {
+    public static function doDaily($aType, $aMinor = false)
+    {
         $m = self::$startmonth;
         $y = self::$startyear;
         $d = self::$startday;
         $h = self::$starthour;
-        $i=0;$j=0;
+        $i = 0;
+        $j = 0;
 
-        if( $h == 0 ) {
-            self::$tickPositions[$i++] = mktime(0,0,0,$m,$d,$y);
+        if ($h == 0) {
+            self::$tickPositions[$i++] = mktime(0, 0, 0, $m, $d, $y);
         }
-        $t = mktime(0,0,0,$m,$d,$y);
+        $t = mktime(0, 0, 0, $m, $d, $y);
 
-        switch($aType) {
+        switch ($aType) {
             case DSUTILS_DAY1:
-                while( $t <= self::$iMax ) {
-                    $t = strtotime('+1 day',$t);
+                while ($t <= self::$iMax) {
+                    $t = strtotime('+1 day', $t);
                     self::$tickPositions[$i++] = $t;
-                    if( $aMinor ) {
-                        self::$minTickPositions[$j++] = strtotime('+12 hours',$t);
+                    if ($aMinor) {
+                        self::$minTickPositions[$j++] = strtotime('+12 hours', $t);
                     }
                 }
                 break;
             case DSUTILS_DAY2:
-                while( $t <= self::$iMax ) {
-                    $t = strtotime('+1 day',$t);
-                    if( $aMinor ) {
+                while ($t <= self::$iMax) {
+                    $t = strtotime('+1 day', $t);
+                    if ($aMinor) {
                         self::$minTickPositions[$j++] = $t;
                     }
-                    $t = strtotime('+1 day',$t);
+                    $t = strtotime('+1 day', $t);
                     self::$tickPositions[$i++] = $t;
                 }
                 break;
             case DSUTILS_DAY4:
-                while( $t <= self::$iMax ) {
-                    for($k=0; $k < 3; ++$k ) {
-                        $t = strtotime('+1 day',$t);
-                        if( $aMinor ) {
+                while ($t <= self::$iMax) {
+                    for ($k = 0; $k < 3; ++$k) {
+                        $t = strtotime('+1 day', $t);
+                        if ($aMinor) {
                             self::$minTickPositions[$j++] = $t;
                         }
                     }
-                    $t = strtotime('+1 day',$t);
+                    $t = strtotime('+1 day', $t);
                     self::$tickPositions[$i++] = $t;
                 }
                 break;
         }
     }
 
-    static function doWeekly($aType,$aMinor=false) {
-        $hpd = 3600*24;
-        $hpw = 3600*24*7;
+    public static function doWeekly($aType, $aMinor = false)
+    {
+        $hpd = 3600 * 24;
+        $hpw = 3600 * 24 * 7;
         // Find out week number of min date
         $thursday = self::$iMin + $hpd * (3 - (date('w', self::$iMin) + 6) % 7);
         $week = 1 + (date('z', $thursday) - (11 - date('w', mktime(0, 0, 0, 1, 1, date('Y', $thursday)))) % 7) / 7;
-        $daynumber = date('w',self::$iMin);
-        if( $daynumber == 0 ) $daynumber = 7;
+        $daynumber = date('w', self::$iMin);
+        if ($daynumber == 0) {
+            $daynumber = 7;
+        }
         $m = self::$startmonth;
         $y = self::$startyear;
         $d = self::$startday;
-        $i=0;$j=0;
+        $i = 0;
+        $j = 0;
         // The assumption is that the weeks start on Monday. If the first day
         // is later in the week then the first week tick has to be on the following
         // week.
-        if( $daynumber == 1 ) {
-            self::$tickPositions[$i++] = mktime(0,0,0,$m,$d,$y);
-            $t = mktime(0,0,0,$m,$d,$y) + $hpw;
-        }
-        else {
-            $t = mktime(0,0,0,$m,$d,$y) + $hpd*(8-$daynumber);
+        if ($daynumber == 1) {
+            self::$tickPositions[$i++] = mktime(0, 0, 0, $m, $d, $y);
+            $t = mktime(0, 0, 0, $m, $d, $y) + $hpw;
+        } else {
+            $t = mktime(0, 0, 0, $m, $d, $y) + $hpd * (8 - $daynumber);
         }
 
-        switch($aType) {
+        switch ($aType) {
             case DSUTILS_WEEK1:
-                $cnt=0;
+                $cnt = 0;
                 break;
             case DSUTILS_WEEK2:
-                $cnt=1;
+                $cnt = 1;
                 break;
             case DSUTILS_WEEK4:
-                $cnt=3;
+                $cnt = 3;
                 break;
         }
-        while( $t <= self::$iMax ) {
+        while ($t <= self::$iMax) {
             self::$tickPositions[$i++] = $t;
-            for($k=0; $k < $cnt; ++$k ) {
+            for ($k = 0; $k < $cnt; ++$k) {
                 $t += $hpw;
-                if( $aMinor ) {
+                if ($aMinor) {
                     self::$minTickPositions[$j++] = $t;
                 }
             }
@@ -229,113 +254,119 @@ class DateScaleUtils {
         }
     }
 
-    static function doMonthly($aType,$aMinor=false) {
-        $monthcount=0;
+    public static function doMonthly($aType, $aMinor = false)
+    {
+        $monthcount = 0;
         $m = self::$startmonth;
         $y = self::$startyear;
-        $i=0; $j=0;
+        $i = 0;
+        $j = 0;
 
         // Skip the first month label if it is before the startdate
-        if( self::$startday == 1 ) {
-            self::$tickPositions[$i++] = mktime(0,0,0,$m,1,$y);
-            $monthcount=1;
+        if (self::$startday == 1) {
+            self::$tickPositions[$i++] = mktime(0, 0, 0, $m, 1, $y);
+            $monthcount = 1;
         }
-        if( $aType == 1 ) {
-            if( self::$startday < 15 ) {
-                self::$minTickPositions[$j++] = mktime(0,0,0,$m,15,$y);
+        if ($aType == 1) {
+            if (self::$startday < 15) {
+                self::$minTickPositions[$j++] = mktime(0, 0, 0, $m, 15, $y);
             }
         }
         ++$m;
 
         // Loop through all the years included in the scale
-        for($y=self::$startyear; $y <= self::$endyear; ++$y ) {
+        for ($y = self::$startyear; $y <= self::$endyear; ++$y) {
             // Loop through all the months. There are three cases to consider:
             // 1. We are in the first year and must start with the startmonth
             // 2. We are in the end year and we must stop at last month of the scale
             // 3. A year in between where we run through all the 12 months
             $stopmonth = $y == self::$endyear ? self::$endmonth : 12;
-            while( $m <= $stopmonth ) {
-                switch( $aType ) {
+            while ($m <= $stopmonth) {
+                switch ($aType) {
                     case DSUTILS_MONTH1:
                         // Set minor tick at the middle of the month
-                        if( $aMinor ) {
-                            if( $m <= $stopmonth ) {
-                                if( !($y==self::$endyear && $m==$stopmonth && self::$endday < 15) )
-                                self::$minTickPositions[$j++] = mktime(0,0,0,$m,15,$y);
+                        if ($aMinor) {
+                            if ($m <= $stopmonth) {
+                                if (!($y == self::$endyear && $m == $stopmonth && self::$endday < 15)) {
+                                    self::$minTickPositions[$j++] = mktime(0, 0, 0, $m, 15, $y);
+                                }
                             }
                         }
                         // Major at month
                         // Get timestamp of first hour of first day in each month
-                        self::$tickPositions[$i++] = mktime(0,0,0,$m,1,$y);
+                        self::$tickPositions[$i++] = mktime(0, 0, 0, $m, 1, $y);
 
                         break;
                     case DSUTILS_MONTH2:
-                        if( $aMinor ) {
+                        if ($aMinor) {
                             // Set minor tick at start of each month
-                            self::$minTickPositions[$j++] = mktime(0,0,0,$m,1,$y);
+                            self::$minTickPositions[$j++] = mktime(0, 0, 0, $m, 1, $y);
                         }
 
                         // Major at every second month
                         // Get timestamp of first hour of first day in each month
-                        if( $monthcount % 2 == 0 ) {
-                            self::$tickPositions[$i++] = mktime(0,0,0,$m,1,$y);
+                        if ($monthcount % 2 == 0) {
+                            self::$tickPositions[$i++] = mktime(0, 0, 0, $m, 1, $y);
                         }
                         break;
                     case DSUTILS_MONTH3:
-                        if( $aMinor ) {
+                        if ($aMinor) {
                             // Set minor tick at start of each month
-                            self::$minTickPositions[$j++] = mktime(0,0,0,$m,1,$y);
+                            self::$minTickPositions[$j++] = mktime(0, 0, 0, $m, 1, $y);
                         }
                         // Major at every third month
                         // Get timestamp of first hour of first day in each month
-                        if( $monthcount % 3 == 0 ) {
-                            self::$tickPositions[$i++] = mktime(0,0,0,$m,1,$y);
+                        if ($monthcount % 3 == 0) {
+                            self::$tickPositions[$i++] = mktime(0, 0, 0, $m, 1, $y);
                         }
                         break;
                     case DSUTILS_MONTH6:
-                        if( $aMinor ) {
+                        if ($aMinor) {
                             // Set minor tick at start of each month
-                            self::$minTickPositions[$j++] = mktime(0,0,0,$m,1,$y);
+                            self::$minTickPositions[$j++] = mktime(0, 0, 0, $m, 1, $y);
                         }
                         // Major at every third month
                         // Get timestamp of first hour of first day in each month
-                        if( $monthcount % 6 == 0 ) {
-                            self::$tickPositions[$i++] = mktime(0,0,0,$m,1,$y);
+                        if ($monthcount % 6 == 0) {
+                            self::$tickPositions[$i++] = mktime(0, 0, 0, $m, 1, $y);
                         }
                         break;
                 }
                 ++$m;
                 ++$monthcount;
             }
-            $m=1;
+            $m = 1;
         }
 
         // For the case where all dates are within the same month
         // we want to make sure we have at least two ticks on the scale
         // since the scale want work properly otherwise
-        if(self::$startmonth == self::$endmonth && self::$startyear == self::$endyear && $aType==1 ) {
-            self::$tickPositions[$i++] = mktime(0 ,0 ,0, self::$startmonth + 1, 1, self::$startyear);
+        if (self::$startmonth == self::$endmonth && self::$startyear == self::$endyear && $aType == 1) {
+            self::$tickPositions[$i++] = mktime(0, 0, 0, self::$startmonth + 1, 1, self::$startyear);
         }
 
         return array(self::$tickPositions,self::$minTickPositions);
     }
 
-    static function GetTicks($aData,$aType=1,$aMinor=false,$aEndPoints=false) {
+    public static function GetTicks($aData, $aType = 1, $aMinor = false, $aEndPoints = false)
+    {
         $n = count($aData);
-        return self::GetTicksFromMinMax($aData[0],$aData[$n-1],$aType,$aMinor,$aEndPoints);
+        return self::GetTicksFromMinMax($aData[0], $aData[$n - 1], $aType, $aMinor, $aEndPoints);
     }
 
-    static function GetAutoTicks($aMin,$aMax,$aMaxTicks=10,$aMinor=false) {
+    public static function GetAutoTicks($aMin, $aMax, $aMaxTicks = 10, $aMinor = false)
+    {
         $diff = $aMax - $aMin;
-        $spd = 3600*24;
-        $spw = $spd*7;
-        $spm = $spd*30;
-        $spy = $spd*352;
+        $spd = 3600 * 24;
+        $spw = $spd * 7;
+        $spm = $spd * 30;
+        $spy = $spd * 352;
 
-        if( self::$iUseWeeks )
-        $w = 'W';
-        else
-        $w = 'd M';
+        if (self::$iUseWeeks) {
+            $w = 'W';
+        } else {
+            $w = 'd M';
+        }
 
         // Decision table for suitable scales
         // First value: Main decision point
@@ -347,16 +378,16 @@ class DateScaleUtils {
             array(-1, array(30,DSUTILS_MONTH1,'M-Y',60,DSUTILS_MONTH2,'M-Y',90,DSUTILS_MONTH3,'M-Y',180,DSUTILS_MONTH6,'M-Y',352,DSUTILS_YEAR1,'Y',704,DSUTILS_YEAR2,'Y',-1,DSUTILS_YEAR5,'Y')));
 
         $ntt = count($tt);
-        $nd = floor($diff/$spd);
-        for($i=0; $i < $ntt; ++$i ) {
-            if( $diff <= $tt[$i][0] || $i==$ntt-1) {
+        $nd = floor($diff / $spd);
+        for ($i = 0; $i < $ntt; ++$i) {
+            if ($diff <= $tt[$i][0] || $i == $ntt - 1) {
                 $t = $tt[$i][1];
-                $n = count($t)/3;
-                for( $j=0; $j < $n; ++$j ) {
-                    if( $nd/$t[3*$j] <= $aMaxTicks || $j==$n-1) {
-                        $type = $t[3*$j+1];
-                        $fs = $t[3*$j+2];
-                        list($tickPositions,$minTickPositions) = self::GetTicksFromMinMax($aMin,$aMax,$type,$aMinor);
+                $n = count($t) / 3;
+                for ($j = 0; $j < $n; ++$j) {
+                    if ($nd / $t[3 * $j] <= $aMaxTicks || $j == $n - 1) {
+                        $type = $t[3 * $j + 1];
+                        $fs = $t[3 * $j + 2];
+                        list($tickPositions, $minTickPositions) = self::GetTicksFromMinMax($aMin, $aMax, $type, $aMinor);
                         return array($fs,$tickPositions,$minTickPositions,$type);
                     }
                 }
@@ -364,40 +395,37 @@ class DateScaleUtils {
         }
     }
 
-    static function GetTicksFromMinMax($aMin,$aMax,$aType,$aMinor=false,$aEndPoints=false) {
-        self::$starthour = date('G',$aMin);
-        self::$startmonth = date('n',$aMin);
-        self::$startday = date('j',$aMin);
-        self::$startyear = date('Y',$aMin);
-        self::$endmonth = date('n',$aMax);
-        self::$endyear = date('Y',$aMax);
-        self::$endday = date('j',$aMax);
+    public static function GetTicksFromMinMax($aMin, $aMax, $aType, $aMinor = false, $aEndPoints = false)
+    {
+        self::$starthour = date('G', $aMin);
+        self::$startmonth = date('n', $aMin);
+        self::$startday = date('j', $aMin);
+        self::$startyear = date('Y', $aMin);
+        self::$endmonth = date('n', $aMax);
+        self::$endyear = date('Y', $aMax);
+        self::$endday = date('j', $aMax);
         self::$iMin = $aMin;
         self::$iMax = $aMax;
 
-        if( $aType <= DSUTILS_MONTH6 ) {
-            self::doMonthly($aType,$aMinor);
-        }
-        elseif( $aType <= DSUTILS_WEEK4 ) {
-            self::doWeekly($aType,$aMinor);
-        }
-        elseif( $aType <= DSUTILS_DAY4 ) {
-            self::doDaily($aType,$aMinor);
-        }
-        elseif( $aType <= DSUTILS_YEAR5 ) {
-            self::doYearly($aType,$aMinor);
-        }
-        else {
+        if ($aType <= DSUTILS_MONTH6) {
+            self::doMonthly($aType, $aMinor);
+        } elseif ($aType <= DSUTILS_WEEK4) {
+            self::doWeekly($aType, $aMinor);
+        } elseif ($aType <= DSUTILS_DAY4) {
+            self::doDaily($aType, $aMinor);
+        } elseif ($aType <= DSUTILS_YEAR5) {
+            self::doYearly($aType, $aMinor);
+        } else {
             JpGraphError::RaiseL(24003);
         }
         // put a label at the very left data pos
-        if( $aEndPoints ) {
+        if ($aEndPoints) {
             $tickPositions[$i++] = $aData[0];
         }
 
         // put a label at the very right data pos
-        if( $aEndPoints ) {
-            $tickPositions[$i] = $aData[$n-1];
+        if ($aEndPoints) {
+            $tickPositions[$i] = $aData[$n - 1];
         }
 
         return array(self::$tickPositions,self::$minTickPositions);
@@ -407,7 +435,8 @@ class DateScaleUtils {
 //=============================================================================
 // Class ReadFileData
 //=============================================================================
-Class ReadFileData {
+class ReadFileData
+{
     //----------------------------------------------------------------------------
     // Desciption:
     // Read numeric data from a file.
@@ -420,15 +449,16 @@ Class ReadFileData {
     // Returns:
     // The number of data values read on success, FALSE on failure
     //----------------------------------------------------------------------------
-    static function FromCSV($aFile,&$aData,$aSepChar=',',$aMaxLineLength=1024) {
-        $rh = @fopen($aFile,'r');
-        if( $rh === false ) {
-                return false;
+    public static function FromCSV($aFile, &$aData, $aSepChar = ',', $aMaxLineLength = 1024)
+    {
+        $rh = @fopen($aFile, 'r');
+        if ($rh === false) {
+            return false;
         }
         $tmp = array();
         $lineofdata = fgetcsv($rh, 1000, ',');
-        while ( $lineofdata !== FALSE) {
-            $tmp = array_merge($tmp,$lineofdata);
+        while ($lineofdata !== false) {
+            $tmp = array_merge($tmp, $lineofdata);
             $lineofdata = fgetcsv($rh, $aMaxLineLength, $aSepChar);
         }
         fclose($rh);
@@ -437,9 +467,9 @@ Class ReadFileData {
         // all data is read as strings
         $n = count($tmp);
         $aData = array();
-        $cnt=0;
-        for($i=0; $i < $n; ++$i) {
-            if( $tmp[$i] !== "" ) {
+        $cnt = 0;
+        for ($i = 0; $i < $n; ++$i) {
+            if ($tmp[$i] !== "") {
                 $aData[$cnt++] = floatval($tmp[$i]);
             }
         }
@@ -466,7 +496,8 @@ Class ReadFileData {
     // Returns:
     // The number of lines read on success, FALSE on failure
     //----------------------------------------------------------------------------
-    static function FromCSV2($aFile, &$aData, $aOptions = array()) {
+    public static function FromCSV2($aFile, &$aData, $aOptions = array())
+    {
         $aDefaults = array(
             'separator'     => ',',
             'enclosure'     => chr(34),
@@ -477,30 +508,33 @@ Class ReadFileData {
             );
 
         $aOptions = array_merge(
-            $aDefaults, is_array($aOptions) ? $aOptions : array());
+            $aDefaults,
+            is_array($aOptions) ? $aOptions : array()
+        );
 
-        if( $aOptions['first_as_key'] ) {
+        if ($aOptions['first_as_key']) {
             $aOptions['ignore_first'] =  true;
         }
 
         $rh = @fopen($aFile, 'r');
 
-        if( $rh === false ) {
+        if ($rh === false) {
             return false;
         }
 
         $aData  = array();
-        $aLine  = fgetcsv($rh,
-                          $aOptions['readlength'],
-                          $aOptions['separator'],
-                          $aOptions['enclosure']
-                          /*, $aOptions['escape']     # PHP >= 5.3 only */
-                          );
+        $aLine  = fgetcsv(
+            $rh,
+            $aOptions['readlength'],
+            $aOptions['separator'],
+            $aOptions['enclosure']
+            /*, $aOptions['escape']     # PHP >= 5.3 only */
+        );
 
         // Use numeric array keys for the columns by default
         // If specified use first lines values as assoc keys instead
         $keys = array_keys($aLine);
-        if( $aOptions['first_as_key'] ) {
+        if ($aOptions['first_as_key']) {
             $keys = array_values($aLine);
         }
 
@@ -508,33 +542,34 @@ Class ReadFileData {
         $num_cols  = count($aLine);
 
         while ($aLine !== false) {
-            if( is_array($aLine) && count($aLine) != $num_cols ) {
+            if (is_array($aLine) && count($aLine) != $num_cols) {
                 JpGraphError::RaiseL(24004);
                 // 'ReadCSV2: Column count mismatch in %s line %d'
             }
 
             // fgetcsv returns NULL for empty lines
-            if( !is_null($aLine) ) {
+            if (!is_null($aLine)) {
                 $num_lines++;
 
-                if( !($aOptions['ignore_first'] && $num_lines == 1) && is_numeric($aLine[0]) ) {
-                    for( $i = 0; $i < $num_cols; $i++ ) {
+                if (!($aOptions['ignore_first'] && $num_lines == 1) && is_numeric($aLine[0])) {
+                    for ($i = 0; $i < $num_cols; $i++) {
                         $aData[ $keys[$i] ][] = floatval($aLine[$i]);
                     }
                 }
             }
 
-            $aLine = fgetcsv($rh,
-                             $aOptions['readlength'],
-                             $aOptions['separator'],
-                             $aOptions['enclosure']
-                             /*, $aOptions['escape']     # PHP >= 5.3 only*/
-                );
+            $aLine = fgetcsv(
+                $rh,
+                $aOptions['readlength'],
+                $aOptions['separator'],
+                $aOptions['enclosure']
+                /*, $aOptions['escape']     # PHP >= 5.3 only*/
+            );
         }
 
         fclose($rh);
 
-        if( $aOptions['ignore_first'] ) {
+        if ($aOptions['ignore_first']) {
             $num_lines--;
         }
 
@@ -542,53 +577,55 @@ Class ReadFileData {
     }
 
     // Read data from two columns in a plain text file
-    static function From2Col($aFile, $aCol1, $aCol2, $aSepChar=' ') {
-        $lines = @file($aFile,FILE_IGNORE_NEW_LINES|FILE_SKIP_EMPTY_LINES);
-        if( $lines === false ) {
-                return false;
+    public static function From2Col($aFile, $aCol1, $aCol2, $aSepChar = ' ')
+    {
+        $lines = @file($aFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        if ($lines === false) {
+            return false;
         }
         $s = '/[\s]+/';
-        if( $aSepChar == ',' ) {
-                        $s = '/[\s]*,[\s]*/';
+        if ($aSepChar == ',') {
+            $s = '/[\s]*,[\s]*/';
+        } elseif ($aSepChar == ';') {
+            $s = '/[\s]*;[\s]*/';
         }
-        elseif( $aSepChar == ';' ) {
-                        $s = '/[\s]*;[\s]*/';
-        }
-        foreach( $lines as $line => $datarow ) {
-                $split = preg_split($s,$datarow);
-                $aCol1[] = floatval(trim($split[0]));
-                $aCol2[] = floatval(trim($split[1]));
+        foreach ($lines as $line => $datarow) {
+            $split = preg_split($s, $datarow);
+            $aCol1[] = floatval(trim($split[0]));
+            $aCol2[] = floatval(trim($split[1]));
         }
 
         return count($lines);
     }
 
     // Read data from one columns in a plain text file
-    static function From1Col($aFile, $aCol1) {
-        $lines = @file($aFile,FILE_IGNORE_NEW_LINES|FILE_SKIP_EMPTY_LINES);
-        if( $lines === false ) {
-                return false;
+    public static function From1Col($aFile, $aCol1)
+    {
+        $lines = @file($aFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        if ($lines === false) {
+            return false;
         }
-        foreach( $lines as $line => $datarow ) {
-                $aCol1[] = floatval(trim($datarow));
+        foreach ($lines as $line => $datarow) {
+            $aCol1[] = floatval(trim($datarow));
         }
 
         return count($lines);
     }
 
-    static function FromMatrix($aFile,$aSepChar=' ') {
-        $lines = @file($aFile,FILE_IGNORE_NEW_LINES|FILE_SKIP_EMPTY_LINES);
-        if( $lines === false ) {
-                return false;
+    public static function FromMatrix($aFile, $aSepChar = ' ')
+    {
+        $lines = @file($aFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        if ($lines === false) {
+            return false;
         }
         $mat = array();
         $reg = '/'.$aSepChar.'/';
-        foreach( $lines as $line => $datarow ) {
-                $row = preg_split($reg,trim($datarow));
-                foreach ($row as $key => $cell ) {
-                        $row[$key] = floatval(trim($cell));
-                }
-                $mat[] = $row;
+        foreach ($lines as $line => $datarow) {
+            $row = preg_split($reg, trim($datarow));
+            foreach ($row as $key => $cell) {
+                $row[$key] = floatval(trim($cell));
+            }
+            $mat[] = $row;
         }
         return $mat;
     }
@@ -600,89 +637,98 @@ define('__LR_EPSILON', 1.0e-8);
 //=============================================================================
 // Class LinearRegression
 //=============================================================================
-class LinearRegression {
-        private $ix=array(),$iy=array();
-        private $ib=0, $ia=0;
-        private $icalculated=false;
-        public $iDet=0, $iCorr=0, $iStdErr=0;
+class LinearRegression
+{
+    private $ix = array();
+    private $iy = array();
+    private $ib = 0;
+    private $ia = 0;
+    private $icalculated = false;
+    public $iDet = 0;
+    public $iCorr = 0;
+    public $iStdErr = 0;
 
-        public function __construct($aDataX,$aDataY) {
-                if( count($aDataX) !== count($aDataY) ) {
-                        JpGraph::Raise('LinearRegression: X and Y data array must be of equal length.');
-                }
-                $this->ix = $aDataX;
-                $this->iy = $aDataY;
+    public function __construct($aDataX, $aDataY)
+    {
+        if (count($aDataX) !== count($aDataY)) {
+            JpGraph::Raise('LinearRegression: X and Y data array must be of equal length.');
+        }
+        $this->ix = $aDataX;
+        $this->iy = $aDataY;
+    }
+
+    public function Calc()
+    {
+
+        $this->icalculated = true;
+
+        $n = count($this->ix);
+        $sx2 = 0 ;
+        $sy2 = 0 ;
+        $sxy = 0 ;
+        $sx = 0 ;
+        $sy = 0 ;
+
+        for ($i = 0; $i < $n; ++$i) {
+            $sx2 += $this->ix[$i] * $this->ix[$i];
+            $sy2 += $this->iy[$i] * $this->iy[$i];
+            $sxy += $this->ix[$i] * $this->iy[$i];
+            $sx += $this->ix[$i];
+            $sy += $this->iy[$i];
         }
 
-        public function Calc() {
+        if ($n * $sx2 - $sx * $sx > __LR_EPSILON) {
+            $this->ib = ($n * $sxy - $sx * $sy) / ($n * $sx2 - $sx * $sx);
+            $this->ia = ($sy - $this->ib * $sx) / $n;
 
-                $this->icalculated = true;
+            $sx = $this->ib * ($sxy - $sx * $sy / $n);
+            $sy2 = $sy2 - $sy * $sy / $n;
+            $sy = $sy2 - $sx;
 
-                $n = count($this->ix);
-                $sx2 = 0 ;
-                $sy2 = 0 ;
-                $sxy = 0 ;
-                $sx = 0 ;
-                $sy = 0 ;
-
-                for( $i=0; $i < $n; ++$i ) {
-                        $sx2 += $this->ix[$i] * $this->ix[$i];
-                        $sy2 += $this->iy[$i] * $this->iy[$i];
-                        $sxy += $this->ix[$i] * $this->iy[$i];
-                        $sx += $this->ix[$i];
-                        $sy += $this->iy[$i];
-                }
-
-                if( $n*$sx2 - $sx*$sx > __LR_EPSILON ) {
-                        $this->ib = ($n*$sxy - $sx*$sy) / ( $n*$sx2 - $sx*$sx );
-                        $this->ia = ( $sy - $this->ib*$sx ) / $n;
-
-                        $sx = $this->ib * ( $sxy - $sx*$sy/$n );
-                        $sy2 = $sy2 - $sy*$sy/$n;
-                        $sy = $sy2 - $sx;
-
-                        $this->iDet = $sx / $sy2;
-                        $this->iCorr = sqrt($this->iDet);
-                        if( $n > 2 ) {
-                                $this->iStdErr = sqrt( $sy / ($n-2) );
-                        }
-                        else {
-                                $this->iStdErr = NAN ;
-                        }
-                }
-                else {
-                        $this->ib = 0;
-                        $this->ia = 0;
-                }
-
+            $this->iDet = $sx / $sy2;
+            $this->iCorr = sqrt($this->iDet);
+            if ($n > 2) {
+                $this->iStdErr = sqrt($sy / ($n - 2));
+            } else {
+                $this->iStdErr = NAN ;
+            }
+        } else {
+            $this->ib = 0;
+            $this->ia = 0;
         }
 
-        public function GetAB() {
-                if( $this->icalculated == false )
-                        $this->Calc();
-                return array($this->ia, $this->ib);
+    }
+
+    public function GetAB()
+    {
+        if ($this->icalculated == false) {
+            $this->Calc();
+        }
+        return array($this->ia, $this->ib);
+    }
+
+    public function GetStat()
+    {
+        if ($this->icalculated == false) {
+            $this->Calc();
+        }
+        return array($this->iStdErr, $this->iCorr, $this->iDet);
+    }
+
+    public function GetY($aMinX, $aMaxX, $aStep = 1)
+    {
+        if ($this->icalculated == false) {
+            $this->Calc();
         }
 
-        public function GetStat() {
-                if( $this->icalculated == false )
-                        $this->Calc();
-                return array($this->iStdErr, $this->iCorr, $this->iDet);
+        $yy = array();
+        $i = 0;
+        for ($x = $aMinX; $x <= $aMaxX; $x += $aStep) {
+            $xx[$i  ] = $x;
+            $yy[$i++] = $this->ia + $this->ib * $x;
         }
 
-        public function GetY($aMinX, $aMaxX, $aStep=1) {
-                if( $this->icalculated == false )
-                        $this->Calc();
-
-                $yy = array();
-                $i = 0;
-                for( $x=$aMinX; $x <= $aMaxX; $x += $aStep ) {
-                        $xx[$i  ] = $x;
-                        $yy[$i++] = $this->ia + $this->ib * $x;
-                }
-
-                return array($xx,$yy);
-        }
+        return array($xx,$yy);
+    }
 
 }
-
-?>

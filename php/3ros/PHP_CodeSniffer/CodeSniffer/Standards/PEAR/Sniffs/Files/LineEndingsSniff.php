@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PEAR_Sniffs_Files_LineEndingsSniff.
  *
@@ -34,7 +35,6 @@ if (class_exists('Generic_Sniffs_Files_LineEndingsSniff', true) === false) {
  */
 class PEAR_Sniffs_Files_LineEndingsSniff extends Generic_Sniffs_Files_LineEndingsSniff
 {
-
     /**
      * The valid EOL character.
      *
@@ -43,5 +43,3 @@ class PEAR_Sniffs_Files_LineEndingsSniff extends Generic_Sniffs_Files_LineEnding
     protected $eolChar = "\n";
 
 }//end class
-
-?>

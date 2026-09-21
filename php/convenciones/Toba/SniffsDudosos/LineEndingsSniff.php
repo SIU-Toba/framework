@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Toba_Sniffs_Files_LineEndingsSniff.
  *
@@ -30,7 +31,6 @@
  */
 class Toba_Sniffs_Files_LineEndingsSniff implements PHP_CodeSniffer_Sniff
 {
-
     /**
      * The valid EOL character.
      *
@@ -84,5 +84,3 @@ class Toba_Sniffs_Files_LineEndingsSniff implements PHP_CodeSniffer_Sniff
 
 
 }//end class
-
-?>

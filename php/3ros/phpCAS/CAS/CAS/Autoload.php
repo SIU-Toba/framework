@@ -66,7 +66,7 @@ function CAS_autoload($class)
     ) {
         return false;
     }
-    die ((string) $e);
+    die((string) $e);
 }
 
 // set up __autoload
@@ -93,5 +93,3 @@ if (function_exists('spl_autoload_register')) {
         return CAS_autoload($class);
     }
 }
-
-?>
