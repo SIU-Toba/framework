@@ -1349,12 +1349,13 @@ class toba_ei_cuadro extends toba_ei
 	 */
 	protected function cargar_cambio_pagina()
 	{
-		if(isset($_POST[$this->_submit_paginado])
-				&& trim($_POST[$this->_submit_paginado]) != ''
-				&& is_numeric($_POST[$this->_submit_paginado]))
-			$this->_pagina_actual = $_POST[$this->_submit_paginado];
+		if(isset($_POST[$this->_submit_paginado]) 
+            && trim($_POST[$this->_submit_paginado]) != ''
+			&& is_numeric($_POST[$this->_submit_paginado])) {
+            $this->_pagina_actual = $_POST[$this->_submit_paginado];
+        }			
 	}
-
+    
 	/**
 	 * Pagina los datos actuales del cuadro
 	 * Restringe los datos a la pagina actual y calcula la cantidad de paginas posibles
@@ -1758,7 +1759,7 @@ class toba_ei_cuadro extends toba_ei
 	{
 		$tofind = "ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ";
 		$replac = "AAAAAAaaaaaaOOOOOOooooooEEEEeeeeCcIIIIiiiiUUUUuuuuyNn";
-		return(strtr($cadena,$tofind,$replac));
+		return (! empty($cadena)) ? (strtr($cadena,$tofind,$replac)): '';
 	}
 
 	/**
