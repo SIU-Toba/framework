@@ -1,7 +1,7 @@
 {
     "name": "siu-toba/framework",
     "description": "Framework de desarrollo web",
-    "version": "v3.5.0",
+    "version": "v3.5.1",
     "authors": [
         {
             "name": "SIU",
@@ -31,7 +31,8 @@
         "siu/manejador-salida-toba": "~1.2",
         "siu/interfaces-manejador-salida-toba": "~1.4",
         "symfony/yaml": "~4.4|~5.4|~6.0|~7.0",
-        "vlucas/phpdotenv": "~5.6"
+        "vlucas/phpdotenv": "~5.6", 
+        "guiguiboy/php-cli-progress-bar": "~0.0.4"
     },
     "conflict": {
         "siu/arai-cli": "<3.0.0",
