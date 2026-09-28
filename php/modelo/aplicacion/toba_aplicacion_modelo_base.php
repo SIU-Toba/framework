@@ -672,7 +672,7 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
                 'apellidos' => trim($nombresApellidos['apellidos']),
                 'nombre_completo' => trim($datosUsuarioToba['nombre']),
                 'bloqueado' => strval($datosUsuarioToba['bloqueado']),
-                'emails' => trim($datosUsuarioToba['email']) != "" ? trim($datosUsuarioToba['email']) : null,
+                'emails' => trim($datosUsuarioToba['email'] ?? '') != '' ? trim($datosUsuarioToba['email']) : null,
                 'clave' => $datosUsuarioToba['clave'],
                 'autentificacion' => $datosUsuarioToba['autentificacion_arai'],
             );
