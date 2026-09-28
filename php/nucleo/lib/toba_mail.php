@@ -230,9 +230,13 @@ class toba_mail implements toba_tarea
 	 */
 	function agregar_adjunto($nombre, $path_archivo, $encoding = 'base64', $tipo = '')
 	{
+        $contenido = '';
+        if (file_exists($path_archivo ?? '')) {
+            $contenido = file_get_contents($path_archivo);
+        }
 		$this->adjuntos[] = array(
 			'nombre' => $nombre,
-			'archivo' => file_get_contents($path_archivo),
+			'archivo' => $contenido,
 			'encoding' => $encoding,
 			'tipo' => $tipo
 		);
