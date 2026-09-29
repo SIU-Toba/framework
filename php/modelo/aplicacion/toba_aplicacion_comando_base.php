@@ -2,7 +2,8 @@
 
 use SIU\AraiJsonMigrator\AraiMigratorManager;
 use SIU\AraiJsonMigrator\AraiMigrator;
-use ProgressBar\Manager;
+use Symfony\Component\Console\Helper\ProgressBar;
+use Symfony\Component\Console\Output\ConsoleOutput;
 
 /**
  * Clase de entrada del usuario, un método por interacción
@@ -161,7 +162,10 @@ class toba_aplicacion_comando_base implements toba_aplicacion_comando
         $totalUsuarios = count($datosUsuarios);
 
         // Inicializo la barra de progreso
-        $progressBar = new Manager(0, $totalUsuarios, 120);
+        //$progressBar = new Manager(0, $totalUsuarios, 120);
+        $progressBar = new ProgressBar(new ConsoleOutput(), $totalUsuarios);
+        $progressBar->start();
+
 
         /* @var AraiMigratorManager $araiMigratorManager */
         $araiMigratorManager = new AraiMigratorManager();
@@ -198,6 +202,7 @@ class toba_aplicacion_comando_base implements toba_aplicacion_comando
         // Guardo la informacion en el archivo JSON
         $path = $pathMigration . $parametros['-f'] . '.json';
         $araiMigratorManager->save($path, $araiMigratorUsuarios);
+        $progressBar->finish();
 
         $this->manejador_interface->enter();
         $this->manejador_interface->mensaje("--------------------------------------------------------------------", false);
