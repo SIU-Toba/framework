@@ -745,22 +745,23 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 	/**
 	 * @param Account $account
      */
-	public function setearAplicacion(Account $account)
-	{
-		$appUniqueId = null;
-		if ($this->instalacion->vincula_arai_usuarios()) {
-			$appUniqueId = $this->instalacion->vincula_arai_proyecto();
-			if (null === $appUniqueId) {
-				$appUniqueId = \SIUToba\Framework\Arai\RegistryHooksProyectoToba::getAppUniqueId();
-			}
-		}
-		if (isset($appUniqueId)) {
-			$account->setAppUniqueId($appUniqueId);
-		} else {
-			$nombreProyecto = $this->get_proyecto()->get_parametro('proyecto', 'nombre', false);
-			$account->setAppName(utf8_e_seguro(isset($nombreProyecto)?$nombreProyecto:$this->get_proyecto()->get_id()));
-		}
-	}
+    public function setearAplicacion(Account $account)
+    {
+        $appUniqueId = null;
+        if ($this->instalacion->vincula_arai_usuarios()) {
+            $appUniqueId = $this->instalacion->vincula_arai_proyecto();
+            if (null === $appUniqueId || empty($appUniqueId)) {
+                throw new toba_error('Debe fijar el parametro vincula_arai_appID.');
+                //$appUniqueId = \SIUToba\Framework\Arai\RegistryHooksProyectoToba::getAppUniqueId();
+            }
+        }
+        if (isset($appUniqueId)) {
+            $account->setAppUniqueId($appUniqueId);
+        } else {
+            $nombreProyecto = $this->get_proyecto()->get_parametro('proyecto', 'nombre', false);
+            $account->setAppName(utf8_e_seguro(isset($nombreProyecto) ? $nombreProyecto : $this->get_proyecto()->get_id()));
+        }
+    }
 
 	private function getNombresApellidos($dato, $tokens)
 	{
