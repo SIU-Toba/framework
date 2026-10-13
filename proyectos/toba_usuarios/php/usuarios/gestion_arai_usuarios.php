@@ -131,22 +131,25 @@ class gestion_arai_usuarios
 
     private static function verifica_version_arai_cli()
     {
+        return true;
+        /**
+         * Asume compatibilidad ya que anulamos esta parte
+         *
         if (! class_exists('SIU\AraiCli\AraiCli')) {
             throw new toba_error('No se encuentra instalado el paquete siu/arai-cli, revise los paquetes sugeridos en composer.');
         }
         //Agregar verificacion puntual de version compatible de arai-cli
         if (! SIUToba\Framework\Arai\RegistryHooksProyectoToba::checkVersionCompatible()) {
             throw new toba_error('La versión del paquete siu/arai-cli no es compatible, revise la documentación del sistema.');
-        }
-
-        return true;
+        }*/
     }
 
     private static function getIdAplicacion()
     {
         $appID = toba::instalacion()->vincula_arai_proyecto();
-        if (null === $appID) {
-            $appID = SIUToba\Framework\Arai\RegistryHooksProyectoToba::getAppUniqueId();
+        if (null === $appID || empty($appID)) {
+            throw new toba_error('Debe fijar el parametro vincula_arai_appID.');
+            //$appID = SIUToba\Framework\Arai\RegistryHooksProyectoToba::getAppUniqueId();
         }
         return $appID;
     }
