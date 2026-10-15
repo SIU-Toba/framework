@@ -229,6 +229,22 @@ class comando_instalacion_silenciosa extends comando_toba
         }
     }
 
+    /**
+      * Elimina logs en un rango de tiempo
+      * @consola_parametros [-r 'rango']
+      */
+    public function opcion__purgar_logs()
+    {
+        $param = $this->get_parametros();
+        $result = $this->recuperar_dato_y_validez($param, ['-r']);
+        if ($result['invalido']) {
+            $this->consola->error('Debe proveer un rango en dias mediante el parámetro -r ');
+            exit(-1);
+        }
+        $tiempo = intval($result['resultado']);
+        $this->get_instalacion()->purgar_logs($tiempo);
+    }
+
     //----------------------------------------------------------------------------------------------------------------------------------//
     protected function get_parametros()
     {

@@ -1048,4 +1048,14 @@ class toba_modelo_instalacion extends toba_modelo_elemento
     {
         return toba::config()->get_parametro('instalacion', null, 'vincula_arai_appID');
     }
+
+    public function purgar_logs(int $tiempo = 0)
+    {
+        $this->manejador_interface->mensaje('Limpiando las tablas de logs', true);
+        foreach ($this->get_lista_instancias() as $id_inst) {
+            $instancia = $this->get_instancia($id_inst);
+            $instancia->limpiar_logs($tiempo);
+        }
+        $this->manejador_interface->progreso_fin();
+    }
 }

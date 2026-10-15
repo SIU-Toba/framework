@@ -1390,6 +1390,83 @@ class toba_modelo_instancia extends toba_modelo_elemento
         $this->eliminar_archivos_log();
     }
 
+    public function limpiar_logs(int $rango): void
+    {
+        $schema = '';
+        $schema_log = $this->get_schema_db(). '_logs';
+        if ($this->get_db()->existe_schema($schema_log)) {
+            $schema = "$schema_log.";
+        }
+
+        $fecha = new DateTime()->sub(new DateInterval("P{$rango}D"));
+        $this->limpiar_logs_proyecto($schema, $fecha->format('Y-m-d h:m:s'));
+        $this->limpiar_logs_global($schema, $fecha->format('Y-m-d h:m:s'));
+    }
+
+    protected function limpiar_logs_proyecto(string $schema, string $timestamp): void
+    {
+        $individuales = ['apex_log_tarea', 'apex_log_objeto'];
+
+        //Limpio las que no tienen FK
+        foreach ($individuales as $tabla) {
+            $columna = ($tabla == 'apex_log_tarea') ? 'ejecucion' : 'momento';
+            $sql = 'DELETE FROM '. $schema. $tabla
+                . " WHERE $columna < ". $this->get_db()->quote($timestamp);
+            $this->get_db()->ejecutar($sql);
+            $this->manejador_interface->progreso_avanzar();
+        }
+
+        //--- Borra caso particular sin FK, ni columna timestamp
+        $sql = "WITH delete_from AS (
+                     SELECT asb.sesion_browser
+                     FROM {$schema}apex_solicitud_browser asb
+                     JOIN {$schema}apex_solicitud aese ON asb.solicitud_browser = aese.solicitud
+                     WHERE aese.momento < " . $this->get_db()->quote($timestamp)
+             . ")
+                DELETE FROM {$schema}apex_sesion_browser as ass
+                USING delete_from AS del
+                WHERE ass.sesion_browser = del.sesion_browser;
+                ";
+        $this->get_db()->ejecutar($sql);
+        $this->manejador_interface->progreso_avanzar();
+
+        //--- Borra logs en las tablas
+        $tablas = toba_db_tablas_instancia::get_lista_proyecto_log();
+        $tablas_sol = array_diff($tablas, $individuales, ['apex_sesion_browser']);
+        // Limpio tablas de la solicitud
+        foreach ($tablas_sol as $tabla) {
+            switch ($tabla) {
+                case 'apex_solicitud_browser':
+                    $columna = 'solicitud_browser';
+                    break;
+                case 'apex_solicitud_consola':
+                    $columna = 'solicitud_consola';
+                    break;
+                default:
+                    $columna = 'solicitud';
+            }
+
+            $sql = 'DELETE FROM '. $schema. $tabla . ' as pi USING ' . $schema
+                . 'apex_solicitud as kr WHERE '
+                . ' kr.solicitud = pi.'. $columna
+                . ' AND kr.momento < '. $this->get_db()->quote($timestamp);
+            $this->get_db()->ejecutar($sql);
+            $this->manejador_interface->progreso_avanzar();
+        }
+    }
+
+    protected function limpiar_logs_global(string $schema, string $timestamp): void
+    {
+        //--- Borra logs en las tablas
+        $tablas = toba_db_tablas_instancia::get_lista_global_log();
+        foreach ($tablas as $tabla) {
+            $sql = 'DELETE FROM '. $schema. $tabla
+                . ' WHERE momento < '. $this->get_db()->quote($timestamp);
+            $this->get_db()->ejecutar($sql);
+            $this->manejador_interface->progreso_avanzar();
+        }
+    }
+
     //-----------------------------------------------------------
     //	Informacion sobre METADATOS
     //-----------------------------------------------------------
@@ -1415,7 +1492,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
         $sql = "
 			SELECT	usuario
 			FROM	apex_usuario_proyecto
-			WHERE	
+			WHERE
 					proyecto= $proyecto
 				AND	usuario_grupo_acc = $grupo";
         return $this->get_db()->consultar($sql);
@@ -1687,7 +1764,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
     public function get_revision_proyecto($proyecto)
     {
         $proy_qtd = $this->get_db()->quote($proyecto);
-        $sql = "SELECT revision::integer as rev 
+        $sql = "SELECT revision::integer as rev
 						FROM apex_revision
 						WHERE proyecto = $proy_qtd
 						AND creacion = (SELECT max(creacion) FROM apex_revision WHERE proyecto = $proy_qtd);";
