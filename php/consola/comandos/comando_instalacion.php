@@ -510,6 +510,22 @@ class comando_instalacion extends comando_toba
         }
     }
 
+    /**
+     * Elimina logs en un rango de tiempo
+     * @consola_parametros [-r 'rango']
+     */
+    public function opcion__purgar_logs()
+    {
+        $param = $this->get_parametros();
+        $profile = $this->recuperar_parametro($param, '-r', 'Rango a mantener en días: ');
+
+        if (trim($profile) == '') {
+            $this->consola->error('Debe proveer un rango en dias mediante el parámetro -r ');
+            exit(-1);
+        }
+        $this->get_instalacion()->purgar_logs(intval($profile));
+    }
+
     //-------------------------------------------------------------
     // Interface
     //-------------------------------------------------------------
