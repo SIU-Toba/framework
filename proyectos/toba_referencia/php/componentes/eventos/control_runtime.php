@@ -4,6 +4,7 @@ php_referencia::instancia()->agregar(__FILE__);
 class control_runtime extends toba_ci
 {
 	protected $modificar = false;
+    protected $datos;
 
 	function ini()
 	{
