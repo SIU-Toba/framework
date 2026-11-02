@@ -1,5 +1,6 @@
 <?php
 
+#[\AllowDynamicProperties]
 abstract class toba_asistente
 {
 	protected $id_molde_proyecto;
