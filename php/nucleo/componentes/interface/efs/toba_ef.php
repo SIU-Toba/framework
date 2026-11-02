@@ -24,6 +24,7 @@ abstract class toba_ef
 	protected $dato;          		// NOMBRE del DATO que esta manejando el ELEMENTO (si es un DATO compuesto, es un array)
 	protected $estado;	    		// Estado ACTUAL del ELEMETO (Si el DATO es compuesto, es un array)
 	protected $estado_defecto;
+    protected $estado_nulo;
 	protected $obligatorio;			// Flag que indica SI se el ELEMENTO representa un valor obligatorio
 	protected $obligatorio_oculto_relaj;
 	protected $solo_lectura;      	// Flag que indica si el objeto se debe deshabilitar cuando se muestra

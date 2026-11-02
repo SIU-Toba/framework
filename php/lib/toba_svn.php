@@ -390,7 +390,7 @@ class toba_svn
 	
 	function copy($origen, $destino, $mensaje)
 	{
-		$mensaje = utf8_encode($mensaje);
+		$mensaje = utf8_e_seguro($mensaje);
 		
 		//-- Utiliza dos niveles de soporte de creación de directorios intermedios
 		$base_destino = dirname($destino);

@@ -16,6 +16,7 @@ class toba_rest
 	const CARPETA_REST = "/rest";
 	protected $conf_ini;
 	protected $app;
+    protected $modelo_proyecto;
 
 	static function url_rest($api='')
 	{

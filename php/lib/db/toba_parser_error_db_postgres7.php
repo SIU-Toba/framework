@@ -18,6 +18,7 @@ class toba_parser_error_db_postgres7 extends toba_parser_error_db
 	protected $error_fk;		//En caso que el error sea de fk, guarda cual es su id
 	protected $error_not_null;	//En caso de error not null guarda cual es el campo
 	protected $mostrar_nombres_campos = true;	//En caso que no encuentre el comentario del campo, usa su nombre
+    protected $pk;
 		
 	/**
 	 * En caso que no encuentre el comentario del campo del error, usa su nombre

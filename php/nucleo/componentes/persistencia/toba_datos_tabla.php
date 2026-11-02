@@ -16,6 +16,8 @@ class toba_datos_tabla extends toba_componente
 	protected $_info_columnas;
 	protected $_info_externas;
 	protected $_info_externas_col;
+    protected $_info_fks;
+    protected $_info_valores_unicos;        
 	protected $_persistidor;						// Mantiene el persistidor del OBJETO
 	// Definicion asociada a la TABLA
 	protected $_clave = array();							// Columnas que constituyen la clave de la tabla
@@ -1952,7 +1954,7 @@ class toba_datos_tabla extends toba_componente
         foreach($datos as $clave => $valor){
             //Chequeo explicitamente que no se trate de un campo blob
             if (!isset($this->_blobs[$id_fila][$clave])) {
-                $xml->addAttribute($clave, utf8_encode(strval($valor)));
+                $xml->addAttribute($clave, utf8_e_seguro(strval($valor)));
             }			
         }
 	}

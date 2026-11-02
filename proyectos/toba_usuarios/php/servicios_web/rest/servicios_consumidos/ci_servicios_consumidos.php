@@ -9,6 +9,8 @@ class ci_servicios_consumidos extends toba_ci
 	protected $cert;
 	protected $key;
 	protected $ca;
+    
+    protected $modelo_proyecto;
 
 	function ini__operacion()
 	{

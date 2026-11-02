@@ -73,7 +73,7 @@ class ci_auditoria extends toba_ci
 	{
 		$resultado = array();
 		$db = $this->get_db($proyecto);
-		$rs = $db->get_lista_schemas_disponibles();
+		$rs = $db?->get_lista_schemas_disponibles() ?? [];
 		foreach($rs as $valores) {
 			if (stripos($valores['esquema'], '_auditoria') !== false) {
 				$resultado[] = array('id' => $valores['esquema']);
