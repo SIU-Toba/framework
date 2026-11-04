@@ -55,7 +55,8 @@
         "siu-toba/numbers_words": "Permite convertir importes de numero a letras",
         "guiguiboy/php-cli-progress-bar": "Permite mostrar una barra de progreso en comandos de consola",
         "dapphp/securimage": "Permite generar imagenes para captcha",
-        "ioncube/php-openssl-cryptor": "Permite encriptar/desencriptar de manera sencilla"
+        "ioncube/php-openssl-cryptor": "Permite encriptar/desencriptar de manera sencilla",
+        "apereo/phpcas": "Permite realizar login via CAS"
     },
     "autoload": {
         "psr-4": {
