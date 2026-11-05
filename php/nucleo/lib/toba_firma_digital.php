@@ -67,7 +67,7 @@ class toba_firma_digital
 		$comando = "openssl verify -CAfile $pem_ca $archivo_temp";
 		$output = toba_manejador_procesos::ejecutar($comando, $stdout, $stderr);
 		unlink($archivo_temp);
-		if ($output == 0) {
+		if ($output !== 0) {
 			throw new toba_error_firma_digital('El certificado no es válido', "Salida del comando '$comando': $stdout\n".$stderr);
 		}	
 	}
