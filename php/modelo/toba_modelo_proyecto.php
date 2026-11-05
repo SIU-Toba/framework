@@ -3085,7 +3085,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	{
             //Armo la info de inicializacion de libreria REST
             $ini =  toba_modelo_rest::get_ini_server($this, '');
-            $es_produccion = (boolean) $this->get_instalacion()->es_produccion();
+            $es_produccion = boolval($this->get_instalacion()->es_produccion());
             $path_controladores = $this->get_path_api_rest();
             $url_base = toba_modelo_rest::get_url_base($this);
             $settings = array(

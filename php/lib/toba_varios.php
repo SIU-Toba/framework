@@ -787,7 +787,7 @@
 	 */
 	function get_salt()
 	{
-		return substr(md5(uniqid(rand(), true)), 0, 10);
+        return random_bytes(10);
 	}
 
 	function dormir($tiempo)
