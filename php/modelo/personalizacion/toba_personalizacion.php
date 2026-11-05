@@ -458,17 +458,17 @@ class toba_personalizacion {
 
 	protected function crear_directorios()
 	{	
-		toba_manejador_archivos::crear_arbol_directorios($this->dir);
+		toba_manejador_archivos::crear_arbol_directorios($this->dir, 0755);
 
-		toba_manejador_archivos::crear_arbol_directorios($this->dir_tablas);
+		toba_manejador_archivos::crear_arbol_directorios($this->dir_tablas, 0755);
 
-		toba_manejador_archivos::crear_arbol_directorios($this->dir_componentes);
+		toba_manejador_archivos::crear_arbol_directorios($this->dir_componentes, 0755);
 		
-		toba_manejador_archivos::crear_arbol_directorios($this->dir_componentes.self::dir_nuevos);
+		toba_manejador_archivos::crear_arbol_directorios($this->dir_componentes.self::dir_nuevos, 0755);
 		
-		toba_manejador_archivos::crear_arbol_directorios($this->dir_componentes.self::dir_modificados);
+		toba_manejador_archivos::crear_arbol_directorios($this->dir_componentes.self::dir_modificados, 0755);
 		
-		toba_manejador_archivos::crear_arbol_directorios($this->dir_componentes.self::dir_borrados);		
+		toba_manejador_archivos::crear_arbol_directorios($this->dir_componentes.self::dir_borrados, 0755);
 	}		
 	
 	function set_ejecucion_con_transaccion_global()

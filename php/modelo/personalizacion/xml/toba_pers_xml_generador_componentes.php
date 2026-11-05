@@ -105,7 +105,7 @@ class toba_pers_xml_generador_componentes extends toba_pers_xml_generador
 	 */
 	private function generar_componente_borrada(&$componente, $path)
 	{
-		toba_manejador_archivos::crear_arbol_directorios(dirname($path));		
+		toba_manejador_archivos::crear_arbol_directorios(dirname($path), 0755);
 		$xml =  new toba_xml($path);
 		$xml->abrir_elemento(toba_pers_xml_elementos::componente);
 		$xml->add_atributo(toba_pers_xml_atributos::id, $componente['id']['componente'], true);
@@ -142,7 +142,7 @@ class toba_pers_xml_generador_componentes extends toba_pers_xml_generador
 	 */
 	private function generar_componente_modificada(&$componente, $path)
 	{
-		toba_manejador_archivos::crear_arbol_directorios(dirname($path));	//Creo el directorio si aun no existe
+		toba_manejador_archivos::crear_arbol_directorios(dirname($path), 0755);	//Creo el directorio si aun no existe
 		$xml =  new toba_xml($path);
 		$xml->abrir_elemento(toba_pers_xml_elementos::componente);
 		$xml->add_atributo(toba_pers_xml_atributos::id, $componente['id']['componente'], true);
@@ -185,7 +185,7 @@ class toba_pers_xml_generador_componentes extends toba_pers_xml_generador
 
 	private function generar_componente_nueva(&$componente, $path)
 	{
-		toba_manejador_archivos::crear_arbol_directorios(dirname($path));	//Creo el directorio si aun no existe		
+		toba_manejador_archivos::crear_arbol_directorios(dirname($path), 0755);	//Creo el directorio si aun no existe		
 		$xml =  new toba_xml($path);
 		$xml->abrir_elemento(toba_pers_xml_elementos::componente);
 		$xml->add_atributo(toba_pers_xml_atributos::id, $componente['id']['componente'], true);
