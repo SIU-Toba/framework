@@ -299,8 +299,8 @@ class toba_ei_esquema extends toba_ei
 			toba::logger()->error("No se tiene permiso de escritura sobre el archivo $grafico");
 		}
 		
-		$comando  = ($es_dirigido) ? "dot" : "neato";
-		$llamada = $comando . " -Gcharset=latin1 -T". $formato . " -o$salida $grafico";
+		$comando  = ($es_dirigido) ? 'dot' : 'neato';
+		$llamada = $comando . ' -Gcharset=latin1 -T'. escapeshellarg($formato) . ' -o'. escapeshellarg($salida). ' '. escapeshellarg($grafico);
 		
 		//Se analiza la salida
 		$salida = array();

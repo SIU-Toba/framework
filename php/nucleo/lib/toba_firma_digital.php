@@ -96,7 +96,9 @@ class toba_firma_digital
 		$stdout = null;
 		$stderr = null;
 		$paths = implode(" ", $paths_attachments);
-		$comando = "pdftk $archivo_pdf attach_files $paths output $archivo_temp";
+        $escpd_pdf = escapeshellarg($archivo_pdf);
+        $escpd_paths = escapeshellarg($paths);        
+		$comando = "pdftk $escpd_pdf attach_files $escpd_paths output $archivo_temp";
 		if (toba_manejador_procesos::ejecutar($comando, $stdout, $stderr) !== 0) {
 			throw new toba_error("No fue posible agregar el XML al pdf", "Error al ejecutar comando '$comando': $stdout\n".$stderr);
 		}
@@ -125,7 +127,8 @@ class toba_firma_digital
 		}
 		$stdout = null;
 		$stderr = null;
-		$comando = "pdftk $archivo_pdf unpack_files output $carpeta_temp";
+        $escpd_pdf = escapeshellarg($archivo_pdf);        
+		$comando = "pdftk $escpd_pdf unpack_files output $carpeta_temp";
 		if (toba_manejador_procesos::ejecutar($comando, $stdout, $stderr) !== 0) {
 			throw new toba_error("No fue posible extraer los XML del pdf", "Error al ejecutar comando '$comando': $stdout\n".$stderr);
 		}

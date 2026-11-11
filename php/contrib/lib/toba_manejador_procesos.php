@@ -88,7 +88,8 @@ class toba_manejador_procesos
 	 */
 	static function background_linux($command)
 	{
-		$PID = trim(shell_exec("nohup $command > /dev/null & echo $!"));
+        $escpd_cmd = escapeshellarg($command);
+		$PID = trim(shell_exec("nohup $escpd_cmd > /dev/null & echo $!"));
 		return($PID);
 	}
 
@@ -97,7 +98,7 @@ class toba_manejador_procesos
 	 */	
 	static function is_running_linux($PID)
 	{
-		exec("ps $PID", $ProcessState);
+		exec('ps '. escapeshellarg($PID), $ProcessState);
 		return(count($ProcessState) >= 2);
 	}
 
@@ -107,10 +108,10 @@ class toba_manejador_procesos
 	static function kill_linux($PID)
 	{
 		if (self::is_running($PID))	{
-			exec("kill -KILL $PID");
+			exec('kill -KILL ' . escapeshellarg($PID));
 			return true;
-		} else
-	   		return false;
+		}
+        return false;
 	}
 
 	/**
