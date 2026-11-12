@@ -9,6 +9,7 @@
 class toba_datos_relacion extends toba_componente 
 {
 	protected $_info_estructura;
+    protected $_info_relaciones;
 	protected $_relaciones = array();		
 	protected $_tablas_raiz;
 	protected $_persistidor;

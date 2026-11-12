@@ -9,6 +9,11 @@ class toba_usuarios_rest_jwt extends validador_jwt
 	protected $modelo_proyecto;
 
     protected $validador_jwt;
+    
+    protected $decoder;
+    protected $algoritmo;
+    protected $usuario_id;
+    protected $key_decoder;
 
 	function __construct(\toba_modelo_proyecto $proyecto)
 	{

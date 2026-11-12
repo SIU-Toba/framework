@@ -46,6 +46,7 @@ abstract class toba_ei extends toba_componente
 	protected $xml_alto_cabecera;
 	protected $xml_copia;
 	protected $xml_margenes=array("sup"=>false,"inf"=>false, "izq"=>false, "der"=>false);
+    protected $xml_titulo;
 
 	function __construct($definicion)
 	{
@@ -1019,7 +1020,7 @@ abstract class toba_ei extends toba_componente
 	 */
 	function xml_get_att_comunes() {
 		$xml = '';
-		if (trim($this->_info["titulo"])!="" || (isset($this->xml_titulo) && $this->xml_titulo != '')) {
+		if (isset($this->_info["titulo"]) && trim($this->_info["titulo"])!="" || (isset($this->xml_titulo) && $this->xml_titulo != '')) {
 			$xml .= ' titulo="'.((isset($this->xml_titulo) && $this->xml_titulo != '')?$this->xml_titulo:trim($this->_info["titulo"])).'"';
 		}
 		if (isset($this->xml_logo) && trim($this->xml_logo)!="") {

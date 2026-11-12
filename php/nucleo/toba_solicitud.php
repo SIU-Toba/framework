@@ -19,6 +19,8 @@ abstract class toba_solicitud
 	protected $cronometrar;						//Indica si	se	va	a registrar	el	cronometro de la solicitud	
 	protected $log;								//Objeto que mantiene el log de la ejecucion
 	protected $registrada = false;
+    protected $item;
+    protected $usuario;
 	
 	/**
 	 * Construye una solicitud

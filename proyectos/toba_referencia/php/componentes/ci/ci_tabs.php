@@ -3,6 +3,8 @@ php_referencia::instancia()->agregar(__FILE__);
 
 class ci_tabs extends toba_ci
 {
+    protected $s__instituciones_habilitadas;
+    
 	function conf()
 	{
 		$this->s__instituciones_habilitadas = array();

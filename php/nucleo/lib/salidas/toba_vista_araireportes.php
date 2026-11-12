@@ -28,6 +28,7 @@ class toba_vista_araireportes
     protected $uri;
     protected $extension = 'pdf';
     protected $id_reporte='';
+    protected $cliente;
 
     protected static $servicio_reporte='reportes';
 

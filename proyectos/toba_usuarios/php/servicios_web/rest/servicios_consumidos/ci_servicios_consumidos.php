@@ -9,6 +9,8 @@ class ci_servicios_consumidos extends toba_ci
 	protected $cert;
 	protected $key;
 	protected $ca;
+    
+    protected $modelo_proyecto;
 
 	function ini__operacion()
 	{
@@ -110,9 +112,10 @@ class ci_servicios_consumidos extends toba_ci
 			return false;
 		}
 		
-		$rest = toba::servicio_web_rest($parametro['servicio_web']);
+		$rest = toba_servicio_web_cliente_rest::conectar($parametro['servicio_web'], [],  $this->s__filtro['proyecto'] ?? null);
 		$response = $rest->guzzle()->get('info');
-		$respuesta->set($response->json());
+		$valor = (200 === $response->getStatusCode()) ? $response->getBody()->getContents(): ['Error revise el log'];
+		$respuesta->set($valor);
 	}
 	//-----------------------------------------------------------------------------------
 	//---- form_basico_ws ---------------------------------------------------------------

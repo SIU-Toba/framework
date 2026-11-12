@@ -255,7 +255,7 @@ class comando_nucleo extends comando_toba
 		file_put_contents($co_temp.'/VERSION', $siguiente->__toString());
 
 		//-- Arma mensaje de commit
-		$mensaje_commit = utf8_encode(sprintf($mensaje_commit, $release, $siguiente->__toString()));
+		$mensaje_commit = utf8_e_seguro(sprintf($mensaje_commit, $release, $siguiente->__toString()));
 		$cmd = "svn ci $co_temp -m '$mensaje_commit'";
 		exec($cmd, $salida, $error);
 		if ($error) {

@@ -20,6 +20,7 @@ class toba_ef_popup extends toba_ef_editable
 	protected $clase_css = 'ef-popup';
 	protected $no_oblig_puede_borrar = false;
 	protected $img_editar; // = 'editar.gif';
+    protected $custom_img_limpiar;
 
 	static function get_lista_parametros_carga()
 	{

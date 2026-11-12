@@ -149,7 +149,7 @@ class toba_modelo_soap extends toba_modelo_elemento
 	static function cp_ini_cliente($path_origen, toba_modelo_proyecto  $proyecto, $id_servicio='')
 	{
 		$directorio =  self::get_dir_consumidor($proyecto->get_dir_instalacion_proyecto(), $id_servicio);
-		toba_manejador_archivos::crear_arbol_directorios($directorio);
+		toba_manejador_archivos::crear_arbol_directorios($directorio, 0755);
 		copy($path_origen, $directorio. self::ARCHIVO_CLIENTE);
 	}
 

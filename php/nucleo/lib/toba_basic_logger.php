@@ -50,8 +50,9 @@ trait toba_basic_logger
 	protected $modo_salida;
 
 	protected $stream_handler;
-	
-	public function get_proyecto_actual()
+    protected $dir_logs;
+
+    public function get_proyecto_actual()
 	{
 		if (class_exists('toba_proyecto')) {
 			try {

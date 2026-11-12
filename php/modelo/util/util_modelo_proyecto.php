@@ -20,7 +20,7 @@ class util_modelo_proyecto
 		if (is_dir($path)) {
 			toba_manejador_archivos::eliminar_directorio($path);
 		}
-		toba_manejador_archivos::crear_arbol_directorios($path);
+		toba_manejador_archivos::crear_arbol_directorios($path, 0755);
 		
 		$componentes = self::get_componentes_toba($proyecto);
 		if ($tipo == 'toba') {
@@ -159,13 +159,13 @@ class util_modelo_proyecto
 		$archivo_css	= $path_pers.'/'.toba_personalizacion::dir_www.'/css/toba.css';
         $archivo_ini	= $path_pers.'/'.toba_personalizacion::archivo_ini;
 
-		toba_manejador_archivos::crear_arbol_directorios($path_pers);
-		toba_manejador_archivos::crear_arbol_directorios($path_logs);
-		toba_manejador_archivos::crear_arbol_directorios($path_php);
-		toba_manejador_archivos::crear_arbol_directorios($path_www);
-		toba_manejador_archivos::crear_arbol_directorios($path_img);
-		toba_manejador_archivos::crear_arbol_directorios($path_css);
-		toba_manejador_archivos::crear_arbol_directorios($path_ext);
+		toba_manejador_archivos::crear_arbol_directorios($path_pers, 0755);
+		toba_manejador_archivos::crear_arbol_directorios($path_logs, 0755);
+		toba_manejador_archivos::crear_arbol_directorios($path_php, 0755);
+		toba_manejador_archivos::crear_arbol_directorios($path_www, 0755);
+		toba_manejador_archivos::crear_arbol_directorios($path_img, 0755);
+		toba_manejador_archivos::crear_arbol_directorios($path_css, 0755);
+		toba_manejador_archivos::crear_arbol_directorios($path_ext, 0755);
 
         toba_manejador_archivos::crear_archivo_con_datos($archivo_ini, toba_personalizacion::iniciada.' = no');
         toba_manejador_archivos::crear_archivo_con_datos($archivo_css, "/*\nIncluir aquí las reglas css personalizadas del proyecto\n*/");

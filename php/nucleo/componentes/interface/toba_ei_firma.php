@@ -16,6 +16,7 @@ class toba_ei_firma extends toba_ei
 	protected $_pdf_altura = "500px";
 	protected $_multiple = false;
 	protected $_url_pdf_embebido = null;
+    protected $_info_firma;
 	
 	final function __construct($id)
 	{	

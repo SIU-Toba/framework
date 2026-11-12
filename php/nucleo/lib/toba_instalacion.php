@@ -232,7 +232,7 @@ class toba_instalacion
 	/**
 	 * Retorna un path donde incluir archivos temporales, el path no es navegable
 	 */
-	function get_path_temp()
+	static function get_path_temp()
 	{
 		return toba_dir()."/temp";
 	}

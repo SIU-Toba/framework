@@ -16,7 +16,7 @@
 			return $s;
 		}
 
-		return utf8_encode($s);
+		return mb_convert_encoding($s, 'UTF-8', 'LATIN1');
 	}
 
 	/**
@@ -27,7 +27,7 @@
 	function utf8_d_seguro($s)
 	{
 		if (mb_detect_encoding($s, "UTF-8", true) == "UTF-8") {
-			return utf8_decode($s);
+			return mb_convert_encoding($s, 'LATIN1', 'UTF-8');
 		}
 
 		return $s;
@@ -549,7 +549,8 @@
 			}
 		} else {
 			if (file_exists($dir.'/.svn')) {
-				$cmd = "svn info \"$dir\" --xml";
+                $escaped_dir = escapeshellarg($dir);
+				$cmd = "svn info $escaped_dir --xml";
 				$xml = @simplexml_load_string(`$cmd`);
 				if (isset($xml->entry)) {
 					return (string) $xml->entry['revision'];
@@ -786,7 +787,7 @@
 	 */
 	function get_salt()
 	{
-		return substr(md5(uniqid(rand(), true)), 0, 10);
+        return random_bytes(10);
 	}
 
 	function dormir($tiempo)
