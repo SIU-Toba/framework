@@ -4,6 +4,23 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.5.2](https://github.com/SIU-Toba/framework/releases/tag/v3.5.2) (2026-11-16)
+- Fix al testeo de WS desde toba_usuarios
+- Fixes y ajustes de seguridad
+- Elimina `deprecateds` varios
+- Se actualizan los siguientes paquetes 
+     * guzzlehttp/guzzle: v8.5.0
+     * onelogin/php-saml: v4.4.1
+     * phpoffice/phpspreadsheet: v5.11.0
+     * robrichards/xmlseclibs: v4.0.2
+     * symfony/cache: v7.4.23
+     * symfony/yaml: v7.4.23
+     * vlucas/phpdotenv: v5.8.0
+     
+[3.5.1](https://github.com/SIU-Toba/framework/releases/tag/v3.5.1) (2026-09-28)
+- Corrige notices exportación de usuarios
+- Elimina `deprecateds` en toba_ei_cuadro y toba_mail
+
 [3.5.0](https://github.com/SIU-Toba/framework/releases/tag/v3.5.0) (2026-08-28)
 - Se eleva el requerimiento mínimo a PHP 8.3
 - Se depreca el uso de `ef_captcha` tal como venía (falta de soporte para Securimage),
@@ -26,6 +43,9 @@
      * symfony/yaml: v7.4.13
 
 - Se devuelve un mensaje en formato JSON cuando se producen errores en el inicio del pedido rest
+
+[3.4.11](https://github.com/SIU-Toba/framework/releases/tag/v3.4.11) (2025-11-16)
+- Fixes varios para eliminar `deprecateds` en logs
 
 [3.4.10](https://github.com/SIU-Toba/framework/releases/tag/v3.4.10) (2025-09-11)
 - Fix en instanciacion de `toba_rest` al generar la documentación de la api
