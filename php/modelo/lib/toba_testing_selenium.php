@@ -34,7 +34,7 @@ class toba_testing_selenium
 	function guardar($path)
 	{
 		if (! file_exists(dirname($path))) {
-			toba_manejador_archivos::crear_arbol_directorios(dirname($path));
+			toba_manejador_archivos::crear_arbol_directorios(dirname($path),0755);
 		}
 		$ok = file_put_contents($path, $this->salida);
 		if ($ok === false) {

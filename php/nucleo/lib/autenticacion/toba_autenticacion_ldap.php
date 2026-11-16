@@ -64,7 +64,8 @@ class toba_autenticacion_ldap extends toba_autenticacion implements toba_autenti
 			toba::logger()->error('[Autenticación LDAP] No es posible conectarse con el servidor: '.ldap_error($conexion));
 			return false;
 		}
-		$res_id = @ldap_search($conexion, $this->dn, sprintf($this->filter, $id_usuario));
+        $id_escaped = ldap_escape($id_usuario, '', LDAP_ESCAPE_FILTER);
+        $res_id = @ldap_search($conexion, $this->dn, sprintf($this->filter, $id_escaped));
 		if (! $res_id) {
 			toba::logger()->error('[Autenticación LDAP] Fallo búsqueda en el árbol: '.ldap_error($conexion));
 			return false;

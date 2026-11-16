@@ -141,7 +141,7 @@ class toba_modelo_rest extends toba_modelo_elemento
 	static function cp_ini_cliente($path_origen, toba_modelo_proyecto  $proyecto, $nombre_api='')
 	{
 		$directorio =  self::get_dir_consumidor($proyecto->get_dir_instalacion_proyecto(), $nombre_api);
-		toba_manejador_archivos::crear_arbol_directorios($directorio);
+		toba_manejador_archivos::crear_arbol_directorios($directorio, 0755);
 		
 		$archivo = self::get_path_archivo($proyecto, self::TIPO_CLIENTE, $nombre_api);
 		copy($path_origen, $archivo);
@@ -155,7 +155,7 @@ class toba_modelo_rest extends toba_modelo_elemento
 	static function cp_ini_server($path_origen, toba_modelo_proyecto  $proyecto, $nombre_api='')
 	{
 		$directorio = self::get_dir_proveedor($proyecto->get_dir_instalacion_proyecto(), $nombre_api);
-		toba_manejador_archivos::crear_arbol_directorios($directorio);
+		toba_manejador_archivos::crear_arbol_directorios($directorio, 0755);
 		
 		$archivo = self::get_path_archivo($proyecto, self::TIPO_SERVER, $nombre_api);
 		copy($path_origen, $archivo);
@@ -211,7 +211,7 @@ class toba_modelo_rest extends toba_modelo_elemento
 	static function crear_directorio_destino($dir, $id_proyecto='')
 	{
 		$dir_base = $dir . self::CARPETA_REST_BASE;
-		toba_manejador_archivos::crear_arbol_directorios($dir_base);
+		toba_manejador_archivos::crear_arbol_directorios($dir_base, 0755);
 	}	
 	
 	static function inicializar_archivos_config_servidor($proyecto, $id_proyecto)

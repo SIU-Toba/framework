@@ -1511,7 +1511,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		//Creo la carpeta
 		if( ! self::existe_carpeta_instancia( $nombre ) ) {
 			$dir = self::dir_instancia( $nombre );
-			mkdir( $dir );
+			mkdir( $dir , 0755);
 			toba_logger::instancia()->debug("Creado directorio $dir");
 		}
 		//Creo la clase que proporciona informacion sobre la instancia

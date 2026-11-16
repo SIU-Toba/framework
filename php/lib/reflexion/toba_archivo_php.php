@@ -118,21 +118,22 @@ class toba_archivo_php
 		if (strlen($cmd) == 0) {
 			throw new toba_error_def("No se encuentra definido el editor por defecto a utilizar en la instalación");
 		}
+        $escp_com = escapeshellcmd($cmd);
 		if (toba_manejador_archivos::es_windows()) {
 			$archivo = toba_manejador_archivos::path_a_windows($this->nombre);
-			$com = "$cmd $archivo";
-			toba::logger()->debug("Intentando abrir archivo con comando: '$com'");
+			$com = "$escp_com ". escapeshellarg($archivo);
+			toba::logger()->debug("Intentando abrir archivo con comando: '$escp_com'");
 			exec($com);
 		} else {
 			$archivo = toba_manejador_archivos::path_a_unix($this->nombre);
 			$archivo = str_replace(" ", "\\ ", $archivo);
-			$com = "$cmd $archivo";
-			toba::logger()->debug("Intentando abrir archivo con comando: '$com'");
+			$com = "$escp_com ". escapeshellarg($archivo);
+			toba::logger()->debug("Intentando abrir archivo con comando: '$escp_com'");
 			$fp = popen($com. ' 2>&1', 'r');
 			stream_set_blocking($fp, 0);
 			sleep(1);
 			$salida = fgets($fp, 2096);
-			pclose($fp);			
+			pclose($fp);
 			if ($salida != '') {
 				throw new toba_error("Intentando abrir archivo con comando: '$com'<br><br>Mensaje de error:<br>".$salida);
 			}

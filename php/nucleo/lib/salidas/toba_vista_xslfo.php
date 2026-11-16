@@ -199,7 +199,7 @@ class toba_vista_xslfo
 		if (isset($this->callback_preproceso)) {
 			$this->callback_preproceso->generar($this);
 		} else {
-			$comando = $this->fop.' -xml '.$fxml.' -xsl '.$this->xsl_proyecto.' -pdf '.$archivo_pdf;
+			$comando = $this->fop.' -xml '. escapeshellarg($fxml).' -xsl '. escapeshellarg($this->xsl_proyecto).' -pdf '. escapeshellarg($archivo_pdf);
 			shell_exec($comando);
 		}
 

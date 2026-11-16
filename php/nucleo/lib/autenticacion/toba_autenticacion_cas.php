@@ -114,7 +114,6 @@ class toba_autenticacion_cas extends toba_autenticacion implements toba_autentic
 		}
 		$this->instanciar_cliente_cas(); 
 
-		phpCAS::setExtraCurlOption(CURLOPT_SSLVERSION, 3);
 		// Se genera la URL de servicio
 		$param = array();
 		if (isset($this->parametros_url) && is_array($this->parametros_url)) {
