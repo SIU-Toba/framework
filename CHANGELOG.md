@@ -4,6 +4,9 @@
 
 [CURRENT](https://github.com/SIU-Toba/framework/compare/master...develop)
 
+[3.4.11](https://github.com/SIU-Toba/framework/releases/tag/v3.4.11) (2025-11-16)
+- Fixes varios para eliminar `deprecateds` en logs
+
 [3.4.10](https://github.com/SIU-Toba/framework/releases/tag/v3.4.10) (2025-09-11)
 - Fix en instanciacion de `toba_rest` al generar la documentación de la api
 
