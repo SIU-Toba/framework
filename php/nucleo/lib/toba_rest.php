@@ -21,7 +21,7 @@ class toba_rest
     public static function url_rest($api = '')
     {
         $url = toba_recurso::url_proyecto() . self::CARPETA_REST;
-        if (trim($api) != '') {
+        if ('' !== trim($api)) {
             $url .= "/$api";
         }
 
@@ -64,7 +64,7 @@ class toba_rest
     public function instanciar_libreria_rest($api = '')
     {
         $ini = $this->get_conf($api);
-        $es_produccion = (bool) toba::instalacion()->es_produccion();
+        $es_produccion = boolval(toba::instalacion()->es_produccion());
 
         $path_controladores = $this->get_path_controladores($api);
         $url_base = self::url_rest($api);

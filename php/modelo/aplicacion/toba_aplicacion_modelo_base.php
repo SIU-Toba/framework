@@ -750,8 +750,9 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
         $appUniqueId = null;
         if ($this->instalacion->vincula_arai_usuarios()) {
             $appUniqueId = $this->instalacion->vincula_arai_proyecto();
-            if (null === $appUniqueId) {
-                $appUniqueId = \SIUToba\Framework\Arai\RegistryHooksProyectoToba::getAppUniqueId();
+            if (null === $appUniqueId || empty($appUniqueId)) {
+                throw new toba_error('Debe fijar el parametro vincula_arai_appID.');
+                //$appUniqueId = \SIUToba\Framework\Arai\RegistryHooksProyectoToba::getAppUniqueId();
             }
         }
         if (isset($appUniqueId)) {

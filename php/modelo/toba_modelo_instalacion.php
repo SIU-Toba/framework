@@ -595,7 +595,7 @@ class toba_modelo_instalacion extends toba_modelo_elemento
     public static function crear_directorio()
     {
         if (! is_dir(self::dir_base())) {
-            mkdir(self::dir_base());
+            mkdir( self::dir_base() , 0755);
             toba_logger::instancia()->debug("Creado directorio ".self::dir_base());
         }
     }
@@ -635,7 +635,7 @@ class toba_modelo_instalacion extends toba_modelo_elemento
     {
         $dir = toba_dir() .'/proyectos';
         if (! is_dir($dir)) {
-            mkdir($dir);
+            mkdir( $dir , 0755);
             toba_logger::instancia()->debug("Creado directorio $dir");
         }
     }
