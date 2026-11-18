@@ -36,13 +36,21 @@ class toba_logger_ws extends AbstractLogger
 		return self::$instancia[$proyecto];
 	}
 
-	public function __construct($proyecto)
-	{
-		$this->proyecto_actual = (isset($proyecto)) ? $proyecto : $this->get_proyecto_actual();
-		$this->mapeo_niveles = array_flip($this->get_niveles());
-		$this->id_solicitud = toba::solicitud()->get_id();
-		$this->modo_salida = self::$MODO_FILE;
-	}
+    /**
+     * Este es un singleton por proyecto
+     * @return logger
+     */
+    public static function instancia($proyecto = null)
+    {
+        if (null === $proyecto) {
+            $proyecto = self::get_proyecto_actual();
+        }
+        
+        if (!isset(self::$instancia[$proyecto])) {
+            self::$instancia[$proyecto] = new toba_logger_ws($proyecto);
+        }
+        return self::$instancia[$proyecto];
+    }
 
 	/**
 	 * Funcion que permite asignar un recurso puntual al cual dirigir el log (stream write only)

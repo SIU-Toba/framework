@@ -123,13 +123,21 @@ class toba_logger
 		return $this->log(TOBA_LOG_ERROR, $mensaje, array('proyecto' => $proyecto));		
 	}
 
-	/**
-	 * Registra un suceso no contemplado pero que posiblemente no afecta la correctitud del proceso
-	 */
-	function warning($mensaje, $proyecto=null)
-	{
-		return $this->log(TOBA_LOG_WARNING, $mensaje, array('proyecto' => $proyecto));		
-	}
+    /**
+     * Este es un singleton por proyecto
+     * @return logger
+     */
+    public static function instancia($proyecto = null)
+    {
+        if (null === $proyecto) {
+            $proyecto = self::get_proyecto_actual();
+        }
+        
+        if (!isset(self::$instancia[$proyecto])) {
+            self::$instancia[$proyecto] = new toba_logger($proyecto);
+        }
+        return self::$instancia[$proyecto];
+    }
 
 	/**
 	 * Registra un suceso no contemplado que no es critico para la aplicacion
