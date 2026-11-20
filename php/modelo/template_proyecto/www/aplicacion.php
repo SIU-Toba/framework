@@ -7,7 +7,7 @@ define('apex_pa_proyecto', '__proyecto__');
 #define('apex_pa_metadatos_compilados', 1);
 
 # Deshabilita el autologin
-#define("apex_pa_validacion_debug", 0);
+define("apex_pa_validacion_debug", 0);
 
 # Activa el logger en modo 'debug'. Para modo info pasar a '6'
 define('apex_pa_log_archivo', true);
